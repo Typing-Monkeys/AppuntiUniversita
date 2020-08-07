@@ -326,7 +326,7 @@ Può essere anche inteso come la sequenza di tutte le configurazioni che i suoi 
 
 ### Descrizione
 
-<img src="/imgs/pid.png" alt="right" align="right"/>
+<img src="imgs/pid.png" alt="right" align="right"/>
 
 * **Pid**: Identificativo univoco del processo
 * **Process State**: Stato del processo
@@ -366,7 +366,7 @@ Per ogni programma si possono avere:
 * **processi separati**: sono più pesanti ma, garantiscono più facilmente di non causare l'uno il crash dell'altro
 * **vari thread**: che sono facilmente gestibili ma possono causare più facilmente problemi
 
-![process_memory](/imgs/process_memory.png)
+![process_memory](imgs/process_memory.png)
 
 ## Scheduler dei Processi
 
@@ -377,8 +377,8 @@ Lo shceduler ha due **code** di processi:
 * **Coda Ready**: sono i processi pronti ad essere eseguiti
 * **Coda Wait**: sono i processi che stanno aspettando un evento
 
-![coda_processi1.png](/imgs/coda_processi1.png)
-![coda_processi2.png](/imgs/coda_processi2.png)
+![coda_processi1.png](imgs/coda_processi1.png)
+![coda_processi2.png](imgs/coda_processi2.png)
 
 ### Context Switch
 
@@ -387,7 +387,7 @@ Il contesto di un processo viene rappresentato nel PCB.
 
 Il cambio di contesto è "**tempo morto**", il tempo è pesantemente **influenzato** dalla complessità del **sistema operativo** ed a seconda di quanti registri ha la **CPU** possiamo caricare più contesti alla volta.
 
-![context_switch](/imgs/context_switch.png)
+![context_switch](imgs/context_switch.png)
 
 ### IOS e Android
 
@@ -420,7 +420,7 @@ La **creazione** di un processo **figlio** può avvenire con:
 
 ### Duplicazione del Padre
 _Esempio di duplicazione del padre:_
-![parent_duplication](/imgs/parent_duplication.png)
+![parent_duplication](imgs/parent_duplication.png)
 
 Il processo **figlio** quando **termina** la sua esecuzione, tramite una system call, chiede al SO di **deallocare** le sue **risorse**. Il **return status** viene passato al padre tramite la funzione `wait()`.<br>
 Il **padre** può far **terminare** l'esecuzione del **figlio** tramite la SC `abort()` e alcune ragioni possono essere:
@@ -468,7 +468,7 @@ I processi cooperanti **utilizzano** un **IPC** (InterProcess Communication) per
 * **Shared Memory**
 * **Message Passing**
 
-![ipc_type](/imgs/ipc_type.png)
+![ipc_type](imgs/ipc_type.png)
 
 I link di comunicazione possono essere:
 
@@ -550,7 +550,7 @@ Funziona solo su **processi** sullo **stesso sistema**. Utilizza delle **porte**
 * il server crea 2 **canali privati** di comunicazioni e ritorna uno dei 2 handle al client
 * il **client** e il **server** tramite i propri **handle comunicano** tra di loro
 
-![lpc](/imgs/lpc.png)
+![lpc](imgs/lpc.png)
 
 #### Pipes
 
@@ -597,7 +597,7 @@ Le **RPC** (Remote Procedure Call) sono chiamate di procedure da remoto che all'
 La creazione di processi è più pesante rispetto a quella dei thread.
 
 _Differenza tra processo single thread e processo multi thread:_
-![mt_vs_st](/imgs/mt_vs_st.png)
+![mt_vs_st](imgs/mt_vs_st.png)
 
 ## Benefici
 
@@ -612,8 +612,8 @@ Il multithreading porta i seguenti benefici:
 
 Per la gesione di processi multicore è importante tenere conto di:
 
-* **Parallelismo**: implica che il sistema può **eseguire più operazioni simultaneamente** ![concorrenza](/imgs/parallelismo.png)
-* **Concorrenza**: accesso mutuale alle risorse ![concorrenza](/imgs/concorrenza.png)
+* **Parallelismo**: implica che il sistema può **eseguire più operazioni simultaneamente** ![concorrenza](imgs/parallelismo.png)
+* **Concorrenza**: accesso mutuale alle risorse ![concorrenza](imgs/concorrenza.png)
 
 ### Tipi di parallelismo
 
@@ -622,13 +622,13 @@ Esistono 2 tipi di parallelismo:
 * **dei Dati**: distribuisce dei sottoset degli stessi dati a più core e assegna qualche operazine ad ognuno
 * **dei Compiti**: distribuisce i thread ai diversi core, ogni thread esegue un'unica operazione
 
-![parallelismo_type](/imgs/parallelismo_type.png)
+![parallelismo_type](imgs/parallelismo_type.png)
 
 ### Legge di Amdahl <!-- GANGA RIVAH -->
 
 La legge di Amdhal **identifica** il **guadagno** di **performance** nell'aggiungere **più core** ad una applicazione che ha sia componenti seriali che paralleli.
 
-![amdahl](/imgs/amdahl.png)
+![amdahl](imgs/amdahl.png)
 
 * **S**: è la parte seriale del programma (espressa in percentuale)
 * **N**: è il numero di core
@@ -638,7 +638,7 @@ La **porzione seriale** di un'applicazione ha degli **effetti sproporsionati** n
 <br>
 
 _Grafico che rappresenta la legge di Amdahl:_
-![grafico_amdahl](/imgs/grafico_amdhal.png)
+![grafico_amdahl](imgs/grafico_amdhal.png)
 
 ## Kernel e User Threads
 
@@ -650,24 +650,24 @@ I thread possono essere:
     * Java threads
 * **del Kernel**: vengono gestiti dal **Sistema Operativo**
 
-![user_kernel_thread](/imgs/user_kernel_thread.png)
+![user_kernel_thread](imgs/user_kernel_thread.png)
 
 ## Modelli MultiThread
 
 * **Many to One**:
     * **Più thread** vengono mappati con un **unico thread** del **kernel**
     * il blocco di un thread causa il **blocco di tutti** gli altri
-    * più thread potrebbero **non** essere **eseguiti** in **parallelo** perchè può esistere solo un thread a livello kerner (**è poco utilizzato**)<br>![mani_to_one](/imgs/mani_to_one.png)
+    * più thread potrebbero **non** essere **eseguiti** in **parallelo** perchè può esistere solo un thread a livello kerner (**è poco utilizzato**)<br>![mani_to_one](imgs/mani_to_one.png)
 * **One to One**:
     * **Ogni thread** a livello **utente** viene mappato con un **thread** del **kernel**
     * C'è **più concorrenza** del modello Many to One
-    * Il **numero** di thread per processo può essere **limitato** per via del sovraccarico<br> ![one_to_one](/imgs/one_to_one.png)
+    * Il **numero** di thread per processo può essere **limitato** per via del sovraccarico<br> ![one_to_one](imgs/one_to_one.png)
 * **Many to Many**:
     * Mappa **più thread** a livello **utente** con **più thread** a livello **kernel**
     * Ci sarà sempre un **numero sufficente** di **thread** kernel e quindi non ci sarà bisogno di limitare il numero di thread (a differenza del One to One)
-    * Non è un modello molto comune<br> ![mani_to_mani](/imgs/mani_to_mani.png)
+    * Non è un modello molto comune<br> ![mani_to_mani](imgs/mani_to_mani.png)
 * **Two-Level**:
-    * Simile al Many to Many ma permette di associare anche un solo user thread ad un solo kernel thread.<br> ![two_level](/imgs/two_level.png)
+    * Simile al Many to Many ma permette di associare anche un solo user thread ad un solo kernel thread.<br> ![two_level](imgs/two_level.png)
 
 ## Impliciti ed Espliciti
 
@@ -713,7 +713,7 @@ Ad ogni thread viene assegnata una propria copia di dati chiamata TLS (**Thread 
 Per **mantenere** il numero di **thread** del kernel **allocati** vengono usate delle **struttre dati intermedie** chiamate Processi Lightwaight.<br>
 Ogni Processo Lightwaight è collegato ad un thread del kernel, può essere visto come un **processore virtuale** sul quale il processo può pianificare il funzionamento dell'user thread.
 
-![lwp](/imgs/lwp.png)
+![lwp](imgs/lwp.png)
 
 # Scheduling
 
@@ -721,7 +721,7 @@ L'obbiettivo dello scheduler è di **massimizzare** il **tempo** di utilizzo del
 
 Un **ciclo di esecuzione** di un processo consiste in un **periodo di esecuzione** e un **periodo di attesa** dell'input/output.
 
-![cpu_cilco](/imgs/cpu_cilo.png)
+![cpu_cilco](imgs/cpu_cilo.png)
 
 Lo scheduler della CPU sceglie uno tra i processi nella coda ready e gli assegna un core (lo esegue).
 
@@ -744,7 +744,7 @@ Quando i processi hanno dati condivisi e vengono gestiti con uno scheduler preem
 
 Il dispatcher si occupa del **cambio di contesto** tra un processo e un altro. Questo provoca un "tempo morto" dato che il processo deve essere fermato, salvato il suo contesto nel PCB e ripristinato il contesto del prossimo processo da eseguire.
 
-![dispatcher](/imgs/dispatcher.png)
+![dispatcher](imgs/dispatcher.png)
 
 ## Criteri dello sheduler
 
@@ -781,9 +781,9 @@ Imposta un limite di tempo **q** (quantum: 10-100 ms) per l'esecuzione di ogni p
 
 Se q è piccolo deve comunque essere **più grande** del tempo di **Context Switch**, altrimenti il tempo di **overhead** è troppo **alto**.
 
-![overhead](/imgs/overhead.png)
+![overhead](imgs/overhead.png)
 
-![quantum](/imgs/quantum.png)
+![quantum](imgs/quantum.png)
 
 ### Priorità
 
@@ -795,7 +795,7 @@ C'è il problema dalla **starvation**: i processi con priorità bassa potrebbero
 
 Per ogni priorità c'è una **coda differente** e parte ad eseguire i processi dalla coda di priorità maggiore.
 
-![level_queue1](/imgs/level_queue1.png) ![level_queue2](/imgs/level_queue2.png)
+![level_queue1](imgs/level_queue1.png) ![level_queue2](imgs/level_queue2.png)
 
 ## Thread Scheduling
 
@@ -825,27 +825,27 @@ Il **multiprocesso** può essere una delle seguenti archietture:
 * Tutti i thread possono essere in una **ready queue comune** (a)
 * Ogni processore può avere una **ready queue privata**
 
-![smp](/imgs/smp.png)
+![smp](imgs/smp.png)
 
 ### MultiCore Processors
 
 Ultimamente si tende a mettere** più core** nello **stesso chip fisico**, questo è **più veloce** e consuma **meno energia**. Si utilizzano più core contemporaneamente e quando un core va in stallo si da priorità all'altro.
 
-![multicore](/imgs/multicore.png)
+![multicore](imgs/multicore.png)
 
 ### MultiThread MultiCore Systems
 
 Si utilizzano **più thread** nello **stesso core** e durante lo stallo di memoria viene fatto eseguire un altro thread così da velocizzarne l'esecuzione.
 
-![multitutto](/imgs/multitutto.png)
+![multitutto](imgs/multitutto.png)
 
-![cpu](/imgs/cpu.png)
+![cpu](imgs/cpu.png)
 
 Ci sono due livelli di schedulitng:
     * Il sistema operativo decide quele **thread software** far **eseguire** nei **thread logici** della CPU
     * Ogni **core** decide quale **thread logico** fare eseguire nel core fisico
 
-![logico_fisico](/imgs/logico_fisico.png)
+![logico_fisico](imgs/logico_fisico.png)
 
 ### Bilanciamento del Carico
 
@@ -878,7 +878,7 @@ Ci sono 2 tipi di latenze:
 * **Interrupt**: il tempo da quando arriva il segnale di interrupt a quando viene iniziata la routine di interruzione
 * **Dispatch**: il "tempo morto" impiegato per cambiare processo
 
-![latenza](/imgs/latenza.png)
+![latenza](imgs/latenza.png)
 
 ### Scheduling su Priorità
 
@@ -942,7 +942,7 @@ Per decidere cosa eseguire lo shceduler prende il task con il vruntime più picc
 Linux supporta il bilanciamento del carico, è anche NUMA aware.<br>
 I domini di scheduling sono un set di core della CPU che possono essere bilanciati l'uno con l'altro. Questi domini sono organizzati in base a ciò che condividono, questa organizzazione c'è per evitare che i thread migrino tra un dominio e l'altro.
 
-![linux_schdeuling](/imgs/linux_scheduling.png)
+![linux_schdeuling](imgs/linux_scheduling.png)
 
 ### Windows
 
@@ -978,7 +978,7 @@ Viene usato un modello deterministico:
 
 Per ogni algoritmo si calcola il tempo di attesa medio minimo
 
-![algo_test](/imgs/algo_test.png)
+![algo_test](imgs/algo_test.png)
 
 ## Formula di Little
 
@@ -1001,7 +1001,7 @@ Una race condition si ha quando il risultato finale dell'esecuzione dipende dall
 Per mamentenere la consistenza dei dati è necessario un meccanismo che garantisce l'esecuzione ordinata dei processi che cooperano.
 
 _Esempio di Race Conditon:_
-![race_condition](/imgs/race_condition.png)
+![race_condition](imgs/race_condition.png)
 
 ## Sezione Critica
 
@@ -1148,7 +1148,7 @@ Solo un processo per volta può essere attivo all'interno di un monitor.
 
 
 _Esempio di Uovo del Maestro Calogero:_
-![uovo_calogero](/imgs/uovo_calogero.png)
+![uovo_calogero](imgs/uovo_calogero.png)
 
 ### Condition Variables
 
@@ -1157,7 +1157,7 @@ Sono strumenti per la sincronizzazione delle risorse che consentono 2 tipi di op
 * `x.wait()`: sospende il processo chiamante in attesa che la risorsa sia libera (in atteda si un signal) e lo inserisce in una lista
 * `x.signal()`: riprende uno dei processi che attendono la risosra (presenti nella lista di attesa)
 
-![cv](/imgs/cv.png)
+![cv](imgs/cv.png)
 
 ### Riprendere un Processo
 
@@ -1223,7 +1223,7 @@ Un deadlock si verifica quando queste 4 condizioni si verificano simultaneamente
 
 _Esempio di grafo di allocazione delle risorse con deadlock:_
 
-![grafo_deadlok](/imgs/grafo_deadlok2.png)
+![grafo_deadlok](imgs/grafo_deadlok2.png)
 
 * `R2 → T1`: T1 ha la risorsa R2
 * `T1 → R1`: T1 necessita di R1 ma ancora non ne ha accesso
@@ -1242,7 +1242,7 @@ Un Calim Edge può essere convertito in un Request Edge se l'assegnazione della 
 
 Quando una risorsa viene rilasciata l'Assignament Edge ritorna ad essere un Claim Edge.
 
-![unsafe_edge](/imgs/unsafe_edge.png)
+![unsafe_edge](imgs/unsafe_edge.png)
 
 ### Prevention
 
@@ -1278,7 +1278,7 @@ Se un sistema si trova in un safe state allora NON ci sono deadlock.
 
 Controlla che la richeista effettuata dal Claim Edge non comporti la creazione di un cilco e quindi di un deadlock. Se la richiesta più essere soddisfatta trasforma il Claim Edge in Request Edge.
 
-![unsafe_edge](/imgs/unsafe_edge.png)
+![unsafe_edge](imgs/unsafe_edge.png)
 
 ##### Multiple Istance
 
@@ -1326,7 +1326,7 @@ Periodicamente utilizza un algoritmo che trova l'esistenza di un ciclo nel grafo
 Questo algoritmo impegna O(n^2) operazioni.
 
 _Esempio di conversione da RAG a WFG:_
-![watingfor](/imgs/waitingfor.png)
+![watingfor](imgs/waitingfor.png)
 
 ##### Multiple Istance per Risorsa
 
@@ -1400,12 +1400,12 @@ Questo può essere garantito tramite l'utilizzo di due registri "limite":
 
 Questi registri definiscono lo spazio di indirizzamento logico del processo.
 
-![base_limit](/imgs/base_limit.png)
+![base_limit](imgs/base_limit.png)
 
 La CPU deve controllare ogni accesso di memoria effettuato dal processo per assicurarsi che sia entro quei limiti.<br>
 Le istruzioni per controllare i registri base e limit sono privilegiate.
 
-![base_limit2](/imgs/base_limit2.png)
+![base_limit2](imgs/base_limit2.png)
 
 ## Address Binding
 
@@ -1427,7 +1427,7 @@ Il Binding può essere effettuato in 3 stadi differenti:
 * Load Time: deve generare un codice rilocabile se le locazioni di memoria non sono conosciute a tempo di compilazione
 * Execution Time: assegna gli dinirizzi di memoria durante l'esecuzione del programma. Necessita di un supporto hardware (e.g. base e limit registri)
 
-![binding](/imgs/binding.png)
+![binding](imgs/binding.png)
 
 ## Spazzi Di indirizzamento
 
@@ -1447,7 +1447,7 @@ Memory Management Unit è un componente hardware che serve a mappare gli indiriz
 
 Può essere realizzata in vari modi.
 
-![mmu2](/imgs/mmu2.png)
+![mmu2](imgs/mmu2.png)
 
 Con questo metodo i programmi utilizzano solo gli indirizzi logici e non vedranno mai quelli fisici di cui si occuperà la MMU.
 
@@ -1478,14 +1478,14 @@ Per questo la RAM viene divisa in 2 parti:
 
 Utilizza i ragistri base e limit e la MMU mappa gli indirizzi in modo dimanico.
   
-![mmu3](/imgs/mmu3.png)
+![mmu3](imgs/mmu3.png)
 
 ### Partizionamento Variabile
 
 Buco: un blocco di memoria disponibile.<br>
 Quando un processo termina la sua esecuzione libera la memoria in RAM lasciando un buco. Questi buchi vanno uniti tra di loro per garantire una gestione efficente della memoria.
 
-![buco](/imgs/buco.png)
+![buco](imgs/buco.png)
 
 Quando la RAM ha una richiesta bisogna controllare come assegnargli la memoria in base ai buchi:
 
@@ -1521,17 +1521,17 @@ Ci sono 4 strategie diverse in base al sistema:
 
 * monoprogramming
     * le task dell'utente vengono gestite internamente dal programma<br>
-    ![monoprogramming](/imgs/monoprogramming.png)
+    ![monoprogramming](imgs/monoprogramming.png)
 * multiprogramming con partizioni fisse
     * Divide la memoria in una partizione per ogni task. Può succedere che ad un processo gli viene allocata più memoria del necessario e questo si chiama frammentazione interna. Bisogna cercare di limitare al minimo questo spreco.<br>
-    ![multi_fix](/imgs/multi_fix.png)
+    ![multi_fix](imgs/multi_fix.png)
 * multiprogramming con partizioni variabili
     * Bisogna provare a mantenere la memoria libera untia, bisogna allocare solamente quanto necessario ai task. Dividere e riunire i blocchi di memoria consuma cicli della CPU. I residui di memoria troppo piccoli per essere utilizzati formano la frammentazione esterna.
 * buddy system
 
 ## Goals della Memoria Virtuale
 
-![virtual_goal](/imgs/virtual_goal.png)
+![virtual_goal](imgs/virtual_goal.png)
 
 ## Un idea di base
 
@@ -1572,7 +1572,7 @@ Viene creata una tabella di pagine per tradurre indirizzi da logici a fisici
 
 Ci può comunque essere frammentazione interna.
 
-![page_offset](/imgs/page_offset.png)
+![page_offset](imgs/page_offset.png)
 
 ### Schema per la traduzione degli Indirizzi
 
@@ -1588,9 +1588,9 @@ L'indirizzo generato dalla CPU è diviso in:
 * Concatena il numero del frame con l'offset per produrre l'indirizzo fisico
 * Effettua l'acccesso alla memoria fisica
 
-![cazzata1](/imgs/cazzata1.png)
+![cazzata1](imgs/cazzata1.png)
 
-![cazzata2](/imgs/cazzata2.png)
+![cazzata2](imgs/cazzata2.png)
 
 ### Implementazione della Page Table
 
@@ -1622,7 +1622,7 @@ Inseguito ad un evento di MISS la traduzione degli indirizzi deve essere trovata
 Nelle macchine CISC viene fatto completamente con l'hardware.<br>
 Nelle macchine RISC il processo viene gestito dal software, il SO viene informato di un tale evento tramite una trap generata dall'hardware
 
-![cazzata3](/imgs/cazzata3.png)
+![cazzata3](imgs/cazzata3.png)
 
 ### Memory Protection
 
@@ -1635,7 +1635,7 @@ Un altro bit è il Valid-Invalid: viene associato ad ogni elemento della Page Ta
 
 Per controllare che una pagina sia valida o no si può anche utilizzare il page table lenght register (PTLR)
 
-![cazzata4](/imgs/cazzata4.png)
+![cazzata4](imgs/cazzata4.png)
 
 ### Page Size
 
@@ -1669,7 +1669,7 @@ I problemi principali sono:
     * Ogni processo tiene una copia separata del codice e dei dati
     * le pagine di questi dati possono apparire ovuqneu nello spazio di indirizzamento logico
 
-![cazzata5](/imgs/cazzata5.png)
+![cazzata5](imgs/cazzata5.png)
 
 ### Struttura della Page Table
 
@@ -1685,7 +1685,7 @@ La soluzione è quella di dividere le page in unità più piccole in 3 modi:
 
 Suddivide lo spazio di indirizzamento logico in molte page table.<br>
 
-![cazzata6](/imgs/cazzata6.png)
+![cazzata6](imgs/cazzata6.png)
 
 #### Hashed Page Table
 
@@ -1703,7 +1703,7 @@ Cercando il numero della pagina virtuale in questa catena possiamo ricavare il c
 
 Nei sistemi ha 64 bit si utilizza una leggera variazione delle Hashed Page Table: Cluterd Page Table. Sono simili alle precedenti ma ogni entry della Page Table si rifierisce ad un cluster.
 
-![cazzata7](/imgs/cazzata7.png)
+![cazzata7](imgs/cazzata7.png)
 
 #### Inverted Page Table
 
@@ -1715,7 +1715,7 @@ Con questa strategia avremmo bisongo di meno memoria per memroizzare le page tab
 
 Per diminuire il tempo della ricerca si possono usare delle tabelel hash
 
-![cazzata8](/imgs/cazzata8.png)
+![cazzata8](imgs/cazzata8.png)
 
 ### Swapping
 
@@ -1735,7 +1735,7 @@ Alcuni programmi possono aver bisogno di essere riswappati nella RAM nelle stess
 
 Sui moderni sistemi operativi lo swapping viene diasbilitato.
 
-![cazzata9](/imgs/cazzata9.png)
+![cazzata9](imgs/cazzata9.png)
 
 Lo swapping nei sistemi mobili genermalemnte non viene supportato data la scarsa dimenzione dei dischi di supporto.
 
@@ -1765,7 +1765,7 @@ Poichè ogni programma possiede un proprio spazio di indirizzamento virtuale ogn
 
 In alcune architetture se il segment table è abbastanza piccolo può essere direttametne salvato nei registri della CPU
 
-![cazzata10](/imgs/cazzata10.png)
+![cazzata10](imgs/cazzata10.png)
 
 ### Shered Segment
 
@@ -1787,7 +1787,7 @@ La gestione degli input/output è una componente molto importante nei sistemi op
 
 Device Driver: incapsula i dettagli del dispositivo, presenta un'interfaccia di accesso al dispositvo per il sottosistema I/O
 
-![io](/imgs/io.png)
+![io](imgs/io.png)
 
 ## Polling
 
@@ -1809,7 +1809,7 @@ Gli interrupt vengono ricevuti dall'Interrupt Handler che si occuperà di gestir
 
 C'è un Vettore di Interrupt che serve ad inviare i vari interrupt ai corretti handler. Effettua un context switch all'inizio e alla fine di ogni operazione ed è basato sulla priorità.
 
-![ciclo_io](/imgs/ciclo_io.png)
+![ciclo_io](imgs/ciclo_io.png)
 
 Il meccanismo degli interrupt viene utilizzato anche per la gestione delle Eccezioni.<br>
 Sistemi multiCPU possono processare gli interrupt in maniera concorrenziale.
@@ -1833,7 +1833,7 @@ I dispositivi possono essere molteplici:
 * Condivisi o Dedicati
 * Sola lettura, sola scrittura, lettura scrittura
 
-![kernel](/imgs/kernel.png)
+![kernel](imgs/kernel.png)
 
 ## NonBlocking e Asicnroni I/O
 
@@ -1845,14 +1845,14 @@ I dispositivi possono essere molteplici:
     * è difficiel da utilizzare
     * il sottosistema di I/O segnala al processo quando l'I/O è completato
 
-![bloccanti](/imgs/bloccanti.png)
+![bloccanti](imgs/bloccanti.png)
 
 ## Kernel I/O Subsistem
 
 Il Sottosistema dell'I/O si occupa del Buffering e dello Scheduling.<br>
 Per ogni dispositivo viene tenuta una coda di richeiste.
 
-![code_io](/imgs/code_io.png)
+![code_io](imgs/code_io.png)
 
 Il sottosistema gestisce anche
 
@@ -1881,7 +1881,7 @@ Il sottosistema I/O del kernel deve:
 * Configurazione e inizializzazione dei driver
 * Gestione energetica dei dispositivi I/O
 
-![flusso_io](/imgs/flusso_io.png)
+![flusso_io](imgs/flusso_io.png)
 
 ## Streams
 
@@ -1897,13 +1897,13 @@ Per comunicare tra di loro viene utilizzato il Message Passing che ha l'opzione 
 
 Uno stream internamente è Asincrono, ma è Sincrono dove l'utente comunica con la Stream Head
 
-![stream](/imgs/stream.png)
+![stream](imgs/stream.png)
 
 # Memoria di Massa
 
 La memoria secondaria (di Massa), è una memoria che contiene grandi quantià di dati che non devono essere persi quando il computer viene spento (memorie NON volatili).
 
-![hd](/imgs/hd.png)
+![hd](imgs/hd.png)
 
 Sui dischi SSD per poter sovrascrivere dei dati bisogna prima cancellare i dati presenti in quel settore e solo dopo riscriverci sopra. Inoltre questi dischi possono eseguire le operazioni di cancellazione solo un tot di volte prima di rovinarsi.
 
@@ -1956,7 +1956,7 @@ La partizione di Root contiene il SO.<br>
 
 La partizione di Boot contiene all'inizio l'MBR (Master Boot Record) che contiene l'inizio del SO. L'indirizzo del MBR è contenuto nella ROM e all'avvio del computer viene montata la partizione a cui punta il MBR.
 
-![mbr](/imgs/mbr.png)
+![mbr](imgs/mbr.png)
 
 ## Swapping
 
@@ -1969,7 +1969,7 @@ Redundant Arry of Inexpensive Disks
 Vengon utilizzati quando un sistema non può permettersi di bloccarsi se un hd si rompe.<br>
 Viene utilizzato un sistema di dischi ridondate, ovvero il contenuto di un disco viene copiato in un altro disco. In questo modo se un disco si rompe il sistema è in grado di riprendere il funzionamento con il disco secondario.
 
-![raid](/imgs/raid.png)
+![raid](imgs/raid.png)
 
 ## Deframmentazione
 
@@ -2030,7 +2030,7 @@ Ci sono diverse strutture:
 2. Sequenza di Record
 3. Indexed File (struttura ad albero, simile ad una lista linkata)
 
-![file](/imgs/file.png)
+![file](imgs/file.png)
 
 ## File System Logico
 
@@ -2041,7 +2041,7 @@ La posizione dei file viene gestita con i blocchi di controllo.<br>
 Per ridurre la ridondanza si utilizzano un sistema di Layering.
 
 _Modello di file system a livelli:_
-![cazzata20](/imgs/cazzata20.png)
+![cazzata20](imgs/cazzata20.png)
 
 ## Attributi dei file
 
@@ -2120,7 +2120,7 @@ Il problema è l'affidabilità, la ricerca di un blocco può richiedere più di 
 Un esempio è la FAT (File Allocation Table), una variazione dell'allocation Linked.
 All'inizio del volume c'è una tabella che viene indiciazzata con un numbero di blocco. Può avere una cache. Quando viene creato un nuovo blocco si aggiorna il puntatore a null della fine della lista con l'indirizzo del nuovo blocco.
 
-![fat](/imgs/fat.png)
+![fat](imgs/fat.png)
 
 ## NTFS
 
@@ -2135,7 +2135,7 @@ Introduce dei miglioramenti a FAT:
 
 Unix File System. Utilizza in contemporanea una gestione Contigua e Linkata.
 
-![unix](/imgs/unix.png)
+![unix](imgs/unix.png)
 
 # Sicurezza
 
@@ -2168,7 +2168,7 @@ Esistono varie brecce del sistema:
 * Session Hijacking: una chiave di sessione viene intercettata e quindi si bypassa l'autenticazione
 * Privilege Escalation: accesso all'utente base per poi arrivare ad avere privilegi speciali.
 
-![attacchi](/imgs/attacchi.png)
+![attacchi](imgs/attacchi.png)
 
 ## Prevenzione degli attacchi
 
@@ -2179,7 +2179,7 @@ Gli attacchi possono avvenire a vari livelli:
 * Rete
 * Fisico
 
-![risoluzioni](/imgs/risoluzioni.png)
+![risoluzioni](imgs/risoluzioni.png)
 
 ## Minacce Software
 
@@ -2197,14 +2197,14 @@ Attacco che funziona iniettando il codcie di un programma malizioso all'interno 
 
 Solitamente viene sfruttato un buffer overflow per accedere ad aree di memoria proibite.
 
-![code_inj](/imgs/code_inj.png)
+![code_inj](imgs/code_inj.png)
 
 ## BootSectro Virus
 
 Sono dei viruse che riescono a copiare e modificare il settore di boot in modo tale da potersi avviare con il sistema operativo e poterne controllare le operazioni (monitoraggio di tutte le attività dei dischi).<br>
 Questi viruse possono moltiplicarsi e infettare tutto il MONDO (ce la faremo!)
 
-![bios](/imgs/bios.png)
+![bios](imgs/bios.png)
 
 ## DoS
 
@@ -2268,7 +2268,7 @@ Ci possono essere 2 tipi di protezione:
 Si può adottare una protezione in profondità rappresentata ad Anelli.
 Per accedere ad ogni livello servono diversi tipi di autorizzazioni.
 
-![anelli](/imgs/anelli.png)
+![anelli](imgs/anelli.png)
 
 ## Anelli di protezioni
 
@@ -2283,7 +2283,7 @@ L'implementazione dei domini viene realizzata tramite la restrizione dello spazi
 
 Il sistema deve tener traccia di quali oggetti accedono ai domini e rappresenta i loro permessi con una MAtrice di Accesso.
 
-![matrice](/imgs/matrice_di_accesso.png)
+![matrice](imgs/matrice_di_accesso.png)
 
 Ci deve essere sempre una polisi di protezione.<br>
 Il meccanismo fornito dal SO assicura che la matrice venga editata solo da entità autorizzate.<br>
