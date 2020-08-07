@@ -1,0 +1,18 @@
+CC = gcc
+CFLAGS = -Wall -pedantic -std=c99
+
+.PHONY: clean
+
+all: main
+
+main: cat.o utils.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+cat.o: cat.c utils.h
+	$(CC) $(CFLAGS) -c $<
+
+utils.o: utils.c utils.h
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	-rm *.o main
