@@ -2,9 +2,9 @@
 
 È la descrizione degli oggetti che fanno parte di un sistema e delle relazioni statiche tra di essi.
 
-![classe](/imgs/classe.png)
+![classe](imgs/classe.png)
 
-![pkg](/imgs/pkg.png)
+![pkg](imgs/pkg.png)
 
 
 
@@ -27,7 +27,7 @@
 ## Relazioni
 
 * Dipendenza
-  * ![dipendenza](/imgs/dipendenza.png)
+  * ![dipendenza](imgs/dipendenza.png)
 * Aggregazione
   * Relazione del tipo "parte di"
   * Possono essere 0, ..., *
@@ -35,7 +35,7 @@
   * Relazione del tipo "parte di"
   * 0, ..., 1
   * 1
-  * ![composizione](/imgs/composizione.png)
+  * ![composizione](imgs/composizione.png)
 
 * Associazione
 

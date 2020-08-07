@@ -8,7 +8,7 @@ Servono a descrivere il comportamento dei singoli oggetti di un sistema analizza
 
 ## Elementi
 
-![elementi](/imgs/elementi.png)
+![elementi](imgs/elementi.png)
 
 
 
@@ -20,11 +20,11 @@ Servono a descrivere il comportamento dei singoli oggetti di un sistema analizza
 * action: l'azione che effettua il cambio di stato
 * stato iniziale e finale
 
-![stato](/imgs/stato.png)
+![stato](imgs/stato.png)
 
-**Stati**: ![stati](/imgs/stati.png)
+**Stati**: ![stati](imgs/stati.png)
 
-![esempio_stati](/imgs/esempio_stati.png)
+![esempio_stati](imgs/esempio_stati.png)
 
 
 

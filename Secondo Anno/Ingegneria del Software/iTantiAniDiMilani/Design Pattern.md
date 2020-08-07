@@ -34,7 +34,7 @@ Model View Control.
 
   
 
-![mvc](/imgs/mvc.png)
+![mvc](imgs/mvc.png)
 
 
 
@@ -89,7 +89,7 @@ Si fa un ampio uso dell'astrazione/interfaccie
 
 Assicurare l'esistenza di un'unica istanza della classe
 
-![singleton](/imgs/singleton.png)
+![singleton](imgs/singleton.png)
 
 Con il singleton si ha il controllo completo di come e quando i client accedono all'interfaccia.
 

@@ -45,7 +45,7 @@ Un attore può svolgere più casi d'uso e un caso d'uso può essere svolto da pi
 
 ## Contenuto degli Use Case (testo)
 
-![casi_duso1](/imgs/casi_duso1.png)
+![casi_duso1](imgs/casi_duso1.png)
 
 
 
@@ -72,15 +72,15 @@ Questo diagramma individua i confini (i limiti ??) del sistema
 
 ### Componenti use case
 
-![componenti](/imgs/componenti_usecase.png)
+![componenti](imgs/componenti_usecase.png)
 
-![esempio1](/imgs/esempio1.png)
+![esempio1](imgs/esempio1.png)
 
 
 
 #### Include 
 
-![include](/imgs/include.png)
+![include](imgs/include.png)
 
 Ogni istanza di A esegue B.
 
@@ -94,7 +94,7 @@ Questo evita le ripetizioni.
 
 #### Extend
 
-![extend](/imgs/extend.png)
+![extend](imgs/extend.png)
 
 A può eseguire B al verificarsi di una certa condizione.
 Quando viene fatto eseguire B, l'esecuzione di A si interrompe.
@@ -108,13 +108,13 @@ La condizione deve essere sempre espressa.
 
 #### Generalizzazione
 
-![generalizzazione](/imgs/generalizzazione.png)
+![generalizzazione](imgs/generalizzazione.png)
 
 Se B ha tutte le caratteristiche di A e ne aggiunge delle nuove, allora A è una generalizzazione di B.
 
 
 
-![esempio2](/imgs/esempio2.png)
+![esempio2](imgs/esempio2.png)
 
 ## Contesto
 
