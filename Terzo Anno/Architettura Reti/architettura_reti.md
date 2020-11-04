@@ -2,7 +2,7 @@
 
 > In game we trust, is Osvaldo or bust !
 
-![PC MASTER RACE OSVALDO EDITION](./imgs/pcmasterrace.png)
+<img src="./imgs/pcmasterrace.png" width="40%" height="40%"/>
 
 ## La storia di Internet (fatta male)
 
