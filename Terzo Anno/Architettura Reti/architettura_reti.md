@@ -1,5 +1,9 @@
 # Architettura Reti
 
+> In game we trust, is Osvaldo or bust !
+
+![PC MASTER RACE OSVALDO EDITION](./imgs/pcmasterrace.png)
+
 ## La storia di Internet (fatta male)
 
 Nel 1962 nasce il concetto di Galactik Network che successivamente verrà utilizzato come ispirazione per Internet:
@@ -58,4 +62,122 @@ Jon Postel fu direttore della IANA.
     * Servizi Web
     * E-commerce
 * Questi servizi vengono posti in una speciale parte della rete aziendale chiamata DMZ (DeMilitarized Zone) dove i controlli del firewall sono più laschi e i server in quest'area sono ritenuti "non critici" e ne vengono conservate copie su server interni all'azienda
+
+**Standard**:
+
+* Gli standard sono importanti per lo sviluppo dell'informatica e delle telecomunicazioni. Definiscono le caratteristiche fisiche e operative degli apparati di rete.
+* Possono essere di 2 tipi:
+    * De Jure: vengono definiti da organismi nazionali o internazionali
+    * De Facto: molto utilizzati dagli utenti
+
+
+**IEEE**:
+
+* Istitue of Electrical and Electronic Engineers
+* Uno standard molto importante è l'802 che definisce il funzionamento delle reti locali:
+    * Definizione del formato dei dati
+    * Controllo degli errori
+    * Controllo del flusso dell'informazione
+
+**ISO**:
+
+* Internatioan Standards Organization
+* Il suo scopo è quello di promuovere lo sviluppo degli standard nel mondo
+* Il suo più grande successo è stato il modello a 7 livelli per le telecomunicazioni OSI: Open Systems Interconnection.
+* Fornisce un modello di riferimento per l'implementazione di vari modelli di protocolli di rete. Rimane comunque uno strumento molto teorico e concettuale con pochissime implementazioni pratiche
+* Ogni livello fornisce servizi al livello superiore e utilizza i servizi fornitigli da quello inferiorie. Questo avviene tramite i SAP: Service Accesso Point
+* Entità di sistemi diversi che appartengono allo stello livello vengono dette Peer Entities
+* Le operazioni specifiche di ogni livello vengono realizzate tramite un insieme di Protocolli
+
+## ISO OSI
+
+### Funzionamento
+
+Ogni livello, a partire dal 7 in giù, aggiungono la propria intestazione al pacchetto e lo mandano al livello sottostante che farà altrettanto.
+Questo viene chiamato Imbustamento Multiplo.
+Il nodo Ricevente effettuerà l'operazione inversa: toglierà, per ogni livello, la propria intestazione e lo passerà al livello successivo.
+
+
+![Imbustamento Multiplo](./imgs/imbustamento_multiplo.png)
+
+### Physical Layer 1 (cavi e interfaccie fisiche)
+
+E' il livello più basso dove vengono definite le regole per le connessioni elettriche e fisiche tra i vari dispositivi.<br>
+Vengono specificate le varie connessioni dei cavi e i vari tipi di segnali che dovranno essere usati per la trasmissione del messagio.
+
+Le regole definiscono il modo in cui modulare il segnale elettrico per mandarlo a modem, terminali, schede di rete, ecc.
+
+### DataLink 2 (NIC, Hub, Switch, bridge)
+
+Questo livello stabilisce come viene realizzata la comunicazione con un nodo adiacente. E' responsabile di un invio affidabile delle infromazioni tra un nodo e l'altro.
+
+Definisce il formato dei dati, la frammentazione dei dati per la trasmissione, le procedure per il controllo dell'errore, ecc.
+
+Vi appartengono Schede di Rete (NIC), Hub, Switch, che operano una divisione del dominio di collisione Ethernet.
+
+Protocolli che appartengono a questo livello sono:
+
+* DLCP
+* BSC
+* HDLC
+* LLC
+* MAC
+
+### Network Layer 3 (Router, Switch di livello 3)
+
+Si occupa della realizzazione della connessione tra 2 nodi della rete:
+
+* Nodo Sorgente
+* Nodo Destinatario
+
+Si occupa anche del routing del messaggio: le regole che permettono l'instradamento dei pacchetti dal nodo Sorgente a quello di Destinazione
+
+Vi appartengono i Router e gli Switch abilitati al routing (quelli di livello 3)
+
+Il protocollo di questo livello è l'IP
+
+### Transport Layer 4 (Switch di livello 4)
+
+Questo livello garantisce che il trasferimento delle informazioni avvenga correttamente.
+Si occupa anche di:
+
+* Controllare l'errore
+* Verificare la sequenza delle informazioni
+
+E' il primo livello end-to-end
+
+Appartengono a questo livello dispositivi che operano a livello 4 come i proxy.
+
+I protocolli TCP e UDP appartengono a questo livello
+
+### Session Layer 5
+
+Fornisce le regole per attivare e terminare flussi di dati tra nodi della rete.
+Offre i seguenti servizi:
+
+* Attivazione e Terminazione della connessione tra 2 nodi
+* Controllo del flusso di messaggi tra i nodi
+* Controllo dei dati da ambo i nodi
+
+Consente di aggiungere a sessioni end-to-end servizi più avanzati
+
+### Presentation Layer 6
+
+Questo livello di occupa della trasformazione, formattazione e alla sintassi dei dati. Si occupa di convertire i dati ricevuti in un formato consono per essere rappresentati dal dispositivo di ricezione.
+
+Esempi di trasformazione dei dati:
+
+* Crittografia / Decrittografia
+* Compressione / Decompressione
+
+### Application LAYERE 7
+
+Vi appartengono tutti gli applicativi che utilizzano la rete. Questo livello si comporta come una finestra attraverso la quale l'applicazione utilizza i servizi messi a disposizione dal modello.
+
+Esempi di questo livello:
+
+* Terminale Virtuale
+* Posta Elettronica
+* Condivisione di Risorse
+* Accesso a Database (DB)
 
