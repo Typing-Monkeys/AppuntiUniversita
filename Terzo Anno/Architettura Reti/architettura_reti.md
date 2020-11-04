@@ -181,3 +181,64 @@ Esempi di questo livello:
 * Condivisione di Risorse
 * Accesso a Database (DB)
 
+## TCP/IP
+
+### Protocollo IP (Internet Protocol)
+
+I messaggi possono essere consegnati in 3 modi diversi:
+
+* Consegna senza connessione: ogni pacchetto è consegnato indipendentemente dagli altri
+* Consegna Inaffidabile: i pacchetti possono andar perso o fuori sequenza
+* Consegna Best-Effort: si fa di tutto per consegnare i pacchetti. L'inaffidabilità si verifica solo per dei malfunzionamenti HardWare.
+
+Il protocolo IP si occupa del routing dei pacchetti e definisce l'esatto formati dei dati che dovranno essere inviati.
+
+Definisce le seguenti regole:
+
+* Consegna non affidabile dei pacchetti
+* Generazione dei messaggi di errore (ICMP)
+
+L'unità fondamentale di trasmissione è detta Datagram IP ed è formato da:
+
+* Header
+* Data
+
+![DatagramIp](./imgs/datagram.png)
+
+#### Campi Header
+
+* VERS: 4Bit che indicano la versione in uso. Può essere IPv4 o IPv6.
+* HLEN: 4Bit che indicano la lunghezza dell'Header.
+* TOTLEN: 16Bit che indicano la lunghezza totale del Datagram. I primo 8 rappresentano la lunghezza dell'Header, gli altri la lunghezza del Data
+* SERVICE: 8Bit che indicano come deve essere gestito il datagram
+* IDENTIFICAZIONE, FLAG e OFFSET DEL FRAMMENTO: sono campi che servono a controllare la frammentazione e il riassemblaggio dei datagram.
+* TTL: durata della vita di un datagram nella rete (in secondi)
+* PROTOCOL: indica quale protocollo di più alto livello ha generato quel datagram.
+* CHECKSUM: campo che garantisce il controllo dell'integrità del datagram
+* IP di Provenienza: 32Bit indirizzo IP del mittente
+* IP di Destinazione: 32Bit indirizzo IP del Destinatario
+* DATI: contiene i dati trasportati dal datagram
+* OPZIONI IP: campo opzionale usato per debugging
+* RIEMPIMENTO: area che viene riempita di 0 per rendere la lunghezza del datagram multipla di 32
+
+#### Elaborazione Header
+
+Viene effettuato il calcolo del checksum per verificare la validità dei suoi cammpi.<br>
+Analisi della Routing Table per calcolare i NextHop.<br>
+Vengono infine modificati i campi che richiedono di essere aggiornati come il TTL e l'HeaderChecksum.
+
+#### Indirizzo IPv4
+
+Un indirizzo IP di 32 bit, permette di identificare univocamente una determinata rete o uno specifico host della rete.
+Ha la seguente forma:
+
+> x.y.z.w -> 192.168.178.30 (candycesso)
+
+L'indirizzo si divide in 2 parti:
+
+* Rete
+* Host
+
+#### Classi di IP
+
+![classi ip](./imgs/classi_ip.png)
