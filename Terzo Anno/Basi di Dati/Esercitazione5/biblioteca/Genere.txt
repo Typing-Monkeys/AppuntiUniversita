@@ -1,0 +1,3 @@
+giallo	A
+orrore	A
+poesia	B

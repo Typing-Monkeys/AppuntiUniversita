@@ -1,0 +1,8 @@
+88-11-11111-1	Il cane dei Baskerville	A. C. Doyle	giallo
+88-22-22222-2	I delitti della Rue Morgue	E. A. Poe	giallo
+88-33-33333-3	La bottiglia di Amontillado	E. A. Poe	orrore
+88-44-44444-4	Il gatto nero	E. A. Poe	orrore
+88-55-55555-5	Ossi di seppia	E. Montale	poesia
+88-66-66666-6	A ciascuno il suo	L. Sciascia	giallo
+88-77-77777-7	Canti	G. Leopardi	poesia
+88-88-88888-8	Finzioni	L. Borges	\N

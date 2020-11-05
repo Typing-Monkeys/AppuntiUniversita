@@ -1,0 +1,6 @@
+AA1111111	Ulderico Cavalli	M	75
+BB2222222	Clotilde Bianchi	F	17
+CC3333333	Ellade   Pedone	M	19
+DD4444444	Ignazio  Torre	M	30
+EE5555555	Regina   Neri	F	60
+FF6666666	Germana  Alfieri	F	15
