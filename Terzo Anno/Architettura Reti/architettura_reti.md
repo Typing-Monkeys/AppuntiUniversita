@@ -1,5 +1,7 @@
 # Architettura Reti
 
+<!-- https://www.unistudium.unipg.it/unistudium/pluginfile.php/585123/mod_resource/content/1/ArchitetturaReti_I.pdf -->
+
 > In game we trust, is Osvaldo or bust !
 
 <img src="./imgs/pcmasterrace.png" width="40%" height="40%"/>
@@ -242,3 +244,68 @@ L'indirizzo si divide in 2 parti:
 #### Classi di IP
 
 ![classi ip](./imgs/classi_ip.png)
+
+I seguenti indirizzi sono privati, cioè non vengono istradati dei router:
+
+* 10.0.0.0/8
+* 172.16.0.0/12
+* 192.198.0.0/16
+
+Il seguente indirizzo è chiamato Link Local e viene assegnato ad una macchina quando ci sono stati problemi nelle richieste al server DHCP:
+
+* 169.254.0.0/16
+
+#### Configurazione IP
+
+Per configurare un host IP vanno specificati i seguenti parametri:
+
+* Indirizzo IP
+* Subnet Mask
+* Default Gateway
+* Indirizzo IP del Name Servere
+
+Si può fare a mano o delegare questa operazione al server DHCP che da solo provvederà alla configurazione dei vari client (molto utile per le gradi reti).
+
+#### Sumbnet Mask
+
+La subnet mask è utile per suddividere una rete primaria in più sottoreti.
+Questo può essere utile per:
+
+* migliorare l'amministrazione della rete, specializzando le varie sottoreti in base al loto utilizzo
+* ottimizzare l'uso dello spazio di indirizzamento
+* limitazione del dominio di Broadcast
+* limitazione di eventuali malfunzionamenti
+* isolare il traffico della rete per evitare di renderla accessibile dall'esterno
+
+#### Piano di Indirizzamento
+
+E' un documento che il network manager deve tenere aggiornato dove andrà a scrivere la suddivisione della rete principale nelle sue sottoreti:
+
+![Piano Indirizzamento](./imgs/piano_indirizzamento.png)
+
+### Protocolli
+
+#### Address Resolution Protocol (ARP)
+
+Per comunicare due host hanno bisogno di conoscere il loro realtivo indirizzo fisico (MAC address). Questo indirizzo è univoco per ogni scheda di rete e viene assegnto dalla casa produttrice, è comunque possibile alterarlo.
+
+Generalmente i programmi applicativi conoscono solo il nome dell'host o il suo indirizzo IP.<br>
+Il protocollo ARP permette la conversione da inidirzzo IP a MAC nel seguente modo:
+
+* L'Host A vuole comunicare con l'Host B
+* L'Host A manda una richiesta ARP (ARP Request) in broadcast (quindi a tutti gli host della rete). Questa richiesta contiene:
+    * IP dell'Host B
+    * MAC dell'Host A
+* Tutti gli host che ricevono questo pacchetto controllano se il loro IP corrisponde a quello ricevuto.
+* Se l'IP corrisponde a quello ricevuto l'host risponde alla richiesta ARP (ARP Reply) mandando direttamente il suo indirizzo MAC all'Host A
+
+Ogni Host ha una cache ARP dove vencono salvati gli indirizzi MAC dei vari host con cui ha comunicato. I campi di questa cache hanno un tempo di vita limitato dopo il quale andranno aggiornati.
+
+Dato che le richieste vengono effettuate in broadcast queste potrebbero portare ad errori come:
+
+* Intasamento della rete (se la cache di tutti i dispositivi scande contemporaneamente)
+* Ritardi di risposta elevati (Jitter)
+
+#### Reverse Address Resolution Protocol (RARP)
+
+Effettua il lavoro inverso dell'ARP: dal MAC risale all'IP.
