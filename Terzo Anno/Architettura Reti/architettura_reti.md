@@ -309,3 +309,134 @@ Dato che le richieste vengono effettuate in broadcast queste potrebbero portare 
 #### Reverse Address Resolution Protocol (RARP)
 
 Effettua il lavoro inverso dell'ARP: dal MAC risale all'IP.
+
+#### Internet COntrol Message Protocol (ICMP)
+
+Questo protocollo è stato progettato per rilevare anomalie durante il routing dei pacchetti IP.<br>
+Alcuni messaggi ICMP sono:
+
+* Echo Reply (con codice 0)
+* Detination Unreachable (con codice 3)
+* Echo Request (con codice 5)
+* Time Exceeded for a Datagram (con codice 11)
+* Address Mask Request (con codice 17)
+* Address Mask Reply (con codice 18)
+
+Il messaggio Redirect viene generato quando un pacchetto attraversa un router inutilmente, quindi avverte il client della possibilità di un percorso di instradamento migliore.
+
+I messaggi Mask Request e Address Mask REply servono per scoprire automanticamente la netmask della rete.
+
+#### IP Multicasting
+
+L'IP Multicasting permette di trasmettere informazioni ad un gruppo di Host identificati da un unico indirizzo IP. Un datagram multicast è inviato a tutti i membri del gruppo, con la stessa affidabilità di quello unicast, e non è garantito che il messaggio arrivi a tutti i membri del gruppo o che arrivi nello stesso ordine rispetto ad altri datagram. Gli appartenenti al gruppo possono cambiare dinamicamente: possono uscire o entrare e di solito è possibile definire una chiave di accesso.<br>
+L'IP del gruppo multicasti può essere statico o dinamico. La creazione di questi gruppo e il mantenimento delle relative informazioni è svolto dai Multicast Agents, che sono entità che girano su router o su host speciali.<br>
+I Multicast Agents si occupano anche dell'istradamento dei datagram muticast attraverso internet.
+
+**IGMP**
+
+Questo protocollo permette di creare ed unisri a gruppi di host muticast. Può anche trasmettere datagram IP ma richiede una versione speciale che estenda i servizi IP.
+
+E' definito nel **RFC966** e RFC1112, RFC1122, RFC1812, RFC2236, RFC2715, RFC2933, RFC3228 
+
+#### User Datagram Protocol (UDP)
+
+Questo è un protocollo di trasporto (livello 3 TCP/IP) che offre i seguenti servizi all'IP:
+
+* Mutiplexing, permette di ricervere più datagram ip da diversi host
+* Controllo dell'errore sui dati
+
+UDP riesce a distinguere le varie applicazioni che vengono eseguite sull'host.<br>
+E' un protocollo connectionless: non viene creata una connessione (niente handshake)
+
+I datagram possono essere persi o fuori controllo e la gestione dell'headere ha un basso overhead. Non c'è controllo di flusso o congestione.
+
+Per distinguere il processo a cui è destinato il datagram viene introdotto il concetto di porta: un numero intero positivo che rappresenta punti di destinazione astratti a cui i datagram sono indirizzati.<br>
+Per trasmettere un datagram quinid bisogna conoscere l'IP dell'host di destinazione e la relativa porta.
+
+Protocolli che utilizzano UDP:
+
+* DNS
+* RIP
+* RTP
+
+UDP funziona bene in ambito locale ma fallisce quando deve affrontare l'internet.<br>
+Fortnisce un servizio di connessione non affidabile senza connessione. Utilizza le funzioni offerte dal livello sottostanet, l' Internet Protocol (IP), per inviare i datagrgam ad un host su una determinata porta.
+
+Problemi durante la comunicazione possono essere:
+
+* Duplicazione pacchetti
+* Ritardo nella trasmissione
+* Consegna non ordinata
+* Perdita di pacchetti
+
+
+**Datagram UDP**
+
+![udp](./imgs/udp_head.png)
+
+A UDP durante la fase di De-Multiplexing non importa la porta da cui arrivano i pacchetti ma solo quella di destinazione.
+
+Il checksum permette di individuare errori durante la comunicazione.<br>
+Include uno pseudo header seguito dal datagram UPD che contiene l’indirizzo IP del destinatario per intercettare false consegne di pacchetti.
+
+#### Trasmission COntrol Protocol (TCP)
+
+Il TCP fornisce un servizio di consegna affidabile con connessione.<br>
+Questo protocollo permette di isolare i programmi applicativi dai dettagli del networking e fornisce un interfaccia uguale per i diversi sitemi operativi e applicazioni.
+
+Queste sono le funzioni che offre:
+
+* Orientamento dello stream: quando due applicativi trasferiscono dati questi vengon immagazzinati come sequenze di bit chiamate Stream. Il TCP si preoccupa di consegnarle nello stesso ordine in cui sono state inviate
+* Connessione di circuito Virtuale: prima della comunicazione i due host devono "mettersi d'accordo" su come comunicare (apertura della connessione).
+* Trasferimento Bufferizzato: gli ottetti generati dalla trasmissione non vengono inviati uno alla volta ma accorpati ed inviati insieme per una maggiore efficenza della connessione
+* Stream non strutturata: il TCP non rispetta le strutture presenti nei dati trasmessi, ma sarà l'host ricevente che dovrà comprendere la struttura trasmessa
+* Connessioni Full-Duplex: i trasferimenti sono consentite da entrambe le direzioni
+
+Il TCP garantisce l'affidabilità tramite la tecnica del Riscontro Positivo con Ritrasmissione.<br>
+Per ottimizzare la trasmissione viene usata la tencinca della Finestra Scorrevole.<br>
+Anche il TCP usa le porte per le comunicazioni. Prima di inviare i dati il TCP deve effettuare una connessione e lo fa tramite la coppia Indirizzo IP + Porta. Questo viene chiamato Socket. Questo permette di condividere contemporaneamente lo stesso port number da più host e aumenta molto l'efficienza di Internet.
+
+Altre caratteristiche del TCP:
+
+* Connessione unicast tra server e client ful duplex
+* E' necessario l'attivazione della connessione, la verifica dello stato della connessione e la chiusura
+* L'overhed per la gestione dell'header è maggiore rispetto a UDP
+* Controllo di flusso, congestione ed Errori
+* E' più lento rispetto a UDP
+
+Alcuni protocolli che usano TCP:
+
+* HTTP
+* SMPT
+* SSH
+* POP e IMAP
+
+La connessione TCP è indicata da 4 infromazioni:
+
+* Indirizzo Mittente
+* Porta Mittente
+* Indirizzo Destinatario
+* Porta Destinatario
+
+![tcp multiplexing](./imgs/tcp_mul.png)
+
+Per garantire il Controllo di Flusso il TCP controlla le velocità di trasmissione e le dimenzioni dei buffer, facendo in modo che siano uguali per client e server. Velocità di trasmissione diverse e dimenzione dei buffer limitate possono causare errori quali: perdita di dati e buffer overflow.
+
+**Header TCP**
+
+![header tcp](./imgs/tcp.png)
+
+* Senquence number: numero progressivo che indica a quale punto del trasferimento si è arrivati
+* ACK Number: serve per confermare fino a che punto della trasmissione si è ricevuto
+* Window Size: La Window Size (16Bit) indica la dimenzione della finestra di trasmissione. Viene usata per il controllo del flusso.
+
+Per risolvere il problema della ricezione/invio di pacchetti in ritardo il TCP utilizza il campo ISN (Intial Sequence Number) che viene stabilito durante il setup della connessione.
+
+I bit di controllo:
+
+* URG: urgent flag pointer
+* ACK: conferma ricezione sequenz number
+* PSH: Sovrascriver il buffer TCP
+* RST: reset connection
+* SYN: iniziare la connessione
+* FIN: chiudere la connessione
