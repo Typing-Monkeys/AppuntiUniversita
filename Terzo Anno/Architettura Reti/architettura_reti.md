@@ -440,3 +440,64 @@ I bit di controllo:
 * RST: reset connection
 * SYN: iniziare la connessione
 * FIN: chiudere la connessione
+
+## Routing
+
+Il Routing riguarda il livello 3 del modello ISO/OSI.<br>
+Consiste nello scambiare informazioni tra host di una rete passando per almeno un nodo intermedio.
+
+E' formato da due principali attività:
+
+* Determinazione del percorso di Routing
+* Trasporto dei pacchetti
+
+Per poter stabilire il percorso ottimale si introduce il concetto di Metric che indica un unità di misura standard, basata sul numero di gateway attraversati, usata per stabilire la lunghezza di un percorso.<br>
+Per trovare il percorso migliore ogni router considera l'associazione Destinazione-Next Hop (ovvero il miglior percorso da fare)
+
+I Router possono comunicare tra di loro con veri messaggi, come ad esempio:
+
+* Routing Update che consente di condividere tutta o una parte della Routing Table. Viene utilizzata dal router ricevente per avere una topologia dettagliata della rete.
+* Link-State Advertisement: infroma i router che uitilizzano il protocollo OSPF dello stato del mittente e consente di calcolare il miglior percorso per una determinata destinazione.
+
+### Algoritmi di Routing
+
+Gli algoritmi di Routing devono rispettare le seguenti proprietà:
+
+* Ottimali: devono scegliere sempre la miglior strada possibile
+* Semplici e con Basso Overhead: devono farlo consumando meno risorse possibili
+* Robusti e Stabili: devono comportarsi correttamente in condizioni inusuali e mai viste
+* Rapidi nella convergenza: la scelta del percorso ottimale deve avvenire subito e col minor sofrozo possibile
+* Flessibili: devono adattarsi facilmente a diverse condizioni
+
+Gli algoritmi di Routing sono suddivisi in base al loro comportamento:
+
+* Statici e Dinamici
+* Single Path e Multi Path
+* Piatti e Gerarchici
+* Host Intelligente e Router Intelligent
+* Intradomain e Inderdomain
+* Link State e Distance Vector
+
+Gli algoritmi di routing usano una o più dei seguenti parametri:
+
+* Path Lenght
+* Reliability
+* Delay
+* Bandwidth
+* Load
+* Communication Cost
+
+**Riassuntino**: se un host vuole mandare un messaggio ad un altro host nella stessa rete glie lo manda direttamente. Se un host vuole mandare un messaggio destinato ad un host di una differente rete lo manda la proprio gateway che poi si occuperà di instradarlo.
+
+![routing table](./imgs/routingtable.png)
+
+Esistono 3 tipi di Routing:
+
+* Minimale
+* Statico: l'istradamento viene gestito mediante informazioni predefinite. E' utilizzato su piccole reti dove la topologia non bambia
+* Dinamico: l'istradamento viene gestito da software e da protocolli di routing che si adattano ai cambiamenti della rete. Questi aggiornamenti vengono comunicati tramite pacchetti speciali.
+
+Questi 3 protocolli possono operare contemporaneamente, ma quello che ha il sopravvento in caso di contraddizione è quello Dinamico.
+
+Nel caso di un Autonomous System le informazioni che hanno i signoli Router sono parziali, infatti essi conoscono solamente i percorsi per raggiungere altre reti collegate al sistema 
+
