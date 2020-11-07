@@ -501,3 +501,20 @@ Questi 3 protocolli possono operare contemporaneamente, ma quello che ha il sopr
 
 Nel caso di un Autonomous System le informazioni che hanno i signoli Router sono parziali, infatti essi conoscono solamente i percorsi per raggiungere altre reti collegate al sistema 
 
+### Architettura originale
+
+In passato internet era costituito da dei ruouter centrali, chiamati Core Routers, che conoscevano le destinazioni di tutte le reti possibili e per inviare un pacchetto era per forza necessario passare attraverso uno di questi. Per questo motivo si sono presentati i seguenti problemi:
+
+* Collo di bottiglia a causa dei Core Router
+* Non sono possibili scorciatoie
+* Non scala con l'aumentare del traffico
+* Possibili routing loops
+
+<details>
+    <summary>Totore il ballerino</summary>
+    <img src="./imgs/totore.gif">
+</details>
+
+Le scimmie ballerine pongono fine al riassunto in quanto ne abbiamo trovato uno migliore !
+
+[Riassunto](https://github.com/CoffeeStraw/Appunti-Architettura-Reti/blob/master/Appunti%20di%20Architettura%20Reti.pdf)
