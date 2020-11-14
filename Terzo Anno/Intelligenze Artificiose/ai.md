@@ -172,7 +172,7 @@ function BestFirstSerach(problem, f) {
         if isGoald(node.STATE)
             return node
         
-        foreach child in expand(problem, node) {
+        foreach (child in expand(problem, node)) {
             s = child.STATE
 
             // aggiunge il nodo alla frontiera se:
