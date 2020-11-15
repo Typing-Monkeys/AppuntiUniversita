@@ -136,6 +136,37 @@ Possiamo fare una distinzione degli algoritmi in base alla necessità di control
 |Best First Search|Assembly Problem|
 
 
+### Complessità degli algoritmi di ricerca
+
+Per decidere quale algoritmo di ricerca utilizzare è necessario guardare alle loro diverse caratteristiche di complessità.<br>
+Le 4 che vengono prese in considerazione sono:
+
+* **Completezza**: la capacità di un algoritmo di garantire il ritrovamento della soluzione, se ce n'è una, o di riportare il fallimento se non ne viene trovata nessuna.
+* **Ottimalità di costo**: la capacità di trovare il cammino di costo minimo
+* **Complessità di tempo**: il tempo richiesto per torvare una soluzione. Può essere misurato in secondi o in numero di stati analizzati e di azioni compiute.
+* **Complessità in spazio**: la memoria utilizzata pe l'esecuzione dell'algoritmo.
+
+
+### Spazzio degli stati infinito
+
+Quando lo spazio degli stati è finito non ci sono grandi problemi per la ricerca di una soluzione. Qunando invece si tratta di uno spazio degli stati infinito, la ricerca deve essere fatta **sistematicamente** per evitare di applicare sempre la stessa azione e non tornare mai indietro per controllare stati vicini allo stato iniziale.
+
+
+### State Space Graph Implicito ed Esplicito
+
+In un State Space Graph **Esplicito** generalmente il calcolo della complessità non è difficoltoso poichè basta rappresentarlo con un search tree e la complessità risulterà: `|V| + |E|` con:
+
+* `|V|` numero di nodi
+* `|E|` numero degli archi
+
+In alcuni problemi di IA, tuttavia, il grafo può essere rappresentato in maniera **Implicita**.<br>
+In questi casi la complessità può essere misurata in funzione di 3 fattori:
+
+* `d` (**_depth_**): il numero di azioni in una soluzione ottimale
+* `m`: massimo numero di azioni in un cammino qualsiasi
+* `b` (**_brancing factor_**): il numero di successori ad un nodo che deve essere preso in considerazione
+
+
 ### Best First Seach
 
 Uno degli algoritmi di ricerca più semplici è il **Best First Search**, esso basa la scelta del nodo su una funzione di valutazione, scelta arbitrariamente, chiamata `f(n)`.<br>
@@ -158,18 +189,19 @@ function BestFirstSerach(problem, f) {
 
     // priority queue basata su F e inizia con node
     frontier = []
-    frontier.append(node)
+    frontier.add(node)
 
     // tabella di LookUp (tipo una HashMap) inizializzata 
     // con key=NodoIniziale value=CostoDelNodo
     reached = LookUpTable()
+    reached[node.STATE] = node
 
     // fin quando non ci sono più elementi in frontiera
     while (frontier is not Empty) {
         // prende l'elemento di costo minore
         node = frontier.pop()
 
-        if isGoald(node.STATE)
+        if isGoal(node.STATE)
             return node
         
         foreach (child in expand(problem, node)) {
@@ -180,7 +212,7 @@ function BestFirstSerach(problem, f) {
             //  è raggiungibile con costo minore
             if (s not in reached) or (child.PATH_COST < reached[s].PATH_COST) {
                 reached[s] = child
-                frontier.append(child)
+                frontier.add(child)
             }
         }
     }
@@ -208,4 +240,88 @@ function expand(problem, node) {
 
 In questo algoritmo vengono scartati i **Cammini Ridondanti**.
 
+
+### Agente Informato vs Non Informato
+
+Un Agente **non informato** non sa se scegliendo una soluzione andrà ad avvicinarsi al Goal, quindi date 2 possibili azioni,  mentre un agente informato si.
+
+
+### Ricerca Non Informata
+
+A questa famiglia di ricerca appartengono:
+
+* **Breadth First Search**
+* **Best First Search** (Dijisktra) <!-- ricordarsi che Jhonson fa un pompino a Dijkstra -->
+* **Depth First Search**
+* **Depth Limited Search**
+* **Iterative Deeeeeeepening Search**
+
+#### Breadth Firs Search
+
+<!-- Aggiungere BREACKFAST -->
+
+Quando le azioni hanno tutte quante lo stesso costo può essere una buona idea utilizzare la Breadth First Search. Essa è molto simile alla Best First Search, ma come funzione di valutazione `f(n)` considera non il costo delle azioni, ma la **profondità** del nodo, ovvero il numero di azioni richieste per raggiungerlo.
+
+Nell'implementazione è possibile migliorarlo alterando alcuni aspetti della Best First Search:
+
+* La coda **frontier** può essere impelemntata come una coda FIFO dato che darà una coda che rispetta già l'ordine di visita per la Bereadth First Search (i più vecchi vengono visitati prima)
+* La tabella **reached** può essere impostata con gli stati piuttosto che con una mappatura stati-nodi
+* E' possibile effettuare un **early goal test** poichè, una volta trovato un cammino, saremo sicuri che non ci saranno altri cammini migliori per raggiungere quel nodo
+
+Questo algoritmo è **Completo** e **Ottimo**.<br>
+Ha una complessità in **tempo** e **spazio** equvalenti che sono: ![O(b^d)](./imgs/o_b_d.gif)
+
+Quando lo spazio delle soluzioni è molto ampio e si ha un brancing factor elevato, non è possibile applicare algoritmi di ricerca non informati poichè si va in contro a limitazioni fisiche di memoria e, anche ipotizzando una memoria infinita, si raggiungono tempi di esecuzione impraticabile (per uno stato goal con d = 14 e b = 10 il tempo di esecuzione richiesto sarebbe di 3.5 anni)
+
+```javascript
+function breadthFirstSearch(problem) {
+    // stato iniziale del problema
+    node = problem.getInitalNode()
+
+    // goal test per terminare immediatamente se in stato finale
+    if isGoal(node.STATE)
+        return node
+    
+    // coda FIFO inizializzata con il nodo node
+    frontier = []
+    frontier.append(node)
+
+    // lista di stati visitati
+    reached = []
+    reached.append(node.STATE)
+
+    while (frontier is not Empty) {
+        node = frontier.pop()
+
+        // espande i figli del nodo estratto dalla fifo
+        foreach (child in expand(problem, node)) {
+            s = child.STATE
+
+            // early goal test
+            if isGoal(s)
+                return child
+            
+            // aggiunge il figlio alla frontiera
+            if (s not in reached) {
+                reached.append(s)
+                frontier.append(child)
+            }
+        }
+    }
+
+    return failure
+}
+```
+
+#### Algoritmo di Dijstra o Uniform Cost Search
+
+Questo algoritmo espande, a differenza della breadth first serach che espande i nodi in base alla profondità, i nodi in base al costo del cammino totale: espande prima i commini con lo stesso costo.<br>
+Non si espande nodo in nodo ma cammino in cammino.
+
+```javascript
+function uniformCostSearch(problem) {
+    //PATH_COST è una funzione che si basa sul costo totale del percorso
+    return bestFirstSearch(problem, PATH_COST)
+}
+```
 
