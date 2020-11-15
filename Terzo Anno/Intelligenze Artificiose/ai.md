@@ -84,8 +84,7 @@ Durante le fase di Execution gli agenti possono utilizzare 2 modelli di systemi:
 
 * **Cammino Ridondante**: è un cammino che porta allo stesso nodo ma con costo maggiore. Un ciclo è un particolare tipo di cammino ridondante.
 
-* **Soluzione**: il cammino che va dallo stato iniziale ad uno stato goal/finale.<br>
-Una soluzione si dice **ottima** se corrisponde al percorso di costo minore tra tutte le soluzioni.
+* **Soluzione**: il cammino che va dallo stato iniziale ad uno stato goal/finale.<br>Una soluzione si dice **ottima** se corrisponde al percorso di costo minore tra tutte le soluzioni.
 
 ### Rappresentazione di un problema di ricerca
 
@@ -315,8 +314,18 @@ function breadthFirstSearch(problem) {
 
 #### Algoritmo di Dijstra o Uniform Cost Search
 
-Questo algoritmo espande, a differenza della breadth first serach che espande i nodi in base alla profondità, i nodi in base al costo del cammino totale: espande prima i commini con lo stesso costo.<br>
+Questo algoritmo, a differenza della breadth first serach che espande i nodi in base alla profondità, espande i nodi in base al costo del cammino totale: guarda prima i commini con lo stesso costo.<br>
 Non si espande nodo in nodo ma cammino in cammino.
+
+Il costo di questo algoritmo in **spazio** e **tempo** è ![Costo Uniform Cost Search](./imgs/uniform_cost.gif) con:
+
+* ![C star](./imgs/c_star.gif): il costo della soluzione ottimale
+* ![b](./imgs/b.gif): brancing factor
+* ![epsilon](./imgs/epsilon.gif): il minimo costo di un'azione
+  
+Questo algoritmo può essere utilizzato come la breadth first search se il costo di tutte le eazioni è equivalente ed il suo costo in tempo e spazio è di ![costo](./imgs/o_b_d1.gif)
+
+La Uniform Cost Search è un algortimo **Completo** e **Ottimale** perchè la prima soluzione che trova sarà sempre il cammino di costo minore perchè basato su un algoritmo greede (best first search).
 
 ```javascript
 function uniformCostSearch(problem) {
@@ -325,3 +334,111 @@ function uniformCostSearch(problem) {
 }
 ```
 
+#### Depth First Search
+
+La DFS espande sempre il nodo più in profondità nella frontiera.
+Può essere implementata in due modi differenti:
+
+* **Invocando la Best First Search**: con una `f(n)` che è il negativo della profondità <!-- va guardato meglio -->
+* **Con Tree-Like Search**: non tiene traccia dei nodi visitati a differenza del graph search.
+
+Generalmente si predilige l'implementazione con **Tree-Like Searh** all'utilizzo della Best First Search.
+
+_Esempio di funzionamente della DFS:_
+![dfs_example](./imgs/dfs_example.png)
+
+Per uno spazio degli stati ad albero è **Efficiente** e **Completa**.<br>
+Per uno spazio degli stati **aciclico** può risultare che espande più volte lo stesso stato (attraverso differenti percorsi), ma alla fine riuscirà a completare la ricerca in maniera sistematica.<br>
+In un insieme degli stati **con cicli** può rimanere bloccata in un ciclo infinito e perciò alcune implementazioni controllano la presenza di cicli.<br>
+Con uno spazio degli stati invinito la DFS non è sistematica perchè può bloccarsi in un percorso di lunghezza infinita.
+
+Il costo per uno spazio degli stati and albero è: ![costo dfs](./imgs/o_b_m.gif) con:
+
+* `b`: il branching factor
+* `m`: profondità massima
+
+Una variante della DFS è la Backtracking Search che utilizza ancora meno memoria perchè espande un solo nodo successore alla volta, garantendo così la possibilità di "annullare" un'azione.
+
+#### Depth Limited Search & Deepening Search
+
+**Depth Limited Search**
+
+Un implementazione concreta della DFS per AI è la **Depth Limited Search** (DLS), nella quale viene definito un limite di profondità `l` oltre il quale i nodi non verrano considerati.
+
+La sua complessità in tempo è: ![tempo](./imgs/o_b_l.gif)
+La complessità in spazio è: ![spazio](./imgs/o_bl.gif)
+
+```javascript
+function depthLimitedSearch(problem, l) {
+    // coda LIFO inizializzata con il nodo stato iniziale
+    frontier = []
+    frontier.add(problem.getInitalNode())
+
+    result = failure
+
+    while (frontier not Empty) {
+        // prende l'ultimo nodo aggiunto
+        node = frontier.pop()
+
+        // controlla se ha trovato il goal
+        if (isGoal(node.STATE))
+            return node
+        
+        // controlla se ha superato il limite l
+        if (node.DEPTH > l)
+            result = cutoff
+
+        // controlla di non essere in un ciclo
+        else if (if not isCycle(node)) {
+            // espande i nodi e li aggiunge alla frontiera
+            foreach (child in expand(problem, node)){
+                frontier.add(child)
+            }
+        }
+    }
+
+    return result
+}
+```
+
+Con la funzione `isCycle()` si vanno ad eliminare, con un costo di computazione leggermente maggiore, i cicli "corti" (considerando 3 o 4 elementi prima). I cicli "lunghi" vengono gestiti con il limite `l`.
+
+La scelta del limite `l` può essere abbastanza problematica: in generale non sappiamo quale sia un "buon limite" fin quando non abbiamo risolto il problema.
+Per uno spazio degli stati a modi grafo, come quello della Romania, possiamo utilizzare il **diametro** del grafo come limite `l`.
+
+_Il **diametro** di un grafo è il cammino più lungo che collega 2 nodi senza cicli al suo interno._
+
+**Iterative Deepening Search**
+
+Questo algoritmo risolve il problema di scegliere un buon valore per il limite `l`: prova tutti i limiti possibili (**_EZ OMG MILANI CONFIRMED!_**).<br>
+Combina i benefici della Depth First Search e della Bredth First Serach:
+
+* la memoria richiesta è modesta: ![o b d](./imgs/o_bd.gif) se c'è una soluzione, altrimenti è ![o b m](./imgs/o_b_m.gif)
+* come la Bredth First Search, è ottimale se tutte le azioni hanno costo uguale
+* la complessità in tempo è di: ![obd](./imgs/o_b_d.gif) se c'è una soluzione, altrimenti ![obm](./imgs/o_bm.gif)
+
+Generalmente la IDS è il metodo di ricerca **non informato** più usato quando il lo spazio degli stati è più grande della memoria utilizzabile e la profondità della soluzione non è conosciuta anche se il suo tempo è asintoticamente uguale a quello della breadth first search.
+
+```javascript
+function iterativeDeepningSearch(problem) {
+    for (depth=0 to inf) {
+        result = depthLimitedSearch(problem, depth)
+
+        if (result != cutoff)
+            return result
+    }
+}
+```
+
+_Esempio di funzionamento della IDS_
+![IDS example](./imgs/ids_example.png)
+
+
+#### Comparazione tra algoritmi di ricerca non informati
+
+|Criterio|Bredth First|Uniform Cost|Depth First|Depth Limited|Iterative Deepnening|Bidirectional (gay)|
+|:------:|:----------:|:----------:|:---------:|:-----------:|:------------------:|:-----------------:|
+|**Completo?**|SI|SI|NO|NO|SI|SI|
+|**Ottimale?**|SI|SI|NO|NO|SI|SI|
+|**Tempo**|![](./imgs/o_b_d.gif)|![](./imgs/uniform_cost.gif)|![](./imgs/o_bm.gif)|![](./imgs/o_b_l.gif)|![](./imgs/o_b_d.gif)|![](./imgs/o_b_d2.gif)|
+|**Spazio**|![](./imgs/o_b_d.gif)|![](./imgs/uniform_cost.gif)|![](./imgs/o_b_m.gif)|![](./imgs/o_bl.gif)|![](./imgs/o_bd.gif)|![](./imgs/o_b_d2.gif)|
