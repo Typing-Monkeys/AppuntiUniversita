@@ -442,3 +442,46 @@ _Esempio di funzionamento della IDS_
 |**Ottimale?**|SI|SI|NO|NO|SI|SI|
 |**Tempo**|![](./imgs/o_b_d.gif)|![](./imgs/uniform_cost.gif)|![](./imgs/o_bm.gif)|![](./imgs/o_b_l.gif)|![](./imgs/o_b_d.gif)|![](./imgs/o_b_d2.gif)|
 |**Spazio**|![](./imgs/o_b_d.gif)|![](./imgs/uniform_cost.gif)|![](./imgs/o_b_m.gif)|![](./imgs/o_bl.gif)|![](./imgs/o_bd.gif)|![](./imgs/o_b_d2.gif)|
+
+
+### Ricerca Informata (con Euristica)
+
+La ricerca informata utilizza delle funzioni chiamate **Euristiche**, indicate con `h(n)`, per trovare in maniera più efficiente la soluzione ad un problema.<br>
+La funzione `h(n)` corrisponde alla **stima in costo** del cammino meno costoso dallo stato `n` allo stato finale.
+
+
+#### Greedy Best First Search
+
+E' la versione informata dell Best First Search che, piuttosto di basare la sua scelta su una funzione di valutazione `f(n)`, si basa su una funzione euristica `h(n)` detta Straight Line Distance Heuristic (`f(n) = h(n`). Questa euristica fornisce informazioni su quale nodo ci permette di avvicinarci sempre di più al goal, senza però prendere in considerazione la distanza richiesta per percorrere il cammino. Quindi la soluzione risulterà essere il cammino col minor numero di nodi possibili, che però non è necessariamente la migliore.
+
+Il costo di questo algoritmo sia in tempo che in spazio è: ![O mod V](./imgs/o_mdV.gif), però, utilizzando un'euristica molto buona, può essere ridotto a ![O bm](./imgs/o_b_m.gif).
+
+E' **completa** negli **spazi** degli **stati finiti** ma non in quelli infiniti.
+
+![Greedy best Example](./imgs/greedy_best_first_example.png)
+
+
+#### A* Search
+
+L'algoritmo definitivo per la ricerca informata è chiamato **A STAR**. Esso basa la sua scelta di cammino su due fattori:
+
+* il costo del cammino fino al nodo n (`g(n)`)
+* il costo dell'euristica (vista prima) `h(n)`
+
+`f(n) = g(n) + h(n)`
+
+Il risultato di questa somma corrisponde al cammino di costo minimo che permette di avvicinarsi sempre di più allo stato goal.
+
+A* è un algoritmo completo ma la sua ottimalità in costo dipende da alcune proprietà dell'euristica:
+
+* **Ammissibilità**: capacità dell'euristica di non sovrastimare mai il costo per raggiungere il goal (l'euristica è _ottimistica_).
+* **Consistentza** (_So Ssodo !_): la capacità dell'euristica di mantenere sensate le sue previsioni, ovvero l'euristica per raggiungere un nodo, deve essere minore o uguale alla somma tra un nuovo cammino figlio del nodo di partenza e l'euristica del nuovo nodo (la distanza in line d'aria del punto di partenza è il valore minimo per raggiungere il goal e quindi aggiungendo altri percorsi non si potrà fare meglio). Viene chiamata regola dell'**inequità del triangolo**.
+![inequita](./imgs/inequita.png)
+
+Un eurisitica consistente è sempre ammissibile, ma non è detto il contrario.<br>
+L'euristiche possono peggiorare la performance della ricerca costringendo l'algoritmo a tornare su più nodi già visitati.
+
+Con un abuona euristica, non avremo necessità di ricontrollare e aggiornare la tabella `reached`.
+
+_Esempio di funzionamento di A*_
+![esempio di A*](./imgs/esempio_astar.png)
