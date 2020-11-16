@@ -485,3 +485,116 @@ Con un abuona euristica, non avremo necessità di ricontrollare e aggiornare la 
 
 _Esempio di funzionamento di A*_
 ![esempio di A*](./imgs/esempio_astar.png)
+
+Quindi con una euristica Consistente A* è:
+
+* **Completo**
+* **Ottimo**
+
+#### Ricerca Soddisfacente
+
+A* è un ottimo algoritmo ma può presentare problemi (tempo e spazio) in alcuni tipi di ambienti. Se però ci si accontenta di una soluzione che non è ottima si possono raggiungere dei risultati soddisfacienti esplorando un numero significativamente minore di nodi. Queste soluzioni sono chiamate **soddisfacienti** e sono derivate dall'uso di un'euristica inammissibile, ovvero che può sovrastimare `h(n)`. Così facendo, c'è il rischio di mancare la soluzione ottima però l'euristica può essere più precisa nell'avvicinarsi alla soluzione scartando quelle che non ritiene opportune e permettendo così la visita di meno nodi.
+
+##### A* Pesato
+
+Un implementazione con A* consiste nel dare un maggior peso all'euristica utilizzando una funzione di valutazione `f(n) = g(n) + W * h(n)`, con `W > 1` 
+
+_Esempio di A* pesato contro A*_
+![A Star Pesato](./imgs/a_star_peso.png)
+
+La funzione di valutazione di A* Pesato può essere vista come una generalizzazione delle funzioni di valutazione viste in precedenza:
+
+|Algoritmo|`f(n)`|`W`|
+|-|-|-|
+|A* Search|`g(n) + h(n)`|`1`|
+|Uniform-cost Search|`g(n)`|`0`|
+|Greedy Best First Search|`h(n)`|`infinito`|
+|A* Pesato|`g(n) + W * h(n)`|`1 < W < infinito`|
+
+
+#### Memory Bounded Search
+
+Il problema principale di A* è il suo utilizzo della memoria. Ci sono degli stratagemmi per aggirare questo problema.
+
+Una prima soluzione è quella di cercare di eliminare la tabella dei nodi raggiunti (`reached`) a costo di complicare l'algoritmo e di rallentarne l'esecuzione.
+
+Un'altra possibilità è quella di eliminare dagli stati raggiungi gli stati non più necessari. Questo può essere fatto assicurandosi che le azioni possano solamente muoversi verso la frontiera o su altri nodi di frontiera e mai tornare indietro. Successivametne cercare nella frontiera cammini ridondanti ed eliminarli dalla tabella `reched`.
+
+Un altro modo è quello di tenersi un contatore che controlla quante volte un nodo è stato visitato eliminandolo poi dalla tabella degli stati raggiunti se viene visitato da tutti i suoi vicini (risulterà quindi inutile).
+
+
+##### Iterative Deepening A*
+
+Questo algoritmo è l'equivalente della Iterative Deepening Search per A*. Invece di limitare le ricerche con la profondità, utilizzerà il valore di `f(n)`. Ad ogni iterazione, se non trova lo stato goal, ritorna all'iterazione successiva il nuovo valore di cutoff che sarà il nodo con minor peso che supera il valore attuale di cutoff.
+
+Questo algoritmo è ottimo per problemi come l' 8 Puzzle dove il valore di `f(n)` è un intero.
+
+Se il valore ottimale della soluzione è `C*` allora non verranno effettuate più di `C*` iterazioni.
+
+
+##### Recursive Best First Search
+
+Cerca di imitare le operazioni della Best First Search, ma utilizza uno spazio lineare.
+Per ovviare alla mancanza della tabella `reached`, la RBFS ogni volta che espande un nodo salva il valore `f(n)` della sua migliore alternativa (limite). Se tutti i figli del nodo corrente superano quel limite, la ricorsione "torna indietro" alla migliore alternativa, cambiando il valore del nodo appena espanso al valore del suo miglio figlio.
+
+```javascript
+function recursiveBestFirstSearch(problem) {
+    // avvia la ricorsione
+    solution, fvalue = rbfs(problem, problem.getInitalNode(), inf)
+
+    return solution
+}
+
+function rbfs(problem, node, f_limit) {
+    // controlla se ha trovato lo stato goal
+    if isGoal(node.STATE)
+        return node
+    
+    // espande il nodo
+    successors = expand(node)
+
+    // se non ha figli ritorna un fallimento
+    if (successors is Empty)
+        return failure, inf
+    
+    // aggiorna il costo dei nodi figli
+    foreach (s in successors) {
+        s.f = max(s.PATH_COST + h(s), node.f)
+    }
+
+    while (true) {
+        // prende i successore con la minore f-value
+        best = successors.getBestSuccessor()
+
+        // fa backtracking
+        if (best.f > f_limit)
+            return failure, best.f
+        
+        // prende il secondo successore con la minor f-value
+        alternative = successors.getSecondBestSuccessor()
+
+        // continua la ricorsione
+        result, best.f = rbfs(problem, best, min(f_limit, alternative.f))
+
+        // ritorna la miglior scelta
+        if( result != failure)
+            return result, best.f
+    }
+}
+```
+
+_Esempio di funzionamento della RBFS_
+![RBFS Esempio](./imgs/rbfs_example.png)
+
+Questo algoritmo è un po' più efficente di IDA* ma soffrre dell'utilizzo di troppa poca memoria portandolo a riiterare degli stessi cammini più volte prima di torvare una soluzione.
+RBFS è ottimo con una funzione euristica `h(n)` ammissibile, ma la sua complessità nel tempo è difficile da calcolare perchè connessa all'accuratezza dell'euristica e a quanti "cambi di idea" l'algoritmo ha durante la sua esecuzione.
+
+
+##### Memory Bounded A* & Simplified A*
+
+Sembra ragionevole poter far sfruttare ai nosti algoritmi tutta la memoria a loro disposizione. Esistono due algoritmi che la sfruttano appieno:
+
+* Memory Bounded A* (MA*): è troppo complicato per le nostre piccole menti.
+* Simplified Memory Bounded A* (SMA*): il suo funzionamento è molto semplice, l'algoritmo procede come un normalissimo A* fin quando non finisce la memoria per poi eliminare il nodo con la `f-value` più grande e ne salva quest ultima sul suo nodo predecessore cosicche si possa ricordare la miglior f-value, trovata fin ora, nel sottoalbero generato da quel nodo.
+
+L'SMA* può avere problemi di tempistiche, perchè quando finisce la memoria, eliminando i nodi con costo maggiore potrebbe andare a riespanderli e quindi passare più volte sugli stessi nodi. Questo può accadere in problemi molto difficili, il che significa che dei problemi risolvibili con un A*, dalla memoria infitia, non sono risolvibili dalla SMA* ma ovviamente non si può avere una memoria infinita e quindi per poter trovare una soluzione dobbiamo accontentarci non del miglior cammino ma di uno che sia "abbastanza buono".
