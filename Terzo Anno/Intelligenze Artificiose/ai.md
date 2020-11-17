@@ -624,3 +624,113 @@ Si ricorre alla tecnica dei problemi rilassati (**relaxed problem**) per agevola
 Il problema rilassato è caratterizzato da un albero di ricerca più grande rispetto a quello di origine. La complessità spaziale e temporale è, pertanto, maggiore. È utile ricorrere a queste tecniche soprattutto per individuare una funzione euristica efficiente, al fine di poterla utilizzare successivamente negli algoritmi di ricerca informata.
 
 Essendo l'albero di ricerca del problema di riferimento, quello con maggiori condizioni, un sottoinsieme dell'albero di ricerca del problema rilassato, la migliore euristica di ricerca individuata nella versione "rilassata" del problema è altrettanto valida anche nella versione "rigida" del problema (problema originale). Inoltre, essendo una euristica derivata, questa eredita le medesime caratteristiche di ammissibilità e di consistenza nell'applicazione sia nel problema rilassato che nel problema originale.
+
+
+## Adversarial Search & Games
+
+Degli ambienti competitivi nei quali ci sono 2 o più agenti, con obbiettivi contrastanti, fanno nascere il problema dell'**Adversarial search**. Ci sono 3 possibili approcci per gestire gli ambienti multiagenti:
+
+1. si applica quando c'è un gran numero di agenti e consiste nel trattarli come un aggregato, quindi non si andrà a predire le azioni degli agenti individuali, ma quelle del proprio gruppo.
+
+2. l'agente può essere considerato parte dell'ambiente che lo rende **non deterministico**, bisogna però stare attenti a quale modello si sceglie per l'agente avversario (esempio della pioggia)
+
+3. modellarlo in maniera esplicita con le tecniche dell'**adversarial tree search** (verrà approfondito in seguito)
+
+
+### Giochi a somma 0 con 2 giocatori
+
+Questo tipo di giochi sono quelli più studiati nei campi dell'intelligenza artificiale e sono caratterizzati dalle seguenti proprietà:
+
+* **Deterministici**
+* **A 2 Giocatori**
+* **A turni**
+* Perfect information (**Fully Observable**)
+* **A somma 0**: ad ogni azione positiva per un giocatore, corrisponderà un'azione altrettanto negativa per l'altro.
+
+Un gioco di questo tipo può essere definito dai seguenti elementi:
+
+* `S0`: stato iniziale del gioco
+* `To-Move(s)`: il giocatore che deve muoversi allo stato `s` (a chi sta il turno)
+* `Actions(s)`: un set di mosse eseguibili dal giocatore nello stato s
+* `Result(s, a)`: definisce il rislutatio di un azione `a` effettuata nello stato `s`
+* `Is-Terminal(s)`: controlla se lo stato `s` è uno **stato terminale**
+* `Utility(s, p)`: assegna un punteggio predetermintato `p` al vincitore del gioco (in scacchi la vittoria vale 1, perdita 0 e pareggio 1/2)
+
+Le **Azioni**, lo **Stato Iniziale** e la funzione `Result` definiscono lo **State Space Graph**. Possiamo applicare un **albero di ricerca** da un determinato nodo per capire quale mossa fare.
+
+Definiamo il **Game Tree** come un albero di ricerca che segue ogni sequenza di mosse fino alla fine del gioco (stato terminale). Se il gioco lo permette o se lo state space è infinito, allora il Game Tree può essere infinito.
+
+### MinMax Search
+
+L'idea fondante di questo algoritmo è che andrà a scegliere la sua mossa migliore per ogni giocatore, puntando a massimizzare il proprio obbiettivo e cercare di minimazzre il punteggio dell'altro.
+
+La funzione su cui si basa questo algoritmo è `MinMax`. Questa funzione ritorna un valore numerico che viene scelto in base a chi effettua l'azione: 
+
+* se è il turno di MAX allora MinMax cercherà il nodo con valore maggiore
+* se è il turno di min, cercherà il nodo con valore minore.
+
+```javascript
+global player
+
+function minMaxSearch(game, state) {
+    player = game.toMove(state)
+    value, move = maxValue(game, state)
+
+    return move
+}
+
+function maxValue(game, state) {
+    if (game.isTerminal(state))
+        return game.utility(state, player), null
+
+    v = -inf
+
+    foreach (a in game.actions(state)) {
+        v2, a2 = minValue(game, game.result(state, a))
+
+        if (v2 > v)
+            v, move = v2, a
+    
+    }
+
+    return v, move
+}
+
+function minValue(game, state) {
+    if (game.isTerminal(state))
+        return game.utility(state, player), null
+
+    v = +inf
+
+    foreach (a in game.actions(state)) {
+        v2, a2 = maxValue(game, game.result(state, a))
+
+        if (v2 < v)
+            v, move = v2, a
+    }
+
+    return v, move
+}
+```
+
+Proprietà dell'algoritmo:
+
+* è **Completo** per alberi finiti
+* è **Ottimo** contro avversari ottimi (vince comunque contro avversari non-ottimi)
+* Ha una complessità in tempo di ![o b m](./imgs/o_bm.gif)
+* Ha una complessità in spazio di ![bm](./imgs/o_b_m.gif) se vengono generate tutte le azioni, se ne viene generata una per volta è ![o m](./imgs/o_m.gif)
+
+
+### Alfa Beta Prugne
+
+L'algoritmo funziona raggiungendo le foglie del Game Tree (che noi chiameremo Albero di Prugne) e ne guarda il valore dell'utility. Sul primo ramo l'algoritmo salva il valore minimo che poi andrà a confrontare con i vaoliri minimi degli altri rami. Se incontra un valore minimo minore di quello salvato ferma l'esplorarione di quel ramo e passa a quello successivo (_pruning_).
+
+Il costo in tempo nel caso migliore (le mosse vengono ordiante dal costo più piccolo al costo più grande) è: ![obm2](./imgs/o_bn2.gif).<br>
+Il costo in tempo nel caso peggiore è: ![obm](./imgs/o_bm.gif) come quello del MiniMax.
+
+_Funzionamento dell'agoritmo_
+![alfa beta prugna](./imgs/alfabetaprugna.png)
+
+_Esempio di pseudocodice dell'algoritmo_
+![alfa beta code](./imgs/alfabetacode.png)
+
