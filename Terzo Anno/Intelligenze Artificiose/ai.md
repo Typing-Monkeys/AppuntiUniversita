@@ -725,6 +725,8 @@ Proprietà dell'algoritmo:
 
 L'algoritmo funziona raggiungendo le foglie del Game Tree (che noi chiameremo Albero di Prugne) e ne guarda il valore dell'utility. Sul primo ramo l'algoritmo salva il valore minimo che poi andrà a confrontare con i vaoliri minimi degli altri rami. Se incontra un valore minimo minore di quello salvato ferma l'esplorarione di quel ramo e passa a quello successivo (_pruning_).
 
+C'è un euristica chiamata _Killer Move_ che sono le migliori mosse conosciute di quel problema a seconda di determinati stati.
+
 Il costo in tempo nel caso migliore (le mosse vengono ordiante dal costo più piccolo al costo più grande) è: ![obm2](./imgs/o_bn2.gif).<br>
 Il costo in tempo nel caso peggiore è: ![obm](./imgs/o_bm.gif) come quello del MiniMax.
 
