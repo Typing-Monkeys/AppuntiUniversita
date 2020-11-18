@@ -736,3 +736,11 @@ _Funzionamento dell'agoritmo_
 _Esempio di pseudocodice dell'algoritmo_
 ![alfa beta code](./imgs/alfabetacode.png)
 
+
+### Giochi con alberi molto grandi :tree_palm:
+
+Per giochi con branching factor molto grande, come Go e Schacchi, il MinMax anche se potenziato con AlfaBetaPrugna e il Clever Ordering, non è in grando di trovare una soluzione in un tempo utile. Per questo sono state proposte 2 strategie teoriche:
+
+* **Tipo A**: consiste nel considerare tutte le possibilità fino ad un certo livello di profondità e poi calcolare l'utiliti a quel livello prestabilito
+* **Tipo B**: ignora le mosse che sembrano poco promettenti e segue la linea promettente il più a lungo possibile, quindi esplora una porzione stretta dell'albero andando in profondità
+
