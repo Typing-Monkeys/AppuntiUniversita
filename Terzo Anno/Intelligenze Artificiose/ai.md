@@ -452,7 +452,7 @@ La funzione `h(n)` corrisponde alla **stima in costo** del cammino meno costoso 
 
 #### Greedy Best First Search
 
-E' la versione informata dell Best First Search che, piuttosto di basare la sua scelta su una funzione di valutazione `f(n)`, si basa su una funzione euristica `h(n)` detta Straight Line Distance Heuristic (`f(n) = h(n`). Questa euristica fornisce informazioni su quale nodo ci permette di avvicinarci sempre di più al goal, senza però prendere in considerazione la distanza richiesta per percorrere il cammino. Quindi la soluzione risulterà essere il cammino col minor numero di nodi possibili, che però non è necessariamente la migliore.
+E' la versione informata dell Best First Search che, piuttosto di basare la sua scelta su una funzione di valutazione `f(n)`, si basa su una funzione euristica `h(n)` detta Straight Line Distance Heuristic (`f(n) = h(n`). Questa euristica fornisce informazioni su quale nodo ci permette di avvicinarci sempre di più al goal, senza però prendere in considerazione la distanza richiesta per percorrere il cammino.
 
 Il costo di questo algoritmo sia in tempo che in spazio è: ![O mod V](./imgs/o_mdV.gif), però, utilizzando un'euristica molto buona, può essere ridotto a ![O bm](./imgs/o_b_m.gif).
 
