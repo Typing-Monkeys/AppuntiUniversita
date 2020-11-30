@@ -105,3 +105,98 @@ E' un meta linguaggio, permette di definiri altri linguaggi di markup. E' proget
 #### HTML
 
 Utilizzato per la visualizzazione di documenti.
+
+## HTML e XML
+
+Per molti tipi di dati non è sufficiente l'utlizzio di HTML per la visualizzazione:
+
+* differenti capacità di visualizzazione, Smartphone e Desktop
+* pagine generate a partire da db
+
+Oggi alcuni Browser hanno introdotto tag proprietari che rendono di fatto HTML proprietario e quindi non può essere visualizzato correttamente da tutti.
+
+### XML
+
+Negli ultimi anni XML è cresciuto in popolarità sia a livello industriale sia nelle comunità scientifiche.
+Deriva da SGML.
+
+Sta per eXtensible Markup Language:
+
+* Language indica un linguaggio di marcatura desceritttiva con una sua grammatica e sintassi
+* Markup: è basta su marcatori o tag
+* eXtensible: è possibile definire tag peresonali
+
+Una caratteristica importante di XML sono i _Metadati_: aumenta il livello di gestione e manipolazione dei dati.
+
+
+Alcuni obiettivi di XML sono:
+
+* XML deve essere usabile direttamente su Web
+* deve essere semplice progettare programmi che
+processano documenti XML
+* documenti XML devono essere leggibili da umani e
+sufficientemente chiari
+* documenti XML devono essere facili da creare
+
+Lo standard XML prevede il concetto di DTD (Document Type Definition): permette di imperre una determinata struttura al documento e la marcatura ammessa
+
+#### Vantaggi
+
+Alcuni vantaggi di XML:
+
+* La scelta dei nomi dei tag può essere fatta per facilitare la comprensione del documento
+* il DTD permette di rendere esplicite le regole di composizione del documento e i rapporti tra le varie parti
+* la struttura ad albero del documento ne rende semplice la visualizzazione e l'analisi
+* è uno standar aperto quindi è facilemnte personalizzabile
+* è compatibile con molti altri linguaggi di markup e quindi ne conesnte una facile conversione
+
+Ogni documento XML comprende:
+
+* _struttura logica_: indica quali elementi includere e in che ordine
+* _struttura fisica_: il contenuto effettivo del documento
+
+![struttura XML](./imgs/struttura_xml.png)
+
+**Struttura Logica**
+
+In questa sezione viene sempre dichiarata la versine di xml con 
+```XML
+<?xml version="1.0"?>
+```
+
+La dichiarazione XML può anche contenere la codifica dei caratteri: 
+```XML
+<?xml version="1.0" encoding="ISO-8859-1"?>
+```
+
+Può essere anche specificato se il documento è standalone: se ci sono dichiarazioni esterne al documento.
+
+```XML
+<?xml version=“1.0”  encoding=“UTF-8” standalone=“yes”?>
+```
+
+In questa parte può anche essere inclusa la dichiarazione del DTD: 
+
+```XML
+<?xml version="1.0"?>
+<!DOCTYPE Legge SYSTEM "legge.dtd">
+```
+
+*Struttura fisica**
+
+Il primo elemento è detto _radice_ e tutti gli altri elementi sono contenuti all'interno della radice.
+
+_Esempio di documento XML_
+
+```XML
+<?xml version="1.0"?>
+<!DOCTYPE Legge SYSTEM "legge.dtd">
+<Legge> 
+    <Intestazione> 
+        <DataLegge>22 dicembre 1983</DataLegge> 
+        <NumeroLegge>383</NumeroLegge>
+        <TitoloLegge>Disciplina delle associazioni di promozione sociale</TitoloLegge> 
+    </Intestazione>
+</Legge>
+
+```
