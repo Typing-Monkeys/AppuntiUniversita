@@ -744,3 +744,88 @@ Per giochi con branching factor molto grande, come Go e Schacchi, il MinMax anch
 * **Tipo A**: consiste nel considerare tutte le possibilità fino ad un certo livello di profondità e poi calcolare l'utiliti a quel livello prestabilito
 * **Tipo B**: ignora le mosse che sembrano poco promettenti e segue la linea promettente il più a lungo possibile, quindi esplora una porzione stretta dell'albero andando in profondità
 
+## Machine Learning
+
+### Tipi di Learning
+
+* **Supervised Learning (inductive)**: vengono passati i dati per fare il training e i corrispettivi output
+* **Unsupervised Learingn**: vengono forniti solamente i dati per il treaning e non gli output
+* **Semi-supervised Learning**: vengono forniti i dati per fare il training e parte degli output
+* **Renforcement learing**: ogni sequenza di azioni corrispende una ricompensa (rewareds).
+
+Delle applicazioni di Supervised Learning sono la funzione di regressione lineare (previsioni) e classificazione.
+
+L'utilizzo principale del Unspuervised Learning è l'individuazione di pattern nascosti nei dati di input.
+Delle applicazioni concrete possono essere:
+
+* l'organizzazione di cluster di computer
+* analisi di social network
+* segmentazione del mercato
+
+Il Reinforcemetne Learning si basa su un sistema di reworwd ritartadato con il quale viene fornita in output una policy che è una mappatura stato - azione (in un dato stato ti dice quale azione eseguire).
+Alcuni esempi possono essere:
+
+* Game Playing
+* Robot in a maze
+* Bilanciare un palo nella mano
+
+### Progettare un sistema di Learning
+
+Per progettare un sistema di leaning vanno seguiti i deguneti passi:
+
+1. Scegliere il tipo di learning (supervised, unsupervised, ...)
+2. Scegliere che cosa si vuole imparare (l'obbiettivo da raggiungere)
+3. Scegliere come rappresentare l'obbiettivo
+4. Scegliere un algoritmo di learning per dedurre la funzione obbiettivo dall'esperienza
+
+![progettare_ai](./imgs/progettare_ai.png)
+
+Ogni algoritmo è costituito da 3 componenti:
+
+* Rappresentazinoe
+* Ottimizzazione
+* Valutazione
+
+Alcune funzioni di rappresentazini:
+
+* Funzioni Numeriche
+    * Regressione Lineare
+    * Neural Network
+* Funzioni simboliche
+    * Decison Tree :palm_tree:
+* Funzioni Instance-based
+    * Nearest neigthbour
+* Modelli Probabilistic Gaphical
+    * Naive Bayes
+    * Hidden Marov Models (HMMS)
+    * Probabilistic Context Free Grammars (éCFGs)
+    * Markov Networks
+
+Algoritmi di Ricercara/Ottimizzazinoe:
+
+* Gradient decent
+    * Perceptron ([Pompotron](https://www.youtube.com/watch?v=0YQmE21aMnw&ab_channel=OrionNebula))
+    * BackPropagation
+* Dynamic Programming
+    * HMM Learning
+    * PCFG Learning
+* Divide and Conquer 
+    * Decision tree induction
+    * Rule learingn
+* Evalutaionary Comutation
+    * Genetic Algorhtim (GAs)
+    * Genetic Progarmming (GP)
+    * Neuor evolution 
+
+Alcuni criteri di valutazione:
+
+* Accuracy
+* Precision ad Recall
+* Squared error
+* Likelihood
+* Posterior probability
+* Cost / Utility
+* Margin
+* Entropy
+* K-L Divergence
+
