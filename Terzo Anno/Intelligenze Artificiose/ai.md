@@ -829,3 +829,98 @@ Alcuni criteri di valutazione:
 * Entropy
 * K-L Divergence
 
+### Alberi (di nuovo diocane)
+
+**Definizione Classificazione**: dato un training set, ogni elemento è caratterizzato da una tupla `(x, y)` dove:
+
+* `x` è un inisme di attributi (_input_)
+* `y` è il nome della classe (_lable_)
+
+Il nostro obbiettivo è quello di imparare un modello che mappa ogni set di attributi `x` in una dela classi `y`.
+
+![schema_classificazione](./imgs/schema_classificazione.png)
+
+Ci sono vari modi per effettuare la classificacazione che si dividono in 2 principali categorie:
+
+* Base Callificacazione
+    * Decision Tree :palm_tree:
+    * Rule Based
+    * Nearest Neigthbour
+    * Neural Netwroks
+    * Deep Learning
+    * Naive Bayes and Bayesina Belief metods
+    * Support Bector Machines
+* Ensemble Classificacazione
+    * Boosting
+    * Bagging
+    * Random Forest (:palm_tree: :palm_tree: ? :palm_tree: ?? :palm_tree:)
+
+![decision_tree_example](./imgs/decision_tree_example.png)
+
+ALcuni algortmi per la classificacazione basati su decison tree sono:
+
+* Hunt's Algorithm
+* CART(s)
+* ID3 (volkswagen), C4.5 (Picasso Cytroen)
+* SLIQ, SPRINT
+
+#### Hunt's Algorithm
+
+**Funzionamento**: sia Dt un set di dati di training si ha la segunete procedura:
+
+* se Dt contiene record che apparengono alla stessa classe yt, allora t è un nodo foglia ed appartiene alla classe yt
+* se Dt contiene record che appartengono a più di una classe, allora testa un attributo per dividere i dati in sottoinsiemi più piccoloi. Poi viene applicata ricorsivamente la procedura di prima.
+
+![hunt_example](./imgs/hunt_example.png)
+
+### Problemi di design di alberi ad induzione elettromagnetica
+
+Due problemi principali sono: 
+
+* la determinazione di una metodologia di split che dipende da due fattori principali:
+    * specifica di una condizione di test, che dipende dal tipo di attributo
+    * unità di misura per valutare la correttezza di una misura di test (quanto bene un attributo rappresenta la classe)
+* determinare quando terminare la divisione:
+    * fermarla anticipatamente (Eraly termination :robot:)
+    * fermarla se tutti i record appartengono alla stessa classe (foglia raggiunta) oppure se hanno tutti gli attributi uguali (porteranno allo stesso risultato)
+
+#### Metodi per effettuare i test
+
+Questi metodi variano in base al:
+
+* Tipo di Attributo
+    * Binary
+    * Nominal
+    * Ordinal
+    * Continussssss
+* Numero di vie per lo split
+    * 2 way split
+    * multy way split
+
+**Multiway or Biniary Split**:
+
+![multi_binary](./imgs/multi_binary.png)
+
+**Splitting di Attributi Continui**
+
+Possono essere gestiti i 2 modi principali:
+
+* Discretizzazione: permettono di formare categorie ordinali. Possono essere raggruppati in cluster, in insiemi di frequenze equivalenti o intervalli equivalenti. Questa divisione può essere effettuata in maniera **Statica** (solo all'inizio) o **Dinamica** (per ogni nodo)
+* Decisione Binaria: esegue dei test binari come `A > v` o `A <= V`
+
+Un possibile approccio è quello greedy che guarda l'indice di purezza della divisione delle classi:
+
+![purezza](./imgs/purezza.png)
+
+Indici per misurare l'impurità sono :
+
+* GEEEEENEEEEEE Index ![gini](./imgs/gini.png)
+* Entropy ![entropy](./imgs/entropy.png)
+* Miscalssification error ![error](./imgs/error.png)
+
+**Come scegliere lo split migliore**: 
+
+1. Calcolare l'indice di impurità `P` prima dello split
+2. Calcolare l'indice di impurità `M` dopo lo split
+    * `M` è l'impurità pesata dei figli
+3. Scegliere l'attributo che produce il valore `Gain` maggiore: `Gain = P - M` (equivalente a scegliere l'attributo con `M` minore)
