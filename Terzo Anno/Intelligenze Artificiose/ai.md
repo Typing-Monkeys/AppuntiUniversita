@@ -924,3 +924,39 @@ Indici per misurare l'impurità sono :
 2. Calcolare l'indice di impurità `M` dopo lo split
     * `M` è l'impurità pesata dei figli
 3. Scegliere l'attributo che produce il valore `Gain` maggiore: `Gain = P - M` (equivalente a scegliere l'attributo con `M` minore)
+
+
+#### Gini
+
+`p(j|t)` è la frequenza relativa della classe j al nodo t
+
+Il valore massimo che può assumere è `1 - 1/nc` quando i record sono distribuiti in maniera equa e quinid si ha un alto livello di impurità
+
+Il minimo è 0.0 che implica che titti i record appartengono ad una sola classe (l'informazione più interessante)
+
+L'indice Gini è usato negli algoritmi CART, SLIQ SPRINT
+
+#### Entropy
+
+L'entropia è come l'indice geany, serve per trovare lo split migliore (quello che ha valore di entropia più vicino allo 0). Questi indici però tendono a tenere in considerazione la purezza degli attributi, senza tenere conto della larghezza dell'albero.
+
+Per aggirare questo problema viene introdotto il Gain Ration che penalizza le partizioni piccole con molti elementi.
+
+![gain_ratio](./imgs/gain_ratio.png)
+
+#### Pro Vs Cons
+
+Pro:
+
+* Costruzione poco costosa
+* Incedibile velocità della classificaizone di record sconosciuti :rocket: 
+* Di facile interpertazione per alberi di piccole dimenzioni
+* Resistente al rumore (IP68)
+* Può gestire facilmente attributi ridondanti o irrilevanit
+
+Contro:
+
+* lo sapzio delle decisioni piò essere esponenziale e quindi l'approccio greedeeeee non reisce spesso a trovare l'albero migliore
+* Non considera le interazioni tra gli attributi
+* Il confine decisionale considera solo un attributo alla volta
+
