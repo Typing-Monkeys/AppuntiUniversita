@@ -960,3 +960,37 @@ Contro:
 * Non considera le interazioni tra gli attributi
 * Il confine decisionale considera solo un attributo alla volta
 
+## Errori
+
+Ci sono 3 tipi di errori:
+
+* **Training**: sono gli errori effettuati nel dataset di training  
+* **Testing**: sono gli errori effettuati nel dataset di testing
+* **Generalization**: errori intrinsechi nel modello
+
+### Overfitting e Underfitting
+
+![overfitting](./imgs/overfitting.png)
+
+**Overfitting**: 
+Se i dati di training sono sottorappresentativi (non rappresentano bene l'ambiente), all'aumnetare dei nodi aumentano gli errori di testing e diminuiscono gli errori di training. Aumentando la dimenzione dei data di training riduce questa differenza tra i dati ad un qualsiasi numero di nodi.
+
+__In breve__: se vengono forniti dati che non reappresentano completamente il problema allora l'algoritmo andrà ad imaparare solamente come risolvere quelle situazioni e non riuscirà a gestirne di diverse (esempio: vengono fornite 2 razze di primati per il problema del riconscimento di scimmie, l'algoritmo impareaà a conoscere perfettamente quelle 2 razze, ma quando gli verrà presentata una nuova razza non comprednerà che è una scimmia).
+
+Le cause dell'orvefittingo sono:
+
+* Dimenzioni dei dati di Training limitate
+* Alto livello di complessità del modello
+
+L'overfitting porta ad avere Decision Trees molto più complessi del dovuto.
+Gli errori di Training non forniscono una buona stima degli errori di Testing.
+
+## Model Selection
+
+Serve per assicurare che il modello non incappi in overfitting.
+E' quindi necessario stimare il Generalization Error nei seguenti modi:
+
+* Usando un Validation Set
+    * E' un set di dati, diverso dal training, che serve per stimare quanto sia affidabile il modello, ma non è sufficiente per il testing (esempio dell'esame di Bartoli). Si creano e trainano più modelli differenti e con il validation set si sceglie quello più preciso.
+* Incorporando il Model Complexity
+* Stimando i Limiti Statistici
