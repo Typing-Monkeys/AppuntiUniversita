@@ -965,8 +965,7 @@ Contro:
 Ci sono 3 tipi di errori:
 
 * **Training**: sono gli errori effettuati nel dataset di training  
-* **Testing**: sono gli errori effettuati nel dataset di testing
-* **Generalization**: errori intrinsechi nel modello
+* **Testing** o **Generalization**: sono gli errori effettuati nel dataset di testing
 
 ### Overfitting e Underfitting
 
@@ -993,4 +992,16 @@ E' quindi necessario stimare il Generalization Error nei seguenti modi:
 * Usando un Validation Set
     * E' un set di dati, diverso dal training, che serve per stimare quanto sia affidabile il modello, ma non è sufficiente per il testing (esempio dell'esame di Bartoli). Si creano e trainano più modelli differenti e con il validation set si sceglie quello più preciso.
 * Incorporando il Model Complexity
+    * Un alta complessità tende a causare un numero maggiori di errori, quindi, dati 2 modelli è sempre meglio preferire quallo con complessità minore. La complessitàsi equivale a: `GenError(Model) = TrainError(Model, TrainData) + a * Complexity(Model)`
 * Stimando i Limiti Statistici
+
+### Approccio pessimistico
+
+Questa formula serve per calcolare il Generalization Error e quindi la complessità del Decision Tree
+
+![pessimo](./imgs/pessimistico.png)
+_E' equivalente alla forumla `GenError(Model) = TrainError(Model, TrainData) + a * Complexity(Model)`_
+
+### Approccio Ottimistico
+
+Nel caso in cui non si voglia calcolare il Generalization Error, può essere fatta una stima molto ottimistica dell'errore con il Training Error.
