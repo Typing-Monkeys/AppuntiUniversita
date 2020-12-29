@@ -986,7 +986,7 @@ Gli errori di Training non forniscono una buona stima degli errori di Testing.
 
 ## Model Selection
 
-Serve per assicurare che il modello non incappi in overfitting.
+Serve per assicurare che il modello non incappi in overfitting e per stimare il Generalization Error.
 E' quindi necessario stimare il Generalization Error nei seguenti modi:
 
 * Usando un Validation Set
@@ -1005,3 +1005,25 @@ _E' equivalente alla forumla `GenError(Model) = TrainError(Model, TrainData) + a
 ### Approccio Ottimistico
 
 Nel caso in cui non si voglia calcolare il Generalization Error, può essere fatta una stima molto ottimistica dell'errore con il Training Error.
+
+### PrePruning
+
+Per evitare che un modello incappi in overfitting si può applicare la strategia del pruning: ovvero la potatura di alcune foglie per semplificare l'albero.
+
+Il PrePruning avviene prima del completamento del Decision Tree e per decidere quando potare vengono usate dei valori di threshold che, se superati, portano all'eliminazione di un sottoalbero.
+
+![preprunin1](./imgs/prepruning1.png)
+![prepruning2](./imgs/prepruning2.png)
+
+### PostPruning
+
+E' simile al prepruning solo che la potatura viene effettuata solo dopo che il Decision Tree viene calcolato completamente, con modalità BottomUp.
+E' più preciso del PrePruning però richiede più calcoli.
+
+## Valutazione delle Performance di un Classificacatore
+
+Ci sono vari modi per valutare le performance di un classificacatore:
+
+* **Medoto Holdout**: consiste nel dividere i dati originali in 2 set: uno di training e uno di testing (la divisione è a discrezione dell'analista). Successivamente il calssificatore viene allenato col set di training e poi viene testata la sua accuratezza con il set di testing. Questo modello presenta svariati problemi: se forniamo troppi dati di testing e pochi di training, il modello potrebbe non operare al massimo delle sue potenzialità, mentre se vengono forniti troppi dati di training e pochi di testing, la stima finale potrebbe non essere affidabile al 100%. Inine, poiche i set di training e di testing sono derivati dallo stesso insieme di dati, potrebbe capitare che uno dei 2 sottoinsieme sia più rappresentatidvo del dataset orgiginale, mentre l'altro no. Per migliorare la precisione di questo metodo piò essere applicato il Random Subsetting che consiste nel ripetere più volte l'allenamento e il tesing con sottoset differenti per ogni iterazione.
+
+* Cross-Validation: un'alternativa al Random Subsempling è il Cross-Validation che consisnte nel dividere il dataset in `k` partizioni di dimenzioni equivalenti e successivamente di utilizzare `k -1 ` partizioni per il training e 1 per il testing. Queste partizioni si scambieranno fin quando tutti gli elementi verranno utilizzati per il testing 1 sola volta. Un metodo speciale è il _leav on out_, che è simile al metodo descritto sopra ma ha `k = N` (dove `N` è la dimenzione del dataset) e consiste nell'usare un solo record alla volta per il tesing. Questa procedura risulta molto precisa ma molto costosa.
