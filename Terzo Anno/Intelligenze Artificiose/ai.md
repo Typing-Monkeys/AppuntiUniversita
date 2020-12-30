@@ -1082,3 +1082,29 @@ La funzione XOR non è lineramente separabile.
 
 ![ipercubo](./imgs/ipercubo.png)
 
+## MultyLayer ANN
+
+Per creare strutture più complesse per classificare dati non linearmente divisibili si possono utilizzare 2 metodi:
+
+* Il primo è quello di inserire vari livelli, detti _Hidden Layer_, tra il livello di input e quello di outpt. La struttura risultante si chiama **MultyLayer Neural Network** può essere distinta in base ai link tra i livelli in 2 categorie:
+    * Feed-Forward, dove i noodi in un livello possono solamente connettersi al livello successivo
+    * Recurrent, dove i link possono connettere nodi tra lo stesso livello o tra un livello precedente.
+
+![mnn](./imgs/mnn.png)
+
+* Il secondo è quello di utilizzare funzioni di attivazioni diverse da quella segno, come funzioni lineari, sigmoidi, tangente, ecc..
+Queste funzioni di attivazione permettono ai nodi nascosti e di output di produrre valori di output che hanno valori di input non lineari (come la funzione XOR).
+![funzioni](./imgs/funzioni.png)
+
+
+![xor](./imgs/xor.png)
+
+_MNN per classificazione di funzione XOR_
+
+### Learning per ANN
+
+Lo scopo dell'algoritmo di learning di un ANN è quello di determinare un seti di pesi che deve minimizzare la somma totale degli errori quadratici:
+
+![quadratici](./imgs/quadratici.png)
+
+Questa funzione 
