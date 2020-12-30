@@ -1103,8 +1103,23 @@ _MNN per classificazione di funzione XOR_
 
 ### Learning per ANN
 
+<!-- 
 Lo scopo dell'algoritmo di learning di un ANN è quello di determinare un seti di pesi che deve minimizzare la somma totale degli errori quadratici:
 
 ![quadratici](./imgs/quadratici.png)
+-->
 
-Questa funzione 
+Il processo di learning si basa sul continuo aggiustamento dei pesi e dei bias, che vengono ricalcolati tramite una funzione costo che varia da implementazione ad implementazione.
+
+Quella più utilizzata è la Gradient Descent che utilizza il gradiente(rappresenta il cammino più ripido verso l'alto) invertito per raggiungere dei minimi locali dell'errore.
+
+Tramite la tecnicla del Back-Propagation si utilizza l'errore nel layer di output per modificare i pesi e i bias degli hidden layer.
+
+![differenziali](./imgs/differenziale.png)
+
+### Convolutional Neuarl Network
+
+Questo tipo di rete neurale ha dei layer chiamati Convolutional che hanno a disposizione una matrice detta kernel che verrà sovrapposta ai pixel dell'immagine di input generando una nuova immagine "filtrata" che verrà poi utilizzata dagli hidden layer successivi.
+Questo filtraggio serve per trovare pattern e più la rete sarà profonda e più questi pattern saranno complessi (si va da linee e cerchi, fino a volti e animali)
+
+![kernel](./imgs/kernel.png)
