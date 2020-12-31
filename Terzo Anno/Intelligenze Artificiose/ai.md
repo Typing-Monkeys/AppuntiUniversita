@@ -1123,3 +1123,44 @@ Questo tipo di rete neurale ha dei layer chiamati Convolutional che hanno a disp
 Questo filtraggio serve per trovare pattern e più la rete sarà profonda e più questi pattern saranno complessi (si va da linee e cerchi, fino a volti e animali)
 
 ![kernel](./imgs/kernel.png)
+
+## Problemi di Design delle ANN
+
+Quando si sviluppa una ANN bisogna tenere in cosiderazione questi problemi di design:
+
+* Il numero di nodi di input deve essere determinato, solitamente bisogna creare un nodo di input per ogni variabile, tuttavia, per le variabili categoriche è accettabile codificarle in una variabile k-arry avente `int_sup(log2(k)` nodi di input.
+
+* Il numero di nodi di output deve essere prestabilito: per un problema a 2 calssi basta un solo nodo di output, ma per un problema con k classi ne servono k
+
+* Deve essere scelta una topologia per la rete poichè essa andrà ad influenzare la target function. Per scegliere la giusta topologia si può procedere in 2 modi:
+    1. Creare una fully connected network e iterarci sopra per costriure una nuova rete ogni volta con un numero minore di nodi (si reitera la procedura di model-buildin e ha una complessità di tempo mooolto alta)
+    2. Creare una fully connected network e togliergli nodi per poi ripetere il processo di valutazione della rete.
+
+* Vanno inizializzati i pesi e i bias. E' comunemente accettata una inizializzazione randomica
+
+* Gli esempi di trainign con valori mancanti dovrebbero essere sostituiti o rimossi
+
+## Nearest Neightor Classification
+
+Esistono dei tipi di algoritmi di learning che non costruiscono un modello a priori per classificare i dati ma che li classificano solamente nel momento del bisogno, essi sono detti leazy learners. Un esempio è il Rote Classifier che si ricorda tutti i suoi esempi di training e una volta passati dei dati di testing li calssifica solo se corrispondono esattamente a dati già visti nella fase di training. Questo implica una scarsa flessibilità nella classificazione. E' stato quindi ideato un approccio più generale chiamato Nearest Neighto Classifire.
+
+Esso si basa sullo stesso concetto della Rote Classifire ma non guarda l'equivalenza ma la similarità tra il dato di testing e quelli di training, ovvero cerca i vicini più vicini al record di testing.
+
+I dati con n attributi vengono rappresenati su uno spazio ndimenzionale e la precisione della classificazione dipende da una variabile distanza `k`. Ci sono altre varianti di questo algoritmo che alternao il modo di determinare i vicini più vicini basandosi non solo sulla distanza ma anche sulla _classe di maggioranza_
+
+![near](./imgs/near.png)
+
+oppure sulla _classe di maggioranza con distanze pesate_ dove non conta solamente la classe che compare più volte ma anche la sua distanza dal record di testing (più lontano sarà e minore sarà l'importanza).
+
+![voronoioioioioi](./imgs/voronoi.png)
+![euclide](./imgs/euclide.png)
+
+_Diagramma di Voronoi per 1-nearest Neightbotr e Distanza Euclidea_
+
+### Vantaggi e Svantaggi in breve
+
+* Non hanno bisogno di manterere un modello astratto derivato dai dati
+* Non richiedono model building ma richiedono più computazione degli eager learner nella fase di testing
+* Poichè fanno classificazioni basate su informazioni locali sono molto suscettibili al rumore
+* Poichè possono genereare decision boundaries arbitrariamente dispongono di una maggiore flessibilità rispetto agli eager lerner
+* Possono generare errori di classificazione se non avvengono step di preprocessing (aggiustamento delle scale dei dati)
