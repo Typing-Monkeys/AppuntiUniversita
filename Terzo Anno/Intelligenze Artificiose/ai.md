@@ -1164,3 +1164,66 @@ _Diagramma di Voronoi per 1-nearest Neightbotr e Distanza Euclidea_
 * Poichè fanno classificazioni basate su informazioni locali sono molto suscettibili al rumore
 * Poichè possono genereare decision boundaries arbitrariamente dispongono di una maggiore flessibilità rispetto agli eager lerner
 * Possono generare errori di classificazione se non avvengono step di preprocessing (aggiustamento delle scale dei dati)
+
+## Bayesian Classification
+
+Un classificatore bayesiano basa il suo processo di learning su un importatne teoria statistico: Il teorema di Bayes.
+
+![bayes](./imgs/bayes.png)
+
+Questo teorema fornisce un modo per revisionare delle predizioni o teorie esistenti, aggiornandone le probabilità in seguito alla scoperta di informazioni aggiuntive.
+Il teorema afferma che: la _probabilità a posteriori_ `P(Y|X)` è data dal prodo dotto della _probabilità condizionale di classe_ `P(X|Y)` per la _probabilità a priori_ `P(Y)` fratto le _nuove inofrmazioni_ `P(X)`
+
+**N.B.** quando si confrontano varie probabilità per differenti valori di Y, il denominatore può essere ignorato.
+
+Tale teorema può essere applicato da un algoritmo di ML in due modi in base a come viene implementato il calcolo della _probabilità condizionale di classe_:
+
+* Naive 
+* Belif Network
+
+Per la classificazione si va a vedere il valore più alto tra le varie probabilità a posteriori `P(Y|X)` e la classe con probabilità maggiore sarà la vincente.
+
+### Naive Bayesin Calssifier
+
+Il metodo Naive calcola il valore di `P(X|Y)` nel seguente modo:
+![produttoria](./imgs/produttoria.png)
+
+Va però fatta una distinzione in base ai tipi di attributo che si prendono in considerazione:
+
+* **Categorici**: si calcola il rapporto tra il numero di volte che l'attributo compare all'interno dei record che contengono la classe in questione fratto il numero di volte che compare la classe Y in questione
+
+* **Continui**: per trattare questi dati si può procedere in 2 modi diversi:
+    * **Discretizzando**: si dividono i dati in intervalli più piccoli trasformando quindi l'attributo continuo in un attributo categorico e si procede come visto sopra. Bisogna fare attenzione a come vengono scelti gli intervalli: troppo grandi sono poco precisi e troppo piccoli causano overfitting
+
+    * **Utilizzano le distrubuzioni di Probabilità**: si cerca una distribuzione di probabilità più adatta alle variabili continue e si stimano i parametri della distribuzione usando i dati di training. Generalmente la ditribuzione Gaussaina è la più utilizzate e quindi ne deriva la seguente formula: ![gauss](./imgs/gauss.png)
+ 
+Se una probabilità condizionale è `0` allora verrà azzerata tutta l'espressione. Per questo motivo sono state implementate delle variazioni che permettono di evitare il problema:
+
+![variazioni](./imgs/variazioni.png)
+
+#### In Bveve
+
+* Sono resistenti a punti di rumore isolati che vengono cancellati durante i calcoli
+* Sono resistenti ad attributi irrilevanti
+* Le performance vengono peggiorate da attributi correlati perchè non esiste più l'assunzione dell'indipendenza condizionale (per risolvere questo problema si usa il BBN spiegato dopo)
+
+### Bayesian Belife Netowrk
+
+Se sono presenti degli attributi correlati questo algoritmo offre performance migliori. Esso fornisce una rappresentazione grafica delle relazioni probabilistiche tra un insieme di variabili random tramite un DAG (Grafo Orentato Aciclico).
+A seconda del numero di nodi padri viene fatta una distinzione:
+
+* Se non ha genitroi allora contiene la probabilità a priori `P(X)`
+
+* Se ha 1 solo genitore, contiene la probabilità condizionale `P(X|Y)`
+
+* Se ha più genitori, contine la probabilità condizione `P(X|Y1, Y2, ..., Yn)`
+![dag](./imgs/dag.png)
+
+Queste probabilià vengono poi inserite in una tabala relativa ad ogni nodo. Durante la classificazione vengono presi questi valori per caloclare la classe di appartenenza.
+
+#### In Bveve
+
+* Permette la visualizzazione grafica tramite un DAG
+* La prima costruzione richiede molto tempo e risorse, ma una volta costruito è di facile gestione
+* Gestiscono facilmente i dati incompleti (attributi mancanti)
+* Resistente al Model Overfitting
