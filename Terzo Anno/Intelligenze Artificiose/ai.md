@@ -1146,7 +1146,7 @@ Questo filtraggio serve per trovare pattern e più la rete sarà profonda e più
 
 Quando si sviluppa una ANN bisogna tenere in cosiderazione questi problemi di design:
 
-* Il numero di nodi di input deve essere determinato, solitamente bisogna creare un nodo di input per ogni variabile, tuttavia, per le variabili categoriche è accettabile codificarle in una variabile k-arry avente `int_sup(log2(k)` nodi di input.
+* Il numero di nodi di input deve essere determinato, solitamente bisogna creare un nodo di input per ogni variabile, tuttavia, per le variabili categoriche è accettabile codificarle in una variabile k-arry avente `int_sup(log2(k))` nodi di input.
 
 * Il numero di nodi di output deve essere prestabilito: per un problema a 2 calssi basta un solo nodo di output, ma per un problema con k classi ne servono k
 
