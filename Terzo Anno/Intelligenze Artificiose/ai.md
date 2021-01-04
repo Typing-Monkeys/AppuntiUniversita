@@ -737,7 +737,7 @@ _Esempio di pseudocodice dell'algoritmo_
 ![alfa beta code](./imgs/alfabetacode.png)
 
 
-### Giochi con alberi molto grandi :tree_palm:
+### Giochi con alberi molto grandi :palm_tree:
 
 Per giochi con branching factor molto grande, come Go e Schacchi, il MinMax anche se potenziato con AlfaBetaPrugna e il Clever Ordering, non è in grando di trovare una soluzione in un tempo utile. Per questo sono state proposte 2 strategie teoriche:
 
@@ -753,7 +753,11 @@ Per giochi con branching factor molto grande, come Go e Schacchi, il MinMax anch
 * **Semi-supervised Learning**: vengono forniti i dati per fare il training e parte degli output
 * **Renforcement learing**: ogni sequenza di azioni corrispende una ricompensa (rewareds).
 
+**Supervised Learning**
+
 Delle applicazioni di Supervised Learning sono la funzione di regressione lineare (previsioni) e classificazione.
+
+**Unsupervised Learingn**
 
 L'utilizzo principale del Unspuervised Learning è l'individuazione di pattern nascosti nei dati di input.
 Delle applicazioni concrete possono essere:
@@ -761,6 +765,8 @@ Delle applicazioni concrete possono essere:
 * l'organizzazione di cluster di computer
 * analisi di social network
 * segmentazione del mercato
+
+**Renforcement learing**
 
 Il Reinforcemetne Learning si basa su un sistema di reworwd ritartadato con il quale viene fornita in output una policy che è una mappatura stato - azione (in un dato stato ti dice quale azione eseguire).
 Alcuni esempi possono essere:
@@ -797,7 +803,7 @@ Alcune funzioni di rappresentazini:
     * Nearest neigthbour
 * Modelli Probabilistic Gaphical
     * Naive Bayes
-    * Hidden Marov Models (HMMS)
+    * Hidden Markov Models (HMMS)
     * Probabilistic Context Free Grammars (éCFGs)
     * Markov Networks
 
@@ -815,7 +821,7 @@ Algoritmi di Ricercara/Ottimizzazinoe:
 * Evalutaionary Comutation
     * Genetic Algorhtim (GAs)
     * Genetic Progarmming (GP)
-    * Neuor evolution 
+    * Neuro evolution 
 
 Alcuni criteri di valutazione:
 
@@ -914,9 +920,9 @@ Un possibile approccio è quello greedy che guarda l'indice di purezza della div
 
 Indici per misurare l'impurità sono :
 
-* GEEEEENEEEEEE Index ![gini](./imgs/gini.png)
-* Entropy ![entropy](./imgs/entropy.png)
-* Miscalssification error ![error](./imgs/error.png)
+* GEEEEENEEEEEE Index<br> ![gini](./imgs/gini.png)
+* Entropy<br> ![entropy](./imgs/entropy.png)
+* Miscalssification error<br> ![error](./imgs/error.png)
 
 **Come scegliere lo split migliore**: 
 
