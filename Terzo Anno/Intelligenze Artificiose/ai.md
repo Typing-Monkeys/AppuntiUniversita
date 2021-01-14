@@ -932,6 +932,8 @@ Indici per misurare l'impurità sono :
 3. Scegliere l'attributo che produce il valore `Gain` maggiore: `Gain = P - M` (equivalente a scegliere l'attributo con `M` minore)
 
 
+![grafo](./imgs/grafico.png)
+
 #### Gini
 
 `p(j|t)` è la frequenza relativa della classe j al nodo t
