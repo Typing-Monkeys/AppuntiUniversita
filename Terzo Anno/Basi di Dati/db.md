@@ -83,9 +83,108 @@ In alcuni casi può essere svantaggioso utilizzare un DBMS rispetto ad una tradi
 * L'accesso ai dati deve essere estremamente veloce e non si può perdere tempo con eventuali elaborazioni da parte del DMBS
 * Non vi è accesso multiutente
 
+## Modello dei Dati
 
+Il modello dei dati è un isnieme che descrive la struttura (tipi di dato, associazioni tra i dati e i vincoli) di un DB e le operazioni per manipolare i suoi dati.<br>
+Oltre alle operazioni di base (selezione, aggiornamento e cancellazione) il modello può anche contenere concetti per la specifica dell'aspetto dinamico di un DB.
+I modelli dei dati possono essere di vari tipi:
 
+* Alto Livello: forniscono concetti compendibili dagli utenti finali
+* Basso Livello: forniscono dettagli sulla memorizzazione fisica dei dati
+* Implementabili: forniscono concetti comprensibili dagli utenti ma con dettagli aggiunti che ne permettono implementazione diretta sul calcolatore
 
+### Schema Vs Istanza
 
+In una base di dati bisogna fare una distinzione tra Schemi e Istanze:
+
+* Lo Schema (intenzione) rappresenta una descrizione del DB e viene specificato durante la fase di progettazione, può anche essere rappresentato graficamente tramite un diagramma di shcema. Serve per rappresentare i campi che ogni tabella del DB contiene. Generalmente cambia poco frequentemente. ![intenzione](./imgs/intenzione.png)
+* L'Istanza (estenzione) rappresenta il contenuto del DB in un certo istante di tempo. Varia ad ogni aggiornamento del DB.
+
+### Architettura a 3 Livelli
+
+Per una migliroe implementazione dei DBMS è stata introdotta un'architettua a 3 Livelli utile supportare l'Indipendenza dei Dati e le Viste Multiple:
+
+1. Schema Interno: serve per descrivere al memorizzazione fisica dei dati e delle strutture di accesso
+2. Schema Conettuale: serve per desrivere le strutture e i vincoli del DB
+3. Schema Esterno: descrive le varie viste dell'utente
+
+![3livelli](./imgs/3livelli.png)
+
+### Indipendena dei Dati
+
+L'indipendenza dei dati può essere:
+
+* Logica: à la capacità di effettuare cambiamenti al livello Concettuale senza alterare il livello Esterno.
+* Fisica: è la capacità di modificare il livello interno tenendo inalterato il livello Concettuale.
+
+Questo consente di dover solamente modifcare i mapping tra i veri livelli che sono cambiati.
+
+## Linguaggi
+
+Vengono definiti 2 tipi di lingauggi:
+
+* DDL (Data Definition Language):
+    * viene utilizzata dai progettisti per specificare lo schema concettuale del DB
+    * può essere suddiviso ulteriormente in SLD (Storage Definition Langue) e VDL (View Definition Language) che servono ripettivametne per definire schemi interni e schiemi esterni.
+* DML (Data Manipulation Language):
+    * Utilizzati per interrogazioni e aggiornamenti del DB
+    * I comandi dl DML possono essere integrati in linguaggi di Programmazione come C, Java, ...
+    * Possono essere di 2 tipi: Alto Livello o Basso Livello (Procedurali)
+
+Esistono varie intefaccie per un DB e le più comuni sono:
+
+* Standalone Query Inerface
+* Interfaccia per l'utilizzo di DML in linguagig di Programmazione
+* Interfraccie UserFriendly
+
+## Architettura Centralizzata
+
+Esisono 2 possibili architetture:
+
+* A 2 Livelli: il client comunica direttamente con il DBMS Server
+* A 3 Livelli: le richieste del client vengono passati ad un Application Server intermedio che le analizza e fa da tramite con il DBMS Server. Questa è più sicura perchè non c'è un'interazione diretta tra Client e Server
+
+## Classificazione DMBS
+
+Ci sono vari criteri per classificacare i DMBS:
+
+* In base al Modello dei Dati:
+    * Tradizionale: Relazionali, Gerarchici, Reticolari
+    * Emergenti: Oggetti, Relazionale da Oggetti
+* In base a come è distribuito il DB:
+    * Centralizzati
+    * Distribuiti
+* General Puroe vs Special Purpose
+
+### Tradizionali
+
+**Gerarchico**: 
+
+* i dati vengono rappresentati come una struttura gerarchica ad albero
+* Vantaggio: rispecchia la antura gerarchica di una molteplicità di domini
+* Svantaggi: 
+    * impone regole rigide
+    * poco ottimizzabile per le query automatiche
+    * i programmi dipendono dalle strutture
+    * non si presta a rappresentare relazioni N:M
+    * la definizione di relazioni genereiche richiede inserimento di duplciati
+
+**Reticolare**:
+
+* i dati vengono rappresetnati come record che sono collegati tra di loto tramite puntatori
+* Vantaggi:
+    * un record può avere più padri evitando quindi ridondanze
+    * ongi nodo può essere il punto di partenza per raggiungere un determinato campo
+    * permette di modellare relazioni N:M
+* Svantaggi:
+    * genera complesso reticolo di puntatori
+    * poca ottimizzazione per le query automatiche
+
+### Emergenti
+
+**Oggetti**:
+
+* definisce la base di dati intermini di oggetti, delle loro propiretà e delle loro operazini associate
+* icorporano parti del paradigma ad oggetti (tipi astratti, incapsulamento, ereditarietà, ...)
 
 
