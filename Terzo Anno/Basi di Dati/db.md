@@ -187,4 +187,62 @@ Ci sono vari criteri per classificacare i DMBS:
 * definisce la base di dati intermini di oggetti, delle loro propiretà e delle loro operazini associate
 * icorporano parti del paradigma ad oggetti (tipi astratti, incapsulamento, ereditarietà, ...)
 
+## Modello Relazionale
 
+Le differenze pricipali con i modelli ormai in disuso (reticolare e gerarchico) sono:
+
+* modo in cui si rappresentano le associazioni tra i record
+    * nei primi 2 si usano puntatori
+    * nel Relazinale si usano valori
+* La definizione del Modello Relazionale trae fondamento nella Teoria degli insiemi e della logica dei predicati al Primo Ordine
+
+### Definizioni
+
+![relazioni](./imgs/relazioni.png)
+
+Un attributo rappresenta un campo della tabella<br>
+Il Dominio rappresenta il tipo di elementi che saranno contenuti in un attributo.
+
+![tupla](./imgs/tupla.png)
+
+![schemarelazione](./imgs/schemarelazione.png)
+
+![istanzarelazione](./imgs/istanzarelazione.png)
+
+![basididati](./imgs/basididati.png)
+
+_Esempio di Relazione:_
+![tabellaesempio](./imgs/tabellaesempio.png)
+
+### Vincoli nei modelli Relazionali
+
+Ci sono vari tipi di vincoli nei modelli Relazionali:
+
+* Vincoli Intrinseci: sono vincoli dettati dal tipo di dati che si vanno ad utilizzare (e.g. vincolo che una relazione non può avere tuple duplicate)
+
+* Vincoli basati sullo Schema: vincoli che possono essere espressi direttamente sugli schemi del modello (tramite il DDL)
+
+* Vincoli non esprimibili sullo schema: vincoli che vengono specificati tramite programmi applicativi
+
+* Dipendenze Funzionali: usati per verificare la qualità dei DB Relazionali
+
+#### Vincoli Basati sullo Schema
+
+Questa categoria di vincoli può essere divisa in 2 sottocategorie:
+
+* Intra Relazionali: coinvolge un unico schema relazionale
+* Inter Relazionali: coinvolge più schemi relazionli
+
+**Intrarelazionali**
+
+Ci sono vari vincoli di questo tipo ma i più importanti sono:
+
+* Vincoli di Tupla: sono vincoli che conivolgono valori della stessa tupla come:
+    * Vincoli di Dominio: restrizioni sui tipi attribuibili ad un attributo
+    * Vincoli su più valori della stessa tupla
+    * Vincoli di valore non nullo
+* Vincoli di Univocità: restrizioni che vietano a 2 tuple di una stessa istanza di coincidere su valori di un dato sottoinsieme di attributi.
+
+![univocita](./imgs/univocita.png)
+
+![superchiave](./imgs/superchiave.png)
