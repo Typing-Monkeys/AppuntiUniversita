@@ -246,3 +246,97 @@ Ci sono vari vincoli di questo tipo ma i più importanti sono:
 ![univocita](./imgs/univocita.png)
 
 ![superchiave](./imgs/superchiave.png)
+
+Dato che le Chiavi Candidate possono ammettere valori nulli, è necessario scegliere una Chiave Candidata che svolga il ruolo di Chiave Primaria su cui non si ammettono valori nulli. Quest'ultima proprietà viene chiamata Vincolo di Integrità dell'entità
+
+![integrita](./imgs/integrita.png)
+
+![chiaveesterna](./imgs/chiaveesterna.png)
+
+![chiaveesternamultipla](./imgs/chiaveesternamultipla.png)
+
+![definizioneschemaistanza](./imgs/definizioneschemaistanza.png)
+
+### Operazioni nel modello Relazionale :heart:
+
+Le possibili operazioni che si possono effettuare in un DB relazionale sono:
+
+* Inserimento: l'inserimento può violare tutti i tipi di vincoli. Quindi la maggior parte dei DBMS impedisce le operazioni di inserimento che violano tali regole
+
+* Cancellazione: la cancellazione può portare alla violazione del vincolo di integrità referenziale, perciò i DBMS forniscono i seguenti approcci al problema:
+    * rifiuto della cancellazione
+    * propagazione della cancellazione: cancellare tutte le tuple che si riferiscono alla tupla che si sta eliminando
+    * modifica dei valori referenti che causano la violazione ponendoli a Null o ad un valore di Default
+* Modifica: la modifica può essere vista come un'operazioen di cancellazione e inserimento
+
+## Algebra Relazionale
+
+È un linguaggio per l'interrogazione dei DB Relazionali. Alcune carattirstiche:
+
+* È costituito da un insieme di operazioni unari e binari su istanze di relazioni: ogni operatore ha come argomemnto 1 o 2 istanze di relazione e produce come output una istanza di relazione
+
+* È un linguaggio procedurale: viene specificata la sequenza di operazioni neccessarie per ottenere il risultato atteso
+
+Ci sono 2 tipi di Operatori:
+
+* Operatori Insiemistici:
+    * Unione
+    * Intersezeione
+    * Differenza
+    * Prodotto Cartesiano
+* Operatori Propriamente Relazionali:
+    * Ridenominazione
+    * Selezione
+    * Proiezione
+    * Concatenazione
+    * Divisone
+
+### Ridenominazione
+
+![ridenominazione](./imgs/ridenominazione.png)
+
+In breve, questo operatore permette di rinominare un singolo attributo, più attributi o una relazione, lasciando inalterati i valori.
+
+Valgono le seguenti notazioni:
+
+![ridenominazionenotazioni](./imgs/ridenominazionenotazioni.png)
+
+### Unione
+
+![relazioneunione](./imgs/relazioneunione.png)
+
+![unione](./imgs/unione.png)
+
+### Intersezione
+
+![intersezione](./imgs/intersezione.png)
+
+### Differenza
+
+![differenza](./imgs/differenza.png)
+
+> JUNGLE DIFF
+
+### Prodotto Cartesiano
+
+![prodottocart](./imgs/prodottocart.png)
+
+### Selezione e Proiezione
+
+![selezione1](./imgs/selezione1.png)
+
+![selezione2](./imgs/selezione2.png)
+
+### Concatenazione (Join)
+
+![tetajoin](./imgs/tetajoin.png)
+
+Viene effettuato un prodotto cartesiano tra r e s ed effettua una selezione in base alla condizione scelta F
+
+**Equijoin**: le tuple vengono concatenate in base ad un attributo in comune e non come il teta-join che moltiplica tutto violentemente.
+
+**Natural Join**: collassa gli attributi ridondanti dell'equijoin
+
+![naturlajoin](./imgs/naturlajoin.png)
+
+![naturlajoin](./imgs/naturlajoin2.png)
