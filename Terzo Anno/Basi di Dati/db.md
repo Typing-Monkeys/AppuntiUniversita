@@ -327,6 +327,10 @@ Valgono le seguenti notazioni:
 
 ![selezione2](./imgs/selezione2.png)
 
+![selezione3](./imgs/selezione3.png)
+
+![proiezione1](./imgs/proiezione1.png)
+
 ### Concatenazione (Join)
 
 ![tetajoin](./imgs/tetajoin.png)
@@ -340,3 +344,39 @@ Viene effettuato un prodotto cartesiano tra r e s ed effettua una selezione in b
 ![naturlajoin](./imgs/naturlajoin.png)
 
 ![naturlajoin](./imgs/naturlajoin2.png)
+
+### Divisione
+
+![divisione](./imgs/divisione.png)
+
+![divisione2](./imgs/divisione2.png)
+
+La divisione si usa per problemi del tipo "Trovare gli studenti che frequentano tutti i corsi".
+
+### Raggruppamento e Funzini Aggregate
+
+![reggruppamento](./imgs/reggruppamento.png)
+
+![reggruppamento2](./imgs/reggruppamento2.png)
+
+### Join Estesi
+
+![joinsinistro](./imgs/joinsinistro.png)
+
+![joindestro](./imgs/joindestro.png)
+
+![joinfull](./imgs/joinfull.png)
+
+### Null e algebra relazionale
+
+> NULL POINTER EXCEPTION
+
+![null1](./imgs/null1.png)
+
+Le seguenti operazioni non cambiano : ![noncambia](./imgs/noncambia.png)
+
+![of](./imgs/of.png)
+
+![of2](./imgs/of2.png)
+
+![joinnull](./imgs/joinnull.png)
