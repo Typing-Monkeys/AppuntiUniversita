@@ -380,3 +380,30 @@ Le seguenti operazioni non cambiano : ![noncambia](./imgs/noncambia.png)
 ![of2](./imgs/of2.png)
 
 ![joinnull](./imgs/joinnull.png)
+
+## Calcolo Relazionale
+
+![calcolo](./imgs/calcolo.png)
+
+### Sintassi Calcolo Relazionale
+
+![calcolo2](./imgs/calcolo2.png)
+
+![atomo](./imgs/atomo.png)
+
+### Formule e Semantica
+
+![formulecalcolo1](./imgs/formulecalcolo1.png)
+
+![formulecalcolo2](./imgs/formulecalcolo2.png)
+
+### Variabili Libere o Legate
+
+![vlibere](./imgs/vlibere.png)
+
+![semantica](./imgs/semantica.png)
+
+## Diagrammi ER (medici in prima linea)
+
+![er](./imgs/er.png)
+
