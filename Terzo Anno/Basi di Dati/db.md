@@ -407,3 +407,18 @@ Le seguenti operazioni non cambiano : ![noncambia](./imgs/noncambia.png)
 
 ![er](./imgs/er.png)
 
+## Diagramma EER
+
+![eer1](./imgs/eer1.png)
+
+![eer2](./imgs/eer2.png)
+
+![eer3](./imgs/eer3.png)
+
+![eer4](./imgs/eer4.png)
+
+![eer5](./imgs/eer5.png)
+
+## Convertire ER in Schema Relazionale
+
+[LEGGIMI SE HAI VOGLIA](http://www.dmi.unipg.it/raffaella.gentilini/BDlezioneProgLogicaChap7.pdf)
