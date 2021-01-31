@@ -476,3 +476,32 @@ Per determinare F+ si usano gli Assiomi di Armstrong
 Per semplificare il calcolo di F+ si possono usare le seguenti regole derivate dagli Assimoi di Armstrong
 
 ![bello](./imgs/bello.png)
+
+### Chiusura di un Insieme di Attributi
+
+Dato un insieme di attributi a, la chiusura di a rispetto ad F (indicato con a+) è l'insieme di attributi determinati funzionalmente da a tramite le dipendenze in F.
+
+![algo2](./imgs/algo2.png)
+
+Questa operazione serve a:
+
+![chiusuraserve](./imgs/chiusuraserve.png)
+
+### Copertura Minimale
+
+![minimal](./imgs/minimal.png)
+
+Condizioni necessarie per Copertura Minimale:
+
+![condizioni](./imgs/condizioni.png)
+
+#### Come calcolare la Copertura Minimale
+
+> Prendere 200g di uova, metterle a marinare per 72 ore nella salsa di SOYA e lacrime di ZINGARA, coprirle di cacca di YACC e lasciare riposare per 100 ANI.
+
+Dato l'isnieme di dipenstze funzinoali F:
+
+* Si imposti E = F
+* Si sostituisca ogni dipendenza funzionale del tipo `X -> A1, A2, ..., An` con delle dipendenze funzionali del tipo `X -> A1, X -> A2, ..., X -> An`
+* Si eliminino gli attributi ridondnati presenti nella parte Sinistra delle dipenze funzionali. Per ogni Dipendenza funionale `X -> A` in E e per ogni attributo B in X, se, rimuovendo la suddetta DF da E per poi aggiungerla nella forma `(X\B) -> A` (senza l'attributo B), E non cambia, allora B è un attributo Ridondante e la DF `X -> A` verrà sostituita in E con `(X\B) -> A`.
+* Si eliminino le dipendenze funzionali ridonandti
