@@ -422,3 +422,57 @@ Le seguenti operazioni non cambiano : ![noncambia](./imgs/noncambia.png)
 ## Convertire ER in Schema Relazionale
 
 [LEGGIMI SE HAI VOGLIA](http://www.dmi.unipg.it/raffaella.gentilini/BDlezioneProgLogicaChap7.pdf)
+
+## Linee Guida per progettazione di DB
+
+Le misure con cui si verifica la qualità di uno schema di relazione di un DB sono 4:
+
+1. Semantica degli Attributi
+2. Riduzione del numero di valori dirdondanti
+3. Numero di valori NULLI nelle tuple
+4. Presenza di Tuple Spurie
+5. GAY
+
+Per poter generare uno schema relazionale che sia il migliore possibile bisogna avere i seguenti accorgimenti:
+
+* (**Semantica degli Attributi**) uno schema relazionale è migliore se è facile spiegare al semantica delle sue relazioni
+
+* (**Riduzione dei valori ridondanti**) vanno ridotti i valori ridondanti nelle tuple per poter evitare sperchi di spazio e il generarsi di Anomalie di Aggiornamento (inserimento, cancellazione, aggiornamento)
+
+* (**Riduzione dei valori nulli**) vanno ridotti i valori nulli all'interno delle relazioni per evitare spreco di spazio e per evitare problemi durante le operazioni di JOIN
+
+* (**Tuple Spurie**) bisogna evitare che si vengano a generare tuple spurie tramite operazioni di JOIN
+
+## Dipendenze Funzionali ANALI
+
+### Obbiettivi
+
+![dipfun1](./imgs/dipfun1.png)
+
+Le dipendenze funzionali servono per:
+
+* Determinare le chiavi candidate
+* Esprimono Vincoli sull'ammissibilità delle istanze di relazione e sulla dipendeza tra attributi
+
+![dipfun2](./imgs/dipfun2.png)
+
+### Dipendenze Funzionali e Chiavi
+
+![dipfun3](./imgs/dipfun3.png)
+
+### Chiusura Indipendenze
+
+Dato un insieme F di dipendenze funzionali, l'insieme delle dipendenze funzionali logicamente implicato da F è detto Chiusra di F e si indica con F+.<br>
+Per determinare F+ si usano gli Assiomi di Armstrong
+
+![armstrong](./imgs/armstrong.png)
+
+#### Algoritmo per determinare F+
+
+![algoarm](./imgs/algoarm.png)
+
+#### Regole derivate
+
+Per semplificare il calcolo di F+ si possono usare le seguenti regole derivate dagli Assimoi di Armstrong
+
+![bello](./imgs/bello.png)
