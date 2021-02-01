@@ -505,3 +505,64 @@ Dato l'isnieme di dipenstze funzinoali F:
 * Si sostituisca ogni dipendenza funzionale del tipo `X -> A1, A2, ..., An` con delle dipendenze funzionali del tipo `X -> A1, X -> A2, ..., X -> An`
 * Si eliminino gli attributi ridondnati presenti nella parte Sinistra delle dipenze funzionali. Per ogni Dipendenza funionale `X -> A` in E e per ogni attributo B in X, se, rimuovendo la suddetta DF da E per poi aggiungerla nella forma `(X\B) -> A` (senza l'attributo B), E non cambia, allora B è un attributo Ridondante e la DF `X -> A` verrà sostituita in E con `(X\B) -> A`.
 * Si eliminino le dipendenze funzionali ridonandti
+
+<!-- LE TRASFORMAZIONI NON VANNO VIA -->
+
+## Forme Normali
+
+Esistono le seguenti forme normali che servono per Normalizzare uno schema Relazionale R:
+
+* 1 NF
+* 2 NF
+* 3 NF
+* BCNF
+
+![chomksy](./imgs/chomksy.png)
+
+Normalizzare vuol dire:
+
+* Minimizzare la Ridondanza
+* Avere una decomposizione Losslessssss-Join
+* Conservare le dipendenze, ossia `(F1 U F2 U ... Fn)+ = F+`
+    * violando la conservazione delle dipendenze è obbligatorio effettuare operazinoi di Join esplicite
+
+### Verificare la Cosnervazione delle DF
+
+Per verificare la se le dipendenze sono preservate bisogna controllare se tutte le dipendenze di partenza sono preservate in almeno una delle Ri generate dalla decomposizione
+
+È un algoritmo dal costo polinomiale a differenza della Computazone di F+ richiede tempo esponenziale (Pinotti Infelice)
+
+### BCNF
+
+#### Definizione
+
+Uno schema di Rleazione `R(x)` è in BCNF rispetto ad un insieme F di DF, se per ogni DF di F+, nella forma `a -> b`, `a` è una superchiave
+
+#### Algoritmo per decomposizione BCNF
+
+Data uno schema R(x), per ogni DF nella forma `a -> b` bisogna controllare se il termine a Sinistra è una superchiave (se viola la BCNF) e se non lo è, bisogna decomporre R in `R1 = (R\b)` e `R2 = (a, b)`.
+
+Con la BCNF non è sempre possibile mantenere la Conservazione delle Dipendenze come in questo esempio:
+
+`R(J, K, L), F={JK -> L, L -> K}`
+
+### 3NF
+
+Per ovviare al fatto che non sempre si possono conservare le dipendenze si introduce la 3NF, la quale è una forma più debolede della BCNF (perchè ammette ridondanze) che permette di mantenere le DF.
+Esiste sempre una decomposizione in 3NF che mantiene le dipendenze ed è senza perdite.
+
+#### Definizione
+
+Uno schema di Rleazione `R(x)` è in 3NF rispetto ad un insieme F di DF, se per ogni DF di F+, nella forma `a -> b`, sono rispettate almeno una di queste regole:
+
+* `a -> b` è banale
+* a è una Superchiave
+* ogni attributo A di `b\a` appertiene ad una chiave andidata
+
+
+#### Algoritmo di Decomposizione
+
+Sia G una copertura canonica in F.<br>
+Per ogni parte sinistra X di una DF (`X -> A`) in G si crei un nuovo Schema `D(X, A1, A2, ..., An` dove `X -> A1, X -> A2, ..., X - > An`. X sarà la chiave dello schema.<br>
+Se nessuno degli schemi D contiene una chiave di R, si crei uno nuovo schema D contenente attributi che formano una chiave di R.<br>
+Si eliminino le relazioni ridondanti.
