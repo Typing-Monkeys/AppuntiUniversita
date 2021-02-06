@@ -6,9 +6,12 @@
    * [DB](#db)
    * [DBMS](#dbms)
 * [Modello dei Dati](#modello-dei-dati)
-* [Classificazione DBMS](#classificazione-dbms)
 * [Modello Relazionale](#modello-relazionale)
-
+    * [Definizioni](#definizioni)
+* [Algebra Relazionale](#algebra-relazionale)
+* [Calcolo Relazionale](#calcolo-relazionale)
+* [Dipendenze Funzionali ANALI](#dipendenze-funzionali-anali)
+* [Forme Normali](#forme-normali)
 
 ## Introduzione
 
