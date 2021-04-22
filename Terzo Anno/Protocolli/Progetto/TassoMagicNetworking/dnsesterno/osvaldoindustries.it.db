@@ -1,0 +1,26 @@
+$TTL 86400
+$ORIGIN osvaldoindustries.it.
+@ IN SOA dns.osvaldoindustries.it. root.osvaldoindustries.it. (
+	2018112902 ; serial
+	43200 ; refresh
+	3600 ; retry after 1 hour
+	3600000 ; expire after 1000 hours
+	2592000 ; default ttl
+)
+
+; Definizione dei nameserver e dei server mail
+IN NS dns.osvaldoindustries.it.
+IN NS dns.cloudflare.com.
+IN MX 10 mail.osvaldoindustries.it.
+ 
+; Sottodomini
+;dmz IN A 198.168.35.0
+;reteA IN A 198.168.1.0
+
+; Host 
+mail IN A 198.168.35.11
+dns IN A 198.168.35.10
+@ IN A 192.168.35.12
+www IN CNAME @
+proxy IN A 198.168.35.14
+backup IN A 198.168.35.13

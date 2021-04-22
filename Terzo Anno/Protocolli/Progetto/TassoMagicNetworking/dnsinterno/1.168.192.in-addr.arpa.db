@@ -1,0 +1,20 @@
+$TTL 86400
+$ORIGIN 1.168.192.in-addr.arpa.
+@ IN SOA dns.reteA.osvaldoindustries.it. root.reteA.osvaldoindustries.it. (
+	2018112701 ; serial
+	43200 ; refresh
+	3600 ; retry after 1 hour
+	3600000 ; expire after 1000 hours
+	2592000 ; default ttl
+)
+
+; Definizione dei nameserver e dei server mail
+IN NS dns.dmz.osvaldoindustries.it.
+IN NS dns.reteA.osvaldoindustries.it.
+IN NS dns.cloudflare.com.
+IN MX 10 mail.osvaldoindustries.it.
+
+; Host in rete2.easysell.it
+1 IN PTR ra.reteA.osvaldoindustries.it.
+200 IN PTR dns.reteA.osvaldoindustries.it.
+201 IN PTR appazz.reteA.osvaldoindustries.it.

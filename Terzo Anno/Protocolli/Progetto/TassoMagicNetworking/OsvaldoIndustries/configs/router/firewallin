@@ -1,0 +1,14 @@
+interface FastEthernet0/0
+ ip address 192.168.69.129 255.255.255.252
+
+interface FastEthernet0/1
+ ip address 192.168.69.65 255.255.255.252
+
+router rip
+ version 2
+ network 192.168.69.128
+ network 192.168.69.64
+end
+
+ip domain-lookup
+ip name-server 192.168.35.10

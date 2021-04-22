@@ -1,0 +1,11 @@
+# This the configuration for APPAZZ
+#
+# Uncomment the following line to enable DHCP
+# dhcp
+# or the line below to manually setup an IP address and subnet mask
+# ip 192.168.1.1 255.0.0.0
+#
+
+set pcname APPAZZ
+ip 192.168.1.201/24 192.168.1.1
+ip dns 192.168.1.200

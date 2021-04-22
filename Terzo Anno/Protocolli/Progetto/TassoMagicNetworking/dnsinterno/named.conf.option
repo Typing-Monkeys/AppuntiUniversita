@@ -1,0 +1,27 @@
+acl "trusted-nameservers" {
+	localhost;
+	192.168.1.200;
+	192.168.35.10;
+};
+
+acl "trusted-networks" {
+	localhost;
+	192.168.1.0/24;
+	192.168.2.0/24;
+	192.166.3.0/24;
+	192.168.4.0/24;
+	192.168.5.0/24;
+	192.168.35.0/24;
+};
+
+options {
+	directory "/var/cache/bind";
+	dnssec-validation auto;
+	auth-nxdomain no;
+	version "Not disclosed";
+	notify yes;
+	allow-transfer { trusted-nameservers; };
+	allow-query { trusted-networks; };
+	forwarders { 1.1.1.1; };
+	recursion yes;
+};

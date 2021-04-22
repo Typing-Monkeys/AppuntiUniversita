@@ -1,0 +1,23 @@
+$TTL 86400
+$ORIGIN 35.168.192.in-addr.arpa.
+@ IN SOA dns.dmz.osvaldoindustries.it. root.dmz.osvaldoindustries.it. (
+	2018112903 ; serial
+	43200 ; refresh
+	3600 ; retry after 1 hour
+	3600000 ; expire after 1000 hours
+	2592000 ; default ttl
+)
+
+; Definizione dei nameserver e dei server mail
+IN NS dns.dmz.osvaldoindustries.it.
+IN NS dns.reteA.osvaldoindustries.it.
+IN NS dns.cloudflare.com.
+IN MX 10 mail.dmz.osvaldoindustries.it.
+
+; Host
+1 IN PTR rdmz.dmz.osvaldoindustries.it.
+11 IN PTR mail.dmz.osvaldoindustries.it.
+10 IN PTR dns.dmz.osvaldoindustries.it.
+12 IN PTR www.dmz.osvaldoindustries.it.
+14 IN PTR proxy.dmz.osvaldoindustries.it.
+13 IN PTR backup.dmz.osvaldoindustries.it

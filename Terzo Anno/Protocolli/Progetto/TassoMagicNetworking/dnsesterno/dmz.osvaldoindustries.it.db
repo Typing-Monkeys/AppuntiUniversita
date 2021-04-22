@@ -1,0 +1,23 @@
+$TTL 86400
+$ORIGIN dmz.osvaldoindustries.it.
+@ IN SOA dns.dmz.osvaldoindustries.it.root.dmz.osvaldoindustries.it. (
+	2018112903 ; serial
+	43200 ; refresh
+	3600 ; retry after 1 hour
+	3600000 ; expire after 1000 hours
+	2592000 ; default ttl
+)
+
+; Definizione dei nameserver e dei server mail
+IN NS dns.dmz.osvaldoindustries.it.
+IN NS dns.reteA.osvaldoindustries.it.
+IN NS dns.cloudflare.com.
+IN MX 10 mail.dmz.osvaldoindustries.it.
+
+; Host della DMZ
+rdmz IN A 192.168.35.1
+dns IN A 192.168.35.10
+www IN A 192.168.35.12
+mail IN A 192.168.35.11
+proxy IN A 192.168.35.14
+backup IN A 192.168.35.13
