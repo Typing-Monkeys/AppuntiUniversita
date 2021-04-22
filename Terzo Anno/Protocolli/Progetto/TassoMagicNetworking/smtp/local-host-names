@@ -1,0 +1,8 @@
+# /etc/mail/local-host-names 
+# serve per indicare a sendmail da quali domini deve ricevere la posta
+
+localhost
+mail.osvaldoindustries.it
+osvaldoindustries.it
+dmz.osvaldoinudstries.it
+reteA.osvaldoindustries.it

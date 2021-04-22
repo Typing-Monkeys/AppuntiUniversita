@@ -1,0 +1,21 @@
+# /etc/mail/access
+
+Connect:192.168
+GreetPause:192.168
+ClientRate:192.168
+ClientConn:192.168
+
+REE.STEALTH.MAILER@ REJECT
+VIRUS.BANK.MAILER@ REJECT
+bounce-special_offer-754905@active.lyris.net REJECT
+bounce-special-offer-754905@active.lyris.net REJECT
+britneyspearsnude23232@yahoo.com REJECT
+bungee369@pacbell.net REJECT
+CamCinema@aol.com REJECT
+capnet002@excite.com REJECT
+casinofdaf6@hotmail.com REJECT
+cherryzh@china.com REJECT
+con240@pchome.com.tw REJECT
+corn441962@catchaplane.net REJECT
+osvaldoindustries.it RELAY
+192.168 RELAY

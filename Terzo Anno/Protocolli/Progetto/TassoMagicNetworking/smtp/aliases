@@ -1,0 +1,7 @@
+# /etc/mail/aliases
+
+postmaster: sergio
+admin: sergio, osvaldo
+dmz: dmzgod
+reteA: osvaldo
+dmzgod: damiano, valentina 

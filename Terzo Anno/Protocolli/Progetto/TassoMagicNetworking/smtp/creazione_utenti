@@ -1,0 +1,4 @@
+useradd --create-home -s /sbin/nologin sergio; passwd sergio
+useradd --create-home -s /sbin/nologin osvaldo; passwd osvaldo
+useradd --create-home -s /sbin/nologin damiano; passwd damiano
+useradd --create-home -s /sbin/nologin valentina; passwd valentina
