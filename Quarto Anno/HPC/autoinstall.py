@@ -88,7 +88,7 @@ def macchina_nat():
     )
 
     # decommento riga per ip forwarding
-    uncomment_lines("/etc/sysctl.conf", "net.ipv4.ip_forward = 1")
+    uncomment_lines("/etc/sysctl.conf", "net.ipv4.ip_forward=1")
 
     # ip forwarding
     system("iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE")
