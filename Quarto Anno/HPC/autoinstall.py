@@ -45,7 +45,7 @@ def write_config(file: str, config: str):
 
     with open(file, "w") as f:
         try:
-            f.write(file_nat_netconf)
+            f.write(config)
 
         except:
             print("Hai eseguito il comando con permessi di amministratore (root) ??")
