@@ -2,6 +2,25 @@
 
 Guida pratica e funzionale per la configurazione delle macchine virtuali dell'esercitazione 1 Intermediarii
 
+E' presente anche uno script per configurare le macchine in modo automatico. Per scaricarlo utilizzare uno dei seguneti comandi:
+
+```bash
+wget https://raw.githubusercontent.com/ncvescera/AppuntiUniversita/master/Quarto%20Anno/HPC/1_intermediarii/autoinstall.py
+```
+
+```bash
+git clone https://github.com/ncvescera/AppuntiUniversita.git
+```
+
+Per farlo partire utilizzare il segunete comando e seguire le istruzioni stampate a video dallo script:
+
+```bash
+sudo python autoinstall.py
+
+# oppure se hai qualche casino strano con le versioni di python
+sudo python3 autoinstall.py
+```
+
 ## Osvaldo 1
 user: osvaldo
 pass: 1234patata
