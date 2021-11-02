@@ -1,4 +1,6 @@
-# OSVALD VMs DATA
+# OSVALD VMs - Intermediarii
+
+Guida pratica e funzionale per la configurazione delle macchine virtuali dell'esercitazione 1 Intermediarii
 
 ## Osvaldo 1
 user: osvaldo
