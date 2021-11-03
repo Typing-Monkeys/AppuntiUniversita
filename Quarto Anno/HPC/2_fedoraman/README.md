@@ -50,12 +50,10 @@ Conviene connettersi in SSH perche' la macchina virtuale fa schifo usata da VB
 DISABILITARE FIREWALL
 
 ## corosinc
-in /etc/corosync rinominare il file corosync.con.example in corosync.con
-eseguire il comando sudo corosync-keygen
+
 
 modificare file hosts aggiungendo i due nodi
-modificare il file /etc/corosync/corosync.conf decommentando rig0_add su tutti e due i nodi e mettendoci il nome assegnato prima in hosts. Il nodo uno e' la macchina corrente, l'altro l'altra.
-Fare un reboot
+
 
 eseguire systemctl start pacemaker. Dovrebbe funzionare tutto.
 

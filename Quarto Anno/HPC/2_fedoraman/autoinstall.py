@@ -28,7 +28,7 @@ def main():
     
     # modifica di hosts
     macchina_principale = input("Sei nella macchina principale ? [s/n]: ")
-    ip2 = input("Inserisci ip della macchina 2: ")
+    ip2 = input("Inserisci ip dell altra macchina: ")
 
     if macchina_principale == "s":
         system(f"echo \"{ip}\tFedoraman\" >> /etc/hosts")
@@ -43,15 +43,20 @@ def main():
     # pcsd config
     system('passwd hacluster')
     system('systemctl enable pcsd')
-    system('pcs client local-auth')
-    system('pcs cluster auth')
+
+    # rinominare e configurare corosync.con
+    system('touch /etc/corosync/corosync.conf')
+
+    system('pcs client local-auth -u hacluster')
+    system('pcs cluster auth -u hacluster')
 
     input("Continuare quando sei arrivato a questo punto anche sulla seconda macchina")
 
-    system('pcs cluster setup ExampleCluster node1 node2')
+    # scrivere --force alla fine
+    system('pcs cluster setup ExampleCluster node1 node2 --force')
     
     if macchina_principale == "s":
-        system('pcs start --all')
+        system('pcs cluster start --all')
         system('pcs cluster enable --all')
     
 if __name__ == "__main__":
