@@ -1,5 +1,41 @@
 from os import system
 
+corosync_conf = """
+totem {
+    version: 2
+    cluster_name: ExampleCluster
+    transport: knet
+    crypto_cipher: aes256
+    crypto_hash: sha256
+}
+
+nodelist {
+    node {
+        ring0_addr: Fedoraman
+        name: node1
+        nodeid: 1
+    }
+
+    node {
+        ring0_addr: Fedoragirl
+        name: node2
+        nodeid: 2
+    }
+}
+
+quorum {
+    provider: corosync_votequorum
+    two_node: 1
+}
+
+logging {
+    to_logfile: yes
+    logfile: /var/log/cluster/corosync.log
+    to_syslog: yes
+    timestamp: on
+}
+"""
+
 def main():
     # creazione nuovo utente
     system('useradd osvaldo')
@@ -39,13 +75,15 @@ def main():
 
     # disabilitare firewall
     system('systemctl disable firewalld')
+    system('systemctl stop firewalld')
 
     # pcsd config
     system('passwd hacluster')
     system('systemctl enable pcsd')
+    system('systemctl start pcsd')
 
     # rinominare e configurare corosync.con
-    system('touch /etc/corosync/corosync.conf')
+    system(f"echo \"{corosync_conf}\" > /etc/corosync/corosync.conf")
 
     system('pcs client local-auth -u hacluster')
     system('pcs cluster auth -u hacluster')
@@ -53,9 +91,8 @@ def main():
     input("Continuare quando sei arrivato a questo punto anche sulla seconda macchina")
 
     # scrivere --force alla fine
-    system('pcs cluster setup ExampleCluster node1 node2 --force')
-    
     if macchina_principale == "s":
+        system('pcs cluster setup ExampleCluster node1 node2 --force')
         system('pcs cluster start --all')
         system('pcs cluster enable --all')
     
