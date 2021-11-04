@@ -2,7 +2,39 @@
 
 Per questo esercizio useremo Fedora che puoi scaricare da qui: [Feodraman is single and ready to mingle](https://torrent.fedoraproject.org/torrents/Fedora-Server-dvd-x86_64-34.torrent)
 
-## Configurazione Cluster
+## Script Automatico
+
+E' presente uno script python che in automatico eseguira' l'installazione e la configurazione dell'intero esercizio. E' importante che lo script sia eseguito contemporaneamente nelle due macchine dato che sara' necessario sapere gli IP di tutte e due e dovranno essere attive per poter eseguire gli utilimi comandi. Fai anche attenzione a digitare gli input correttamente dato che non si puo' annullare e una volta avviato arriva fino alla fine 🐵.
+
+Se usi Fedora (come suggerito all'inizio) ti conviene non creare alcun utente e settare solo la password di root dato che lo script creera' in automatico un utente: `osvaldo`
+
+### Download
+
+Per ottenere lo script puoi eseguire uno dei seguenti comandi:
+
+```bash
+# cloni l'intera repo e poi dovrai spostarti all'interno della cartella dell'esercitazione
+git clone https://github.com/ncvescera/AppuntiUniversita.git
+cd "AppuntiUniversita/Quarto Anno/HPC/2_fedoraman"
+```
+
+Oppure
+
+```bash
+# scarichi solo lo script
+wget https://raw.githubusercontent.com/ncvescera/AppuntiUniversita/master/Quarto%20Anno/HPC/2_fedoraman/autoinstall.py
+```
+### Esecuzione
+
+Esegui lo script con il seguente comando:
+
+```bash
+sudo python3 autoinstall.py
+```
+
+## Configurazione Manuale
+
+### Configurazione Cluster
 
 Utilizzare come scheda di rete per le macchine virtuali `Scheda di rete con Bridge`. E' anche consigliato di connettersi in SSH alla macchina dato che la virtualizzazione di Fedora sembra faccia abbastanza schifo. sshd e' abilitato di default.
 
