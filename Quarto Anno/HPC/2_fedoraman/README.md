@@ -190,3 +190,49 @@ Daemon Status:
   pacemaker: active/enabled
   pcsd: active/enabled
 ```
+
+
+## appunti
+
+sudo pcs property set stonith-enabled=false
+sudo pcs property set no-quorum-policy=ignore
+sudo pcs resource create floating_ip ocf:heartbeat:IPaddr2 ip=192.168.178.55 cidr_netmask=24 op monitor interval=60s --group Fedora_group
+sudo pcs resource create http_server ocf:heartbeat:apache configfile="/etc/httpd/conf/httpd.conf" op monitor timeout="20s" interval="60s" --group Fedora_group
+
+aggiungere un nuovo hd alle macchine da 1 GB
+
+poi con fdisk formattarlo -> sudo fdisk /dev/sdb (dovrebbe chiamarsi sempre cosi)
+                             n, p, 1, enter, enter, w. 
+                             Alla fine rifacendo fdisk -l si dovrebbe vedere /dev/sdb1
+                             
+
+creare il file wwwdata.res in /etc/dbrb.d/ e scriverci la seguente configurazione:
+
+```
+resource wwwdata {
+        protocol C;
+        device /dev/drbd0;
+
+        syncer{
+                verify-alg sha1;
+        }
+
+        net {
+                cram-hmac-alg sha1;
+                shared-secret "barisoni";
+        }
+
+
+        on node1 {
+                disk /dev/sdb1;
+                address 192.168.178.52:7788;
+                meta-disk internal;
+        }
+        on node2 {
+                disk /dev/sdb1;
+                address 192.168.178.53:7788;
+                meta-disk internal;
+        }
+}
+
+```
