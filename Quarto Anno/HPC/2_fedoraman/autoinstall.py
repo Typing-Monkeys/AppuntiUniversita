@@ -36,6 +36,37 @@ logging {
 }
 """
 
+drbd_config = """
+resource wwwdata {{
+  protocol C;
+  device /dev/drbd0;
+
+  syncer {{
+    verify-alg sha1;
+  }}
+
+  net {{
+    cram-hmac-alg sha1;
+    shared-secret "barisoni";
+  }}
+
+
+  on fedoraman {{
+    disk /dev/sdb1;
+    address {}:7788;
+    meta-disk internal;
+  }}
+  on fedoragirl {{
+    disk /dev/sdb1;
+    address {}:7788;
+    meta-disk internal;
+  }}
+}}
+"""
+
+group_name = "Fedora_group"
+
+
 def main():
     # creazione nuovo utente
     system('useradd osvaldo')
@@ -69,9 +100,11 @@ def main():
     if macchina_principale == "s":
         system(f"echo \"{ip}\tFedoraman\" >> /etc/hosts")
         system(f"echo \"{ip2}\tFedoragirl\" >> /etc/hosts")
+        system("echo \"fedoraman\" > /etc/hostname")
     else:
         system(f"echo \"{ip}\tFedoragirl\" >> /etc/hosts")
         system(f"echo \"{ip2}\tFedoraman\" >> /etc/hosts")
+        system("echo \"fedoragirl\" > /etc/hostname")
 
     # disabilitare firewall
     system('systemctl disable firewalld')
@@ -89,12 +122,63 @@ def main():
     system('pcs cluster auth -u hacluster')
 
     input("Continuare quando sei arrivato a questo punto anche sulla seconda macchina")
+    
+    # abilito drbd per fedora
+    system('semanage permissive -a drbd_t')
+
+    # formatto il disco secondario
+    # TODO
+
+    # abilito modulo kernel drbd
+    system("modprobe drbd")
+    system("echo \"drbd\" >> /etc/modules-load.d/drbd.conf")
 
     # scrivere --force alla fine
     if macchina_principale == "s":
         system('pcs cluster setup ExampleCluster node1 node2 --force')
         system('pcs cluster start --all')
         system('pcs cluster enable --all')
-    
+
+        # disabilito stonith e quorum
+        system('pcs property set stonith-enabled=false')
+        system('pcs property set no-quorum-policy=ignore')
+
+        # risorsa ip statico cluster
+        ip_cluster = input("Inserisci un IP da assegnare al cluster: ")
+        system(f"pcs resource create floating_ip ocf:heartbeat:IPaddr2 ip={ip_cluster} cidr_netmask=24 op monitor interval=60s --group {group_name}")
+
+        # risorsa httpd
+        system(f"pcs resource create http_server ocf:heartbeat:apache configfile=\"/etc/httpd/conf/httpd.conf\" op monitor timeout=\"20s\" interval=\"60s\" --group {group_name}")
+
+    # scrivo configurazione drbd
+    if macchina_principale == "s":
+        system(f"echo \"{drbd_config.format(ip, ip2)}\" > /etc/drbd.d/wwwdata.res")
+    else:
+        system(f"echo \"{drbd_config.format(i2, ip)}\" > /etc/drbd.d/wwwdata.res")
+
+    # configuro drbd e abilito
+    system('drbdadm create-md wwwdata')
+    system('drbdadm up wwwdata')
+
+    if macchina_principale == "s":
+        system('drbdadm -- --overwrite-data-of-peer primary all')
+        system('drbdadm primary --force wwwdata')
+
+    system('systemctl start drbd')
+    system('systemctl enable drbd')
+
+    # popolo risorsa drbd
+    system('mkfs.xfs /dev/drbd0')
+    system('mount /dev/drbd0 /mnt')
+    system('echo "contenuto" >> /mnt/index.html')
+    system('umount /dev/drbd0')
+
+    # abilito drbd nel cluster
+    if macchina_principale == "s":
+        system('pcs cluster cib drbd_cfg')
+        system('pcs -f drbd_cfg resource create WebData ocf:linbit:drbd drbd_resource=wwwdata op monitor interval=60s')
+        system('pcs -f drbd_cfg resource promotable WebData promoted-max=1 promoted-node-max=1 clone-max=2 clone-node-max=1 notify=true')
+        system('pcs cluster cib-push drbd_cfg --config')
+
 if __name__ == "__main__":
     main()

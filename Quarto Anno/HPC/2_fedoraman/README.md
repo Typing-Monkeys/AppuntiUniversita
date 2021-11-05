@@ -282,7 +282,7 @@ sudo drbdadm up wwwdata
 sudo drbdadm -- --overwrite-data-of-peer primary all
 
 # adesso potrebbe tornare utile controllare l'avanzamento del processo tramite watch cat /proc/drbd
-sudo drbdadm primary --force wwwdata solo sulla prima non si sa mai
+sudo drbdadm primary --force wwwdata # solo sulla prima non si sa mai
 
 # abilitiamo il demone drbd
 sudo systemctl start drbd
