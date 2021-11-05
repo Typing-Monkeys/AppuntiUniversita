@@ -191,6 +191,68 @@ Daemon Status:
   pcsd: active/enabled
 ```
 
+11. Sistemare le property del Cluster:
+
+```bash
+sudo pcs property set stonith-enabled=false   # disabilita stonith
+sudo pcs property set no-quorum-policy=ignore # ignora la proprieta' quorum
+```
+
+12. Assegnamo un IP virtuale al clustere in modo tale da poter raggiungere il server web in futuro (l'ip deve appartenere alla stessa rete delle macchine !!):
+
+```bash
+sudo pcs resource create floating_ip ocf:heartbeat:IPaddr2 ip=<nuovo ip cluster> cidr_netmask=24 op monitor interval=60s --group <nome nuovo gruppo>
+```
+
+13. Aggiungiamo la risorsa HTTPD in modo tale da avere un server web che sia sempre attivo anche se il nodo principale cade:
+
+```bash
+sudo pcs resource create http_server ocf:heartbeat:apache configfile="/etc/httpd/conf/httpd.conf" op monitor timeout="20s" interval="60s" --group <nome_gruppo_creato_in_precedenza>
+```
+
+14. Spegnamo le macchine ed aggiungiamo a tutte e due un nuovo disco da minimo 1GB.
+
+15. Avviamo le macchine e procediamo alla formattazione del nuovo disco:
+
+```bash
+sudo fdisk -l         # serve per vedere i dischi collegati, generalmente il nuovo disco sara' /dev/sdb
+sudo fdisk /dev/sdb   # formattiamo il disco: n, p, 1, enter, enter, w
+sudo fdisk -l         # controlliamo la presenza della nuova partizione /dev/sdb1
+```
+
+16. Configuriamo DBRB creando il file `wwwdata.res` ed inserendo la seguente configurazione:
+
+```bash
+sudo nano /etc/drbd.d/wwwdata.res
+
+# inserirci il seguente contenuto
+# purtroppo sembra che non si possano usare gli alias creati in /etc/hosts quindi gli ip vanno scritti per intero
+resource wwwdata {
+  protocol C;
+  device /dev/drbd0;
+
+  syncer {
+    verify-alg sha1;
+  }
+
+  net {
+    cram-hmac-alg sha1;
+    shared-secret "barisoni";
+  }
+
+
+  on node1 {
+    disk /dev/sdb1;
+    address <ip_macchina_1>:7788;
+    meta-disk internal;
+  }
+  on node2 {
+    disk /dev/sdb1;
+    address <ip_macchina_2>:7788;
+    meta-disk internal;
+  }
+}
+```
 
 ## appunti
 
@@ -204,7 +266,7 @@ aggiungere un nuovo hd alle macchine da 1 GB
 poi con fdisk formattarlo -> sudo fdisk /dev/sdb (dovrebbe chiamarsi sempre cosi)
                              n, p, 1, enter, enter, w. 
                              Alla fine rifacendo fdisk -l si dovrebbe vedere /dev/sdb1
-                             
+                             `sudo parted -s /dev/sdX mkpart primary 0% 100%` potrebbe essere utile per lo script !!!
 
 creare il file wwwdata.res in /etc/dbrb.d/ e scriverci la seguente configurazione:
 
@@ -223,12 +285,12 @@ resource wwwdata {
         }
 
 
-        on node1 {
+        on fedoraman {
                 disk /dev/sdb1;
                 address 192.168.178.52:7788;
                 meta-disk internal;
         }
-        on node2 {
+        on fedoragirl {
                 disk /dev/sdb1;
                 address 192.168.178.53:7788;
                 meta-disk internal;
@@ -236,3 +298,32 @@ resource wwwdata {
 }
 
 ```
+
+dopo on ci va il nome assegnato alla macchina, si trova in /etc/hostname
+
+sudo semanage permissive -a drbd_t USARE QUESTO PER FAR PARTIRE IL DEMONE DI DRBD PRIMA DI TUTTO
+
+sudo drbdadm create-md wwwdata
+sudo echo "drbd" >> /etc/modules-load.d/drbd.conf
+sudo modprobe drbd
+sudo drbdadm up wwwdata
+sudo drbdadm -- --overwrite-data-of-peer primary all
+
+controllare l'avanzamento con watch cat /proc/drbd
+sudo drbdadm primary --force wwwdata solo sulla prima non si sa mai
+sudo systemctl start drbd
+sudo systemctl enable drbd
+
+
+popolare il disco e formattarlo
+mkfs.xfs /dev/drbd0
+sudo mount /dev/drbd0 /mnt
+sudo echo "cacca" >> /mnt/index.html
+sudo umount /dev/drbd0
+
+
+sudo pcs cluster cib drbd_cfg
+sudo pcs -f drbd_cfg resource create WebData ocf:linbit:drbd drbd_resource=wwwdata op monitor interval=60s
+sudo pcs -f drbd_cfg resource promotable WebData promoted-max=1 promoted-node-max=1 clone-max=2 clone-node-max=1 notify=true
+sudo pcs cluster cib-push drbd_cfg --config
+sudo pcs status
