@@ -241,17 +241,76 @@ resource wwwdata {
   }
 
 
-  on node1 {
+  on <nome macchina 1> {
     disk /dev/sdb1;
     address <ip_macchina_1>:7788;
     meta-disk internal;
   }
-  on node2 {
+  on <nome macchina 2> {
     disk /dev/sdb1;
     address <ip_macchina_2>:7788;
     meta-disk internal;
   }
 }
+```
+
+17. drbd non funziona su vedora senza questo comando, quindi facciamo:
+
+```bash
+sudo semanage permissive -a drbd_t
+```
+
+18. Creiamo la nuova risorsa drbd:
+
+```bash
+sudo drbdadm create-md wwwdata
+```
+
+19. Abilitiamo il relativo modulo del kernel: 
+
+```bash
+sudo modprobe drbd
+
+# facciamo in modo che ad ogni riavvio il modulo venga caricato in automatico
+sudo echo "drbd" >> /etc/modules-load.d/drbd.conf
+```
+
+20. Abilitiamo la risorsa e configuriamo mastere e slave:
+
+```bash
+sudo drbdadm up wwwdata
+sudo drbdadm -- --overwrite-data-of-peer primary all
+
+# adesso potrebbe tornare utile controllare l'avanzamento del processo tramite watch cat /proc/drbd
+sudo drbdadm primary --force wwwdata solo sulla prima non si sa mai
+
+# abilitiamo il demone drbd
+sudo systemctl start drbd
+sudo systemctl enable drbd
+```
+
+21. Formattiamo e popoliamo il disco della risorsa appena creata:
+
+```bash
+mkfs.xfs /dev/drbd0
+sudo mount /dev/drbd0 /mnt
+sudo echo "contenuto" >> /mnt/index.html
+sudo umount /dev/drbd0
+```
+
+22. Andiamo a configurare il cluster con la nuova risorsa drbd:
+
+```bash
+sudo pcs cluster cib drbd_cfg
+sudo pcs -f drbd_cfg resource create WebData ocf:linbit:drbd drbd_resource=wwwdata op monitor interval=60s
+sudo pcs -f drbd_cfg resource promotable WebData promoted-max=1 promoted-node-max=1 clone-max=2 clone-node-max=1 notify=true
+sudo pcs cluster cib-push drbd_cfg --config
+```
+
+Controlliamo il risultato con il comando: 
+
+```bash
+sudo pcs status
 ```
 
 ## appunti
