@@ -2,11 +2,24 @@
 
 Per questo esercizio useremo Fedora che puoi scaricare da qui: [Feodraman is single and ready to mingle](https://torrent.fedoraproject.org/torrents/Fedora-Server-dvd-x86_64-34.torrent)
 
+**Tabella riassuntiva:**
+
+| Macchina 1 | Macchina 2 |
+| ---------- | ---------- |
+| Nome: Fedoraman | Nome: Fedoragirl |
+| Scheda di rete con Bridge | Scheda di rete con Bridge |
+| Disco 1 da minimo 20 GB (non si sa mai) | Disco 1 da minimo 20 GB (non si sa mai)
+| Disco 2 da minimo 1 GB | Disco 2 da minimo 1 GB |
+
+Sia per l'utilizzo dello script che per l'installazione manuale è consigliato installare subito i dischi aggiuntivi alle macchine !
+
 ## Script Automatico
 
 E' presente uno script python che in automatico eseguira' l'installazione e la configurazione dell'intero esercizio. E' importante che lo script sia eseguito contemporaneamente nelle due macchine dato che sara' necessario sapere gli IP di tutte e due e dovranno essere attive per poter eseguire gli utilimi comandi. Fai anche attenzione a digitare gli input correttamente dato che non si puo' annullare e una volta avviato arriva fino alla fine 🐵.
 
 Se usi Fedora (come suggerito all'inizio) ti conviene non creare alcun utente e settare solo la password di root dato che lo script creera' in automatico un utente: `osvaldo`
+
+**Assicurati di aver aggiunto il disco aggiuntivo a tutte e due le macchine prima di farlo partire dato che non sarà possibile interromperlo !!**
 
 ### Download
 
@@ -69,7 +82,7 @@ sudo dnf -y install httpd
 sudo dnf -y install iptables-services
 ```
 
-4. Configuare IP statico. Seguire i seguenti comandi:
+4. Configuare IP statico. Seguire i seguenti comandi (di solito la scheda di rete è `enp0s3`):
 
 ```bash
 sudo nmcli connection modify <scheda di rete> IPv4.address <ip>/24
@@ -254,7 +267,7 @@ resource wwwdata {
 }
 ```
 
-17. drbd non funziona su vedora senza questo comando, quindi facciamo:
+17. drbd non funziona su fedora senza questo comando, quindi facciamo:
 
 ```bash
 sudo semanage permissive -a drbd_t
