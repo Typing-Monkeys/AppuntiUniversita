@@ -64,6 +64,18 @@ resource wwwdata {{
 }}
 """
 
+fdisk_commands = """
+sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk /dev/sdb
+  n # new partition
+  p # primary partition
+  1 # partition number 1
+    # default - start at beginning of disk 
+    # default - stop at ending of disk 
+  w # write the partition table
+  q # and we're done
+EOF
+"""
+
 group_name = "Fedora_group"
 
 
@@ -127,13 +139,13 @@ def main():
     system('semanage permissive -a drbd_t')
 
     # formatto il disco secondario
-    # TODO
+    system(fdisk_commands)
 
     # abilito modulo kernel drbd
     system("modprobe drbd")
     system("echo \"drbd\" >> /etc/modules-load.d/drbd.conf")
 
-    # scrivere --force alla fine
+    # configuro e avvio il cluster
     if macchina_principale == "s":
         system('pcs cluster setup ExampleCluster node1 node2 --force')
         system('pcs cluster start --all')
@@ -161,7 +173,7 @@ def main():
     system('drbdadm up wwwdata')
 
     if macchina_principale == "s":
-        system('drbdadm -- --overwrite-data-of-peer primary all')
+        system('drbdadm -- --overwrite-data-of-peer primary all')   # forse questo va fatto su tutte le macchine
         system('drbdadm primary --force wwwdata')
 
     system('systemctl start drbd')
