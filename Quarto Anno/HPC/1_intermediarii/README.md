@@ -5,11 +5,11 @@ Guida pratica e funzionale per la configurazione delle macchine virtuali dell'es
 E' presente anche uno script per configurare le macchine in modo automatico. Per scaricarlo utilizzare uno dei seguneti comandi:
 
 ```bash
-wget https://raw.githubusercontent.com/ncvescera/AppuntiUniversita/master/Quarto%20Anno/HPC/1_intermediarii/autoinstall.py
+wget https://raw.githubusercontent.com/Typing-Monkeys/AppuntiUniversita/master/Quarto%20Anno/HPC/1_intermediarii/autoinstall.py
 ```
 
 ```bash
-git clone https://github.com/ncvescera/AppuntiUniversita.git
+git clone https://github.com/Typing-Monkeys/AppuntiUniversita.git
 ```
 
 Per farlo partire utilizzare il segunete comando e seguire le istruzioni stampate a video dallo script:

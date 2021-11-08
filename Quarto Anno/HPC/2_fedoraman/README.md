@@ -27,7 +27,7 @@ Per ottenere lo script puoi eseguire uno dei seguenti comandi:
 
 ```bash
 # cloni l'intera repo e poi dovrai spostarti all'interno della cartella dell'esercitazione
-git clone https://github.com/ncvescera/AppuntiUniversita.git
+git clone https://github.com/Typing-Monkeys/AppuntiUniversita.git
 cd "AppuntiUniversita/Quarto Anno/HPC/2_fedoraman"
 ```
 
@@ -35,7 +35,7 @@ Oppure
 
 ```bash
 # scarichi solo lo script
-wget https://raw.githubusercontent.com/ncvescera/AppuntiUniversita/master/Quarto%20Anno/HPC/2_fedoraman/autoinstall.py
+wget https://raw.githubusercontent.com/Typing-Monkeys/AppuntiUniversita/master/Quarto%20Anno/HPC/2_fedoraman/autoinstall.py
 ```
 ### Esecuzione
 
