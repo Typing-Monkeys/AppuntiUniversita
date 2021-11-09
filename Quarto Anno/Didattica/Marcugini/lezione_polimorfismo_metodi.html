@@ -1,0 +1,228 @@
+<h2>Prerequisiti</h2>
+
+<p>Per affrontare questo argomento lo studente deve aver assimilato i seguenti concetti:</p>
+
+<ul>
+    <li>Variabili ed Assegnazioni</li>
+    <li>Classe ed Oggetto</li>
+    <li>Definizione e invocazione di metodi</li>
+    <li>Ereditarietà</li>
+</ul>
+
+<p>Lo studente deve anche essere in grado di compilare ed eseguire codice Java all'interno del proprio IDE preferito per poter svolgere gli esercizi.</p>
+
+<hr>
+
+<h2>Collocazione all'interno del programma</h2>
+
+<p>Questo argomento, Polimorfismo sui metodi, verrà affrontato all'interno della lezione riguardante il Polimorfismo, la quale si terrà dopo aver introdotto i concetti base della Programmazione ad Oggetti ed immediatamente dopo la lezione su Ereditarietà:</p>
+
+<ul>
+    <li>Variabili e Assegnazioni</li>
+    <li>Classe ed Oggetto</li>
+    <li>Ereditarietà</li>
+    <li>
+        Polimorfismo
+        <ul>
+            <li>Introduzione e Definizione</li>
+            <li>Polimorfismo sui dati</li>
+            <li><b>Polimorfismo sui metodi</b></li>
+        </ul>
+    </li>
+    <li>...</li>
+</ul>
+
+<hr>
+
+<h2>Lezione</h2>
+
+<h3>Definizione di Polimorfismo</h3>
+
+<p>Il termine polimorfismo, dal greco polymorfos: “avere molte forme”, nell’ambito della programmazione si riferisce alla possibilità data ad una espressione di assumere valori diversi in base ai tipi di dato a cui viene applicata.</p>
+
+<h3>Overloading</h3>
+
+<p>L'overloading è un tipo di polimorfismo che permette di “ridefinire” il comportamento di un determinato metodo per set di parametri diversi.</p>
+
+<p>Un esempio potrebbe essere la classe <code>Triangolo</code> che rappresenta triangoli Equilateri, Isosceli e Scaleni. Vogliamo implementare un metodo per calcolare il perimetro di ogni tipo di triangolo.<br> Una possibile soluzione potrebbe essere quella
+    di creare un metodo per ogni tipologia di triangolo: </p>
+
+<pre>	<code>
+  class Triangolo {
+	...
+    
+    public double perimetro_equilatero(double lato) {
+    	return (lato * 3);
+    }
+    
+    public double perimetro_isoscele(double lati_uguali, double lato) {
+    	return ((lati_uguali * 2) + lato);
+    }
+    
+    public double perimetro_scaleno(double lato1, double lato2, double lato3) {
+    	return (lato1 + lato2 + lato3);
+    }
+  }
+  </code>
+</pre>
+
+<p>Il problema di questa soluzione è che abbiamo aggiunto un diverso metodo per ogni tipologia di triangolo il che potrà portarci più facilmente in errori come invocare il metodo sbagliato, utilizzare un metodo con gli argomenti sbagliati e rende il codice
+    più complesso ! </p>
+<p>Tramite l'utilizzo dell'overloading dei metodi la nostra soluzione sarà quindi:</p>
+
+<pre>	<code>
+  class Triangolo {
+	...
+    
+    public double perimetro(double lato) {
+    	return (lato * 3);
+    }
+    
+    public double perimetro(double lati_uguali, double lato) {
+    	return ((lati_uguali * 2) + lato);
+    }
+    
+    public double perimetro(double lato1, double lato2, double lato3) {
+    	return (lato1 + lato2 + lato3);
+    }
+  }
+  
+  </code>
+</pre>
+
+<p>In questo modo risulterà più semplice invocare il metodo, basterà solo utilizzare il numero giusto di parametri in base al tipo di Triangolo:</p>
+
+<ul>
+    <li>Per un triangolo equilatero: <code>oggettoTriangolo.perimetro(22.0)</code></li>
+    <li>Per un triangolo isoscele: <code>oggettoTriangolo.perimetro(22.0, 11.0)</code></li>
+    <li>Per un triangolo scaleno: <code>oggettoTriangolo.perimetro(22.0, 11.0, 1.0)</code></li>
+</ul>
+
+<p>Dato che i metodi hanno parametri diversi (1 double per gli equilateri, 2 double per gli isosceli e 3 double per gli scaleni) Java è in grado di capire, durante la compilazione (“compile-time”), qual è il metodo che intendiamo utilizzare e decidere quindi
+    quale invocare.</p>
+
+<p>Questa tecnica è anche utilizzabile per i costruttori di una classe. Per esempio, se vogliamo realizzare una sola classe <code>Triangolo</code> che, in base al numero di parametri passati al costruttore, sia in grado di rappresentare triangoli Equilateri,
+    Isosceli e Scaleni, possiamo scrivere:</p>
+
+<pre>    <code>
+        class Triangolo {
+            private double lato1;
+            private double lato2;
+            private double lato3;
+            
+            public Triangolo() {
+                this.lato1 = 0;
+                this.lato2 = 0;
+                this.lato3 = 0;
+            }
+            
+            public Triangolo(double lato){
+                // triangolo equilatero
+                this.lato1 = lato;
+                this.lato2 = lato;
+                this.lato3 = lato;
+            }
+            
+            public Triangolo(double latiUguali, double lato) {
+                // triangolo isoscele
+                this.lato1 = latiUguali;
+                this.lato2 = latiUguali;
+                this.lato3 = lato;
+            }
+            
+            public Triangolo(double lato1, double lato2, double lato3){
+                // triangolo scaleno
+                this.lato1 = lato1;
+                this.lato2 = lato2;
+                this.lato3 = lato3;
+            }
+        }
+  </code>
+</pre>
+
+<p>In questo modo potremo istanziare un oggetto <code>triangoloIsocele</code> nel segeunte modo: <code>Triangolo triangoloIsoscele = new Triangolo(22.0, 11.0);</code>. Il nostro nuovo triangolo risulterà quindi avere due lati lunghi 22.0 e l'altro lungo
+    11.0.
+</p>
+
+<h3>Overriding</h3>
+
+<p>Il concetto di Overriding è strettamente legato al concetto di Ereditarietà e consiste nella possibilità di una classe figlia di poter ridefinire il funzionamento di un o più metodi della classe padre.</p>
+
+<p>Vediamolo meglio con il seguente esempio:</p>
+
+<pre>	<code>
+        public class A {
+            public void stampa() {
+                System.out.println("Io sono il metodo di A");
+            }
+        }
+        
+        public class B extends A {
+            @Override
+            public void stampa() {
+                System.out.println("Io sono il metodo di B);
+            }
+        }
+  </code>
+</pre>
+
+<p>La classe B estende la classe A e ne ridefinisce il metodo <code>stampa()</code>. E' importante notare la clausola <code>@Override</code> che va sempre posta prima del metodo che si vuole riscrivere.<br>Creando un nuovo oggetto di tipo B ed invocando
+    il metodo <code>stampa()</code> potremo notare che l'output sarà: <code>Io sono il metodo di B</code>.</p>
+
+<pre>	<code>
+        A a = new A();
+        B b = new B();
+        
+        a.stampa();	// Io sono il metodo di A
+        b.stampa();	// Io sono il metodo di B
+  </code>
+</pre>
+
+<p>Per l'overriding, Java sceglierà quale metodo eseguire a tempo di esecuzione ("run-time"). Possiamo capirlo meglio con il seguente esempio (le classi <code>A</code> e <code>B</code> sono quelle definite in precedenza):</p>
+
+<pre>
+    <code>
+        A prova = new B();
+        prova.stampa();	// Io sono il metodo di B
+    </code>
+</pre>
+
+<p>Nonostante la variabile <code>prova</code> si di tipo <code>A</code>, a tempo di esecuzione conterrà un oggetto di tipo <code>B</code> e quindi eseguirà il metodo ridefinito dalla classe <code>B</code>.</p>
+ 
+<hr>
+
+<h2>Esercizi</h2>
+
+<p>Lo studente è invitato a svolegere i seguenti esercizi:</p>
+
+<ol>
+    <li>Implementare la classe <code>Operazioni</code> con il metodo <code>somma()</code> che sia in grado di sommare (e ritornare il valore della somma) un massimo di 4 numeri interi.</li>
+    <li>Implementare la classe <code>Dipendente</code> con i seguenti attributi di classe:
+        <ul>
+            <li>Nome</li>
+            <li>Cognome</li>
+            <li>ID</li>
+        </ul>
+    </li>
+
+    Effettuare l'overriding del metodo <code>toString()</code> in modo tale da rappresentare adeguatamente l'oggetto dipendente sotto forma di stringa (e.g <code>Nome: Marcello Cognome: Rossi ID: 3451</code>).
+    <li>Aggiungere alla classe dell'esercizio precedente il metodo <code>void stampa()</code> che stampa a video le informazioni del dipendente. Successivamente creare altre due classi <code>Impiegato</code> e <code>Dirigente</code>, figlie di <code>Dipendente</code>,
+        con i seguenti attributi:
+
+        <ul>
+            <li><code>Impiegato</code>:
+                <ul>
+                    <li>Numero Ufficio</li>
+                    <li>Stipendio</li>
+                </ul>
+            </li>
+            <li><code>Dirigente</code>:
+                <ul>
+                    <li>N Piante di Ficus</li>
+                    <li>Segretaria</li>
+                </ul>
+            </li>
+        </ul>
+        Per ognuna di queste classi figlie, ridefinire in modo appropriato il funzionamento del metodo <code>stampa()</code>
+    </li>
+</ol>
