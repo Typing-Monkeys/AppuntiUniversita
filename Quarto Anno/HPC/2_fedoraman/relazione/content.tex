@@ -1,0 +1,83 @@
+\section{Introduzione}
+
+Breve spieghino dell'obbiettivo preso direttamente dalle sue slide.
+
+Per svolgere la seguente esercitazione ho utilizzato:
+
+\begin{itemize}
+	\item \textbf{Host OS:} Arch Linux
+	\item \textbf{Guest OS}: Ubuntu Server 20.4 LTS
+	\item \textbf{Virtualization Software}: Virtual Box 6.1
+\end{itemize}
+
+\section{Configurazione Macchine}
+
+Spiegazione di come sono state configurate le macchine a livello di virtualbox (cores, memoria, schede di rete).
+
+\section{Configurazione HTCondor}
+
+Introduzione a come ho configurato condor
+
+\subsection{Parte 1}
+\subsection{Parte 2}
+
+Prova di codice/output
+
+\begin{verbatim}
+:: There are 12 members in group texlive-most:
+:: Repository extra
+1) texlive-bibtexextra  2) texlive-core  3) texlive-fontsextra
+4) texlive-formatsextra  5) texlive-games  6) texlive-humanities
+7) texlive-latexextra  8) texlive-music  9) texlive-pictures
+10) texlive-pstricks  11) texlive-publishers  12) texlive-science
+
+Enter a selection (default=all): 
+warning: texlive-core-2021.58710-2 is up to date -- reinstalling
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (13) perl-file-which-1.24-2  texlive-bibtexextra-2021.58697-1
+texlive-core-2021.58710-2  texlive-fontsextra-2021.58704-1
+texlive-formatsextra-2021.57972-1  texlive-games-2021.56833-1
+texlive-humanities-2021.58589-1  texlive-latexextra-2021.58668-2
+texlive-music-2021.58331-1  texlive-pictures-2021.58558-1
+texlive-pstricks-2021.58293-1  texlive-publishers-2021.58683-1
+texlive-science-2021.58667-1
+
+Total Download Size:    629.40 MiB
+Total Installed Size:  2116.49 MiB
+Net Upgrade Size:      1728.35 MiB
+
+:: Proceed with installation? [Y/n] 
+
+\end{verbatim}
+
+\subsection{Parte 3}
+
+\begin{lstlisting}
+:: There are 12 members in group texlive-most:
+:: Repository extra
+1) texlive-bibtexextra  2) texlive-core  3) texlive-fontsextra
+4) texlive-formatsextra  5) texlive-games  6) texlive-humanities
+7) texlive-latexextra  8) texlive-music  9) texlive-pictures
+10) texlive-pstricks  11) texlive-publishers  12) texlive-science
+
+Enter a selection (default=all): 
+warning: texlive-core-2021.58710-2 is up to date -- reinstalling
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (13) perl-file-which-1.24-2  texlive-bibtexextra-2021.58697-1
+texlive-core-2021.58710-2  texlive-fontsextra-2021.58704-1
+texlive-formatsextra-2021.57972-1  texlive-games-2021.56833-1
+texlive-humanities-2021.58589-1  texlive-latexextra-2021.58668-2
+texlive-music-2021.58331-1  texlive-pictures-2021.58558-1
+texlive-pstricks-2021.58293-1  texlive-publishers-2021.58683-1
+texlive-science-2021.58667-1
+
+Total Download Size:    629.40 MiB
+Total Installed Size:  2116.49 MiB
+Net Upgrade Size:      1728.35 MiB
+
+:: Proceed with installation? [Y/n] 
+\end{lstlisting}
