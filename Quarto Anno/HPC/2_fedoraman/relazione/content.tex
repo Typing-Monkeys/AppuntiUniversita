@@ -1,29 +1,89 @@
-\section{Introduzione}
+\section{Obbiettivo}
 
-Breve spieghino dell'obbiettivo preso direttamente dalle sue slide.
+L'obiettivo di questa esercitazione \`{e}  quello di realizzare un cluster di 2 nodi nel quale si dovrà avere \textit{Pacemaker} come Cluster Resource Manager (\textit{CRM}), \textit{Corosync} come \textit{Cluster Engine}, \textit{Apache} come \textit{Web Server} e \textit{DRBD} per creare una risorsa replicata in tutti i nodi del cluster (\textit{Distributed Replicated Storage System}).
 
-Per svolgere la seguente esercitazione ho utilizzato:
+\section{Ambiente di Lavoro}
+
+Questa esercitazione \`{e} stata svolta all'interno del seguente ambiente di lavoro:
 
 \begin{itemize}
-	\item \textbf{Host OS:} Arch Linux
-	\item \textbf{Guest OS}: Ubuntu Server 20.4 LTS
-	\item \textbf{Virtualization Software}: Virtual Box 6.1
+	\item \textbf{Hardware}: 
+		\begin{itemize}
+			\item \textbf{CPU}: AMD Ryzen 9 5900x
+			\item \textbf{RAM}: 32 GB DDR4 @3200 MHz
+		\end{itemize}
+	\item \textbf{Software}:
+		\begin{itemize}
+			\item \textbf{Host OS:} Arch Linux
+			\item \textbf{Guest OS}: Fedora 34 Server
+			\item \textbf{Virtualization Software}: VirtualBox 6.1
+		\end{itemize}
 \end{itemize}
 
 \section{Configurazione Macchine}
 
-Spiegazione di come sono state configurate le macchine a livello di virtualbox (cores, memoria, schede di rete).
+Per questa esercitazione sono necessarie 2 macchine virtuali che saranno i due nodi del nostro cluster. Ogni macchina \`{e} stata configurata come segue:
 
-\section{Configurazione HTCondor}
+\begin{itemize}
+	\item \textbf{Cores:} 5 Core
+	\item \textbf{RAM:} 5GB
+	\item \textbf{Dischi di archiviazione:}
+		\begin{itemize}
+			\item Disco Principale da 25 GB
+			\item Disco per risorsa condivisa da 1 GB
+		\end{itemize}
+	\item \textbf{Scheda di Rete:} Scheda di rete con Bridge
+\end{itemize}
+
+\`{E} consigliato configurare una sola macchina, installare e configurare il sistema operativo e i software necessari, per poi utilizzare la funzione 'Clona' di VirtualBox per generare una copia identica senza dover ripetere tali operazioni nuovamente. Durante la fase di clonazione della macchina \`{e} necessario selezionare l'opzione "Generare nuovi Mac Address per ogni Network Adapter" come policy per la gestione dei Mac Address.
+ 
+\section{Configurazione Software}
 
 Introduzione a come ho configurato condor
 
-\subsection{Parte 1}
-\subsection{Parte 2}
+\subsection{Sistema Operativo}
+
+Qui ci va uno speghino un po dettagliato di come ho installato il sistema operativo. Piu immagini che altro, deve essere una brevissima guida.
+
+Notare come di default il servizio sshd e' attivo e ho utilizzato ssh per connettermi e modificare le macchine
+
+\subsection{Software Necessario}
+
+Appena ho terminato la fase precendete ho provveduto ad aggiornare il sistema con il seguente comando, per evitare probelmi di compatibilit\`{a} e software obsoleto:
+
+\begin{lstlisting}[style=cmd]
+	sudo dnf -y upgrade
+\end{lstlisting} 
+\ \\
+Poi ho installato i pacchetti necessari (\textit{Pacemaker}, \textit{Corosync}, \textit{Apache} e \textit{DRBD}) con: 
+
+\begin{lstlisting}[style=cmd]
+	sudo dnf -y install pacemaker corosync pcs
+	sudo dnf -y install drbd-pacemaker drbd-udev
+	sudo dnf -y install httpd
+	sudo dnf -y install iptables-services
+\end{lstlisting} 
+
+\subsection{IP}
+
+Per questa tipologia di esercitazione \`{e} buona norma assegnare IP statici alle macchine, ma nel mio caso non \`{e} stato necessario in quanto ho configurato il dhcp all'interno del mio router in modo da assegnare sempre lo stesso IP ai vari dispositivi della rete (dhcp statico).\\ %% ricontrollare affermazione di dhcp statico
+Riporto per chiarezza la procedura per assegnare un IP statico all'interno di Fedora.
+
+\begin{lstlisting}[style=cmd]
+ sudo nmcli connection modify enp0s3 IPv4.address <ip>/24
+ sudo nmcli connection modify enp0s3 IPv4.gateway <gateway>
+ sudo nmcli connection modify enp0s3 IPv4.dns 8.8.8.8
+ sudo nmcli connection modify enp0s3 IPv4.method manual
+\end{lstlisting}
+\ \\
+Per rendere effettive le modifiche basta riavviare il sistema.\\
+Si pu\`{o} controllare il successo di questa operazione analizzando l'output del comando \lstinline[style=cmd]|route -n|, se restituisce qualcosa vuol dire che il tutto \`{e} andato a buon fine.
+
+\subsection{AAA}
 
 Prova di codice/output
 
-\begin{verbatim}
+\begin{lstlisting}[style=cmd]
 :: There are 12 members in group texlive-most:
 :: Repository extra
 1) texlive-bibtexextra  2) texlive-core  3) texlive-fontsextra
@@ -50,11 +110,11 @@ Net Upgrade Size:      1728.35 MiB
 
 :: Proceed with installation? [Y/n] 
 
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Parte 3}
 
-\begin{lstlisting}
+\begin{lstlisting}[style=output]
 :: There are 12 members in group texlive-most:
 :: Repository extra
 1) texlive-bibtexextra  2) texlive-core  3) texlive-fontsextra

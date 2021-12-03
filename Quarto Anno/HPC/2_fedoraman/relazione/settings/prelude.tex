@@ -36,7 +36,9 @@
 
 \usepackage{xcolor}
 \usepackage{listings}
-\lstset{ 
+\colorlet{mycoolgray}{gray!40}
+
+\lstdefinestyle{output}{
 	numbers=none, % where to put the line-numbers
 	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
 	backgroundcolor=\color{darkgray},
@@ -45,5 +47,25 @@
 	breaklines=true, % sets automatic line breaking
 	breakatwhitespace=false, 
 }
+
+\lstdefinestyle{cmd}{
+	numbers=none, % where to put the line-numbers
+	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
+	backgroundcolor=\color{mycoolgray},
+	basicstyle=\ttfamily\color{black},
+	captionpos=b, % sets the caption-position to bottom
+	breaklines=true, % sets automatic line breaking
+	breakatwhitespace=false, 
+}
+
+%\lstset{ 
+%	numbers=none, % where to put the line-numbers
+%	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
+%	backgroundcolor=\color{darkgray},
+%	basicstyle=\ttfamily\color{white},
+%	captionpos=b, % sets the caption-position to bottom
+%	breaklines=true, % sets automatic line breaking
+%	breakatwhitespace=false, 
+%}
 
 
