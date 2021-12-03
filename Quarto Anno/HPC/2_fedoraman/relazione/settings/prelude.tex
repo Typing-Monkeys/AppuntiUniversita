@@ -1,39 +1,10 @@
 \documentclass[answers, 12 pt]{exam}
-%pacchetti matematica
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{mathrsfs}
-
-\renewcommand{\qedsymbol}{$\blacksquare$}
-
-
-\renewcommand{\solutiontitle}
-{\noindent\textbf{\large Soluzione}\enspace} 
-
-%sezioni in soluzione es
-\newcommand{\mysection}[1]% #1 = title
-{\stepcounter{section}%
-\setcounter{question}{0}%
-\fullwidth{\smallskip\textbf{\normalsize #1}}}
 
 \usepackage[italian]{babel}
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 
-
-\usepackage[table,xcdraw]{xcolor}
-\usepackage{setspace}
-\usepackage{amssymb}
-
-%mappe di karnaugh
-\usepackage{karnaugh-map}
-
-%disegno del circuito
-\usepackage{circuitikz}
-
-
+%% configurazione per i listing di codice
 \usepackage{xcolor}
 \usepackage{listings}
 \colorlet{mycoolgray}{gray!40}
@@ -57,15 +28,3 @@
 	breaklines=true, % sets automatic line breaking
 	breakatwhitespace=false, 
 }
-
-%\lstset{ 
-%	numbers=none, % where to put the line-numbers
-%	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
-%	backgroundcolor=\color{darkgray},
-%	basicstyle=\ttfamily\color{white},
-%	captionpos=b, % sets the caption-position to bottom
-%	breaklines=true, % sets automatic line breaking
-%	breakatwhitespace=false, 
-%}
-
-
