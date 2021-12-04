@@ -36,10 +36,14 @@ Per questa esercitazione sono necessarie 2 macchine virtuali che saranno i due n
 \end{itemize}
 
 \`{E} consigliato configurare una sola macchina, installare e configurare il sistema operativo e i software necessari, per poi utilizzare la funzione 'Clona' di VirtualBox per generare una copia identica senza dover ripetere tali operazioni nuovamente. Durante la fase di clonazione della macchina \`{e} necessario selezionare l'opzione "Generare nuovi Mac Address per ogni Network Adapter" come policy per la gestione dei Mac Address.
+
+\begin{center}
+	\includegraphics[scale=0.4]{screens/vb_macpolicy.png}
+\end{center}
  
 \section{Configurazione Software}
 
-Introduzione a come ho configurato condor
+%% forse ci posso aggiungere una breve introduzione ...
 
 \subsection{Sistema Operativo}
 
@@ -76,8 +80,27 @@ Riporto per chiarezza la procedura per assegnare un IP statico all'interno di Fe
  sudo nmcli connection modify enp0s3 IPv4.method manual
 \end{lstlisting}
 \ \\
+Con il primo comando andiamo ad impostare l'ip della nostra macchina, \`{e} importate notare che bisogna sostituire \lstinline[style=cmd]|<ip>| con l'ip che vogliamo assegnare: e.g \lstinline[style=cmd]|192.168.178.32|.\\
+Con il secondo configureremo l'indirizzo del gateway ed anche qui dobbiamo rimpiazzare \lstinline[style=cmd]|<gateway>| con il corretto ip: e.g. \lstinline[style=cmd]|192.168.178.1|.\\
+\ \\
 Per rendere effettive le modifiche basta riavviare il sistema.\\
 Si pu\`{o} controllare il successo di questa operazione analizzando l'output del comando \lstinline[style=cmd]|route -n|, se restituisce qualcosa vuol dire che il tutto \`{e} andato a buon fine.
+
+\subsection{\lstinline[style=cmd]|/etc/hosts| e \lstinline[style=cmd]|/etc/hostname|}
+
+Ho modificato il file \lstinline[style=cmd]|/etc/hostname| definendo un nome diverso per ogni macchina dato che il mio router, tramite un servizio dns, mi permette di accedere alle macchine senza utilizzare il loro ip ma tramite il loro nome.
+
+\begin{itemize}
+	\item Nome Macchina 1: fedoraman
+	\item Nome Macchina 2: fedoragirl
+\end{itemize}
+\ \\
+In entrambe le macchine, alla fine del file \lstinline[style=cmd]|/etc/hosts| ho aggiunto le seguenti righe per facilitare poi la configurazione degli altri servizi (sostituendo \lstinline[style=cmd]|<ip macchina 1>| e \lstinline[style=cmd]|<ip macchina 2>| con i relativi ip):
+
+\begin{lstlisting}[style=cmd]
+ <ip macchina 1> Fedoraman
+ <ip macchina 2> Fedoragirl
+\end{lstlisting}
 
 \subsection{AAA}
 
