@@ -56,16 +56,16 @@ Notare come di default il servizio sshd e' attivo e ho utilizzato ssh per connet
 Appena ho terminato la fase precendete ho provveduto ad aggiornare il sistema con il seguente comando, per evitare probelmi di compatibilit\`{a} e software obsoleto:
 
 \begin{lstlisting}[style=cmd]
-	sudo dnf -y upgrade
+ sudo dnf -y upgrade
 \end{lstlisting} 
 \ \\
 Poi ho installato i pacchetti necessari (\textit{Pacemaker}, \textit{Corosync}, \textit{Apache} e \textit{DRBD}) con: 
 
 \begin{lstlisting}[style=cmd]
-	sudo dnf -y install pacemaker corosync pcs
-	sudo dnf -y install drbd-pacemaker drbd-udev
-	sudo dnf -y install httpd
-	sudo dnf -y install iptables-services
+ sudo dnf -y install pacemaker corosync pcs
+ sudo dnf -y install drbd-pacemaker drbd-udev
+ sudo dnf -y install httpd
+ sudo dnf -y install iptables-services
 \end{lstlisting} 
 
 \subsection{IP}
