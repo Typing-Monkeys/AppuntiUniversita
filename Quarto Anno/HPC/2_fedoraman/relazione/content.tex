@@ -102,6 +102,15 @@ In entrambe le macchine, alla fine del file \lstinline[style=cmd]|/etc/hosts| ho
  <ip macchina 2> Fedoragirl
 \end{lstlisting}
 
+\subsection{Firewall}
+
+Per evitare problemi di comunicazione tra le varie macchine ho deciso di disabilitare il firewall:
+
+\begin{lstlisting}[style=cmd]
+ sudo systemctl stop firewalld
+ sudo systemctl disable firewalld
+\end{lstlisting}
+
 \subsection{AAA}
 
 Prova di codice/output
