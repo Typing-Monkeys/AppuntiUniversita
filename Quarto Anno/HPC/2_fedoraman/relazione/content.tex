@@ -86,7 +86,8 @@ Con il secondo configureremo l'indirizzo del gateway ed anche qui dobbiamo rimpi
 Per rendere effettive le modifiche basta riavviare il sistema.\\
 Si pu\`{o} controllare il successo di questa operazione analizzando l'output del comando \lstinline[style=cmd]|route -n|, se restituisce qualcosa vuol dire che il tutto \`{e} andato a buon fine.
 
-\subsection{\lstinline[style=cmd]|/etc/hosts| e \lstinline[style=cmd]|/etc/hostname|}
+\subsection{hosts \& hostname}
+\label{sec:hosts}
 
 Ho modificato il file \lstinline[style=cmd]|/etc/hostname| definendo un nome diverso per ogni macchina dato che il mio router, tramite un servizio dns, mi permette di accedere alle macchine senza utilizzare il loro ip ma tramite il loro nome.
 
@@ -110,6 +111,82 @@ Per evitare problemi di comunicazione tra le varie macchine ho deciso di disabil
  sudo systemctl stop firewalld
  sudo systemctl disable firewalld
 \end{lstlisting}
+
+\subsection{PCSD}
+\label{sec:pcsd}
+\textit{le operazioni di questa sezione vanno eseguite in entrambe le macchine }\\
+\ \\
+Per prima cosa ho cambiato la password dell'utente \lstinline[style=cmd]|hacluster| in quanto servir\`{a} per l'autenticazione dei vari nodi in alcuni passaggi successivi:
+
+\begin{lstlisting}[style=cmd]
+ sudo passwd hacluster
+\end{lstlisting}
+\ \\
+Successivamente ho abilitato il servizio e l'ho avviato con:
+
+\begin{lstlisting}[style=cmd]
+ sudo systemctl enable pcsd
+ sudo systemctl start pcsd
+\end{lstlisting}
+
+\subsection{Corosync}
+
+In entrambe le macchine ho provveduto alla configurazione di \lstinline[style=cmd]|corosync| andando a popolare il file \lstinline[style=cmd]|/etc/corosync/corosync.conf| con il seguente contenuto:
+
+\begin{lstlisting}[style=cmd]
+ totem {
+   version: 2
+   cluster_name: ExampleCluster
+   transport: knet
+   crypto_cipher: aes256
+   crypto_hash: sha256
+ }
+
+ nodelist {
+   node {
+      ring0_addr: Fedoraman
+      name: node1
+      nodeid: 1
+   }
+	
+   node {
+      ring0_addr: Fedoragirl
+      name: node2
+      nodeid: 2
+  }
+ }
+
+ quorum {
+   provider: corosync_votequorum
+   two_node: 1
+ }
+
+ logging {
+   to_logfile: yes
+   logfile: /var/log/cluster/corosync.log
+   to_syslog: yes
+   timestamp: on
+ }
+\end{lstlisting}
+\ \\
+Nella sezione \lstinline[style=cmd]|totem| possiamo impostare il nome del cluster andando a modificare l'attributo \lstinline[style=cmd]|cluster_name|. La sezione \lstinline[style=cmd]|nodelist| conterr\`{a} l'elenco di tutti i nodi del cluster, per ogni nodo dobbiamo aggiungere la sottosezione \lstinline[style=cmd]|node{}| con gli attributi:
+
+\begin{itemize}
+	\item \lstinline[style=cmd]|ring0_addr|: indica l'indirizzo del nodo, nel mio caso \`{e} \lstinline[style=cmd]|Fedoraman| per via della configurazione in \autoref{sec:hosts}
+	\item \lstinline[style=cmd]|name|: il nome da assegnare al nodo
+	\item \lstinline[style=cmd]|nodeid|: un numero progressivo che identifica il nodo
+\end{itemize}
+
+\subsection{Autenticazione dei Nodi}
+
+Per ogni macchina ho eseguito questi comandi per autenticare ogni nodo del cluster:
+
+\begin{lstlisting}[style=cmd]
+ sudo pcs client local-auth -u hacluster
+ sudo pcs cluster auth -u hacluster
+\end{lstlisting}
+\ \\
+Verr\`{a} chiesta una password per l'autenticazione e dovremmo utilizzare quella impostata in \autoref{sec:pcsd}
 
 \subsection{AAA}
 
