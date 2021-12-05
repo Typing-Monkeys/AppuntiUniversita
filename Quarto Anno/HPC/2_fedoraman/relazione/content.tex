@@ -188,65 +188,180 @@ Per ogni macchina ho eseguito questi comandi per autenticare ogni nodo del clust
 \ \\
 Verr\`{a} chiesta una password per l'autenticazione e dovremmo utilizzare quella impostata in \autoref{sec:pcsd}
 
-\subsection{AAA}
+\subsection{Avvio Cluster}
 
-Prova di codice/output
+Configuro l'avvio automatico del cluster e lo faccio partire con i seguenti comandi:
 
 \begin{lstlisting}[style=cmd]
-:: There are 12 members in group texlive-most:
-:: Repository extra
-1) texlive-bibtexextra  2) texlive-core  3) texlive-fontsextra
-4) texlive-formatsextra  5) texlive-games  6) texlive-humanities
-7) texlive-latexextra  8) texlive-music  9) texlive-pictures
-10) texlive-pstricks  11) texlive-publishers  12) texlive-science
-
-Enter a selection (default=all): 
-warning: texlive-core-2021.58710-2 is up to date -- reinstalling
-resolving dependencies...
-looking for conflicting packages...
-
-Packages (13) perl-file-which-1.24-2  texlive-bibtexextra-2021.58697-1
-texlive-core-2021.58710-2  texlive-fontsextra-2021.58704-1
-texlive-formatsextra-2021.57972-1  texlive-games-2021.56833-1
-texlive-humanities-2021.58589-1  texlive-latexextra-2021.58668-2
-texlive-music-2021.58331-1  texlive-pictures-2021.58558-1
-texlive-pstricks-2021.58293-1  texlive-publishers-2021.58683-1
-texlive-science-2021.58667-1
-
-Total Download Size:    629.40 MiB
-Total Installed Size:  2116.49 MiB
-Net Upgrade Size:      1728.35 MiB
-
-:: Proceed with installation? [Y/n] 
-
+ sudo pcs cluster setup ExampleCluster node1 node2 --force
+ sudo pcs cluster start --all
+ sudo pcs cluster enable --all
 \end{lstlisting}
+\ \\
+Questa operazione deve essere eseguita in una sola macchina, non importa quale, io per comodit\`{a} eseguir\`{o} sempre questo tipo di operazioni in \lstinline[style=cmd]|Fedoraman(node1)|.
+\ \\
+Controllo il corretto funzionamento del cluster tramite il comando:
 
-\subsection{Parte 3}
+\begin{lstlisting}[style=cmd]
+ sudo  pcs status
+\end{lstlisting}
+\ \\
+Se ho un output come il seguente vuol dire che il tutto \`{e} andato a buon fine (\`{e} importante che i nodi risultino \lstinline[style=cmd]|Online|):
 
 \begin{lstlisting}[style=output]
-:: There are 12 members in group texlive-most:
-:: Repository extra
-1) texlive-bibtexextra  2) texlive-core  3) texlive-fontsextra
-4) texlive-formatsextra  5) texlive-games  6) texlive-humanities
-7) texlive-latexextra  8) texlive-music  9) texlive-pictures
-10) texlive-pstricks  11) texlive-publishers  12) texlive-science
+ Cluster name: ExampleCluster
+ 
+ WARNINGS:
+ No stonith devices and stonith-enabled is not false
+ 
+ Cluster Summary:
+    * Stack: corosync
+    * Current DC: node1 (version 2.1.1-9.fc34-77db578727) - partition with quorum
+    * Last updated: Wed Nov  3 18:17:32 2021
+    * Last change:  Wed Nov  3 18:02:47 2021 by hacluster via crmd on node1
+    * 2 nodes configured
+    * 0 resource instances configured
+ 
+ Node List:
+    * Online: [ node1 node2 ]
+ 
+ Full List of Resources:
+    * No resources
+ 
+ Daemon Status:
+    corosync: active/enabled
+    pacemaker: active/enabled
+    pcsd: active/enabled
+\end{lstlisting}
 
-Enter a selection (default=all): 
-warning: texlive-core-2021.58710-2 is up to date -- reinstalling
-resolving dependencies...
-looking for conflicting packages...
+\subsection{Cluster Property}
 
-Packages (13) perl-file-which-1.24-2  texlive-bibtexextra-2021.58697-1
-texlive-core-2021.58710-2  texlive-fontsextra-2021.58704-1
-texlive-formatsextra-2021.57972-1  texlive-games-2021.56833-1
-texlive-humanities-2021.58589-1  texlive-latexextra-2021.58668-2
-texlive-music-2021.58331-1  texlive-pictures-2021.58558-1
-texlive-pstricks-2021.58293-1  texlive-publishers-2021.58683-1
-texlive-science-2021.58667-1
+Ho disabilitato le property \lstinline[style=cmd]|stonith| e \lstinline[style=cmd]|quorum| in quanto la prima non \`{e} necessaria ai fini di questa esercitazione e la seconda dato che non ho un numero sufficiente di macchine per utilizzare questa propriet\`{a} (ne servono minimo 3).
 
-Total Download Size:    629.40 MiB
-Total Installed Size:  2116.49 MiB
-Net Upgrade Size:      1728.35 MiB
+\begin{lstlisting}[style=cmd]
+ sudo pcs property set stonith-enabled=false
+ sudo pcs property set no-quorum-policy=ignore
+\end{lstlisting}
 
-:: Proceed with installation? [Y/n] 
+\subsection{Cluster IP}
+
+Assegno un IP al cluster in modo tale da raggiungere il server web, che verr\`{a} configurato in seguito, e altri possibili servizi:
+
+\begin{lstlisting}[style=cmd]
+ sudo pcs resource create floating_ip ocf:heartbeat:IPaddr2 ip=<ip cluster> cidr_netmask=24 op monitor interval=60s
+\end{lstlisting}
+\ \\
+Basta sostituire \lstinline[style=cmd]|<ip cluster>| con l'ip che vogliamo assegnargli, \`{e} importante notare che questo indirizzo deve appartenere alla stessa rete delle macchine e non deve essere utilizzato da nessun altro dispositivo !
+
+\subsection{Risorsa HTTP}
+
+Aggiungo la risorsa HTTP al cluster in modo tale da avere un server web sempre attivo anche se il nodo principale cade:
+
+\begin{lstlisting}[style=cmd]
+ sudo pcs resource create http_server ocf:heartbeat:apache configfile="/etc/httpd/conf/httpd.conf" op monitor timeout="20s" interval="60s"
+\end{lstlisting}
+
+\subsection{Partizionamento Disco Condiviso}
+
+Procedo al partizionamento del secondo disco presente in tutte e due le macchine, con il seguente comando posso controllare il suo nome (di solito \`{e} \lstinline[style=cmd]|/dev/sdb|):
+
+\begin{lstlisting}[style=cmd]
+ sudo fdisk -l
+\end{lstlisting}
+\ \\
+Partiziono effettivamente il disco con:
+
+\begin{lstlisting}[style=cmd]
+ sudo fdisk /dev/sdb
+\end{lstlisting}
+\ \\
+Si aprir\`{a} un menu interattivo e dovr\`{o} digirare i seguenti comandi:
+
+\begin{itemize}
+	\item \lstinline[style=cmd]|n|: nuova partizione
+	\item \lstinline[style=cmd]|p|: partizione primaria
+	\item \lstinline[style=cmd]|1|: numero di partizioni
+	\item \lstinline[style=cmd]|ENTER|: primo settore (utilizzare il valore di default)
+	\item \lstinline[style=cmd]|ENTER|: ultimo settore (utilizzare il valore di default)
+	\item \lstinline[style=cmd]|w|: scrive le modifiche
+	\item \lstinline[style=cmd]|q|: esce dal programma
+\end{itemize}
+\ \\
+Oppure posso effettuare il tutto in maniera autoamtica con:
+
+\begin{lstlisting}[style=cmd]
+ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk /dev/sdb
+    n # new partition
+    p # primary partition
+    1 # partition number 1
+      # default - start at beginning of disk 
+      # default - stop at ending of disk 
+    w # write the partition table
+    q # and we're done
+ EOF
+\end{lstlisting}
+
+\subsection{Configurazione DRBD}
+
+Prima di tutto, per far funzionare DRBD all'interno di Fedora va eseguito il seguente comando:
+
+\begin{lstlisting}[style=cmd]
+ sudo semanage permissive -a drbd_t
+\end{lstlisting}
+\ \\
+Ora possiamo popolare il file di configurazione \lstinline[style=cmd]|/etc/drbd.d/wwwdata.res| con il seguente contenuto:
+
+\begin{lstlisting}[style=cmd]
+ resource wwwdata {
+    protocol C;
+    device /dev/drbd0;
+
+    syncer {
+       verify-alg sha1;
+    }
+
+    net {
+       cram-hmac-alg sha1;
+       shared-secret "<chiave segreta>";
+    }
+
+    on <nome macchina 1> {
+       disk /dev/sdb1;
+       address <ip_macchina_1>:7788;
+       meta-disk internal;
+    }
+    on <nome macchina 2> {
+       disk /dev/sdb1;
+       address <ip_macchina_2>:7788;
+       meta-disk internal;
+    }
+ }
+\end{lstlisting}
+\ \\
+Va scelta una chiave per l'algoritmo di crittografia sostiuendo \lstinline[style=cmd]|<chiave segreta>| con la stringa scelta. Vanno sostituiti \lstinline[style=cmd]|<nome macchina 1>| e \lstinline[style=cmd]|<nome macchina 2>| con i relativi nomi delle macchine scelti in \autoref{sec:hosts} (e.g \lstinline[style=cmd]|fedoraman| e \lstinline[style=cmd]|fedoragirl|) e nelle relative sezioni modificare il valore dell'attributo \lstinline[style=cmd]|address| con il corrispettivo IP (non sembra possibile utilizzare gli alias definiti in \autoref{sec:hosts}).\ \\
+\ \\
+Creiamo dunque la risorsa drbd:
+
+\begin{lstlisting}[style=cmd]
+ sudo drbdadm create-md wwwdata
+\end{lstlisting}
+\ \\
+Ed infine abilitiamo il modulo kernel per rendere sempre utilizzabile la risorsa, anche ai prossimi riavvii:
+
+\begin{lstlisting}[style=cmd]
+ sudo modprobe drbd
+ sudo echo "drbd" >> /etc/modules-load.d/drbd.conf
+\end{lstlisting}
+
+%% finire di scrivere questa sezione con il punto 20 degli appunti !!!
+
+\subsection{Formattazione Risorsa DRBD}
+
+Procediamo con la formattazione della risorsa drbd creata in precedenza e con l'aggiunta di una pagina web per controllare il corretto funzionamento:
+
+\begin{lstlisting}[style=cmd]
+ mkfs.xfs /dev/drbd0
+ sudo mount /dev/drbd0 /mnt
+ sudo echo "<h1>Hello World</h1>" >> /mnt/index.html
+ sudo umount /dev/drbd0
 \end{lstlisting}
