@@ -352,8 +352,21 @@ Ed infine abilitiamo il modulo kernel per rendere sempre utilizzabile la risorsa
  sudo modprobe drbd
  sudo echo "drbd" >> /etc/modules-load.d/drbd.conf
 \end{lstlisting}
+\ \\
+Infine, configuriamo e abilitiamo la risorsa con:
 
-%% finire di scrivere questa sezione con il punto 20 degli appunti !!!
+\begin{lstlisting}[style=cmd]
+ sudo drbdadm up wwwdata
+ sudo drbdadm -- --overwrite-data-of-peer primary all
+ 
+ sudo drbdadm primary --force wwwdata
+ 
+ sudo systemctl enable drbd
+ sudo systemctl start drbd
+\end{lstlisting}
+\ \\
+Il terzo comando deve essere eseguito solo sulla prima macchina ! Per monitorare l'avanzamento del processo potrebbe essere utile utilizzare il seguente comando: \lstinline[style=cmd]|watch cat /proc/drbd|.
+
 
 \subsection{Formattazione Risorsa DRBD}
 
@@ -364,4 +377,62 @@ Procediamo con la formattazione della risorsa drbd creata in precedenza e con l'
  sudo mount /dev/drbd0 /mnt
  sudo echo "<h1>Hello World</h1>" >> /mnt/index.html
  sudo umount /dev/drbd0
+\end{lstlisting}
+
+\subsection{Risorsa DRBD}
+
+Aggiungiamo al cluster la risorsa DRBD appena creata in precedenza:
+
+\begin{lstlisting}[style=cmd]
+ sudo pcs cluster cib drbd_cfg
+ sudo pcs -f drbd_cfg resource create WebData ocf:linbit:drbd drbd_resource=wwwdata op monitor interval=60s
+ sudo pcs -f drbd_cfg resource promotable WebData promoted-max=1 promoted-node-max=1 clone-max=2 clone-node-max=1 notify=true
+ sudo pcs cluster cib-push drbd_cfg --config
+\end{lstlisting}
+\ \\
+Controlliamo il risultato di questa operazione con il comando:
+
+\begin{lstlisting}[style=cmd]
+ sudo pcs status
+\end{lstlisting}
+
+Ci aspetteremo un output simile :
+
+%%incollare outpt con tutte le risorse pronte
+
+\subsection{Risorsa WebFS}
+
+Per ultimo aggiungiamo al nostro cluster la risorsa WebFS per far si che i dati del Web Server siano replicati in tutti i nodi:
+
+\begin{lstlisting}[style=cmd]
+ sudo pcs cluster cib fs_cfg
+ sudo pcs -f fs_cfg resource create WebFS Filesystem device="/dev/drbd0" directory="/var/www/html" fstype="xfs"
+ sudo pcs -f fs_cfg constraint colocation add WebFS with WebData-clone INFINITY with-rsc-role=Master
+ sudo pcs -f fs_cfg constraint order promote WebData-clone then start WebFS
+ sudo pcs -f fs_cfg constraint colocation add http_server with WebFS INFINITY
+ sudo pcs -f fs_cfg constraint order WebFS then http_server
+ sudo pcs cluster cib-push fs_cfg --config
+\end{lstlisting}
+\ \\
+Nei comandi dove compare la clausula \lstinline[style=cmd]|order| andiamo a specificare l'ordine con cui le risorse devono essere avviate, per esempio con \lstinline[style=cmd]|order WebFS then http_server| stiamo dicendo al cluster di avviare prima la risorsa WebFs e poi il server web.
+
+\subsection{Failover Test}
+
+Come test finale possiamo simulare un failover del nodo principale con il seguente comando:
+
+\begin{lstlisting}[style=cmd]
+ sudo pcs node standby node1
+\end{lstlisting}
+\ \\
+Possiamo quindi controllare che \lstinline[style=cmd]|node2| venga promosso a master e si avvii la risorsa WebFs:
+
+\begin{lstlisting}[style=cmd]
+ sudo pcs status
+\end{lstlisting}
+\ \\
+%% inserire output del comando
+Una volta assicurato il successo di questa operazione possiamo riportare in vita il \lstinline[style=cmd]|nodo1| con:
+
+\begin{lstlisting}[style=cmd]
+ sudo pcs node unstandby node1
 \end{lstlisting}
