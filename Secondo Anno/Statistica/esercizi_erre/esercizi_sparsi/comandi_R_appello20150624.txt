@@ -1,0 +1,124 @@
+# parte preliminare
+
+ voti=read.table("voti.txt", header=T)
+
+ summary(voti) #giusto per verificare corretto caricamento e avere idea dei valori
+
+  M_A=mean(voti$A)
+
+  M_A
+
+  I = sample(1:100, 20)
+
+  x = voti[I, ]
+
+  summary(x)
+
+ #punto a
+
+ estremi=c(18,21,27,30)
+
+ distclA=hist(x$A,breaks=estremi,include.lowest=TRUE,plot=F)
+ distclS=hist(x$S,breaks=estremi,include.lowest=TRUE,plot=F)
+
+ FiA=cumsum(distclA$counts)/length(x$A)
+ FiS=cumsum(distclS$counts)/length(x$S)
+
+ i_q1A=min(which(FiA>=0.25))
+ i_q1S=min(which(FiS>=0.25))
+
+ i_q2A=min(which(FiA>=0.5))
+ i_q2S=min(which(FiS>=0.5))
+ i_q3A=min(which(FiA>=0.75))
+ i_q3S=min(which(FiS>=0.75))
+
+ Q_1A=estremi[i_q1A-1]+(0.25-FiA[i_q1A-1])/distclA$density[i_q1A]
+ Q_1A
+
+ Q_1S=estremi[i_q1S-1]+(0.25-FiS[i_q1S-1])/distclS$density[i_q1S]
+ Q_1S
+
+ medianaA=estremi[i_q2A-1]+(0.5-FiA[i_q2A-1])/distclA$density[i_q2A]
+ medianaA
+
+ medianaS=estremi[i_q2S-1]+(0.5-FiS[i_q2S-1])/distclS$density[i_q2S]
+ medianaS
+
+ Q_3A=estremi[i_q3A-1]+(0.75-FiA[i_q3A-1])/distclA$density[i_q3A]
+ Q_3A
+
+ Q_3S=estremi[i_q3S-1]+(0.75-FiS[i_q3S-1])/distclS$density[i_q3S]
+ Q_3S
+
+ mediaA=sum(distclA$mids*distclA$counts)/length(x$A)
+ mediaA
+
+ mediaS=sum(distclS$mids*distclS$counts)/length(x$S)
+ mediaS
+
+ varA=sum((distclA$mids-mediaA)^2*distclA$counts)/(length(x$A) - 1)
+ varA
+
+ varS=sum((distclS$mids-mediaS)^2*distclS$counts)/(length(x$S) - 1)
+ varS
+
+
+# punto b.
+
+
+likS= function(theta) theta^sum(x$S)*exp(-theta*length(x$S))/prod(factorial(x$S))
+
+
+hat_lambda = optimize(likS, c(min(x$S),max(x$S)), maximum=TRUE)$maximum
+
+
+# questa definizione di verosimiglianza, pur se corretta, comporta problemi numerici di overflow
+# vedere i warnings() prodotti dall'optimize
+
+# bisogna allora ricorrere alla log-verosimiglianza
+
+loglikS= function(theta) sum(x$S)*log(theta)+(-theta*length(x$S))-sum(log(factorial(x$S)))
+
+
+hat_lambda = optimize(loglikS, c(min(x$S),max(x$S)), maximum=TRUE)$maximum
+
+hat_lambda
+
+mean(x$S) #questo giusto per confrontare stima numerica con stima analitica cos? da controllare risultato
+
+
+
+# punto c.
+
+m = mean(x$A)
+sigma2 = var(x$A)
+
+q = quantile(voti$A, .95)
+
+P = 1 - pnorm(q, m, sqrt(sigma2))
+
+P #probabilit? cercata
+
+
+# punto d.
+
+t.test(x$A, mu=M_A, alternative="two.sided", conf.level=0.90)$conf.int
+
+
+# punto e.
+
+a = x$A
+s = x$S
+
+lin = lm(s ~ a)
+
+predict(lin, data.frame(a=27))
+
+
+# punto f.
+
+m_A = mediaA
+
+if (m_A < M_A) t.test(x$A, mu=M_A, alternative="less", conf.level=0.95) else  t.test(x$A, mu=M_A, alternative="greater", conf.level=0.95)
+
+# decisione se accettare o meno H0 in base al p-value

@@ -1,0 +1,135 @@
+> # Es.1
+
+> # NOTA: il file con i dati sembra avere qualche problema di codifica, immetto id ati manualmente
+
+> Stazione= c("Gubbio - Piazza 40 Martiri","Gubbio - Ghigiano","Gubbio - Semonte Alto","Gubbio - Via L. da Vinci",
++ "Gubbio - Padule", "Magione - Magione","Giano dell'Umbria - Monte Martano","Perugia - Parco Cortonese",
++ "Perugia - Fontivegge","Perugia - Ponte San Giovanni","Spoleto - Piazza Vittoria",
++ "Spoleto- S.to Chiodo","Spoleto - San Martino in Trignano","Spoleto - Madonna di Lugo",
++ "Foligno - Porta Romana","Città di Castello - C. Castello","Torgiano - Brufa",
++ "Amelia - Amelia","Orvieto - Ciconia", "Terni - Carrara","Terni - Borgo Rivo",
++ "Terni - Le Grazie","Narni - Narni Scalo")
+> Superamenti=c(6,4,2,2,1,4,5,3,5,7,2,6,9,4,17,6,3,2,1,15,16,29,7)
+
+> Concentrazione= c(24,15,14,20,18,22,10,22,22,25,19,21,26,21,30,26,17,22,19,31,31,38,25)
+
+> dati= data.frame(Stazione, Superamenti, Concentrazione)
+
+> str(dati)
+'data.frame':   23 obs. of  3 variables:
+ $ Stazione      : Factor w/ 23 levels "Amelia - Amelia",..: 7 5 8 9 6 10 4 14 13 15 ...
+ $ Superamenti   : num  6 4 2 2 1 4 5 3 5 7 ...
+ $ Concentrazione: num  24 15 14 20 18 22 10 22 22 25 ...
+
+> S =dati$Superamenti[which(dati$Superamenti < 10)]
+> S
+ [1] 6 4 2 2 1 4 5 3 5 7 2 6 9 4 6 3 2 1 7
+
+> L = function(l) l^(sum(S))*exp(-l*length(S))/prod(factorial(S))
+
+> MLE_L = optimize(L,c(0,10), maximum=T)$maximum
+
+> MLE_L
+[1] 4.157899
+> 
+
+> dati$Superamenti[which(dati$Superamenti >= 10)]
+[1] 17 15 16 29
+
+
+> P = dpois(dati$Superamenti[which(dati$Superamenti >= 10)], MLE_L)
+
+> P
+[1] 1.458933e-06 2.295390e-05 5.964999e-06 1.566938e-15
+
+> sum(P)
+[1] 3.037783e-05
+
+> Y=dati$Concentrazione
+
+> y1= min(Y)
+> yn=max(Y)
+> q1=quantile(Y, 0.25)
+> q3=quantile(Y, 0.75)
+
+> estremi = c(y1, q1, q3, yn)
+
+> n.classi= table(cut(Y, breaks= estremi, include.lowest=TRUE))
+
+> n.classi
+
+  [10,19] (19,25.5] (25.5,38] 
+        7        10         6 
+> e = numeric(3)
+
+> for (i in 1:3) e[i] = pnorm(estremi[i+1], mean(Y), sd(Y)) - pnorm(estremi[i], mean(Y), sd(Y))
+
+> e
+[1] 0.2636106 0.3982098 0.3096623
+
+> sum(e)
+[1] 0.9714827
+> # NON sommando ad 1 bisognerà riscalare i valori...
+> 
+
+> chisq.test(n.classi, p =e, rescale.p=TRUE)
+
+        Chi-squared test for given probabilities
+
+data:  n.classi
+X-squared = 0.3688, df = 2, p-value = 0.8316
+
+> # p-value altissimo (in particolare > 1%) quindi NON si rifiuta H0
+> # di conseguenza i dati possono effettivamente provenire da popolazione normale
+> 
+
+> # ES.2 
+> 
+> X=rnorm(30, 10, 3)
+
+> t.test(X, conf.level= 0.99)$conf.int
+[1]  9.825557 12.478290
+attr(,"conf.level")
+[1] 0.99
+> 
+
+> #Es 3
+> 
+> x=rbinom(100, 10 , 1/3)
+> y=rbinom(100, 20 , 2/3)
+> 
+> sx = numeric(100)
+> l1 = length(which(x >= 10/3))
+> l1
+[1] 57
+
+> sx[which(x >= 10/3)] = rep(1, l1)
+
+> table(sx)
+sx
+ 0  1 
+43 57 
+
+> sy = numeric(100)
+
+> l1y = length(which(y >= 40/3))
+> l1y
+[1] 37
+
+> sy[which(y >= 40/3)] = rep(1, l1y)
+
+> table(sy)
+sy
+ 0  1 
+63 37 
+
+> chisq.test(sx,sy)
+
+        Pearson's Chi-squared test with Yates' continuity correction
+
+data:  sx and sy
+X-squared = 0.4425, df = 1, p-value = 0.5059
+
+> # p-value molto alto, oltre il 50%, e fino a tale valore di significatività si può
+> # sostenere l'indipendenza tra sx e sy
+> 
