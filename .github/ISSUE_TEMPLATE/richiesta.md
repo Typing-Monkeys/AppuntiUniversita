@@ -1,6 +1,6 @@
 ---
 name: Richiesta
-about: Cosa stai richiedendo ??
+about: Mancano degli appunti o parti di essi ??
 title: "[Richiesta] Vorrei del succo di mirtillo"
 labels: richiesta
 assignees: ''
