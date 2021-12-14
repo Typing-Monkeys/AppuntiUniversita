@@ -113,8 +113,8 @@ HOSTALLOW_WRITE = *.condor
 6. Assicurarsi che il firewall sia disabilitato:
 
 ```bash
-sudo systemctl disable firewalld
-sudo systemctl stop firewalld
+sudo ufw status
+sudo ufw disable
 ```
 
 Se questo comando da errori vuol dire che e' gia' disabilitato e continuare con il punto successivo!
