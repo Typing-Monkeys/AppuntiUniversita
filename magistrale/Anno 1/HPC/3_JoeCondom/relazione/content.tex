@@ -156,3 +156,161 @@ In caso contrario lo andr\`{o} a disabilitare con:
 \end{lstlisting}
 
 \subsection{Configurazione HTCondor}
+
+In ogni macchina ho modificato il file di configurazione di HTCondor \lstinline[style=cmd]|/etc/condor/config.d/00personal_condor.config| in modo opportuno in base al compito che dovr\`{a} svolgere. Di seguito ho riportato le varie configurazioni per il Master e gli Slave.
+
+
+\subsubsection{JoeMaster}
+
+\begin{lstlisting}[style=cmd]
+ CONDOR_HOST = nodo1
+ COLLECTOR_NAME = Personal Condor at $(FULL_HOSTNAME)
+ 
+ START = TRUE
+ SUSPEND = FALSE
+ CONTINUE = TRUE
+ KILL = FALSE
+ 
+ DAEMON_LIST = COLLECTOR, MASTER, NEGOTIATOR, SCHEDD
+ 
+ HOSTALLOW_WRITE = *.condor
+\end{lstlisting}
+\ \\
+Nella lista \lstinline[style=cmd]|DAEMON_LIST| manca \lstinline[style=cmd]|STARTD| in quanto il master non deve eseguire job, ma solo riceverli ed assegnarli ai vari slave.\\
+\ \\
+La variabile \lstinline[style=cmd]|CONDOR_HOST| indica qual \`{e} il nodo master, nel mio caso \lstinline[style=cmd]|node1| per via della configurazione in \autoref{sec:hosts}. Questo sar\`{a} uguale anche per gli Slave.\\
+\ \\
+Con \lstinline[style=cmd]|HOSTALLOW_WRITE| vado ad autorizzare tutti gli host all'interno del dominio \lstinline[style=cmd]|condor|, definito in \autoref{sec:hosts}.
+	
+\subsubsection{JoeSlave1/JoeSlave2}
+	
+\begin{lstlisting}[style=cmd]
+ #Macro(n)
+ NonCondorLoadAvg = (LoadAvg - CondorLoadAvg)
+ HighLoad = 0.6
+ BgndLoad = 0.3
+ CPU_Busy = ($(NonCondorLoadAvg) >= $(HighLoad))
+ CPU_Idle = ($(NonCondorLoadAvg) <= $(BgndLoad))
+ KeyboardBusy = (KeyboardIdle < 10)
+ MachineBusy = ($(CPU_Busy) || $(KeyboardBusy))
+ ActivityTimer = (CurrentTime - EnteredCurrentActivity)
+ 
+ CONDOR_HOST = nodo1
+ COLLECTOR_NAME = Personal Condor at $(FULL_HOSTNAME)
+ 
+ WANT_SUSPEND = True
+ WANT_VACATE = True
+ 
+ START =  $(CPU_Idle) && !$(KeyboardBusy)
+ SUSPEND = $(MachineBusy)
+ CONTINUE = $(CPU_Idle) && KeyboardIdle > 120
+ PREEMPT = (Activity == "Suspended") && $(ActivityTimer) > 120     
+ KILL = $(ActivityTimer) > 300
+
+ DAEMON_LIST = MASTER, STARTD
+ 
+ HOSTALLOW_WRITE = *.condor
+\end{lstlisting}
+\ \\
+La configurazione per gli slave \`{e} la medesima in quanto avranno tutti e due lo stesso comportamento: dovranno interrompere l'esecuzione del job se viene registrata attivit\`{a} della tastiera (vengono considerate anche le sessioni remote come ssh) o se il carico della CPU supera una certa soglia.\\
+Tramite le variabili \lstinline[style=cmd]|START, SUSPEND e WANT_SUSPEND| e le Macro \lstinline[style=cmd]|CPU_Idel, KeyboardBusy e MachineBusy| riesco ad ottenere il comportamento atteso.
+
+\begin{itemize}
+	\item \lstinline[style=cmd]|WANT_SUSPEND|, se \lstinline[style=cmd]|True| dice a Condor di prendere il considerazione la policy di sospensione all'interno di \icode{SUSPEND}.
+	\item \icode{START}, se \icode{True} vuol dire che il nodo \`{e} pronto ad accettare ed eseguire job. Nel mio caso sar\`{a} \icode{True} solo quando la CPU sar\`{a} sotto il 30\% di utilizzo e non verr\`{a} rilevata attivit\`{a} della tastiera da pi\`{u} di 10 secondi.
+	\item \icode{SUSPEND}, se \icode{True}, mette in pausa l'esecuzione del job attualmente in lavorazione.
+	\item \icode{CONTINUE} valuta quando riprendere l'esecuzione del job sospeso. Nel mio caso quando la CPU \`{e} sotto il 30\% di carico e quando non viene registrata attivit\`{a} della tastiera per pi\`{u} di 10 secondi.
+	\item \icode{WANT_VACATE}, se \icode{True}, dice a Condor di valutare la variabile \icode{PREEMPT} per valutare se effettuare la preemption del job oppure no.
+	\item \icode{PREEMPT}, se \icode{True}, effettua la preemption del job, effettua un checkpoint del lavoro e riporta il job nella coda dei processi per essere assegnato ad un altro nodo. Nel mio caso avviene quando il job \`{e} stato sospeso da pi\`{u} di 120 secondi.
+	\item \icode{KILL} indica quando uccidere immediatamente (senza effettuare preemption) un job. Nel mio caso dopo 300 secondi di inattivit\`{a}.
+\end{itemize}
+
+\subsection{Avvio di Condor}
+
+Ho abilitato ed avviato il servizio di Condor con:
+
+\begin{lstlisting}[style=cmd]
+ sudo systemctl enable condor.service
+ sudo systemctl start condor.service
+\end{lstlisting}
+\ \\
+Controllo che la configurazione sia andata a buon fine con il comando:
+
+\begin{lstlisting}[style=cmd]
+ condor_status
+\end{lstlisting}
+
+\begin{lstlisting}[style=output]
+ Name            OpSys      Arch   State     Activity    ...
+ 
+ slot1@joeslave1 LINUX      X86_64 Unclaimed Idle        ...
+ slot2@joeslave1 LINUX      X86_64 Unclaimed Idle        ...
+ slot3@joeslave1 LINUX      X86_64 Unclaimed Idle        ...
+ slot4@joeslave1 LINUX      X86_64 Unclaimed Idle        ...
+ slot1@joeslave2 LINUX      X86_64 Unclaimed Idle        ...
+ slot2@joeslave2 LINUX      X86_64 Unclaimed Idle        ...
+ slot3@joeslave2 LINUX      X86_64 Unclaimed Idle        ...
+ slot4@joeslave2 LINUX      X86_64 Unclaimed Idle        ...
+\end{lstlisting}
+\ \\
+Vedr\`{o} tante righe quanti sono i core che ha ogni macchina. L'output precedente mostra 2 macchine con 4 core ciascuna, indica che la mia configurazione ha funzionato.
+
+\subsection{Invio di un Job}
+
+Prima di poter eseguire un job ho bisogno di programma che effettui alcune operazioni, ho perci\`{o} deciso di scriverne uno che accetta 2 parametri in input:
+
+\begin{enumerate}
+	\item numero intero, indica i secondi che il programma aspetter\`{a}
+	\item numero intero, numero su cui verranno effettuate le operazioni
+\end{enumerate}
+\ \\
+Il programma dopo aver atteso restituir\`{a} il secondo parametro moltiplicato per 2.\\
+Di seguito riporto il codice in C, compilato con \icode{gcc -o simple simple.c}:
+
+\begin{lstlisting}[style=cmd]
+ #include <stdio.h>
+ 
+ main(int argc, char **argv)
+ {
+	int sleep_time;
+	int input;
+	int failure;
+	
+	if (argc != 3) {
+		printf(
+		"Usage: simple <sleep-time> <integer>\n"
+		);
+		failure = 1;
+	} else {
+		sleep_time = atoi(argv[1]);
+		input      = atoi(argv[2]);
+		
+		printf(
+		"Thinking really hard for %d seconds...\n",
+		sleep_time
+		);
+		sleep(sleep_time);
+		printf("We calculated: %d\n", input * 2);
+		failure = 0;
+	}
+	return failure;
+ }
+\end{lstlisting}
+\ \\
+Procedo quindi a scrivere il file \icode{jobstarter} per sottomettere il job al master: 
+
+\begin{lstlisting}[style=cmd]
+ Universe   = vanilla
+ Executable = simple
+ Arguments  = 42 10
+ Log        = ./logs/simple.log
+ Output     = ./logs/simple.$(Process).out
+ Error      = ./logs/simple.$(Process).error
+ Queue 2
+\end{lstlisting}
+\ \\
+Infine mando in esecuzione il job con: 
+
+\begin{lstlisting}[style=cmd]
+ condor_submit jobstarter
+\end{lstlisting}

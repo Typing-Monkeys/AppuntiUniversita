@@ -42,3 +42,10 @@
 	breaklines=true, % sets automatic line breaking
 	breakatwhitespace=false, 
 }
+
+%\newcommand{\bcode}[1]{%
+%	\begin{lstlisting}[style=cmd]^^J
+	%	#1^^J
+	%\end{lstlisting}
+%}
+\newcommand{\icode}[1]{\lstinline[style=cmd]|#1|}
