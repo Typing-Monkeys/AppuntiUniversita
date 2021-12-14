@@ -53,7 +53,7 @@ Notare come di default il servizio sshd e' attivo e ho utilizzato ssh per connet
 
 \subsection{Software Necessario}
 
-Appena ho terminato la fase precendete ho provveduto ad aggiornare il sistema con il seguente comando, per evitare probelmi di compatibilit\`{a} e software obsoleto:
+Appena ho terminato la fase di installazione del SO, ho provveduto ad aggiornarlo con il seguente comando, per evitare probelmi di compatibilit\`{a} e software obsoleto:
 
 \begin{lstlisting}[style=cmd]
  sudo dnf -y upgrade
@@ -70,37 +70,56 @@ Poi ho installato i pacchetti necessari (\textit{Pacemaker}, \textit{Corosync}, 
 
 \subsection{IP}
 
-Per questa tipologia di esercitazione \`{e} buona norma assegnare IP statici alle macchine, ma nel mio caso non \`{e} stato necessario in quanto ho configurato il dhcp all'interno del mio router in modo da assegnare sempre lo stesso IP ai vari dispositivi della rete (dhcp statico).\\ %% ricontrollare affermazione di dhcp statico
-Riporto per chiarezza la procedura per assegnare un IP statico all'interno di Fedora.
+Ho assegnato IP statici alle macchine per essere sicuro di poterle sempre raggiungere e che il DHCP del mio router non gli assegni indirizzi diversi col passare del tempo. Per farlo ho utilizzato i seguenti comandi:
 
-\begin{lstlisting}[style=cmd]
- sudo nmcli connection modify enp0s3 IPv4.address <ip>/24
- sudo nmcli connection modify enp0s3 IPv4.gateway <gateway>
+\begin{itemize}
+	\item Macchina 1: 
+	\begin{lstlisting}[style=cmd]
+ sudo nmcli connection modify enp0s3 IPv4.address 192.168.178.52/24
+ sudo nmcli connection modify enp0s3 IPv4.gateway 192.168.178.1
  sudo nmcli connection modify enp0s3 IPv4.dns 8.8.8.8
  sudo nmcli connection modify enp0s3 IPv4.method manual
+	\end{lstlisting}
+	\item Macchina 2:
+		\begin{lstlisting}[style=cmd]
+ sudo nmcli connection modify enp0s3 IPv4.address 192.168.178.53/24
+ sudo nmcli connection modify enp0s3 IPv4.gateway 192.168.178.1
+ sudo nmcli connection modify enp0s3 IPv4.dns 8.8.8.8
+ sudo nmcli connection modify enp0s3 IPv4.method manual
+	\end{lstlisting}
+\end{itemize}
+\ \\
+Con la prima riga di ogni set di istruzioni vado a specificare l'indirizzo IP che voglio assegnare alla macchina con tanto di subnet mask, la seconda riga indica l'indirizzo del default gateway e la terza specifica il DNS che voglio utilizzare.
+\ \\
+Per rendere effettive le modifiche basta riavviare il sistema (\lstinline[style=cmd]|sudo reboot|).\\
+Si pu\`{o} controllare il successo di questa operazione analizzando l'output del comando
+\begin{lstlisting}[style=cmd]
+ route -n
 \end{lstlisting}
-\ \\
-Con il primo comando andiamo ad impostare l'ip della nostra macchina, \`{e} importate notare che bisogna sostituire \lstinline[style=cmd]|<ip>| con l'ip che vogliamo assegnare: e.g \lstinline[style=cmd]|192.168.178.32|.\\
-Con il secondo configureremo l'indirizzo del gateway ed anche qui dobbiamo rimpiazzare \lstinline[style=cmd]|<gateway>| con il corretto ip: e.g. \lstinline[style=cmd]|192.168.178.1|.\\
-\ \\
-Per rendere effettive le modifiche basta riavviare il sistema.\\
-Si pu\`{o} controllare il successo di questa operazione analizzando l'output del comando \lstinline[style=cmd]|route -n|, se restituisce qualcosa vuol dire che il tutto \`{e} andato a buon fine.
+se restituisce qualcosa vuol dire che il tutto \`{e} andato a buon fine.\\
 
+\begin{lstlisting}[style=output]
+ Kernel IP routing table
+ Destination     Gateway         Genmask       ...   Iface
+ 0.0.0.0         192.168.178.1   0.0.0.0       ...   enp0s3
+ 192.168.178.0   0.0.0.0         255.255.255.0 ...   enp0s3
+\end{lstlisting}
+Un possibile esempio di output.
 \subsection{hosts \& hostname}
 \label{sec:hosts}
 
-Ho modificato il file \lstinline[style=cmd]|/etc/hostname| definendo un nome diverso per ogni macchina dato che il mio router, tramite un servizio dns, mi permette di accedere alle macchine senza utilizzare il loro ip ma tramite il loro nome.
+Ho modificato il file \lstinline[style=cmd]|/etc/hostname| definendo un nome diverso per ogni macchina in modo tale da poterle distinguere pi\`{u} facilmente durante le sessioni SSH: 
 
 \begin{itemize}
 	\item Nome Macchina 1: fedoraman
 	\item Nome Macchina 2: fedoragirl
 \end{itemize}
 \ \\
-In entrambe le macchine, alla fine del file \lstinline[style=cmd]|/etc/hosts| ho aggiunto le seguenti righe per facilitare poi la configurazione degli altri servizi (sostituendo \lstinline[style=cmd]|<ip macchina 1>| e \lstinline[style=cmd]|<ip macchina 2>| con i relativi ip):
+In entrambe le macchine, alla fine del file \lstinline[style=cmd]|/etc/hosts| ho aggiunto le seguenti righe per facilitare poi la configurazione degli altri servizi:
 
 \begin{lstlisting}[style=cmd]
- <ip macchina 1> Fedoraman
- <ip macchina 2> Fedoragirl
+ 192.1168.178.52 Fedoraman
+ 192.1168.178.53 Fedoragirl
 \end{lstlisting}
 
 \subsection{Firewall}
@@ -114,7 +133,7 @@ Per evitare problemi di comunicazione tra le varie macchine ho deciso di disabil
 
 \subsection{PCSD}
 \label{sec:pcsd}
-\textit{le operazioni di questa sezione vanno eseguite in entrambe le macchine }\\
+\textit{le operazioni di questa sezione sono state eseguite in entrambe le macchine }\\
 \ \\
 Per prima cosa ho cambiato la password dell'utente \lstinline[style=cmd]|hacluster| in quanto servir\`{a} per l'autenticazione dei vari nodi in alcuni passaggi successivi:
 
@@ -169,7 +188,7 @@ In entrambe le macchine ho provveduto alla configurazione di \lstinline[style=cm
  }
 \end{lstlisting}
 \ \\
-Nella sezione \lstinline[style=cmd]|totem| possiamo impostare il nome del cluster andando a modificare l'attributo \lstinline[style=cmd]|cluster_name|. La sezione \lstinline[style=cmd]|nodelist| conterr\`{a} l'elenco di tutti i nodi del cluster, per ogni nodo dobbiamo aggiungere la sottosezione \lstinline[style=cmd]|node{}| con gli attributi:
+Nella sezione \lstinline[style=cmd]|totem| ho impostato il nome del cluster modificando l'attributo \lstinline[style=cmd]|cluster_name|. La sezione \lstinline[style=cmd]|nodelist| conterr\`{a} l'elenco di tutti i nodi del cluster, per ogni nodo ho aggiunto la sottosezione \lstinline[style=cmd]|node{}| con gli attributi:
 
 \begin{itemize}
 	\item \lstinline[style=cmd]|ring0_addr|: indica l'indirizzo del nodo, nel mio caso \`{e} \lstinline[style=cmd]|Fedoraman| per via della configurazione in \autoref{sec:hosts}
@@ -179,14 +198,14 @@ Nella sezione \lstinline[style=cmd]|totem| possiamo impostare il nome del cluste
 
 \subsection{Autenticazione dei Nodi}
 
-Per ogni macchina ho eseguito questi comandi per autenticare ogni nodo del cluster:
+In ogni macchina ho effettuato l'autenticazione del nodo al cluster con i seguenti comandi:
 
 \begin{lstlisting}[style=cmd]
  sudo pcs client local-auth -u hacluster
  sudo pcs cluster auth -u hacluster
 \end{lstlisting}
 \ \\
-Verr\`{a} chiesta una password per l'autenticazione e dovremmo utilizzare quella impostata in \autoref{sec:pcsd}
+La password da utilzzare in questa fase \`{e} quella dell'utente \lstinline[style=cmd]|hacluster| scelta al punto \autoref{sec:pcsd}
 
 \subsection{Avvio Cluster}
 
@@ -203,7 +222,7 @@ Questa operazione deve essere eseguita in una sola macchina, non importa quale, 
 Controllo il corretto funzionamento del cluster tramite il comando:
 
 \begin{lstlisting}[style=cmd]
- sudo  pcs status
+ sudo pcs status
 \end{lstlisting}
 \ \\
 Se ho un output come il seguente vuol dire che il tutto \`{e} andato a buon fine (\`{e} importante che i nodi risultino \lstinline[style=cmd]|Online|):
@@ -248,10 +267,10 @@ Ho disabilitato le property \lstinline[style=cmd]|stonith| e \lstinline[style=cm
 Assegno un IP al cluster in modo tale da raggiungere il server web, che verr\`{a} configurato in seguito, e altri possibili servizi:
 
 \begin{lstlisting}[style=cmd]
- sudo pcs resource create floating_ip ocf:heartbeat:IPaddr2 ip=<ip cluster> cidr_netmask=24 op monitor interval=60s
+ sudo pcs resource create floating_ip ocf:heartbeat:IPaddr2 ip=192.168.178.55 cidr_netmask=24 op monitor interval=60s
 \end{lstlisting}
 \ \\
-Basta sostituire \lstinline[style=cmd]|<ip cluster>| con l'ip che vogliamo assegnargli, \`{e} importante notare che questo indirizzo deve appartenere alla stessa rete delle macchine e non deve essere utilizzato da nessun altro dispositivo !
+L'indirizzo viene specificato con il parametro \lstinline[style=cmd]|ip=| e la subnet mask con \lstinline[style=cmd]|cidr_netmask=|. \`{E} importante notare che l'IP scelto deve appartenere alla stessa rete delle macchine e non deve essere utilizzato da nessun altro dispositivo !
 
 \subsection{Risorsa HTTP}
 
@@ -262,6 +281,7 @@ Aggiungo la risorsa HTTP al cluster in modo tale da avere un server web sempre a
 \end{lstlisting}
 
 \subsection{Partizionamento Disco Condiviso}
+\label{sec:partizione}
 
 Procedo al partizionamento del secondo disco presente in tutte e due le macchine, con il seguente comando posso controllare il suo nome (di solito \`{e} \lstinline[style=cmd]|/dev/sdb|):
 
@@ -303,74 +323,79 @@ Oppure posso effettuare il tutto in maniera autoamtica con:
 
 \subsection{Configurazione DRBD}
 
-Prima di tutto, per far funzionare DRBD all'interno di Fedora va eseguito il seguente comando:
+Prima di tutto, devo andare a modificare la policy di sicurezza di SELinux per DRBD, dato che ne impedisce (di defualt) il corretto funzionamento, tramite il seguetne comando:
 
 \begin{lstlisting}[style=cmd]
  sudo semanage permissive -a drbd_t
 \end{lstlisting}
 \ \\
-Ora possiamo popolare il file di configurazione \lstinline[style=cmd]|/etc/drbd.d/wwwdata.res| con il seguente contenuto:
+Fatto ci\`{o}, posso andare a configurare DRBD popolando il file di configurazione \lstinline[style=cmd]|/etc/drbd.d/wwwdata.res| con il seguente contenuto:
 
 \begin{lstlisting}[style=cmd]
  resource wwwdata {
     protocol C;
     device /dev/drbd0;
 
-    syncer {
-       verify-alg sha1;
+    syncer{
+        verify-alg sha1;
     }
 
     net {
-       cram-hmac-alg sha1;
-       shared-secret "<chiave segreta>";
+        cram-hmac-alg sha1;
+        shared-secret "barisoni";
     }
 
-    on <nome macchina 1> {
-       disk /dev/sdb1;
-       address <ip_macchina_1>:7788;
-       meta-disk internal;
+
+    on fedoraman {
+        disk /dev/sdb1;
+        address 192.168.178.52:7788;
+        meta-disk internal;
     }
-    on <nome macchina 2> {
-       disk /dev/sdb1;
-       address <ip_macchina_2>:7788;
-       meta-disk internal;
+    on fedoragirl {
+        disk /dev/sdb1;
+        address 192.168.178.53:7788;
+        meta-disk internal;
     }
  }
 \end{lstlisting}
 \ \\
-Va scelta una chiave per l'algoritmo di crittografia sostiuendo \lstinline[style=cmd]|<chiave segreta>| con la stringa scelta. Vanno sostituiti \lstinline[style=cmd]|<nome macchina 1>| e \lstinline[style=cmd]|<nome macchina 2>| con i relativi nomi delle macchine scelti in \autoref{sec:hosts} (e.g \lstinline[style=cmd]|fedoraman| e \lstinline[style=cmd]|fedoragirl|) e nelle relative sezioni modificare il valore dell'attributo \lstinline[style=cmd]|address| con il corrispettivo IP (non sembra possibile utilizzare gli alias definiti in \autoref{sec:hosts}).\ \\
+Ho scelto una chiave per l'algoritmo di crittografia tramite la propriet\`{a} \lstinline[style=cmd]|shared-secret|. \`{E} importante notare che \lstinline[style=cmd]|on fedoraman| e \lstinline[style=cmd]|on fedoragirl| sono i nomi che ho impostato nel punto \autoref{sec:hosts} e nelle relative sezioni ho specificato il nome del disco da utilizzare (sar\`{a} sempre \lstinline[style=cmd]|/dev/sdb1| per via della configurazione in \autoref{sec:partizione}), l'indirizzo IP della macchina (non sembra possibile utilizzare gli alias definiti in \autoref{sec:hosts}) e una porta a scelta per la comunicazione (ho utilizzato la \lstinline[style=cmd]|7788|)\ \\
 \ \\
-Creiamo dunque la risorsa drbd:
+Creo dunque la risorsa drbd:
 
 \begin{lstlisting}[style=cmd]
  sudo drbdadm create-md wwwdata
 \end{lstlisting}
 \ \\
-Ed infine abilitiamo il modulo kernel per rendere sempre utilizzabile la risorsa, anche ai prossimi riavvii:
+Abilito il modulo kernel per rendere sempre utilizzabile la risorsa, anche ai prossimi riavvii:
 
 \begin{lstlisting}[style=cmd]
  sudo modprobe drbd
  sudo echo "drbd" >> /etc/modules-load.d/drbd.conf
 \end{lstlisting}
 \ \\
-Infine, configuriamo e abilitiamo la risorsa con:
+Completo la configurazione della risorsa con:
 
 \begin{lstlisting}[style=cmd]
  sudo drbdadm up wwwdata
  sudo drbdadm -- --overwrite-data-of-peer primary all
  
  sudo drbdadm primary --force wwwdata
- 
+\end{lstlisting}
+\ \\
+Il terzo comando deve essere eseguito solo sulla prima macchina !\\
+Per monitorare l'avanzamento del processo ho utilizzato il seguente comando: \lstinline[style=cmd]|watch cat /proc/drbd|.\\
+\ \\
+Infine la abilito per far si che si avvii in automatico:
+
+\begin{lstlisting}[style=cmd]
  sudo systemctl enable drbd
  sudo systemctl start drbd
 \end{lstlisting}
-\ \\
-Il terzo comando deve essere eseguito solo sulla prima macchina ! Per monitorare l'avanzamento del processo potrebbe essere utile utilizzare il seguente comando: \lstinline[style=cmd]|watch cat /proc/drbd|.
-
 
 \subsection{Formattazione Risorsa DRBD}
 
-Procediamo con la formattazione della risorsa drbd creata in precedenza e con l'aggiunta di una pagina web per controllare il corretto funzionamento:
+Procedo con la formattazione della risorsa drbd creata in precedenza e con l'aggiunta di una pagina web per controllare il corretto funzionamento:
 
 \begin{lstlisting}[style=cmd]
  mkfs.xfs /dev/drbd0
@@ -381,7 +406,7 @@ Procediamo con la formattazione della risorsa drbd creata in precedenza e con l'
 
 \subsection{Risorsa DRBD}
 
-Aggiungiamo al cluster la risorsa DRBD appena creata in precedenza:
+Aggiungo al cluster la risorsa DRBD creata in precedenza:
 
 \begin{lstlisting}[style=cmd]
  sudo pcs cluster cib drbd_cfg
@@ -390,19 +415,46 @@ Aggiungiamo al cluster la risorsa DRBD appena creata in precedenza:
  sudo pcs cluster cib-push drbd_cfg --config
 \end{lstlisting}
 \ \\
-Controlliamo il risultato di questa operazione con il comando:
+Controllo il risultato di questa operazione con il comando:
 
 \begin{lstlisting}[style=cmd]
  sudo pcs status
 \end{lstlisting}
+\ \\
+Mi aspetto un outpit simile al seguente:
 
-Ci aspetteremo un output simile :
+\begin{lstlisting}[style=output]
+ Cluster name: ExampleCluster
+ Cluster Summary:
+    * Stack: corosync
+    * Current DC: node1 (version 2.1.1-9.fc34-77db578727) - partition with quorum
+    * Last updated: Tue Dec 14 10:39:46 2021
+    * Last change:  Mon Nov  8 10:35:32 2021 by root via cibadmin on node1
+    * 2 nodes configured
+    * 5 resource instances configured
 
+Node List:
+    * Online: [ node1 node2 ]
+
+Full List of Resources:
+    * Resource Group: Fedora_group:
+        * floating_ip	(ocf::heartbeat:IPaddr2):	 Started node1
+        * http_server	(ocf::heartbeat:apache):	 Started node1
+    * Clone Set: WebData-clone [WebData] (promotable):
+        * Masters: [ node1 ]
+        * Slaves: [ node2 ]
+
+Daemon Status:
+corosync: active/enabled
+pacemaker: active/enabled
+pcsd: active/enabled
+
+\end{lstlisting}
 %%incollare outpt con tutte le risorse pronte
 
 \subsection{Risorsa WebFS}
 
-Per ultimo aggiungiamo al nostro cluster la risorsa WebFS per far si che i dati del Web Server siano replicati in tutti i nodi:
+Per ultimo aggiungo al cluster la risorsa WebFS per far si che i dati del Web Server siano replicati in tutti i nodi:
 
 \begin{lstlisting}[style=cmd]
  sudo pcs cluster cib fs_cfg
@@ -414,24 +466,52 @@ Per ultimo aggiungiamo al nostro cluster la risorsa WebFS per far si che i dati 
  sudo pcs cluster cib-push fs_cfg --config
 \end{lstlisting}
 \ \\
-Nei comandi dove compare la clausula \lstinline[style=cmd]|order| andiamo a specificare l'ordine con cui le risorse devono essere avviate, per esempio con \lstinline[style=cmd]|order WebFS then http_server| stiamo dicendo al cluster di avviare prima la risorsa WebFs e poi il server web.
+Nei comandi dove compare la clausula \lstinline[style=cmd]|order| vado a specificare l'ordine con cui le risorse devono essere avviate, per esempio con \lstinline[style=cmd]|order WebFS then http_server| sto dicendo al cluster di avviare prima la risorsa WebFs e poi il server web.
 
 \subsection{Failover Test}
 
-Come test finale possiamo simulare un failover del nodo principale con il seguente comando:
+Come test finale ho simulato un failover del nodo principale con il seguente comando:
 
 \begin{lstlisting}[style=cmd]
  sudo pcs node standby node1
 \end{lstlisting}
 \ \\
-Possiamo quindi controllare che \lstinline[style=cmd]|node2| venga promosso a master e si avvii la risorsa WebFs:
+Controllo quindi che \lstinline[style=cmd]|node2| venga promosso a master e si avvii la risorsa WebFs:
 
 \begin{lstlisting}[style=cmd]
  sudo pcs status
 \end{lstlisting}
+
+\begin{lstlisting}[style=output]
+ Cluster name: ExampleCluster
+ Cluster Summary:
+    * Stack: corosync
+    * Current DC: node1 (version 2.1.1-9.fc34-77db578727) - partition with quorum
+    * Last updated: Tue Dec 14 10:53:27 2021
+    * Last change:  Tue Dec 14 10:53:10 2021 by root via cibadmin on node1
+    * 2 nodes configured
+    * 5 resource instances configured
+
+ Node List:
+    * Node node1: standby
+    * Online: [ node2 ]
+
+ Full List of Resources:
+    * Resource Group: Fedora_group:
+        * floating_ip	(ocf::heartbeat:IPaddr2):	 Started node2
+        * http_server	(ocf::heartbeat:apache):	 Started node2
+    * Clone Set: WebData-clone [WebData] (promotable):
+        * Masters: [ node2 ]
+        * Stopped: [ node1 ]
+    * WebFS	(ocf::heartbeat:Filesystem):	 Started node2
+
+ Daemon Status:
+ corosync: active/enabled
+ pacemaker: active/enabled
+ pcsd: active/enabled
+\end{lstlisting}
 \ \\
-%% inserire output del comando
-Una volta assicurato il successo di questa operazione possiamo riportare in vita il \lstinline[style=cmd]|nodo1| con:
+Una volta assicurato il successo di questa operazione riporto in vita il \lstinline[style=cmd]|nodo1| con:
 
 \begin{lstlisting}[style=cmd]
  sudo pcs node unstandby node1
