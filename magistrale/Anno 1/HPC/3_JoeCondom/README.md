@@ -1,10 +1,33 @@
 # Esercitazione JoeCondom
 
-# Appunti
+## Configurazione Macchine
+
+### Utenti
+
+Tutti le macchine avranno un utente con le seguenti proprieta':
+
+| utente | password |
+| ------ | -------- |
+| osvaldo| 1234patata|
+
+### Configurazione
+
+Serviranno 3 macchine, tutte e 3 con le seguenti impostazioni:
+|Specifica|Valore|
+|---------|------|
+| OS      | Ubuntu Server 20.4 LTS Server|
+| Scheda di Rete | Scheda di rete con bridge |
+| Disco | 10 GB |
+| RAM | 4 GB |
+| CPU | 4 Cores |
+
+## Esecuzione Esercitazione JoeCondom
+
+### Introduzione a Bug Fedora
 
 A quanto pare su fedora c'e' un bug che impedisce il corretto funzionamento del pacchetto `condor` se avviato tramite il servizio di systemd, quindi si fa tutto con Ubuntu Server 20.4 LTS.
 
-Cose da fare:
+### Configurazione Condor
 
 1. Dopo l'installazione del sistema aggiornare con:
 
@@ -21,7 +44,10 @@ sudo apt install htcondor
 
 Verra' aperto un menu interattivo che chiede se installare automaticamente condor, scegliere `NO`.
 
-3. Per ogni macchina modificare in modo appropriato il nome con `sudo nano /etc/hostname`
+3. Per ogni macchina modificare in modo appropriato il nome con `sudo nano /etc/hostname`. Le varie macchine si chiameranno come segue:
+    - Master: joemaster
+    - Slave s1: joeslave1
+    - Slave 2: joeslave2
 
 4. Modificare in modo appropriato il file `/etc/hosts` aggiungendo gli ip delle altre macchine. Questo file deve essere uguale in tutte le macchine !!:
 
@@ -49,12 +75,12 @@ SUSPEND = FALSE
 PREEMPT = FALSE
 KILL = FALSE
 
-DAEMON_LIST = COLLECTOR, MASTER, NEGOTIATOR, SCHEDD, STARTD
+DAEMON_LIST = COLLECTOR, MASTER, NEGOTIATOR, SCHEDD
 
 HOSTALLOW_WRITE = *.condor
 ```
 
-Per gli `slave`:
+Per gli `slave` RIVEDERE :
 
 ```bash
 sudo nano /etc/condor/config.d/00personal_condor.config
@@ -126,11 +152,7 @@ Arguments  = 42 10
 Log        = ./logs/simple.log
 Output     = ./logs/simple.$(Process).out
 Error      = ./logs/simple.$(Process).error
-Queue
-
-
-Arguments  = 42 11
-Queue
+Queue 2
 
 ```
 
@@ -183,3 +205,26 @@ done
 ```
 
 Va eseguito con `./watcher.sh`.
+
+10. Mandiamo in esecuzione il job e vediamo se effettivamente esegue il job. Potrebbe volerci un po di tempo perche' il job potrebbe essere messo in IDEL e dopo qualche minuto essere eseguito. Tranquillo che e' normale.
+
+11. Installiamo `stress-ng` per testare il funzonamento delle policy di sospenzione e preemption:
+
+```bash
+sudo apt install stres-ng
+```
+
+Possiamo utilizzare questo tool per far aumentare il carico di lavoro della CPU e quindi aumentare la variabile LoadAV di Condor. Con il seguente comando possiamo scegliere quanti core stressare:
+
+```bash
+stress-ng --cpu numero_di_cores &
+```
+
+Per esempio con `stress-ng --cpu 4 &` andremo a caricare di lavoro 4 cores !. La `&` alla fine fa eseguire il processo in background cosi' da permetterci di utilizzare la shell per avviare `htop` in modo tale da controllare l'effettivo stress della CPU. Per terminare lo stress test utilizzare i seguenti comandi:
+
+```bash
+fg
+CTRL + C
+```
+
+12. Proviamo l'effettivo funzionamento della cosa andando a lanciare un job (mgari con un tempo di attesa elevato, tipo 420 secondi) e poi facciamo partire lo stress test sulla macchina dove viene eseguito. Se tutto va bene dovrebbe entrare in Claimed/Stopped, poi Owner/Idel ed infile il job dovrebbe essere passato ad un altro nodo e continuare la sua esecuzione.
