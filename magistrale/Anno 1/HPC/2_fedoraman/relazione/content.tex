@@ -38,12 +38,51 @@ Per questa esercitazione sono necessarie 2 macchine virtuali che saranno i due n
 \`{E} consigliato configurare una sola macchina, installare e configurare il sistema operativo e i software necessari, per poi utilizzare la funzione 'Clona' di VirtualBox per generare una copia identica senza dover ripetere tali operazioni nuovamente. Durante la fase di clonazione della macchina \`{e} necessario selezionare l'opzione "Generare nuovi Mac Address per ogni Network Adapter" come policy per la gestione dei Mac Address.
 
 \begin{center}
-	\includegraphics[scale=0.4]{screens/vb_macpolicy.png}
+	%%\includegraphics[scale=0.4]{screens/vb_macpolicy.png}
+	\includegraphics[width=\textwidth]{screens/vb_macpolicy.png}
 \end{center}
  
 \section{Configurazione Software}
 
-%% forse ci posso aggiungere una breve introduzione ...
+Una volta configurata la macchina virtuale e aggiunta la iso di Fedora, avvio la macchina e scelgo, dal menu, la voce \lstinline[style=cmd]|Install Fedora 34|.
+
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{screens/fedora_install_1.png}
+\end{center}
+\ \\
+Seleziono la lingua del sistema. In Fedora  34 c'\`{e} un bug per cui se la lingua italiana viene selezionata non viene mostrata la sezione per configurare un nuovo utente nel menu successivo. \`{e} anche per questo motivo che scelgo la lingua inglese.
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{screens/fedora_install_lingua.png}
+\end{center}
+\ \\
+Dal successivo menu, vado a configurare la formattazione del disco.
+
+% allineo le immagini una affianco all'altra
+\includegraphics[width=0.5\textwidth]{screens/fedora_install_menu.png}
+\includegraphics[width=0.5\textwidth]{screens/fedora_install_disk.png}
+\ \\
+A questo punto comparir\`{a} una nuova voce per configurare anche l'utente normale. Procedo prima a scegliere una password per \lstinline[style=cmd]|root| e poi imposto l'utente base.
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{screens/fedora_install_menu2.png}
+\end{center}
+
+% allineo le immagini una affianco all'altra
+\includegraphics[width=0.5\textwidth]{screens/fedora_install_rootpwd.png}
+\includegraphics[width=0.5\textwidth]{screens/fedora_install_userpwd.png}
+\ \\
+Avvio il processo di installazione del SO.
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{screens/fedora_install_installing.png}
+\end{center}
+\ \\
+L'installazione \`{e} completata e riavvio il sistema.
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{screens/fedora_install_end.png}
+\end{center}
 
 \subsection{Sistema Operativo}
 
@@ -104,6 +143,8 @@ se restituisce qualcosa vuol dire che il tutto \`{e} andato a buon fine.\\
  192.168.178.0   0.0.0.0         255.255.255.0 ...   enp0s3
 \end{lstlisting}
 Un possibile esempio di output.
+\pagebreak
+
 \subsection{hosts \& hostname}
 \label{sec:hosts}
 
@@ -146,6 +187,7 @@ Successivamente ho abilitato il servizio e l'ho avviato con:
  sudo systemctl enable pcsd
  sudo systemctl start pcsd
 \end{lstlisting}
+\pagebreak
 
 \subsection{Corosync}
 
@@ -223,7 +265,7 @@ Controllo il corretto funzionamento del cluster tramite il comando:
 \begin{lstlisting}[style=cmd]
  sudo pcs status
 \end{lstlisting}
-\ \\
+\pagebreak
 Se ho un output come il seguente vuol dire che il tutto \`{e} andato a buon fine (\`{e} importante che i nodi risultino \lstinline[style=cmd]|Online|):
 
 \begin{lstlisting}[style=output]
@@ -306,7 +348,7 @@ Si aprir\`{a} un menu interattivo e dovr\`{o} digirare i seguenti comandi:
 	\item \lstinline[style=cmd]|w|: scrive le modifiche
 	\item \lstinline[style=cmd]|q|: esce dal programma
 \end{itemize}
-\ \\
+\pagebreak
 Oppure posso effettuare il tutto in maniera autoamtica con:
 
 \begin{lstlisting}[style=cmd]
@@ -344,8 +386,6 @@ Fatto ci\`{o}, posso andare a configurare DRBD popolando il file di configurazio
         cram-hmac-alg sha1;
         shared-secret "barisoni";
     }
-
-
     on fedoraman {
         disk /dev/sdb1;
         address 192.168.178.52:7788;
@@ -467,7 +507,7 @@ Per ultimo aggiungo al cluster la risorsa WebFS per far si che i dati del Web Se
 \end{lstlisting}
 \ \\
 Nei comandi dove compare la clausula \lstinline[style=cmd]|order| vado a specificare l'ordine con cui le risorse devono essere avviate, per esempio con \lstinline[style=cmd]|order WebFS then http_server| sto dicendo al cluster di avviare prima la risorsa WebFs e poi il server web.
-
+\pagebreak
 \subsection{Failover Test}
 
 Come test finale ho simulato un failover del nodo principale con il seguente comando:
