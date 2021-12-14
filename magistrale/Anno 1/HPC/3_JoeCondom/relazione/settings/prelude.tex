@@ -1,0 +1,44 @@
+\documentclass[answers, 12 pt]{exam}
+
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+%% links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	pdftitle={\titolo},
+	pdfpagemode=FullScreen,
+}
+
+\graphicspath{ {./img/} }
+
+
+%% configurazione per i listing di codice
+\usepackage{xcolor}
+\usepackage{listings}
+\colorlet{mycoolgray}{gray!40}
+
+\lstdefinestyle{output}{
+	numbers=none, % where to put the line-numbers
+	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
+	backgroundcolor=\color{darkgray},
+	basicstyle=\ttfamily\color{white},
+	captionpos=b, % sets the caption-position to bottom
+	breaklines=true, % sets automatic line breaking
+	breakatwhitespace=false, 
+}
+
+\lstdefinestyle{cmd}{
+	numbers=none, % where to put the line-numbers
+	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
+	backgroundcolor=\color{mycoolgray},
+	basicstyle=\ttfamily\color{black},
+	captionpos=b, % sets the caption-position to bottom
+	breaklines=true, % sets automatic line breaking
+	breakatwhitespace=false, 
+}
