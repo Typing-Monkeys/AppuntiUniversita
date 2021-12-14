@@ -89,9 +89,8 @@ Ho assegnato IP statici alle macchine per essere sicuro di poterle sempre raggiu
 	\end{lstlisting}
 \end{itemize}
 \ \\
-Con la prima riga di ogni set di istruzioni vado a specificare l'indirizzo IP che voglio assegnare alla macchina con tanto di subnet mask, la seconda riga indica l'indirizzo del default gateway e la terza specifica il DNS che voglio utilizzare.
-\ \\
-Per rendere effettive le modifiche basta riavviare il sistema (\lstinline[style=cmd]|sudo reboot|).\\
+Con la prima riga di ogni set di istruzioni vado a specificare l'indirizzo IP che voglio assegnare alla macchina con tanto di subnet mask, la seconda riga indica l'indirizzo del default gateway e la terza specifica il DNS che voglio utilizzare. \lstinline[style=cmd]|enps0s3| \`{e} il nome della scheda di rete che sto configurando.\\
+Per rendere effettive le modifiche basta riavviare il sistema: \lstinline[style=cmd]|sudo reboot|.\\
 Si pu\`{o} controllare il successo di questa operazione analizzando l'output del comando
 \begin{lstlisting}[style=cmd]
  route -n
@@ -191,7 +190,7 @@ In entrambe le macchine ho provveduto alla configurazione di \lstinline[style=cm
 Nella sezione \lstinline[style=cmd]|totem| ho impostato il nome del cluster modificando l'attributo \lstinline[style=cmd]|cluster_name|. La sezione \lstinline[style=cmd]|nodelist| conterr\`{a} l'elenco di tutti i nodi del cluster, per ogni nodo ho aggiunto la sottosezione \lstinline[style=cmd]|node{}| con gli attributi:
 
 \begin{itemize}
-	\item \lstinline[style=cmd]|ring0_addr|: indica l'indirizzo del nodo, nel mio caso \`{e} \lstinline[style=cmd]|Fedoraman| per via della configurazione in \autoref{sec:hosts}
+	\item \lstinline[style=cmd]|ring0_addr|: indica l'indirizzo del nodo, nel mio caso \`{e} \lstinline[style=cmd]|Fedoraman/Fedoragilr| per via della configurazione in \autoref{sec:hosts}
 	\item \lstinline[style=cmd]|name|: il nome da assegnare al nodo
 	\item \lstinline[style=cmd]|nodeid|: un numero progressivo che identifica il nodo
 \end{itemize}
@@ -217,7 +216,7 @@ Configuro l'avvio automatico del cluster e lo faccio partire con i seguenti coma
  sudo pcs cluster enable --all
 \end{lstlisting}
 \ \\
-Questa operazione deve essere eseguita in una sola macchina, non importa quale, io per comodit\`{a} eseguir\`{o} sempre questo tipo di operazioni in \lstinline[style=cmd]|Fedoraman(node1)|.
+Questa operazione deve essere eseguita in una sola macchina, non importa quale, io per comodit\`{a} ho scelto \lstinline[style=cmd]|Fedoraman(node1)|.
 \ \\
 Controllo il corretto funzionamento del cluster tramite il comando:
 
@@ -283,7 +282,8 @@ Aggiungo la risorsa HTTP al cluster in modo tale da avere un server web sempre a
 \subsection{Partizionamento Disco Condiviso}
 \label{sec:partizione}
 
-Procedo al partizionamento del secondo disco presente in tutte e due le macchine, con il seguente comando posso controllare il suo nome (di solito \`{e} \lstinline[style=cmd]|/dev/sdb|):
+Procedo al partizionamento del secondo disco presente in tutte e due le macchine.\\
+Con il seguente comando posso controllare il suo nome che gli \`{e} stato assegnato (di solito \lstinline[style=cmd]|/dev/sdb|):
 
 \begin{lstlisting}[style=cmd]
  sudo fdisk -l
@@ -395,7 +395,7 @@ Infine la abilito per far si che si avvii in automatico:
 
 \subsection{Formattazione Risorsa DRBD}
 
-Procedo con la formattazione della risorsa drbd creata in precedenza e con l'aggiunta di una pagina web per controllare il corretto funzionamento:
+Procedo con la formattazione della risorsa DRBD creata in precedenza e con l'aggiunta di una pagina web per controllare il corretto funzionamento:
 
 \begin{lstlisting}[style=cmd]
  mkfs.xfs /dev/drbd0
@@ -511,7 +511,7 @@ Controllo quindi che \lstinline[style=cmd]|node2| venga promosso a master e si a
  pcsd: active/enabled
 \end{lstlisting}
 \ \\
-Una volta assicurato il successo di questa operazione riporto in vita il \lstinline[style=cmd]|nodo1| con:
+Una volta assicurato il successo di questa operazione riporto in vita \lstinline[style=cmd]|nodo1| con:
 
 \begin{lstlisting}[style=cmd]
  sudo pcs node unstandby node1
