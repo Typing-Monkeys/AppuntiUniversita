@@ -267,7 +267,7 @@ Prima di poter eseguire un job ho bisogno di programma che effettui alcune opera
 Il programma dopo aver atteso restituir\`{a} il secondo parametro moltiplicato per 2.\\
 Di seguito riporto il codice in C, compilato con \icode{gcc -o simple simple.c}:
 
-\begin{lstlisting}[style=cmd]
+\begin{lstlisting}[style=c]
  #include <stdio.h>
  
  main(int argc, char **argv)
@@ -306,11 +306,186 @@ Procedo quindi a scrivere il file \icode{jobstarter} per sottomettere il job al 
  Log        = ./logs/simple.log
  Output     = ./logs/simple.$(Process).out
  Error      = ./logs/simple.$(Process).error
- Queue 2
+ Queue 3
 \end{lstlisting}
+\ \\
+La keyword \icode{Executable} indica il file eseguibile che verr\`{a} avviato, \icode{Arguments} \`{e} la lista dei parametri da passare la programma, \icode{Log, Output ed Error} indicano rispettivamente dove verranno collocati i file di Log, Output e di Errore. \icode{Queue 2} indica che verranno eseguiti 2 job con il dato eseguibile e lista di parametri.\\
 \ \\
 Infine mando in esecuzione il job con: 
 
 \begin{lstlisting}[style=cmd]
  condor_submit jobstarter
+\end{lstlisting}
+\ \\
+Per controllare in modo efficiente lo stato di avanzamento dei vari job ho scritto il seguente codice:
+
+\begin{lstlisting}[style=bash]
+ while true
+ do
+    clear
+    date
+    condor_status
+    condor_q -nobatch
+    sleep 2
+ done
+\end{lstlisting}
+\ \\
+Lo script produrr\`{a} un output del tipo:
+
+\begin{lstlisting}[style=output_tiny]
+ Wed 15 Dec 2021 03:42:25 PM UTC
+ Name                      OpSys      Arch   State     Activity LoadAv Mem   ActvtyTime
+ 
+ slot1@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.080  965  0+00:00:03
+ slot2@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:20
+ slot3@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:20
+ slot4@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:20
+ slot1@joeslave2.fritz.box LINUX      X86_64 Claimed   Busy      0.000  965  0+00:00:03
+ slot2@joeslave2.fritz.box LINUX      X86_64 Claimed   Busy      0.000  965  0+00:00:03
+ slot3@joeslave2.fritz.box LINUX      X86_64 Claimed   Busy      0.000  965  0+00:00:03
+ slot4@joeslave2.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:20
+ 
+ Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
+ 
+ X86_64/LINUX     8     0       3         5       0          0        0      0
+ 
+ Total     8     0       3         5       0          0        0      0
+ 
+ 
+ -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 15:42:25
+ ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD
+ 28.0   osvaldo        12/15 15:42   0+00:00:06 R  0    0.0 simple 420 10
+ 28.1   osvaldo        12/15 15:42   0+00:00:06 R  0    0.0 simple 420 10
+ 28.2   osvaldo        12/15 15:42   0+00:00:06 R  0    0.0 simple 420 10
+ 
+ 3 jobs; 0 completed, 0 removed, 0 idle, 3 running, 0 held, 0 suspended
+ 
+ 
+ -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 15:42:25
+ OWNER   BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+ osvaldo CMD: simple  12/15 15:42      _      3      _      3 28.0-2
+ 
+ 3 jobs; 0 completed, 0 removed, 0 idle, 3 running, 0 held, 0 suspended
+ 
+\end{lstlisting}
+\ \\
+Si pu\`{o} notare che sono stati assegnati 3 job alla macchina \icode{JoeSlave2} dato che 3 dei suoi core sono in stato \icode{Claimed/Busy}, ci\`{o} vuol dire che stanno performando azioni per condor. %%riguardare sta cazzata
+Lo stato \icode{Uncleimde/Idle} indica che il nodo \`{e} pronto ed in attesa di ricevere un job da eseguire.
+
+\subsection{Test della configurazione}
+
+Per testare se la mia configurazione funziona ho utilizzato il tool \icode{stress-ng} per caricare di lavoro i core di una determinata macchina in modo tale da simulare l'attivit\`{a} di un utente.\\
+Tramite il comando \icode{stress-ng --cpu 4} posso caricare di lavoro 4 CPU. %% rivedere sta merda
+
+\begin{lstlisting}[style=output_tiny]
+ Wed 15 Dec 2021 04:13:54 PM UTC
+ Name                      OpSys      Arch   State     Activity  LoadAv Mem   ActvtyTime
+ 
+ slot1@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle       0.000  965  0+00:29:46
+ slot2@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle       0.000  965  0+00:30:03
+ slot3@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle       0.000  965  0+00:30:03
+ slot4@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle       0.000  965  0+00:30:03
+ slot1@joeslave2.fritz.box LINUX      X86_64 Claimed   Suspended  0.620  965  0+00:00:03
+ slot2@joeslave2.fritz.box LINUX      X86_64 Claimed   Suspended  0.770  965  0+00:00:03
+ slot3@joeslave2.fritz.box LINUX      X86_64 Claimed   Suspended  0.650  965  0+00:00:03
+ slot4@joeslave2.fritz.box LINUX      X86_64 Owner     Idle       0.320  965  0+00:00:03
+ 
+ Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
+ 
+ X86_64/LINUX     8     1       3         4       0          0        0      0
+ 
+ Total     8     1       3         4       0          0        0      0
+ 
+ 
+ -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 16:13:55
+ ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD
+ 30.0   osvaldo        12/15 16:10   0+00:02:58 S  0    0.0 simple 420 10
+ 30.1   osvaldo        12/15 16:10   0+00:02:58 S  0    0.0 simple 420 10
+ 30.2   osvaldo        12/15 16:10   0+00:02:58 S  0    0.0 simple 420 10
+ 
+ 3 jobs; 0 completed, 0 removed, 0 idle, 0 running, 0 held, 3 suspended
+ 
+ 
+ -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 16:13:55
+ OWNER   BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+ osvaldo CMD: simple  12/15 16:10      _      _      3      3 30.0-2
+ 
+ 3 jobs; 0 completed, 0 removed, 0 idle, 0 running, 0 held, 3 suspended
+ 
+\end{lstlisting}
+
+\begin{lstlisting}[style=output_tiny]
+ Wed 15 Dec 2021 04:16:03 PM UTC
+ Name                      OpSys      Arch   State     Activity LoadAv Mem   ActvtyTime
+ 
+ slot1@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:29:46
+ slot2@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:30:03
+ slot3@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:30:03
+ slot4@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:30:03
+ slot1@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      0.950  965  0+00:00:03
+ slot2@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      1.000  965  0+00:00:03
+ slot3@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      1.000  965  0+00:00:03
+ slot4@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      0.320  965  0+00:00:03
+ 
+ Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
+ 
+ X86_64/LINUX     8     4       0         4       0          0        0      0
+ 
+ Total     8     4       0         4       0          0        0      0
+ 
+ 
+ -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 16:16:03
+ ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD
+ 30.0   osvaldo        12/15 16:10   0+00:04:55 I  0    0.0 simple 420 10
+ 30.1   osvaldo        12/15 16:10   0+00:03:10 I  0    0.0 simple 420 10
+ 30.2   osvaldo        12/15 16:10   0+00:03:40 I  0    0.0 simple 420 10
+ 
+ 3 jobs; 0 completed, 0 removed, 3 idle, 0 running, 0 held, 0 suspended
+ 
+ 
+ -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 16:16:03
+ OWNER   BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+ osvaldo CMD: simple  12/15 16:10      _      _      3      3 30.0-2
+ 
+ 3 jobs; 0 completed, 0 removed, 3 idle, 0 running, 0 held, 0 suspended
+ 
+ 
+ 
+\end{lstlisting}
+
+\begin{lstlisting}[style=output_tiny]
+ Name                      OpSys      Arch   State     Activity LoadAv Mem   ActvtyTime
+ 
+ slot1@joeslave1.fritz.box LINUX      X86_64 Claimed   Busy      0.000  965  0+00:00:03
+ slot2@joeslave1.fritz.box LINUX      X86_64 Claimed   Busy      0.000  965  0+00:00:03
+ slot3@joeslave1.fritz.box LINUX      X86_64 Claimed   Busy      0.000  965  0+00:00:03
+ slot4@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:35:03
+ slot1@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      0.970  965  0+00:00:36
+ slot2@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      1.000  965  0+00:02:21
+ slot3@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      1.000  965  0+00:01:51
+ slot4@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      1.000  965  0+00:04:56
+ 
+ Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
+ 
+ X86_64/LINUX     8     4       3         1       0          0        0      0
+ 
+ Total     8     4       3         1       0          0        0      0
+ 
+ 
+ -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 16:17:25
+ ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD
+ 30.0   osvaldo        12/15 16:10   0+00:05:23 R  0    0.0 simple 420 10
+ 30.1   osvaldo        12/15 16:10   0+00:03:38 R  0    0.0 simple 420 10
+ 30.2   osvaldo        12/15 16:10   0+00:04:08 R  0    0.0 simple 420 10
+ 
+ 3 jobs; 0 completed, 0 removed, 0 idle, 3 running, 0 held, 0 suspended
+ 
+ 
+ -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 16:17:25
+ OWNER   BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+ osvaldo CMD: simple  12/15 16:10      _      3      _      3 30.0-2
+ 
+ 3 jobs; 0 completed, 0 removed, 0 idle, 3 running, 0 held, 0 suspended
+
+ 
 \end{lstlisting}

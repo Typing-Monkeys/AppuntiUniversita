@@ -17,7 +17,6 @@
 
 \graphicspath{ {./img/} }
 
-
 %% configurazione per i listing di codice
 \usepackage{xcolor}
 \usepackage{listings}
@@ -33,6 +32,16 @@
 	breakatwhitespace=false, 
 }
 
+\lstdefinestyle{output_tiny}{
+	numbers=none, % where to put the line-numbers
+	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
+	backgroundcolor=\color{darkgray},
+	basicstyle=\scriptsize\ttfamily\color{white},
+	captionpos=b, % sets the caption-position to bottom
+	breaklines=true, % sets automatic line breaking
+	breakatwhitespace=false, 
+}
+
 \lstdefinestyle{cmd}{
 	numbers=none, % where to put the line-numbers
 	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
@@ -41,6 +50,46 @@
 	captionpos=b, % sets the caption-position to bottom
 	breaklines=true, % sets automatic line breaking
 	breakatwhitespace=false, 
+}
+
+\lstdefinestyle{c}{
+	%backgroundcolor=\color{mycoolgray},   
+	commentstyle=\color{green},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{gray},
+	stringstyle=\color{purple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+	language=C
+}
+
+\lstdefinestyle{bash}{
+	%backgroundcolor=\color{mycoolgray},   
+	commentstyle=\color{green},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{gray},
+	stringstyle=\color{purple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+	language=Bash
 }
 
 %\newcommand{\bcode}[1]{%
