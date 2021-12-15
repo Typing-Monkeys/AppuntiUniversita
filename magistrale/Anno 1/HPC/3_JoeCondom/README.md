@@ -166,6 +166,13 @@ Arguments  = 42 11
 Queue
 ```
 
+Se inveci si vuole eseguire lo stesso job più volte basta aggiungere un numero dopo `Queue`:
+
+```
+...
+Queue 2
+```
+
 Il nostro eseguibile e' il seguente codice compilato con `gcc -o simple simple.c`: 
 
 ```c
