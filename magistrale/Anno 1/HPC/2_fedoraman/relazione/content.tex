@@ -411,7 +411,7 @@ Abilito il modulo kernel per rendere sempre utilizzabile la risorsa, anche ai pr
 
 \begin{lstlisting}[style=cmd]
  sudo modprobe drbd
- sudo echo "drbd" >> /etc/modules-load.d/drbd.conf
+ echo "drbd" | sudo tee -a /etc/modules-load.d/drbd.conf
 \end{lstlisting}
 \ \\
 Completo la configurazione della risorsa con:
@@ -440,7 +440,7 @@ Procedo con la formattazione della risorsa DRBD creata in precedenza e con l'agg
 \begin{lstlisting}[style=cmd]
  mkfs.xfs /dev/drbd0
  sudo mount /dev/drbd0 /mnt
- sudo echo "<h1>Hello World</h1>" >> /mnt/index.html
+ echo "<h1>Hello World</h1>" | sudo tee /mnt/index.html
  sudo umount /dev/drbd0
 \end{lstlisting}
 
