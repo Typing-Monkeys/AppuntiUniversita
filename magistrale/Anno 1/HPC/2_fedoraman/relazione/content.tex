@@ -49,7 +49,7 @@ Per questa esercitazione sono necessarie 2 macchine virtuali che saranno i due n
 Una volta configurata la macchina virtuale e aggiunta la iso di Fedora, avvio la macchina e scelgo, dal menu, la voce \lstinline[style=cmd]|Install Fedora 34|.
 
 \begin{center}
-	\includegraphics[width=0.9\textwidth]{screens/fedora_install_1.png}
+	\includegraphics[width=0.8\textwidth]{screens/fedora_install_1.png}
 \end{center}
 \ \\
 Seleziono la lingua del sistema. In Fedora  34 c'\`{e} un bug per cui se la lingua italiana viene selezionata non viene mostrata la sezione per configurare un nuovo utente nel menu successivo. \`{e} anche per questo motivo che scelgo la lingua inglese.
@@ -102,7 +102,7 @@ Poi ho installato i pacchetti necessari (\textit{Pacemaker}, \textit{Corosync}, 
  sudo dnf -y install httpd
  sudo dnf -y install iptables-services
 \end{lstlisting} 
-
+\pagebreak
 \subsection{IP}
 
 Ho assegnato IP statici alle macchine per essere sicuro di poterle sempre raggiungere e che il DHCP del mio router non gli assegni indirizzi diversi col passare del tempo. Per farlo ho utilizzato i seguenti comandi:
@@ -224,7 +224,7 @@ In entrambe le macchine ho provveduto alla configurazione di \lstinline[style=cm
    timestamp: on
  }
 \end{lstlisting}
-\ \\
+\pagebreak
 Nella sezione \lstinline[style=cmd]|totem| ho impostato il nome del cluster modificando l'attributo \lstinline[style=cmd]|cluster_name|. La sezione \lstinline[style=cmd]|nodelist| conterr\`{a} l'elenco di tutti i nodi del cluster, per ogni nodo ho aggiunto la sottosezione \lstinline[style=cmd]|node{}| con gli attributi:
 
 \begin{itemize}
@@ -469,10 +469,10 @@ Mi aspetto un outpit simile al seguente:
     * 2 nodes configured
     * 5 resource instances configured
 
-Node List:
+ Node List:
     * Online: [ node1 node2 ]
 
-Full List of Resources:
+ Full List of Resources:
     * Resource Group: Fedora_group:
         * floating_ip	(ocf::heartbeat:IPaddr2):	 Started node1
         * http_server	(ocf::heartbeat:apache):	 Started node1
@@ -480,10 +480,10 @@ Full List of Resources:
         * Masters: [ node1 ]
         * Slaves: [ node2 ]
 
-Daemon Status:
-corosync: active/enabled
-pacemaker: active/enabled
-pcsd: active/enabled
+ Daemon Status:
+    corosync: active/enabled
+    pacemaker: active/enabled
+    pcsd: active/enabled
 
 \end{lstlisting}
 %%incollare outpt con tutte le risorse pronte
