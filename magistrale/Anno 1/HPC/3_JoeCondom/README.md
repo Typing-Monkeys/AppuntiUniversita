@@ -80,12 +80,12 @@ DAEMON_LIST = COLLECTOR, MASTER, NEGOTIATOR, SCHEDD
 HOSTALLOW_WRITE = *.condor
 ```
 
-Per gli `slave` RIVEDERE :
+Per gli `slave`:
 
 ```bash
 sudo nano /etc/condor/config.d/00personal_condor.config
 
-#MACRO(n)
+#Macro(n)
 NonCondorLoadAvg = (LoadAvg - CondorLoadAvg)
 HighLoad = 0.6
 BgndLoad = 0.3
@@ -95,14 +95,16 @@ KeyboardBusy = (KeyboardIdle < 10)
 MachineBusy = ($(CPU_Busy) || $(KeyboardBusy))
 ActivityTimer = (CurrentTime - EnteredCurrentActivity)
 
-
 CONDOR_HOST = nodo1
 COLLECTOR_NAME = Personal Condor at $(FULL_HOSTNAME)
 
-START =  $(CPU_Idle) && ($(KeyboardBusy) == FALSE)
+WANT_SUSPEND = True
+WANT_VACATE = True
+
+START =  $(CPU_Idle) && !$(KeyboardBusy)
 SUSPEND = $(MachineBusy)
 CONTINUE = $(CPU_Idle) && KeyboardIdle > 120
-PREEMPT = (Activity == "Suspended") && $(ActivityTimer) > 300
+PREEMPT = (Activity == "Suspended") && $(ActivityTimer) > 120     
 KILL = $(ActivityTimer) > 300
 
 DAEMON_LIST = MASTER, STARTD
