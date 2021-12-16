@@ -44,8 +44,45 @@ Per questa esercitazione sono necessarie 3 macchine virtuali che saranno 1 \lsti
 
 \subsection{Sistema Operativo}
 
-RIEMPIMI
+Appena terminata la configurazione della macchina virtuale aggiungo la iso di Ubuntu 20.4 Server e avvio la fase di installazione.\\
+Seleziono la lingua del sistema e il layout della tastiera:
 
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{screens/ubuntu_1.png}
+\end{center}
+\ \\
+Mi assicuro che alla scheda di rete venga assegnato un IP dal DHCP per poter scaricare il software necessario durante l'installazione:
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{screens/ubuntu_2.png}
+\end{center}
+\ \\
+Ignoro la sezione del proxy e scelgo il mirror italiano:
+
+	\includegraphics[width=0.5\textwidth]{screens/ubuntu_3.png}
+	\includegraphics[width=0.5\textwidth]{screens/ubuntu_4.png}
+\ \\
+Formatto l'intero disco con le impostazioni consigliate:
+
+	\includegraphics[width=0.5\textwidth]{screens/ubuntu_5.png}
+	\includegraphics[width=0.5\textwidth]{screens/ubuntu_6.png}
+\ \\
+Creo un nuovo utente e scelgo la pasword:
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{screens/ubuntu_7.png}
+\end{center}
+\ \\
+Mi assicuro che il servizio \icode{sshd} venga installato e abilitato;
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{screens/ubuntu_8.png}
+\end{center}
+\ \\
+Completo l'installazione e riavvio la macchina:
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{screens/ubuntu_9.png}
+\end{center}
+	
 \subsection{Software Necessario}
 
 Appena ho terminato la fase di installazione del SO, ho provveduto ad aggiornarlo con i
