@@ -1,6 +1,6 @@
 \section{Obbiettivo}
 
-RIEMPIMI
+L'obbiettivo di questa esercitazione \`{e} quello di realizzare un cluster ad alte prestazioni, cioè un insieme di nodi interconnessi tra loro capaci di distribuirsi il carico di lavoro in maniera autonoma mediante l'uso e la configurazione del software HTCondor.
 
 \section{Ambiente di Lavoro}
 
@@ -54,14 +54,15 @@ Seleziono la lingua del sistema e il layout della tastiera:
 Mi assicuro che alla scheda di rete venga assegnato un IP dal DHCP per poter scaricare il software necessario durante l'installazione:
 
 \begin{center}
-	\includegraphics[width=0.6\textwidth]{screens/ubuntu_2.png}
+	\includegraphics[width=0.7\textwidth]{screens/ubuntu_2.png}
 \end{center}
 \ \\
 Ignoro la sezione del proxy e scelgo il mirror italiano:
 
 	\includegraphics[width=0.5\textwidth]{screens/ubuntu_3.png}
 	\includegraphics[width=0.5\textwidth]{screens/ubuntu_4.png}
-\ \\
+	
+\pagebreak
 Formatto l'intero disco con le impostazioni consigliate:
 
 	\includegraphics[width=0.5\textwidth]{screens/ubuntu_5.png}
@@ -69,20 +70,20 @@ Formatto l'intero disco con le impostazioni consigliate:
 \ \\
 Creo un nuovo utente e scelgo la pasword:
 \begin{center}
-	\includegraphics[width=0.6\textwidth]{screens/ubuntu_7.png}
+	\includegraphics[width=0.7\textwidth]{screens/ubuntu_7.png}
 \end{center}
-\ \\
+\pagebreak
 Mi assicuro che il servizio \icode{sshd} venga installato e abilitato;
 \begin{center}
-	\includegraphics[width=0.6\textwidth]{screens/ubuntu_8.png}
+	\includegraphics[width=0.7\textwidth]{screens/ubuntu_8.png}
 \end{center}
 \ \\
 Completo l'installazione e riavvio la macchina:
 
 \begin{center}
-	\includegraphics[width=0.6\textwidth]{screens/ubuntu_9.png}
+	\includegraphics[width=0.7\textwidth]{screens/ubuntu_9.png}
 \end{center}
-	
+\pagebreak
 \subsection{Software Necessario}
 
 Appena ho terminato la fase di installazione del SO, ho provveduto ad aggiornarlo con i
@@ -299,7 +300,7 @@ Controllo che la configurazione sia andata a buon fine con il comando:
 \end{lstlisting}
 \ \\
 Vedr\`{o} tante righe quanti sono i core che ha ogni macchina. L'output precedente mostra 2 macchine con 4 core ciascuna, indica che la mia configurazione ha funzionato.
-
+\pagebreak
 \subsection{Invio di un Job}
 
 Prima di poter inviare un job ho bisogno di un eseguibile, ho perci\`{o} deciso di scrivere un programma in C che: 
@@ -345,7 +346,7 @@ Di seguito riporto il codice che ho compilato con \icode{gcc -o simple simple.c}
 	return failure;
  }
 \end{lstlisting}
-\ \\
+\pagebreak
 Procedo quindi a scrivere il file \icode{jobstarter} per sottomettere il job al master: 
 
 \begin{lstlisting}[style=cmd]
@@ -385,7 +386,7 @@ Per controllare in modo efficiente lo stato di avanzamento dei vari job ho scrit
     sleep 2
  done
 \end{lstlisting}
-\ \\
+\pagebreak
 il quale produrr\`{a} un output del tipo:
 
 \begin{lstlisting}[style=output_tiny]
@@ -439,7 +440,7 @@ Modifico il job creato in precedenza aumentando il tempo di attesa del mio progr
 \end{lstlisting}
 \ \\
 poi lo avvio con \icode{condor_submit jobstarter} e vado a controllare a quale macchina viene assegnato il lavoro:
-
+\pagebreak
 \begin{lstlisting}[style=output_tiny]
   Wed 15 Dec 2021 03:42:25 PM UTC
  Name                      OpSys      Arch   State     Activity LoadAv Mem   ActvtyTime
@@ -505,10 +506,6 @@ Utilizzo la \icode{\&} alla fine per eseguire il comando in background e potere 
  598 root       RT   0  273M 17940  8200 S  0.0  0.5  0:00.00 /sbin/multipathd -d -s
  599 root       RT   0  273M 17940  8200 S  0.0  0.5  0:00.00 /sbin/multipathd -d -s
  593 root       RT   0  273M 17940  8200 S  0.0  0.5  0:00.04 /sbin/multipathd -d -s
- 677 systemd-t  20   0 90228  5992  5224 S  0.0  0.2  0:00.00 /lib/systemd/systemd-timesyncd
- 642 systemd-t  20   0 90228  5992  5224 S  0.0  0.2  0:00.02 /lib/systemd/systemd-timesyncd
- 683 systemd-n  20   0 26604  7564  6708 S  0.0  0.2  0:00.02 /lib/systemd/systemd-networkd
- 685 systemd-r  20   0 23896 11976  8052 S  0.0  0.3  0:00.04 /lib/systemd/systemd-resolved
  F1Help  F2Setup F3SearchF4FilterF5Tree  F6SortByF7Nice -F8Nice +F9Kill  F10Quit 
 \end{lstlisting}
 \ \\
@@ -571,6 +568,7 @@ La macchina sotto stress avr\`{a} lo stato di \icode{Owner/Idle}.
  X86_64/LINUX     8     4       0         4       0          0        0      0
  
  Total            8     4       0         4       0          0        0      0
+ 
  
  
  -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 16:16:03
