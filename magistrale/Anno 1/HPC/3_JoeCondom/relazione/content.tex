@@ -63,7 +63,7 @@ Poi ho installato i pacchetti necessari (\lstinline[style=cmd]|HTCondor| e \lsti
  sudo apt install stress-ng
 \end{lstlisting}
 \ \\
-Durante l'installazione del software \lstinline[style=cmd]|HTCondor| verr\`{a} si apre un menu dove mi viene chiesto se utilizzare una configurazione gi\`{a} pronta di Condor, io ho scelto \lstinline[style=cmd]|No| in quanto ho preferito configurare tutto a mano per comprendere meglio il file di configurazione ed i vari parametri da modificare.\\
+Durante l'installazione del software \lstinline[style=cmd]|HTCondor| verr\`{a} mostrato un menu dove viene chiesto se utilizzare una configurazione gi\`{a} pronta di Condor, io ho scelto \lstinline[style=cmd]|No| in quanto ho preferito configurare tutto a mano per comprendere meglio il file di configurazione ed i vari parametri da modificare.\\
 \ \\
 Il pacchetto \lstinline[style=cmd]|stress-ng| serve per mettere sotto sforzo i vari core della macchina e verr\`{a} utilizzato in seguito per testare la configurazione dei due slave.
 
@@ -102,7 +102,7 @@ Per farlo ho utilizzato la seguente procedura (\`{e} uguale per tutte le macchin
 	\end{lstlisting}
 	\item Ho riavviato la macchina per rendere effettive le modifiche.
 \end{enumerate}
-
+\ \\
 Per le altre macchine va modificato il parametro \lstinline[style=cmd]|addresses| con il corretto IP.\\
 \ \\
 Per controllare il corretto funzionamento di questa operazione basta utilizzare il comando \lstinline[style=cmd]|ifconfig enp0s3| e controllare che abbia il giusto indirizzo:
@@ -221,8 +221,8 @@ Tramite le variabili \lstinline[style=cmd]|START, SUSPEND e WANT_SUSPEND| e le M
 	\item \icode{START}, se \icode{True} vuol dire che il nodo \`{e} pronto ad accettare ed eseguire job. Nel mio caso sar\`{a} \icode{True} solo quando la CPU sar\`{a} sotto il 30\% di utilizzo e non verr\`{a} rilevata attivit\`{a} della tastiera da pi\`{u} di 10 secondi.
 	\item \icode{SUSPEND}, se \icode{True}, mette in pausa l'esecuzione del job attualmente in lavorazione.
 	\item \icode{CONTINUE} valuta quando riprendere l'esecuzione del job sospeso. Nel mio caso quando la CPU \`{e} sotto il 30\% di carico e quando non viene registrata attivit\`{a} della tastiera per pi\`{u} di 10 secondi.
-	\item \icode{WANT_VACATE}, se \icode{True}, dice a Condor di valutare la variabile \icode{PREEMPT} per valutare se effettuare la preemption del job oppure no.
-	\item \icode{PREEMPT}, se \icode{True}, effettua la preemption del job, effettua un checkpoint del lavoro e riporta il job nella coda dei processi per essere assegnato ad un altro nodo. Nel mio caso avviene quando il job \`{e} stato sospeso da pi\`{u} di 120 secondi.
+	\item \icode{WANT_VACATE}, se \icode{True}, dice a Condor di valutare la variabile \icode{PREEMPT} per decidere se effettuare la preemption del job oppure no.
+	\item \icode{PREEMPT}, se \icode{True}, effettua la preemption del job, crea un checkpoint del lavoro e riporta il job nella coda dei processi per essere assegnato ad un altro nodo. Nel mio caso avviene quando il job \`{e} stato sospeso da pi\`{u} di 120 secondi.
 	\item \icode{KILL} indica quando uccidere immediatamente (senza effettuare preemption) un job. Nel mio caso dopo 300 secondi di inattivit\`{a}.
 \end{itemize}
 
@@ -241,24 +241,31 @@ Controllo che la configurazione sia andata a buon fine con il comando:
  condor_status
 \end{lstlisting}
 
-\begin{lstlisting}[style=output]
- Name            OpSys      Arch   State     Activity    ...
+\begin{lstlisting}[style=output_tiny]
+ Name                      OpSys      Arch   State     Activity LoadAv Mem   ActvtyTime
  
- slot1@joeslave1 LINUX      X86_64 Unclaimed Idle        ...
- slot2@joeslave1 LINUX      X86_64 Unclaimed Idle        ...
- slot3@joeslave1 LINUX      X86_64 Unclaimed Idle        ...
- slot4@joeslave1 LINUX      X86_64 Unclaimed Idle        ...
- slot1@joeslave2 LINUX      X86_64 Unclaimed Idle        ...
- slot2@joeslave2 LINUX      X86_64 Unclaimed Idle        ...
- slot3@joeslave2 LINUX      X86_64 Unclaimed Idle        ...
- slot4@joeslave2 LINUX      X86_64 Unclaimed Idle        ...
+ slot1@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.310  965  0+00:00:23
+ slot2@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:03
+ slot3@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:23
+ slot4@joeslave1.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:23
+ slot1@joeslave2.fritz.box LINUX      X86_64 Unclaimed Idle      0.160  965  0+00:00:03
+ slot2@joeslave2.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:19
+ slot3@joeslave2.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:19
+ slot4@joeslave2.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:19
+ 
+                Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
+ 
+ X86_64/LINUX     8     0       0         8       0          0        0      0
+ 
+ Total            8     0       0         8       0          0        0      0
+ 
 \end{lstlisting}
 \ \\
 Vedr\`{o} tante righe quanti sono i core che ha ogni macchina. L'output precedente mostra 2 macchine con 4 core ciascuna, indica che la mia configurazione ha funzionato.
 
 \subsection{Invio di un Job}
 
-Prima di poter inviare un job ho bisogno di un eseguibile, ho perci\`{o} deciso di scrivere un programma in C: 
+Prima di poter inviare un job ho bisogno di un eseguibile, ho perci\`{o} deciso di scrivere un programma in C che: 
 
 \begin{itemize}
 	\item Accetta 2 argomenti:
@@ -342,7 +349,7 @@ Per controllare in modo efficiente lo stato di avanzamento dei vari job ho scrit
  done
 \end{lstlisting}
 \ \\
-Lo script produrr\`{a} un output del tipo:
+il quale produrr\`{a} un output del tipo:
 
 \begin{lstlisting}[style=output_tiny]
  Wed 15 Dec 2021 03:42:25 PM UTC
@@ -357,11 +364,11 @@ Lo script produrr\`{a} un output del tipo:
  slot3@joeslave2.fritz.box LINUX      X86_64 Claimed   Busy      0.000  965  0+00:00:03
  slot4@joeslave2.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:20
  
- Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
+                 Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
  
  X86_64/LINUX     8     0       3         5       0          0        0      0
  
- Total     8     0       3         5       0          0        0      0
+ Total            8     0       3         5       0          0        0      0
  
  
  -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 15:42:25
@@ -382,12 +389,19 @@ Lo script produrr\`{a} un output del tipo:
 \end{lstlisting}
 \ \\
 Si pu\`{o} notare che sono stati assegnati 3 job alla macchina \icode{JoeSlave2} dato che 3 dei suoi core sono in stato \icode{Claimed/Busy}, ci\`{o} vuol dire che stanno performando azioni per condor. %%riguardare sta cazzata
-Lo stato \icode{Uncleimde/Idle} indica che il nodo \`{e} pronto ed in attesa di ricevere un job da eseguire.
+Lo stato \icode{Uncleimde/Idle} indica che il nodo \`{e} pronto ed in attesa di ricevere un job da eseguire.\\
+Questo mi fa capire che il tutto sta funzionando come dovrebbe e che la configurazione \`{e} andata a buon fine.
 
 \subsection{Test della configurazione}
 
 Per testare se la mia configurazione funziona ho utilizzato il tool \icode{stress-ng} per caricare di lavoro i core di una determinata macchina in modo tale da simulare l'attivit\`{a} di un utente.\\
-Avvio il job creato in precedenza con \icode{condor_submit jobstarter} e vado a controllare a quale macchina viene assegnato il lavoro:
+Modifico il job creato in precedenza aumentando il tempo di attesa del mio programma in modo da dare il tempo a condor di valutare tutte le variabili prima che l'esecuzione finisca: 
+
+\begin{lstlisting}[style=cmd]
+  Arguments  = 420 10
+\end{lstlisting}
+\ \\
+poi lo avvio con \icode{condor_submit jobstarter} e vado a controllare a quale macchina viene assegnato il lavoro:
 
 \begin{lstlisting}[style=output_tiny]
   Wed 15 Dec 2021 03:42:25 PM UTC
@@ -402,11 +416,11 @@ Avvio il job creato in precedenza con \icode{condor_submit jobstarter} e vado a 
  slot3@joeslave2.fritz.box LINUX      X86_64 Claimed   Busy      0.000  965  0+00:00:03
  slot4@joeslave2.fritz.box LINUX      X86_64 Unclaimed Idle      0.000  965  0+00:00:20
  
- Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
+                 Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
  
  X86_64/LINUX     8     0       3         5       0          0        0      0
  
- Total     8     0       3         5       0          0        0      0
+ Total            8     0       3         5       0          0        0      0
  
  
  -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 15:42:25
@@ -476,11 +490,11 @@ Da questo output posso constatare che l'utilizzo della CPU di questa macchina \`
  slot3@joeslave2.fritz.box LINUX      X86_64 Claimed   Suspended  0.650  965  0+00:00:03
  slot4@joeslave2.fritz.box LINUX      X86_64 Owner     Idle       0.320  965  0+00:00:03
  
- Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
+                 Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
  
  X86_64/LINUX     8     1       3         4       0          0        0      0
  
- Total     8     1       3         4       0          0        0      0
+ Total            8     1       3         4       0          0        0      0
  
  
  -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 16:13:55
@@ -515,11 +529,11 @@ La macchina sotto stress avr\`{a} lo stato di \icode{Owner/Idle}.
  slot3@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      1.000  965  0+00:00:03
  slot4@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      0.320  965  0+00:00:03
  
- Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
+                Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
  
  X86_64/LINUX     8     4       0         4       0          0        0      0
  
- Total     8     4       0         4       0          0        0      0
+ Total            8     4       0         4       0          0        0      0
  
  
  -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 16:16:03
@@ -540,6 +554,8 @@ La macchina sotto stress avr\`{a} lo stato di \icode{Owner/Idle}.
  
  
 \end{lstlisting}
+\ \\
+Dal seguente output si nota che i core della macchina \icode{JoeSlave2} sono tutti in stato \icode{Owner/Idle} (sono in uso dall'utente e quindi non possono eseguire job) e che i job in esecuzione su di essa sono stati assegnati alla macchina \icode{JoeSlave1} in quanto si trova nello stato \icode{Claimed/Busy}.
 
 \begin{lstlisting}[style=output_tiny]
  Name                      OpSys      Arch   State     Activity LoadAv Mem   ActvtyTime
@@ -553,11 +569,11 @@ La macchina sotto stress avr\`{a} lo stato di \icode{Owner/Idle}.
  slot3@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      1.000  965  0+00:01:51
  slot4@joeslave2.fritz.box LINUX      X86_64 Owner     Idle      1.000  965  0+00:04:56
  
- Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
+                 Total Owner Claimed Unclaimed Matched Preempting Backfill  Drain
  
  X86_64/LINUX     8     4       3         1       0          0        0      0
  
- Total     8     4       3         1       0          0        0      0
+ Total            8     4       3         1       0          0        0      0
  
  
  -- Schedd: joemaster : <192.168.178.57:9618?... @ 12/15/21 16:17:25
