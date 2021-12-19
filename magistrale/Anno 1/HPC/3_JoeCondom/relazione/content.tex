@@ -141,7 +141,7 @@ Per farlo ho utilizzato la seguente procedura (\`{e} uguale per tutte le macchin
 	\item Ho riavviato la macchina per rendere effettive le modifiche.
 \end{enumerate}
 \ \\
-Per le altre macchine va modificato il parametro \lstinline[style=cmd]|addresses| con il corretto IP.\\
+Per le altre macchine va modificato il parametro \lstinline[style=cmd]|addresses| con il corrispettivo IP.\\
 \ \\
 Per controllare il corretto funzionamento di questa operazione basta utilizzare il comando \lstinline[style=cmd]|ifconfig enp0s3| e controllare che abbia il giusto indirizzo:
 
@@ -358,7 +358,7 @@ Procedo quindi a scrivere il file \icode{jobstarter} per sottomettere il job al 
  Error      = ./logs/simple.$(Process).error
  Queue 3
 \end{lstlisting}
-\ \\
+
 \begin{itemize}
 	\item \icode{Executable} indica il file eseguibile che verr\`{a} avviato
 	\item \icode{Arguments} \`{e} la lista dei parametri da passare la programma
@@ -433,7 +433,7 @@ Questo mi fa capire che il tutto sta funzionando come dovrebbe e che la configur
 \subsection{Test della configurazione}
 
 Per testare se la mia configurazione funziona ho utilizzato il tool \icode{stress-ng} per caricare di lavoro i core di una determinata macchina in modo tale da simulare l'attivit\`{a} di un utente.\\
-Modifico il job creato in precedenza aumentando il tempo di attesa del mio programma in modo da dare il tempo a condor di valutare tutte le variabili prima che l'esecuzione finisca: 
+Modifico il job creato in precedenza aumentando il parametro \icode{sleep_time} del mio programma in modo da dare il tempo a condor di valutare tutte le variabili prima che l'esecuzione finisca: 
 
 \begin{lstlisting}[style=cmd]
   Arguments  = 420 10
