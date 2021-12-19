@@ -39,10 +39,14 @@ Un grazie speciale va anche a queste persone che ci hanno aiutato fornedo il lor
 
 ## Contribuire
 
-Dato che alcuni appunti sono incompleti ed altri totalmente mancanti siamo più che felici di riceverne sempre di nuovi ed aggiornati. Perciò ogni aiuto è sempre gradito !<br>
+<img align="right" src="https://raw.githubusercontent.com/Typing-Monkeys/MSMC/main/Data/pics/Unipg/apocalyptic_pinotti.png" alt="apocaliptic_pinotti" width="50%" height="50%">
+
+Dato che alcuni appunti sono incompleti ed altri totalmente mancanti siamo più che felici di riceverne sempre di nuovi ed aggiornati. Perciò ogni aiuto è sempre gradito !
+
+
 In caso di qualunque dubbio o problema apri una nuova **Issue** e chiedi (utilizza le Labels create per rendere più semplice la catalogazione della domanda).
 Sentiti libero di suggerire modifiche o proporre **Pull Request** con nuovi materiali o correzzioni !!
 
 Speriamo che questa repo risulti utile e che rimanga attiva col passare degli anni, quindi _usatela_ e _condividetela_ !!
 
-<img src="https://raw.githubusercontent.com/Typing-Monkeys/MSMC/main/Data/pics/Unipg/apocalyptic_pinotti.png" alt="apocaliptic_pinotti" width="50%" height="50%">
+
