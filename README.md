@@ -16,7 +16,7 @@
 
 Sofferenze e Appunti presi durante il corso di Informatica Triennale e Magistrale ✍️
 
- > _Annod Domini: 1308_
+ > _Anno Domini: 1308_
  
 ## Appunti
 
