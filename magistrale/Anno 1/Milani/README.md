@@ -664,6 +664,14 @@ Degli ambienti competitivi nei quali ci sono 2 o più agenti, con obbiettivi con
 
 3. modellarlo in maniera esplicita con le tecniche dell'**adversarial tree search** (verrà approfondito in seguito)
 
+**Search vs Adversarial Gaymes:**
+
+| Search | Adversarial |
+| ---    | ----        |
+|La soluzione è un metodo per raggiungere lo stato goal| La soluzione è una strategia basata sulle mosse dell'avverzario per vincere la partia|
+| Le euristiche permettono di trovare soluzioni Ottimali | Limiti di tempo potrano a soluzioni approssimate |
+| La Evaluation function stima il costo di ogni passo dal nodo Start al nodo Goal | La Evaluation function valuta la "bontà" di ogni mossa |
+| Esempi: path planning, scheduling activities, path finding, ecc. | Esempi: scacchi, backgammon, Othello (??) |
 
 ### Giochi a somma 0 con 2 giocatori
 
@@ -764,6 +772,20 @@ _Funzionamento dell'agoritmo_
 _Esempio di pseudocodice dell'algoritmo_
 ![alfa beta code](./imgs/alfabetacode.png)
 
+#### Iterative Progressive Deeeeepeniiiing
+
+Nei giochi reali c'è un tempo limete T per fare una mossa.
+Non possiamo utilizzare risultati parziali con l'AlphaBeta Prunga se l'ampiezza dell'albero non è stata completamente controllata. Possiamo quindi utilzzare un depth-limit che ci garantisce di trovare una soluzione entro il tempo T, però potremmo finire la ricerca prima del tempo T e quindi sprecare secondi utili per effettuare altre ricerche.
+
+Quindi utilizzamo la IDS come segue:
+
+- Si effettua una IDS con un depth-limit incrementale
+- Qunado scade il tempo si utilizza come soluzione la migliore trovata al precedente depth-limit.
+
+#### Effetto Horizon
+
+A volte succede che la scelta fatta può portare ad un risultato inaspettato (molto molto male) che potrebbe essere evitato con la scansione successiva ma che per colpa del tempo non è stata possibile effettuare. Questo prende il nome di "Effetto Horizon".
+Per risolvere questo problema ci sono specifiche euristiche che cercano di seguire lo sviluppo di un branch più "promettete", a discapito di altri, in modo tale da velocizzare la ricerca e quindi di espandere il più possibile l'"orizzonte".
 
 ### Giochi con alberi molto grandi :palm_tree:
 
