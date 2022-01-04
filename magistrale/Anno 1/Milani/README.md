@@ -14,7 +14,9 @@ Un agente è qualsiasi cosa che può percepire l'ambiente circostante tramite se
 ![Agente](./imgs/agente.png)
 
 Le azioni dell'agente sono influenzate dal tipo di ambiente in cui si trova.
-Un agente razionale non è omniscente e può effettuare azioni per modificare l'input percepito ed ottenere così informazioni più utili. Si dice anche **autonomo** se il suo comportamento è determinato dalla sua esperienza e non dipende esclusivamente dalla sua conoscenza di base (built-in knowledge)<br>
+Un agente razionale non è omniscente e può effettuare azioni per modificare l'input percepito ed ottenere così informazioni più utili. Si dice anche **autonomo** se il suo comportamento è determinato dalla sua esperienza e non dipende esclusivamente dalla sua conoscenza di base (built-in knowledge).
+
+
 Gli ambienti vengono classificati in base ai seguenti criteri:
 
 * **Osservabilità**:
