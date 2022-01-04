@@ -795,3 +795,51 @@ Per giochi con branching factor molto grande, come Go e Schacchi, il MinMax anch
 
 * **Tipo A**: consiste nel considerare tutte le possibilità fino ad un certo livello di profondità e poi calcolare l'utiliti a quel livello prestabilito
 * **Tipo B**: ignora le mosse che sembrano poco promettenti e segue la linea promettente il più a lungo possibile, quindi esplora una porzione stretta dell'albero andando in profondità
+
+## Cellular Automata
+
+Un Automa Cellulare è un array di automi (o celle) programmati nello stesso modo, i quali interagiscono tra di loro all'interno di un vicinato ed hanno uno stato finito.
+Questi automi vengono posizionati all'interno di un reticolo che può avere diverse dimenzioni: 1D, 2D, 3G, ecc.
+
+![vicinato](./imgs/vicinato.png)
+
+Vicinato: il set di celle che possono influenzare una data cella. Ci sono due metodi diversi per considerarlo:
+
+- Von Neumann
+- Moore
+
+![moore](./imgs/moore.png)
+
+### Classi di Stiven King (Classi di Stepehn Wolfram)
+
+<img src="./imgs/king.jpg" align="right">
+
+- **Classe One**: Regole che producono universi con Tutte cellule vive o morte.
+- **Classe Two**: Regole che generano configurazioni stabili e sempre riproducibili
+- **CLasse Three**: Regole che generano pattern caotici come le molecole di un gas.
+- **Classe Four**: Regole che producono pattern complessi, localmente organizzati e non strutturati come il liquido che scorre.
+
+Queste sono regole deterministiche ma possono essere anche probabilistiche, generando quindi un Automa Cellulare Probabilistico come il modello della foresta che brucia.
+
+### Swarm Intelligence
+
+Un esempio più generico dell'automa cellulare è lo Stormo. Un insime di elementi che si muovono tramte semplice regole di controllo distribuito (ogni cellula ha delle semplici regole e insieme riescono a generare movimenti e fenomeni complessi).
+Generalmente date le regole , può risultare molto difficile dedurre il comportamento emergente dello sciame e spesso risulta possibile sono tramite la simulazione del modello.
+
+
+Un esempio può essere il banco di pesci. Ogni signolo pesce segue 3 regole:
+
+- Allineamento. Un pesce tende a girare nella stessa
+direzione in cui i pesci vicini si stanno muovendo
+
+- Separazione. Un pesce tenderà ad allontanarsi per
+evitare un pesce troppo vicino.
+
+- Coesione. un pesce si muoverà verso i propri vicini, a
+meno che non sia troppo vicino.
+
+Un modello di calcolo basato su Swarm Intelligence è Particle Swarm Optimization (PSO) dove sciami di particelle collaborano per esplorare uno spazio di ricerca, prima in modo casuale poi tenderanno a convergere sulla soluzione ottimale.
+
+![swarm](./imgs/swarm.png)
+
+Ogni particella è attratta sia dal personal best (il miglior valore incontrato in precedenza) che dal global best (il miglior valore trovato dalle altre particelle).
