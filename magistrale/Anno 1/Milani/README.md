@@ -138,7 +138,7 @@ Ci sono 3 diversi modi per farlo:
 
 1. **Memorizzare i nodi visitati**. Questo metodo è particolarmente utile se si hanno tanti cammini ridondanti e se abbiamo abbastanza spazio in memoria per rappresentare la tabella degli stati raggiunti.
 
-2. **Metodo Milani**: se non c'è bisogno di farlo non lo fare ! Eseisto alcuni casi in cui non è necessario tenere traccia degli stati già visti perchè la struttura del problema impedisce a determinate azione di essere effettuate.<br>
+2. **Metodo Milani**: se non c'è bisogno di farlo non lo fare ! Esistono alcuni casi in cui non è necessario tenere traccia degli stati già visti perchè la struttura del problema impedisce a determinate azioni di essere effettuate.<br>
 _E.g._ una linea di assemblaggio.
 
 3. **Parent Link**: si controlla solo la presenza di cicli e non di cammini ridondanti. Ogni nodo ha un link al proprio nodo padre e si risale all'indietro questa "catena" per vedere se vi è un ciclo.<br>
@@ -371,7 +371,7 @@ _Esempio di funzionamente della DFS:_
 Per uno spazio degli stati ad albero è **Efficiente** e **Completa**.<br>
 Per uno spazio degli stati **aciclico** può risultare che espande più volte lo stesso stato (attraverso differenti percorsi), ma alla fine riuscirà a completare la ricerca in maniera sistematica.<br>
 In un insieme degli stati **con cicli** può rimanere bloccata in un ciclo infinito e perciò alcune implementazioni controllano la presenza di cicli.<br>
-Con uno spazio degli stati invinito la DFS non è sistematica perchè può bloccarsi in un percorso di lunghezza infinita.
+Con uno spazio degli stati infinito la DFS non è sistematica perchè può bloccarsi in un percorso di lunghezza infinita.
 
 Il costo per uno spazio degli stati and albero è: ![costo dfs](./imgs/o_b_m.gif) con:
 
