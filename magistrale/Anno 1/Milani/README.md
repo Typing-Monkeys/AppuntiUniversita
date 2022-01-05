@@ -848,7 +848,7 @@ Ogni particella è attratta sia dal personal best (il miglior valore incontrato 
 
 ### Concetti base
 
-Network: come rappresentare vari social network. Grafi. <br>![rete](./imgs/rete.png)
+Network: come rappresentare vari social network. Grafi. <br>![rete](./imgs/rete.png)<br>
 Forza dei collegamenti: indice del singolo collegamento utile per indentificare connessioni forti o deboli 
 Key Player: nodi "importanti" all'interno della rete. Nodi chiave  o centrali
 Coesione: indici di valutazione della struttura della rete
@@ -933,3 +933,5 @@ In questo esempio il nodo 10 è quello con valore Degree Centrality più elevato
 **Core periphery Structures**: la misura di centrialita ci va a dire quanto un network sia centralizzato o meno questo è dato dalla presenza di un nodo detto Core che va ad interconnettere varie sottoreti del grafo diminuendo il numero di cammini minimi.
 
 ![core](./imgs/core.png)
+
+NOTA IMPORTANTANTE: la matrice di adiacenza elevata alla n-esima potenza con elemento `a^n i,j` indica quanti cammini di lunghezza n passano tra i e j.
