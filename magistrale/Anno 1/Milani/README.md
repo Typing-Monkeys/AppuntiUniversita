@@ -843,3 +843,93 @@ Un modello di calcolo basato su Swarm Intelligence è Particle Swarm Optimizatio
 ![swarm](./imgs/swarm.png)
 
 Ogni particella è attratta sia dal personal best (il miglior valore incontrato in precedenza) che dal global best (il miglior valore trovato dalle altre particelle).
+
+## Social Network Analysis 
+
+### Concetti base
+
+Network: come rappresentare vari social network. Grafi. <br>![rete](./imgs/rete.png)
+Forza dei collegamenti: indice del singolo collegamento utile per indentificare connessioni forti o deboli 
+Key Player: nodi "importanti" all'interno della rete. Nodi chiave  o centrali
+Coesione: indici di valutazione della struttura della rete
+
+### Forza dei Collegamenti
+
+La forza di un collegamento viene rappresentata tramite un numero o peso.
+I collegamenti possono rappresentare interazioni, flussi di informazioni, affinità o relazioni sociali.
+Nelle relazioni sociali questo peso può essere inteso come:
+
+- la frenquenza delle interazioni
+- la recoprocità delle interaizoni
+- il tipo dell'interazione (intime o non)
+- altri attributi come relazione di parentela
+
+
+![peso](./imgs/peso.png)
+
+### Homophily, Transitivity e Bridging
+
+Homophily: la tendenza di legarsi a persone con caratteristiche simili. Tende a formare clusters, gruppi omogeni, dove formare relazioni è più semplice, ma questo va a discapito dello sviluppo e della generazioni di nuove idee, perciò l'eterogeneità è preferibile (tipo i no vax). Link Homofilari possono essere forti o deboli.
+
+Transitivity: è una proprietà dei collegamenti, se A e B sono connessie B e C sono connessi allora in un network transitivo A e C sono connessi. Connessioni forti sono solitamente più soggette ad essere transitive di quelle deboli. Transitivity insime a Homophily creano i **Cliques**, cluster completamente connessi.
+
+Bridging: sono nodi che connettono due gruppi di un grafo e solitamente sono connessioni deboli.
+
+### Key Players
+
+Metodi di valutazione dei Key Player in un social network.
+
+**IN/OUT-Degree centrality**: il numeo di collegamenti in ingresso o in uscita di un certo nodo. Se il grafo è non orientato allora i due conincidono. Utile per distinguere nodi chiave per la diffusione di informazioni nel loro immediato vicinato.
+
+![deg](./imgs/degree.png)
+
+**Betweenness centrality**: mostra quali nodi è più probabile che siano in comunicazione con gli altri (i nodi più attraversati). Utile per capire quali in quale punto la rete potrebbe rompersi e perdere più nodi connessi. Si calcola come segue:
+
+- Dato un nodo V, si calcola il numero P di shortest path, tra i e j, che lo attraversano
+- Si cacola il numero toate T di shortes path tra i e j
+- Si calcola B = P/T
+- Si ripetono queste operaizoni per ogni coppia di i e j e si sommano tutti.
+
+![bet](./imgs/bet.png)
+
+**Closeness centrality**: serve a misurare il reach, la velocutà con cui un informazione raggiunge altri nodi partendo da un dato nodo iniziale. Si calcola con il reciproco della media della lungezza degli shortest path da quel nodo verso tutti gli altri.
+
+![closeness](./imgs/close.png)
+
+**Eigenvector centrality**: i nodi con valori di eigenvetctor alto sono connessi con altri nodi con alti valori di eigenvector. Simile a come Google valuta le pagine web, link a pagine molto likante contano più. Utile per determinare chi è connesso a nodi più "autorevoli".
+
+![eigen](./imgs/eigen.png)
+
+![esempio](./imgs/esempio.png)
+
+In questo esempio il nodo 10 è quello con valore Degree Centrality più elevato, ma se si rompe il collegamentro tra 3 e 5, il network si spezzerebbe a metà, perciò 3 e 5 sono più importanti del nodo 10 per la struttura della rete
+
+### Cohesion
+
+**Reciprocity**: il rapporto tra il numero di connessioni reciproche e il numero di connessioni totali. (il grapho deve essere orientato). Utile per individuare la mutualità nello scambio di informaizoni.
+
+![rec](./imgs/reciprocity.png)
+
+**Density**: il rapporto tra il numero di connessioni del grafo e il numero totale di connessioni possibili. E' una misura utile per stabilire quanto la rete sia ben connessa e per mettere a confronto reti. Una rete perfettamente connessa è chiamata Clique ed ha una densità di 1.
+
+![den](./imgs/density.png)
+
+**Clustering**: si calcola con algoritmi di clustering che identificano delle "comunità" all'interno della rete. Il coefficiente di clustering di un nodo è dato dal numero di triplette chiuse nel suo vicinato fratto il numero di triplette del vicinato.
+
+![clustering](./imgs/cluster.png)
+
+**Diametro**: il diametro è dato dal più lingo shortest paht. Indica la distanza massima percorribile tra 2 nodi nel grafo.
+
+![diametro](./imgs/diametro.png).
+
+**Small Worlds**: è un network che sembra quasi random ma dismostra un coefficiente di clustering significativamente alto e una corta short avareg path lenght. Questi network avranno molti clustere e molti nodi ponte.
+
+![small](./imgs/small.png)
+
+**Preferential Attachment**: è la proprietà di qualche network dove nella loro evoluzione e cresita nel tempo, la maggior parte delle nuove connessioni vanno ad essere con il nodo più connesso andandolo a preferire a discapito di altri cluster/nodi. Questo può essere dato dalla qualità o popolarità del nodo (o entrabe le cose ).
+
+![preference](./imgs/preference.png)
+
+**Core periphery Structures**: la misura di centrialita ci va a dire quanto un network sia centralizzato o meno questo è dato dalla presenza di un nodo detto Core che va ad interconnettere varie sottoreti del grafo diminuendo il numero di cammini minimi.
+
+![core](./imgs/core.png)
