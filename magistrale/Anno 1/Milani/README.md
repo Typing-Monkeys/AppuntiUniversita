@@ -935,3 +935,56 @@ In questo esempio il nodo 10 è quello con valore Degree Centrality più elevato
 ![core](./imgs/core.png)
 
 NOTA IMPORTANTANTE: la matrice di adiacenza elevata alla n-esima potenza con elemento `a^n i,j` indica quanti cammini di lunghezza n passano tra i e j.
+
+## Grafi Reali e boh
+
+### Erdos-Renyi Random Graphs (ER)
+
+E' un grafo G con n nodi e m archi e quest ultimi hanno la stessa probabilità p di essere generati.
+
+![er](./imgs/esempio_er.png)
+
+Quando si ha che m = n/2 si verifica il fenomeno dei Giant Component: 
+
+- Un nodo risulta avere la maggior parte delle connessioni (O(n))
+- L'altro nodo con il maggior numero di connessioni risulta avere davvero poche (O(logn))
+
+Il Clustering Coefficient C di questi Grafi risulta basso (per una p bassa). C risulta essere uguale a p. Nelle reti reali però risulta che il cluster coefficent sia alto.
+
+
+![tabella er](./imgs/tabella_er.png)
+
+### Small World Network
+
+Una network si dice Small World Network se la lunghezza media L dello shortest path tra due nodi è in scala logaritmica rispetto al numero totale dei nodi n. Tipo 225226 nodi -> L = 3.65 (la L deve essere mooolto piccola rispetto a n). Alcuni autori hanno definiscono lo small world network aggiungendogli un'altra priprietà, ovvero avere un alto coefficiente di clustering. Trasmettere informazioni in una small world network risulta molto veloce, ma anche la trasmissione di minacce e virus.
+
+
+![reg small rand](./imgs/reg_small_rand.png)
+Per generare degli samall workd Wats-Stragat si parte da una griglia circolare (1-dmensionale con k = 4) la quale ha un alto coefficiente di clustering e randomicamente si rimuovono e aggiungono degli archi andando cosi a generare un fenomeno di small world. Questo metodo va a migliorare il precedente metodo di Erdos-Renyi perchè generando un grafo random non è detto che si ottiene un alto tasso di clustering.
+
+
+![small tabella](./imgs/small_tabella.png)
+
+
+Hanno dei pattern di collegamento che si ripetono spesso (tipo i 5 nodi connessi ad un nodo centrale rosso)(SELF SIMILAR)
+Presentano anche una topologia non basilare (non-trivial topology).
+
+
+### Scale-Free Network
+
+La distribuzione powerl-low è l'unica distribuzione che rimane identica per qualsiasi scala di misura si utilizza. Viene quindi chiamata Scale-Free.
+Una rete con questa distribuzione si chiama Sclae-Free Network. Queste reti presentano un alto numero di hub centrali con enormi connessioni. Questi hub rappresentano solitamente un tallone di achille: rimuovendoli la rete si spezza in varie parti, ma da studi recenti, reti Scale-Free complesse hanno una distrubuzione powerl-low e non hanno questo tallone d'achille.
+
+![scale free](./imgs/scalefree.png)
+
+Quando la rete cresce viene utilizzata la politica prefential attachment.
+
+
+Il modello di Barabasi-Albert utilizza la distribuzione power-low e quando a queste network viene aggiunto un nuovo nodo, questo tende a connettersi ai nodi "più grandi" (quelli con più connessioni e più importanti, "the rich get richer").
+Questo produce "small world" network dove il diametro della rete cresce molto lentamente: logaritmico o loglogaritmico.
+
+A differenza del Modello BA, Erdos-Reyni e Watts-Sgorgtaaf generano reti che non sono scale free, questo è brutto perchè si è visto che generalmente le reti reali hanno una distribuzione power-law o comunque molto simile.
+
+![scale free tabella](./imgs/scalefree_tabella.png)
+
+###
