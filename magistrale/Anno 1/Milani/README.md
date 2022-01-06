@@ -987,4 +987,56 @@ A differenza del Modello BA, Erdos-Reyni e Watts-Sgorgtaaf generano reti che non
 
 ![scale free tabella](./imgs/scalefree_tabella.png)
 
-###
+## Generazione di una rete gerarchica scale-free
+
+Si inizia con un grafo completo di n vertici, si effettuano n-1 copie di questo grafo e si collegano tutti i vertici (tranne le radici dei nuovi grafi) dei nuovi grafi alla radice del grafo di partenza. 
+Questo processo piò essere ripetutto più volte.
+
+![mega creoce](./imgs/mega_croce.png)
+
+Il diametro di questa rete risulta essere 2k - 1 (k = numero di terazioni utilizzate per creare la rte)
+
+## Link Prediction Problem
+
+Definizione: data una rete al tempo t, è possibile predire quali siano le nuove connessioni che si creeranno all'istante t+1 ?? (spoiler NO)
+
+Ci sono 3 approcci per provare a risolvere il problema:
+
+1. Globabl Methods
+2. Algebraic Methods
+3. Machine Learning
+
+### Global Methods
+
+Prendono in considerazione l'intera rete.
+Esistono vari coefficienti che permettono di individuare potenziali nuovi collegamenti:
+
+- **Katz coefficient**: un metodo di predizione basato sulla topologia della rete e si basa sul numero di cammini tra il nodo x e il nodo y, di lunghezza l moltiplicati per un coefficiente B^l con `0 < B < 1`. B serve per aggiustare il peso di cammini di lungezza differente (e.g. per B piccolo, cammini lunghi contribuiscono poco al punteggio finale). E' un calcolo computazionalmente costoso ma da ottimi risultati. ![katx](./imgs/katz.png)
+
+- **Hitting Time**: lunghezza di un potenziale cammino tra due nodi
+
+- **Commute time**: ![commute](./imgs/commutetime.png)
+
+### Algebraic Methods
+
+Questi metodi utilizzano la matrice di adiacenza della rete per calcolare varie proprietà e predizioni. Il problema è che le matrici sono difficili da trattare per i problemi reali.
+
+### Machine Learning Methods
+
+Si dividono gli archi in un set di training ed uno di testing, si genera un modello che viene allenato con il st di trainign e si applica al set di testing.
+Il problema è che questi metodi non sono applicabili a reti reali per via della loro grandezza e del tempo di calcolo ed è dunque necessario analizzare localmente le informazioni e non globlamente.
+
+### Local Methods
+
+Non necessitano dell'intera rete per predirre un collegamento e quindi richiede un costo computazionale ragionevole.
+
+La maggior parte dei local methods, utilizzano come metrica T(x) che indicano il numero dei vicini del nodo x.
+
+
+Di seguito alcuni di questi metodi:
+
+- **Grah Distance**: il cammino minimo tra x e y negato. Poco efficacie.
+- **Common Neighbours**: due nodi che hanno molti vicini in comune hanno un'alta probabilità di essere collegati in futuro. Cosa succede quando più nodi hanno lo stesso numero di Common Neighbours ?? Per risolverlo basta normalizzare il numero di Common Neibhours come suggerisce Jaccard. ![common](./imgs/common.png)
+- **Jaccard Coefficient**: calcola il numero di common neighorus dividendolo per il numero di vicini totali dei due nodi. ![juncorato](./imgs/juncorato.png)
+- **Preferential Attachment**: su basa sul concetto che un nodo con un alto numero di connessioni sarà preferibile ad uno che ne ha poche (rich get richer). ![rich](./imgs/rich.png)
+- **Adamic Adar Index**: è l'opposto di Prefenteial Attachment, un alto numero di vicini va ad influire negativamente sul puteggio. Risulta molto efficacie in vari casi. ![adamic](./imgs/adamic.png)
