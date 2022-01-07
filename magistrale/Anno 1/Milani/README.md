@@ -844,6 +844,63 @@ Un modello di calcolo basato su Swarm Intelligence è Particle Swarm Optimizatio
 
 Ogni particella è attratta sia dal personal best (il miglior valore incontrato in precedenza) che dal global best (il miglior valore trovato dalle altre particelle).
 
+## Reinforcement Learning
+
+Il reinforcement learning è un tipo di Apprendimento Supervisionato in cui l'agente apprende basandosi su un sistema di reward positivi o negativi a seconda della bontà dell'azione scelta.
+Per esempio, per una partita a scacchi anche avendo un dataset molto grande delle partite giocate da campioni del mondo, non saremmo mai in grado di rappresentare tutte le possibili combinazioni che si potrebbero presentare in una partita (10^40). Quindi una buona strategia è quella di far capire all'agente quali sono le azioni positive e quelle negative.
+A seconda della frequenza con cui vengon dati i reward, il modello piò essere definito Sparso oppure no.
+
+Quindi l'obiettivo dell'agete è quello di massimizzare la somma cumulata dei reword (Reward Hypothesis).<br>
+Un reward Rt è un feedbakc scalare che indica come si sta comportando l'agente allo step t.
+Uno stato s è una rappresentazion completa del mondo in un dato istante. Un'osservazione o è una descrizione parziale dello stato, che solitamente è ciò che viene ricevuto dall'agente.
+
+Una **Policy** è una regola utilizzata dagli agenti per decidere quale azione compiere dato un determinato stato. Può essere di due tipi:
+
+1. Deterministica: indicata con u (mu) e associa un'azione ad un determinato stato. ![polid](./imgs/policy_d.png)
+2. Stocastica: indicata con pi (pigreco) e fornisce la distribuzione di probabilità delle azionoi dati gli stati. ![policys](./imgs/policy_s.png)
+
+A volte, nel Deep Reinforcement Learning, gli output delle policy dipendono da dei parametri e per denotare questi parametri, vengono messi come pedice accanto al simbolo della polocy. ![policypedice](./imgs/policy_pedice.png)
+
+Una **Trajectory** T è una sequneza di stati e azioni nel mondo. ![tra](./imgs/tragliettoria.png).
+La **History** è una sequenza di osservazioi, azioni e reward.  ![stroia](./imgs/storia.png)
+
+Le **State Transitions** rappresentano cosa accade al mondo durante un cambio di stato (dallo stato st al tempo t allo stato st+1 al tempo t+1) e sono governate dalle leggia dell'ambiente che dipendono solo dall'azione più recente at.
+Possono essere:
+
+- **Deterministiche**: ![stattrands](./imgs/statetransd.png)
+- **Stocastiche**: ![stateranssdss](./imgs/statetranss.png)
+
+La **reward Function** è la parte più importante dei sistemi di reifnocmente learning e può dipendere da l'azione, lo stato attuale e lo stato futuro, può talvolta essere semplificata dipendendo solo dallo stato attuale e dall'azione.
+
+Quindi il **goal** può essere indviduato da una traiettoria il cui reward deve essere massimizatto R(T) che varia a seconda dell'ambito in cui viene calcolato:
+
+- **Finite-horizon undiscounted return**: è la somma dei reword ottenuti in un intervallo di tempo ![finetahrewq](./imgs/finitehrew.png)
+- **Infinite-horizon discounted return**: la somma di tutti i reward ottenuti dall'agente che , più sono recenti e meno influenzeranno la somma totale. ![inifitoehoreizo](./imgs/inifinte-horizon.png)
+
+
+Il vero obiettivo del Reifnocemente Learngin è quindi quello di massimizzare l'Expected Return J(pi) definito come segue: ![expected ret](./imgs/expecterre.png).
+Otterremo quindi la **policy ottimale**: ![ottimale](./imgs/ottimale.png)
+
+La **Value Function** indica il valore di uno stato o di una coppia stato-azione.
+Ce ne sono 4 tipi principali:
+
+1. **On-Policy Value Function**: che restituisce l'Expected Return se si parte dallo stato s e si applica sempre la polocy pi. ![vip](./imgs/vpi.png)
+2. **On-Policy Action-Value Function**: che restituisce l'Expected Return se si parte dallo stato s, partendo con un azione arbitraria a e poi seguendo sempre la polocy pi. ![qpi](./imgs/qpi.png)
+3. **Optimal Value Function**: che restituisce l'Expected Return se si parte dallo stato s e si applica sempre la optimal polocy. ![vstart](./imgs/vstart.png)
+4. **Optimal Action-Value Function**: che restituisce l'Expected Return se si parte dallo stato s, partendo con un azione arbitraria a e poi seguendo sempre la optimal polocy. ![qstar](./imgs/qstar.png)
+
+Albero bello bello: ![struttura](./imgs/struttura.png)
+
+Il Reifnocemtne Learinig è un metodo di apprendimento trial-and-error, l'agente deve trovare una buona policy e per farlo dobbiamo trovare una compromesso tra esploraizone di nuove mosse (**Exploration**) e lo sfruttamento di alcune già conosciute (**Exploitation**). 
+
+Ci sono due categorie principali di approcci per il reainforcement learning:
+
+- **MODEL BASED**: l'agente utilizza il transition model dell'ambiente per aiutarsi ad interpretare i segnali di reward. Il modello può essere anche sconosciuto, in questo caso l'agente apprende il modello basandosi sulle sue azioni.
+
+- **MODEL FREE**: l'agente non conosce nè apprende il modello di transizione dell'ambiente, ma apprende una rappresentazione più diretta di come comportarsi. Può essere suddiviso in 2 sottocategorie:
+    - **Action Utiliti Learning**: 
+    - **Policy Search**:
+
 ## Social Network Analysis 
 
 ### Concetti base
