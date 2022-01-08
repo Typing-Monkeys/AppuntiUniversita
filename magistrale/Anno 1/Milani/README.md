@@ -939,6 +939,12 @@ Questo avviene perchè, come si capisce dalla formula, se y è vicina a 0 questa
 La value function v(s) fornisce il valore a lungo termine dello stato s, ovvero il ritorno aspettato partendo dallo stato s:
 ![MarkovStateValue](./imgs/MarkovStateValue.png)
 
+
+### Q-Learning
+![qlearning](./imgs/qlearning.png)
+![bellmaneq](./imgs/bellmaneq.png)
+
+
 ## Social Network Analysis 
 
 ### Concetti base
