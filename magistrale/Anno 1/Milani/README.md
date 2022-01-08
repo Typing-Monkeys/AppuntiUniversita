@@ -898,8 +898,46 @@ Ci sono due categorie principali di approcci per il reainforcement learning:
 - **MODEL BASED**: l'agente utilizza il transition model dell'ambiente per aiutarsi ad interpretare i segnali di reward. Il modello può essere anche sconosciuto, in questo caso l'agente apprende il modello basandosi sulle sue azioni.
 
 - **MODEL FREE**: l'agente non conosce nè apprende il modello di transizione dell'ambiente, ma apprende una rappresentazione più diretta di come comportarsi. Può essere suddiviso in 2 sottocategorie:
-    - **Action Utiliti Learning**: 
+    - **Action Utility Learning**: 
     - **Policy Search**:
+
+### Markov Decision Process
+Una **state transition** si dice Markoviana quando la probabilità di raggiungere lo stato s(t+1) dipende solo da s(t) e non dagli stati precedenti.
+![markov](./imgs/markov.png)
+
+Un **Markov decision process** è una 5-tupla (S,A,R,P,p0) dove :
+- S è l'iniseme degli stati validi
+- A è l'insieme di tutte le azioni valide
+- R è la reward function
+- P è la transition probability, ovvero la probabilità di raggiungere lo stato s' se si parto da uno stato s e si effettua un azione a.
+- p0 è lo stato iniziale della distribuzione
+
+L'insieme delle transizioni di stato possono rappresentate come una **Transition Matrix** contente tutte le possibili transizioni e le relative probabilità.
+
+L'**MDP** può essere anche definito come una tupla (S,P) dove :
+- S è l'insieme finito degli stati
+- P è la state transition probabilityt matrix
+
+il **Markov Reward Process** è una tupla formata da (S,P,R,y(gamma)) dove:
+- S è l'inisieme finito di stati
+- P è la matrice di transizione 
+- R è la reward fuction
+- y è un fattore di discount compreso tra 0 e 1
+
+Il discount viene utilizzato per:
+- una convenienza metematica
+- evitare infiniti cicli di ritorno
+- meglio rappresentare l'incertezza degli stati futuri
+- spesso viene preferito un rewar immediato(e.g. comportamenti umani o finanza)
+
+Il **reward totale scontato** allo step **t** è calcolato come segue:
+![MarkovReward](./imgs/MarkovReward.png)
+qui il discount factor y valuta maggiormete i reward immediati rispetto a quelli futuri.
+Questo avviene perchè, come si capisce dalla formula, se y è vicina a 0 questa va a far annullare i reward dopo l'azione successiva, portando così a valorizzare di più valutazioni immediate invece che lungimiranza.
+
+
+La value function v(s) fornisce il valore a lungo termine dello stato s, ovvero il ritorno aspettato partendo dallo stato s:
+![MarkovStateValue](./imgs/MarkovStateValue.png)
 
 ## Social Network Analysis 
 
