@@ -2,7 +2,15 @@
 
 ## Indice
 
-Scrivimi
+- [Agenti Intelligenti](#agenti-intelligenti)
+- [Algoritmi di Ricerca](#algoritmi-di-ricerca)
+- [Adversarial Search & Games](#adversarial-search--games)
+- [Cellular Automata](#cellular-automata)
+- [Reinforcement Learning](#reinforcement-learning)
+- [Social Network Analysis](#social-network-analysis)
+- [Grafi Reali e boh](#grafi-reali-e-boh)
+- [Generazione di una rete gerarchica scale-free](#generazione-di-una-rete-gerarchica-scale-free)
+- [Link Prediction Problem](#link-prediction-problem)
 
 ## Agenti Intelligenti
 
