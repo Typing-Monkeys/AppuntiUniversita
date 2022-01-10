@@ -903,7 +903,7 @@ Ci sono due categorie principali di approcci per il reainforcement learning:
 
 ### Markov Decision Process
 Una **state transition** si dice Markoviana quando la probabilità di raggiungere lo stato s(t+1) dipende solo da s(t) e non dagli stati precedenti.
-![markov](./imgs/markov.png)
+![markov](./imgs/Markov.png)
 
 Un **Markov decision process** è una 5-tupla (S,A,R,P,p0) dove :
 - S è l'iniseme degli stati validi
