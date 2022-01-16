@@ -4,7 +4,7 @@
 
 * [Introduzione](#introduzione)
 * [Architetture innovative](#architetture-innovative)
-* [Quantum c](#quantum-c)
+* [Quantum c](#quantum-computing)
 * [Cluster Computing](#cluster-computing)
     + [High Availability Cluster](#high-availability-cluster)
     + [Load Balacing](#load-balacing)
