@@ -2,7 +2,15 @@
 
 ## Indice
 
-- [Introduzione](#introduzione)
+* [Introduzione](#introduzione)
+* [Architetture innovative](#architetture-innovative)
+* [Quantum c](#quantum-c)
+* [Cluster Computing](#cluster-computing)
+    + [High Availability Cluster](#high-availability-cluster)
+    + [Load Balacing](#load-balacing)
+    + [Parallel Distributed Processing](#parallel-distributed-processing)
+* [GPGPU](#gpgpu)
+* [Cloud Computing](#cloud-computing)
 
 ## Introduzione
 
