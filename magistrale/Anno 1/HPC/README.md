@@ -34,7 +34,7 @@ Con l'avanzamento delle tecnologie è possibile realizzare processori che richie
 
 Questo è evidenziato **dalla legge di Moore** che però negli ultimi anni non è più valida a causa dei limit fisici che si incontrano quando si rimpiccioliscono più di tanto i transistor.
 
-## Quantum c
+## Quantum computing
 
 Sfrutta le leggi della fisica quantistica, come l'**entaglement** e il concetto di **superposizione** per realizzare computer con una capacità di calcolo nettamente superiore a quella dei computer tradizionali.
 
