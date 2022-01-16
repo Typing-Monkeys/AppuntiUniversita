@@ -69,7 +69,7 @@ Ci sono vari tipi di cluster:
 <!-- - Anali(con scat incluso) -->
 - High availability cluster
 - Load Balacing
-- Parallel Distributed Processing
+- Parallel Distributed Processing (High Throughput Computing)
 
 La potenza computazionale dei cluster può essere espressa in 3 modi:
 
@@ -98,7 +98,14 @@ A livello di software è imporante gestire il parallelismo che può essere di 3 
 
 - **Grana Fine**: le interazioni tra le parti di codice sono molto frequenti (richiede un rete molto efficiente)
 
-  
+Per le specifiche hardware di un cluster bisogna prima capire qual è il suo scopo finale ed il budget a disposizione. Può essere utile creare un RAID (Redundant Array of Inexpensive Disks) come sistema di memoria principale. Possono essere di vari tipi in base a come vengono realizzati:
+
+- **RAID 0** - striping: realizzato con dischi che lavorano in parallelo per velocizzarne le operazioni. <br>![raid 0](./imgs/raid0.png)
+- **RAID 1** - mirroring: crea una copia nel secondo disco di ogni dato che viene salvato. <br>![raid 1](./imgs/raid1.png)
+- **RAID 5** - striping parity: si realizza con minimo 3 dischi di cui uno è adibito a salvare il checksum dei dati. <br>![raid 5](./imgs/raid5.png)
+- **RAID 6** - striping double parity: si realiza con un minimo di 4 dischi di cui 2 sono adibiti a salvare i checksum dei dati. <br>![raid 6](./imgs/raid6.png)
+- **RAID 10** - mirroring striping: combina i vantaggi di RAID 1 e RAID 0. <br>![raid 10](./imgs/raid10.png)
+
 ### High Availability Cluster
 
 Sono cluster utilizzati per fornire una disponibilità ininterrotta di dati o servizi ai consumatori, se un nodo muore il servizio viene subito ripristinato cambiando semplicemente nodo e l'utente non si accorge di nulla.
@@ -110,6 +117,45 @@ Distribuisce le richieste di calcolo in maniera tale da ottenere distribuire uni
 ### Parallel Distributed Processing
 
 Viene utilizzato per eseguire richieste molto costose in code di batch.
+
+Viene anche chiamato High Throughput Computing cioè sistemi che permettono di eseguire molte operazioni di calcolo su un lungo periodo di tempo. Un esempio di queto software è HTCondor.
+
+#### HTCondor - JoeCondom
+
+Definizioni: 
+
+- **Job**: rappresentazione di condor di un lavoro. Può essere idenfiticato come un processo di unix ed è un elemento del Workflow. Ogni job ha delle preferenze e requisiti:
+    - _Requisiti_: determinati OS 
+    - _Preferenze_: determinate caratteristiche della macchina
+- **ClassAd**: rappresentazione interna dei dati di condor. Possono essere di vario tipo:
+    - Job ClassAd: rappresenta un job di Condor 
+    - Machine ClassAd: rapressenta le varie risorse di calcolo all'interno del pool di Condor
+    - Altri ClassAd: rappresentano altre caratteristiche del pool
+
+![classadd](./imgs/classad.png)
+- **Universe**: policy di Conoder per la gestione dei Job. Possono essere:
+    - Vanilla: quello base, che permette l'esecuzione di qualsiasi job seriale ed effettua il trasferimento automatico dei file. Un po come il gelato alla vaniglia ...
+    - Standard: fornisce un sistema di checkpoint per poter continuare l'esecuzione di un job che viene interrotto. Fornisce remote system calls. E' indipendente dal linguaggio di programmazione. I checkpoint non sono a livello kernel quindi non saraà possibile effettuare Fork, usare Thread Kernel o alcune IPC come pipes e shared memory. 
+    - Grid
+    - Java
+    - Parallel
+    - VM: fa partire un'isntanza VM come un job.
+- **Machine/Resource**: rappresentazione di Condom dei computer che possono effettuare i calcoli.
+- **Match Making**: associazione tra una macchina ed un Job.
+- **Central Manager**: repository centrale per la pool di risorse. Effettua il match making.
+- **Execute Host**: computer che fa partire il job (il lavoratore).
+
+
+![condor evil](./imgs/demone.png)<br>
+_Condor Daemon Layout_
+
+- **Master**: il demone principale che è presente in ogni host, fa partire tutti gli altri demoni e se un demone ha un problema e muore, Master lo riavvia.
+- **Collector**: raccoglie informazioni su tutti gli altri demoni nella pool tramite messaggi periodici. Ne serve almeno 1 per pool e va messo sul Central Manager Node.
+- **Negotiatior**: effettua il matchmaking. Ne serve uno per pool ed è situato sul Central Manager Node.
+- **StarD**: rappresenta la macchina nel sistema Condor. E' resposnabile dell'avvio, sospensione e arresto dei job. Un solo di questo demone per ogni nodo.
+- **Schedd**: effettua lo scheduling. Uno per ogni nodo. Mantiene una coda persistente dei job. Contatta le macchine disponibili all'esecuzione dei job e crea uno shadow per ogni job in esecuzione.
+- **Shadow**: è la rappresentazone locale del job in esecuzione.
+
 
 ## GPGPU
 
