@@ -2,15 +2,18 @@
 
 ## Indice
 
-* [Introduzione](#introduzione)
-* [Architetture innovative](#architetture-innovative)
-* [Quantum c](#quantum-computing)
-* [Cluster Computing](#cluster-computing)
-    + [High Availability Cluster](#high-availability-cluster)
-    + [Load Balacing](#load-balacing)
-    + [Parallel Distributed Processing](#parallel-distributed-processing)
-* [GPGPU](#gpgpu)
-* [Cloud Computing](#cloud-computing)
+  - [Indice](#indice)
+  - [Introduzione](#introduzione)
+  - [Architetture innovative](#architetture-innovative)
+  - [Quantum computing](#quantum-computing)
+  - [Cluster Computing](#cluster-computing)
+    - [High Availability Cluster](#high-availability-cluster)
+    - [Load Balacing](#load-balacing)
+    - [Parallel Distributed Processing](#parallel-distributed-processing)
+  - [GPGPU](#gpgpu)
+  - [Cloud Computing](#cloud-computing)
+    - [Docker](#docker)
+    - [Kubernetes](#kubernetes)
 
 ## Introduzione
 
@@ -190,3 +193,86 @@ Gli svantaggi sono:
 - Incompatibili con connessioni ad internet lente
 - Potenziali rischi alla sicurezza dei dati salvati in cloud
 - C'è la possibilità che i dati salvati in cloud vegano persi
+
+Le varie componenti del cloud coputing sono:
+
+- **IaaS** (Infrastructur as a Service): è un insieme di macchine virtuali, fisiche, cluster e dabase. Il tutto è gestito da un Layer superiore che garantisce Runtime Enviroment Customizaion, Application Isoaltion e QoS. In questo layer ci sonon anche gli Hypervisor per la virtualizzazione.
+- **Maas** (Metal as a Service): è l'insieme delle sole macchine fisiche che compongo il could e possono essere unite insieme per aumentare la potenza di calcolo o rimosse per diminuirla in base alle necessità del cliente.
+- **PaaS** (Platform as a Service): offre delle piattaforme di sviluppo in cloud per permettere agli sviluppatori di far girare le loro applicazioni. Alcune soluzioni che offre sono:
+    - Runtime Frameworks
+    - Abstraction
+    - Cloud Service
+- **SaaS** (Software as a Servcie): fornisce l'accesso ad applicazioni on demand. Permette di ridurre i costi perchè non è necessario acquistare software completo ma è necessario solo l'acquisto di un abbonamento. Un altro aspetto chiave è la Multitenancy che evita all'utente finale tutte quelle operazioni di manutenione delle macchine.
+
+### Docker
+
+Docker è un progetto open-source che automatizza il processo di deployment di applicazioni all'interno di contenitori software, fornendo un'astrazione aggiuntiva grazie alla virtualizzazione a livello di sistema operativo di Linux. Il deployment e l'isolamento delle applicazioni sono gestite tramite i Container: un pacchetto leggero, standalone ed eseguibile che contiene tutto il necesario per far eseguire un'applicazione.
+
+I container sono effimeri, quindi ogni modifica che viene effettuata non verrà salvata su disco in modo permanente.
+
+Docker permette di risolvere questo problema tramite:
+
+- **Volumi**: sono cartelle che vengono gestite in automatico da docker dove è possibile salvare file in modo permanente. Generalmente vengono create in `/var/lib/docker/volumes`. Essendo gestite in automatico da Docker, è pssobile gestirle con facilità (eliminazione, creazione, ecc).
+- **Bind Mount**: sono cartelle che non vengono gestite in automatico da Docker, ma dall'utente che le crea dove vuole e ci mette roba che vuole. Sono identiche in tutto e per tutto ai Volumi solo che non hanno una gestione automatizzata ed è l'utente che deve tenerne traccia.
+- **Tmpfs**: permette la memorizzazione temporanea di file in memoria RAM. Può essere utile per velocizzare l'accesso ai file di una applicazione, però una volta terminata l'esecuzione del container i dati verranno persi.
+
+I container di solito non sono direttamente connessi alla rete, il traffico passa per una scheda Bridged Nat. Quindi per poter accedere dall'esterno è necessario aprire le porte e farne un binding/forwarding. Docker offre due soluzioni:
+- Expose: permette di rendere visibili le porte solo ad altri docker container.
+- Ports: permette di rendere visibili le porte a tutti così che altri utenti possano accedervi dall'esterno.
+
+Ogni docker container si basa su un immagine di un SO ed è possibile crearne di personalizzate tramite l'uso dei Dockerfile.
+
+_Esempio di dockerfile:_
+
+```Dockerfile
+    FROM ubuntu:16.04
+    RUN apt-get update
+    RUN apt-get install -y apache2
+    RUN echo "Hello World" > /var/www/html/index.html
+    EXPOSE 80
+```
+
+I container possono essere avviati in due modi:
+- tramite riga di comando (bruttino e macchinoso)
+- tramite un file di configurazione (più semplice e veloce)
+
+_Esempio di docker run:_
+
+```bash 
+docker run -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro --
+restart always --log-opt max-size=1g nginx
+```
+
+_Esempio di docker-compose:_
+
+```yaml
+
+    version: '3.3'
+    services:
+        nginx:
+            image: nginx
+            ports:
+                - 80:80
+            volumes:
+                - /var/run/docker.sock:/tmp/docker.sock:ro
+            restart: always
+            logging:
+                options:
+                    max-size: 1g
+
+```
+
+### Kubernetes
+
+Kubernetes è una piattaforma portatile, estensibile e open-source per la gestione di carichi di lavoro e servizi containerizzati, in grado di facilitare sia la configurazione dichiarativa che l'automazione. La piattaforma vanta un grande ecosistema in rapida crescita. Servizi, supporto e strumenti sono ampiamente disponibili nel mondo Kubernetes.
+
+Utile per gestire i container docker in autonomia e semplicità gestendo anche: scalabilità, failover, distribuzione delle applicazioni.
+
+Kubernetes ti fornisce:
+
+- Bilanciamento del carico 
+- Orchestrazione dello storage permettendo di montare volumi o cartelle in modo semlice
+- Rollout e rollback automatizzati
+- Ottimizzazione dei carichi
+- Self-healing: riavvia i container che si bloccano, sostituisce container, termina i container che non rispondono agli health checks, e evita di far arrivare traffico ai container che non sono ancora pronti per rispondere correttamente.
+- Gestione di informazioni sensibili (passowrd, chiavi SSH, OAuth token, ecc.)
