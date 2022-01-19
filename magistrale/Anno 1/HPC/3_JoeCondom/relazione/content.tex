@@ -255,7 +255,7 @@ La configurazione per gli slave \`{e} la medesima in quanto avranno tutti e due 
 Tramite le variabili \lstinline[style=cmd]|START, SUSPEND e WANT_SUSPEND| e le Macro \lstinline[style=cmd]|CPU_Idel, KeyboardBusy e MachineBusy| riesco ad ottenere il comportamento atteso.
 
 \begin{itemize}
-	\item \lstinline[style=cmd]|WANT_SUSPEND|, se \lstinline[style=cmd]|True| dice a Condor di prendere il considerazione la policy di sospensione all'interno di \icode{SUSPEND}.
+	\item \lstinline[style=cmd]|WANT_SUSPEND|, se \lstinline[style=cmd]|True| dice a Condor di prendere in considerazione la policy di sospensione all'interno di \icode{SUSPEND}.
 	\item \icode{START}, se \icode{True} vuol dire che il nodo \`{e} pronto ad accettare ed eseguire job. Nel mio caso sar\`{a} \icode{True} solo quando la CPU sar\`{a} sotto il 30\% di utilizzo e non verr\`{a} rilevata attivit\`{a} della tastiera da pi\`{u} di 10 secondi.
 	\item \icode{SUSPEND}, se \icode{True}, mette in pausa l'esecuzione del job attualmente in lavorazione.
 	\item \icode{CONTINUE} valuta quando riprendere l'esecuzione del job sospeso. Nel mio caso quando la CPU \`{e} sotto il 30\% di carico e quando non viene registrata attivit\`{a} della tastiera per pi\`{u} di 10 secondi.
@@ -427,7 +427,7 @@ il quale produrr\`{a} un output del tipo:
 \end{lstlisting}
 \ \\
 Si pu\`{o} notare che sono stati assegnati 3 job alla macchina \icode{JoeSlave2} dato che 3 dei suoi core sono in stato \icode{Claimed/Busy}, ci\`{o} vuol dire che stanno performando azioni per condor. %%riguardare sta cazzata
-Lo stato \icode{Uncleimde/Idle} indica che il nodo \`{e} pronto ed in attesa di ricevere un job da eseguire.\\
+Lo stato \icode{Unclaimed/Idle} indica che il nodo \`{e} pronto ed in attesa di ricevere un job da eseguire.\\
 Questo mi fa capire che il tutto sta funzionando come dovrebbe e che la configurazione \`{e} andata a buon fine.
 
 \subsection{Test della configurazione}
