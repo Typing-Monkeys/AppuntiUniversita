@@ -2,16 +2,15 @@
 
 ## Indice
 
-  - [Indice](#indice)
-  - [Introduzione](#introduzione)
-  - [Architetture innovative](#architetture-innovative)
-  - [Quantum computing](#quantum-computing)
-  - [Cluster Computing](#cluster-computing)
+- [Introduzione](#introduzione)
+- [Architetture innovative](#architetture-innovative)
+- [Quantum computing](#quantum-computing)
+- [Cluster Computing](#cluster-computing)
     - [High Availability Cluster](#high-availability-cluster)
     - [Load Balacing](#load-balacing)
     - [Parallel Distributed Processing](#parallel-distributed-processing)
-  - [GPGPU](#gpgpu)
-  - [Cloud Computing](#cloud-computing)
+- [GPGPU](#gpgpu)
+- [Cloud Computing](#cloud-computing)
     - [Docker](#docker)
     - [Kubernetes](#kubernetes)
 
@@ -63,7 +62,7 @@ Questi cluster possono essere realizzati con computer dai componenti di fortuna 
 
 Possono essere utilizzati per realizzare: Web Server, motori di ricerca, vari servizi web, gestire DB, ecc.
 
-I cluster sono costruiti per aumentare le performance di calcolo e garantire una maggiore affidabilità. I un cluster ogni nodo è un sistema indipendente con la propria memoria e file system e per comunicare utilizzano tecniche di **message passing** (messsage pissing).
+I cluster sono costruiti per aumentare le performance di calcolo e garantire una maggiore affidabilità. In un cluster ogni nodo è un sistema indipendente con la propria memoria e file system e per comunicare utilizzano tecniche di **message passing** (messsage pissing).
 
 Possono essere usati anche per il load balacing, aumentando così la tolleranza ai guasti di una data applicaiozne.
 
@@ -115,7 +114,7 @@ Sono cluster utilizzati per fornire una disponibilità ininterrotta di dati o se
 
 ### Load Balacing
 
-Distribuisce le richieste di calcolo in maniera tale da ottenere distribuire uniformemente il carico di lavoro e le richeiste tra i vari nodi.
+Distribuisce le richieste di calcolo in maniera tale da distribuire uniformemente il carico di lavoro e le richeiste tra i vari nodi.
 
 ### Parallel Distributed Processing
 
@@ -136,14 +135,14 @@ Definizioni:
     - Altri ClassAd: rappresentano altre caratteristiche del pool
 
 ![classadd](./imgs/classad.png)
-- **Universe**: policy di Conoder per la gestione dei Job. Possono essere:
+- **Universe**: policy di Condor per la gestione dei Job. Possono essere:
     - Vanilla: quello base, che permette l'esecuzione di qualsiasi job seriale ed effettua il trasferimento automatico dei file. Un po come il gelato alla vaniglia ...
     - Standard: fornisce un sistema di checkpoint per poter continuare l'esecuzione di un job che viene interrotto. Fornisce remote system calls. E' indipendente dal linguaggio di programmazione. I checkpoint non sono a livello kernel quindi non saraà possibile effettuare Fork, usare Thread Kernel o alcune IPC come pipes e shared memory. 
     - Grid
     - Java
     - Parallel
     - VM: fa partire un'isntanza VM come un job.
-- **Machine/Resource**: rappresentazione di Condom dei computer che possono effettuare i calcoli.
+- **Machine/Resource**: rappresentazione di condor dei computer che possono effettuare i calcoli.
 - **Match Making**: associazione tra una macchina ed un Job.
 - **Central Manager**: repository centrale per la pool di risorse. Effettua il match making.
 - **Execute Host**: computer che fa partire il job (il lavoratore).
@@ -158,7 +157,6 @@ _Condor Daemon Layout_
 - **StarD**: rappresenta la macchina nel sistema Condor. E' resposnabile dell'avvio, sospensione e arresto dei job. Un solo di questo demone per ogni nodo.
 - **Schedd**: effettua lo scheduling. Uno per ogni nodo. Mantiene una coda persistente dei job. Contatta le macchine disponibili all'esecuzione dei job e crea uno shadow per ogni job in esecuzione.
 - **Shadow**: è la rappresentazone locale del job in esecuzione.
-
 
 ## GPGPU
 
@@ -217,6 +215,7 @@ Docker permette di risolvere questo problema tramite:
 - **Tmpfs**: permette la memorizzazione temporanea di file in memoria RAM. Può essere utile per velocizzare l'accesso ai file di una applicazione, però una volta terminata l'esecuzione del container i dati verranno persi.
 
 I container di solito non sono direttamente connessi alla rete, il traffico passa per una scheda Bridged Nat. Quindi per poter accedere dall'esterno è necessario aprire le porte e farne un binding/forwarding. Docker offre due soluzioni:
+
 - Expose: permette di rendere visibili le porte solo ad altri docker container.
 - Ports: permette di rendere visibili le porte a tutti così che altri utenti possano accedervi dall'esterno.
 
@@ -233,6 +232,7 @@ _Esempio di dockerfile:_
 ```
 
 I container possono essere avviati in due modi:
+
 - tramite riga di comando (bruttino e macchinoso)
 - tramite un file di configurazione (più semplice e veloce)
 
