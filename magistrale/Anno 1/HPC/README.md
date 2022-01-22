@@ -45,7 +45,7 @@ Tuttavia questi computer sono di difficile realizzazione poichè devono operare 
 I principali computer quantistici attualmente esistenti sono:
 
 - **IonQ** con 79-qbit.
-- **Google** che sta sviluppando un supercumputer da 72-qbit.
+- **Google** che sta sviluppando un supercomputer da 72-qbit.
 - **IBM Q** con 53-qbit.
 
 ## Cluster Computing
