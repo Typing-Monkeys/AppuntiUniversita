@@ -10,12 +10,13 @@
     - [Load Balacing](#load-balacing)
     - [Parallel Distributed Processing](#parallel-distributed-processing)
     - [Il progetto Linux-HA](#il-progetto-linux-ha)
+    - [Costruzione di un Cluster](#costruzione-di-un-cluster)
 - [GPGPU](#gpgpu)
 - [Cloud Computing](#cloud-computing)
     - [Docker](#docker)
     - [Kubernetes](#kubernetes)
 
-## Introduzione
+# Introduzione
 
 Al giorno d'oggi il potere computazionale richiesto è sempre in aumento, questo vale per i campi più disparati come in ambito medico e sperimentale, nella simulazione di legami chimici e in ambito finanziario.
 Negli ultimi anni l'Europa ha investito moltissimi fondi nello sviluppo di centri di calcolo per provare a raggiungere una potenza di calcolo di 10^18 operazioni al secondo.
@@ -36,7 +37,7 @@ Con l'avanzamento delle tecnologie è possibile realizzare processori che richie
 
 Questo è evidenziato **dalla legge di Moore** che però negli ultimi anni non è più valida a causa dei limit fisici che si incontrano quando si rimpiccioliscono più di tanto i transistor.
 
-## Quantum computing
+## **Quantum computing**
 
 Sfrutta le leggi della fisica quantistica, come l'**entaglement** e il concetto di **superposizione** per realizzare computer con una capacità di calcolo nettamente superiore a quella dei computer tradizionali.
 
@@ -48,9 +49,10 @@ I principali computer quantistici attualmente esistenti sono:
 - **Google** che sta sviluppando un supercomputer da 72-qbit.
 - **IBM Q** con 53-qbit.
 
+#
 
-## Cluster Computing
-### High Performance Computing (HPC)
+# **Cluster Computing**
+## High Performance Computing (HPC)
 Il **Cluster Computing** consiste nella creazione di una rete di computer connessi tra di loro che operano insieme in modo tale da poter essere visti come una unica macchina.
 I sistemi HPC sono principlamente utilizzati per applicazioni ad alta intensità di calcolo e/o alta intensità di dati. Sono implementati algoritmi paralleli oppure in alternativa si adotta un parallelismo sui dati. I sistemi HPC sono spesso collegati o interagiscono con i sistemi Cloud per ottenere la massima potenza possibile.
 
@@ -79,11 +81,9 @@ Ci sono vari tipi di cluster:
     - In caso di eventuali errori o cadute dei nodi, altri occorrono per continuare a fornire un determinato servizio. Questi cluster sono progettati per fornire disponibilità ininterrotta di dati o servizi. Si può pensare ai Server Mail come esempi di questo tipo. Sono cluster utilizzati per fornire una disponibilità ininterrotta di dati o servizi ai consumatori, se un nodo muore il servizio viene subito ripristinato cambiando semplicemente nodo e l'utente non si accorge di nulla.
 - ## **Load Balacing**
     - Le richieste di servizi vengono gestite e distribuite sui nodi disponibili in modo mantenere il carico di lavoro più omogeneo possibile. Entrambe le tecnologie cluster ad alta disponibilità e bilanciamento del carico possono essere combinate per aumentare il affidabilità, disponibilità, e scalabilità di applicazioni e risorse di dati ampiamente distribuite per servizi Web, posta, notizie o FTP. Il Load Balancing Cluster può essere implementato utilizzando l'algoritmo Round-Robin dei DNS oppure utilizzando altri strumenti che permettono lo scambio di informazioni tra i nodi.
-
-
 - ## **Parallel Distributed Processing (High Throughput Computing)**
     - Normalmente utilizzato in ambiti scentifici per simulazioni e altro. Questi tipi di cluster aumentano la disponibilità, le prestazioni e la scalabilità delle applicazioni, in particolare attività computazionali o ad alta intensità di dati.
-#
+
 Applicazioni di cluster:
 - Compute Intense
 - Data o I/O Intense
@@ -158,21 +158,30 @@ Sono pacchetti software che automatizzano il processo di installazione di un clu
 - Quando si installa Rocks, verrà installato sia il software di clustering che una versione corrente di RedHat Linux aggiornata per includere le patch di sicurezza. L'installazione di Rocks configurerà correttamente vari servizi. L'installazione predefinita tende ad andare molto rapidamente e senza intoppi.
 - Un cluster Rocks ha la stessa architettura di base di un cluster OSCAR. Il nodo principale, o frontend, è un server con due interfacce di rete.
 
-
-
-
 #
+## Costruzione di un Cluster
 A livello di software è imporante gestire il parallelismo che può essere di 3 tipi:
-
 - **Grana Grossa**: Il codice è suddiviso in blocchi che richiedono un interazione minima tra di loro
-
 - **Grana Media**: il blocco richiede qualche tipo di interazione con altri blocchi (sync points). Le informazioni vengono scampiate tramite MPI.
-
 - **Grana Fine**: le interazioni tra le parti di codice sono molto frequenti (richiede un rete molto efficiente)
 
-Per le specifiche hardware di un cluster bisogna prima capire qual è il suo scopo finale ed il budget a disposizione. Può essere utile creare un RAID (Redundant Array of Inexpensive Disks) come sistema di memoria principale. Possono essere di vari tipi in base a come vengono realizzati:
+### **Selezione dell'hardware**
+Lo scopo finale di utilizzo di un cluster determina le caratteristiche hardware necessarie (utilizzare computer già di proprietà, assemblare nuovi pc o acqusitare pc preassemblati). Tuttavia i vincoli di budget possono costringere a soluzioni meno ideali. Un consiglio è quello di (se possibile) utilizzare sistemi identici per i nodi, in questo modo sarà sufficiente clonare le varie macchine e la relativa manutenzione e riparazione sarà più semplice.
+- **CPU e scheda madre**
+    - Rappresentano le componenti cruciali dell'ambiente. Per alte prestazioni (fattori critici: frequenza di clock del processore, dimensione della cache, Velocità del bus, capacità di memoria, velocità di accesso al disco, latenza di rete) le due parti devono essere totalmente compatibili. La frequenza di clock dovrebbe essere confrontata considerando il costo totale dei nodi. L'ultimo modello sul mercato generalmente non è la scelta giusta.
+- **Memoria e cache**
+    - Più memoria e più cache si ha, meglio è.
+- Potrebbe essere utile aggiungere un lettore CD/ DVD, visto il basso costo e la loro utilità. Questi dispositivi sono utili per ripristinare alcuni file system o guasti del disco.
 
-- **RAID 0** - striping: realizzato con dischi che lavorano in parallelo per velocizzarne le operazioni. <br>![raid 0](./imgs/raid0.png)
+La "testa" e i server aggiuntivi dovrebbero essere sistemi completi, poiché aggiungeranno poco ai costi complessivi, ma faciliteranno la personalizzazione e la manutenzione di questi sistemi. Il nodo head deve essere dual-homed (a meno che, come suggerito per motivi di sicurezza, non venga utilizzato un host separato che funge da firewall).
+
+Può essere utile creare un **RAID** (Redundant Array of Inexpensive Disks) come sistema di memoria principale. RAID è una tecnologia utilizzata per aumentare le prestazioni e/o l'affidabilità dell'archiviazione dei datiUn sistema RAID è costituito da due o più unità che funzionano in parallelo. Questi possono essere dischi rigidi, ma c'è una tendenza anche ad utilizzare anche la tecnologia SSD. Esistono diversi livelli RAID, ciascuno ottimizzato per una situazione specifica.
+
+- **RAID 0** - striping: In un sistema RAID 0 i dati vengono suddivisi in blocchi che vengono scritti su tutte le unità dell'array. Utilizzando più dischi (almeno 2) contemporaneamente, questo offre prestazioni di I/O superiori. Queste prestazioni possono essere ulteriormente migliorate utilizzando più controller, idealmente un controller per disco. <br>![raid 0](./imgs/raid0.png)
+    - Vantaggi: ottime prestazioni in lettura e scrittura. Viene utilizzata tutta la capacità di archiviazione. Facile da implementare.
+    - Svantaggi: se un'unità si guasta, tutti i dati nell'array RAID 0 vengono persi. Non dovrebbe essere utilizzato per sistemi con scopi critici.
+    - Utilizzo consigliato: archiviazioni di dati che devono essere letti e scritti ad alta velocità, come su una stazione di ritocco delle immagini o editing video.
+
 - **RAID 1** - mirroring: crea una copia nel secondo disco di ogni dato che viene salvato. <br>![raid 1](./imgs/raid1.png)
 - **RAID 5** - striping parity: si realizza con minimo 3 dischi di cui uno è adibito a salvare il checksum dei dati. <br>![raid 5](./imgs/raid5.png)
 - **RAID 6** - striping double parity: si realiza con un minimo di 4 dischi di cui 2 sono adibiti a salvare i checksum dei dati. <br>![raid 6](./imgs/raid6.png)
@@ -221,7 +230,9 @@ _Condor Daemon Layout_
 - **Schedd**: effettua lo scheduling. Uno per ogni nodo. Mantiene una coda persistente dei job. Contatta le macchine disponibili all'esecuzione dei job e crea uno shadow per ogni job in esecuzione.
 - **Shadow**: è la rappresentazone locale del job in esecuzione.
 
-## GPGPU
+#
+
+# **GPGPU**
 
 Il GPGPU (General-Purpose computing on Graphics Processing Units) è un tipo di HPC che sfrutta l'architettura con alto grado di parallelismo delle schede video per migliorare le performances.
 
