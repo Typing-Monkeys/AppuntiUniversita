@@ -9,6 +9,7 @@
     - [High Availability Cluster](#high-availability-cluster)
     - [Load Balacing](#load-balacing)
     - [Parallel Distributed Processing](#parallel-distributed-processing)
+    - [Il progetto Linux-HA](#il-progetto-linux-ha)
 - [GPGPU](#gpgpu)
 - [Cloud Computing](#cloud-computing)
     - [Docker](#docker)
@@ -139,6 +140,26 @@ Al momento Earthbeat è stato sostituito da Corosync+Peacemaker e i componenti c
     Corosync Cluster Engine è un demone che gestisce lo scambio di messaggi e l’appartenenza dei nodi all’interno dei gruppi. È stato implementato come evoluzione di OpenAIS, per risolvere i problemi osservati lavorando con OpenAIS, PeaceMaker e Apache Qpid. Corosync si avvicina all’alta disponibilità garantendo che ogni server ridondante nel sistema mantenga una copia ridondante delle informazioni utilizzate per prendere decisioni per l’applicazione. Questo approccio è chiamato "distributed state machine". In una tipica macchina a stati, i progettisti di software chiamano funzioni che modificano lo stato dell’applicazione. Utilizzando Corosync, i progettisti di software inviano messaggi invece di chiamare funzioni. Quando questi messaggi vengono consegnati, la macchina a stati su tutti i nodi cambia il suo stato in modo ordinato e coerente. Corosync è altamente sintonizzato e progettato per le prestazioni. È stata presa una considerazione speciale per ridurre al minimo il cambio di contesto della fine della memoria.
 - ### Pacemaker
     Pacemaker è un gestore di risorse ad alta disponibilità open source per cluster di piccole e grandi dimensioni. In caso di errore, i gestori delle risorse come Pacemaker avviano automaticamente il ripristino e si assicurano che l’applicazione sia disponibile da una delle macchine rimanenti nel cluster. Pacemaker ottiene la massima disponibilità per i servizi cluster rilevando e ripristinando gli errori del nodo e del livello di servizio. Ciò viene raggiunto utilizzando le capacità di messaggistica e di appartenenza fornite dall’infrastruttura cluster preferita. Pacemaker è responsabile del funzionamento delle risorse, permette di controllarne il loro stato, di avviarle o di stopparle, e gestisce il comportamento che queste devono avere nel caso si verifichino malfunzionamenti.
+
+#
+## Cluster Kits
+Sono pacchetti software che automatizzano il processo di installazione di un cluster. Fornisce tutto il software di cui si potrebbe aver bisogno in un'unica distribuzione. Alcuni kit hanno una distribuzione Linux inclusa nel pacchetto (es. Rocks), mentre altri sono installati su un'installazione Linux esistente (es. OSCAR). Sebbene siano disponibili altri kit cluster, i tre più comuni per i cluster Linux sono
+* NPACI Rocks (CentOS)
+* OSCAR (Fedora, RedHatEnterpriseLinux (RHEL), OpenSuse, Debian)
+* Scyld Beowulf (prodotto commerciale)
+## NPACI Rocks vs OSCAR
+- Rocks è una raccolta di software open source per la creazione di un cluster basato su Red Hat Linux.
+- OSCAR, del gruppo Open Cluster, utilizza una strategia di installazione diversa da Rocks. Con OSCAR, prima installi Linux (ma solo sul nodo head) e poi installi OSCAR: le installazioni dei due sono separate. Poiché l'installazione OSCAR è separata dall'installazione Linux, non si è legati a una singola distribuzione Linux.
+- La maggior parte del software di base è la stessa sia per OSCAR che per Rocks. Tuttavia, ci sono alcuni pacchetti disponibili per uno ma non per l'altro. Ad esempio, Condor è prontamente disponibile per Rocks mentre LAM/MPI è incluso in OSCAR.
+- OSCAR scala bene sulle distribuzioni Linux, Rocks scala bene con hardware eterogeneo.
+- Nessun approccio è migliore in ogni situazione.
+- Attualmente solo Rocks viene mantenuto e aggiornato.
+- Poiché OSCAR è un insieme complesso di hardware che include un gran numero di programmi e servizi, può essere molto arduo risolvere errori commessi in fase di configurazione (solitamente è consigliato ripetere tutto da capo). OSCAR va per prima cosa istallato sul nodo head del cluster. Si consiglia di iniziare con un'installazione pulita del sistema operativo e di personalizzare il meno possibile l'installazione OSCAR la prima volta che la si installa.
+- Quando si installa Rocks, verrà installato sia il software di clustering che una versione corrente di RedHat Linux aggiornata per includere le patch di sicurezza. L'installazione di Rocks configurerà correttamente vari servizi. L'installazione predefinita tende ad andare molto rapidamente e senza intoppi.
+- Un cluster Rocks ha la stessa architettura di base di un cluster OSCAR. Il nodo principale, o frontend, è un server con due interfacce di rete.
+
+
+
 
 #
 A livello di software è imporante gestire il parallelismo che può essere di 3 tipi:
