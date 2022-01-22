@@ -65,19 +65,25 @@ Questi cluster possono essere realizzati con computer dai componenti di fortuna 
 
 Possono essere utilizzati per realizzare: Web Server, motori di ricerca, vari servizi web, gestire DB, ecc.
 
-I cluster sono costruiti per aumentare le performance di calcolo e garantire una maggiore affidabilità. In un cluster ogni nodo è un sistema indipendente con la propria memoria e file system e per comunicare utilizzano tecniche di **message passing** (messsage pissing).
+Vengono solitamente utilizzati per migliorare la velocità e/o l'affidabilità rispetto a quella fornita da un singolo computer. Sono in genere molto più convenienti in termini di velocità o affidabilità rispetto a quest'ultimo. Nel cluster computing ogni nodo all'interno di un cluster è un sistema indipendente, con il proprio sistema operativo, memoria privata e, in alcuni casi, il proprio file system. Poiché i vari nodi non possono accedere direttamente alla memoria degli altri nodi, i programmi o il software eseguiti sui cluster di solito utilizzano una procedura chiamata **message passing** per ottenere dati e codice di esecuzione da un nodo all'altro.
 
-Possono essere usati anche per il load balacing, aumentando così la tolleranza ai guasti di una data applicaiozne.
+Il cluster computing può essere utilizzato anche come forma di elaborazione parallela relativamente a basso costo per applicazioni scientifiche e di altro tipo che si prestano a operazioni parallele.
+
+Possono essere usati anche per il load balacing, aumentando così la tolleranza ai guasti di una data applicazione.
 
 Ci sono vari tipi di cluster:
 
 <!-- - Anali(con scat incluso) -->
-- High availability cluster
-- Load Balacing
-- Parallel Distributed Processing (High Throughput Computing)
+- ## **High availability cluster**
+    - In caso di eventuali errori o cadute dei nodi, altri occorrono per continuare a fornire un determinato servizio. Questi cluster sono progettati per fornire disponibilità ininterrotta di dati o servizi. Si può pensare ai Server Mail come esempi di questo tipo. Sono cluster utilizzati per fornire una disponibilità ininterrotta di dati o servizi ai consumatori, se un nodo muore il servizio viene subito ripristinato cambiando semplicemente nodo e l'utente non si accorge di nulla.
+- ## **Load Balacing**
+    - Le richieste di servizi vengono gestite e distribuite sui nodi disponibili in modo mantenere il carico di lavoro più omogeneo possibile. Entrambe le tecnologie cluster ad alta disponibilità e bilanciamento del carico possono essere combinate per aumentare il affidabilità, disponibilità, e scalabilità di applicazioni e risorse di dati ampiamente distribuite per servizi Web, posta, notizie o FTP. Il Load Balancing Cluster può essere implementato utilizzando l'algoritmo Round-Robin dei DNS oppure utilizzando altri strumenti che permettono lo scambio di informazioni tra i nodi.
 
-La potenza computazionale dei cluster può essere espressa in 3 modi:
 
+- ## **Parallel Distributed Processing (High Throughput Computing)**
+    - Normalmente utilizzato in ambiti scentifici per simulazioni e altro. Questi tipi di cluster aumentano la disponibilità, le prestazioni e la scalabilità delle applicazioni, in particolare attività computazionali o ad alta intensità di dati.
+#
+Applicazioni di cluster:
 - Compute Intense
 - Data o I/O Intense
 - Transaction Intense
@@ -95,6 +101,46 @@ I vantaggi di un cluster sono:
 
 Tuttavia nei cluster a basso costo, un aspetto molto critico è quello della rete poichè una bassa larghezza di banda o una latenza elevata possono degradare notevolmente le performance del cluster. L'opzione migliore è l'Infiniband.
 
+Si è tentati di pensare a un cluster solo come un gruppo di macchine interconnesse, ma quando si inizia a costruire un cluster, è necessario riflettere sulla sua struttura interna. Ciò comporterà decidere quali ruoli giocheranno le singole macchine e come sarà la rete di interconnessione. Nei multiprocessori centralizzati ci sono 2 approcci
+architetturali, a seconda di come viene gestita la memoria:
+- ### Architettura **UMA** (Uniform Memory Access)
+    - C'è un memoria condivisa comune. La memoria principale è ugualmente accessibile a tutte le CPU. Per migliorare la memoria prestazioni, ogni processore ha la propria cache.
+- ### Architettura **NUMA** (Non Uniform Memory Access)
+    - Ogni CPU mantiene il proprio pezzo di memoria. Mentre questa disposizione semplificherà la sincronizzazione, il problema della coerenza della cache aumenta.
+
+Oggigiorno i Cluster vengono realizzati collegando un determinato numero di nodi Symmetric Multi Processors. L'architettura risultante è la seguente: abbiamo un insieme di nodi interconnessi, rappresentando globalmente un'architettura NUMA, composta da nodi con architettura UMA.
+
+### - Symmetric Cluster
+Ogni nodo può funzionare come un singolo computer. Questo è estremamente semplice da
+configurare. Basta creare una sottorete con le singole macchine e aggiungere qualsiasi
+software cluster specifico di cui si ha bisogno.
+### - Asymmetric Cluster
+Un computer è il nodo di testa (l'head funge spesso da server primario per il resto dei
+cluster. La velocità della testa può limitare le prestazioni del cluster). Serve come gateway tra i nodi rimanenti e gli utenti. I restanti nodi hanno spesso sistemi operativi molto minimali e sono dedicati esclusivamente al cluster. Poiché tutto il traffico deve passare attraverso la testa, i cluster asimmetrici tendono a fornire un alto livello di sicurezza.
+### - Expanded Cluster
+Questo è un tipo cluster più completo.
+
+#
+
+## Il progetto Linux-HA
+Fornire un soluzione ad alta disponibilità (clustering) per Linux che promuove affidabilità, disponibilità e facilità di manutenzione (RAS) attraverso lo sforzo di sviluppo della comunità. I pilastri principali dei progetti Linux HA erano 2
+software sviluppati da Linbit:
+- ### Distributed Replicated Block Device (DRBD)
+    Il DRBD (Distributed Replicated Block Device), viene utilizzato per replicare il contenuto informativo all’interno di un nodo master, sui vari nodi slave. Il DRDB esegue la copia live di un disco tra il server attivo e quello di backup, al fine di garantire la correttezza delle informazioni memorizzate su disco. In combinazione verrà utilizzato Heartbeat, con lo scopo di verificare il corretto funzionamento dei server associati a un determinato servizio. In caso di failover il software esegue lo scambio tra un server di backup e il server primario. Il DRBD è un elemento fondamentale per formare un cluster ad alta disponibilità (HA). Questo viene fatto eseguendo il mirroring di un intero dispositivo a tramite una rete assegnata. La funzionalità software di replicazione dei blocchi dell’hard disk del nodo master è completamente trasparente alle applicazioni che ne devono leggere il contenuto. Se ad esempio inseriamo le pagine di un contenuto Web all’interno dello spazio governato dal DRBD, queste verranno replicate su tutti i nodi del cluster garantendo continuità di servizio e consistenza dei dati. Un applicativo software di questo tipo viene installato quando la soluzione che si sta realizzando è fortemente indirizzata all’affidabilità dei dati. Se il nodo primario dovesse incorrere in problematiche di rete, heartbeat, avvierà la procedura che porta uno dei nodi secondari a prendere il posto del primario, garantendo la continuità del servizio offerto. Dopo un’interruzione di un nodo, il DRBD:
+    - Risincronizza automaticamente il nodo temporaneamente non disponibile all’ultima versione dei dati, in background, senza interferire con il servizio in esecuzione. Ovviamente questo funziona anche se il ruolo del nodo sopravvissuto è stato modificato mentre il peer era inattivo.
+    - Nel caso in cui un’interruzione completa dell’alimentazione disattivi entrambi i nodi, DRBD rileverà quale dei nodi è rimasto inattivo più a lungo ed eseguirà la risincronizzazione nella giusta direzione.
+    - Dopo un’interruzione della rete di replica, DRBD ristabilirà la connessione ed eseguirà automaticamente la risincronizzazione necessaria.
+- ### Heartbeat
+    Heartbeat è altamente portatile ed è il primo software scritto per il progetto Linux-HA. Heartbeat invia costantemente messaggi ai nodi chiedendo se questi sono ancora a disposizione, nel caso in cui il nodo primario non risponda, uno dei nodi passivi prende in carico l’erogazione dei servizi forniti dal nodo primario gestendo l’indirizzo IP virtuale a cui il cluster fa riferimento.
+
+
+Al momento Earthbeat è stato sostituito da Corosync+Peacemaker e i componenti coinvolti sono i seguenti:
+- ### Corosync
+    Corosync Cluster Engine è un demone che gestisce lo scambio di messaggi e l’appartenenza dei nodi all’interno dei gruppi. È stato implementato come evoluzione di OpenAIS, per risolvere i problemi osservati lavorando con OpenAIS, PeaceMaker e Apache Qpid. Corosync si avvicina all’alta disponibilità garantendo che ogni server ridondante nel sistema mantenga una copia ridondante delle informazioni utilizzate per prendere decisioni per l’applicazione. Questo approccio è chiamato "distributed state machine". In una tipica macchina a stati, i progettisti di software chiamano funzioni che modificano lo stato dell’applicazione. Utilizzando Corosync, i progettisti di software inviano messaggi invece di chiamare funzioni. Quando questi messaggi vengono consegnati, la macchina a stati su tutti i nodi cambia il suo stato in modo ordinato e coerente. Corosync è altamente sintonizzato e progettato per le prestazioni. È stata presa una considerazione speciale per ridurre al minimo il cambio di contesto della fine della memoria.
+- ### Pacemaker
+    Pacemaker è un gestore di risorse ad alta disponibilità open source per cluster di piccole e grandi dimensioni. In caso di errore, i gestori delle risorse come Pacemaker avviano automaticamente il ripristino e si assicurano che l’applicazione sia disponibile da una delle macchine rimanenti nel cluster. Pacemaker ottiene la massima disponibilità per i servizi cluster rilevando e ripristinando gli errori del nodo e del livello di servizio. Ciò viene raggiunto utilizzando le capacità di messaggistica e di appartenenza fornite dall’infrastruttura cluster preferita. Pacemaker è responsabile del funzionamento delle risorse, permette di controllarne il loro stato, di avviarle o di stopparle, e gestisce il comportamento che queste devono avere nel caso si verifichino malfunzionamenti.
+
+#
 A livello di software è imporante gestire il parallelismo che può essere di 3 tipi:
 
 - **Grana Grossa**: Il codice è suddiviso in blocchi che richiedono un interazione minima tra di loro
@@ -111,13 +157,6 @@ Per le specifiche hardware di un cluster bisogna prima capire qual è il suo sco
 - **RAID 6** - striping double parity: si realiza con un minimo di 4 dischi di cui 2 sono adibiti a salvare i checksum dei dati. <br>![raid 6](./imgs/raid6.png)
 - **RAID 10** - mirroring striping: combina i vantaggi di RAID 1 e RAID 0. <br>![raid 10](./imgs/raid10.png)
 
-### High Availability Cluster
-
-Sono cluster utilizzati per fornire una disponibilità ininterrotta di dati o servizi ai consumatori, se un nodo muore il servizio viene subito ripristinato cambiando semplicemente nodo e l'utente non si accorge di nulla.
-
-### Load Balacing
-
-Distribuisce le richieste di calcolo in maniera tale da distribuire uniformemente il carico di lavoro e le richeiste tra i vari nodi.
 
 ### Parallel Distributed Processing
 
