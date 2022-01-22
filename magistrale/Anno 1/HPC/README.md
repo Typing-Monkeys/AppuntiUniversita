@@ -183,11 +183,34 @@ Può essere utile creare un **RAID** (Redundant Array of Inexpensive Disks) come
     - Utilizzo consigliato: archiviazioni di dati che devono essere letti e scritti ad alta velocità, come su una stazione di ritocco delle immagini o editing video.
 
 - **RAID 1** - mirroring: crea una copia nel secondo disco di ogni dato che viene salvato. <br>![raid 1](./imgs/raid1.png)
+Se un'unità si guasta, il controller utilizza l'unità dati o l'unità mirror per il ripristino dei dati e continua a funzionare. Sono necessarie almeno 2 unità per un array RAID 1.
+    - Vantaggi: in caso di guasto di un'unità, i dati non devono essere ricostruiti, devono solo essere copiati nell'unità sostitutiva.
+    - Svantaggi: lo svantaggio principale è che la capacità di archiviazione effettiva è solo la metà della capacità totale dell'unità perché tutti i dati vengono scritti due volte.
+    - Utilizzo consigliato: RAID-1 è ideale per l'archiviazione mission-critical, ad esempio per i sistemi di contabilità. È adatto anche per server di piccole dimensioni in cui verranno utilizzate solo due unità dati.
+
 - **RAID 5** - striping parity: si realizza con minimo 3 dischi di cui uno è adibito a salvare il checksum dei dati. <br>![raid 5](./imgs/raid5.png)
+    - Vantaggi: utilizzando i dati di parità, il computer può ricalcolare i dati di uno degli altri blocchi di dati, qualora quei dati non fossero più disponibili. Ciò significa che un array RAID 5 può resistereun singolo guasto dell'unità senza perdere dati.
+    - Svantaggi: questa è una tecnologia complessa. Se uno dei dischi in un array che utilizza dischi da 4 TB si guasta e viene sostituito, il ripristino dei dati (il tempo di ricostruzione) potrebbe richiedere un giorno o più, a seconda del carico sull'array e della velocità del controller. Se un altro disco si guasta durante quel periodo, i dati vengono persi per sempre.
+    - Utilizzo consigliato: RAID 5 è un buon sistema a tutto tondo che combina un'archiviazione efficiente con un'eccellente sicurezza e prestazioni decenti. È ideale per server di file e applicazioni che dispongono di un numero limitato di unità dati.
+
 - **RAID 6** - striping double parity: si realiza con un minimo di 4 dischi di cui 2 sono adibiti a salvare i checksum dei dati. <br>![raid 6](./imgs/raid6.png)
+RAID 6 è come RAID 5, ma i dati di parità vengono scritti su due unità. Ciò significa che richiede almeno 4 unità e può resistere se 2 unità muoiono contemporaneamente.
+    - Vantaggi: gli stessi di RAID 5 ed in puù il sistema può sopravvivere al secondo guasto.
+    - Svantaggi: le transazioni di scrittura dei dati sono più lente di RAID 5 a causa dei dati di parità aggiuntivi che devono essere calcolati.
+    - Utilizzo consigliato: è preferibile rispetto a RAID 5 nei server di file e applicazioni che utilizzano molte unità di grandi dimensioni per l'archiviazione dei dati.
+
 - **RAID 10** - mirroring striping: combina i vantaggi di RAID 1 e RAID 0. <br>![raid 10](./imgs/raid10.png)
+Questa è una configurazione RAID nidificata o ibrida. Fornisce sicurezza eseguendo il mirroring di tutti i dati su unità secondarie e utilizzando lo striping su ciascun set di unità per accelerare i trasferimenti di dati.
+    - Vantaggi: se qualcosa va storto con uno dei dischi in una configurazione RAID 10, il tempo di ricostruzione è molto veloce poiché tutto ciò che serve è copiare tutti i dati dal mirror sopravvissuto a una nuova unità.
+    - Svantaggi: metà della capacità di archiviazione va al mirroring, quindi rispetto ai grandi array RAID 5 o RAID 6, questo è un modo costoso per avere ridondanza.
+
+È comunque consigliabile avere un backup dei dati esterno al RAID in caso di eventuali furti o danni ai sistemi di archiviazione stessi.
+
+### **Environment**
+È necessaria una pianificazione accurata dello spazio fisico, del cablaggio, del raffreddamento e dell'accesso fisico. La ventilazione deve essere preservata. Anche la gestione dei cavi è un problema, idealmente i cavi di alimentazione e dati devono essere separati. La potenza richiesta va valutata con attenzione (considerando un +50% per sicurezza). Tra i tipi di raffreddamento si distinguono tra aria condizionata e ad acqua. Inoltre è consigliabile un sistema che riesca a fornire elettricità anche in caso di guasti del fornitore di energia. Solitamente sono implementati anche sistemi di disaster recovery, realizzando un data center gemello a distanza di quello principale. Anche un'ottima banda e una bassa latenza sono caratteristiche necessarie.
 
 
+# 
 ### Parallel Distributed Processing
 
 Viene utilizzato per eseguire richieste molto costose in code di batch.
