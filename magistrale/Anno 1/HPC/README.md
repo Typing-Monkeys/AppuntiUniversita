@@ -16,8 +16,7 @@
 
 ## Introduzione
 
-Al giorno d'oggi il potere computazionale richiesto è sempre in aumento, questo vale per i campi più disparati come la simulazione di legamichimici, degli effetti di nuovi farmaci, dei design delle automobile ecc...
-
+Al giorno d'oggi il potere computazionale richiesto è sempre in aumento, questo vale per i campi più disparati come in ambito medico e sperimentale, nella simulazione di legami chimici e in ambito finanziario.
 Negli ultimi anni l'Europa ha investito moltissimi fondi nello sviluppo di centri di calcolo per provare a raggiungere una potenza di calcolo di 10^18 operazioni al secondo.
 
 Questa branca dell'informatica è detta **High Performance Computing** e studia come è possibile raggingere queste immense potenze di calcolo.
@@ -48,9 +47,13 @@ I principali computer quantistici attualmente esistenti sono:
 - **Google** che sta sviluppando un supercomputer da 72-qbit.
 - **IBM Q** con 53-qbit.
 
-## Cluster Computing
 
+## Cluster Computing
+### High Performance Computing (HPC)
 Il **Cluster Computing** consiste nella creazione di una rete di computer connessi tra di loro che operano insieme in modo tale da poter essere visti come una unica macchina.
+I sistemi HPC sono principlamente utilizzati per applicazioni ad alta intensità di calcolo e/o alta intensità di dati. Sono implementati algoritmi paralleli oppure in alternativa si adotta un parallelismo sui dati. I sistemi HPC sono spesso collegati o interagiscono con i sistemi Cloud per ottenere la massima potenza possibile.
+
+Per analizzare le problematiche di un sistema HPC possiamo considerare il caso studio del **Cluster Computing**.
 
 I componenti di un Cluster sono:
 - **I Nodi**
@@ -164,7 +167,7 @@ Il GPGPU (General-Purpose computing on Graphics Processing Units) è un tipo di 
 
 ## Cloud Computing
 
-È un termine che serve per indicare un'ampia classe di Network Based Compuiting, in pratica è una collezione di Hardware e Software che tramite l'utilizzo di Internet forniscono vari servizi ai client nascondendo le caratteristiche dell'infrastruttura. I servizi di cloud computing vengono forniti on demand e quindi sono sempre disponibili.
+È un termine che serve per indicare un'ampia classe di Network Based Compuiting, in pratica è una collezione di Hardware e Software che tramite l'utilizzo di Internet forniscono vari servizi ai client nascondendo le caratteristiche dell'infrastruttura, fornendo agli utenti un'interfaccia grafica o API molto semplice. I servizi di cloud computing vengono forniti on demand e quindi sono sempre disponibili.
 
 Possono essere identificati da 3 caratteristiche:
 
@@ -185,6 +188,8 @@ I benefici del Cloud Computing sono:
 - Permette di alleggerire i carichi di lavoro sulle macchine locali in quanto le operazioni vengono eseguite in cloud
 
 - Riduce il costo dei software, spesso i software per il could computing sono gratuiti e vengono aggiornati di continuo ed in modo automatico.
+
+- Non ci sono problemi di compatibilità sui formati.
 
 Gli svantaggi sono:
 
