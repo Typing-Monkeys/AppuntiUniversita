@@ -50,7 +50,7 @@ I principali computer quantistici attualmente esistenti sono:
 - **Google** che sta sviluppando un supercomputer da 72-qbit.
 - **IBM Q** con 53-qbit.
 
-#
+<hr>
 
 # **Cluster Computing**
 ## High Performance Computing (HPC)
@@ -122,7 +122,7 @@ cluster. La velocità della testa può limitare le prestazioni del cluster). Ser
 ### Expanded Cluster
 Questo è un tipo cluster più completo.
 
-#
+<hr>
 
 ## Il progetto Linux-HA
 Fornire un soluzione ad alta disponibilità (clustering) per Linux che promuove affidabilità, disponibilità e facilità di manutenzione (RAS) attraverso lo sforzo di sviluppo della comunità. I pilastri principali dei progetti Linux HA erano 2 software sviluppati da Linbit:
@@ -140,7 +140,8 @@ Al momento Earthbeat è stato sostituito da Corosync+Peacemaker e i componenti c
 - ### **Pacemaker**
     Pacemaker è un gestore di risorse ad alta disponibilità open source per cluster di piccole e grandi dimensioni. In caso di errore, i gestori delle risorse come Pacemaker avviano automaticamente il ripristino e si assicurano che l’applicazione sia disponibile da una delle macchine rimanenti nel cluster. Pacemaker ottiene la massima disponibilità per i servizi cluster rilevando e ripristinando gli errori del nodo e del livello di servizio. Ciò viene raggiunto utilizzando le capacità di messaggistica e di appartenenza fornite dall’infrastruttura cluster preferita. Pacemaker è responsabile del funzionamento delle risorse, permette di controllarne il loro stato, di avviarle o di stopparle, e gestisce il comportamento che queste devono avere nel caso si verifichino malfunzionamenti.
 
-#
+<hr>
+
 ## Cluster Kits
 Sono pacchetti software che automatizzano il processo di installazione di un cluster. Fornisce tutto il software di cui si potrebbe aver bisogno in un'unica distribuzione. Alcuni kit hanno una distribuzione Linux inclusa nel pacchetto (es. Rocks), mentre altri sono installati su un'installazione Linux esistente (es. OSCAR). Sebbene siano disponibili altri kit cluster, i tre più comuni per i cluster Linux sono
 * NPACI Rocks (CentOS)
@@ -157,7 +158,7 @@ Sono pacchetti software che automatizzano il processo di installazione di un clu
 - Quando si installa Rocks, verrà installato sia il software di clustering che una versione corrente di RedHat Linux aggiornata per includere le patch di sicurezza. L'installazione di Rocks configurerà correttamente vari servizi. L'installazione predefinita tende ad andare molto rapidamente e senza intoppi.
 - Un cluster Rocks ha la stessa architettura di base di un cluster OSCAR. Il nodo principale, o frontend, è un server con due interfacce di rete.
 
-#
+<hr>
 
 ## Costruzione di un Cluster
 A livello di software è imporante gestire il parallelismo che può essere di 3 tipi:
@@ -209,8 +210,7 @@ Questa è una configurazione RAID nidificata o ibrida. Fornisce sicurezza esegue
 ### **Environment**
 È necessaria una pianificazione accurata dello spazio fisico, del cablaggio, del raffreddamento e dell'accesso fisico. La ventilazione deve essere preservata. Anche la gestione dei cavi è un problema, idealmente i cavi di alimentazione e dati devono essere separati. La potenza richiesta va valutata con attenzione (considerando un +50% per sicurezza). Tra i tipi di raffreddamento si distinguono tra aria condizionata e ad acqua. Inoltre è consigliabile un sistema che riesca a fornire elettricità anche in caso di guasti del fornitore di energia. Solitamente sono implementati anche sistemi di disaster recovery, realizzando un data center gemello a distanza di quello principale. Anche un'ottima banda e una bassa latenza sono caratteristiche necessarie.
 
-
-# 
+<hr>
 
 ## High-Throughput Computing
 Consente l'esecuzione per un lungo periodo di tempo di molti task. Strumento molto utile per ricercatori e altri utenti che sono interessati al numero di calcoli che possono fare in lunghi periodi di tempo.
@@ -256,7 +256,7 @@ _Condor Daemon Layout_
 - **Schedd**: effettua lo scheduling. Uno per ogni nodo. Mantiene una coda persistente dei job. Contatta le macchine disponibili all'esecuzione dei job e crea uno shadow per ogni job in esecuzione.
 - **Shadow**: è la rappresentazone locale del job in esecuzione.
 
-#
+<hr>
 
 # **GPGPU**
 
