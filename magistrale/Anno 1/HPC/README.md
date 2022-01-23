@@ -11,6 +11,7 @@
     - [Parallel Distributed Processing](#parallel-distributed-processing)
     - [Il progetto Linux-HA](#il-progetto-linux-ha)
     - [Costruzione di un Cluster](#costruzione-di-un-cluster)
+    - [Condor](#htcondor)
 - [GPGPU](#gpgpu)
 - [Cloud Computing](#cloud-computing)
     - [Docker](#docker)
@@ -211,21 +212,29 @@ Questa è una configurazione RAID nidificata o ibrida. Fornisce sicurezza esegue
 
 # 
 
-#### HTCondor - JoeCondom
+## High-Throughput Computing
+Consente l'esecuzione per un lungo periodo di tempo di molti task. Strumento molto utile per ricercatori e altri utenti che sono interessati al numero di calcoli che possono fare in lunghi periodi di tempo.
+
+### **HTCondor**
+È un classico High-Throughput Computing system. È un software che consente di svolgere molte attività di calcolo per un lungo periodo di tempo. Si occupa principalmente del numero di risorse di elaborazione disponibili per le persone che desiderano utilizzare il sistema. Risulta essere molto utile per ricercatori e altri utenti che sono più interessati al numero di calcoli che possono fare su lunghi lassi di tempo, piuttosto che a calcoli brevi. Offre la possibilità di gestire sia CPU dedicate (cluster) che risorse non dedicate (desktop). Nessun file system condiviso è richiesto. È supportato per molti tipi di lavoro: seriale, parallelo, ecc. Può sopravvivere a arresti anomali, interruzioni di rete e qualsiasi singolo punto di errore. Con Condor è inoltre possibile:
+- tenere d’occhio i lavori e rimanere aggiornato sui loro progressi;
+- implementare una politica sull’ordine di esecuzione dei lavori;
+- aggiungere tolleranza agli errori dei jobs.
+
+Permette una policy di scheduling mediante le **ClassAds** (Preemption, suspension, requirements, preferences, groups, quotas, settable fair-share, system hold…). Nessun file system condiviso richiesto
 
 Definizioni: 
-
 - **Job**: rappresentazione di condor di un lavoro. Può essere idenfiticato come un processo di unix ed è un elemento del Workflow. Ogni job ha delle preferenze e requisiti:
     - _Requisiti_: determinati OS 
     - _Preferenze_: determinate caratteristiche della macchina
-- **ClassAd**: rappresentazione interna dei dati di condor. Possono essere di vario tipo:
+- **ClassAd**: rappresentazione interna dei dati di condor. La struttura e costituita da una coppia attributo-valore oppure da una coppia attributo-espressione. Possono essere di vario tipo:
     - Job ClassAd: rappresenta un job di Condor 
     - Machine ClassAd: rapressenta le varie risorse di calcolo all'interno del pool di Condor
     - Altri ClassAd: rappresentano altre caratteristiche del pool
 
 ![classadd](./imgs/classad.png)
 - **Universe**: policy di Condor per la gestione dei Job. Possono essere:
-    - Vanilla: quello base, che permette l'esecuzione di qualsiasi job seriale ed effettua il trasferimento automatico dei file. Un po come il gelato alla vaniglia ...
+    - Vanilla: quello base, che permette l'esecuzione di qualsiasi job seriale ed effettua il trasferimento automatico dei file. L’universo vanilla è una buona impostazione predefinita, poiché ha il minor numero di restrizioni sui job.
     - Standard: fornisce un sistema di checkpoint per poter continuare l'esecuzione di un job che viene interrotto. Fornisce remote system calls. E' indipendente dal linguaggio di programmazione. I checkpoint non sono a livello kernel quindi non saraà possibile effettuare Fork, usare Thread Kernel o alcune IPC come pipes e shared memory. 
     - Grid
     - Java
