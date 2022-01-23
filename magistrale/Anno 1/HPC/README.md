@@ -256,6 +256,44 @@ _Condor Daemon Layout_
 - **Schedd**: effettua lo scheduling. Uno per ogni nodo. Mantiene una coda persistente dei job. Contatta le macchine disponibili all'esecuzione dei job e crea uno shadow per ogni job in esecuzione.
 - **Shadow**: è la rappresentazone locale del job in esecuzione.
 
+### **Altre informazioni di amministrazione per HTCondor**
+- Obiettivi e consigli:
+    - scrivere una configurazione il più semplice ed efficiente possibile;
+    - il file di configurazione non dovrebbe superare le 20 linee.
+- **File di configurazione**
+    - CONDOR_CONFIG rappresenta il file di configurazione globale di condor. All’interno sono presenti tutte le impostazioni globali, alcune impostazioni vanno abilitate per IPV6. È presente nella directory /etc/condor/
+    - LOCAL_CONFIG_FILE è il file di configurazione locale specifico della macchina per ogni host. È presente nella directory /home/etc/condor/condor_config.local.
+    - LOCAL_CONFIG_DIR è la directory condor locale per ogni host. È presente nella directory  /etc/condor/config.d
+- **Configuration File Macros** </br>
+    Le definizioni delle macro hanno la forma: <nome_macro> = <definizione_macro></br>
+    NOTA: è necessario disporre di uno spazio vuoto tra il nome della macro, il segno "=" e la definizione della macro. </br>
+    Le invocazioni delle macro hanno la forma: **$(nome_macro)**.
+- **Sicurezza**
+    - Condor possiede anche meccanismi di sicurezza che permettono di autenticare gli di utenti ed i demoni, garantire una crittografia sulla rete e controllare l’integrità del network.
+    - Un esempio sta nel modificare la variabile **ALLOW_WRITE** (va impostata a prescindere altrimenti non funziona niente).
+- **Policy** (*"chi si incarica di eseguire il lavoro e quando ?"*)
+    - Vanno settate nel file **CONDOR_CONFIG**, alcuni esempi:
+        - **START**: è la politica principale. Quando assume il valore FALSE lo slot entra nello stato “OWNER” e non eseguirà lavori.  I JOB devono soddisfare START, che può far riferimento ai valori ClassAd inclusi nel JOB.
+        - **RANK**: spesso è utilizzata per dare la priorità di esecuzione del JOB ad un proprietario di un particolare gruppo di macchine.
+        - **SUSPEND**: Quando SUSPEND diventa True il job smette di essere eseguito ma rimane sulla macchina in esecuzione(che risulta occupata).
+        - **CONTINUE**: quando CONTINUE diventa True il job riprende l'esecuzione da dove si era fermato.
+        - **PREEMPT**: quando diventa True il job lascia la macchina dove lo sta eseguendo.
+        - **KILL**
+- Parametri utili nella configurazione della policy:
+    - **CurrentTime**: definisce il tempo attuale in “Unix epoch time” (secondi dall' 1 gennaio 1970, ore 00:00).
+    - **EnteredCurrentActivity**: definisce il tempo in cui HTCondor ha iniziato l'attività (sempre in Unix epoch time).
+    - **LoadAvg**: carico della CPU totale.
+    - **CondorLoadAvg**: carico della CPU dovuto a HTCondor.
+    - **KeyboardIdle**: secondi trascorsi dall'ultima attività di tastiera o mouse.
+- Ultime info e tool per il debug:
+    - Si può anche decidere di assegnare una priorità ai vari job (numeri maggiori = priorità più alta). Quest'ultima può essere settata anche in base a quale utente avvia il job.
+    - Comandi:
+        - **condor_status**: check dello stato del demone.
+        - **condor_q**: per vedere la coda dei job. Nel caso in cui un determinato job non parta o qualsiasi altro problema, vengono restituiti dei commenti molto utili all'eventuale risoluzione di bug (utilizzando anche -analyze).
+    - HTCondor mantiene anche un file di log per ogni demone.
+
+Per qualsiasi altro dubbio, informazione sui comandi e per problemi di debug è consigliabile seguire le varie guide e i manuali forniti.
+
 <hr>
 
 # **GPGPU**
