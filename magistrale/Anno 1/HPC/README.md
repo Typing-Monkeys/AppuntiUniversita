@@ -476,67 +476,52 @@ Un servizio di Cloud Computing può essere diviso in 4 Layer:
 
 I benefici del Cloud Computing sono:
 
-1. **Riduzione dei costi (e aumento dell’efficienza)**
-
+1. **Riduzione dei costi (e aumento dell’efficienza)**<br>
     Le aziende che utilizzano sistemi cloud riducono enormemente le spese relative all’acquisto di hardware e software. Non sono più costrette ad acquistare server e data center locali, che richiedono personale specializzato nella gestione e nella manutenzione, che occupano spazio fisico e che consumano elettricità 24 ore su 24 e 7 giorni su 7 per l’alimentazione e il raffreddamento.
 
-2. **Scalabilità**
-
+2. **Scalabilità**<br>
     Il successo e l’enorme diffusione del cloud derivano, in primis, da un problema e dal fatto che questo tipo di tecnologia può risolverlo come nessun altro. È il problema della scalabilità. L’elasticità dei sistemi di cloud computing è perfetta per ovviare a queste problematiche. Si possono, infatti, gestire servizi e capacità di calcolo on-demand, ampliando la propria infrastruttura in tempistiche assai brevi. Allo stesso tempo, questa “infrastruttura” può ritornare ad essere più contenuta, con la massima flessibilità. 
 
-3. **Prestazioni**
-
+3. **Prestazioni**<br>
     Un singolo data center aziendale, nella stragrande maggioranza dei casi, non può competere con la rete di data center forniti da aziende specializzate. Innanzitutto, dal momento che quasi tutti i servizi sono forniti in modalità on-demand, si possono avere a disposizione enormi quantità di risorse di calcolo in poco tempo, e con grande facilità e flessibilità, senza investimenti onerosi. Contemporaneamente, ospitando piattaforme, software e database in remoto, i servizi cloud permettono di liberare memoria e potenza computazionale sui singoli computer della propria azienda. L’evidente conseguenza è, appunto, il deciso miglioramento delle prestazioni.
 
-4. **Produttività**
-
+4. **Produttività**<br>
     Il cloud computing, innanzitutto, riduce drasticamente alcune perdite di tempo: quelle relative all’assemblaggio e all’organizzazione dei data center locali, con le diverse configurazioni hardware e software, e tutta una serie di azioni di routine nell’ambito IT. I vantaggi del Cloud Computing permettono un facile accesso ai dati e alle piattaforme aziendali con tutti i tipi di device, dal classico desktop fino ai dispositivi mobile.
 
-5. **Sicurezza**
-
+5. **Sicurezza**<br>
     I dati e le reti vengono protetti con servizi presidiati sempre da backup.
 
 Gli svantaggi sono:
-1. **Sicurezza informatica e privacy degli utenti**
-
+1. **Sicurezza informatica e privacy degli utenti**<br>
     Utilizzare un servizio di cloud computing per memorizzare dati personali o sensibili, espone l'utente a potenziali problemi di violazione della privacy. I dati personali vengono memorizzati nelle Server Farms di aziende che spesso risiedono in uno Stato diverso da quello dell'utente. Il cloud provider, in caso di comportamento scorretto o malevolo, potrebbe accedere ai dati personali per eseguire ricerche di mercato e profilazione degli utenti.
 
-2. **Costo delle prestazioni e della larghezza di banda**
-
+2. **Costo delle prestazioni e della larghezza di banda**<br>
     Le industrie possono risparmiare fondi sull'hardware ma devono investire ulteriori risorse per la larghezza di banda. La condivisione di dati complessi e intensivi sulla rete implica una larghezza di banda sufficiente. Pertanto, diversi settori sono in attesa di costi ridotti della banda prima di passare a soluzioni cloud. 
 
-3. **Affidabilità e disponibilità**
-
+3. **Affidabilità e disponibilità**<br>
     I provider cloud non dispongono di un servizio continuo questo quindi può subire guasti regolari. È importante dunque esaminare il servizio offerto costantemente attraverso strumenti interni o di terze parti.
 
 
 **Caratteristiche del cloud computing:**
-1. **Virtualizzazione risorse**
-
+1. **Virtualizzazione risorse**<br>
     Ovvero capacità di calcolo, archiviazione e rete. Nei cloud sono virtualizzate e si ottiene a vari livelli tra cui VM (Virtual Machine) e livelli di piattaforma. Il più semplice è a livello di macchina virtuale (VM) in cui diverse applicazioni possono essere eseguite all'interno dei loro contenitori o sistemi operativi in esecuzione sulla stessa macchina fisica. Il livello di piattaforma consente la mappatura senza interruzioni delle applicazioni su una o più risorse offerte da diversi provider di infrastrutture cloud.
 
-2. **Orientato al servizio**
-
+2. **Orientato al servizio**<br>
     Il cloud è implementato utilizzando il modello Service-Oriented Architecture in cui tutti i capacità/componenti sono disponibili sulla rete come servizio.
 
-3. **Elastico**
-
+3. **Elastico**<br>
     Le risorse (ovvero capacità di calcolo, archiviazione e rete) necessarie per le applicazioni cloud possono essere fornite e variate in modo dinamico, ovvero aumentare o diminuire in fase di esecuzione a seconda della richiesta dell'utente.
 
-4. **Dinamico e distribuito**
-
+4. **Dinamico e distribuito** <br>
     Sebbene le risorse cloud siano virtualizzate, sono spesso distribuite per consentire la fornitura di servizi cloud affidabili e/o ad alte prestazioni.
 
-5. **Infrastruttura condivisa**
-
+5. **Infrastruttura condivisa**<br>
     I cloud sono un'infrastruttura condivisa in cui le risorse servono più clienti con allocazione dinamica in base alla domanda della loro applicazione. Questo modello di condivisione è anche definito modello “multi-tenant”. In generale, i clienti non hanno alcun controllo diretto sulle risorse fisiche né sono a conoscenza dell'ubicazione delle risorse e con chi vengono condivise.
 
-6. **Orientato al mercato** 
-
+6. **Orientato al mercato** <br>
     Nel cloud computing, i clienti pagano i servizi in base al pagamento a consumo. Il modello di prezzo può variare a seconda delle aspettative dell'applicazione.
 
-7. **Autonomo**
-
+7. **Autonomo**<br>
     Per fornire servizi altamente affidabili, i Cloud mostrano un comportamento autonomo gestendo se stessi in caso di guasti o di degrado delle prestazioni.
 
 
