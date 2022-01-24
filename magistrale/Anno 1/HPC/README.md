@@ -298,9 +298,125 @@ Per qualsiasi altro dubbio, informazione sui comandi e per problemi di debug è 
 
 # **GPGPU**
 
-Il GPGPU (General-Purpose computing on Graphics Processing Units) è un tipo di HPC che sfrutta l'architettura con alto grado di parallelismo delle schede video per migliorare le performances.
+Il GPGPU (General-Purpose computing on Graphics Processing Units) è un tipo di HPC che sfrutta l'architettura con alto grado di parallelismo (permesso dalle migliaia di core) delle schede video per migliorare le performances. Le GPU sono particolarmente adatte per applicazioni SIMD (la stessa architettura dei computer vettoriali), le quali sono utilizzate per risolvere una vasta gamma di problemi computazionali, tra cui:
+- Data Mining;
+- Crittografia;
+- Simulazioni in ambito scientifico (fisica, astrofisica, medicina ecc...).
 
-## Cloud Computing
+### **Grafica computzionale**
+Consiste nella produzione di immagini bitmap basate su dati acquisiti da una fonte esterna o calcolati mediante un modello computazionale. Le varie fasi si distinguono nella definizione degli oggetti nella scena e nel rendering dell'immagine.
+- ***Pipeline grafica***: insieme di operazioni per la resa grafica.
+
+### **Operazioni di rendering**
+- **trasferimento della descrizione della scena**: insieme dei vertici che definiscono gli oggetti, i dati associati all'illuminazione della scena, le texture, il punto di vista dell'osservatore.
+- **trasformazioni dei vertici**: rotazioni, ridimensionamento e traslazione degli oggetti
+- **ritaglio**:  eliminazione degli oggetti o di parti di essi non visibili dal punto di vista dell'osservatore.
+- **illuminazione e ombreggiatura**:valutazione delle interazioni delle sorgenti luminose con le forme, valutandone l'ombreggiamento.
+- **rasterization**: generazione dell'immagine bitmap. Le coordinate 3D vengono trasformate in coordinate 2D. Vengono applicate anche trame e altri effetti grafici.
+
+OpenCL è il primo standard aperto e privo di royalty per la programmazione parallela multipiattaforma di processori moderni presenti in personal computer, server e dispositivi palmari/incorporati.
+
+### **Computer architectures secondo la tassonomia di Flynn**
+- **SISD**: Istruzione singola su Single Data (es. Architetture Von Neumann tradizionale).
+- **SIMD**: Istruzione Singola su Dati Multipli (es.Processori vettoriali).
+    - Esegue un singolo set di istruzioni su diversi set di dati utilizzando diverse unità di calcolo contemporaneamente.
+    - Il recupero e la decodifica delle istruzioni si verificano solo una volta.
+    - Esiste un'unica unità di controllo (CU) che gestisce il flusso di istruzioni di un determinato programma.
+    - **Processori vettoriali**: unità di calcolo che dopo il ***fetch and decode*** dell'istruzione, la eseguono sui dati memorizzati nei registri vettoriali. L'unità load-store sposta i dati dalla memoria centrale ai registri vettoriali e viceversa.
+- **MISD**: Istruzioni multiple su dati singoli (es. Controller di volo dello Space Shuttle).
+- **MIMD**: Istruzioni multiple su dati multipli (es. architettura moderne multicore: Xeon Clovertown)
+    - Esegue diverse istruzioni contemporaneamente.
+    - Ogni processore ha la sua control unit.
+    - Ogni processore può eseguire un compito o parte di esso.
+
+### Esecuzione delle istruzioni
+L'esecuzione viene organizzata in Thread. Ogni SM crea, gestisce, schedula ed esegue i thread in gruppi di 32, denominati **wraps**. I thread dello stesso wrap partono dallo stesso indirizzo di programma ma si evolvono indipendentemente. Il massimo dell'efficienza si verifica quando tutti i thread di un wrap hanno lo stesso percorso. Nvidia chiama tale architettura con la sigla SIMT (single istruction multiple thread).
+
+<hr>
+
+## **OpenCL**
+- Standard di calcolo eterogeneo multicore;
+- Funziona su diversi dispositivi (CPU, GPU, DSP, ecc.);
+- Per più fornitori (nVidia, AMD, Intel, ecc.);
+- Per più sistemi operativi (Linux, Windows, MacOS).
+
+### **Architettura OpenCL**
+- **Modello di piattaforma**: specifica che esiste un processore che coordina l'esecuzione (host) e uno o più processori in grado di eseguire codice OpenCL C (i dispositivi).Definisce un modello hardware astratto che viene utilizzato dai programmatori durante la scrittura di funzioni OpenCL C (chiamatekernel) l'esecuzione sui dispositivi.
+- **Modello di esecuzione**: definisce le istruzioni impostate per essere eseguite dai dispositivi OpenCL (kernel) e le istruzioni che inizializzano e controllano l'esecuzione dei kernel (programma host).
+    - Programma ospite: insieme di istruzioni che inizializzano e gestiscono l'ambiente di esecuzione del Compute Device. 
+    - Programma del kernel: insieme di istruzioni eseguite dai dispositivi di calcolo.
+    - L'host prepara l'esecuzione dei vari kernel.
+    - Ciascun dispositivo di calcolo esegue il kernel.
+    - I calcoli sono effettuati da Oggetti di lavoro (che sono raggruppati in gruppi di lavoro) ogni elemento di lavoro esegue lo stesso programma su dati diversi.
+- **Modello di memoria**: definisce gli oggetti di memoria, i tipi di memoria e il modo in cui l'host e i dispositivi vi accedono.
+- **Modello di programmazione**: definisce il tipo di esecuzione parallela eseguita (su dati o su task).
+- **Modello Framework**: set di API ed estensioni C99 per implementare programmi host e kernel.
+
+Un caso di studio è l'algoritmo crittografico AES. Esso svolge un ruolo importante nelle attuali
+comunicazioni di crittografia e nelle tecnologie di sicurezza. Per le sue caratteristiche, può trarre grandi benefici da un'implementazione parallela e in particolare da un'implementazione GPU (molto migliore dell'utilizzo delle CPU). Implementazione:
+- Leggi file di input (testo normale o cifrato)
+- Leggi i parametri AES
+- Trasferisci oggetti di memoria alla memoria globale del dispositivo
+- Espansione chiave
+- Eseguire il kernel sul Dispositivo OpenCl
+- Trasferisci oggetti di memoria dalla memoria globale del dispositivo
+
+### Problemi di pianificazione
+- L'impressionante quantità di risorse disponibili attraverso l'approccio GPGPU affronta importanti questioni legate all'efficienza della schedulazione dei moderni sistemi operativi nelle architetture ibride.
+- Di solito spetta all'utente decidere il tipo di dispositivo da utilizzare. Ciò si traduce in un inefficiente o processo di pianificazione inadeguato e ad un utilizzo non ottimizzato delle risorse hardware.
+
+## **Parallel computing**
+Il Parallel Computing è una forma di calcolo in cui vengono eseguiti molti calcoli contemporaneamente, operando sul principio che i grandi problemi possono spesso essere suddivisi in quelli più piccoli, che vengono poi risolti contemporaneamente (cioè in parallelo). Il grado di parallelismo che può essere raggiunto dipende dalla natura intrinseca del problema in
+questione e l'abilità dell'algoritmo o del progettista del software consiste nell'identificare le forme di parallelismo presenti nel problema sottostante. Esempi di attività che possono essere eseguite in modo più efficiente e veloce utilizzando la parallelizzazione:
+- Moltiplicazione degli elementi di due array
+- Filtrare una serie di immagini usando FFT
+- Trovare le occorrenze di a stringa in un testo
+
+### **Concorrenza**
+La concorrenza riguarda due o più attività che si verificano contemporaneamente. Quando parliamo di concorrenza nella programmazione, intendiamo un singolo sistema che esegue più attività in modo indipendente. Sebbene sia possibile che attività simultanee possano essere eseguite contemporaneamente (cioè in parallelo), questo non è un requisito.
+
+### **Parallelismo**
+Il parallelismo riguarda l'esecuzione di due o più attività in parallelo con l'obiettivo esplicito di aumentare le prestazioni complessive. I programmi paralleli devono essere concorrenti, ma i programmi concorrenti non devono essere paralleli. Nel calcolo parallelo, la granularità è una misura del rapporto tra calcolo e comunicazione. I periodi di calcolo sono tipicamente separati dai periodi di comunicazione per eventi di sincronizzazione. La grana del parallelismo è vincolata dalle caratteristiche intrinseche degli algoritmi che costituiscono l'applicazione. È importante che il programmatore parallelo selezioni la giusta granularità per sfruttare appieno i vantaggi della piattaforma sottostante, perché la scelta della giusta dimensione dei grani può aiutare a esporre un ulteriore grado di parallelismo.
+
+### **Threads**
+Un programma in esecuzione può essere costituito da più sottoprogrammi che mantengono il proprio flusso di controllo indipendente e che possono essere eseguiti simultaneamente. Questi sottoprogrammi sono definiti come discussioni. La comunicazione tra i thread avviene tramite
+aggiornamenti e l'accesso alla memoria che appare nello stesso spazio di indirizzi.
+- Ogni thread ha il proprio pool di memoria locale (variabili), ma tutti i thread vedono lo stesso insieme di variabili globali.
+Una semplice analogia potrebbe essere il programma principale che include un insieme di subroutine. I thread comunicano tra loro attraverso la memoria globale. Ciò può richiedere costrutti di sincronizzazione per garantire che più di un thread non aggiorni lo
+stesso indirizzo globale. Viene definito un modello di consistenza della memoria per gestire l'ordine di caricamento e archiviazione.
+- Meccanismi come lock/semafori sono comunemente usati per controllare l'accesso alla
+memoria condivisa a cui si accede da più attività.
+- Il supporto di un modello di memoria condivisa completamente coerente nell'hardware ha un costo significativo (possibili colli di bottiglia).
+
+### **Message-passing communication**
+Consente l'intercomunicazione esplicita di un insieme di attività simultanee che possono utilizzare la memoria durante il calcolo. Le attività scambiano dati attraverso la comunicazione
+inviando e ricevendo messaggi espliciti. Il trasferimento dei dati di solito richiede che ogni
+processo esegua operazioni cooperative. Ad esempio, un'operazione di invio deve avere un'operazione di ricezione corrispondente. Il programmatore è responsabile della gestione esplicita delle comunicazioni tra le attività.
+
+### **Condivisione dei dati e sincronizzazione**
+Se due applicazioni non condividono alcun dato, possono essere eseguite contemporaneamente e anche in parallelo. Se a metà dell'esecuzione di un'applicazione viene generato un risultato che sarà successivamente richiesto dalla seconda applicazione, allora dobbiamo introdurre una qualche forma di sincronizzazione nel sistema e l'esecuzione parallela diventa impossibile. Quando si eseguono software concorrenti, la condivisione e la sincronizzazione dei dati giocano un ruolo fondamentale. È possibile utilizzare primitive di sincronizzazione esplicite come barriere o locks.
+
+### **ND Range**
+Quando viene eseguito un kernel, il programma specifica il numero di elementi di lavoro che dovrebbero essere creati come un intervallo ndimensionale (NDRange). Spesso è mappato alle dimensioni dei dati di input o di output.
+
+### **Contexts**
+Prima che un host possa richiedere l'esecuzione di un kernel su un dispositivo, è necessario configurare un context sull'host che gli consenta di passare comandi e dati al dispositivo. In OpenCL un context è un contenitore astratto che esiste sull'host. Esso coordina il meccanismo di interazione host-dispositivo, gestisce gli oggetti di memoria disponibili sul dispositivo e tiene traccia del programma e dei kernel creati per ciascun dispositivo.
+
+### **Command Queues**
+La comunicazione con un dispositivo avviene inviando comandi ad una coda di comando. La coda dei comandi è il meccanismo utilizzato dall'host per richiedere un'azione da parte del dispositivo. Una volta che l'host decide con quale dispositivo lavorare e viene creato un context, è necessario creare una coda di comandi per dispositivo (ogni coda di comandi è associata a
+un solo dispositivo). Ogni volta che l'host ha bisogno che un'azione venga eseguita da un dispositivo, invierà i comandi alla coda comandi appropriata.
+
+### **Oggetti di memoria**
+Le applicazioni OpenCL spesso funzionano con grandi array di matrici multidimensionali. Questi dati devono essere fisicamente presenti su un dispositivo prima che l'esecuzione possa iniziare. Affinché i dati possano essere trasferiti a un dispositivo, deve prima essere incapsulato come a oggetto di memoria. OpenCL definisce due tipi di oggetti di memoria: buffers e immagini. I buffer sono equivalenti agli array in c, creati utilizzando malloc(), in cui gli elementi dei dati sono archiviati in modo contiguo in memoria. Le immagini sono progettate come oggetti opachi, consentendo il riempimento dei dati e altre ottimizzazioni che possono migliorare le prestazioni sui dispositivi. Un oggetto di memoria è valido solo all'interno di un singolo context.
+
+### **Creazione di un programma OpenCL**
+Il codice OpenCL C, scritto per essere eseguito su un dispositivo OpenCL, è chiamato a programma. Un programma è una raccolta di funzioni chiamate kernel, dove i kernel sono unità di esecuzione che possono essere pianificate per l'esecuzione su un dispositivo. I programmi OpenCL vengono compilati in fase di esecuzione tramite una serie di chiamate API. Questa compilazione runtime offre al sistema l'opportunità di eseguire l'ottimizzazione per un dispositivo specifico. Non è necessario che un'applicazione OpenCL sia stata precostruita per runtime di tipo specifico (NVIDIA, AMD, Intel). 
+
+
+
+<hr>
+
+# **Cloud Computing**
 
 È un termine che serve per indicare un'ampia classe di Network Based Compuiting, in pratica è una collezione di Hardware e Software che tramite l'utilizzo di Internet forniscono vari servizi ai client nascondendo le caratteristiche dell'infrastruttura, fornendo agli utenti un'interfaccia grafica o API molto semplice. I servizi di cloud computing vengono forniti on demand e quindi sono sempre disponibili.
 
