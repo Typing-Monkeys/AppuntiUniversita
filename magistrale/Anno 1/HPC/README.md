@@ -13,6 +13,7 @@
     - [Costruzione di un Cluster](#costruzione-di-un-cluster)
     - [Condor](#htcondor)
 - [GPGPU](#gpgpu)
+    - [OpenCL](#opencl)
 - [Cloud Computing](#cloud-computing)
     - [Docker](#docker)
     - [Kubernetes](#kubernetes)
@@ -410,9 +411,29 @@ un solo dispositivo). Ogni volta che l'host ha bisogno che un'azione venga esegu
 Le applicazioni OpenCL spesso funzionano con grandi array di matrici multidimensionali. Questi dati devono essere fisicamente presenti su un dispositivo prima che l'esecuzione possa iniziare. Affinché i dati possano essere trasferiti a un dispositivo, deve prima essere incapsulato come a oggetto di memoria. OpenCL definisce due tipi di oggetti di memoria: buffers e immagini. I buffer sono equivalenti agli array in c, creati utilizzando malloc(), in cui gli elementi dei dati sono archiviati in modo contiguo in memoria. Le immagini sono progettate come oggetti opachi, consentendo il riempimento dei dati e altre ottimizzazioni che possono migliorare le prestazioni sui dispositivi. Un oggetto di memoria è valido solo all'interno di un singolo context.
 
 ### **Creazione di un programma OpenCL**
-Il codice OpenCL C, scritto per essere eseguito su un dispositivo OpenCL, è chiamato a programma. Un programma è una raccolta di funzioni chiamate kernel, dove i kernel sono unità di esecuzione che possono essere pianificate per l'esecuzione su un dispositivo. I programmi OpenCL vengono compilati in fase di esecuzione tramite una serie di chiamate API. Questa compilazione runtime offre al sistema l'opportunità di eseguire l'ottimizzazione per un dispositivo specifico. Non è necessario che un'applicazione OpenCL sia stata precostruita per runtime di tipo specifico (NVIDIA, AMD, Intel). 
+Il codice OpenCL C, scritto per essere eseguito su un dispositivo OpenCL, è chiamato a programma. Un programma è una raccolta di funzioni chiamate **kernel**(i kernel OpenCL sono simili alle funzioni C e possono essere pensati come istanze di un'operazione di mappa parallela. Il corpo della funzione verrà eseguito una volta per ogni elemento di lavoro creato), dove i kernel sono unità di esecuzione che possono essere pianificate per l'esecuzione su un dispositivo. I programmi OpenCL vengono compilati in fase di esecuzione tramite una serie di chiamate API. Questa compilazione runtime offre al sistema l'opportunità di eseguire l'ottimizzazione per un dispositivo specifico. Non è necessario che un'applicazione OpenCL sia stata precostruita per runtime di tipo specifico (NVIDIA, AMD, Intel). 
 
+### **Memory Model**
+I sottosistemi di memoria variano notevolmente tra le piattaforme di elaborazione. Per esempio tutte le moderne CPU supportano la memorizzazione nella cache automatica, anche se molte GPU no. Per supportare la portabilità del codice, l'approccio di OpenCL consiste nel definire un modello di memoria astratto a cui i programmatori possono rivolgersi durante la scrittura del codice e che i fornitori possono mappare sulla loro memoria effettiva.
+- **Memoria globale**
+    - è visibile a tutte le unità di calcolo del dispositivo (simile alla memoria principale su un sistema host basato su CPU). Ogni volta che i dati vengono trasferiti dall'host al dispositivo, i dati risiederanno nella memoria globale. Tutti i dati che devono essere ritrasferiti dal dispositivo all'host devono risiedere anche nella memoria globale.
+- **Memoria costante**
+    - è progettata per dati in cui ogni elemento è accessibile contemporaneamente da tutti gli elementi di lavoro. Rientrano in questa categoria anche le variabili i cui valori non cambiano mai. La memoria costante è modellata come parte della memoria globale, quindi gli oggetti di memoria trasferiti nella memoria globale possono essere specificati come costanti.
+- **Memoria locale**
+    - è una memoria scratchpad il cui spazio degli indirizzi è unico per ogni dispositivo di calcolo. La memoria locale è modellata come essere condiviso da un gruppo di lavoro. Poiché tali accessi possono avere una latenza molto più breve e una larghezza di banda molto più elevata rispetto alla memoria globale.
+- **Memoria privata**
+    - è una memoria unica per un singolo oggetto di lavoro. Le variabili locali e gli argomenti del kernel non puntatori sono privati per impostazione predefinita. In pratica, queste variabili sono mappate su registri, sebbene gli array privati e tutti i registri versati siano solitamente mappati su una memoria off-chip (cioè: lunga latenza).
+Durante la programmazione per dispositivi OpenCL, in particolare GPU, le prestazioni possono aumentare utilizzando la memoria locale per memorizzare nella cache i dati che verranno utilizzati più volte da più elementi di lavoro dello stesso gruppo di lavoro.
 
+### **Elaborazione delle immagini**
+- **Rotazione immagine**
+    - La rotazione delle immagini è una routine molto comune nel campo dell'elaborazione delle immagini. L'input per un programma che deve svolgere tale compito è l'immagine, l'angolo di rotazione e un punto intorno al quale viene eseguita la rotazione. Per implementare la rotazione dell'immagine con OpenCL i calcoli per ottenere la nuova coordinata di ciascun pixel possono essere eseguiti in modo indipendente tra loro. L'esempio di rotazione dell'immagine è un buon esempio di scomposizione di input, il che significa che un elemento dell'input (in questo caso, un'immagine di input) viene scomposto in più elementi per processarne il lavoro.
+- **Image Convolution**
+    - Nell'elaborazione delle immagini, la convoluzione è un algoritmo comunemente usato che modifica il valore di ciascun pixel in un'immagine utilizzando le informazioni dei pixel vicini. Un kernel di convoluzione, o filtro, descrive come ogni pixel sarà influenzato dai suoi vicini. 
+    - Ad esempio, un kernel sfocato prenderà la media pesata dei pixel vicini in modo da ridurre le grandi differenze tra i valori dei pixel.
+    - Utilizzando la stessa immagine sorgente e cambiando solo il filtro, è possibile produrre effetti come nitidezza, sfocatura, miglioramento dei bordi e rilievo.
+    - Un kernel di convoluzione funziona iterando su ogni pixel nell'immagine sorgente. Per ogni pixel sorgente, il filtro è centrato sul pixel ei valori del filtro moltiplicano i valori dei pixel che si sovrappongono. Viene quindi presa una somma dei prodotti per produrre un nuovo valore di pixel.
+![condor evil](./imgs/image_convolution.png)<br>
 
 <hr>
 
