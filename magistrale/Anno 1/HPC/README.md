@@ -439,7 +439,9 @@ Durante la programmazione per dispositivi OpenCL, in particolare GPU, le prestaz
 
 # **Cloud Computing**
 
-È un termine che serve per indicare un'ampia classe di Network Based Compuiting, in pratica è una collezione di Hardware e Software che tramite l'utilizzo di Internet forniscono vari servizi ai client nascondendo le caratteristiche dell'infrastruttura, fornendo agli utenti un'interfaccia grafica o API molto semplice. I servizi di cloud computing vengono forniti on demand e quindi sono sempre disponibili.
+È un termine che serve per indicare un'ampia classe di Network Based Compuiting, in pratica è una collezione di Hardware e Software che tramite l'utilizzo di Internet forniscono vari servizi ai client nascondendo le caratteristiche dell'infrastruttura, fornendo agli utenti un'interfaccia grafica o API molto semplice. I servizi di cloud computing vengono forniti on demand e quindi sono sempre disponibili. Tecnologie come cluster e ora il cloud computing hanno tutte l'obiettivo di consentire l'accesso a grandi quantità di potenza di calcolo in modo completamente virtualizzato.
+
+Il cloud computing è molto utile perché permette alle aziende una riduzione dei costi di gestione. Con questa tecnologia non è più necessario acquistare costosi programmi software o hardware, e non servono neppure grandi server per la memorizzazione dei dati (server che andrebbero tenuti accessi 24 ore su 24 con grosse spese elettriche, e che andrebbero gestiti dal personale IT). Tutte le spese di manutenzione e gestione dell’hardware, sono a carico del provider di servizi. Questo permetterà all'azienda di rimanere sempre al passo non solo con le ultime novità in fatto di tecnologia, ma anche di restare a norma di legge grazie ai costanti aggiornamenti correttivi o evolutivi del provider. Queste proprietà rendono il cloud computing molto **flessibile** e con **grande potenziale sia economico che applicativo.**
 
 Possono essere identificati da 3 caratteristiche:
 
@@ -453,31 +455,154 @@ Un servizio di Cloud Computing può essere diviso in 4 Layer:
 
 I benefici del Cloud Computing sono:
 
-- Permette alle aziende di risparmiare sui costi delle infrastutture fornendo servizi specializzati a prezzi moderati 
+1. **Riduzione dei costi (e aumento dell’efficienza)**
 
-- I dati vengono salvati in remoto e non occupano spazio sulle proprie macchine
+    Le aziende che utilizzano sistemi cloud riducono enormemente le spese relative all’acquisto di hardware e software. Non sono più costrette ad acquistare server e data center locali, che richiedono personale specializzato nella gestione e nella manutenzione, che occupano spazio fisico e che consumano elettricità 24 ore su 24 e 7 giorni su 7 per l’alimentazione e il raffreddamento.
 
-- Permette di alleggerire i carichi di lavoro sulle macchine locali in quanto le operazioni vengono eseguite in cloud
+2. **Scalabilità**
 
-- Riduce il costo dei software, spesso i software per il could computing sono gratuiti e vengono aggiornati di continuo ed in modo automatico.
+    Il successo e l’enorme diffusione del cloud derivano, in primis, da un problema e dal fatto che questo tipo di tecnologia può risolverlo come nessun altro. È il problema della scalabilità. L’elasticità dei sistemi di cloud computing è perfetta per ovviare a queste problematiche. Si possono, infatti, gestire servizi e capacità di calcolo on-demand, ampliando la propria infrastruttura in tempistiche assai brevi. Allo stesso tempo, questa “infrastruttura” può ritornare ad essere più contenuta, con la massima flessibilità. 
 
-- Non ci sono problemi di compatibilità sui formati.
+3. **Prestazioni**
+
+    Un singolo data center aziendale, nella stragrande maggioranza dei casi, non può competere con la rete di data center forniti da aziende specializzate. Innanzitutto, dal momento che quasi tutti i servizi sono forniti in modalità on-demand, si possono avere a disposizione enormi quantità di risorse di calcolo in poco tempo, e con grande facilità e flessibilità, senza investimenti onerosi. Contemporaneamente, ospitando piattaforme, software e database in remoto, i servizi cloud permettono di liberare memoria e potenza computazionale sui singoli computer della propria azienda. L’evidente conseguenza è, appunto, il deciso miglioramento delle prestazioni.
+
+4. **Produttività**
+
+    Il cloud computing, innanzitutto, riduce drasticamente alcune perdite di tempo: quelle relative all’assemblaggio e all’organizzazione dei data center locali, con le diverse configurazioni hardware e software, e tutta una serie di azioni di routine nell’ambito IT. I vantaggi del Cloud Computing permettono un facile accesso ai dati e alle piattaforme aziendali con tutti i tipi di device, dal classico desktop fino ai dispositivi mobile.
+
+5. **Sicurezza**
+
+    I dati e le reti vengono protetti con servizi presidiati sempre da backup.
 
 Gli svantaggi sono:
+1. **Sicurezza informatica e privacy degli utenti**
 
-- Incompatibili con connessioni ad internet lente
-- Potenziali rischi alla sicurezza dei dati salvati in cloud
-- C'è la possibilità che i dati salvati in cloud vegano persi
+    Utilizzare un servizio di cloud computing per memorizzare dati personali o sensibili, espone l'utente a potenziali problemi di violazione della privacy. I dati personali vengono memorizzati nelle Server Farms di aziende che spesso risiedono in uno Stato diverso da quello dell'utente. Il cloud provider, in caso di comportamento scorretto o malevolo, potrebbe accedere ai dati personali per eseguire ricerche di mercato e profilazione degli utenti.
+
+2. **Costo delle prestazioni e della larghezza di banda**
+
+    Le industrie possono risparmiare fondi sull'hardware ma devono investire ulteriori risorse per la larghezza di banda. La condivisione di dati complessi e intensivi sulla rete implica una larghezza di banda sufficiente. Pertanto, diversi settori sono in attesa di costi ridotti della banda prima di passare a soluzioni cloud. 
+
+3. **Affidabilità e disponibilità**
+
+    I provider cloud non dispongono di un servizio continuo questo quindi può subire guasti regolari. È importante dunque esaminare il servizio offerto costantemente attraverso strumenti interni o di terze parti.
+
+
+**Caratteristiche del cloud computing:**
+1. **Virtualizzazione risorse**
+
+    Ovvero capacità di calcolo, archiviazione e rete. Nei cloud sono virtualizzate e si ottiene a vari livelli tra cui VM (Virtual Machine) e livelli di piattaforma. Il più semplice è a livello di macchina virtuale (VM) in cui diverse applicazioni possono essere eseguite all'interno dei loro contenitori o sistemi operativi in esecuzione sulla stessa macchina fisica. Il livello di piattaforma consente la mappatura senza interruzioni delle applicazioni su una o più risorse offerte da diversi provider di infrastrutture cloud.
+
+2. **Orientato al servizio**
+
+    Il cloud è implementato utilizzando il modello Service-Oriented Architecture in cui tutti i capacità/componenti sono disponibili sulla rete come servizio.
+
+3. **Elastico**
+
+    Le risorse (ovvero capacità di calcolo, archiviazione e rete) necessarie per le applicazioni cloud possono essere fornite e variate in modo dinamico, ovvero aumentare o diminuire in fase di esecuzione a seconda della richiesta dell'utente.
+
+4. **Dinamico e distribuito**
+
+    Sebbene le risorse cloud siano virtualizzate, sono spesso distribuite per consentire la fornitura di servizi cloud affidabili e/o ad alte prestazioni.
+
+5. **Infrastruttura condivisa**
+
+    I cloud sono un'infrastruttura condivisa in cui le risorse servono più clienti con allocazione dinamica in base alla domanda della loro applicazione. Questo modello di condivisione è anche definito modello “multi-tenant”. In generale, i clienti non hanno alcun controllo diretto sulle risorse fisiche né sono a conoscenza dell'ubicazione delle risorse e con chi vengono condivise.
+
+6. **Orientato al mercato** 
+
+    Nel cloud computing, i clienti pagano i servizi in base al pagamento a consumo. Il modello di prezzo può variare a seconda delle aspettative dell'applicazione.
+
+7. **Autonomo**
+
+    Per fornire servizi altamente affidabili, i Cloud mostrano un comportamento autonomo gestendo se stessi in caso di guasti o di degrado delle prestazioni.
+
 
 Le varie componenti del cloud coputing sono:
-
+- **SaaS** (Software as a Servcie): fornisce l'accesso ad applicazioni on demand. Permette di ridurre i costi perchè non è necessario acquistare software completo ma è necessario solo l'acquisto di un abbonamento. Un altro aspetto chiave è la Multitenancy che evita all'utente finale tutte quelle operazioni di manutenione delle macchine.
+- **DAAS** (data as a service): con questo servizio vengono messi a disposizione via web solamente i dati, ai quali gli utenti possono accedere tramite qualsiasi applicazione, come se fossero residenti su un disco locale; in pratica il DAAS non è basato sul concetto di server ma di storage (conservazione dati).
+- **MAAS** (monitoring as a service): è un framework che facilita lo sviluppo di funzionalità di monitoraggio per vari altri servizi e applicazioni all'interno del cloud. L'applicazione più comune per MaaS è il monitoraggio dello stato online, che consente di monitorare continuamente determinati stati di applicazioni, reti, sistemi, istanze o qualsiasi elemento che possa essere distribuito all'interno del cloud. 
 - **IaaS** (Infrastructur as a Service): è un insieme di macchine virtuali, fisiche, cluster e dabase. Il tutto è gestito da un Layer superiore che garantisce Runtime Enviroment Customizaion, Application Isoaltion e QoS. In questo layer ci sonon anche gli Hypervisor per la virtualizzazione.
-- **Maas** (Metal as a Service): è l'insieme delle sole macchine fisiche che compongo il could e possono essere unite insieme per aumentare la potenza di calcolo o rimosse per diminuirla in base alle necessità del cliente.
 - **PaaS** (Platform as a Service): offre delle piattaforme di sviluppo in cloud per permettere agli sviluppatori di far girare le loro applicazioni. Alcune soluzioni che offre sono:
     - Runtime Frameworks
     - Abstraction
     - Cloud Service
-- **SaaS** (Software as a Servcie): fornisce l'accesso ad applicazioni on demand. Permette di ridurre i costi perchè non è necessario acquistare software completo ma è necessario solo l'acquisto di un abbonamento. Un altro aspetto chiave è la Multitenancy che evita all'utente finale tutte quelle operazioni di manutenione delle macchine.
+
+
+### Cloud pubblici
+I cloud pubblici sono il tipo più comune di distribuzione di cloud computing. Le risorse cloud, come server e archiviazione, appartengono a e sono gestite da un provider di servizi cloud di terze parti e vengono distribuite tramite Internet. Con un cloud pubblico, tutto l'hardware, il software e altre infrastrutture di servizio sono di proprietà e gestite dal provider di servizi cloud. Microsoft Azure è un esempio di cloud pubblico. In un cloud pubblico condividi lo stesso hardware, le stesse risorse di archiviazione e gli stessi dispositivi di rete con altre organizzazioni, accedi ai servizi e gestisci il tuo account tramite un Web browser. Le distribuzioni di cloud pubblico vengono spesso usate per fornire posta elettronica basata sul Web, applicazioni Office online, risorse di archiviazione e ambienti di test e di sviluppo.
+
+Vantaggi dei cloud pubblici:
+- **Costi ridotti**: non devi acquistare hardware o software e paghi solo per i servizi usati.
+- **Nessuna manutenzione**: il provider di servizi fornisce la manutenzione.
+- **Scalabilità praticamente illimitata**: sono disponibili risorse on demand per soddisfare le tue esigenze aziendali.
+- **Affidabilità elevata**: una vasta rete di server offre protezione in caso di errori.
+
+### Cloud Privati
+Un cloud privato è costituito da risorse di cloud computing usate esclusivamente da un'azienda o un'organizzazione. Il cloud privato può essere situato fisicamente nel data center locale dell'organizzazione oppure può essere ospitato da un provider di servizi di terze parti. In un cloud privato, tuttavia, i servizi e l'infrastruttura vengono sempre gestiti in una rete privata e l'hardware e il software sono dedicati esclusivamente alla tua organizzazione. I cloud privati vengono usati spesso da agenzie governative, istituti finanziari e altre organizzazioni di medie e grandi dimensioni con operazioni cruciali che richiedono un controllo avanzato sul proprio ambiente.
+
+Vantaggi di un cloud privato:
+- **Maggiore flessibilità**: la tua organizzazione può personalizzare il proprio ambiente cloud per soddisfare esigenze aziendali specifiche.
+- **Più controllo**: le risorse non vengono condivise con altri utenti e di conseguenza sono possibili livelli superiori di controllo e sicurezza.
+- **Maggiore scalabilità**: i cloud privati offrono spesso maggiore scalabilità rispetto all'infrastruttura locale.
+
+### Cloud Ibrido
+Un cloud ibrido è un tipo di cloud computing che combina l'infrastruttura locale, o un cloud privato, con un cloud pubblico. I cloud ibridi consentono di spostare dati e app tra i due ambienti. Molte organizzazioni scelgono un approccio basato su cloud ibrido per diversi motivi di natura aziendale, tra cui la necessità di soddisfare requisiti normativi e di sovranità dei dati, la possibilità di sfruttare al meglio l'investimento nella tecnologia locale o la capacità di risolvere i problemi di bassa latenza.
+
+Vantaggi del cloud ibrido:
+- **Controllo**: la tua organizzazione può mantenere un'infrastruttura privata per asset o carichi di lavoro riservati che richiedono bassa latenza.
+- **Flessibilità**: puoi sfruttare risorse aggiuntive nel cloud pubblico quando necessario.
+- **Convenienza**: grazie alla scalabilità nel cloud pubblico, puoi pagare per la potenza di calcolo aggiuntiva solo quando necessario.
+- **Semplicità**: la transizione al cloud non deve necessariamente essere complessa, in quanto puoi eseguire gradualmente la migrazione solo di alcuni carichi di lavoro per volta.
+
+## Software cloud
+### **Eucalyptus**
+È un framework software Opensource per il Cloud Computing, che implementa la cosiddetta Infrastructure as a Service (IaaS): sistemi che danno agli utenti la possibilità di eseguire e controllare intere istanze di Macchine Virtuali, distribuite su una varietà di risorse fisiche.
+La piattaforma Eucalyptus Infrastructure as a Service (IaaS) è completamente compatibile con l'API Amazon Web Services (AWS), consentendo il supporto sia per cloud IaaS che ibridi.
+
+### **OpenNebula**
+OpenNebula è un toolkit di cloud computing open source per la gestione di centri di elaborazione dati distribuiti eterogenei. OpenNebula gestisce una infrastruttura virtuale di elaborazione dati per costruire IaaS (Infrastrutture come servizio) pubbliche, private ed ibride.
+OpenNebula gestisce tecnologie di memoria, la rete, la monitorizzazione della virtualizzazione e la sicurezza per implementare servizi multi-livello come macchine virtuali su infrastrutture distribuite, combinando le risorse dei centri di elaborazione e le risorse remote della "nuvola", secondo le politiche di allocazione. Il toolkit fornisce funzioni per **l'integrazione, la gestione, la scalabilità, la sicurezza e la gestione delle risorse**.
+
+### **OpenStack**
+OpenStack è una piattaforma di cloud computing standard aperta e gratuita . Viene distribuito principalmente come Infrastructure-as-a-Service (IaaS) sia in cloud pubblici che privati, in cui i server virtuali e altre risorse sono messi a disposizione degli utenti. La piattaforma software è costituita da componenti interconnessi che controllano diversi pool hardware multi-vendor di elaborazione, storage e risorse di rete in un data center . Gli utenti lo gestiscono tramite un dashboard basato sul Web, tramite strumenti da riga di comando o tramite servizi Web RESTful .
+
+### **ownCloud** 
+ownCloud è un software libero che permette di gestire un completo servizio di file hosting.
+Il codice sorgente del server di ownCloud è pubblicato sotto i termini della licenza GNU, e vi sono diversi client per PC e dispositivi mobili. 
+
+### **NextCloud**
+Nextcloud è una suite di software client-server per la creazione e l'utilizzo di servizi di file hosting, di cloud storage, di memorizzazione e sincronizzazione online. Nextcloud è software libero e open-source, il che significa che chiunque può installarlo e utilizzarlo sui propri server. Nextcloud, grazie all'integrazione con OnlyOffice o Collabora Online, è funzionalmente simile a Dropbox, Office 365 o Google Drive.
+Lo sviluppatore originale di ownCloud Frank Karlitschek ha creato NextCloud da un fork da ownCloud. NextCloud è attivamente sviluppato da Karlitschek e altri membri del team originale di ownCloud.
+
+### **IAAS**
+Fornisce l'accesso a risorse fondamentali come macchine fisiche, macchine virtuali, storage virtuale, ecc.
+Oltre a queste risorse, IaaS offre anche:
+1. Archiviazione su disco della macchina virtuale 
+2. Bilanciatore del carico della rete 
+3. Rete locale (VLAN) virtuale
+4. Indirizzi IP
+5. Pacchetti software
+
+Tutte le risorse di cui sopra sono messe a disposizione dell'utente finale tramite la virtualizzazione del server.
+
+**Vantaggi**
+- Controllo completo delle risorse di calcolo tramite l'accesso amministrativo alle VM.
+- Noleggio flessibile ed efficiente di hardware per computer.
+- Portabilità, interoperabilità con applicazioni legacy
+
+IaaS consente al consumatore di accedere alle risorse di elaborazione tramite l'accesso amministrativo alle macchine virtuali nel modo seguente:
+- Il consumatore invia un comando amministrativo al provider di servizi cloud per eseguire la macchina virtuale o per salvare i dati sul server del cloud.
+- Il consumatore invia il comando amministrativo alle macchine virtuali di sua proprietà per avviare il server Web o installare nuove applicazioni.
+
+**Svantaggi**
+- Noleggio hardware per computer:
+    - Le risorse IaaS come macchine virtuali, storage, larghezza di banda, indirizzi IP, servizi di monitoraggio, firewall, ecc., sono tutte messe a disposizione dei consumatori in affitto.
+    - Il consumatore deve pagare in base al periodo di tempo in cui un consumatore conserva una risorsa. Inoltre, con l'accesso amministrativo alle macchine virtuali, il consumatore può anche eseguire qualsiasi software, anche un sistema operativo personalizzato.
+- Portabilità, interoperabilità con applicazioni legacy:
+    - È possibile mantenere l'eredità tra applicazioni e carichi di lavoro tra cloud IaaS. 
+    Ad esempio, le applicazioni di rete come server Web e server di posta elettronica che normalmente vengono eseguiti su hardware server di proprietà del consumatore possono essere eseguite anche da macchine virtuali nel cloud IaaS.
 
 ### Docker
 
