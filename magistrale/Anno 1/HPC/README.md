@@ -184,24 +184,24 @@ Può essere utile creare un **RAID** (Redundant Array of Inexpensive Disks) come
     - Svantaggi: se un'unità si guasta, tutti i dati nell'array RAID 0 vengono persi. Non dovrebbe essere utilizzato per sistemi con scopi critici.
     - Utilizzo consigliato: archiviazioni di dati che devono essere letti e scritti ad alta velocità, come su una stazione di ritocco delle immagini o editing video.
 
-- **RAID 1** - mirroring: crea una copia nel secondo disco di ogni dato che viene salvato. <br>![raid 1](./imgs/raid1.png)
+- **RAID 1** - mirroring: crea una copia nel secondo disco di ogni dato che viene salvato. <br>![raid 1](./imgs/raid1.png)<br>
 Se un'unità si guasta, il controller utilizza l'unità dati o l'unità mirror per il ripristino dei dati e continua a funzionare. Sono necessarie almeno 2 unità per un array RAID 1.
     - Vantaggi: in caso di guasto di un'unità, i dati non devono essere ricostruiti, devono solo essere copiati nell'unità sostitutiva.
     - Svantaggi: lo svantaggio principale è che la capacità di archiviazione effettiva è solo la metà della capacità totale dell'unità perché tutti i dati vengono scritti due volte.
     - Utilizzo consigliato: RAID-1 è ideale per l'archiviazione mission-critical, ad esempio per i sistemi di contabilità. È adatto anche per server di piccole dimensioni in cui verranno utilizzate solo due unità dati.
 
-- **RAID 5** - striping parity: si realizza con minimo 3 dischi di cui uno è adibito a salvare il checksum dei dati. <br>![raid 5](./imgs/raid5.png)
+- **RAID 5** - striping parity: si realizza con minimo 3 dischi di cui uno è adibito a salvare il checksum dei dati. <br>![raid 5](./imgs/raid5.png)<br>
     - Vantaggi: utilizzando i dati di parità, il computer può ricalcolare i dati di uno degli altri blocchi di dati, qualora quei dati non fossero più disponibili. Ciò significa che un array RAID 5 può resistereun singolo guasto dell'unità senza perdere dati.
     - Svantaggi: questa è una tecnologia complessa. Se uno dei dischi in un array che utilizza dischi da 4 TB si guasta e viene sostituito, il ripristino dei dati (il tempo di ricostruzione) potrebbe richiedere un giorno o più, a seconda del carico sull'array e della velocità del controller. Se un altro disco si guasta durante quel periodo, i dati vengono persi per sempre.
     - Utilizzo consigliato: RAID 5 è un buon sistema a tutto tondo che combina un'archiviazione efficiente con un'eccellente sicurezza e prestazioni decenti. È ideale per server di file e applicazioni che dispongono di un numero limitato di unità dati.
 
-- **RAID 6** - striping double parity: si realiza con un minimo di 4 dischi di cui 2 sono adibiti a salvare i checksum dei dati. <br>![raid 6](./imgs/raid6.png)
+- **RAID 6** - striping double parity: si realiza con un minimo di 4 dischi di cui 2 sono adibiti a salvare i checksum dei dati. <br>![raid 6](./imgs/raid6.png)<br>
 RAID 6 è come RAID 5, ma i dati di parità vengono scritti su due unità. Ciò significa che richiede almeno 4 unità e può resistere se 2 unità muoiono contemporaneamente.
     - Vantaggi: gli stessi di RAID 5 ed in puù il sistema può sopravvivere al secondo guasto.
     - Svantaggi: le transazioni di scrittura dei dati sono più lente di RAID 5 a causa dei dati di parità aggiuntivi che devono essere calcolati.
     - Utilizzo consigliato: è preferibile rispetto a RAID 5 nei server di file e applicazioni che utilizzano molte unità di grandi dimensioni per l'archiviazione dei dati.
 
-- **RAID 10** - mirroring striping: combina i vantaggi di RAID 1 e RAID 0. <br>![raid 10](./imgs/raid10.png)
+- **RAID 10** - mirroring striping: combina i vantaggi di RAID 1 e RAID 0. <br>![raid 10](./imgs/raid10.png)<br>
 Questa è una configurazione RAID nidificata o ibrida. Fornisce sicurezza eseguendo il mirroring di tutti i dati su unità secondarie e utilizzando lo striping su ciascun set di unità per accelerare i trasferimenti di dati.
     - Vantaggi: se qualcosa va storto con uno dei dischi in una configurazione RAID 10, il tempo di ricostruzione è molto veloce poiché tutto ciò che serve è copiare tutti i dati dal mirror sopravvissuto a una nuova unità.
     - Svantaggi: metà della capacità di archiviazione va al mirroring, quindi rispetto ai grandi array RAID 5 o RAID 6, questo è un modo costoso per avere ridondanza.
@@ -432,7 +432,7 @@ Durante la programmazione per dispositivi OpenCL, in particolare GPU, le prestaz
     - Nell'elaborazione delle immagini, la convoluzione è un algoritmo comunemente usato che modifica il valore di ciascun pixel in un'immagine utilizzando le informazioni dei pixel vicini. Un kernel di convoluzione, o filtro, descrive come ogni pixel sarà influenzato dai suoi vicini. 
     - Ad esempio, un kernel sfocato prenderà la media pesata dei pixel vicini in modo da ridurre le grandi differenze tra i valori dei pixel.
     - Utilizzando la stessa immagine sorgente e cambiando solo il filtro, è possibile produrre effetti come nitidezza, sfocatura, miglioramento dei bordi e rilievo.
-    - Un kernel di convoluzione funziona iterando su ogni pixel nell'immagine sorgente. Per ogni pixel sorgente, il filtro è centrato sul pixel ei valori del filtro moltiplicano i valori dei pixel che si sovrappongono. Viene quindi presa una somma dei prodotti per produrre un nuovo valore di pixel.
+    - Un kernel di convoluzione funziona iterando su ogni pixel nell'immagine sorgente. Per ogni pixel sorgente, il filtro è centrato sul pixel ei valori del filtro moltiplicano i valori dei pixel che si sovrappongono. Viene quindi presa una somma dei prodotti per produrre un nuovo valore di pixel.<br>
 ![condor evil](./imgs/image_convolution.png)<br>
 
 <hr>
