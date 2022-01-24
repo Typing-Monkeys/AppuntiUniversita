@@ -211,6 +211,27 @@ Questa è una configurazione RAID nidificata o ibrida. Fornisce sicurezza esegue
 ### **Environment**
 È necessaria una pianificazione accurata dello spazio fisico, del cablaggio, del raffreddamento e dell'accesso fisico. La ventilazione deve essere preservata. Anche la gestione dei cavi è un problema, idealmente i cavi di alimentazione e dati devono essere separati. La potenza richiesta va valutata con attenzione (considerando un +50% per sicurezza). Tra i tipi di raffreddamento si distinguono tra aria condizionata e ad acqua. Inoltre è consigliabile un sistema che riesca a fornire elettricità anche in caso di guasti del fornitore di energia. Solitamente sono implementati anche sistemi di disaster recovery, realizzando un data center gemello a distanza di quello principale. Anche un'ottima banda e una bassa latenza sono caratteristiche necessarie.
 
+### Piccola parentesi su NFS
+Network File System (NFS) è un protocollo di rete che consente a computer client di utilizzare la rete per accedere a directory condivise da server remoti come fossero disponibili in locale. Il NFS permette ai calcolatori che compongono un sistema distribuito di condividere file, directory o un intero file system utilizzando il protocollo client-server. Un calcolatore (client) deve richiedere esplicitamente ad un altro calcolatore (server) del sistema distribuito di condividere una directory o un file, dichiarando un punto di montaggio. Una volta effettuato un montaggio un utente sul calcolatore client accede alla directory montata in modo assolutamente trasparente, ossia accede alla directory remota credendo di accedere ad una directory locale. In un cluster:
+- Il nodo head è solitamente configurato come server NFS per le home directory degli utenti,
+mentre i nodi di calcolo sono configurati come client.
+
+Questo semplifica alcune operazioni:
+- Tutti i file risiedono sullo stesso file system.
+- Le procedure di backup sono facilitate.
+- L'accesso ai file eseguibili e di input è facilitato.
+- Il file /etc/exports deve essere modificato per specificare quali macchine possono montare quali directory e come.
+- Se è attivo un firewall blocca il traffico NFS: in caso di problemi questa è la prima cosa da controllare
+- Anche gli ID utente e di gruppo possono creare sorprese. Gli ID utente e gruppo devono essere
+coerenti tra i sistemi che utilizzano NFS (ogni utente deve avere un ID identico su tutti i sistemi).
+- Tieni presente che i privilegi di root non si estendono tra i sistemi condivisi NFS. Quindi se come root sei tu e ti sposti tra le directory in un filesystem montato in remoto, non aspettarti di poter guardare ogni file.
+
+**Automount**:
+- alternativa per montare i filesystem (particolarmente importante per le directory home) usando un programma di montaggio automatico.
+- Un demone di montaggio automatico monta un filesystem remoto quando si tenta di accedere al
+filesystem e smonta il filesystem quando non è più necessario. Questo è trasparente per l'utente.
+
+NFS ha alcune limitazioni. Innanzitutto, ci sono alcuni potenziali problemi di sicurezza. Se intendi utilizzare NFS, è importante utilizzare la versione aggiornata, applicare le patch necessarie e configurarla correttamente. Non è particolarmente scalabile, quindi per cluster di grandi dimensioni (>1000 nodi) NFS è inadeguato.
 <hr>
 
 ## High-Throughput Computing
@@ -603,6 +624,10 @@ IaaS consente al consumatore di accedere alle risorse di elaborazione tramite l'
 - Portabilità, interoperabilità con applicazioni legacy:
     - È possibile mantenere l'eredità tra applicazioni e carichi di lavoro tra cloud IaaS. 
     Ad esempio, le applicazioni di rete come server Web e server di posta elettronica che normalmente vengono eseguiti su hardware server di proprietà del consumatore possono essere eseguite anche da macchine virtuali nel cloud IaaS.
+
+### Il fenomeno del **lock-in** nel cloud
+Si verifica nel momento in cui un cliente (ad es. un'azienda) si trova in un rapporto di dipendenza con il fornitore dei servizi. Ciò si verifica nei casi in cui il cliente riscontri notevoli difficoltà economiche e organizzative nel cambiare il fornitore dei servizi con uno equivalente con il medesimo scopo. Questo succede perché non sono a tutti gli effetti disponibili le informazioni essenziali sul sistema in uso; parametri che consentirebbero a un nuovo fornitore di subentrare in modo rapido ed efficace.
+Più un provider è in possesso di elementi unici e indispensabili, di cui è il solo depositario, e più questo vincolo diventa reale e complesso da allentare. Che si tratti di informazioni esclusive e riservate, oppure di componenti sviluppati su misura, una cosa è certa: il rapporto fornitore-cliente è fortemente sbilanciato a favore del primo. In questo modo il provider può più facilmente imporre modifiche contrattuali, preventivi o ricambi, sapendo che per il cliente una eventuale uscita sarebbe difficile e, con tutta probabilità, onerosa. In questo senso, come evidenziato nel European Interoperability Framework è sempre opportuno puntare su piattaforme open.
 
 ### Docker
 
