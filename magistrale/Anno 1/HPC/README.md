@@ -432,7 +432,7 @@ Durante la programmazione per dispositivi OpenCL, in particolare GPU, le prestaz
     - Nell'elaborazione delle immagini, la convoluzione è un algoritmo comunemente usato che modifica il valore di ciascun pixel in un'immagine utilizzando le informazioni dei pixel vicini. Un kernel di convoluzione, o filtro, descrive come ogni pixel sarà influenzato dai suoi vicini. 
     - Ad esempio, un kernel sfocato prenderà la media pesata dei pixel vicini in modo da ridurre le grandi differenze tra i valori dei pixel.
     - Utilizzando la stessa immagine sorgente e cambiando solo il filtro, è possibile produrre effetti come nitidezza, sfocatura, miglioramento dei bordi e rilievo.
-    - Un kernel di convoluzione funziona iterando su ogni pixel nell'immagine sorgente. Per ogni pixel sorgente, il filtro è centrato sul pixel ei valori del filtro moltiplicano i valori dei pixel che si sovrappongono. Viene quindi presa una somma dei prodotti per produrre un nuovo valore di pixel.<br>
+    - Un kernel di convoluzione funziona iterando su ogni pixel nell'immagine sorgente. Per ogni pixel sorgente, il filtro è centrato ei valori del filtro moltiplicano i valori dei pixel che si sovrappongono. Viene quindi presa una somma dei prodotti per produrre un nuovo valore di pixel.<br>
 ![condor evil](./imgs/image_convolution.png)<br>
 
 <hr>
