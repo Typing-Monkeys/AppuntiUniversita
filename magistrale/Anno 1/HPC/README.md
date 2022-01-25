@@ -618,13 +618,64 @@ Più un provider è in possesso di elementi unici e indispensabili, di cui è il
 
 Docker è un progetto open-source che automatizza il processo di deployment di applicazioni all'interno di contenitori software, fornendo un'astrazione aggiuntiva grazie alla virtualizzazione a livello di sistema operativo. Il deployment e l'isolamento delle applicazioni sono gestite tramite i Container: un pacchetto leggero, standalone ed eseguibile che contiene tutto il necesario per far eseguire un'applicazione.
 
-I container sono effimeri, quindi ogni modifica che viene effettuata non verrà salvata su disco in modo permanente.
+I container sono effimeri, quindi ogni modifica che viene effettuata non verrà salvata su disco in modo permanente. Eventuali modifiche apportate a un contenitore in esecuzione verranno scritte su un livello temporaneo, chiamato container layer, che è una directory sul filesystem dell'host locale. Docker in più utilizza la stratificazione delle immagini per creare più livelli collegati che appaiono come un unico filesystem.
+
+### **Il problema dei dati persistenti**
+Essere limitati a contenitori solo temporanei limiterebbe notevolmente i casi d'uso per Docker. È molto probabile che alcuni casi d'uso richiedano l'archiviazione persistente dei dati. Quando si archiviano i dati nel livello dell'immagine del contenitore, l'immagine di base non cambia.  Quando il contenitore viene rimosso dall'host, viene rimosso anche lo strato del contenitore. Se la stessa immagine viene utilizzata per avviare un nuovo contenitore, viene creato anche un nuovo livello immagine contenitore.
 
 Docker permette di risolvere questo problema tramite:
 
-- **Volumi**: sono cartelle che vengono gestite in automatico da docker dove è possibile salvare file in modo permanente. Generalmente vengono create in `/var/lib/docker/volumes`. Essendo gestite in automatico da Docker, è pssobile gestirle con facilità (eliminazione, creazione, ecc).
+- ## **Volumi**: 
+    - i volumi memorizzano i file sul filesystem dell'host locale per fornire persistenza e sono l'opzione preferita per aggiungere dati persistenti a un container.. Sono cartelle che vengono gestite in automatico da docker dove è possibile salvare file in modo permanente. Generalmente vengono create in `/var/lib/docker/volumes`. Essendo gestite in automatico da Docker, è pssobile gestirle con facilità (eliminazione, creazione, ecc).
+    - Prima di utilizzare un volume con un contenitore, è necessario crearlo. La creazione di un volume Docker può essere eseguita manualmente utilizzando la Docker CLI o automaticamente dal daemon Docker all'avvio di un container. Poiché entrambi i metodi sono creati da Docker, sono di proprietà e gestiti da Docker stesso, il che ne semplifica la gestione e il monitoraggio. Quando si crea un volume Docker, si possono fornire opzioni come un nome o un'etichetta.
+    - Un volume può anche essere creato in modo **anonimo** (senza nome). Può essere difficile però tenere traccia di un volume anonimo. Pertanto, è considerata una procedura consigliata assegnare un nome al volume al momento della creazione, anziché consentire a Docker di generare un nome di volume anonimo.
+    - **Montaggio di un volume in un contenitore**
+        - Quando si monta un volume in un contenitore, è necessario fornire una delle due opzioni al comando di avvio della linea di comando. Le due opzioni che puoi usare per montare i volumi sono 
+        ```bash 
+        --mount
+        ```
+        o
+        ```bash 
+        -v
+        ```
+        Se stai eseguendo un container standard, puoi utilizzare una delle due opzioni, ma la seconda è l'opzione più comunemente usata.
+        Esempio:
+        ```bash
+        docker run --name mysql-01 -v pv-mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mia-password -d mysql
+        ```
+        Questo avvierà un contenitore che esegue MySQL, con un nome di MySQL-01, che monta un volume chiamato pv-mysql-data in un punto di montaggio chiamato /var/lib/mysql nel contenitore. L'ultima opzione, con -e, crea una variabile di ambiente che viene chiamata MYSQL_ROOT_PASSWORD, che è impostato sulla mia password.
+    - **Montaggio di un volume esistente**
+        - A differenza dei livelli container, anch'essi archiviati nell'host locale, i volumi non vengono persi se un contenitore viene rimosso da Docker. Per montare un volume già esistente basta fare:
+        ```bash
+        docker run --name mysql-01 -v pv-mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mia-password -d mysql:v2
+        ```
+        Questo lancerà il nostro nuovo MySQL:v2 container con lo stesso volume del container precedente, con il database esistente completamente intatto.
+    - **Montaggio di un volume su più container**
+        - E se avessi un'applicazione che richiede più contenitori e ognuno di essi richiede esattamente gli stessi dati? Sebbene sia possibile creare un volume per ogni contenitore e copiare i dati in ciascuno, un metodo più efficiente sarebbe condividere un singolo volume tra più contenitori. Una caratteristica unica dei volumi Docker è che più contenitori possono accedere allo stesso volume. Sebbene sembri una soluzione semplice per fornire un'unica posizione ai dati condivisi, è necessario tenere presente che non tutte le applicazioni funzionano bene quando più processi accedono agli stessi dati. Quando si avviia ogni istanza, si usano semplicemente gli stessi nomi per il volume:
+        ```bash
+        docker run --name webserver01 -v webdata:/opt/ web/data -d bitnami/nginx:latest 
+        docker run --name webserver02 -v webdata:/opt/web/data -d bitnami/nginx:latest 
+        docker run --name webserver03 -v webdata:/opt/web/data -d bitnami/nginx:latest 
+        docker run --name webserver04 -v webdata:/opt/web/data -d bitnami/nginx:latest
+        ```
+        In piu’ è possibile elencare tutti i volumi con il comando:
+        ```bash
+        docker volume list
+        ```
+    - **Ripulire i volumi**
+        - Per impostazione predefinita, Docker non elimina mai i volumi creati per i contenitori. Quando stoppiamo e avviamo un container utilizzando un volume, i dati persistono, ma cosa si deve fare con i dati di cui non si ha più bisogno ? La quantità di dati nella cartella ```/var/lib/docker/volumes``` può crescere di molto. Per questo motivo, è consigliabile sfoltire o rimuovere i volumi per liberare spazio su disco. Il modo più semplice per eliminare i dati da un'immagine che non è più necessaria consiste nell'utilizzare l'opzione **-v** quando si rimuove il contenitore da Docker. Il comando docker **rm \<nome immagine>** permette di rimuovere l’immagine. Se hai un volume allegato al contenitore e desideri eliminare i dati quando rimuovi l'immagine, puoi aggiungere l'opzione **-v** al comando **rm**, che cancellerà tutti i volumi associati al contenitore. Per eliminare il server MySQL precedente e i dati persistenti, si utilizza il seguente comando:
+        ```bash
+        docker rm -v mysql
+        ```
+        Può succedere che non si voglia eliminare i dati rimuovendo il contenitore. L'eliminazione di un volume non può essere annullata, quindi è consigliabile rimuovere il contenitore e conservare il volume per un determinato numero di giorni per verificare che non si ha effettivamente bisogno di tali dati. Se desideri eliminare uno o più volumi, puoi utilizzare l'opzione 
+        ```bash
+        docker volume rm
+        ```
+        È possibile fornire il nome o i nomi del volume dopo l'opzione rm. Ogni volume fornito verrà eliminato dal sistema, liberando spazio su disco nel sistema host. Potresti essere preoccupato dall’idea di eliminare un volume utilizzato da un contenitore. Non temere: Docker non permette di farlo. Se si tenta di eliminare un volume attualmente in uso da un container in esecuzione, o assegnato a un container fermo, verrà visualizzato un messaggio di errore che dice all’utente che tale volume è utilizzato da altri container. Docker consente solo di eliminare un volume che non è aperto da un contanier in esecuzione. Potresti avere molti volumi che desideri eliminare. Sebbene è possibile fornire ogni nome usando il comando di rimozione, Docker fornisce un'altra opzione, nota come potatura. L'eliminazione esaminerà tutti i volumi e rimuoverà qualsiasi volume che non è attualmente montato su un contenitore in esecuzione. Fai attenzione a usare questa opzione: usala solo se sai che i volumi che non sono in uso non contengono dati di cui hai bisogno per qualsiasi motivo. Questo processo è definitivo e, una volta eseguito, eliminerà tutti i volumi che non sono in uso.
+
+
 - **Bind Mount**: sono cartelle che non vengono gestite in automatico da Docker, ma dall'utente che le crea dove vuole e ci mette roba che vuole. Sono identiche in tutto e per tutto ai Volumi solo che non hanno una gestione automatizzata ed è l'utente che deve tenerne traccia.
-- **Tmpfs**: permette la memorizzazione temporanea di file in memoria RAM. Può essere utile per velocizzare l'accesso ai file di una applicazione, però una volta terminata l'esecuzione del container i dati verranno persi.
+- **Tmpfs**: questo tipo di montaggio non è persistente al riavvio del container, il riavvio del Docker o il riavvio dell'host. Viene utilizzato solo come posizione per archiviare temporaneamente i dati nella RAM ad alta velocità ed è veramente effimero. Sebbene non offra persistenza, ci sono casi d'uso specifici in cui la selezione di tmpfs può essere utile.
 
 I container di solito non sono direttamente connessi alla rete, il traffico passa per una scheda Bridged Nat. Quindi per poter accedere dall'esterno è necessario aprire le porte e farne un binding/forwarding. Docker offre due soluzioni:
 
