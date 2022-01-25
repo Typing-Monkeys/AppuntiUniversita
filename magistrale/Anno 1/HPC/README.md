@@ -614,7 +614,7 @@ IaaS consente al consumatore di accedere alle risorse di elaborazione tramite l'
 Si verifica nel momento in cui un cliente (ad es. un'azienda) si trova in un rapporto di dipendenza con il fornitore dei servizi. Ciò si verifica nei casi in cui il cliente riscontri notevoli difficoltà economiche e organizzative nel cambiare il fornitore dei servizi con uno equivalente con il medesimo scopo. Questo succede perché non sono a tutti gli effetti disponibili le informazioni essenziali sul sistema in uso; parametri che consentirebbero a un nuovo fornitore di subentrare in modo rapido ed efficace.
 Più un provider è in possesso di elementi unici e indispensabili, di cui è il solo depositario, e più questo vincolo diventa reale e complesso da allentare. Che si tratti di informazioni esclusive e riservate, oppure di componenti sviluppati su misura, una cosa è certa: il rapporto fornitore-cliente è fortemente sbilanciato a favore del primo. In questo modo il provider può più facilmente imporre modifiche contrattuali, preventivi o ricambi, sapendo che per il cliente una eventuale uscita sarebbe difficile e, con tutta probabilità, onerosa. In questo senso, come evidenziato nel European Interoperability Framework è sempre opportuno puntare su piattaforme open.
 
-### Docker
+# **Docker**
 
 Docker è un progetto open-source che automatizza il processo di deployment di applicazioni all'interno di contenitori software, fornendo un'astrazione aggiuntiva grazie alla virtualizzazione a livello di sistema operativo. Il deployment e l'isolamento delle applicazioni sono gestite tramite i Container: un pacchetto leggero, standalone ed eseguibile che contiene tutto il necesario per far eseguire un'applicazione.
 
