@@ -674,15 +674,59 @@ Docker permette di risolvere questo problema tramite:
         È possibile fornire il nome o i nomi del volume dopo l'opzione rm. Ogni volume fornito verrà eliminato dal sistema, liberando spazio su disco nel sistema host. Potresti essere preoccupato dall’idea di eliminare un volume utilizzato da un contenitore. Non temere: Docker non permette di farlo. Se si tenta di eliminare un volume attualmente in uso da un container in esecuzione, o assegnato a un container fermo, verrà visualizzato un messaggio di errore che dice all’utente che tale volume è utilizzato da altri container. Docker consente solo di eliminare un volume che non è aperto da un contanier in esecuzione. Potresti avere molti volumi che desideri eliminare. Sebbene è possibile fornire ogni nome usando il comando di rimozione, Docker fornisce un'altra opzione, nota come potatura. L'eliminazione esaminerà tutti i volumi e rimuoverà qualsiasi volume che non è attualmente montato su un contenitore in esecuzione. Fai attenzione a usare questa opzione: usala solo se sai che i volumi che non sono in uso non contengono dati di cui hai bisogno per qualsiasi motivo. Questo processo è definitivo e, una volta eseguito, eliminerà tutti i volumi che non sono in uso.
 
 
-- **Bind Mount**: sono cartelle che non vengono gestite in automatico da Docker, ma dall'utente che le crea dove vuole e ci mette roba che vuole. Sono identiche in tutto e per tutto ai Volumi solo che non hanno una gestione automatizzata ed è l'utente che deve tenerne traccia.
-- **Tmpfs**: questo tipo di montaggio non è persistente al riavvio del container, il riavvio del Docker o il riavvio dell'host. Viene utilizzato solo come posizione per archiviare temporaneamente i dati nella RAM ad alta velocità ed è veramente effimero. Sebbene non offra persistenza, ci sono casi d'uso specifici in cui la selezione di tmpfs può essere utile.
+- ## **Bind Mount**: 
+    - sono cartelle che non vengono gestite in automatico da Docker, ma dall'utente che le crea dove vuole e ci mette roba che vuole. Sono identiche in tutto e per tutto ai Volumi solo che non hanno una gestione automatizzata ed è l'utente che deve tenerne traccia.
+    - Nel complesso, i volumi e bind mount possono sembrare simili:
+        - Entrambi usano il filesystem dell'host locale ed entrambi sono montati usando l’opzione docker -v. Sebbene condividano molte delle stesse caratteristiche, un montaggio bind differisce da un volume in quanto esso non è gestito da Docker.
+        - Poiché Docker non gestisce i bind mount, essi non possono essere eliminati utilizzando un comando Docker. Docker non tiene traccia della posizione dei bind mount in un elenco. Se crei bind mount in diverse aree del filesystem sull'host, devi tenere traccia della posizione di ciascuno da rimuoverli manualmente una volta che non ne hai più bisogno.
+    
+    Un bind mount è una directory situata in un punto qualsiasi del filesystem dell'host che è associata al container. A differenza di un volume, che di solito si trova sempre in una posizione predefinita, ad esempio ```/var/lib/docker/volumes```, un bind mount può essere ovunque nel filesystem dell'host.
+    - **Perché creare un bind mount?**
+        - Un bind mount può essere utile quando è necessario condividere qualcosa sul sistema host con un container in esecuzione. Ad esempio, sviluppi un'applicazione sul tuo laptop in locale e desideri testare l'applicazione prima di finalizzare il codice. Invece di eseguirlo sulla tua console locale, vuoi testarlo in un container. Puoi memorizzare il tuo codice sorgente in ```/source``` e poi, quando compili, puoi memorizzare l'eseguibile e le eventuali librerie in ```/apps/testapp```.
+        Può essere creato un bind mount con il comando:
+        ```bash
+        docker run -d -v /apps/testapp:/bin/testapp ubuntu:latest
+        ```
+        Questo avvierà un container che esegue Ubuntu con un mount all'interno del contenitore che si lega all'host locale nel percorso ```/app/testapp```, dove si trova l'applicazione compilata.
 
-I container di solito non sono direttamente connessi alla rete, il traffico passa per una scheda Bridged Nat. Quindi per poter accedere dall'esterno è necessario aprire le porte e farne un binding/forwarding. Docker offre due soluzioni:
+- ## **Tmpfs**: 
+    - questo tipo di montaggio non è persistente al riavvio del container, il riavvio del Docker o il riavvio dell'host. Viene utilizzato solo come posizione per archiviare temporaneamente i dati nella RAM ad alta velocità ed è veramente effimero. Sebbene non offra persistenza, ci sono casi d'uso specifici in cui la selezione di tmpfs può essere utile.
+    - tmpfs offre alcuni **vantaggi** esclusivi che non sono disponibili nei volumi o nei bind mount:
+        - La dimensione può essere predefinita per limitare la quantità di RAM consumata per	l'archiviazione. 
+        - Offre un accesso ai dati molto veloce.
+    - **svantaggi**
+        - disponibile solo su Linux; Windows non è supportato.
+        - può essere montato un singolo tmpfs per ogni container.
+    - Un container può essere avviato con un tmpfs aggiungendo uno dei due comandi: 
+    ```bash
+    --mount 
+    ```
+    o usando 
+    ```--tmpfs ``` come opzione. In generale, si usa ```--mount``` come opzione per impostazione predefinita e non ```--tmpfs``` perché non consente alcuna personalizzazione sul montaggio (non sarai in grado di impostare un limite di dimensione o alcuna sicurezza). Esempio mount tmpfs:
+    ```bash
+    docker run --mount type=tmpfs,target=/opt/html,tmpfsmode=1770,tmpfs-size=1000000 --name nginx-test -d bitnami/nginx:latest
+    ```
 
+I container di solito non sono direttamente connessi alla rete, il traffico passa per una scheda Bridged Nat. La maggior parte degli utenti Docker utilizza semplicemente la rete bridge
+predefinita, che funzionerà per la maggior parte dei casi d'uso, ma presenta
+alcune limitazioni che devono essere considerate. 
+
+Quando si utilizza la rete bridge predefinita vanno considerate le se seguenti conseguenze: 
+- Quando un container viene avviato senza una rete specificata, utilizzerà il bridge predefinito. Ciò significa che più container saranno in grado di comunicare, senza tenere conto dei carichi di lavoro. 
+- Se  si stanno eseguendo più container e desideri isolarne alcuni da altri, potresti inavvertitamente consentire le comunicazioni tra container comunque, poiché utilizzano il bridge predefinito.
+- Il bridge predefinito limita le comunicazioni tra contenitori solo a determinati indirizzi IP.
+- I container che utilizzano il bridge predefinito devono essere arrestati prima di poterli spostare su una rete diversa.
+
+È consigliato quindi utilizzare un rete bridge definita dall'utente.
+Se si avvia un container senza un'opzione di rete, verrà avviato connesso alla rete bridge predefinita. È tuttavia possibile **avviare un container senza una rete** collegata utilizzando il comando **--network=none** selezionabile quando si avviia il contenitore. Questo è lo stesso processo che si esegue quando viene avviato un container con una rete definita dall'utente.
+
+### Esporre i servizi di container
+Per poter accedere dall'esterno è necessario aprire le porte e farne un binding/forwarding. Docker offre due soluzioni:
 - Expose: permette di rendere visibili le porte solo ad altri docker container.
 - Ports: permette di rendere visibili le porte a tutti così che altri utenti possano accedervi dall'esterno.
 
-Ogni docker container si basa su un immagine di un SO ed è possibile crearne di personalizzate tramite l'uso dei Dockerfile.
+Ogni docker container si basa su un immagine di un SO ed è possibile crearne di personalizzate tramite l'uso dei Dockerfile (un Dockerfile è semplicemente uno script di istruzioni basato su
+testo che viene utilizzato per creare un'immagine contenitore.).
 
 _Esempio di dockerfile:_
 
@@ -693,7 +737,10 @@ _Esempio di dockerfile:_
     RUN echo "Hello World" > /var/www/html/index.html
     EXPOSE 80
 ```
-
+Successivamente è necessario il seguente comando:
+```bash
+docker build -t getting-started .
+```
 I container possono essere avviati in due modi:
 
 - tramite riga di comando (bruttino e macchinoso)
@@ -724,8 +771,43 @@ _Esempio di docker-compose:_
                     max-size: 1g
 
 ```
+Un comando di esempio può essere:
+```bash 
+docker-compose -f docker-compose-example.yml -f dockercompose.admin.yml run backup_db
+```
+### **Alcuni comandi utili**
+- Per visualizzare le reti disponibili basta lanciare il comando:
+    ```bash 
+    docker network ls
+    ```
+    Ed avremo il riepilogo di tutte le reti disponibili.
+- Per creare delle reti definite dall’utente possiamo lanciare il comando:
+    ```bash 
+    docker create network frontend
+    ```
+    Poiché non abbiamo specificato alcuna opzione diversa dal nome della rete, Docker assegnerà alla rete un intervallo IP non sovrapposto. Se si desidera creare una seconda rete chiamata backend che usa il ```192.168.10.0/24```, utilizzando come gateway ```192.168.10.1```, devi solo aggiungere  --subnet e  --gateway:
+    ```bash 
+    docker create network backend --subnet 192.168.10.0/24 --gateway=192.168.10.1
+    ```
+- Collegamento di un container ad una rete definita dall’utente:
+    ```bash 
+    docker run network=frontend --name=ngixnx1 -d bitnami/nginx:latest
+    ```
+    Il comando precedente avvierà un nuovo container NGINX denominato frontend, sulla rete definita dall'utente denominata frontend.
+- Rimozione di una rete:
+    
+    Se non hai più bisogno di una rete definita dall'utente, puoi eliminare la rete dal tuo host utilizzando:
+    ```bash 
+    docker network rm frontend
+    ```
+    oppure possiamo rimuovere tutte le reti non utilizzate dall’host con il comando 
 
-### Kubernetes
+    ```bash 
+    docker network prune
+    ```
+<hr>
+
+# **Kubernetes**
 
 Kubernetes è una piattaforma portatile, estensibile e open-source per la gestione di carichi di lavoro e servizi containerizzati, in grado di facilitare sia la configurazione dichiarativa che l'automazione. La piattaforma vanta un grande ecosistema in rapida crescita. Servizi, supporto e strumenti sono ampiamente disponibili nel mondo Kubernetes.
 
