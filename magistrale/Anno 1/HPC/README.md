@@ -813,11 +813,118 @@ Kubernetes è una piattaforma portatile, estensibile e open-source per la gestio
 
 Utile per gestire i container docker in autonomia e semplicità gestendo anche: scalabilità, failover, distribuzione delle applicazioni.
 
+Kubernetes fornisce un framework per sistemi distribuiti. Si occupa del ridimensionamento e del failover delle applicazioni, fornisce modelli di distribuzione e altro ancora.
+
+
 Kubernetes ti fornisce:
 
-- Bilanciamento del carico 
+- Bilanciamento del carico
+    -  Kubernetes può esporre un container utilizzando il nome DNS o utilizzando il proprio indirizzo IP. Se il traffico verso un container è elevato, Kubernetes è in grado di bilanciare il carico e distribuire il traffico di rete in modo che la distribuzione sia stabile.
 - Orchestrazione dello storage permettendo di montare volumi o cartelle in modo semlice
 - Rollout e rollback automatizzati
+    - puoi automatizzare Kubernetes per creare nuovi container per la tua distribuzione, rimuovere i container esistenti e adottare tutte le loro risorse nel nuovo container.
 - Ottimizzazione dei carichi
+    - Fornendo a Kubernetes un cluster di nodi che può utilizzare per eseguire attività containerizzate si può impostare quanta CPU e memoria (RAM) assegnare ad ogni container e Kubernetes può adattare i container ai nodi per sfruttare al meglio le risorse.
 - Self-healing: riavvia i container che si bloccano, sostituisce container, termina i container che non rispondono agli health checks, e evita di far arrivare traffico ai container che non sono ancora pronti per rispondere correttamente.
 - Gestione di informazioni sensibili (passowrd, chiavi SSH, OAuth token, ecc.)
+
+### Componenti di kubernets
+Quando si utilizza Kubernetes, si ha un cluster. Un cluster Kubernetes è costituito da un insieme di macchine worker, chiamate nodi, che eseguono applicazioni containerizzate. Ogni cluster ha almeno un nodo di lavoro. I nodi di lavoro ospitano i pods che sono i componenti del carico di lavoro dell'applicazione. Il piano di controllo gestisce i nodi di lavoro e i pods nel cluster. Negli ambienti di produzione, il piano di controllo viene solitamente eseguito su più computer e un cluster esegue solitamente più nodi, fornendo tolleranza agli errori e disponibilità elevata.
+### Componenti del piano di controllo
+Le componenti del piano di controllo prendono decisioni globali sul cluster, oltre a rilevare e rispondere agli eventi del cluster. I componenti del piano di controllo possono essere eseguiti su qualsiasi macchina nel cluster. 
+Tuttavia, per semplicità, gli script di configurazione in genere avviano tutti i componenti del piano di controllo sulla stessa macchina e non eseguono container utente su tale macchina.
+- **kube-apiserver**
+    - è il server API, ovvero il front-end per il piano di controllo Kubernetes.
+- **kube-scheduler**
+    - controlla i pods appena creati senza alcun nodo assegnato e seleziona un nodo su cui eseguirli. 
+- **kube-controller-manager**
+    - esegue i processi del controller.  Logicamente, ogni controller è un processo separato, ma per ridurre la complessità, sono tutti compilati in un unico binario ed eseguiti in un unico processo
+    - Alcuni tipi di questi controller sono: 
+        - Controllore del nodo: 
+        Responsabile di notare e rispondere quando i nodi si interrompono.
+        - Controllore del job: 
+        Controlla gli oggetti Job che rappresentano attività una tantum, quindi crea i pod per eseguire tali attività fino al completamento.
+        - Controllore degli endpoint: 
+        Popola l'oggetto Endpoints (vale a dire, si unisce a servizi e pod. 
+        - Account di servizio e controller di token:
+        Crea account predefiniti e token di accesso API per nuovi spazi dei nomi.
+- **cloud-controller-manager**
+    - incorpora la logica di controllo specifica del cloud. Il gestore del controller cloud consente di collegare il tuo cluster all'API del tuo provider di servizi cloud e separa i componenti che interagiscono con quella piattaforma cloud dai componenti che interagiscono solo con il tuo cluster.
+
+### Componenti del nodo
+I componenti del nodo vengono eseguiti su ogni nodo, mantenendo i pod in esecuzione e fornendo l'ambiente di runtime Kubernetes.
+- **kubelet**
+    - è un agente che viene eseguito su ogni nodo del cluster. Si assicura che i container siano in esecuzione in un Pod. Il kubelet accetta una serie di PodSpec forniti attraverso vari meccanismi e garantisce che i contenitori descritti in tali PodSpec siano in esecuzione e integri. Il kubelet non gestisce i contenitori che non sono stati creati da Kubernetes.
+- **kube-proxy**
+    - è un proxy di rete che viene eseguito su ogni nodo del tuo cluster. kube-proxy mantiene le regole di rete sui nodi. Queste regole di rete consentono la comunicazione di rete ai Pod da sessioni di rete all'interno o all'esterno del cluster.
+- **Container runtime**
+    - È il software responsabile dell'esecuzione dei contenitori.
+
+### Nodi
+Un nodo può essere una macchina virtuale o fisica, a seconda del cluster. Ogni nodo è gestito dal piano di controllo e contiene i servizi necessari per eseguire i Pod. In genere si hanno diversi nodi in un cluster (in un ambiente di test o con risorse limitate, si potrebbe avere un solo nodo).
+
+Le componenti di un nodo includono il kubelet, un container runtime, e un kube-proxy.
+Esistono due modi per aggiungere i nodi al server API:
+1. Il kubelet su un nodo si registra automaticamente sul piano di controllo.
+2. Un utente aggiunge manualmente un oggetto al Nodo.
+
+Dopo aver creato un oggetto Node o il kubelet su un nodo si registra automaticamente, il piano di controllo verifica se il nuovo oggetto Node è valido. Kubernetes crea un oggetto Node internamente. Kubernetes verifica che un kubelet sia registrato sul server API che corrisponde al nome. Se il nodo è integro (ovvero tutti i servizi necessari sono in esecuzione), è idoneo per eseguire un Pod. In caso contrario, quel nodo viene ignorato per qualsiasi attività del cluster finché non diventa integro. Il nome di un oggetto Node deve essere un nome di sottodominio DNS valido.
+
+- **Unicità del nome del nodo**: Il nome identifica un nodo. Due nodi non possono avere lo stesso nome contemporaneamente.
+
+- **Autoregistrazione dei nodi**: Quando il flag di kubelet **--register-node** è true (impostazione predefinita), il kubelet tenterà di registrarsi con il server API. Questo è il modello preferito, utilizzato dalla maggior parte delle distribuzioni. Per l'autoregistrazione, il kubelet viene avviato con le seguenti opzioni: **--kubeconfig, --cloud-provider, --register-node, --register-with-taints, --node-ip, --node-labels, --node-status-update-frequency**
+
+- **Amministrazione manuale del nodo**: È possibile creare e modificare gli oggetti Node utilizzando kubectl. Quando si vogliono creare oggetti Node manualmente, va impostato il flag kubelet --node-registert=false. È possibile modificare gli oggetti Node indipendentemente dall'impostazione di --register-node. Ad esempio, si possono impostare etichette su un nodo esistente o contrassegnarlo come non programmabile. È possibile utilizzare le etichette sui nodi insieme ai selettori di nodi sui pod per controllare la pianificazione. Oppure puoi vincolare un Pod in modo che sia idoneo all'esecuzione solo su un sottoinsieme dei nodi disponibili. Invece contrassegnare un nodo come non pianificabile impedisce allo scheduler di posizionare nuovi pod su quel nodo ma non influisce sui pod esistenti sul nodo. Ciò è utile come passaggio preparatorio prima del riavvio di un nodo o di altre operazioni di manutenzione.
+Per contrassegnare un nodo come non “schedulabile”, eseguire:
+**kubectl cordon $NODENAME**
+
+- **Stati del nodo**: lo stato di un nodo contiene le seguenti informazioni: 
+    - Indirizzi Condizioni 
+    - Capacità e allocazione
+    - Informazioni
+
+    Si può usare kubectl per visualizzare lo stato di un nodo e altri dettagli: **kubectl describe node nomenodo**
+
+- Gli stati del nodo sono descritti mediante JSON.
+
+- **Oggetti di tipo  spec e stato**:
+
+    Quasi tutti gli oggetti Kubernetes includono due campi oggetto nidificati che governano la configurazione dell'oggetto: l'oggetto spec e l'oggetto stato.
+    - **Oggetto spec**: Per gli oggetti che hanno a specifica spec, devi impostarlo quando crei l'oggetto, fornendo una descrizione delle caratteristiche che vuoi che la risorsa abbia.
+    - **Oggetto stato**: Lo stato descrive il corrente stato dell'oggetto, fornito e aggiornato dal sistema Kubernetes e dai suoi componenti. Il piano di controllo di Kubernetes gestisce continuamente e attivamente l'effettivo di ogni oggetto stato per abbinare lo stato fornito.
+
+- **Descrivere un oggetto Kubernetes**:
+    Quando crei un oggetto in Kubernetes, devi fornire l'oggetto spec che descrive lo stato desiderato, nonché alcune informazioni di base sull'oggetto (come un nome). Quando utilizzi l'API Kubernetes per creare l'oggetto (direttamente o tramite kubectl), tale richiesta API deve includere tali informazioni come JSON nel corpo della richiesta. Molto spesso, si forniscono le informazioni a kubectl in un .yaml file .kubectl che converte le informazioni in JSON durante la creazione dell'API request.apiVersion: apps/v1. Esempio:
+    ```bash
+    kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
+    ```
+
+- **Comandi imperativi**: Quando si utilizzano comandi imperativi, un utente opera direttamente su oggetti attivi in un cluster. L'utente fornisce le operazioni al kubectl comando come argomenti o flag.  Questo è il modo consigliato per iniziare o per eseguire un'attività una tantum in un cluster.  Perché questa tecnica opera direttamente su oggetti vivi, non fornisce alcuna cronologia delle configurazioni precedenti.
+    - **Vantaggi** rispetto alla configurazione degli oggetti:
+        - I comandi sono espressi come una singola parola d'azione.
+        - I comandi richiedono un solo passaggio per apportare modifiche al cluster.
+    - **Svantaggi** rispetto alla configurazione degli oggetti:
+        - I comandi non si integrano con i processi di revisione delle modifiche. 
+        - I comandi non forniscono un audit trail associato alle modifiche. 
+        - I comandi non forniscono una fonte di record ad eccezione di ciò che è live. 
+        - I comandi non forniscono un modello per la creazione di nuovi oggetti
+
+- **Configurazione oggetto imperativa**: Nella configurazione dell'oggetto imperativo, il comando  kubectl specifica l'operazione (creare, sostituire, ecc.), flag opzionali e almeno un nome file. Il file specificato deve contenere una definizione completa dell'oggetto in YAML o JSON. Esempio:
+    ```bash
+    kubectl create -f nginx.yaml
+    ```
+    - **Vantaggi** rispetto ai comandi imperativi:
+        - La configurazione degli oggetti può essere archiviata in un sistema di controllo del codice sorgente come Git. 
+        - La configurazione degli oggetti può integrarsi con processi come la revisione delle modifiche prima del push e degli audit trail. 
+        - La configurazione degli oggetti fornisce un modello per la creazione di nuovi oggetti.
+    - **Svantaggi** rispetto ai comandi imperativi:
+        - La configurazione dell'oggetto richiede una comprensione di base dello schema dell'oggetto.
+        - La configurazione dell'oggetto richiede il passaggio aggiuntivo della scrittura di un file YAML.
+
+- **Configurazione oggetto dichiarativa**: Quando si utilizza la configurazione dichiarativa degli oggetti, un utente opera sui file di configurazione degli oggetti archiviati localmente, tuttavia l'utente non definisce le operazioni da eseguire sui file. Le operazioni di creazione, aggiornamento ed eliminazione vengono rilevate automaticamente per oggetto da kubectl. Ciò consente di lavorare su directory, in cui potrebbero essere necessarie operazioni diverse per oggetti diversi.
+    - **Vantaggi** rispetto alla configurazione imperativa degli oggetti: 
+        - Le modifiche apportate direttamente agli oggetti live vengono mantenute, anche se non vengono nuovamente unite nei file di configurazione. 
+        - La configurazione dichiarativa dell'oggetto offre un supporto migliore per operare su directory e rilevare automaticamente i tipi di operazione (creazione, patch, eliminazione) per oggetto. 
+    - **Svantaggi** rispetto alla configurazione imperativa degli oggetti: 
+        - La configurazione dell'oggetto dichiarativo è più difficile da eseguire il debug e comprendere i 	risultati quando sono imprevisti.
+        - Gli aggiornamenti parziali che utilizzano le differenze creano complesse operazioni di unione e patch.
