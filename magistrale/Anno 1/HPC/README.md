@@ -58,8 +58,6 @@ I principali computer quantistici attualmente esistenti sono:
 Il **Cluster Computing** consiste nella creazione di una rete di computer connessi tra di loro che operano insieme in modo tale da poter essere visti come una unica macchina.
 I sistemi HPC sono principlamente utilizzati per applicazioni ad alta intensità di calcolo e/o alta intensità di dati. Sono implementati algoritmi paralleli oppure in alternativa si adotta un parallelismo sui dati. I sistemi HPC sono spesso collegati o interagiscono con i sistemi Cloud per ottenere la massima potenza possibile.
 
-Per analizzare le problematiche di un sistema HPC possiamo considerare il caso studio del **Cluster Computing**.
-
 I componenti di un Cluster sono:
 - **I Nodi**
 - **Network**
@@ -68,7 +66,7 @@ I componenti di un Cluster sono:
 
 Questi cluster possono essere realizzati con computer dai componenti di fortuna (non necessariamente di fascia alta, come il cesso: FX + Scheda video a caso), valorizzando quindi l'avere molte macchine dal costo ridotto.
 
-Possono essere utilizzati per realizzare: Web Server, motori di ricerca, vari servizi web, gestire DB, ecc.
+Possono essere utilizzati per realizzare: Web Server, motori di ricerca, vari servizi web, gestire DB, ecc...
 
 Vengono solitamente utilizzati per migliorare la velocità e/o l'affidabilità rispetto a quella fornita da un singolo computer. Sono in genere molto più convenienti in termini di velocità o affidabilità rispetto a quest'ultimo. Nel cluster computing ogni nodo all'interno di un cluster è un sistema indipendente, con il proprio sistema operativo, memoria privata e, in alcuni casi, il proprio file system. Poiché i vari nodi non possono accedere direttamente alla memoria degli altri nodi, i programmi o il software eseguiti sui cluster di solito utilizzano una procedura chiamata **message passing** per ottenere dati e codice di esecuzione da un nodo all'altro.
 
@@ -82,7 +80,7 @@ Ci sono vari tipi di cluster:
 - ## **High availability cluster**
     - In caso di eventuali errori o cadute dei nodi, altri occorrono per continuare a fornire un determinato servizio. Questi cluster sono progettati per fornire disponibilità ininterrotta di dati o servizi. Si può pensare ai Server Mail come esempi di questo tipo. Sono cluster utilizzati per fornire una disponibilità ininterrotta di dati o servizi ai consumatori, se un nodo muore il servizio viene subito ripristinato cambiando semplicemente nodo e l'utente non si accorge di nulla.
 - ## **Load Balacing cluster**
-    - Le richieste di servizi vengono gestite e distribuite sui nodi disponibili in modo mantenere il carico di lavoro più omogeneo possibile. Entrambe le tecnologie cluster ad alta disponibilità e bilanciamento del carico possono essere combinate per aumentare l'affidabilità, disponibilità, e scalabilità di applicazioni e risorse di dati ampiamente distribuite per servizi Web, posta, notizie o FTP. Il Load Balancing Cluster può essere implementato utilizzando l'algoritmo Round-Robin dei DNS oppure utilizzando altri strumenti che permettono lo scambio di informazioni tra i nodi.
+    - Le richieste di servizi vengono gestite e distribuite sui nodi disponibili in modo da mantenere il carico di lavoro più omogeneo possibile. Entrambe le tecnologie cluster ad alta disponibilità e bilanciamento del carico possono essere combinate per aumentare l'affidabilità, disponibilità, e scalabilità di applicazioni e risorse di dati ampiamente distribuite per servizi Web, posta, notizie o FTP. Il Load Balancing Cluster può essere implementato utilizzando l'algoritmo Round-Robin dei DNS oppure utilizzando altri strumenti che permettono lo scambio di informazioni tra i nodi.
 - ## **Parallel Distributed Processing**
     - Normalmente utilizzato in ambiti scentifici per simulazioni e altro. Questi tipi di cluster aumentano la disponibilità, le prestazioni e la scalabilità delle applicazioni, in particolare attività computazionali o ad alta intensità di dati. Viene utilizzato per eseguire richieste molto costose in code di batch. Viene anche chiamato High Throughput Computing cioè sistemi che permettono di eseguire molte operazioni di calcolo su un lungo periodo di tempo. Un esempio di queto software è HTCondor.
 
@@ -243,7 +241,7 @@ Consente l'esecuzione per un lungo periodo di tempo di molti task. Strumento mol
 - implementare una politica sull’ordine di esecuzione dei lavori;
 - aggiungere tolleranza agli errori dei jobs.
 
-Permette una policy di scheduling mediante le **ClassAds** (Preemption, suspension, requirements, preferences, groups, quotas, settable fair-share, system hold…). Nessun file system condiviso richiesto.
+Permette una policy di scheduling mediante le **ClassAds** (Preemption, suspension, requirements, preferences, groups, quotas, settable fair-share, system hold…).
 
 Definizioni: 
 - **Job**: rappresentazione di condor di un lavoro. Può essere idenfiticato come un processo di unix ed è un elemento del Workflow. Ogni job ha delle preferenze e requisiti:
@@ -283,9 +281,9 @@ _Condor Daemon Layout_
     - scrivere una configurazione il più semplice ed efficiente possibile;
     - il file di configurazione non dovrebbe superare le 20 linee.
 - **File di configurazione**
-    - CONDOR_CONFIG rappresenta il file di configurazione globale di condor. All’interno sono presenti tutte le impostazioni globali, alcune impostazioni vanno abilitate per IPV6. È presente nella directory /etc/condor/
-    - LOCAL_CONFIG_FILE è il file di configurazione locale specifico della macchina per ogni host. È presente nella directory /home/etc/condor/condor_config.local.
-    - LOCAL_CONFIG_DIR è la directory condor locale per ogni host. È presente nella directory  /etc/condor/config.d
+    - ```CONDOR_CONFIG``` rappresenta il file di configurazione globale di condor. All’interno sono presenti tutte le impostazioni globali, alcune impostazioni vanno abilitate per IPV6. È presente nella directory ```/etc/condor/```
+    - ```LOCAL_CONFIG_FILE``` è il file di configurazione locale specifico della macchina per ogni host. È presente nella directory ```/home/etc/condor/condor_config.local```.
+    - ```LOCAL_CONFIG_DIR``` è la directory condor locale per ogni host. È presente nella directory  ```/etc/condor/config.d```
 - **Configuration File Macros** </br>
     Le definizioni delle macro hanno la forma: <nome_macro> = <definizione_macro></br>
     NOTA: è necessario disporre di uno spazio vuoto tra il nome della macro, il segno "=" e la definizione della macro. </br>
