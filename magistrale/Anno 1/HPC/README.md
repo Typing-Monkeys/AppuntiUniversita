@@ -361,7 +361,7 @@ L'esecuzione viene organizzata in Thread. Ogni SM crea, gestisce, schedula ed es
 - Per più sistemi operativi (Linux, Windows, MacOS).
 
 ### **Architettura OpenCL**
-- **Modello di piattaforma**: specifica che esiste un processore che coordina l'esecuzione (host) e uno o più processori in grado di eseguire codice OpenCL C (i dispositivi).Definisce un modello hardware astratto che viene utilizzato dai programmatori durante la scrittura di funzioni OpenCL C (chiamatekernel) l'esecuzione sui dispositivi.
+- **Modello di piattaforma**: specifica che esiste un processore che coordina l'esecuzione (host) e uno o più processori in grado di eseguire codice OpenCL C (i dispositivi). Definisce un modello hardware astratto che viene utilizzato dai programmatori durante la scrittura di funzioni OpenCL C (chiamate kernel) per l'esecuzione sui dispositivi.
 - **Modello di esecuzione**: definisce le istruzioni impostate per essere eseguite dai dispositivi OpenCL (kernel) e le istruzioni che inizializzano e controllano l'esecuzione dei kernel (programma host).
     - Programma ospite: insieme di istruzioni che inizializzano e gestiscono l'ambiente di esecuzione del Compute Device. 
     - Programma del kernel: insieme di istruzioni eseguite dai dispositivi di calcolo.
@@ -386,7 +386,7 @@ comunicazioni di crittografia e nelle tecnologie di sicurezza. Per le sue caratt
 - Di solito spetta all'utente decidere il tipo di dispositivo da utilizzare. Ciò si traduce in un inefficiente o processo di pianificazione inadeguato e ad un utilizzo non ottimizzato delle risorse hardware.
 
 ## **Parallel computing**
-Il Parallel Computing è una forma di calcolo in cui vengono eseguiti molti calcoli contemporaneamente, operando sul principio che i grandi problemi possono spesso essere suddivisi in quelli più piccoli, che vengono poi risolti contemporaneamente (cioè in parallelo). Il grado di parallelismo che può essere raggiunto dipende dalla natura intrinseca del problema in
+Il Parallel Computing è una forma di calcolo in cui vengono eseguiti molti calcoli contemporaneamente, operando sul principio che i grandi problemi possono spesso essere suddivisi in sottoproblemi più piccoli, che vengono poi risolti contemporaneamente (cioè in parallelo). Il grado di parallelismo che può essere raggiunto dipende dalla natura intrinseca del problema in
 questione e l'abilità dell'algoritmo o del progettista del software consiste nell'identificare le forme di parallelismo presenti nel problema sottostante. Esempi di attività che possono essere eseguite in modo più efficiente e veloce utilizzando la parallelizzazione:
 - Moltiplicazione degli elementi di due array
 - Filtrare una serie di immagini usando FFT
@@ -399,8 +399,7 @@ La concorrenza riguarda due o più attività che si verificano contemporaneament
 Il parallelismo riguarda l'esecuzione di due o più attività in parallelo con l'obiettivo esplicito di aumentare le prestazioni complessive. I programmi paralleli devono essere concorrenti, ma i programmi concorrenti non devono essere paralleli. Nel calcolo parallelo, la granularità è una misura del rapporto tra calcolo e comunicazione. I periodi di calcolo sono tipicamente separati dai periodi di comunicazione per eventi di sincronizzazione. La grana del parallelismo è vincolata dalle caratteristiche intrinseche degli algoritmi che costituiscono l'applicazione. È importante che il programmatore parallelo selezioni la giusta granularità per sfruttare appieno i vantaggi della piattaforma sottostante, perché la scelta della giusta dimensione dei grani può aiutare a esporre un ulteriore grado di parallelismo.
 
 ### **Threads**
-Un programma in esecuzione può essere costituito da più sottoprogrammi che mantengono il proprio flusso di controllo indipendente e che possono essere eseguiti simultaneamente. Questi sottoprogrammi sono definiti come discussioni. La comunicazione tra i thread avviene tramite
-aggiornamenti e l'accesso alla memoria che appare nello stesso spazio di indirizzi.
+Un programma in esecuzione può essere costituito da più sottoprogrammi che mantengono il proprio flusso di controllo indipendente e che possono essere eseguiti simultaneamente. La comunicazione tra i thread avviene tramite aggiornamenti della memoria che appare nello stesso spazio di indirizzi.
 - Ogni thread ha il proprio pool di memoria locale (variabili), ma tutti i thread vedono lo stesso insieme di variabili globali.
 Una semplice analogia potrebbe essere il programma principale che include un insieme di subroutine. I thread comunicano tra loro attraverso la memoria globale. Ciò può richiedere costrutti di sincronizzazione per garantire che più di un thread non aggiorni lo
 stesso indirizzo globale. Viene definito un modello di consistenza della memoria per gestire l'ordine di caricamento e archiviazione.
