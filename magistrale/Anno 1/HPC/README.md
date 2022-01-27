@@ -323,7 +323,7 @@ Il GPGPU (General-Purpose computing on Graphics Processing Units) è un tipo di 
 - Crittografia;
 - Simulazioni in ambito scientifico (fisica, astrofisica, medicina ecc...).
 
-### **Grafica computzionale**
+### **Grafica computazionale**
 Consiste nella produzione di immagini bitmap basate su dati acquisiti da una fonte esterna o calcolati mediante un modello computazionale. Le varie fasi si distinguono nella definizione degli oggetti nella scena e nel rendering dell'immagine.
 - ***Pipeline grafica***: insieme di operazioni per la resa grafica.
 #### **Operazioni di rendering**
@@ -359,7 +359,7 @@ OpenCL è il primo standard aperto e privo di royalty per la programmazione para
 - Per più sistemi operativi (Linux, Windows, MacOS).
 
 ### **Architettura OpenCL**
-- **Modello di piattaforma**: specifica che esiste un processore che coordina l'esecuzione (host) e uno o più processori in grado di eseguire codice OpenCL C (i dispositivi). Definisce un modello hardware astratto che viene utilizzato dai programmatori durante la scrittura di funzioni OpenCL C (chiamate kernel) per l'esecuzione sui dispositivi.
+- **Modello di piattaforma**: specifica che esiste un processore che coordina l'esecuzione (host) e uno o più processori in grado di eseguire codice OpenCL C (nei dispositivi). Definisce un modello hardware astratto che viene utilizzato dai programmatori durante la scrittura di funzioni OpenCL C (chiamate kernel) per l'esecuzione sui dispositivi.
 - **Modello di esecuzione**: definisce le istruzioni impostate per essere eseguite dai dispositivi OpenCL (kernel) e le istruzioni che inizializzano e controllano l'esecuzione dei kernel (programma host).
     - Programma ospite: insieme di istruzioni che inizializzano e gestiscono l'ambiente di esecuzione del Compute Device. 
     - Programma del kernel: insieme di istruzioni eseguite dai dispositivi di calcolo.
@@ -367,7 +367,7 @@ OpenCL è il primo standard aperto e privo di royalty per la programmazione para
     - Ciascun dispositivo di calcolo esegue il kernel.
     - I calcoli sono effettuati da Oggetti di lavoro (che sono raggruppati in gruppi di lavoro) ogni elemento di lavoro esegue lo stesso programma su dati diversi.
 - **Modello di memoria**: definisce gli oggetti di memoria, i tipi di memoria e il modo in cui l'host e i dispositivi vi accedono.
-- **Modello di programmazione**: definisce il tipo di esecuzione parallela eseguita (su dati o su task).
+- **Modello di programmazione**: definisce il tipo di esecuzione parallela eseguita (sui dati o sui task).
 - **Modello Framework**: set di API ed estensioni C99 per implementare programmi host e kernel.
 
 Un caso di studio è l'algoritmo crittografico AES. Esso svolge un ruolo importante nelle attuali
@@ -424,7 +424,7 @@ La comunicazione con un dispositivo avviene inviando comandi ad una coda di coma
 un solo dispositivo). Ogni volta che l'host ha bisogno che un'azione venga eseguita da un dispositivo, invierà i comandi alla coda comandi appropriata.
 
 ### **Oggetti di memoria**
-Le applicazioni OpenCL spesso funzionano con grandi array di matrici multidimensionali. Questi dati devono essere fisicamente presenti su un dispositivo prima che l'esecuzione possa iniziare. Affinché i dati possano essere trasferiti a un dispositivo, deve prima essere incapsulato come a oggetto di memoria. OpenCL definisce due tipi di oggetti di memoria: buffers e immagini. I buffer sono equivalenti agli array in c, creati utilizzando malloc(), in cui gli elementi dei dati sono archiviati in modo contiguo in memoria. Le immagini sono progettate come oggetti opachi, consentendo il riempimento dei dati e altre ottimizzazioni che possono migliorare le prestazioni sui dispositivi. Un oggetto di memoria è valido solo all'interno di un singolo context.
+Le applicazioni OpenCL spesso funzionano con grandi array di matrici multidimensionali. Questi dati devono essere fisicamente presenti su un dispositivo prima che l'esecuzione possa iniziare. Affinché i dati possano essere trasferiti a un dispositivo, deve prima essere incapsulato come un oggetto di memoria. OpenCL definisce due tipi di oggetti di memoria: buffers e immagini. I buffer sono equivalenti agli array in c, creati utilizzando malloc(), in cui gli elementi dei dati sono archiviati in modo contiguo in memoria. Le immagini sono progettate come oggetti opachi, consentendo il riempimento dei dati e altre ottimizzazioni che possono migliorare le prestazioni sui dispositivi. Un oggetto di memoria è valido solo all'interno di un singolo context.
 
 ### **Creazione di un programma OpenCL**
 Il codice OpenCL C, scritto per essere eseguito su un dispositivo OpenCL, è chiamato a programma. Un programma è una raccolta di funzioni chiamate **kernel**(i kernel OpenCL sono simili alle funzioni C e possono essere pensati come istanze di un'operazione di mappa parallela. Il corpo della funzione verrà eseguito una volta per ogni elemento di lavoro creato), dove i kernel sono unità di esecuzione che possono essere pianificate per l'esecuzione su un dispositivo. I programmi OpenCL vengono compilati in fase di esecuzione tramite una serie di chiamate API. Questa compilazione runtime offre al sistema l'opportunità di eseguire l'ottimizzazione per un dispositivo specifico. Non è necessario che un'applicazione OpenCL sia stata precostruita per runtime di tipo specifico (NVIDIA, AMD, Intel). 
