@@ -272,7 +272,7 @@ _Condor Daemon Layout_
 - **Master**: il demone principale che è presente in ogni host, fa partire tutti gli altri demoni e se un demone ha un problema e muore, Master lo riavvia.
 - **Collector**: raccoglie informazioni su tutti gli altri demoni nella pool tramite messaggi periodici. Ne serve almeno 1 per pool e va messo sul Central Manager Node.
 - **Negotiatior**: effettua il matchmaking. Ne serve uno per pool ed è situato sul Central Manager Node.
-- **StarD**: rappresenta la macchina nel sistema Condor. È responsabile dell'avvio, sospensione e arresto dei job. Un solo demone per ogni nodo.
+- **StartD**: rappresenta la macchina nel sistema Condor. È responsabile dell'avvio, sospensione e arresto dei job. Un solo demone per ogni nodo.
 - **Schedd**: effettua lo scheduling. Uno per ogni nodo. Mantiene una coda persistente dei job. Contatta le macchine disponibili all'esecuzione dei job e crea uno shadow per ogni job in esecuzione.
 - **Shadow**: è la rappresentazone locale del job in esecuzione.
 
