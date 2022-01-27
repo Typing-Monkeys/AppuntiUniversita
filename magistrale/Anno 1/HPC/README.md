@@ -318,7 +318,7 @@ Per qualsiasi altro dubbio, informazione sui comandi e per problemi di debug è 
 
 # **GPGPU**
 
-Il GPGPU (General-Purpose computing on Graphics Processing Units) è un tipo di HPC che sfrutta l'architettura con alto grado di parallelismo (permesso dalle migliaia di core) delle schede video per migliorare le performances. Le GPU sono particolarmente adatte per applicazioni SIMD (la stessa architettura dei computer vettoriali), le quali sono utilizzate per risolvere una vasta gamma di problemi computazionali, tra cui:
+Il GPGPU (General-Purpose computing on Graphics Processing Units) è un tipo di HPC che sfrutta l'architettura con alto grado di parallelismo (permesso dalle migliaia di core) delle schede video per migliorare le performances. Le GPU sono particolarmente adatte per applicazioni SIMD (vedi dopo) (la stessa architettura dei computer vettoriali), le quali sono utilizzate per risolvere una vasta gamma di problemi computazionali, tra cui:
 - Data Mining;
 - Crittografia;
 - Simulazioni in ambito scientifico (fisica, astrofisica, medicina ecc...).
@@ -326,19 +326,16 @@ Il GPGPU (General-Purpose computing on Graphics Processing Units) è un tipo di 
 ### **Grafica computzionale**
 Consiste nella produzione di immagini bitmap basate su dati acquisiti da una fonte esterna o calcolati mediante un modello computazionale. Le varie fasi si distinguono nella definizione degli oggetti nella scena e nel rendering dell'immagine.
 - ***Pipeline grafica***: insieme di operazioni per la resa grafica.
-
-### **Operazioni di rendering**
+#### **Operazioni di rendering**
 - **trasferimento della descrizione della scena**: insieme dei vertici che definiscono gli oggetti, i dati associati all'illuminazione della scena, le texture, il punto di vista dell'osservatore.
 - **trasformazioni dei vertici**: rotazioni, ridimensionamento e traslazione degli oggetti
 - **ritaglio**:  eliminazione degli oggetti o di parti di essi non visibili dal punto di vista dell'osservatore.
 - **illuminazione e ombreggiatura**:valutazione delle interazioni delle sorgenti luminose con le forme, valutandone l'ombreggiamento.
 - **rasterization**: generazione dell'immagine bitmap. Le coordinate 3D vengono trasformate in coordinate 2D. Vengono applicate anche trame e altri effetti grafici.
 
-OpenCL è il primo standard aperto e privo di royalty per la programmazione parallela multipiattaforma di processori moderni presenti in personal computer, server e dispositivi palmari/incorporati.
-
 ### **Computer architectures secondo la tassonomia di Flynn**
 - **SISD**: Istruzione singola su Single Data (es. Architetture Von Neumann tradizionale).
-- **SIMD**: Istruzione Singola su Dati Multipli (es.Processori vettoriali).
+- **SIMD**: Istruzione Singola su Dati Multipli (es. Processori vettoriali).
     - Esegue un singolo set di istruzioni su diversi set di dati utilizzando diverse unità di calcolo contemporaneamente.
     - Il recupero e la decodifica delle istruzioni si verificano solo una volta.
     - Esiste un'unica unità di controllo (CU) che gestisce il flusso di istruzioni di un determinato programma.
@@ -355,6 +352,7 @@ L'esecuzione viene organizzata in Thread. Ogni SM crea, gestisce, schedula ed es
 <hr>
 
 ## **OpenCL**
+OpenCL è il primo standard aperto e privo di royalty per la programmazione parallela multipiattaforma di processori moderni presenti in personal computer, server e dispositivi palmari/incorporati.
 - Standard di calcolo eterogeneo multicore;
 - Funziona su diversi dispositivi (CPU, GPU, DSP, ecc.);
 - Per più fornitori (nVidia, AMD, Intel, ecc.);
