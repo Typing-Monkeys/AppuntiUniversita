@@ -388,7 +388,7 @@ Il Parallel Computing è una forma di calcolo in cui vengono eseguiti molti calc
 questione e l'abilità dell'algoritmo o del progettista del software consiste nell'identificare le forme di parallelismo presenti nel problema sottostante. Esempi di attività che possono essere eseguite in modo più efficiente e veloce utilizzando la parallelizzazione:
 - Moltiplicazione degli elementi di due array
 - Filtrare una serie di immagini usando FFT
-- Trovare le occorrenze di a stringa in un testo
+- Trovare le occorrenze di una stringa in un testo
 
 ### **Concorrenza**
 La concorrenza riguarda due o più attività che si verificano contemporaneamente. Quando parliamo di concorrenza nella programmazione, intendiamo un singolo sistema che esegue più attività in modo indipendente. Sebbene sia possibile che attività simultanee possano essere eseguite contemporaneamente (cioè in parallelo), questo non è un requisito.
@@ -448,14 +448,14 @@ Durante la programmazione per dispositivi OpenCL, in particolare GPU, le prestaz
     - Nell'elaborazione delle immagini, la convoluzione è un algoritmo comunemente usato che modifica il valore di ciascun pixel in un'immagine utilizzando le informazioni dei pixel vicini. Un kernel di convoluzione, o filtro, descrive come ogni pixel sarà influenzato dai suoi vicini. 
     - Ad esempio, un kernel sfocato prenderà la media pesata dei pixel vicini in modo da ridurre le grandi differenze tra i valori dei pixel.
     - Utilizzando la stessa immagine sorgente e cambiando solo il filtro, è possibile produrre effetti come nitidezza, sfocatura, miglioramento dei bordi e rilievo.
-    - Un kernel di convoluzione funziona iterando su ogni pixel nell'immagine sorgente. Per ogni pixel sorgente, il filtro è centrato ei valori del filtro moltiplicano i valori dei pixel che si sovrappongono. Viene quindi presa una somma dei prodotti per produrre un nuovo valore di pixel.<br>
+    - Un kernel di convoluzione funziona iterando su ogni pixel nell'immagine sorgente. Per ogni pixel sorgente, il filtro è centrato e i valori del filtro moltiplicano i valori dei pixel che si sovrappongono. Viene quindi presa una somma dei prodotti per produrre un nuovo valore di pixel.<br>
 ![condor evil](./imgs/image_convolution.png)<br>
 
 <hr>
 
 # **Cloud Computing**
 
-È un termine che serve per indicare un'ampia classe di Network Based Compuiting, in pratica è una collezione di Hardware e Software che tramite l'utilizzo di Internet forniscono vari servizi ai client nascondendo le caratteristiche dell'infrastruttura, fornendo agli utenti un'interfaccia grafica o API molto semplice. I servizi di cloud computing vengono forniti on demand e quindi sono sempre disponibili. Tecnologie come cluster e ora il cloud computing hanno tutte l'obiettivo di consentire l'accesso a grandi quantità di potenza di calcolo in modo completamente virtualizzato.
+È un termine che serve per indicare un'ampia classe di Network Based Computing, in pratica è una collezione di Hardware e Software che tramite l'utilizzo di Internet forniscono vari servizi ai client nascondendo le caratteristiche dell'infrastruttura, fornendo agli utenti un'interfaccia grafica o API molto semplice. I servizi di cloud computing vengono forniti on demand e quindi sono sempre disponibili. Tecnologie come cluster e ora il cloud computing hanno tutte l'obiettivo di consentire l'accesso a grandi quantità di potenza di calcolo in modo completamente virtualizzato.
 
 Il cloud computing è molto utile perché permette alle aziende una riduzione dei costi di gestione. Con questa tecnologia non è più necessario acquistare costosi programmi software o hardware, e non servono neppure grandi server per la memorizzazione dei dati (server che andrebbero tenuti accessi 24 ore su 24 con grosse spese elettriche, e che andrebbero gestiti dal personale IT). Tutte le spese di manutenzione e gestione dell’hardware, sono a carico del provider di servizi. Questo permetterà all'azienda di rimanere sempre al passo non solo con le ultime novità in fatto di tecnologia, ma anche di restare a norma di legge grazie ai costanti aggiornamenti correttivi o evolutivi del provider. Queste proprietà rendono il cloud computing molto **flessibile** e con **grande potenziale sia economico che applicativo.**
 
@@ -531,6 +531,36 @@ Le varie componenti del cloud coputing sono:
     - Cloud Service
 
 
+## **IAAS**
+Fornisce l'accesso a risorse fondamentali come macchine fisiche, macchine virtuali, storage virtuale, ecc.
+Oltre a queste risorse, IaaS offre anche:
+1. Archiviazione su disco della macchina virtuale 
+2. Bilanciatore del carico della rete 
+3. Rete locale (VLAN) virtuale
+4. Indirizzi IP
+5. Pacchetti software
+
+Tutte le risorse di cui sopra sono messe a disposizione dell'utente finale tramite la virtualizzazione del server.
+
+**Vantaggi**
+- Controllo completo delle risorse di calcolo tramite l'accesso amministrativo alle VM.
+- Noleggio flessibile ed efficiente di hardware per computer.
+- Portabilità, interoperabilità con applicazioni legacy
+
+IaaS consente al consumatore di accedere alle risorse di elaborazione tramite l'accesso amministrativo alle macchine virtuali nel modo seguente:
+- Il consumatore invia un comando amministrativo al provider di servizi cloud per eseguire la macchina virtuale o per salvare i dati sul server del cloud.
+- Il consumatore invia il comando amministrativo alle macchine virtuali di sua proprietà per avviare il server Web o installare nuove applicazioni.
+
+**Svantaggi**
+- Noleggio hardware per computer:
+    - Le risorse IaaS come macchine virtuali, storage, larghezza di banda, indirizzi IP, servizi di monitoraggio, firewall, ecc., sono tutte messe a disposizione dei consumatori in affitto.
+    - Il consumatore deve pagare in base al periodo di tempo in cui un consumatore conserva una risorsa. Inoltre, con l'accesso amministrativo alle macchine virtuali, il consumatore può anche eseguire qualsiasi software, anche un sistema operativo personalizzato.
+- Portabilità, interoperabilità con applicazioni legacy:
+    - È possibile mantenere l'eredità tra applicazioni e carichi di lavoro tra cloud IaaS. 
+    Ad esempio, le applicazioni di rete come server Web e server di posta elettronica che normalmente vengono eseguiti su hardware server di proprietà del consumatore possono essere eseguite anche da macchine virtuali nel cloud IaaS.
+
+<hr>
+
 ### Cloud pubblici
 I cloud pubblici sono il tipo più comune di distribuzione di cloud computing. Le risorse cloud, come server e archiviazione, appartengono a e sono gestite da un provider di servizi cloud di terze parti e vengono distribuite tramite Internet. Con un cloud pubblico, tutto l'hardware, il software e altre infrastrutture di servizio sono di proprietà e gestite dal provider di servizi cloud. Microsoft Azure è un esempio di cloud pubblico. In un cloud pubblico condividi lo stesso hardware, le stesse risorse di archiviazione e gli stessi dispositivi di rete con altre organizzazioni, accedi ai servizi e gestisci il tuo account tramite un Web browser. Le distribuzioni di cloud pubblico vengono spesso usate per fornire posta elettronica basata sul Web, applicazioni Office online, risorse di archiviazione e ambienti di test e di sviluppo.
 
@@ -567,7 +597,7 @@ OpenNebula è un toolkit di cloud computing open source per la gestione di centr
 OpenNebula gestisce tecnologie di memoria, la rete, la monitorizzazione della virtualizzazione e la sicurezza per implementare servizi multi-livello come macchine virtuali su infrastrutture distribuite, combinando le risorse dei centri di elaborazione e le risorse remote della "nuvola", secondo le politiche di allocazione. Il toolkit fornisce funzioni per **l'integrazione, la gestione, la scalabilità, la sicurezza e la gestione delle risorse**.
 
 ### **OpenStack**
-OpenStack è una piattaforma di cloud computing standard aperta e gratuita . Viene distribuito principalmente come Infrastructure-as-a-Service (IaaS) sia in cloud pubblici che privati, in cui i server virtuali e altre risorse sono messi a disposizione degli utenti. La piattaforma software è costituita da componenti interconnessi che controllano diversi pool hardware multi-vendor di elaborazione, storage e risorse di rete in un data center . Gli utenti lo gestiscono tramite un dashboard basato sul Web, tramite strumenti da riga di comando o tramite servizi Web RESTful .
+OpenStack è una piattaforma di cloud computing standard aperta e gratuita . Viene distribuito principalmente come Infrastructure-as-a-Service (IaaS) sia in cloud pubblici che privati, in cui i server virtuali e altre risorse sono messi a disposizione degli utenti. La piattaforma software è costituita da componenti interconnessi che controllano diversi pool hardware multi-vendor di elaborazione, storage e risorse di rete in un data center. Gli utenti lo gestiscono tramite un dashboard basato sul Web, tramite strumenti da riga di comando o tramite servizi Web RESTful.
 
 ### **ownCloud** 
 ownCloud è un software libero che permette di gestire un completo servizio di file hosting.
@@ -575,39 +605,13 @@ Il codice sorgente del server di ownCloud è pubblicato sotto i termini della li
 
 ### **NextCloud**
 Nextcloud è una suite di software client-server per la creazione e l'utilizzo di servizi di file hosting, di cloud storage, di memorizzazione e sincronizzazione online. Nextcloud è software libero e open-source, il che significa che chiunque può installarlo e utilizzarlo sui propri server. Nextcloud, grazie all'integrazione con OnlyOffice o Collabora Online, è funzionalmente simile a Dropbox, Office 365 o Google Drive.
-Lo sviluppatore originale di ownCloud Frank Karlitschek ha creato NextCloud da un fork da ownCloud. NextCloud è attivamente sviluppato da Karlitschek e altri membri del team originale di ownCloud.
-
-### **IAAS**
-Fornisce l'accesso a risorse fondamentali come macchine fisiche, macchine virtuali, storage virtuale, ecc.
-Oltre a queste risorse, IaaS offre anche:
-1. Archiviazione su disco della macchina virtuale 
-2. Bilanciatore del carico della rete 
-3. Rete locale (VLAN) virtuale
-4. Indirizzi IP
-5. Pacchetti software
-
-Tutte le risorse di cui sopra sono messe a disposizione dell'utente finale tramite la virtualizzazione del server.
-
-**Vantaggi**
-- Controllo completo delle risorse di calcolo tramite l'accesso amministrativo alle VM.
-- Noleggio flessibile ed efficiente di hardware per computer.
-- Portabilità, interoperabilità con applicazioni legacy
-
-IaaS consente al consumatore di accedere alle risorse di elaborazione tramite l'accesso amministrativo alle macchine virtuali nel modo seguente:
-- Il consumatore invia un comando amministrativo al provider di servizi cloud per eseguire la macchina virtuale o per salvare i dati sul server del cloud.
-- Il consumatore invia il comando amministrativo alle macchine virtuali di sua proprietà per avviare il server Web o installare nuove applicazioni.
-
-**Svantaggi**
-- Noleggio hardware per computer:
-    - Le risorse IaaS come macchine virtuali, storage, larghezza di banda, indirizzi IP, servizi di monitoraggio, firewall, ecc., sono tutte messe a disposizione dei consumatori in affitto.
-    - Il consumatore deve pagare in base al periodo di tempo in cui un consumatore conserva una risorsa. Inoltre, con l'accesso amministrativo alle macchine virtuali, il consumatore può anche eseguire qualsiasi software, anche un sistema operativo personalizzato.
-- Portabilità, interoperabilità con applicazioni legacy:
-    - È possibile mantenere l'eredità tra applicazioni e carichi di lavoro tra cloud IaaS. 
-    Ad esempio, le applicazioni di rete come server Web e server di posta elettronica che normalmente vengono eseguiti su hardware server di proprietà del consumatore possono essere eseguite anche da macchine virtuali nel cloud IaaS.
+Lo sviluppatore originale di ownCloud, Frank Karlitschek, ha creato NextCloud da un fork di ownCloud. NextCloud è attivamente sviluppato da Karlitschek e altri membri del team originale di ownCloud.
 
 ### Il fenomeno del **lock-in** nel cloud
 Si verifica nel momento in cui un cliente (ad es. un'azienda) si trova in un rapporto di dipendenza con il fornitore dei servizi. Ciò si verifica nei casi in cui il cliente riscontri notevoli difficoltà economiche e organizzative nel cambiare il fornitore dei servizi con uno equivalente con il medesimo scopo. Questo succede perché non sono a tutti gli effetti disponibili le informazioni essenziali sul sistema in uso; parametri che consentirebbero a un nuovo fornitore di subentrare in modo rapido ed efficace.
 Più un provider è in possesso di elementi unici e indispensabili, di cui è il solo depositario, e più questo vincolo diventa reale e complesso da allentare. Che si tratti di informazioni esclusive e riservate, oppure di componenti sviluppati su misura, una cosa è certa: il rapporto fornitore-cliente è fortemente sbilanciato a favore del primo. In questo modo il provider può più facilmente imporre modifiche contrattuali, preventivi o ricambi, sapendo che per il cliente una eventuale uscita sarebbe difficile e, con tutta probabilità, onerosa. In questo senso, come evidenziato nel European Interoperability Framework è sempre opportuno puntare su piattaforme open.
+
+<hr>
 
 # **Docker**
 
