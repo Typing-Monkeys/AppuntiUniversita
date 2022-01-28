@@ -625,7 +625,7 @@ Essere limitati a contenitori solo temporanei limiterebbe notevolmente i casi d'
 Docker permette di risolvere questo problema tramite:
 
 - ## **Volumi**: 
-    - i volumi memorizzano i file sul filesystem dell'host locale per fornire persistenza e sono l'opzione preferita per aggiungere dati persistenti a un container.. Sono cartelle che vengono gestite in automatico da docker dove è possibile salvare file in modo permanente. Generalmente vengono create in `/var/lib/docker/volumes`. Essendo gestite in automatico da Docker, è pssobile gestirle con facilità (eliminazione, creazione, ecc).
+    - i volumi memorizzano i file sul filesystem dell'host locale per fornire persistenza e sono l'opzione preferita per aggiungere dati persistenti a un container. Sono cartelle che vengono gestite in automatico da docker dove è possibile salvare file in modo permanente. Generalmente vengono create in `/var/lib/docker/volumes`. Essendo gestite in automatico da Docker, è possobile gestirle con facilità (eliminazione, creazione, ecc).
     - Prima di utilizzare un volume con un contenitore, è necessario crearlo. La creazione di un volume Docker può essere eseguita manualmente utilizzando la Docker CLI o automaticamente dal daemon Docker all'avvio di un container. Poiché entrambi i metodi sono creati da Docker, sono di proprietà e gestiti da Docker stesso, il che ne semplifica la gestione e il monitoraggio. Quando si crea un volume Docker, si possono fornire opzioni come un nome o un'etichetta.
     - Un volume può anche essere creato in modo **anonimo** (senza nome). Può essere difficile però tenere traccia di un volume anonimo. Pertanto, è considerata una procedura consigliata assegnare un nome al volume al momento della creazione, anziché consentire a Docker di generare un nome di volume anonimo.
     - **Montaggio di un volume in un contenitore**
@@ -815,16 +815,17 @@ Utile per gestire i container docker in autonomia e semplicità gestendo anche: 
 Kubernetes fornisce un framework per sistemi distribuiti. Si occupa del ridimensionamento e del failover delle applicazioni, fornisce modelli di distribuzione e altro ancora.
 
 
-Kubernetes ti fornisce:
+Kubernetes fornisce:
 
-- Bilanciamento del carico
+- **Bilanciamento del carico**
     -  Kubernetes può esporre un container utilizzando il nome DNS o utilizzando il proprio indirizzo IP. Se il traffico verso un container è elevato, Kubernetes è in grado di bilanciare il carico e distribuire il traffico di rete in modo che la distribuzione sia stabile.
-- Orchestrazione dello storage permettendo di montare volumi o cartelle in modo semlice
-- Rollout e rollback automatizzati
+- Orchestrazione dello storage permettendo di **montare volumi** o cartelle in modo semlice
+- **Rollout e rollback automatizzati**
     - puoi automatizzare Kubernetes per creare nuovi container per la tua distribuzione, rimuovere i container esistenti e adottare tutte le loro risorse nel nuovo container.
-- Ottimizzazione dei carichi
+- **Ottimizzazione dei carichi**
     - Fornendo a Kubernetes un cluster di nodi che può utilizzare per eseguire attività containerizzate si può impostare quanta CPU e memoria (RAM) assegnare ad ogni container e Kubernetes può adattare i container ai nodi per sfruttare al meglio le risorse.
-- Self-healing: riavvia i container che si bloccano, sostituisce container, termina i container che non rispondono agli health checks, e evita di far arrivare traffico ai container che non sono ancora pronti per rispondere correttamente.
+- **Self-healing**
+    - riavvia i container che si bloccano, sostituisce container, termina i container che non rispondono agli health checks, e evita di far arrivare traffico ai container che non sono ancora pronti per rispondere correttamente.
 - Gestione di informazioni sensibili (passowrd, chiavi SSH, OAuth token, ecc.)
 
 ### Componenti di kubernets
