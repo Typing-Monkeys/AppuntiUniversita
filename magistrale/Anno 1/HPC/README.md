@@ -195,7 +195,7 @@ Se un'unità si guasta, il controller utilizza l'unità dati o l'unità mirror p
 
 - **RAID 6** - striping double parity: si realiza con un minimo di 4 dischi di cui 2 sono adibiti a salvare i checksum dei dati. <br>![raid 6](./imgs/raid6.png)<br>
 RAID 6 è come RAID 5, ma i dati di parità vengono scritti su due unità. Ciò significa che richiede almeno 4 unità e può resistere se 2 unità muoiono contemporaneamente.
-    - Vantaggi: gli stessi di RAID 5 ed in puù il sistema può sopravvivere al secondo guasto.
+    - Vantaggi: gli stessi di RAID 5 ed in più il sistema può sopravvivere al secondo guasto.
     - Svantaggi: le transazioni di scrittura dei dati sono più lente di RAID 5 a causa dei dati di parità aggiuntivi che devono essere calcolati.
     - Utilizzo consigliato: è preferibile rispetto a RAID 5 nei server di file e applicazioni che utilizzano molte unità di grandi dimensioni per l'archiviazione dei dati.
 
