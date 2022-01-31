@@ -37,7 +37,7 @@ I principali metodi per migliorare la potenza di caclolo sono:
 
 Con l'avanzamento delle tecnologie è possibile realizzare processori che richiedono un apporto energetico sempre più basso, con una densità di transistor sempre più elevata. 
 
-Questo è evidenziato **dalla legge di Moore** che però negli ultimi anni non è più valida a causa dei limit fisici che si incontrano quando si rimpiccioliscono più di tanto i transistor.
+Questo è evidenziato **dalla legge di Moore** che però negli ultimi anni non è più valida a causa dei limiti fisici che si incontrano quando si rimpiccioliscono più di tanto i transistor.
 
 ## **Quantum computing**
 
