@@ -890,7 +890,7 @@ Per contrassegnare un nodo come non “schedulabile”, eseguire:
 - **Oggetti di tipo  spec e stato**:
 
     Quasi tutti gli oggetti Kubernetes includono due campi oggetto nidificati che governano la configurazione dell'oggetto: l'oggetto spec e l'oggetto stato.
-    - **Oggetto spec**: Per gli oggetti che hanno a specifica spec, devi impostarlo quando crei l'oggetto, fornendo una descrizione delle caratteristiche che vuoi che la risorsa abbia.
+    - **Oggetto spec**: Per gli oggetti che hanno la specifica spec, devi impostarlo quando crei l'oggetto, fornendo una descrizione delle caratteristiche che vuoi che la risorsa abbia.
     - **Oggetto stato**: Lo stato descrive il corrente stato dell'oggetto, fornito e aggiornato dal sistema Kubernetes e dai suoi componenti. Il piano di controllo di Kubernetes gestisce continuamente e attivamente l'effettivo di ogni oggetto stato per abbinare lo stato fornito.
 
 - **Descrivere un oggetto Kubernetes**:
