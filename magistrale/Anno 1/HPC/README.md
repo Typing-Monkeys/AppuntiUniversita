@@ -926,5 +926,5 @@ Per contrassegnare un nodo come non “schedulabile”, eseguire:
         - Le modifiche apportate direttamente agli oggetti live vengono mantenute, anche se non vengono nuovamente unite nei file di configurazione. 
         - La configurazione dichiarativa dell'oggetto offre un supporto migliore per operare su directory e rilevare automaticamente i tipi di operazione (creazione, patch, eliminazione) per oggetto. 
     - **Svantaggi** rispetto alla configurazione imperativa degli oggetti: 
-        - La configurazione dell'oggetto dichiarativo è più difficile da eseguire il debug e comprendere i 	risultati quando sono imprevisti.
+        - Nella configurazione dell'oggetto dichiarativo è più difficile eseguire il debug e comprendere i risultati quando sono imprevisti.
         - Gli aggiornamenti parziali che utilizzano le differenze creano complesse operazioni di unione e patch.
