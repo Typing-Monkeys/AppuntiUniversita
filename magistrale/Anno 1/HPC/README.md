@@ -25,7 +25,7 @@ Negli ultimi anni l'Europa ha investito moltissimi fondi nello sviluppo di centr
 
 Questa branca dell'informatica è detta **High Performance Computing** e studia come è possibile raggiungere queste immense potenze di calcolo.
 
-I principali metodi per migliorare la potenza di caclolo sono:
+I principali metodi per migliorare la potenza di calcolo sono:
 
 - Architetture innovative
 - Quantoum comuting
