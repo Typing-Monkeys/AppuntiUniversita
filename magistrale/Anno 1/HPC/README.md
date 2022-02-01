@@ -717,7 +717,7 @@ Quando si utilizza la rete bridge predefinita vanno considerate le se seguenti c
 - I container che utilizzano il bridge predefinito devono essere arrestati prima di poterli spostare su una rete diversa.
 
 È consigliato quindi utilizzare un rete bridge definita dall'utente.
-Se si avvia un container senza un'opzione di rete, verrà avviato connesso alla rete bridge predefinita. È tuttavia possibile **avviare un container senza una rete** collegata utilizzando il comando **--network=none** selezionabile quando si avviia il contenitore. Questo è lo stesso processo che si esegue quando viene avviato un container con una rete definita dall'utente.
+Se si avvia un container senza un'opzione di rete, verrà avviato connesso alla rete bridge predefinita. È tuttavia possibile **avviare un container senza una rete** collegata utilizzando il comando **--network=none** selezionabile quando si avvia il contenitore. Questo è lo stesso processo che si esegue quando viene avviato un container con una rete definita dall'utente.
 
 ### Esporre i servizi di container
 Per poter accedere dall'esterno è necessario aprire le porte e farne un binding/forwarding. Docker offre due soluzioni:
