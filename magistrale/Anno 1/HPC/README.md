@@ -826,7 +826,7 @@ Kubernetes fornisce:
     - Fornendo a Kubernetes un cluster di nodi che può utilizzare per eseguire attività containerizzate si può impostare quanta CPU e memoria (RAM) assegnare ad ogni container e Kubernetes può adattare i container ai nodi per sfruttare al meglio le risorse.
 - **Self-healing**
     - riavvia i container che si bloccano, sostituisce container, termina i container che non rispondono agli health checks, e evita di far arrivare traffico ai container che non sono ancora pronti per rispondere correttamente.
-- Gestione di informazioni sensibili (passowrd, chiavi SSH, OAuth token, ecc.)
+- Gestione di informazioni sensibili (password, chiavi SSH, OAuth token, ecc.)
 
 ### Componenti di kubernets
 Quando si utilizza Kubernetes, si ha un cluster. Un cluster Kubernetes è costituito da un insieme di macchine worker, chiamate nodi, che eseguono applicazioni containerizzate. Ogni cluster ha almeno un nodo di lavoro. I nodi di lavoro ospitano i pods che sono i componenti del carico di lavoro dell'applicazione. Il piano di controllo gestisce i nodi di lavoro e i pods nel cluster. Negli ambienti di produzione, il piano di controllo viene solitamente eseguito su più computer e un cluster esegue solitamente più nodi, fornendo tolleranza agli errori e disponibilità elevata.
