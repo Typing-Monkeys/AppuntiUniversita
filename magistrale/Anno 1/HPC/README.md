@@ -166,7 +166,7 @@ A livello di software è importante gestire il parallelismo che può essere di 3
 - **Grana Fine**: le interazioni tra le parti di codice sono molto frequenti (richiede un rete molto efficiente)
 
 ### **Selezione dell'hardware**
-Lo scopo finale di utilizzo di un cluster determina le caratteristiche hardware necessarie (utilizzare computer già di proprietà, assemblare nuovi pc o acqusitare pc preassemblati). Tuttavia i vincoli di budget possono costringere a soluzioni meno ideali. Un consiglio è quello di (se possibile) utilizzare sistemi identici per i nodi, in questo modo sarà sufficiente clonare le varie macchine e la relativa manutenzione e riparazione sarà più semplice.
+Lo scopo finale di utilizzo di un cluster determina le caratteristiche hardware necessarie (utilizzare computer già di proprietà, assemblare nuovi pc o acquistare pc preassemblati). Tuttavia i vincoli di budget possono costringere a soluzioni meno ideali. Un consiglio è quello di (se possibile) utilizzare sistemi identici per i nodi, in questo modo sarà sufficiente clonare le varie macchine e la relativa manutenzione e riparazione sarà più semplice.
 - **CPU e scheda madre**
     - Rappresentano le componenti cruciali dell'ambiente. Per alte prestazioni (fattori critici: frequenza di clock del processore, dimensione della cache, Velocità del bus, capacità di memoria, velocità di accesso al disco, latenza di rete) le due parti devono essere totalmente compatibili. La frequenza di clock dovrebbe essere confrontata considerando il costo totale dei nodi. L'ultimo modello sul mercato generalmente non è la scelta giusta.
 - **Memoria e cache**
