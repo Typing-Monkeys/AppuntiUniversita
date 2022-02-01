@@ -819,7 +819,7 @@ Kubernetes fornisce:
 
 - **Bilanciamento del carico**
     -  Kubernetes può esporre un container utilizzando il nome DNS o utilizzando il proprio indirizzo IP. Se il traffico verso un container è elevato, Kubernetes è in grado di bilanciare il carico e distribuire il traffico di rete in modo che la distribuzione sia stabile.
-- Orchestrazione dello storage permettendo di **montare volumi** o cartelle in modo semlice
+- Orchestrazione dello storage permettendo di **montare volumi** o cartelle in modo semplice
 - **Rollout e rollback automatizzati**
     - puoi automatizzare Kubernetes per creare nuovi container per la tua distribuzione, rimuovere i container esistenti e adottare tutte le loro risorse nel nuovo container.
 - **Ottimizzazione dei carichi**
