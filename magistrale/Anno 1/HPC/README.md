@@ -23,7 +23,7 @@
 Al giorno d'oggi il potere computazionale richiesto è sempre in aumento, questo vale per i campi più disparati come in ambito medico e sperimentale, nella simulazione di legami chimici e in ambito finanziario.
 Negli ultimi anni l'Europa ha investito moltissimi fondi nello sviluppo di centri di calcolo per provare a raggiungere una potenza di calcolo di 10^18 operazioni al secondo.
 
-Questa branca dell'informatica è detta **High Performance Computing** e studia come è possibile raggingere queste immense potenze di calcolo.
+Questa branca dell'informatica è detta **High Performance Computing** e studia come è possibile raggiungere queste immense potenze di calcolo.
 
 I principali metodi per migliorare la potenza di caclolo sono:
 
