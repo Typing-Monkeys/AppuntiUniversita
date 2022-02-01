@@ -160,7 +160,7 @@ Sono pacchetti software che automatizzano il processo di installazione di un clu
 <hr>
 
 ## Costruzione di un Cluster
-A livello di software è imporante gestire il parallelismo che può essere di 3 tipi:
+A livello di software è importante gestire il parallelismo che può essere di 3 tipi:
 - **Grana Grossa**: Il codice è suddiviso in blocchi che richiedono un interazione minima tra di loro
 - **Grana Media**: il blocco richiede qualche tipo di interazione con altri blocchi (sync points). Le informazioni vengono scampiate tramite MPI.
 - **Grana Fine**: le interazioni tra le parti di codice sono molto frequenti (richiede un rete molto efficiente)
