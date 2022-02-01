@@ -82,7 +82,7 @@ Ci sono vari tipi di cluster:
 - ## **Load Balacing cluster**
     - Le richieste di servizi vengono gestite e distribuite sui nodi disponibili in modo da mantenere il carico di lavoro più omogeneo possibile. Entrambe le tecnologie cluster ad alta disponibilità e bilanciamento del carico possono essere combinate per aumentare l'affidabilità, disponibilità, e scalabilità di applicazioni e risorse di dati ampiamente distribuite per servizi Web, posta, notizie o FTP. Il Load Balancing Cluster può essere implementato utilizzando l'algoritmo Round-Robin dei DNS oppure utilizzando altri strumenti che permettono lo scambio di informazioni tra i nodi.
 - ## **Parallel Distributed Processing**
-    - Normalmente utilizzato in ambiti scentifici per simulazioni e altro. Questi tipi di cluster aumentano la disponibilità, le prestazioni e la scalabilità delle applicazioni, in particolare attività computazionali o ad alta intensità di dati. Viene utilizzato per eseguire richieste molto costose in code di batch. Viene anche chiamato High Throughput Computing cioè sistemi che permettono di eseguire molte operazioni di calcolo su un lungo periodo di tempo. Un esempio di queto software è HTCondor.
+    - Normalmente utilizzato in ambiti scientifici per simulazioni e altro. Questi tipi di cluster aumentano la disponibilità, le prestazioni e la scalabilità delle applicazioni, in particolare attività computazionali o ad alta intensità di dati. Viene utilizzato per eseguire richieste molto costose in code di batch. Viene anche chiamato High Throughput Computing cioè sistemi che permettono di eseguire molte operazioni di calcolo su un lungo periodo di tempo. Un esempio di questo software è HTCondor.
 
 Applicazioni di cluster:
 - Compute Intense
