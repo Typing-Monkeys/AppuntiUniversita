@@ -189,7 +189,7 @@ Se un'unità si guasta, il controller utilizza l'unità dati o l'unità mirror p
     - Utilizzo consigliato: RAID-1 è ideale per l'archiviazione mission-critical, ad esempio per i sistemi di contabilità. È adatto anche per server di piccole dimensioni in cui verranno utilizzate solo due unità dati.
 
 - **RAID 5** - striping parity: si realizza con minimo 3 dischi di cui uno è adibito a salvare il checksum dei dati. <br>![raid 5](./imgs/raid5.png)<br>
-    - Vantaggi: utilizzando i dati di parità, il computer può ricalcolare i dati di uno degli altri blocchi di dati, qualora quei dati non fossero più disponibili. Ciò significa che un array RAID 5 può resistereun singolo guasto dell'unità senza perdere dati.
+    - Vantaggi: utilizzando i dati di parità, il computer può ricalcolare i dati di uno degli altri blocchi di dati, qualora quei dati non fossero più disponibili. Ciò significa che un array RAID 5 può resistere ad un singolo guasto dell'unità senza perdere dati.
     - Svantaggi: questa è una tecnologia complessa. Se uno dei dischi in un array che utilizza dischi da 4 TB si guasta e viene sostituito, il ripristino dei dati (il tempo di ricostruzione) potrebbe richiedere un giorno o più, a seconda del carico sull'array e della velocità del controller. Se un altro disco si guasta durante quel periodo, i dati vengono persi per sempre.
     - Utilizzo consigliato: RAID 5 è un buon sistema a tutto tondo che combina un'archiviazione efficiente con un'eccellente sicurezza e prestazioni decenti. È ideale per server di file e applicazioni che dispongono di un numero limitato di unità dati.
 
