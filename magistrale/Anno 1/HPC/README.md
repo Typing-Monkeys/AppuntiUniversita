@@ -285,7 +285,7 @@ _Condor Daemon Layout_
     - ```LOCAL_CONFIG_FILE``` è il file di configurazione locale specifico della macchina per ogni host. È presente nella directory ```/home/etc/condor/condor_config.local```.
     - ```LOCAL_CONFIG_DIR``` è la directory condor locale per ogni host. È presente nella directory  ```/etc/condor/config.d```
 - **Configuration File Macros** </br>
-    Le definizioni delle macro hanno la forma: <nome_macro> = <definizione_macro></br>
+    Le definizioni delle macro hanno la forma: `<nome_macro> = <definizione_macro>`</br>
     NOTA: è necessario disporre di uno spazio vuoto tra il nome della macro, il segno "=" e la definizione della macro. </br>
     Le invocazioni delle macro hanno la forma: **$(nome_macro)**.
 - **Sicurezza**
