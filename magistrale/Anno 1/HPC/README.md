@@ -882,7 +882,7 @@ Per contrassegnare un nodo come non “schedulabile”, eseguire:
 
     Quasi tutti gli oggetti Kubernetes includono due campi oggetto nidificati che governano la configurazione dell'oggetto: l'oggetto spec e l'oggetto stato.
     - **Oggetto spec**: Per gli oggetti che hanno la specifica spec, devi impostarlo quando crei l'oggetto, fornendo una descrizione delle caratteristiche che vuoi che la risorsa abbia.
-    - **Oggetto stato**: Lo stato descrive il corrente stato dell'oggetto, fornito e aggiornato dal sistema Kubernetes e dai suoi componenti. Il piano di controllo di Kubernetes gestisce continuamente e attivamente l'effettivo di ogni oggetto stato per abbinare lo stato fornito.
+    - **Oggetto stato**: Lo stato descrive il corrente stato dell'oggetto, fornito e aggiornato dal sistema Kubernetes e dai suoi componenti. Il piano di controllo di Kubernetes gestisce continuamente e attivamente l'effettivo stato di ogni oggetto per abbinare lo stato fornito.
 
 - **Descrivere un oggetto Kubernetes**:
     Quando crei un oggetto in Kubernetes, devi fornire l'oggetto spec che descrive lo stato desiderato, nonché alcune informazioni di base sull'oggetto (come un nome). Quando utilizzi l'API Kubernetes per creare l'oggetto (direttamente o tramite kubectl), tale richiesta API deve includere tali informazioni come JSON nel corpo della richiesta. Solitamente, si forniscono le informazioni a kubectl in un file yaml. Kubectl converte successivamente le informazioni in JSON durante la creazione dell'API request.apiVersion: apps/v1. Esempio:
