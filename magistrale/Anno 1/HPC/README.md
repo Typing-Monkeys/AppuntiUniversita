@@ -642,7 +642,7 @@ Docker permette di risolvere questo problema tramite:
         ```bash
         docker run --name mysql-01 -v pv-mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mia-password -d mysql:v2
         ```
-        Questo lancerà il nostro nuovo MySQL:v2 container con lo stesso volume del container precedente, con il database esistente completamente intatto.
+        Questo lancerà il nostro nuovo `MySQL:v2` container con lo stesso volume del container precedente, con il database esistente completamente intatto.
     - **Montaggio di un volume su più container**
         - E se avessi un'applicazione che richiede più contenitori e ognuno di essi richiede esattamente gli stessi dati? Sebbene sia possibile creare un volume per ogni contenitore e copiare i dati in ciascuno, un metodo più efficiente sarebbe condividere un singolo volume tra più contenitori. Una caratteristica unica dei volumi Docker è che più contenitori possono accedere allo stesso volume. Sebbene sembri una soluzione semplice per fornire un'unica posizione ai dati condivisi, è necessario tenere presente che non tutte le applicazioni funzionano bene quando più processi accedono agli stessi dati. Quando si avvia ogni istanza, si usano semplicemente gli stessi nomi per il volume:
         ```bash
