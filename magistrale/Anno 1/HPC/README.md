@@ -7,7 +7,7 @@
 - [Quantum computing](#quantum-computing)
 - [Cluster Computing](#cluster-computing)
     - [High Availability Cluster](#high-availability-cluster)
-    - [Load Balacing](#load-balacing)
+    - [Load Balacing Cluster](#load-balacing-cluster)
     - [Parallel Distributed Processing](#parallel-distributed-processing)
     - [Il progetto Linux-HA](#il-progetto-linux-ha)
     - [Costruzione di un Cluster](#costruzione-di-un-cluster)
@@ -218,7 +218,7 @@ Questo semplifica alcune operazioni:
 - Tutti i file risiedono sullo stesso file system.
 - Le procedure di backup sono facilitate.
 - L'accesso ai file eseguibili e di input è facilitato.
-- Il file /etc/exports deve essere modificato per specificare quali macchine possono montare quali directory e come.
+- Il file `/etc/exports` deve essere modificato per specificare quali macchine possono montare quali directory e come.
 - Se è attivo un firewall blocca il traffico NFS: in caso di problemi questa è la prima cosa da controllare
 - Anche gli ID utente e di gruppo possono creare sorprese. Gli ID utente e gruppo devono essere
 coerenti tra i sistemi che utilizzano NFS (ogni utente deve avere un ID identico su tutti i sistemi).
@@ -318,7 +318,7 @@ Per qualsiasi altro dubbio, informazione sui comandi e per problemi di debug è 
 
 # **GPGPU**
 
-Il GPGPU (General-Purpose computing on Graphics Processing Units) è un tipo di HPC che sfrutta l'architettura con alto grado di parallelismo (permesso dalle migliaia di core) delle schede video per migliorare le performances. Le GPU sono particolarmente adatte per applicazioni SIMD (vedi dopo) (la stessa architettura dei computer vettoriali), le quali sono utilizzate per risolvere una vasta gamma di problemi computazionali, tra cui:
+Il GPGPU (General-Purpose computing on Graphics Processing Units) è un tipo di HPC che sfrutta l'architettura con alto grado di parallelismo (permesso dalle migliaia di core) delle schede video per migliorare le performances. Le GPU sono particolarmente adatte per applicazioni SIMD (la stessa architettura dei computer vettoriali), le quali sono utilizzate per risolvere una vasta gamma di problemi computazionali, tra cui:
 - Data Mining;
 - Crittografia;
 - Simulazioni in ambito scientifico (fisica, astrofisica, medicina ecc...).
@@ -330,7 +330,7 @@ Consiste nella produzione di immagini bitmap basate su dati acquisiti da una fon
 - **trasferimento della descrizione della scena**: insieme dei vertici che definiscono gli oggetti, i dati associati all'illuminazione della scena, le texture, il punto di vista dell'osservatore.
 - **trasformazioni dei vertici**: rotazioni, ridimensionamento e traslazione degli oggetti
 - **ritaglio**:  eliminazione degli oggetti o di parti di essi non visibili dal punto di vista dell'osservatore.
-- **illuminazione e ombreggiatura**:valutazione delle interazioni delle sorgenti luminose con le forme, valutandone l'ombreggiamento.
+- **illuminazione e ombreggiatura**: valutazione delle interazioni delle sorgenti luminose con le forme, valutandone l'ombreggiamento.
 - **rasterization**: generazione dell'immagine bitmap. Le coordinate 3D vengono trasformate in coordinate 2D. Vengono applicate anche trame e altri effetti grafici.
 
 ### **Computer architectures secondo la tassonomia di Flynn**
@@ -427,7 +427,7 @@ un solo dispositivo). Ogni volta che l'host ha bisogno che un'azione venga esegu
 Le applicazioni OpenCL spesso funzionano con grandi array di matrici multidimensionali. Questi dati devono essere fisicamente presenti su un dispositivo prima che l'esecuzione possa iniziare. Affinché i dati possano essere trasferiti a un dispositivo, deve prima essere incapsulato come un oggetto di memoria. OpenCL definisce due tipi di oggetti di memoria: buffers e immagini. I buffer sono equivalenti agli array in c, creati utilizzando malloc(), in cui gli elementi dei dati sono archiviati in modo contiguo in memoria. Le immagini sono progettate come oggetti opachi, consentendo il riempimento dei dati e altre ottimizzazioni che possono migliorare le prestazioni sui dispositivi. Un oggetto di memoria è valido solo all'interno di un singolo context.
 
 ### **Creazione di un programma OpenCL**
-Il codice OpenCL C, scritto per essere eseguito su un dispositivo OpenCL, è chiamato a programma. Un programma è una raccolta di funzioni chiamate **kernel** (i kernel OpenCL sono simili alle funzioni C e possono essere pensati come istanze di un'operazione parallela. Il corpo della funzione verrà eseguito una volta per ogni elemento di lavoro creato), dove i kernel sono unità di esecuzione che possono essere pianificate per l'esecuzione su un dispositivo. I programmi OpenCL vengono compilati in fase di esecuzione tramite una serie di chiamate API. Questa compilazione runtime offre al sistema l'opportunità di eseguire l'ottimizzazione per un dispositivo specifico. Non è necessario che un'applicazione OpenCL sia stata precostruita per runtime di tipo specifico (NVIDIA, AMD, Intel). 
+Il codice OpenCL C, scritto per essere eseguito su un dispositivo OpenCL, è chiamato programma. Un programma è una raccolta di funzioni chiamate **kernel** (i kernel OpenCL sono simili alle funzioni C e possono essere pensati come istanze di un'operazione parallela. Il corpo della funzione verrà eseguito una volta per ogni elemento di lavoro creato), dove i kernel sono unità di esecuzione che possono essere pianificate per l'esecuzione su un dispositivo. I programmi OpenCL vengono compilati in fase di esecuzione tramite una serie di chiamate API. Questa compilazione runtime offre al sistema l'opportunità di eseguire l'ottimizzazione per un dispositivo specifico. Non è necessario che un'applicazione OpenCL sia stata precostruita per runtime di tipo specifico (NVIDIA, AMD, Intel). 
 
 ### **Memory Model**
 I sottosistemi di memoria variano notevolmente tra le piattaforme di elaborazione. Per esempio tutte le moderne CPU supportano la memorizzazione nella cache automatica, anche se molte GPU no. Per supportare la portabilità del codice, l'approccio di OpenCL consiste nel definire un modello di memoria astratto a cui i programmatori possono rivolgersi durante la scrittura del codice e che i fornitori possono mappare sulla loro memoria effettiva.
@@ -499,7 +499,7 @@ Gli svantaggi sono:
 
 **Caratteristiche del cloud computing:**
 1. **Virtualizzazione risorse**<br>
-    Ovvero capacità di calcolo, archiviazione e rete. Nei cloud sono virtualizzate e si ottiene a vari livelli tra cui VM (Virtual Machine) e livelli di piattaforma. Il più semplice è a livello di macchina virtuale (VM) in cui diverse applicazioni possono essere eseguite all'interno dei loro contenitori o sistemi operativi in esecuzione sulla stessa macchina fisica. Il livello di piattaforma consente la mappatura senza interruzioni delle applicazioni su una o più risorse offerte da diversi provider di infrastrutture cloud.
+    Ovvero capacità di calcolo, archiviazione e rete nei cloud sono virtualizzate e si ottiene a vari livelli tra cui VM (Virtual Machine) e livelli di piattaforma. Il più semplice è a livello di macchina virtuale (VM) in cui diverse applicazioni possono essere eseguite all'interno dei loro contenitori o sistemi operativi in esecuzione sulla stessa macchina fisica. Il livello di piattaforma consente la mappatura senza interruzioni delle applicazioni su una o più risorse offerte da diversi provider di infrastrutture cloud.
 
 2. **Orientato al servizio**<br>
     Il cloud è implementato utilizzando il modello Service-Oriented Architecture in cui tutti i capacità/componenti sono disponibili sulla rete come servizio.
@@ -630,19 +630,13 @@ Docker permette di risolvere questo problema tramite:
     - Un volume può anche essere creato in modo **anonimo** (senza nome). Può essere difficile però tenere traccia di un volume anonimo. Pertanto, è considerata una procedura consigliata assegnare un nome al volume al momento della creazione, anziché consentire a Docker di generare un nome di volume anonimo.
     - **Montaggio di un volume in un contenitore**
         - Quando si monta un volume in un contenitore, è necessario fornire una delle due opzioni al comando di avvio della linea di comando. Le due opzioni che puoi usare per montare i volumi sono 
-        ```bash 
-        --mount
-        ```
-        o
-        ```bash 
-        -v
-        ```
+        `--mount` o `-v`. <br>
         Se stai eseguendo un container standard, puoi utilizzare una delle due opzioni, ma la seconda è l'opzione più comunemente usata.
         Esempio:
         ```bash
         docker run --name mysql-01 -v pv-mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mia-password -d mysql
         ```
-        Questo avvierà un contenitore che esegue MySQL, con un nome di MySQL-01, che monta un volume chiamato pv-mysql-data in un punto di montaggio chiamato /var/lib/mysql nel contenitore. L'ultima opzione, con -e, crea una variabile di ambiente che viene chiamata MYSQL_ROOT_PASSWORD, che è impostato sulla mia password.
+        Questo avvierà un contenitore che esegue MySQL, con un nome di `MySQL-01`, che monta un volume chiamato `pv-mysql-data` in un punto di montaggio chiamato `/var/lib/mysql` nel contenitore. L'ultima opzione, con `-e`, crea una variabile di ambiente che viene chiamata `MYSQL_ROOT_PASSWORD`, che è impostato sulla mia password.
     - **Montaggio di un volume esistente**
         - A differenza dei livelli container, anch'essi archiviati nell'host locale, i volumi non vengono persi se un contenitore viene rimosso da Docker. Per montare un volume già esistente basta fare:
         ```bash
@@ -652,7 +646,7 @@ Docker permette di risolvere questo problema tramite:
     - **Montaggio di un volume su più container**
         - E se avessi un'applicazione che richiede più contenitori e ognuno di essi richiede esattamente gli stessi dati? Sebbene sia possibile creare un volume per ogni contenitore e copiare i dati in ciascuno, un metodo più efficiente sarebbe condividere un singolo volume tra più contenitori. Una caratteristica unica dei volumi Docker è che più contenitori possono accedere allo stesso volume. Sebbene sembri una soluzione semplice per fornire un'unica posizione ai dati condivisi, è necessario tenere presente che non tutte le applicazioni funzionano bene quando più processi accedono agli stessi dati. Quando si avvia ogni istanza, si usano semplicemente gli stessi nomi per il volume:
         ```bash
-        docker run --name webserver01 -v webdata:/opt/ web/data -d bitnami/nginx:latest 
+        docker run --name webserver01 -v webdata:/opt/web/data -d bitnami/nginx:latest 
         docker run --name webserver02 -v webdata:/opt/web/data -d bitnami/nginx:latest 
         docker run --name webserver03 -v webdata:/opt/web/data -d bitnami/nginx:latest 
         docker run --name webserver04 -v webdata:/opt/web/data -d bitnami/nginx:latest
@@ -676,7 +670,7 @@ Docker permette di risolvere questo problema tramite:
 - ## **Bind Mount**: 
     - sono cartelle che non vengono gestite in automatico da Docker, ma dall'utente che le crea dove vuole e ci mette roba che vuole. Sono identiche in tutto e per tutto ai Volumi solo che non hanno una gestione automatizzata ed è l'utente che deve tenerne traccia.
     - Nel complesso, i volumi e bind mount possono sembrare simili:
-        - Entrambi usano il filesystem dell'host locale ed entrambi sono montati usando l’opzione docker -v. Sebbene condividano molte delle stesse caratteristiche, un montaggio bind differisce da un volume in quanto esso non è gestito da Docker.
+        - Entrambi usano il filesystem dell'host locale ed entrambi sono montati usando l’opzione docker `-v`. Sebbene condividano molte delle stesse caratteristiche, un montaggio bind differisce da un volume in quanto esso non è gestito da Docker.
         - Poiché Docker non gestisce i bind mount, essi non possono essere eliminati utilizzando un comando Docker. Docker non tiene traccia della posizione dei bind mount in un elenco. Se crei bind mount in diverse aree del filesystem sull'host, devi tenere traccia della posizione di ciascuno da rimuoverli manualmente una volta che non ne hai più bisogno.
     
     Un bind mount è una directory situata in un punto qualsiasi del filesystem dell'host che è associata al container. A differenza di un volume, che di solito si trova sempre in una posizione predefinita, ad esempio ```/var/lib/docker/volumes```, un bind mount può essere ovunque nel filesystem dell'host.
@@ -697,29 +691,26 @@ Docker permette di risolvere questo problema tramite:
         - disponibile solo su Linux; Windows non è supportato.
         - può essere montato un singolo tmpfs per ogni container.
     - Un container può essere avviato con un tmpfs aggiungendo uno dei due comandi: 
-    ```bash
-    --mount 
-    ```
-    o usando 
-    ```--tmpfs ``` come opzione. In generale, si usa ```--mount``` come opzione per impostazione predefinita e non ```--tmpfs``` perché non consente alcuna personalizzazione sul montaggio (non sarai in grado di impostare un limite di dimensione o alcuna sicurezza). Esempio mount tmpfs:
+    `--mount ` o usando `--tmpfs ` come opzione. In generale, si usa ```--mount``` come opzione per impostazione predefinita e non ```--tmpfs``` perché non consente alcuna personalizzazione sul montaggio (non sarai in grado di impostare un limite di dimensione o alcuna sicurezza). Esempio mount tmpfs:
     ```bash
     docker run --mount type=tmpfs,target=/opt/html,tmpfsmode=1770,tmpfs-size=1000000 --name nginx-test -d bitnami/nginx:latest
     ```
 
+### **Network**
 I container di solito non sono direttamente connessi alla rete, il traffico passa per una scheda Bridged Nat. La maggior parte degli utenti Docker utilizza semplicemente la rete bridge
 predefinita, che funzionerà per la maggior parte dei casi d'uso, ma presenta
 alcune limitazioni che devono essere considerate. 
 
-Quando si utilizza la rete bridge predefinita vanno considerate le se seguenti conseguenze: 
+Quando si utilizza la rete bridge predefinita vanno considerate le seguenti conseguenze: 
 - Quando un container viene avviato senza una rete specificata, utilizzerà il bridge predefinito. Ciò significa che più container saranno in grado di comunicare, senza tenere conto dei carichi di lavoro. 
-- Se  si stanno eseguendo più container e desideri isolarne alcuni da altri, potresti inavvertitamente consentire le comunicazioni tra container comunque, poiché utilizzano il bridge predefinito.
+- Se si stanno eseguendo più container e desideri isolarne alcuni da altri, potresti inavvertitamente consentire le comunicazioni tra container comunque, poiché utilizzano il bridge predefinito.
 - Il bridge predefinito limita le comunicazioni tra contenitori solo a determinati indirizzi IP.
 - I container che utilizzano il bridge predefinito devono essere arrestati prima di poterli spostare su una rete diversa.
 
 È consigliato quindi utilizzare un rete bridge definita dall'utente.
-Se si avvia un container senza un'opzione di rete, verrà avviato connesso alla rete bridge predefinita. È tuttavia possibile **avviare un container senza una rete** collegata utilizzando il comando **--network=none** selezionabile quando si avvia il contenitore. Questo è lo stesso processo che si esegue quando viene avviato un container con una rete definita dall'utente.
+Se si avvia un container senza un'opzione di rete, verrà connesso alla rete bridge predefinita. È tuttavia possibile **avviare un container senza una rete** collegata utilizzando il comando **--network=none** selezionabile quando si avvia il contenitore. Questo è lo stesso processo che si esegue quando viene avviato un container con una rete definita dall'utente.
 
-### Esporre i servizi di container
+#### Esporre i servizi di container
 Per poter accedere dall'esterno è necessario aprire le porte e farne un binding/forwarding. Docker offre due soluzioni:
 - Expose: permette di rendere visibili le porte solo ad altri docker container.
 - Ports: permette di rendere visibili le porte a tutti così che altri utenti possano accedervi dall'esterno.
@@ -845,7 +836,7 @@ Tuttavia, per semplicità, gli script di configurazione in genere avviano tutti 
         - Controllore del job: 
         Controlla gli oggetti Job che rappresentano attività una tantum, quindi crea i pod per eseguire tali attività fino al completamento.
         - Controllore degli endpoint: 
-        Popola l'oggetto Endpoints (vale a dire, si unisce a servizi e pod. 
+        Popola l'oggetto Endpoints (vale a dire, si unisce a servizi e pod). 
         - Account di servizio e controller di token:
         Crea account predefiniti e token di accesso API per nuovi spazi dei nomi.
 - **cloud-controller-manager**
@@ -874,7 +865,7 @@ Dopo aver creato un oggetto Node o il kubelet su un nodo si registra automaticam
 
 - **Autoregistrazione dei nodi**: Quando il flag di kubelet **--register-node** è true (impostazione predefinita), il kubelet tenterà di registrarsi con il server API. Questo è il modello preferito, utilizzato dalla maggior parte delle distribuzioni. Per l'autoregistrazione, il kubelet viene avviato con le seguenti opzioni: **--kubeconfig, --cloud-provider, --register-node, --register-with-taints, --node-ip, --node-labels, --node-status-update-frequency**
 
-- **Amministrazione manuale del nodo**: È possibile creare e modificare gli oggetti Node utilizzando kubectl. Quando si vogliono creare oggetti Node manualmente, va impostato il flag kubelet --node-registert=false. È possibile modificare gli oggetti Node indipendentemente dall'impostazione di --register-node. Ad esempio, si possono impostare etichette su un nodo esistente o contrassegnarlo come non programmabile. È possibile utilizzare le etichette sui nodi insieme ai selettori di nodi sui pod per controllare la pianificazione. Oppure puoi vincolare un Pod in modo che sia idoneo all'esecuzione solo su un sottoinsieme dei nodi disponibili. Invece contrassegnare un nodo come non pianificabile impedisce allo scheduler di posizionare nuovi pod su quel nodo ma non influisce sui pod esistenti sul nodo. Ciò è utile come passaggio preparatorio prima del riavvio di un nodo o di altre operazioni di manutenzione.
+- **Amministrazione manuale del nodo**: È possibile creare e modificare gli oggetti Node utilizzando kubectl. Quando si vogliono creare oggetti Node manualmente, va impostato il flag kubelet `--node-registert=false`. È possibile modificare gli oggetti Node indipendentemente dall'impostazione di `--register-node`. Ad esempio, si possono impostare etichette su un nodo esistente o contrassegnarlo come non programmabile. È possibile utilizzare le etichette sui nodi insieme ai selettori di nodi sui pod per controllare la pianificazione. Oppure puoi vincolare un Pod in modo che sia idoneo all'esecuzione solo su un sottoinsieme dei nodi disponibili. Invece contrassegnare un nodo come non pianificabile impedisce allo scheduler di posizionare nuovi pod su quel nodo ma non influisce sui pod esistenti sul nodo. Ciò è utile come passaggio preparatorio prima del riavvio di un nodo o di altre operazioni di manutenzione.
 Per contrassegnare un nodo come non “schedulabile”, eseguire:
 **kubectl cordon $NODENAME**
 
@@ -894,7 +885,7 @@ Per contrassegnare un nodo come non “schedulabile”, eseguire:
     - **Oggetto stato**: Lo stato descrive il corrente stato dell'oggetto, fornito e aggiornato dal sistema Kubernetes e dai suoi componenti. Il piano di controllo di Kubernetes gestisce continuamente e attivamente l'effettivo di ogni oggetto stato per abbinare lo stato fornito.
 
 - **Descrivere un oggetto Kubernetes**:
-    Quando crei un oggetto in Kubernetes, devi fornire l'oggetto spec che descrive lo stato desiderato, nonché alcune informazioni di base sull'oggetto (come un nome). Quando utilizzi l'API Kubernetes per creare l'oggetto (direttamente o tramite kubectl), tale richiesta API deve includere tali informazioni come JSON nel corpo della richiesta. Molto spesso, si forniscono le informazioni a kubectl in un .yaml file .kubectl che converte le informazioni in JSON durante la creazione dell'API request.apiVersion: apps/v1. Esempio:
+    Quando crei un oggetto in Kubernetes, devi fornire l'oggetto spec che descrive lo stato desiderato, nonché alcune informazioni di base sull'oggetto (come un nome). Quando utilizzi l'API Kubernetes per creare l'oggetto (direttamente o tramite kubectl), tale richiesta API deve includere tali informazioni come JSON nel corpo della richiesta. Solitamente, si forniscono le informazioni a kubectl in un file yaml. Kubectl converte successivamente le informazioni in JSON durante la creazione dell'API request.apiVersion: apps/v1. Esempio:
     ```bash
     kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
     ```
