@@ -682,7 +682,7 @@ Essendo l'albero di ricerca del problema di riferimento, quello con maggiori con
 
 # **Adversarial Search & Games**
 
-Degli ambienti competitivi nei quali ci sono 2 o più agenti, con obbiettivi contrastanti, fanno nascere il problema dell'**Adversarial search** (detti anche problemi di ricerca nei giochi). I giochi richiedono l'abilità di prendere una qualche decisione quando il calcolo di quella ottima non è realizzabile. <br>
+Degli ambienti competitivi nei quali ci sono 2 o più agenti, con obiettivi contrastanti, fanno nascere il problema dell'**Adversarial search** (detti anche problemi di ricerca nei giochi). I giochi richiedono l'abilità di prendere una qualche decisione quando il calcolo di quella ottima non è realizzabile. <br>
 Ci sono 3 possibili approcci per gestire gli ambienti multiagenti:
 
 1. si applica quando c'è un gran numero di agenti e consiste nel trattarli come un aggregato, quindi non si andrà a predire le azioni degli agenti individuali, ma quelle del proprio gruppo.
@@ -691,12 +691,12 @@ Ci sono 3 possibili approcci per gestire gli ambienti multiagenti:
 
 3. modellarlo in maniera esplicita con le tecniche dell'**adversarial tree search** (verrà approfondito in seguito)
 
-**Search vs Adversarial Gaymes:**
+**Search vs Adversarial Games:**
 
 | Search | Adversarial |
 | ---    | ----        |
-|La soluzione è un metodo per raggiungere lo stato goal| La soluzione è una strategia basata sulle mosse dell'avverzario per vincere la partia|
-| Le euristiche permettono di trovare soluzioni Ottimali | Limiti di tempo potrano a soluzioni approssimate |
+|La soluzione è un metodo per raggiungere lo stato goal| La soluzione è una strategia basata sulle mosse dell'avversario per vincere la partita|
+| Le euristiche permettono di trovare soluzioni Ottimali | Limiti di tempo portano a soluzioni approssimate |
 | La Evaluation function stima il costo di ogni passo dal nodo Start al nodo Goal | La Evaluation function valuta la "bontà" di ogni mossa |
 | Esempi: path planning, scheduling activities, path finding, ecc. | Esempi: scacchi, backgammon |
 
@@ -717,9 +717,9 @@ Un gioco di questo tipo può essere definito dai seguenti elementi:
 * `S0`: stato iniziale del gioco
 * `To-Move(s)`: il giocatore che deve muoversi allo stato `s` (a chi sta il turno)
 * `Actions(s)`: un set di mosse eseguibili dal giocatore nello stato s
-* `Result(s, a)`: definisce il rislutatio di un azione `a` effettuata nello stato `s`
+* `Result(s, a)`: definisce il risultato di un'azione `a` effettuata nello stato `s`
 * `Is-Terminal(s)`: controlla se lo stato `s` è uno **stato terminale**
-* `Utility(s, p)`: assegna un punteggio predetermintato `p` al vincitore del gioco (in scacchi la vittoria vale 1, perdita 0 e pareggio 1/2)
+* `Utility(s, p)`: assegna un punteggio predeterminato `p` al vincitore del gioco (in scacchi la vittoria vale 1, perdita 0 e pareggio 1/2)
 
 Le **Azioni**, lo **Stato Iniziale** e la funzione `Result` definiscono lo **State Space Graph**. Possiamo applicare un **albero di ricerca** da un determinato nodo per capire quale mossa fare.
 
@@ -727,7 +727,7 @@ Definiamo il **Game Tree** come un albero di ricerca che segue ogni sequenza di 
 
 ## **MinMax Search**
 
-L'idea fondante di questo algoritmo è che andrà a scegliere la sua mossa migliore per ogni giocatore, puntando a massimizzare il proprio obbiettivo e cercare di minimazzre il punteggio dell'altro.
+L'idea fondante di questo algoritmo è che andrà a scegliere la mossa migliore per ogni giocatore, puntando a massimizzare il proprio obbiettivo e cercare di minimazzre il punteggio dell'altro.
 
 La funzione su cui si basa questo algoritmo è `MinMax`. Questa funzione ritorna un valore numerico che viene scelto in base a chi effettua l'azione: 
 
@@ -783,13 +783,13 @@ Proprietà dell'algoritmo:
 * è **Completo** per alberi finiti
 * è **Ottimo** contro avversari ottimi (vince comunque contro avversari non-ottimi)
 * Ha una complessità in tempo di ![o b m](./imgs/o_bm.gif)
-* Ha una complessità in spazio di ![bm](./imgs/o_b_m.gif) se vengono generate tutte le azioni, se ne viene generata una per volta è ![o m](./imgs/o_m.gif) <br>
+* Ha una complessità in spazio di ![bm](./imgs/o_b_m.gif) se vengono generate tutte le azioni, se ne viene generata una per volta è ![o m](./imgs/o_m.gif). <br>
 Questo algoritmo fornisce la base per un'analisi matematica dei giochi e per sviluppare algoritmi più pratici.
 
 
 ## **Alfa-Beta Pruning**
 
-Il problema della ricerca minmax è il numero degli stati da esaminare che cresce esponenzialmentr con la profondità dell'albero. È però possibile calcolare la decisione minmax corretta senza guardare tutti i nodi dell'albero di gioco. Sorge da qui l'idea della **potatura** per evitare di prendere in considerazioni grandi porzioni dell'albero. <br>
+Il problema della ricerca minmax è il numero degli stati da esaminare che cresce esponenzialmente con la profondità dell'albero. È però possibile calcolare la decisione minmax corretta senza guardare tutti i nodi dell'albero di gioco. Sorge da qui l'idea della **potatura** per evitare di prendere in considerazioni grandi porzioni dell'albero. <br>
 La **potatura alfa-beta** restituisce quindi lo stesso risultato della tecnica minmax pura, ma "pota" i rami che non possono influenzare la decisione finale. <br>
 **Principio generale**: Considerate un nodo `n` da qualche parte nell'albero tale che il `giocatore` abbia la facoltà di muoversi in quel nodo. Se c'è una scelta migliore `m` a livello del nodo padre o di un qualunque nodo precedente, allora `n` non sarà mai raggiunto in tutta la partita. Possiamo quindi `potare n` non appena abbiamo raccolto abbastanza informazioni da raggiungere tale conclusione.
 
@@ -803,9 +803,9 @@ La potatura prende il nome dai seguenti parametri che vengono "portati su":
 La ricerca alfa-beta aggiorna i valori di alfa e beta a mano a mano che procede e pota i rami restanti che escono da un nodo non appena determina che il valore del nodo è peggio di quella di alfa per max o rispettivamente di beta per min.
 
 ### **Ordinamento delle mosse**
-L'efficacia della potatura alfa-beta dipende fortemente dall'ordine in cui sono esaminati gli stati. È quindi una buona idea esaminare per primi i successoi più promettenti. In questo caso per scegliere la mossa migliore, la ricerca alfa-beta deve esaminare solo O(b<sup>m/2</sup>) nodi, invece di O(b<sup>m</sup>) richiesti da minmax. Aggiungere schemi dinamici di ordinamento delle mosse ci porta molto vicino al limite teorico. Le mosse migliori sono chiamate `Mosse Killer`.
+L'efficacia della potatura alfa-beta dipende fortemente dall'ordine in cui sono esaminati gli stati. È quindi una buona idea esaminare per primi i successori più promettenti. In questo caso per scegliere la mossa migliore, la ricerca alfa-beta deve esaminare solo O(b<sup>m/2</sup>) nodi, invece di O(b<sup>m</sup>) richiesti da minmax. Aggiungere schemi dinamici di ordinamento delle mosse ci porta molto vicino al limite teorico. Le mosse migliori sono chiamate `Mosse Killer`.
 
-C'è un euristica chiamata _Killer Move_ che sono le migliori mosse conosciute di quel problema a seconda di determinati stati.
+C'è un euristica chiamata ***Killer Move***, nella quale sono conosciute le migliori mosse di quel problema a seconda di determinati stati.
 
 Il costo in tempo nel caso migliore (le mosse vengono ordiante dal costo più piccolo al costo più grande) è: ![obm2](./imgs/o_bn2.gif).<br>
 Il costo in tempo nel caso peggiore è: ![obm](./imgs/o_bm.gif) come quello del MiniMax.
@@ -820,35 +820,33 @@ _Esempio di pseudocodice dell'algoritmo_
 
 Siccome le mosse devono essere calcolate in un tempo ragionevole (ad esempio massimo qualche minuto) è stato proposto di tagliare la ricerca prima di raggiungere le foglie, applicando una `funzione di valutazione euristica` **eval** agli stati (trasformando i nodi terminali in foglie). <br>
 Modifiche da apportare a minmax o alfa-beta:
-1. sostituire la funzione di utilità con una funzione di valutazione euristica che fornisca una sima dell'utilità dalla posizione raggiunta
+1. sostituire la funzione di utilità con una funzione di valutazione euristica che fornisca una stima dell'utilità dalla posizione raggiunta
 2. rimpiazzre il test di terminazione con un test di taglio (`cutoff test`), il quale decide quando applicare `eval`.
 
 La funzione di valutazione restituisce una stima del guadagno atteso in una determinata posizione (proprio come le funzioni euristiche che forniscono una stima della distanza dal'obiettivo).
 
 - La funzione di valutazione dovrebbe ordinare gli stati terminali nello stesso modo della vera funzione di utilità.
-    - Gli statu che sono `vittorie` devono aavere una valutazione migliore dei pareggi, che a loro volta devono essere migliori delle sconfitte
+    - Gli stati che sono `vittorie` devono avere una valutazione migliore dei pareggi, che a loro volta devono essere migliori delle sconfitte.
 
 - I calcoli non dovrebbero richiedere troppo tempo.
-- Per gli stati non terminali la funzione di valutazione dovrebbe avere una forte correlazione con la probabilità reali di vincere la partità (questo limite di incertezza deriva dai limiti computazionali, non dalla mancanza di informazioni).
+- Per gli stati non terminali la funzione di valutazione dovrebbe avere una forte correlazione con le probabilità reali di vincere la partita (questo limite di incertezza deriva dai limiti computazionali, non dalla mancanza di informazioni).
 
-È quindi necessario modificarela ricerca in modo che venga invocata la funzione `eval` quando è il momento di tagliare la ricerca.
+È quindi necessario modificare la ricerca in modo che venga invocata la funzione `eval` quando è il momento di tagliare la ricerca.
 
-È necessario anche modificare il codice in modo che la profondità corrente sia incrementata a ogni chiamata ricorsiva. La profondità `d` deve essere sceta in modo tale che la scelta di una mossa avvenga nel tempo allocato. Un altro approccio più robusto è rappresentato dalla ricerca ad approfondimento iterativo: quando scade il tempo il programma restituisce la mossa calcolata con la più profonda ricerca completata.
+È necessario anche modificare il codice in modo che la profondità corrente sia incrementata a ogni chiamata ricorsiva. La profondità `d` deve essere determinata in modo tale che la scelta di una mossa avvenga nel tempo allocato. Un altro approccio più robusto è rappresentato dalla ricerca ad approfondimento iterativo: quando scade il tempo il programma restituisce la mossa calcolata con la più profonda ricerca completata.
 
 - La funzione di valutazione dovrebbe essere applicata solo a posizioni `quiescenti` (quelle per cui è improbabile che si verifichino grandi variazioni di valore nelle mosse immediatamente successive). Le posizioni non quiescenti possono essere espanse ulteriormente fino a raggiungere posizioni di quiescenza (`ricerca di quiescenza`).
 
 
 #### **Effetto Orizzonte**
-
 A volte succede che la scelta fatta può portare ad un risultato inaspettato che potrebbe essere evitato con la scansione successiva ma che per colpa del tempo non è stata possibile effettuare. Questo prende il nome di "Effetto Horizon".
-Per risolvere questo problema ci sono specifiche euristiche che cercano di seguire lo sviluppo di un branch più "promettete", a discapito di altri, in modo tale da velocizzare la ricerca e quindi di espandere il più possibile l'"orizzonte".
+Per risolvere questo problema ci sono specifiche euristiche che cercano di seguire lo sviluppo di un branch più "promettete", a discapito di altri, in modo tale da velocizzare la ricerca e quindi di espandere il più possibile l'`orizzonte`.
 
 #### **Giochi con alberi molto grandi**
+Per giochi con branching factor molto grande, come Go e Schacchi, il MinMax anche se potenziato con **AlfaBetaPruning** e il Clever Ordering, non è in grando di trovare una soluzione in un tempo utile. Per questo sono state proposte 2 strategie teoriche:
 
-Per giochi con branching factor molto grande, come Go e Schacchi, il MinMax anche se potenziato con AlfaBetaPrugna e il Clever Ordering, non è in grando di trovare una soluzione in un tempo utile. Per questo sono state proposte 2 strategie teoriche:
-
-* **Tipo A**: consiste nel considerare tutte le possibilità fino ad un certo livello di profondità e poi calcolare l'utiliti a quel livello prestabilito
-* **Tipo B**: ignora le mosse che sembrano poco promettenti e segue la linea promettente il più a lungo possibile, quindi esplora una porzione stretta dell'albero andando in profondità
+* **Tipo A**: consiste nel considerare tutte le possibilità fino ad un certo livello di profondità e poi calcolare l'utilità a quel livello prestabilito.
+* **Tipo B**: ignora le mosse che sembrano poco promettenti e segue la linea promettente il più a lungo possibile, quindi esplora una porzione stretta dell'albero andando in profondità.
 
 <hr>
 
