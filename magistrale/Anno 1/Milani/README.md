@@ -1041,7 +1041,7 @@ Se la cella corrente contiene uno squalo:
 # **Swarm Intelligence**
 
 Come si coordinano insiemi di agenti distribuiti? Ad es. Formiche, traffico, termiti, branchi di pesci e stormi di uccelli?  In realtà non esiste alcun tipo di capo branco che muove e guida il resto del gruppo. In molti casi si ha in realtà una forma di controllo decentralizzato e distribuito. I singoli individui obbediscono in realtà a semplici regole di controllo distribuito. <br>
-Generalmente date le regole, può risultare molto difficile dedurre il comportamento emergente dello sciame e spesso risulta possibile sono tramite la simulazione del modello.
+Generalmente date le regole, può risultare molto difficile dedurre il comportamento emergente dello sciame e spesso risulta possibile solo tramite la simulazione del modello.
 
 Approccio più generale rispetto agli automi cellulari: 
 - **regole generali**
@@ -1054,13 +1054,13 @@ Intelligenza collettiva emergente, indotta dal rispetto delle regole degli agent
 - Non è affatto semplice dedurre, date le regole, quello che sarà il comportamento emergente.
 - Spesso possibile solo tramite simulazione del modello.
 
-**Swarm intelligence: il banco di pesci** <br>
+### **Swarm intelligence: il banco di pesci** <br>
 TRE REGOLE  ---> I pesci seguono tre regole: **allineamento**, **separazione**, **coesione**
 1. **Allineamento**: Un pesce tende a girare nella stessa direzione in cui i pesci vicini si stanno muovendo.
 2. **Separazione**: Un pesce tenderà ad allontanarsi per evitare un pesce troppo vicino.
 3. **Coesione**: Un pesce si muoverà verso i propri vicini, a meno che non sia troppo vicino. Se due pesci sono troppo vicini la regola di separazione, prevale sulle altre due finchè non è ristabilita la separazione minima. Le regole riguardano solo la direzione del movimento, la velocità resta costante.
 
-**Swarm intelligence: stormo di uccelli** <br>
+### **Swarm intelligence: stormo di uccelli** <br>
 (Netlogo Model Library: Biology> Flocking Biology> Flocking Vee Formation). <br>
 La formazione a «V» emerge quando, alle regole di attrazione/coesione e repulsione/distanza minima si aggiunge la regola sul cono visivo: la visuale di un uccello deve essere libera. Se vista ostruita si sposta casualmente, a dx o a sx, fino a che non è più ostruita 
 
@@ -1068,11 +1068,12 @@ La formazione a «V» emerge quando, alle regole di attrazione/coesione e repuls
 - utilizzati in intelligenza artificiale per crowd behavior: comportamento di folle reali (stadi, concerti, manifestazioni), virtuali (diffusione virale info, attacchi hater), studio vie di fuga edifici. Agenti con parametri variabili nel tempo es. Stato ubriachezza, visibilità entusiasmi, panico 
 
 #### **Swarm intelligence: modelli di calcolo** <br>
-Modelli di calcolo ispirati alla swarm intelligence: algoritmi per l’ottimizzazione di funzioni computazionalmente «hard» Particle Swarm Optimization (PSO). Nel PSO sciami di particelle collaborano per esplorare lo spazio di Inizialmente le particelle esplorano lo spazio di ricerca in modo casuale, col passare del tempo, lo sciame tende a convergere sulla soluzione ottima «attratto» dalle particelle che hanno successo maggiore
+Modelli di calcolo ispirati alla swarm intelligence: algoritmi per l’ottimizzazione di funzioni computazionalmente «hard» Particle Swarm Optimization (PSO). Nel PSO sciami di particelle collaborano per esplorare lo spazio  di ricerca. <br>
+Inizialmente le particelle esplorano lo spazio di ricerca in modo casuale, col passare del tempo, lo sciame tende a convergere nella soluzione ottima «attratto» dalle particelle che hanno un successo maggiore
 - ogni particella è un thread di calcolo 
-- ad ogni iterazione si muovono in sincronia tendando una soluzione diversa e condividendo informazione 
+- ad ogni iterazione si muovono in sincronia tendando una soluzione diversa e condividendo informazioni
 
-**Particle Swarm Optimization (PSO)**: ogni particella i-esima all’iterazione t ha un vettore posizione xi,t ed un vettore velocità vi,t è attratta sia dal personal best (il miglior valore incontrato in precedenza durante l’esplorazione) che dal global best (il miglior valore trovato dalle altre particelle nel suo vicinato) 
+**Particle Swarm Optimization (PSO)**: ogni particella i-esima all’iterazione t ha un vettore posizione xi,t ed un vettore velocità vi,t. Essa è attratta sia dal personal best (il miglior valore incontrato in precedenza durante l’esplorazione) che dal global best (il miglior valore trovato dalle altre particelle nel suo vicinato) 
 
 **Modelli di calcolo ispirati alla swarm intelligence: Ant Colony Optimization** <br>
 Ispirato dall’osservazione dei biologi del comportamento stigmergico delle formiche.  
@@ -1083,8 +1084,6 @@ Le formiche:
     - I percorsi ottimali tendono ad essere rafforzati, in quelli più lunghi il feromone tende ad evaporare e scomparire 
 
 ![swarm](./imgs/swarm.png)
-
-Ogni particella è attratta sia dal personal best (il miglior valore incontrato in precedenza) che dal global best (il miglior valore trovato dalle altre particelle).
 
 <hr>
 
