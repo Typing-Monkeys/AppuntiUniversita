@@ -41,7 +41,7 @@ Un agente è qualsiasi cosa che può percepire l'ambiente circostante tramite se
 ![Agente](./imgs/agente.png)
 
 Le azioni dell'agente sono influenzate dal tipo di ambiente in cui si trova.
-Un agente razionale è un agente che fa la cosa giusta (per ogni possibile sequenza di azioni, dovrebbe scegliere un'azione che massimizza il valore atteso dalla sua misura di prestazione). Si dice anche **autonomo** se il suo comportamento è determinato dalla sua esperienza e non dipende esclusivamente dalla sua conoscenza di base (built-in knowledge).L'agente **percepisce** lo stato e **modifica** (agendo) l'ambiente.
+Un agente razionale è un agente che fa la cosa giusta (per ogni possibile sequenza di azioni, dovrebbe scegliere un'azione che massimizza il valore atteso dalla sua misura di prestazione). Si dice anche **autonomo** se il suo comportamento è determinato dalla sua esperienza e non dipende esclusivamente dalla sua conoscenza di base (built-in knowledge). L'agente **percepisce** lo stato e **modifica** (agendo) l'ambiente.
 
 **Funzione Agente**: Descrizione matematica astratta, il cui **programma agente** ne è un'implementazione concreta, in esecuzione all'interno di un sistema fisico.
 
@@ -83,15 +83,19 @@ Gli ambienti vengono classificati in base ai seguenti criteri:
 
 **Agente** = Arhitettura + programma
 
-### Tipi di agente:
+### **Tipi di agente**:
 
-* Agenti reattivi semplici: Questi agenti scelgono le azioni sulla base della percezione corrente, ignorando tutte la storia precedente ![simple_ref](./imgs/simple_reflex_agent.png)
+* **Agenti reattivi semplici**: Questi agenti scelgono le azioni sulla base della percezione corrente, ignorando tutte la storia precedente. <br> 
+![simple_ref](./imgs/simple_reflex_agent.png)
 
-* Agenti reattivi basati sul modello: Tengono conto della parte del mondo che non possono vedere nell'istante corrente. ![statemodel](./imgs/reflex_statemodel.png)
+* **Agenti reattivi basati sul modello**: Tengono conto della parte del mondo che non possono vedere nell'istante corrente. <br> 
+![statemodel](./imgs/reflex_statemodel.png)
 
-* Agenti basati su obiettivi (goal): L'agente ha bisogno di qualche tipo di informazione riguardante il suo obiettivo. ![goal](./imgs/goal_agent.png)
+* **Agenti basati su obiettivi (goal)**: L'agente ha bisogno di qualche tipo di informazione riguardante il suo obiettivo. <br> 
+![goal](./imgs/goal_agent.png)
 
-* Agenti basati sull'utilità: Gli obiettivi da soli non bastano a generare un comportamento di alta qualità. Questi agenti tengono in considerazione quanto un'azione è utile al fine del loro obiettivo, prediligendo quelli che li avvicinano di più ad esso (sono più utili, hanno quindi un criterio di scelta). ![happy](./imgs/happy.png)
+* **Agenti basati sull'utilità**: Gli obiettivi da soli non bastano a generare un comportamento di alta qualità. Questi agenti tengono in considerazione quanto un'azione è utile al fine del loro obiettivo, prediligendo quelli che li avvicinano di più ad esso (sono più utili, hanno quindi un criterio di scelta). <br> 
+![happy](./imgs/happy.png)
 
 <hr> 
 
@@ -108,7 +112,7 @@ Dato un problema sconosciuto l'agente può operare in 2 modi:
     3. Search
     4. Execution
 
-### Definizioni di Algoritmi di Ricerca
+### **Definizioni per Algoritmi di Ricerca**
 
 * **Problema**: l'insieme degli stati possibili nei quali l'ambiente può esistere, viene anche chiamato **Spazio degli Stati**
 
@@ -132,7 +136,7 @@ Dato un problema sconosciuto l'agente può operare in 2 modi:
 
 * **Soluzione**: il cammino che va dallo stato iniziale ad uno stato goal/finale.<br>Una soluzione si dice **ottima** se corrisponde al percorso di costo minore tra tutte le soluzioni.
 
-### Rappresentazione di un problema di ricerca
+### **Rappresentazione di un problema di ricerca**
 
 Un problema di ricerca può essere rappresentato in 2 modi:
 
@@ -142,7 +146,7 @@ Un problema di ricerca può essere rappresentato in 2 modi:
 
 Le principali differenze tra i 2 sono che:
 
-|State Space Graph|Albero di Ricerca|
+|**State Space Graph**|**Albero di Ricerca**|
 |-----------------|-----------------|
 |Ad ogni nodo corrisponde uno stato e ogni arco corrisponde ad un'azione che può esser eseguita in quello stato.|Ci possono essere più nodi uguali, però dato un nodo, il cammino che lo riporta alla radice è unico.|
 |_Ti fa vedere tutto il problema_| _Qui vedi più chiaramente il cammino_.|
@@ -156,7 +160,7 @@ La differenza tra **stato** e **nodo** è la seguente:
 
 * un **nodo** è una struttura dati che contiene informazioni come: stato, nodo padre, azioni, costo del cammino, profondità, ecc.
 
-Questa mappa verrà presa in considerazione per i successivi esempi:
+Questa mappa verrà presa in considerazione per i successivi esempi: <br>
 ![Romania ia ia oh](./imgs/romania.png)
 
 
@@ -174,7 +178,7 @@ _E.g._ una linea di assemblaggio.
 Alcune implementazini risalgono tutta la catena, impiegano molto tempo ma tolgono tutti i cicli, altre solo una piccola parte (3 o 4 salti all'indietro), impiegano un tempo costante ma riescono a togliere solo piccoli cicli.
 
 
-### Graph Search vs Tree-like Search
+### **Graph Search vs Tree-like Search**
 
 Possiamo fare una distinzione degli algoritmi in base alla necessità di controllare la presenza di cammini ridondanti:
 
@@ -197,8 +201,7 @@ I parametri che si utilizzano per valutare le prestazioni di un algoritmo sono:
 * **Complessità in spazio**: la memoria utilizzata pe l'esecuzione dell'algoritmo.
 
 
-### **Spazio degli stati infinito**
-
+#### **Spazio degli stati infinito**
 Quando lo spazio degli stati è finito non ci sono grandi problemi per la ricerca di una soluzione. Qunando invece si tratta di uno spazio degli stati infinito, la ricerca deve essere fatta **sistematicamente** per evitare di applicare sempre la stessa azione e non tornare mai indietro per controllare stati vicini allo stato iniziale.
 
 
@@ -225,18 +228,17 @@ In questi casi la complessità può essere misurata in funzione di 3 fattori:
 # **Ricerca non Informata**
 
 A questa famiglia di ricerca appartengono:
-
 * **Best First Search**
 * **Breadth First Search**
 * **Uniform cost search**
 * **Depth First Search**
 * **Depth Limited Search**
-* **Iterative Deeeeeeepening Search**
+* **Iterative Deepening Search**
 
 ## **Best First Search**
 
 Uno degli algoritmi di ricerca più semplici è il **Best First Search**, esso basa la scelta del nodo su una funzione di valutazione, scelta arbitrariamente, chiamata `f(n)`.<br>
-La frontiera viene mantenuta in una **coda di priorità**, ordinata secondo una funzione di valutazione `f(n)`, da cui ad ogni iterazione verrà estratto il nodo di costo minimo e:
+La frontiera viene mantenuta in una **coda di priorità**, ordinata secondo una funzione di valutazione `f(n)`, da cui ad ogni iterazione verrà estratto il nodo di costo minimo, e:
 
 * se è lo stato Goal ritorna il corrispondente cammino
 * altrimenti applica la funzione `EXPAND()` per generare altri nodi figli e li aggiunge alla frontiera se non sono mai stati raggiunti o sono riaggiunti se ora possono essere raggiunti con un cammino di costo inferiore a quello precedente.<br>
@@ -312,7 +314,7 @@ Quando le azioni hanno tutte quante lo stesso costo può essere una buona idea u
 
 Nell'implementazione è possibile migliorarlo alterando alcuni aspetti della Best First Search:
 
-* La coda **frontier** può essere impelemntata come una coda FIFO dato che darà una coda che rispetta già l'ordine di visita per la Bereadth First Search (i più vecchi vengono visitati prima)
+* La coda **frontier** può essere impelemntata come una coda FIFO dato che darà una coda che rispetta già l'ordine di visita per la Breadth First Search (i più vecchi vengono visitati prima)
 * La tabella **reached** può essere impostata con gli stati piuttosto che con una mappatura stati-nodi
 * È possibile effettuare un **early goal test** poichè, una volta trovato un cammino, saremo sicuri che non ci saranno altri cammini migliori per raggiungere quel nodo
 
@@ -376,7 +378,7 @@ Il costo di questo algoritmo in **spazio** e **tempo** è ![Costo Uniform Cost S
   
 Questo algoritmo può essere utilizzato come la breadth first search se il costo di tutte le eazioni è equivalente ed il suo costo in tempo e spazio è di ![costo](./imgs/o_b_d1.gif)
 
-La Uniform Cost Search è un algortimo **Completo** e **Ottimale** perchè la prima soluzione che trova sarà sempre il cammino di costo minore perchè basato su un algoritmo greede (best first search).
+La Uniform Cost Search è un algortimo **Completo** e **Ottimale** perchè la prima soluzione che trova sarà sempre il cammino di costo minore perchè basato su un algoritmo greedy (best first search).
 
 ```javascript
 function uniformCostSearch(problem) {
@@ -390,7 +392,7 @@ function uniformCostSearch(problem) {
 La DFS espande sempre il nodo più in profondità nella frontiera.<br>
 Utilizza quindi una cosa LIFO per ordinare la coda che contine i nodi di frontiera.
 
-_Esempio di funzionamente della DFS:_
+_Esempio di funzionamente della DFS: <br>
 ![dfs_example](./imgs/dfs_example.png)
 
 Per uno spazio degli stati ad albero è **Efficiente** e **Completa**.<br>
@@ -398,8 +400,7 @@ Per uno spazio degli stati **aciclico** può risultare che espande più volte lo
 In un insieme degli stati **con cicli** può rimanere bloccata in un ciclo infinito e perciò alcune implementazioni controllano la presenza di cicli.<br>
 Con uno spazio degli stati infinito la DFS non è sistematica perchè può bloccarsi in un percorso di lunghezza infinita.
 
-Il costo per uno spazio degli stati and albero è: ![costo dfs](./imgs/o_b_m.gif) con:
-
+Il costo per uno spazio degli stati ad albero è: ![costo dfs](./imgs/o_b_m.gif) con:
 * `b`: il branching factor
 * `m`: profondità massima
 
@@ -474,22 +475,22 @@ function iterativeDeepningSearch(problem) {
 }
 ```
 
-_Esempio di funzionamento della IDS_
+_Esempio di funzionamento della IDS <br>
 ![IDS example](./imgs/ids_example.png)
 
 ## **Bidirectional Search**
 
-E' un algoritmo di ricerca che espande parallelamente nodi partendo sia dallo Start che dal Goal fin quando non si incontrano in un punto "centrale". Può essere implementato utilizzando vari algoritmi di ricerca, quello che fornisce prestazioni migliore è la BFS.
-E' utilizzabile quando lo stato iniziale e quello finale sono definiti ed unici ed `b` deve essere uguale per tutti e due i lati della ricerca.
+E' un algoritmo di ricerca che espande parallelamente nodi partendo sia dallo Start che dal Goal fin quando non si incontrano in un punto "centrale". Può essere implementato utilizzando vari algoritmi di ricerca, quello che fornisce prestazioni migliore è la BFS. <br>
+È utilizzabile quando lo stato iniziale e quello finale sono definiti ed unici ed `b` deve essere uguale per tutti e due i lati della ricerca.
 
-Ha una complessità in tempo e spazio di `O(b ^(d/2))`
+Ha una complessità in tempo e spazio di `O(b ^(d/2))` <br>
 Con la BFS è **Ottimo** e **Completo**.
 
 ![vago](./imgs/centrale_vago.png)
 
 #### Comparazione tra algoritmi di ricerca non informati
 
-|Criterio|Bredth First|Uniform Cost|Depth First|Depth Limited|Iterative Deepnening|Bidirectional|
+|**Criterio**|**Bredth First**|**Uniform Cost**|**Depth First**|**Depth Limited**|**Iterative Deepnening**|**Bidirectional**|
 |:------:|:----------:|:----------:|:---------:|:-----------:|:------------------:|:-----------------:|
 |**Completo?**|SI|SI|NO|NO|SI|SI|
 |**Ottimale?**|SI|SI|NO|NO|SI|SI|
@@ -505,7 +506,7 @@ La funzione `h(n)` corrisponde alla **stima in costo** del cammino meno costoso 
 
 ## **Greedy Best First Search**
 
-E' la versione informata dell Best First Search che, piuttosto di basare la sua scelta su una funzione di valutazione `f(n)`, si basa su una funzione euristica `h(n)` (la coda di priorità è ordinata in base alla funzione euristica `f(n) = h(n`). Questa euristica fornisce informazioni su quale nodo ci permette di avvicinarci sempre di più al goal, senza però prendere in considerazione la distanza richiesta per percorrere il cammino.
+È la versione informata dell Best First Search che, piuttosto di basare la sua scelta su una funzione di valutazione `f(n)`, si basa su una funzione euristica `h(n)` (la coda di priorità è ordinata in base alla funzione euristica `f(n) = h(n`). Questa euristica fornisce informazioni su quale nodo ci permette di avvicinarci sempre di più al goal, senza però prendere in considerazione la distanza richiesta per percorrere il cammino.
 
 Il costo di questo algoritmo sia in spazio che in tempo è: `O(b^m)` (con m che rappresenta la profondità massima dello spazio di ricerca).
 Non è ottimo e non è completo (a meno che non si tiene traccia di tutti gli stati visitati).
@@ -527,7 +528,7 @@ Il risultato di questa somma corrisponde al cammino di costo minimo che permette
 A* è un algoritmo completo ma la sua ottimalità in costo dipende da alcune proprietà dell'euristica:
 
 * **Ammissibilità**: capacità dell'euristica di non sovrastimare mai il costo per raggiungere il goal (l'euristica è _ottimistica_).
-* **Consistentza** : la capacità dell'euristica di mantenere sensate le sue previsioni, ovvero l'euristica per raggiungere un nodo, deve essere minore o uguale alla somma tra un nuovo cammino figlio del nodo di partenza e l'euristica del nuovo nodo. Viene chiamata regola della **disuguaglianza triangolare**.
+* **Consistentza** : la capacità dell'euristica di mantenere sensate le sue previsioni, ovvero l'euristica per raggiungere un nodo, deve essere minore o uguale alla somma tra un nuovo cammino figlio del nodo di partenza e l'euristica del nuovo nodo. Viene chiamata regola della **disuguaglianza triangolare**. <br>
 ![inequita](./imgs/inequita.png)
 
 Un eurisitica consistente è sempre ammissibile, ma non è detto il contrario.<br>
@@ -535,7 +536,7 @@ L'euristiche possono peggiorare la performance della ricerca costringendo l'algo
 
 Con un abuona euristica, non avremo necessità di ricontrollare e aggiornare la tabella `reached`.
 
-_Esempio di funzionamento di A*_
+_Esempio di funzionamento di A* <br>
 ![esempio di A*](./imgs/esempio_astar.png)
 
 Quindi con una euristica Consistente A* è:
@@ -635,7 +636,7 @@ function rbfs(problem, node, f_limit) {
 }
 ```
 
-_Esempio di funzionamento della RBFS_
+_Esempio di funzionamento della RBFS <br>
 ![RBFS Esempio](./imgs/rbfs_example.png)
 
 Questo algoritmo è un po' più efficente di IDA* ma soffrre dell'utilizzo di troppa poca memoria portandolo a riiterare degli stessi cammini più volte prima di torvare una soluzione.
@@ -649,7 +650,7 @@ Sembra ragionevole poter far sfruttare ai nosti algoritmi tutta la memoria a lor
 * Memory Bounded A* (MA*)
 * Simplified Memory Bounded A* (SMA*): il suo funzionamento è molto semplice, l'algoritmo procede come un normalissimo A* fin quando non finisce la memoria per poi eliminare il nodo con la `f-value` più grande e ne salva quest ultima sul suo nodo predecessore cosicche si possa ricordare la miglior f-value, trovata fin ora, nel sottoalbero generato da quel nodo.
 
-L'SMA* può avere problemi di tempistiche, perchè quando finisce la memoria, eliminando i nodi con costo maggiore potrebbe andare a riespanderli e quindi passare più volte sugli stessi nodi. Questo può accadere in problemi molto difficili, il che significa che dei problemi risolvibili con un A*, dalla memoria infitia, non sono risolvibili dalla SMA* ma ovviamente non si può avere una memoria infinita e quindi per poter trovare una soluzione dobbiamo accontentarci non del miglior cammino ma di uno che sia "abbastanza buono".
+L'SMA* può avere problemi di tempistiche, perchè quando finisce la memoria, eliminando i nodi con costo maggiore potrebbe andare a riespanderli e quindi passare più volte sugli stessi nodi. Questo può accadere in problemi molto difficili, il che significa che dei problemi risolvibili con un A*, dalla memoria infinita, non sono risolvibili dalla SMA* ma ovviamente non si può avere una memoria infinita e quindi per poter trovare una soluzione dobbiamo accontentarci non del miglior cammino ma di uno che sia "abbastanza buono".
 
 
 ### **Funzioni Euristiche**
@@ -659,15 +660,15 @@ Il problema dell'8 puzzle possiamo fare a meno delle euristiche dato che può es
 * `h1`: il numero di tasselli in posizioni sbagliate (escluso quello vuoto)
 * `h2`: la somma della distanza dei tasselli dalla loro posizione finale, viene anche chiamata **city block distance** o **Mhanattan distance**
 
-Un fattore che viene spesso perso in cosiderazione per misurare la qualità di una euristica è il **branchin factor effettivo**: è il branching factor che viene calcolato su un albero di profondità `d` formato da `N+1` nodi che sono quelli esplorati da un algoritmo di ricerca (più è vicino ad 1 e migliore sarà l'euristica).
+Un fattore che viene spesso preso in cosiderazione per misurare la qualità di una euristica è il **branchin factor effettivo**: è il branching factor che viene calcolato su un albero di profondità `d` formato da `N+1` nodi che sono quelli esplorati da un algoritmo di ricerca (più è vicino ad 1 e migliore sarà l'euristica).
 
-Nella seguente tabella vediamo i differenti branching factor effettivi relativi all'euristica `h1`, `h2` e nessuna euristica. Evice che generalmente `h2` è la migliore scelta.
+Nella seguente tabella vediamo i differenti branching factor effettivi relativi all'euristica `h1`, `h2` e nessuna euristica. Evice che generalmente `h2` è la migliore scelta. <br>
 ![H1 vs H2](./imgs/h1h2.png)
 
 Possiamo dire che `h2` domina `h1`, ovvero che `h2(n) >= h1(n)`. La dominazione si può tradurre direttamente in efficenza, in quanto implica che `h2` non espanderà mai più nodi di `h1` per un dato algoritmo di ricerca.
 
 
-### **Problemi rilassati per individuazione di Euristiche**
+#### **Problemi rilassati per individuazione di Euristiche**
 
 Un problema rilassato è caratterizzato da minori condizioni vincolanti rispetto a un problema di riferimento.
 
