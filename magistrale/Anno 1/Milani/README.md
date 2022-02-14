@@ -10,6 +10,9 @@
     - [MinMax Search](#minmax-search)
     - [Alfa-Beta Pruning](#alfa-beta-pruning)
 - [Cellular Automata](#cellular-automata)
+    - [Varianti](#varianti)
+    - [Classi di Stepehn Wolfram](#classi-di-stepehn-wolfram)
+    - [CA probabilistici](#ca-probabilistici)
 - [Swarm Intelligence](#swarm-intelligence)
 - [Reinforcement Learning](#reinforcement-learning)
     - [Agent and Envirnonment](#agent-and-envirnonment)
@@ -853,7 +856,7 @@ Per giochi con branching factor molto grande, come Go e Schacchi, il MinMax anch
 # **Cellular Automata**
 
 Un Automa Cellulare è un array di automi (o celle) programmati nello stesso modo, i quali interagiscono tra di loro all'interno di un vicinato ed hanno uno stato finito.
-Questi automi vengono posizionati all'interno di un reticolo che può avere diverse dimensioni: 1D, 2D, 3G, ecc.
+Questi automi vengono posizionati all'interno di un reticolo che può avere diverse dimensioni: 1D, 2D, 3D, ecc.
 
 **Set di stati e regole di transizione:** <br>
 Il valore dello stato di ogni cella appartiene ad un insieme finito, i cui elementi possiamo assumere come numeri. Il valore dello stato è spesso rappresentato dai colori delle celle. Può esserci uno stato di riposo speciale s0. 
@@ -895,10 +898,12 @@ Per implementare ed eseguire un esperimento CA:
 
 
 #### ***Definizione informale***
-Un automa cellulare è una struttura geometricamente strutturata di sistemi identici (semplici) chiamati cellule che interagiscono solo localmente con ogni cella avente uno stato locale (memoria) che può assumere un numero finito di valori e una (semplice) regola utilizzata per aggiornare lo stato di tutte le celle a passi di tempo discreti e in sincrono per tutte le celle dell'automa (“segnale” globale).
+Un automa cellulare è una struttura geometricamente strutturata di sistemi identici (semplici) chiamati cellule. Quest'ultime interagiscono solo localmente con ogni cella avente:
+- uno stato locale (memoria), il quale può assumere un numero finito di valori
+- una (semplice) regola utilizzata per aggiornare lo stato di tutte le celle a passi di tempo discreti e in sincrono per tutte le celle dell'automa (“segnale” globale).
 
 #### ***Definizione formale***
-Un automa cellulare è un reticolo n-dimensionale di macchine a stati finiti identiche e sincrone il cui stato s viene aggiornato (in modo sincrono) a seguito di una funzione di transizione (o regola di transizione) che tenga conto dello stato delle macchine appartenenti ad un intorno N della macchina, e la cui geometria è la stessa per tutte le macchine.
+Un automa cellulare è un reticolo n-dimensionale di macchine a stati finiti identiche e sincrone il cui stato s viene aggiornato (in modo sincrono) a seguito di una funzione di transizione (o regola di transizione), che tenga conto dello stato delle macchine appartenenti ad un intorno N della macchina, e la cui geometria è la stessa per tutte le macchine.
 
 ![componentiCA](./imgs/componentiCA.png)
 <br>
@@ -906,28 +911,29 @@ Un automa cellulare è un reticolo n-dimensionale di macchine a stati finiti ide
 ![componentiCA2](./imgs/componentiCA2.png)
 
 
-Vicinato: il set di celle che possono influenzare una data cella. Ci sono due metodi diversi per considerarlo:
+**Vicinato**: il set di celle che possono influenzare una data cella. <br>
+Ci sono due metodi diversi per considerarlo:
 
 - Von Neumann
 - Moore
 
 ![moore](./imgs/moore.png)
 
-### **VARIANTI:**
+### **Varianti:**
 
 - **CA Asincrone**
     - Le regole CA vengono generalmente applicate contemporaneamente a tutte le celle del reticolo. Questa variante consente di aggiornare in modo asincrono lo stato delle celle. 
 
 - **CA probabilistiche**
-    - Le transizioni di stato deterministiche vengono sostituite con le specifiche delle probabilità delle assegnazioni di valori di cella. 
+    - Le transizioni di stato deterministiche vengono sostituite con le specifiche delle probabilità per le assegnazioni di valori alla cella. 
 
 - **CA non omogenee**
     - Le regole di transizione di stato possono variare da cella a cella.  
 
 - **CA Mobile**
-    - Alcuni o tutti i siti del reticolo sono liberi di muoversi sul reticolo. 
+    - Alcuni o tutti i siti del reticolo sono liberi di muoversi su esso. 
     - Modelli essenzialmente primitivi di robot mobili. 
-    - Utilizzato per modellare alcuni aspetti degli impegni militari. 
+    - Utilizzato per modellare alcuni aspetti in ambito militare. 
 
 - **CA strutturalmente dinamiche**
     - La topologia (i siti e le connessioni tra i siti) possono evolvere. 
@@ -935,8 +941,8 @@ Vicinato: il set di celle che possono influenzare una data cella. Ci sono due me
 
 ## **Classi di Stepehn Wolfram**
 
-- **Classe One**: Regole che producono universi con Tutte cellule vive o morte.
-- **Classe Two**: Regole che generano configurazioni stabili e sempre riproducibili
+- **Classe One**: Regole che producono universi con tutte cellule vive o morte.
+- **Classe Two**: Regole che generano configurazioni stabili e sempre riproducibili.
 - **CLasse Three**: Regole che generano pattern caotici come le molecole di un gas.
 - **Classe Four**: Regole che producono pattern complessi, localmente organizzati e non strutturati come il liquido che scorre.
 
@@ -955,10 +961,10 @@ Le regole si basano su un vicinato di 9 bit, 512 combinazioni e possibili regole
 
 
 **Universalità computazionale** <br>
-In Life possiamo definire segnali (come flussi di alianti interpretati come bit), implementare tutte le porte logiche (AND, NOT,...), implementare ritardi, banchi di memoria, duplicatori di segnale e così via. 
+In Life possiamo definire segnali come flussi di alianti interpretati come bit. In questo modo si potrebbe implementare con le porte logiche (AND, NOT,...), implementare ritardi, banchi di memoria, duplicatori di segnale e così via. 
 - Quindi, Life può emulare qualsiasi macchina informatica; diciamo che è capace di computazione universale. 
-- La teoria del calcolo dice che, in generale, dato uno stato iniziale per l'automa, non esiste un modo scorciatoia per prevedere il risultato dell'evoluzione della Vita. Dobbiamo eseguirlo.
-- Diciamo che la Vita è computazionalmente irriducibile. 
+- La teoria del calcolo dice che, in generale, dato uno stato iniziale per l'automa, non esiste un modo scorciatoia per prevedere il risultato dell'evoluzione del modello. Dobbiamo eseguirlo.
+- Diciamo che la Life è computazionalmente irriducibile. 
 - In parole povere, questo significa che un'AC molto semplice come Life (e Regola 110 in 1D) può produrre comportamenti altamente non banali, che non possono essere previsti semplicemente osservando la regola di transizione. 
 - L'`universo` costituito da un'AC può essere uno sfondo interessante per l'emergere di fenomeni complessi. 
 
@@ -973,7 +979,7 @@ In Life possiamo definire segnali (come flussi di alianti interpretati come bit)
 ![caex5](./imgs/caex5.png)
 
 
-### **CA probabilistico**
+### **CA probabilistici**
 Finora abbiamo considerato solo CA deterministici. Per modellare molti fenomeni è utile applicare regole di transizione che dipendono da qualche probabilità assegnata esternamente. <br>
 ***Esempio***: il modello dell'incendio boschivo 
 - Ogni cella contiene un albero verde, un albero in fiamme o è vuota 
@@ -991,22 +997,22 @@ Finora abbiamo considerato solo CA deterministici. Per modellare molti fenomeni 
 
 ![probca](./imgs/probca.png)
 
-**Regola Modello predatore/preda** <br>
+### **Regola Modello predatore/preda** <br>
 Questa regola modellava una relazione predatore/preda. Inizia con una popolazione distribuita casualmente di pesci, squali e celle vuote in una griglia di celle 1000x2000 (2 milioni di celle). Inizialmente:
-- Il 50% delle cellule è occupato da pesci 
+- Il 50% delle celle è occupato da pesci 
 - Il 25% è occupato da squali 
 - il 25% è vuoto 
 
-**Regole in dettaglio: Regole del pesce** <br>
+#### **Regole in dettaglio: Regole del pesce** <br>
 Se la cella corrente contiene un pesce:
 - I pesci vivono per 10 generazioni. 
 - Se >=5 vicini sono squali, il pesce muore (cibo per squali). 
 - Se tutti e 8 i vicini sono pesci, il pesce muore (sovrappopolazione). 
 - Se un pesce non muore, aumentare l'età. 
 
-**Regole in dettaglio: Regole Shark** <br>
+#### **Regole in dettaglio: Regole Shark** <br>
 Se la cella corrente contiene uno squalo:
-- Gli squali vivono da 20 generazioni. 
+- Gli squali vivono per 20 generazioni. 
 - Se >=6 vicini sono squali e vicini pesci =0, lo squalo muore (fame). 
 - Uno squalo ha una probabilità di 1/32 (.031) di morire per cause casuali. 
 - Se uno squalo non muore, aumenta l'età. 
@@ -1014,9 +1020,9 @@ Se la cella corrente contiene uno squalo:
 
 ### **Vantaggi delle CA**
 - Sono necessari potenti motori di calcolo (GPU). 
-    - Consentire un calcolo parallelo molto efficiente 
+    - Ma consentono un calcolo parallelo molto efficiente 
 - Simulatore di sistemi dinamici discreti. 
-    - Consentire un'indagine sistematica di fenomeni complessi. 
+    - Consentono un'indagine sistematica di fenomeni complessi. 
 - Modelli originali di GéPphysics. 
     - Invece di guardare le equazioni della fisica fondamentale, considera di modellarle con CA. 
 - È possibile studiare il comportamento emergente di un gruppo complesso da un semplice comportamento individuale. 
