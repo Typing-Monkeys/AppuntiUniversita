@@ -1621,7 +1621,7 @@ Una comunità è definita come un insieme di nodi con un alto coefficiente di cl
 ## **Formazione dei grafi**
 **Modelli di network**:
 - Proprietà dei grafi del mondo reale
-- Formazione di componenti giganti
+    - Formazione di componenti giganti
 - Grafi casuali
     - Grafi casuali di Erdos–Renyi
 - Proprietà del piccolo mondo
@@ -1644,14 +1644,14 @@ I grafi casuali, tuttavia, sono utili come modelli nulli rispetto ai quali confr
 <hr>
 
 ## **Networks Properties**
-La maggior parte delle reti Real ha:
+La maggior parte delle reti reali ha:
 - Componente connesso gigante
     - “siamo tutti collegati”
 - Alta connettività
     - “tutti i miei amici sono amici”
 - Piccolo diametro
     - “notizia diffusa in un lampo”
-- Distribuzione della laurea in Power Law
+- Distribuzione del grado in Power Law
     - “poche persone hanno un numero enorme di follower”
 - Scala libera
     - “una piccola parte delle reti è simile al quadro generale”
@@ -1676,8 +1676,10 @@ Come identificare le “strutture comunitarie” in una rete?
 - Clustering, chiusura triadica (transitività)
 - Partizionamento 
 
+<hr>
+
 ## **Erdos-Renyi Random Graphs**
-E' un grafo G con n nodi e m archi e quest ultimi hanno la stessa probabilità ***p*** di essere generati.
+È un grafo G con n nodi e m archi e quest ultimi hanno la stessa probabilità ***p*** di essere generati.
 
 ![er](./imgs/esempio_er.png)
 
@@ -1722,13 +1724,12 @@ Per una transizione netta, pensa all'acqua in un bicchiere e al pc = 0 gradi.
 <hr>
 
 ## **Small World Network**
-Una network si dice Small World Network se la lunghezza media L dello shortest path tra due nodi è in scala logaritmica rispetto al numero totale dei nodi n. Tipo 225226 nodi -> L = 3.65 (la L deve essere mooolto piccola rispetto a n). Alcuni autori hanno definiscono lo small world network aggiungendogli un'altra proprietà, ovvero avere un alto coefficiente di clustering. Trasmettere informazioni in una small world network risulta molto veloce, ma anche la trasmissione di minacce e virus.
-
+Un network si dice Small World Network se la lunghezza media L dello shortest path tra due nodi è in scala logaritmica rispetto al numero totale dei nodi n. Tipo 225226 nodi -> L = 3.65 (la L deve essere mooolto piccola rispetto a n). Alcuni autori hanno definito lo small world network aggiungendogli un'altra proprietà, ovvero avere un alto coefficiente di clustering. Trasmettere informazioni in una small world network risulta molto veloce, ma lo è anche la trasmissione di minacce e virus.
 
 ![small1](./imgs/small1.png)
 
 ### **The Watts–Strogatz random rewire model - Generazione di reti Small World (altamente connesse)**
-Per generare degli samall workd Wats-Stragat si parte da una griglia circolare (network regolare) (1-dimensionale con k = 4) la quale ha un alto coefficiente di clustering e randomicamente si rimuovono e aggiungono degli archi andando cosi a generare un fenomeno di small world. Questo metodo va a migliorare il precedente metodo di Erdos-Renyi perchè generando un grafo random non è detto che si ottiene un alto tasso di clustering.
+Per generare degli small world Wats-Stragat si parte da una griglia circolare (network regolare) (1-dimensionale con k = 4) la quale ha un alto coefficiente di clustering e randomicamente si rimuovono e aggiungono degli archi andando cosi a generare un fenomeno di small world. Questo metodo va a migliorare il precedente metodo di Erdos-Renyi perchè generando un grafo random non è detto che si ottiene un alto tasso di clustering.
 
 - **Rewire**: C’è un componente gigante ma poco connesso. Ogni nodo è connesso con un nodo ma i vicini non è detto che lo siano tra loro. stacco e riattacco un arco con un altro nodo con una certa probabilità. Quando questa probabilità supera una certa soglia quello che succede è che emerge un alto grado di connettività locale. 
 
@@ -1750,7 +1751,7 @@ La conseguenza:
 ![small tabella](./imgs/small_tabella.png)
 
 
-Hanno dei pattern di collegamento che si ripetono spesso (tipo i 5 nodi connessi ad un nodo centrale rosso)(SELF SIMILAR)
+Hanno dei pattern di collegamento che si ripetono spesso (tipo i 5 nodi connessi ad un nodo centrale rosso)(SELF SIMILAR). <br>
 Presentano anche una topologia non basilare (non-trivial topology).
 
 ![small2](./imgs/small2.png)
@@ -1808,11 +1809,11 @@ Si diceva che «i nodi più strettamente connessi rappresentano un tallone d'Ach
 
 #### **Preferences Attachment of newcomers**
 Un altro modo molto diffuso per modellare le reti è riprodurre il processo di crescita in atto nel mondo reale: entrano nuovi nodi. <br>
-Heber Simon mostrò nel 1955 che le leggi di potere si incontrano quando i ricchi si arricchiscono: più abbiamo già, più diventiamo. 
+Heber Simon mostrò nel 1955 che le leggi di potere si incontrano quando i ricchi si arricchiscono: più abbiamo già, più avremo. 
 
-Quando arriva un nuovo nodo si connette ai nodi più popolari (Con più connessioni), non in maniera deterministica, ma è una preferenza proporzionale (probabilità proporzionale la numero di connessioni).
+Quando arriva un nuovo nodo si connette ai nodi più popolari (con più connessioni), non in maniera deterministica, ma è una preferenza proporzionale (probabilità proporzionale la numero di connessioni).
 
-Quindi il modo più comun per generare una rete senza scala è usare attaccamento preferenziale.
+Quindi il modo più comune per generare una rete senza scala è usare attaccamento preferenziale.
 - Quando arriva un nuovo nodo, preferisce collegarsi ai nodi più popolari 
 
 Nel 19665 Derek de Solla Price stabilì un modello in cui la probabilità che un nuovo nodo si colleghi ad un altro è proporzionale a Kin+1, dove Kin p il grado di ingresso del nodo. 
