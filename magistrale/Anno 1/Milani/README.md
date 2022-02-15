@@ -23,6 +23,8 @@
     - [Concetti base](#concetti-base)
         - [Key players](#key-players)
         - [Cohesion](#cohesion)
+        - [Communicability](#communicability)
+        
 - [Reti e grafi](#reti-e-grafi)
     - [Formazione dei grafi](#formazione-dei-grafi)
     - [Erdos-Renyi Random Graphs](#erdos-renyi-random-graphs)
@@ -1424,7 +1426,7 @@ Tipi di grafi:
 - digrafi (directed graph)
 - Grafi semplici: sono grafi senza archi multipli o loop sullo stesso nodo.
 
-#### **Definizioni formali**
+### **Definizioni formali**
 Le reti del mondo reale sono generalmente modellate mediante grafi. <br>
 Un grafo G = (V, E) è costituito da un insieme (finito) V = {v1, v2, . . . , vN } di nodi (o vertici) e un insieme E di archi (o collegamenti), che sono coppie {vi, vj } con vi, vj ∈ V. <br>
 Il grafo G è orientato se gli archi {vi, vj } ∈ E sono coppie ordinate = (vi, vj ) ∈ V × V , altrimenti G è non orientato. Un grafo orientato viene spesso definito digrafo. <br>
@@ -1482,7 +1484,7 @@ Nelle relazioni sociali questo peso può essere inteso come:
     - Tende a formare clusters, gruppi omogeni, dove formare relazioni è più semplice.
     - L'estrema omogeneizzazione può agire contro l'innovazione e la generazione di idee (l'eterofilia è quindi auspicabile in alcuni contesti).
     - I legami di omofilia possono essere forti o deboli.
-- **Transitivity**: è una proprietà dei collegamenti, se A e B sono connessie B e C sono connessi allora in un network transitivo A e C sono connessi. 
+- **Transitivity**: è una proprietà dei collegamenti, se A e B sono connessi e B e C sono connessi allora in un network transitivo A e C sono connessi. 
     - Legami forti sono più spesso transitivi rispetto a quelli deboli. La transitività è inoltre l’evidenza dell’esistenza di legami forti (non è una condizione necessaria o sufficiente).
     - Transitività e omofilia insieme conducono alla formazione di **cicli** (grafi completamente connessi) 
 - **Bridging**: sono nodi e archi che connettono vari gruppi.
@@ -1495,14 +1497,14 @@ Nelle relazioni sociali questo peso può essere inteso come:
 
 ## **Key Players**
 Metodi di valutazione dei Key Player in un social network:
-- **IN/OUT-Degree centrality**: il numeo di collegamenti in ingresso o in uscita di un certo nodo. Se il grafo è non orientato allora i due conincidono. Utile per distinguere nodi chiave per la diffusione di informazioni nel loro immediato vicinato. <br>
+- **IN/OUT-Degree centrality**: il numero di collegamenti in ingresso o in uscita di un certo nodo. Se il grafo è non orientato allora i due conincidono. Utile per distinguere nodi chiave per la diffusione di informazioni nel loro immediato vicinato. <br>
 ![deg](./imgs/degree.png)
 
-- **Path e shortest paths**: un path tra due nodi è una sequenza di archi e nodi non ripetuti che connette due nodi. Lo shortest path tra due nodi è il path che connette due nodi ocn il minor numero di archi (anche detto distanza tra due nodi).
+- **Path e shortest paths**: un path tra due nodi è una sequenza di archi e nodi non ripetuti che connette due nodi. Lo shortest path tra due nodi è il path che connette due nodi con il minor numero di archi (anche detto distanza tra due nodi).
 
 - **Betweenness centrality**: mostra quali nodi è più probabile che siano in comunicazione con gli altri (i nodi più attraversati). Utile per capire quali in quale punto la rete potrebbe rompersi e perdere più nodi connessi. Si calcola come segue:
     - Dato un nodo V, si calcola il numero P di shortest path, tra i e j, che lo attraversano
-    - Si cacola il numero totale T di shortest path tra i e j
+    - Si calcola il numero totale T di shortest path tra i e j
     - Si calcola B = P/T
     - Si ripetono queste operaizoni per ogni coppia di i e j e si sommano tutti. <br>
 ![bet](./imgs/bet.png) <br>
@@ -1512,7 +1514,7 @@ Metodi di valutazione dei Key Player in un social network:
     - potrebbe essere richiesto di portare più informazioni. <br>
     E quindi, tali nodi possono essere oggetto di attacchi mirati 
 
-- **Closeness centrality**: serve a misurare il ***reach***, ovvero la velocità con cui un informazione raggiunge altri nodi partendo da un dato nodo iniziale. Si calcola con il reciproco della media della lungezza degli shortest path da quel nodo verso tutti gli altri. <br>
+- **Closeness centrality**: serve a misurare il ***reach***, ovvero la velocità con cui un'informazione raggiunge altri nodi partendo da un dato nodo iniziale. Si calcola con il reciproco della media della lungezza degli shortest path da quel nodo verso tutti gli altri. <br>
 ![closeness](./imgs/close.png) <br>
 ![closeness2](./imgs/close2.png)
 
@@ -1551,10 +1553,10 @@ La centralità del sottografo è stata utilizzata con successo in vari contesti,
 <hr>
 
 ## **Cohesion**
-- **Reciprocity**: il rapporto tra il numero di connessioni reciproche e il numero di connessioni totali. (il grafo deve essere orientato). Utile per individuare la mutualità nello scambio di informazioni. <br>
+- **Reciprocity**: il rapporto tra il numero di connessioni reciproche e il numero di connessioni totali (il grafo deve essere orientato). Utile per individuare la mutualità nello scambio di informazioni. <br>
 ![rec](./imgs/reciprocity.png)
 
-- **Density**: il rapporto tra il numero di connessioni del grafo e il numero totale di connessioni possibili. E' una misura utile per stabilire quanto la rete sia ben connessa e per mettere a confronto reti. Una rete perfettamente connessa è chiamata Clique ed ha una densità di 1. <br>
+- **Density**: il rapporto tra il numero di connessioni del grafo e il numero totale di connessioni possibili. È una misura utile per stabilire quanto la rete sia ben connessa e per mettere a confronto reti. Una rete perfettamente connessa è chiamata Clique ed ha una densità di 1. <br>
 ![den](./imgs/density.png)
 
 - **Clustering**: si calcola con algoritmi di clustering che identificano delle "comunità" all'interno della rete. Il coefficiente di clustering di un nodo è dato dal numero di triplette chiuse nel suo vicinato fratto il numero di triplette del vicinato. <br>
@@ -1563,13 +1565,13 @@ Un coefficiente di clustering misura il grado in cui i nodi di una rete tendono 
 ![clustering2](./imgs/cluster2.png) <br>
 Dove delta i è il numero di triangoli in G avente il nodo vi come uno dei suoi vertici. Il coefficiente di clustering in un grafo G è definito come la media dei coefficienti di cluster di tutti i nodi con grado > = 2. 
 
-- **Diametro**: il diametro è dato dal più lingo shortest paht. Indica la distanza massima percorribile tra 2 nodi nel grafo. <br>
+- **Diametro**: il diametro è dato dal più lungo shortest path. Indica la distanza massima percorribile tra 2 nodi nel grafo. <br>
 ![diametro](./imgs/diametro.png).
 
-- **Small Worlds**: è un network che sembra quasi random ma dismostra un coefficiente di clustering significativamente alto e una corta short avareg path lenght. Questi network avranno molti clustere e molti nodi ponte. <br>
+- **Small Worlds**: è un network che sembra quasi random ma dimostra un coefficiente di clustering significativamente alto e una corta short average path lenght. Questi network avranno molti cluster e molti nodi ponte. <br>
 ![small](./imgs/small.png)
 
-- **Preferential Attachment**: è la proprietà di qualche network dove nella loro evoluzione e cresita nel tempo, la maggior parte delle nuove connessioni vanno ad essere con il nodo più connesso andandolo a preferire a discapito di altri cluster/nodi. Questo può essere dato dalla qualità o popolarità del nodo (o entrabe le cose ). <br>
+- **Preferential Attachment**: è la proprietà di qualche network dove nella loro evoluzione e crescita nel tempo, la maggior parte delle nuove connessioni vanno ad essere con il nodo più connesso andandolo a preferire a discapito di altri cluster/nodi. Questo può essere dato dalla qualità o popolarità del nodo (o entrambe le cose). <br>
 ![preference](./imgs/preference.png) <br>
 Ragioni per il preferential attachment:
     - **Popolarità**: vogliamo essere connessi a persone, idee, oggetti popolari. Il ricco diventa più ricco.
@@ -1592,7 +1594,9 @@ Ragioni per il preferential attachment:
 
 ***NOTA IMPORTANTANTE***: la matrice di adiacenza elevata alla n-esima potenza con elemento `a^n i,j` indica quanti cammini di lunghezza n passano tra i e j.
 
-### **Communicability**
+<hr>
+
+## **Communicability**
 ![comm1](./imgs/comm1.png)<br>
 ![comm2](./imgs/comm2.png)<br>
 ![comm3](./imgs/comm3.png)<br>
