@@ -1089,14 +1089,16 @@ Le formiche:
 
 # **Reinforcement Learning**
 
-È un campo dell’intelligenza artificiale (fa parte del machine learning) in cui un agente sceglie le azioni basandosi su un premio numerico che ottiene dall’ambiente. Nel reinforcement learning
+È un campo dell’intelligenza artificiale (fa parte del machine learning) in cui un agente sceglie le azioni basandosi su un premio numerico che ottiene dall’ambiente. Nel reinforcement learning:
 - l’agente ha uno spazio degli stati che esplora
-- l’agente conosce le azioni che può eseguire. 
+- l’agente conosce le azioni che può eseguire
 - c'è una serie di azioni che l'agente può intraprendere in qualsiasi stato particolare
-- c'è una ricompensa associata allo stato successivo in cui l'agente atterra. 
+- c'è una ricompensa associata allo stato successivo in cui l'agente atterra
 
 L'obiettivo dell'apprendimento per rinforzo è **progettare la policy** (dato uno stato lui conosce le azioni che deve eseguire) ottimale o quasi ottimale basata sui premi ricevuti. <br>
-Nell’apprendimento di rinforzo non c’è supervisione, ma ci sono delle ricompense (reward). Il feedback è in ritardo, non immediato. Il tempo conta, le azioni sono sequenziali. Le azioni dell’agente influenzano i dati successivi (modificano l’ambiente quindi gli stati successivi) che esso riceve. 
+Nell’apprendimento di rinforzo non c’è supervisione, ma ci sono delle ricompense (reward). 
+- Il feedback è in ritardo, non immediato. Il tempo conta, le azioni sono sequenziali.
+- Le azioni dell’agente influenzano i dati successivi (modificano l’ambiente quindi gli stati successivi) che esso riceve. 
 
 Esempi di applicazione:
 - Apprendimento della guida di veicoli 
@@ -1125,14 +1127,14 @@ I metodi di apprendimento per rinforzo sono modi in cui l'agente può apprendere
 ![rl6](./imgs/rl6.png)
 
 A seconda del problema il reward migliore può essere a breve o medio o lungo termine. <br>
-A seconda della frequenza con cui vengon dati i reward, il modello piò essere definito Sparso oppure no. <br>
-L'obiettivo dell'agente è quello di massimizzare la somma cumulata dei reword (Reward Hypothesis): un **reward Rt** è un feedback scalare che indica come si sta comportando l'agente allo step t. 
+A seconda della frequenza con cui vengono dati i reward, il modello può essere definito **sparso** oppure no. <br>
+**Ricorda bene**: L'obiettivo dell'agente è quello di massimizzare la somma cumulata dei reward (Reward Hypothesis): un **reward Rt** è un feedback scalare che indica come si sta comportando l'agente allo step t. 
 
 ## **Concetti chiave**
 - ### **Stati e osservazioni**
     Uno **stato** s è una descrizione completa dello stato del mondo. <br>
     Non ci sono informazioni sul mondo che sono nascoste allo stato. <br>
-    Un'**osservazione** o è una descrizione parziale di uno stato, che può omettere informazioni. Di solito l'agente riceve dall'ambiente osservazioni non stati. <br>
+    Un'**osservazione** è una descrizione parziale di uno stato, che può omettere informazioni. Di solito l'agente riceve dall'ambiente osservazioni non stati. <br>
     In RL profondo, rappresentiamo quasi sempre stati e osservazioni con un vettore, una matrice o un tensore di ordine superiore a valori reali. Ad esempio, un'osservazione visiva potrebbe essere rappresentata dalla matrice RGB dei suoi valori di pixel; lo stato di un robot potrebbe essere rappresentato dai suoi angoli e velocità di giunzione. <br>
     Quando l'agente è in grado di osservare lo stato completo dell'ambiente, si dice che l'ambiente è completamente osservabile. Quando l'agente può vedere solo un'osservazione parziale, diciamo che l'ambiente è parzialmente osservable.
 - ### **Spazi d'azione (dominio, spazio degli stati)**
@@ -1143,15 +1145,18 @@ L'obiettivo dell'agente è quello di massimizzare la somma cumulata dei reword (
     Il tipo di spazio di azione influenza profondamente le caratteristiche dell'algoritmo. 
 - ### **Policies**
     Una **Policy** è una regola utilizzata dagli agenti per decidere quale azione compiere dato un determinato stato. Può essere di due tipi:
-    1. Deterministica: indicata con u (mu) e associa un'azione ad un determinato stato. ![polid](./imgs/policy_d.png)
-    2. Stocastica: indicata con pi (pigreco) e fornisce la distribuzione di probabilità delle azionoi dati gli stati. ![policys](./imgs/policy_s.png)
+    1. Deterministica: indicata con u (mu) e associa un'azione ad un determinato stato. <br>
+    ![polid](./imgs/policy_d.png)
+    2. Stocastica: indicata con pi (pigreco) e fornisce la distribuzione di probabilità delle azionoi dati gli stati. <br>
+    ![policys](./imgs/policy_s.png)
 
     A volte, nel Deep Reinforcement Learning, gli output delle policy dipendono da dei parametri e per denotare questi parametri, vengono messi come pedice accanto al simbolo della policy. <br>
     ![policypedice](./imgs/policy_pedice.png)
 - ### **Traiettorie**
-    Una **Trajectory** T (chiamate anche rollout) è una sequneza di stati e azioni nel mondo.
+    Una **Trajectory** T (chiamate anche rollout) è una sequneza di stati e azioni nel mondo. <br>
     ![tra](./imgs/tragliettoria.png). <br>
-    La **History** è una sequenza di osservazioni, azioni e reward.  ![stroia](./imgs/storia.png) <br>
+    La **History** è una sequenza di osservazioni, azioni e reward. <br>
+    ![stroia](./imgs/storia.png) <br>
     Le **State Transitions** rappresentano cosa accade al mondo durante un cambio di stato (dallo stato st al tempo t allo stato st+1 al tempo t+1) e sono governate dalle legge dell'ambiente, e dipendono solo dall'azione più recente at.
     Possono essere:
     - **Deterministiche**: <br>
@@ -1159,7 +1164,7 @@ L'obiettivo dell'agente è quello di massimizzare la somma cumulata dei reword (
     - **Stocastiche**: <br>
     ![stateranssdss](./imgs/statetranss.png)
 - ### **Reward and Return**
-    La **reward Function R** è la parte più importante dei sistemi di reifnocmente learning e può dipendere dall'azione, dallo stato attuale e dallo stato futuro, può talvolta essere semplificata dipendendo solo dallo stato attuale e dall'azione. <br>
+    La **reward Function R** è la parte più importante dei sistemi di reinforcement learning e può dipendere dall'azione, dallo stato attuale e dallo stato futuro, può talvolta essere semplificata dipendendo solo dallo stato attuale e dall'azione. <br>
     Quindi il **goal** dell'agente è quello di massimizzare una sorta di **reward cumulativo** ***R(T)*** individuato da una traiettoria. Si distingue tra:
     - **Finite-horizon undiscounted return**: è la somma dei reword ottenuti in un intervallo di tempo <br>
     ![finetahrewq](./imgs/finitehrew.png)
@@ -1171,7 +1176,7 @@ L'obiettivo dell'agente è quello di massimizzare la somma cumulata dei reword (
     
         In condizioni ragionevoli, con un fattore di sconto la somma infinita converge. 
 - ### **Il problema di ottimizzazione nel Reinforcement Learning**
-    Il vero obiettivo del Reifnocemente Learngin è quindi quello di massimizzare l'Expected Return J(pi) definito come segue: <br> 
+    Il vero obiettivo del Reinforcement Learning è quindi quello di massimizzare l'Expected Return J(pi) definito come segue: <br> 
     ![expected ret](./imgs/expecterre.png) <br>
     Otterremo quindi la **policy ottimale**: <br>
     ![ottimale](./imgs/ottimale.png) <br>
@@ -1185,7 +1190,7 @@ L'obiettivo dell'agente è quello di massimizzare la somma cumulata dei reword (
     ![qpi](./imgs/qpi.png)
     3. **Optimal Value Function**: che restituisce l'Expected Return se si parte dallo stato s e si applica sempre la optimal policy. <br>
     ![vstart](./imgs/vstart.png)
-    4. **Optimal Action-Value Function**: che restituisce l'Expected Return se si parte dallo stato s, partendo con un azione arbitraria a e poi seguendo sempre la optimal v. <br>
+    4. **Optimal Action-Value Function**: che restituisce l'Expected Return se si parte dallo stato s, partendo con un'azione arbitraria a e poi seguendo sempre la optimal v. <br>
     ![qstar](./imgs/qstar.png)
 
 <hr>
@@ -1200,7 +1205,7 @@ L'obiettivo dell'agente è quello di massimizzare la somma cumulata dei reword (
 **Learn the model**: il modello è sconosciuto ma attraverso l’esecuzione delle azioni mi posso creare un’aspettativa di come funziona il mondo.<br>
 
 
-Ci sono due categorie principali di approcci per il reainforcement learning:
+Ci sono due categorie principali di approcci per il reinforcement learning:
 - **MODEL BASED**: viene utilizzato un algoritmo che utilizza la funzione di transizione (e la funzione di ricompensa) per stimare la policy ottimale.
 - **MODEL FREE**: viene utilizzato un algoritmo che stima la policy ottimale senza utilizzare o stimare le dinamiche (funzioni di transizione e ricompensa) dell'ambiente. Può essere suddiviso in 2 sottocategorie:
     - **Action Utility Learning**: 
@@ -1216,7 +1221,7 @@ Ci sono due categorie principali di approcci per il reainforcement learning:
 ![atari2](./imgs/atari2.png)
 
 ### **Exploitation vs Exploration**
-Il Reifnocemtne Learinig è un metodo di apprendimento trial-and-error, l'agente deve trovare una buona policy e per farlo dobbiamo trovare una compromesso tra esploraizone di nuove mosse (**Exploration**) e lo sfruttamento di alcune già conosciute (**Exploitation**). <br>
+Il Reinforcement Learning è un metodo di apprendimento trial-and-error, l'agente deve trovare una buona policy e per farlo dobbiamo trovare una compromesso tra esplorazione di nuove mosse (**Exploration**) e lo sfruttamento di alcune già conosciute (**Exploitation**). <br>
 ***esempi***:
 - Selezione di un ristorante
     - **Exploitation**: andare nel proprio ristorante preferito. 
@@ -1252,7 +1257,7 @@ Il discount viene utilizzato per:
 - evita rendimenti infiniti nei processi di Markov ciclici
 - l'incertezza sul futuro potrebbe non essere pienamente rappresentata
 - se il premio è finanziario, i premi immediati possono guadagnare più interesse rispetto ai premi ritardati
-- spesso viene preferito un reward immediato(e.g. comportamenti umani o finanza)
+- spesso viene preferito un reward immediato (e.g. comportamenti umani o finanza)
 - A volte è possibile utilizzare processi di ricompensa Markov non scontati se tutte le sequenze terminano
 
 Il **reward totale scontato** allo step **t** è calcolato come segue: <br>
@@ -1325,7 +1330,7 @@ La funzione Q utilizza l'equazione di Bellman e accetta due input: **stato (s) e
 
 ### **Passaggio 1: inizializza la Q-Table**
 Per prima cosa deve essere costruito la Q-table. Ci sono **n** colonne, dove n = numero di azioni. Ci sono **m** righe, dove m = numero di stati. <br>
-Nel nostro esempio n= `Vai a sinistra, Vai a destra, Vai su e vai giù` e m= `Inizio, Idle, Percorso corretto, Percorso sbagliato e Fine`. <br> 
+Nel nostro esempio n= `{Vai a sinistra, Vai a destra, Vai su e vai giù}` e m= `{Inizio, Idle, Percorso corretto, Percorso sbagliato e Fine}`. <br> 
 Innanzitutto, inizializziamo i valori a 0. <br>
 ![q4](./imgs/q4.png)
 
@@ -1356,7 +1361,7 @@ Questo processo viene ripetuto ancora e ancora fino a quando l'apprendimento non
 - ***Ricompensa***: è il valore ricevuto dopo aver completato una determinata azione in un determinato stato. Una ricompensa può verificarsi in un determinato passaggio temporale o solo nel passaggio temporale terminale.
 - ***Max o np.max()*** (usa la libreria numpy): prende il massimo della ricompensa futura e la applica alla ricompensa per lo stato attuale. Ciò che fa è influenzare l'azione attuale con la possibile ricompensa futura. Questa è la bellezza del q-learning. Stiamo assegnando ricompense future alle azioni in corso per aiutare l'agente a selezionare l'azione di ritorno più alta in un dato stato.
 
-Nell'esempio, ho inserito lo schema di rewaed come segue.
+Nell'esempio, ho inserito lo schema di reward come segue.
 - Ricompensa quando raggiungi un passo più vicino all'obiettivo = +1
 - Ricompensa quando viene colpito un ostacolo =-1
 - Ricompensa quando inattivo=0
