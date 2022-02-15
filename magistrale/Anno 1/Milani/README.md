@@ -23,8 +23,7 @@
     - [Concetti base](#concetti-base)
         - [Key players](#key-players)
         - [Cohesion](#cohesion)
-        - [Communicability](#communicability)
-        
+    - [Communicability](#communicability)    
 - [Reti e grafi](#reti-e-grafi)
     - [Formazione dei grafi](#formazione-dei-grafi)
     - [Erdos-Renyi Random Graphs](#erdos-renyi-random-graphs)
