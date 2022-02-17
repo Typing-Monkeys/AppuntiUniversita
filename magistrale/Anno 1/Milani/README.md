@@ -394,9 +394,9 @@ function uniformCostSearch(problem) {
 ## **Depth First Search**
 
 La DFS espande sempre il nodo più in profondità nella frontiera.<br>
-Utilizza quindi una cosa LIFO per ordinare la coda che contine i nodi di frontiera.
+Utilizza quindi una coda LIFO per ordinare i nodi di frontiera.
 
-_Esempio di funzionamente della DFS: <br>
+_Esempio di funzionamente della DFS_: <br>
 ![dfs_example](./imgs/dfs_example.png)
 
 Per uno spazio degli stati ad albero è **Efficiente** e **Completa**.<br>
@@ -479,12 +479,12 @@ function iterativeDeepningSearch(problem) {
 }
 ```
 
-_Esempio di funzionamento della IDS <br>
+_Esempio di funzionamento della IDS_ <br>
 ![IDS example](./imgs/ids_example.png)
 
 ## **Bidirectional Search**
 
-E' un algoritmo di ricerca che espande parallelamente nodi partendo sia dallo Start che dal Goal fin quando non si incontrano in un punto "centrale". Può essere implementato utilizzando vari algoritmi di ricerca, quello che fornisce prestazioni migliore è la BFS. <br>
+E' un algoritmo di ricerca che espande parallelamente nodi partendo sia dallo Start che dal Goal fin quando non si incontrano in un punto "centrale". Può essere implementato utilizzando vari algoritmi di ricerca, quello che fornisce prestazioni migliori è la BFS. <br>
 È utilizzabile quando lo stato iniziale e quello finale sono definiti ed unici ed `b` deve essere uguale per tutti e due i lati della ricerca.
 
 Ha una complessità in tempo e spazio di `O(b ^(d/2))` <br>
@@ -540,7 +540,7 @@ L'euristiche possono peggiorare la performance della ricerca costringendo l'algo
 
 Con un abuona euristica, non avremo necessità di ricontrollare e aggiornare la tabella `reached`.
 
-_Esempio di funzionamento di A* <br>
+_Esempio di funzionamento di A*_ <br>
 ![esempio di A*](./imgs/esempio_astar.png)
 
 Quindi con una euristica Consistente A* è:
