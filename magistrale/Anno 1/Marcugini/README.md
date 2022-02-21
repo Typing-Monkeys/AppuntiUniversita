@@ -570,10 +570,10 @@ Un tipo e' un insieme di valori e descrive le varie operazioni che possono esser
 - **`bool`**:
 
   - e.g. `true false`
-  - Operazioni: `not && or`
+  - Operazioni: `not && ||`
   - Note: viene effettuata una valutazione `cicuited lazy`:
     - `E && E'`, `E'` viene valutato solo se `E = true`
-    - `E or E'`, `E'` viene valutato solo se `E = false`
+    - `E || E'`, `E'` viene valutato solo se `E = false`
 
 - **`char`**:
 
