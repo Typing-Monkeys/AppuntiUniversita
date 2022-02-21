@@ -152,11 +152,11 @@ Un esempio di estensione e' quella della funzione `square`: `{(0, 0), (1, 1), (3
 
 
 
-#### Funzioni a piu' argomenti
+### Funzioni a piu' argomenti
 
 La funzione `times` e' definita come segue: 
 
-```ocam
+```ocaml
 times = function (n, m) -> n*m;;
 ```
 
@@ -177,7 +177,7 @@ A1 x A2 x ... x An -> B
 Il suo dominio e' un insieme di tuple di `n` elementi: `{..., (a1, a2, ..., an), ...}`.
 La sua estensione e' un insieme di tuple con `n + 1` elementi: `{..., (a1, a2, ..., an, b), ...}`.
 
-#### Funzioni che ritornano coppie di valori
+### Funzioni che ritornano coppie di valori
 
 Sia `quorem` la funzione che si applica a due numeri natuarli `n`e `m` e che ritorna il quoziente intero e il resto della divisione tra `n` e `m`.
 
@@ -193,7 +193,7 @@ quorem(7, 2) = (3, 2)  quorem(15, 6) = (2, 3)
 L'estensione di quorem e': `{..., (3, 2, (1, 1)), ..., (3, 3, (1, 0)), ...}`.
 C'e da notare che quorem non e' definito per gli argomenti `(n, 0)` (non si puo' dividere per 0).
 
-#### Funzioni Totali vs Parziali
+### Funzioni Totali vs Parziali
 
 Le funzioni **Totali** sono definite per ogni elemento del dominio. Per ogni `x` nel dominio, esiste una ed una sola coppia `(x, y)` nell'estensione di F.
 
@@ -203,7 +203,7 @@ Una funzione Parziale diventa Totale se si restringe opportunamente il suo domin
 
 `quorem' : IN x (IN - {0}) -> IN x IN` diventa **Totale**.
 
-#### Funzioni Polimorfe
+### Funzioni Polimorfe
 
 Consideriamo la funzione `first`: `let first = function(x, y) -> x;;`
 `x` e `y` potrebbero essere di qualunque tipo:
@@ -238,7 +238,7 @@ first = alfa x beta -> alfa
 
 Ogni tipo di `first` e' un'istanza del suo tipo piu' generale.
 
-#### Applicazione di funzioni
+### Applicazione di funzioni
 
 ```
 F(x) = y
@@ -254,7 +254,7 @@ F: A -> B
 
 
 
-#### Calcolo come riduzione
+### Calcolo come riduzione
 
 Calcolare significa ridurre un'espressione ad un Valore. In pratica si va a sostituire il parametro della funzione con il valore a cui si applica:
 
@@ -271,7 +271,7 @@ first(15, 20) ->
 15
 ```
 
-#### Composizione di Funzioni
+### Composizione di Funzioni
 
 ![composizione](imgs/composizione.png)
 
@@ -316,7 +316,11 @@ E' una funzione polimorfa, con il suo tipo generale:
 
 Le funzioni che hanno funzioni come argomenti o che ritornano altre funzioni si dicono **Funzioni di ordine Superiore**.
 
-```oca
+```ocaml
 let componi (g, f) = function n -> g(f n);;
 ```
+
+
+
+
 
