@@ -879,8 +879,8 @@ Qui capisce che `n` e' un intero perche' viene confrontato con `5` (che e' un in
 
 `’a * ’b -> ’a` è uno schema di tipo: indica un insieme infinito di tipi, tutti quelli della forma: `T1 * T2 -> T1`. Ogni tipo che si ottiene sostituendo `’a` con un tipo e `’b` con un tipo è un’istanza di `’a * ’b -> ’a`:
 
--  `int * bool -> int `
-- `int * int -> int 
-- `(int * bool) * (int -> bool) -> (int * bool) 
+-  `int * bool -> int`
+- `int * int -> int`
+- `(int * bool) * (int -> bool) -> (int * bool) `
 - ecc.
 
