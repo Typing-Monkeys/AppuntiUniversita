@@ -386,6 +386,22 @@ main();;
 possiamo compilarlo con `ocamlc hello.ml -o hello.exe` ed eseguirlo con `hello.exe`.
 In linux possiamo omettere l'esetensione finale (nella fase di compilazione) e lanciare il programma compilato con `./hello`.
 
+### Commenti
+
+I commeti in OCaml si scrivono tra `(* *)`.
+
+```ocaml
+(* questo e' un commento prima di un'espressione *)
+let x = 5;;
+
+(* questo e' un commento
+su piu' linee *)
+
+(* let x = 20;;*)
+```
+
+
+
 ### Variabili
 
 Una variabile si dichiara come segue:
@@ -883,4 +899,108 @@ Qui capisce che `n` e' un intero perche' viene confrontato con `5` (che e' un in
 - `int * int -> int`
 - `(int * bool) * (int -> bool) -> (int * bool) `
 - ecc.
+
+### Dichiarazione locale in Funzione
+
+E' possibile dichiarare una variabile locale in una funzione con:
+
+```ocaml
+let x = E in F;;
+```
+
+dove `E` e `F` sono espressioni. Il tipo di questa espressione e' il tipo di `F`, il valore e' quello che ha `F` quando `x` e' sostituto da `E`.
+
+Per esempio, prendiamo il seguente problema: 
+
+_dati tre numeri interi, n, m e k, calcolare il quoziente e il resto della divisione di n + m per k_.
+
+Possiamo risolverlo con:
+
+```ocaml
+let soluzione (n,m,k) = let somma = n + m in (somma/k, somma mod k);;
+```
+
+In pratica, sostituisce somma con il valore dato da `n + m`.
+
+Questo problema puo' essere risolto in vari altri modi:
+
+- con una "funzione anonima":
+  ```ocaml
+  let soluzione(n,m,k) =
+  	(function somma -> (somma/k, somma mod k)) (n+m);;
+  ```
+
+- con una funzione ausiliaria:
+  ```ocaml
+  let quorem(m,n) = (m/n, m mod n);;
+  let soluzione(n,m,k) = quorem(n+m,k);;
+  ```
+
+  
+
+### Variabili locali
+
+Nell'espressione vista prima `let x = E in F`, `x` e' una variabile locale:`x` ha un valore (quello di `E`) solo allinterno dell'espressione `F`, quanto questa viene valutata tutta ,`x` non ha piu' valore.
+
+```ocaml
+# let x = 1+2 in x*8;;
+-: int = 24
+
+# x;;
+Characters 0-1: x;;
+ ^
+ Unbound value x 
+```
+
+Il "legame" locale sovrascrive lagami globali in un ambiente:
+
+```ocaml
+# let x="pippo";;
+val x : string = "pippo"
+
+# let x="pluto" in "ciao "^x;;
+-: string = "ciao pluto"
+
+# x;;
+-: string = "pippo" 
+```
+
+L'espressione `let x = E in F` si calocla nel seguetne modo:
+
+- viene calcolato il valore di `E`
+- la variabile `x` viene provvisoriamente legata al valore di `E`
+- tenendo conto di questo legame, viene calcolato il valore di `F` che sara' il valore di tutta l'espressione
+- il legame provvisorio `x` viene sciolto ed `x` torna ad avere il valore di prima o nessun valore (dipende se `x` era gia' stato assegnato o no)
+
+Un altro problema dove risulta utile utilizzare una variabile locale (dichiarazione locale) e' il seguente:
+
+_Dato il seguente codice, il valore `gdc(n,d)` viene calcolato 2 volte._
+
+```ocaml
+(* gcd : int * int -> int *)
+let rec gcd (m,n) =
+		if n=m then n
+		else if n>m then gcd(n-m,m)
+ 		else gcd(n,m-n);;
+ 		
+(* fraction : int * int -> int * int *)
+let fraction(n,d) = (n / gcd(n,d), d / gcd(n,d)) ;;
+```
+
+Possiamo risolverlo con una dichiarazione locale:
+
+```ocaml
+let fraction (n,d) =
+	let com = gcd(n,d)
+		in (n/com, d/com);;
+
+# fraction(32,28);;
+-: int * int = (8, 7) 
+```
+
+<!-- dopo sta roba, Marcugini mette alcuni esempi di mini problemi da risolvere, la cosa divertente e' che il procedimento per risolverli lo scrive in maniera sequenziale ... Sara' mica un indizio di quanto fa schifo sto paradigma ??? -->
+
+### Ricorsione
+
+Nei linguaggi funzionali puri non esistono costrutti per effettuare cicli come `while` o `for`. Si utilizza quindi la ricorsione. <!-- se non ci hanno manco messo i cilic for e si fa tutto con la ricorsione e' un ottimo motivo per non usarli ! Un po come i carciofi, se e' cosi' noioso pulirli e lavarli perche' mangiarli ?? -->
 
