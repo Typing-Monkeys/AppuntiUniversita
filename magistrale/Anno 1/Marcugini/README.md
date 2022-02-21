@@ -75,7 +75,7 @@ let rec fact n =
 
 La principale modalita' di coalcolo e' l'applicazione di funzioni, il calcolo procede valutando espressioni e non ci sono effetti collaterali. Un programma e' quindi una collezioni di dichiarazioni.
 Le *funzioni* sono oggetti di prima classe, possono essere componenti di una struttura dati o far parte degli argomenti di altre funzioni: `let sort (order, lst) = ... let comp (f, g) = ...`. I linguaggi funzionali supportano l'uso di funzioni di ordine superiore: funzioni che prendono funzioni come argomento o ritornano funzioni come valore.
-Nei linguaggi funzionali "puri" non esistono strutture di controllo come `for`, `while`, ecc. ma il principale strumento di controllo e' la ricorsione !! (IL MAAAALEEE 😨)
+Nei linguaggi funzionali "puri" non esistono strutture di controllo come `for`, `while`, ecc. ma il principale strumento di controllo e' la ricorsione !! (IL MAAAALEEE :japanese_ogre:)
 
 ## ML
 
@@ -320,7 +320,20 @@ Le funzioni che hanno funzioni come argomenti o che ritornano altre funzioni si 
 let componi (g, f) = function n -> g(f n);;
 ```
 
+### Funzione Costante K
+
+Una funzione costante e' una funzione che ritorna sempre lo stesso valore costante `K`.
+
+```ocaml
+let k = function x -> 0;;
+
+k 20 -> 0
+k 10 -> 0
+```
 
 
 
+### Funzioni in forma Currificata
+
+Non ci ho capito nulla, forse lo scrivero' in futuro :+1: :japanese_goblin:
 
