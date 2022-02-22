@@ -640,7 +640,7 @@ Si possono effettuare conversioni di tipi con le seguneti funzioni:
 ```
 float_of_int		int_of_float				string_of_float
 float_of_string 	int_of_string 				string_of_int
-					int_of_char 	char_of_int
+			int_of_char 	    char_of_int
 ```
 
 ### Uguaglianza e Disuguaglianza
