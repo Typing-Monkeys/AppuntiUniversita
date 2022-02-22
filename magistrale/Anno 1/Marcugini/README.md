@@ -1004,3 +1004,90 @@ let fraction (n,d) =
 
 Nei linguaggi funzionali puri non esistono costrutti per effettuare cicli come `while` o `for`. Si utilizza quindi la ricorsione. <!-- se non ci hanno manco messo i cilic for e si fa tutto con la ricorsione e' un ottimo motivo per non usarli ! Un po come i carciofi, se e' cosi' noioso pulirli e lavarli perche' mangiarli ?? -->
 
+Quando si dichiara una funzione ricorsiva e' necessario specificarlo tramite la parola chiave `rec`.
+
+```ocaml
+(*errata dichiarazione*)
+# let fact n =
+		if n=0 then 1
+		else n * fact(n-1);;
+		
+Characters 36-40:
+let fact n = if n=0 then 1 else n * fact(n-1);;
+ ^^^^
+Unbound value fac
+
+(*corretta dichiarazione con parola chiave rec*)
+# let rec fact n =
+		if n=0 then 1
+		else n * fact(n-1) ;;
+val fact: int -> int = <fun>
+```
+
+E' anche possibile implementare questo algoritmo in modo "iterativo", che e' un po una cazzata perche' non e' proprio iterativo ma in verita' e' sempre una merda ricorsiva solo che sfrutta una funzione ausiliaria e si chiama "ricorsione in coda". Una barca di stronzate :robot:.
+
+```ocaml
+let rec aux (n,f) =
+		if n = 0 then f
+		else aux(n-1, f*n);;
+		
+let fact n = aux(n,1);;
+```
+
+Utilizzando le variabili locali pue' diventare ancora piu' incomprensibile :rocket: 
+
+```ocaml
+let fact n = 
+	let rec aux(n, f) = 
+			if n = 0 then f
+			else aux(n-1, f*n)
+		in aux(n,1);;
+```
+
+
+
+Qunado un problema P1 viene convertito un un altro P2 in modo che la soluzione di P2 sia identica alla soluzione di P1, allora si dice che P1 e' stato ridotto a P2 (P2 e' una riduzione di P1).
+
+Qunado una funzione ricorsiva e' definita in modo tale che tutte le chiamate ricorsive sono riduzioni, allora la funzione viene detta Ricorsiva Di Cosa (Tail Recursive).
+
+### Input da Tastiera
+
+Per leggere caratteri da tastiera si utilizzano le seguenti funzioni:
+
+```ocaml
+read_line: unit -> string
+read_int: unit -> int
+read_float: unit -> float
+```
+
+Un esempio:
+
+```ocaml
+# let x = read_int();;
+45
+val x: int = 45
+
+# let x = read_line ();;
+pippo e pluto
+val x: string = "pippo e pluto"
+
+# let x = read_int ();;
+3pippo
+Exception: Failure "int_of_string". 
+```
+
+Di seguito un esempio su una funzione ricorsiva che calcola il massimo di una serie di interi letti da tastiera:
+
+```ocaml
+(*funzione ausiliaria*)
+let rec ciclo (k,m) =
+		if k=0 then m
+		else let x=read_int()
+			in ciclo(k-1,max m x);;
+
+(*funzione principale che avvia il ciclo*)
+let max_n (n) =
+		if n<=0 then 0
+		else ciclo(n-1,read_int())
+```
+
