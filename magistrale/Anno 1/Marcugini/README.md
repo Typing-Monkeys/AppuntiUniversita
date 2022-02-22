@@ -629,7 +629,11 @@ Un tipo e' un insieme di valori e descrive le varie operazioni che possono esser
 
   - e.g.: `()`
 
-	### Conversione di Tipi
+	
+	
+	
+
+### Conversione di Tipi
 
 Si possono effettuare conversioni di tipi con le seguneti funzioni:
 
