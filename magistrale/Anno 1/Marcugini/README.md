@@ -1154,3 +1154,214 @@ let rec aux tot =
 let main () = aux 0;;
 ```
 
+### Pattern
+
+Un pattern e' un'espressione costituita da variabili e costruttori di tipo:
+
+- x
+- "pippo"
+- 2.0
+- (x, y)
+- (x, true, y)
+
+Tutti questi sono pattern perche' sono composti da costruttori di tipo  e variabili: `(x, true, y)` e' un pattern perche' `x`  e `y` sono variabili, `true` e' un costruttore di bool e `(,,)` e' un costruttore di tuple.
+
+Non sono pattern i seguenti in quanto non sono costruttori, ne variabili ma espressioni:
+
+- x+y
+- -n
+
+In un pattern non possono esserci piu' occorrenze di una variabile (ad eccezione della variabile muta ????????): `(x,x)` non e' un pattern anche se e' composto da costruttori di tipo e variabili, perche' compare 2 volte la variabile `x`.
+
+Sono utili per passare piu' argomenti alle funzioni, in Ocaml le funzioni accettano un solo parametro !!
+
+La funzione definita prima quorem con uso di pattern:
+
+```ocaml
+let quorem (n,m) = (n/m, n mod m);; 
+```
+
+La stessa funzione senza uso di pattern:
+
+```ocaml
+let quorem pair =
+	((fst pair)/(snd pair), (fst pair) mod (snd pair));; 
+```
+
+
+
+**Pattern matching**: un valore `V` e' conforme ad un pattern `P` se e' possibile sostiutire le variabili in P con sottoespressioni di V in modo tale da ottenere `V` stesso.
+Viene quindi confrontata un'espressione `E` con il pattern `P` e:
+
+- il confronto ha successo se il valore `V` di `E` e' conforme al pattern P
+- in caso di successo, viene stabilito come sostituire le variabili del pattern in modo da ottenere `V`
+
+![pattern](imgs/pattern.png)
+
+Quando si dichiara un variabile con:
+
+```ocaml
+let x = <ESPRESSIONE>
+```
+
+`x` in verita' e' un pattern, quindi la forma generale di una dichiarazione di variabile in realta' e':
+
+```ocaml
+let <PATTERN> = <ESPRESSIONE>
+```
+
+Lo stesso vale per le funzioni ! L'argomento della funzione in realta' e' un pattern:
+
+```ocaml
+function <PATTERN> -> <ESPRESSIONE>
+```
+
+Un esempio dove `(n,m)` e' il pattern:
+
+```ocaml
+let quorem = function (n,m) -> (n/m, n mod m) ;;
+let quorem (n,m) = (n/m, n mod m) 
+```
+
+### Funzioni per Casi
+
+OCaml mette a disposizione una definizione di funzioni ancora piu' generale di quella vista fin ora: la definizione per casi.
+
+Fin ora abbiamo definito una funzione come:
+
+```
+fact n:
+	se n = 0 allora ritorna 1
+	altrimenti ritorna n * fact(n-1)
+```
+
+Possiamo anche definire una funzione come:
+
+```
+fact e' quella funzione che
+	applicata a 0 ritorna 1
+	applicata a un altro intero ritorna n * fact(n-1)
+```
+
+In pratica:
+
+```ocaml
+let rec fact = function
+	0 -> 1
+	| n -> n * fact(n-1);;
+```
+
+La forma di definizione per casi generale risulta:
+
+```ocaml
+function
+	P1 -> E1
+	| P2 -> E2
+	...
+	| Pn -> En
+```
+
+
+
+Quando si applica una funzione definita per casi ad un valore `E` succede:
+
+- `fact E`
+- Viene calcolato il valore `V` dell'espressione `E`
+- il valore viene confrontato con il primo pattern: 0, se e' conforme allora ritorna 1
+- se non e' conforme al pattern 0, viene confrontato con il pattern successivo: `n`. In questo caso essendo sempre conforme, `n` prende temporaneamente il valore di `V` (una dichiarazione locale in pratica), si calcola `n * fact (n-1)` e si ritorna il valore ottenuto
+- il legame `n` viene sciolto
+- se il valore `V` non e' conforme a nessun pattern ritorna un errore
+
+### Variabile Muta
+
+> la _ e' muta bifolco !
+
+Prendiamo la definizione di questa funzione come esempio:
+```ocaml
+let xor = function 
+		(true,q) -> not q
+ 		| (p,q) -> q;; 
+```
+
+Il secondo pattern contiene la variabile `p` che nell'espressione non viene mai utilizzata ! Nella valutazione del pattern matching viene creato un legame provvisorio inutile. E' possibile quindi utilizzare la variabile muta `_` per risolvere questo problema:
+
+```ocaml
+let xor = function 
+		(true,q) -> not q
+ 		| (_,q) -> q ;;
+```
+
+Cosi' facendo, non viene creato nessun legame temporane per `_`, ma solo per la variabiele che veramente si sta utilizzando: `q`.
+
+La variabile muta e' un pattern ed e' l'unica che puo' comparire piu' volte all'interno di un pattern. Il pattern matching con la variabile muta ha sempre senso, ma non viene mai creato alcun nuovo legame. E' importante notare che la variabile muta non puo' comparire all'interno delle espressioni, ma solo nei pattern !!
+
+Un esempio:
+
+```ocaml
+xor (false, true);;
+```
+
+- Viene valutato il pattern matching tra `(true, q)` e `(false, true)`, che fallisce dato che `true != false`
+- Viene valutato il pattern matching tra `(_, q)` e `(false, true)`, che ha successo (pattern matching con `_` ha sempre succsso) e viene creato il valore provvisorio `q - true`
+- Viene valutata l'espressione `q` con il nuovo legame
+- Viene ritornato il valore di `xor(false, ture)`
+- Viene sciolto il legame provvisorio `q - true`
+
+![pattern muti](imgs/pattern_muti.png)
+
+### Pattern Matching esplicito
+
+Abbiamo un ulteriore forma di definire le funzioni con il patter matching:
+
+```
+xor(p, q):
+	a seconda della forma di p:
+		se p ha forma true, ritorna il valore di not q
+		in tutti gli altri casi, ritorna il valore di q
+```
+
+Questo e' possibile con le parole chiavi: `match <ESPRESSIONE> with`:
+
+```ocaml
+let xor (p,q) = 
+		match p with
+            true -> not q
+            | _ -> q 
+```
+
+La forma generale e' quindi:
+
+```ocaml
+match E with
+	P1 -> E1
+	| P2 -> E2
+	...
+	| Pn -> En
+```
+
+- I pattern `P1 ... Pn` devono essere tutti dello stesso tipo e dello stesso tipo di `E`
+- Le espressioni `E1 ... En` devono essere tutte dello stesso tipo `T`
+- Il tipo dell'espressione `match ...` e' dato dal tipo delle espressioni `E1 ... En` (`T`)
+
+Anche in questo caso, se il match fallisce per tutti i `P` allora si ha un errore.
+
+Ocaml si rivela essere intelligente e ci suggerisce, tramite un warning, se definiamo pattern matching non esaustivi:
+
+```ocaml
+# let xor(p,q) = 
+		match p with
+			true -> not q;;
+			
+Characters 15-43:
+Warning: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+false
+```
+
+L'espressione e' comunque valida e possiamo continuare ad usarla ma:
+
+```ocaml
+# xor(false,true);;
+Exception: Match_failure ("", 15, 43). 
+```
+
