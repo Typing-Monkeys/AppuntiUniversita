@@ -1091,3 +1091,66 @@ let max_n (n) =
 		else ciclo(n-1,read_int())
 ```
 
+### Eccezioni
+
+Ocaml mette a dispozione una gestione delle eccezioni per segnalare problemi, come per esempio la funzione fattoriale definita prima che se viene chiamata con un numero negativo va in stack overflow ! Modificare la funzione per far si che accetti anche i numeri negativi vorrebbe dire creare una nuova funzione che non e' piu' il fattoriale classico (gli si va a cambiare il dominio). Quindi si possono usare le eccezioni.
+
+Ne esistono di default come: `Match failure`, `Division by zero`, ecc., ma se ne possono dichiarare anche di nuove cone:
+
+```ocaml
+exception NegativeNumber;;
+```
+
+Il nome delle eccezioni deve iniziare SEMPRE con una lettera maiuscola !
+
+Per lanciare un eccezione su usa la parola chiave `raise`:
+
+```ocaml
+exception NegativeNumber;;
+
+let rec fact n =
+	if n < 0 then raise NegativeNumber
+	else if n=0 then 1
+	else n * fact (n-1) ;;
+	
+# fact 3;;
+-: int = 6
+
+# fact (-1);;
+Exception: NegativeNumber. 
+```
+
+Se durante il calcolo di un'espressione viene sollevata un'eccezione il calcolo termina immediatamente e il resto dell'espressione non viene valutata.
+
+Le eccezioni possono essere catturate con il costrutto `try with `:
+
+```ocaml
+# try 4 * fact(-4) with NegativeNumber -> 0;;
+-: int = 0
+```
+
+Le eccezioni possono essere argomento di funzioni o valori di funzioni.
+Le eccezioni sono particolari e "rompono" la tipizzazione forte: possono fare parte di un else alterando la regola "il tipo di then e quello di else devono essere uguali".
+
+```ocaml
+exception ValoreZero;;
+let positivo n = 
+	if n > 0 then true
+	else if n < 0 then false
+	else raise ValoreZero ;;
+```
+
+Un esempio di come utilizzare le eccezioni e' dato dal seguente problema:
+
+_Leggere da tastiera una sequenza di numeri interi separati dal carattere ENTER, che termina con un qualsiasi carattere non  numerico e  calcolarne la somma_
+
+```ocaml
+let rec aux tot =
+	try
+		let x = read_int()
+		in aux (tot+x)
+	with Failure "int_of_string" -> tot ;;
+
+let main () = aux 0;;
+```
+
