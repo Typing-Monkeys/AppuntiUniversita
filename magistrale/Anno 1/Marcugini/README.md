@@ -1369,3 +1369,270 @@ L'espressione e' comunque valida e possiamo continuare ad usarla ma:
 Exception: Match_failure ("", 15, 43). 
 ```
 
+### Funzioni di ordine superiore
+
+In Ocaml le funzioni sono oggetti che possono essere passati ad altre funzioni, far parte di strutture dati o essere il valore di ritorno di funzioni. Si chiamano oggetti di prima classe.
+
+```ocaml
+(*funzioni che fanno parte di strutture dati*)
+# let double x = x * 2;;
+val double : int -> int = <fun>
+
+# let treble x = x * 3;;
+val treble : int -> int
+
+# let coppia = (double,treble);;
+val coppia : (int -> int) * (int -> int) = <fun>, <fun>
+
+(*funzioni come parametri di altre funzioni*)
+# let apply (f,x) = f x;;
+val apply : (’a -> ’b) * ’a -> ’b = <fun>
+
+# let y = (double,7);;
+val y : (int -> int) * int = <fun>, 7
+
+# apply y;;
+-: int = 14 
+
+(*funzioni come valori di ritorno*)
+# let k a = function x -> a;;
+val k : ’a -> ’b -> ’a = <fun>
+
+# (k 3) 0;;
+-: int = 3
+
+# let c3 = k 3 ;;
+
+# let f = k true in f "pippo";;
+-: bool = true 
+```
+
+Le funzioni che accettano come parametro altre funzioni si chiamano Funzioni di ordine superiore
+
+### Funzioni di forma curificata
+
+Le funzioni su tule si possono scrivere come una funzione che "consuma un argomento alla volta".
+Prendiamo per esempio il metodo con cui abbiamo sempre scritto le funzioni con tuple fino adesso:
+
+```ocaml
+# let mult (m, n) = m * n;;
+mult : int * int -> int 
+```
+
+Questa funzione prende una coppia e moltiplica i suoi elementi. 
+Questa puo' anche essere scritta come:
+
+```ocaml
+# let times m n = m * n;;
+times : int->int->int 
+
+# times 5;;
+int -> int
+```
+
+`times 5;;` e' un'applicazione parziale di `times`.
+
+In generale, `fc` e' la forma curificata di `f` se:
+
+```
+f: t1 x ... x tn -> t
+fc: t1 -> (t2 -> ... -> (tn -> t) ...)
+```
+
+e per ogni `a1, ..., an`:
+
+```
+f (a1, ..., an) = (((fc a1) a2) ... an)
+```
+
+(le parentesi in `fc` possono essere omesse perche' in ocaml si associa a destra !)
+
+### Liste
+
+Le liste sono sequenze finite di elementi dello stesso tipo:
+
+```ocaml
+# [1;2;3;4];;
+-: int list = [1; 2; 3; 4] 
+```
+
+La parola `list` e' un costruttore di tipi: se `T` e' un tipo, `T list` e' il tipo delle liste di elementi di tipo `T`.
+
+La lista vuota e' denotata da `[]` ed e' un oggetto polimorfo di tipo `'a list`.
+L'operazione per aggiungere un elemento in testa alla lista e' `::`:
+
+```ocam
+[1;2] = 1::[2] = 1::(2::[]) = 1::2::[]
+```
+
+Le operazioni di selezione sono:
+
+```ocaml
+List.hd <LISTA>
+List.tl <LISTA>
+```
+
+Con la prima andiamo a selezionare il primo elemente della lista, con la seconda tutti gli elementi tranne il primo:
+
+```ocaml
+# List.hd [1;2;3;4];;
+- : int = 1
+
+# List.tl [1;2;3;4];;
+- : int list = [2; 3; 4]
+```
+
+Sembra che per calcolare la lunghezza di una lista si debba utilizzare una funzione ricorsiva:
+
+```ocaml
+let rec length lst =
+		if lst = [] then 0
+ 		else 1 + length (List.tl lst) ;;
+```
+
+Questa funzione puo' anche essere definita con il patter matching:
+
+```ocaml
+let rec length = function
+         [] -> 0
+         | x::rest -> 1 + length rest;; 
+```
+
+Dove `x::rest` indica una coda (tutto tranne il primo elemento) generica, `x` indica la testa e `rest` indica la coda.
+
+Di seguito alcuni pattern per le liste:
+
+```ocaml
+[]
+[x]
+[x;y]
+x::rest
+x::y::rest (*x e' il primo elemento, y il secondo e rest il resto della lista*)
+```
+
+![lista p1](imgs/lista_p1.png)
+![lista p2](imgs/lista_p2.png)
+
+Per calcolare il massimo all'interno di una lista non vuota possiamo utilizzare la seguente funzione:
+
+```ocaml
+exception EmptyList ;;
+let rec maxlist = function
+        [] -> raise EmptyList
+        | [x] -> x
+        | x::rest -> max x (maxlist rest) 
+```
+
+E' possibile concatenare liste con il simbolo `@` ed e' possibile concatenare solo liste dello stesso tipo:
+
+```ocaml
+# [1;2] @ [3;4;5;6]
+-: int list = [1; 2; 3; 4; 5; 6] 
+```
+
+Per l'inserimento in cosa si puo' utilizzare sempre l'operazione `@`:
+
+```ocaml
+(*aggiungere in coda alla mia lista 3*)
+mialista @ [3];;
+
+(*con una funzione*)
+let in_coda x lst = lst @ [x];;
+```
+
+#### Dizionario
+
+Un dizionario e' un tipo di dato astratto che in pratica e' una lista i cui elementi sono formati da una coppia `(chiave, valore)`. In pratica si realizza con una lista associativa:
+
+```ocaml
+[("pippo", 0); ("pluto", 10); ("paperiano", 2000)];;
+```
+
+Questa e' una lista di tipo `(string * int) list` ed associa a delle stringhe dei valori interi.
+
+**Inserimento**:
+
+```ocaml
+let inserisci(k,v,assoc) = (k,v)::assoc;;
+```
+
+### Random
+
+
+
+### Backtraking
+
+E' una delle tecniche piu' generali per la progettazioni di algoritmi per la risoluzioni di problemi di ricerca in un insieme di soluzioni che soddisfano date condizioni. Per esempio la ricerca dell'uscita di un labirinto.
+
+C'e' il classico approccio a forza bruta: generare ad una ad una tutte le possibili sequenze e controllare se soddisfino le condizioni (cercare di beccare a caso la soluzione). Oppure utilizzare l'approccio con Backtracking: costruire la soluzione aggiungendo un elemento alla volta ed utilizzare un criterio per capire se la sequenza parziale (la strada che sto percorrendo) ha possibilita' di successo.
+
+Soluzione: `(x1, ..., xn)`
+Ad ogni stadio `i` controllo se `(x1, ..., xi)` ha possibilita' di successo. Se ha possibilita', si sceglia un nuovo `xi+1` tra le possibili alternative. Se con tale scelta si arriva alla soluzione alloa quella e' la soluzione (ma va ?!). Altrimenti scelgo un diverso `xi+1`. Se dopo aver provato tutte le varie possibilita' non si arriva ad una soluzione ritorno un fallimento. Se si verifica che `(x1, ..., xi)` non ha possibilita' di successo non adro' a generare le sequenze che "passano" per lui `(x1, ..., xi, ...)`.
+
+Cosi' facendo riesco a diminuire lo spazio di ricerca applicando un criterio di eliminaizone.
+
+Prendiamo il seguente problema: 
+
+_Dato un insieme S di numeri positivo ed un numero intero N, determinare un sottoinsieme Y di S tale che la somma degli elementi di Y dia N_.
+
+Esempio: `S = {1, 4, 5, 8}` e `N = 9`. Dobbiamo trovare un sottoinsieme di S dove sommando tutti gli elementi il risultato sia 9.
+Questo problema puo' essere rappresentato con un albero:
+
+![albero](imgs/albero.png)
+
+```ocaml
+exception NotFound;;
+(* subset_search : int list -> int -> int list *)
+let rec stampalista = function
+			[] -> print_newline()
+			| x::rest -> print_int(x); print_string(“; “); stampalista rest;;
+			
+let subset_search set n =
+    (* aux : int list -> int -> int list -> int list *)
+    (* funzione ausiliaria che implementa il ciclo *)
+    (* i casi sono distinti a seconda della forma di X *)
+	let rec aux solution tot = function
+			[] -> if tot>0 then raise NotFound
+ 					else solution
+			| x::rest -> if x>tot then aux solution tot rest
+ 						else if x=tot then x::solution
+ 						else try stampalista (x::solution) ;aux (x::solution) (tot-x) rest
+								with NotFound -> aux solution tot rest
+		in aux [] n set;;
+```
+
+Quando si progetta un algoritmo di backtracking e' importante chiarire:
+
+- quando termina la ricerca, cioe' come determinare quando la soluzione parziale e' completa
+- il criterio di "ammissibilita'" per aggiungere x alla soluzione
+- quali sono i dati di cui si deve disporre ad ogni stadio
+- come si trasforma il "roblema locale"
+
+### Definizioni di nuovi tipi
+
+Si possono definire nuovi tipi di dato tramite la parola chiave `type` specificando 
+
+- il nome del nuovo tipo
+- come costruire i valori del tipo, quindi quali sono i costruttori del tipo
+
+#### Tipi enumerati
+
+Sono tipi costituiti da un insieme finito di valori, tipo `bool` che contiene solo `true, false`. I valori di questi tipo sono costanti.
+
+```ocaml
+type direzione = Su | Giu | Destra | Sinistra;;
+```
+
+In questa dichiarazione di tipo `direzione` e' il nome del nuovo tipo e `Su, Giu Destra, Sinistra` sono i valori del nuovo tipo. Questi devono essere sempre separati dal carattere `|` ed iniziare con la lettera maiuscola.
+
+Le nuove costanti sono quindi costruttori di tipo e possono anche comparire all'interno di un pattern e quindi valgono le operazioni di pattern matching:
+
+```ocaml
+let prova = function
+	Su -> 1
+	| Giu -> 2
+	| Destra -> 20
+	| Sinistra -> 10;;
+```
+
+<!-- c'e' altra roba ma non si capisce un cazzo -->
