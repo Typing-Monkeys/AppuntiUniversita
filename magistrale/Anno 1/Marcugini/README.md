@@ -1556,6 +1556,86 @@ let inserisci(k,v,assoc) = (k,v)::assoc;;
 
 ### Random
 
+E' possibile generare numeri pseudo casuali tramite la libreria `Random`:
+
+```ocaml
+# Random.int(50000);;
+- : int = 40548
+
+# Random.float(1000000.0);;
+- : float = 490668.1499210574
+
+# Random.bool();;
+- : bool = false
+```
+
+Si puo' inizializzare un seme per la generazione tramite:
+
+```ocaml
+(*differenti modi per scegliere un seme*)
+Random.init <SEME>;;
+Random.full_init [<SEMI>];;
+Random.self_init<SEME>;;
+```
+
+### Modulo List
+
+OCaml mette a disposizione vari moduli (librerie standar) tra cui uno per la gestione delle liste :scream:. Di seguito alcune funzioni utili:
+
+```ocaml
+List.length
+List.hd
+List.tl
+List.nth
+List.assoc
+```
+
+Alcuni esempi:
+
+```ocaml
+# List.nth [3;4;5;6;7;8] 3;;
+-: int = 6
+
+# List.assoc 3 [(1,"pippo"); (2,"pluto"); (3,"paperino")];;
+-: string = "paperino" 
+```
+
+### Moduli
+
+Un modulo, o libreria, e' formato da 2 file che lo definiscono:
+
+1. `modulo.ml`: contine una sequenza di definizioni
+2. `modulo.mli`: contiene una sequenza di specifiche e dice quali elementi sono accessibili "dall'esterno".
+
+Un esempio:
+
+```ocaml
+(*file list.ml*)
+let rec length_aux len = function
+     [] -> len
+     | a::l -> length_aux (len + 1) l
+ 
+let length l = length_aux 0 l
+```
+
+```ocaml
+(*file list.mli*)
+val length : ’a list -> int
+```
+
+Se importo questo modulo in un altro file potro' utilizzare la funzione `length` ma non `length_aux` dato che non e' definita nel file `.mli`:
+
+```ocaml
+# List.length;;
+- : 'a list -> int = <fun>
+
+# List.length_aux;;
+Characters 0-15:
+ List.length_aux;;
+ ^^^^^^^^^^^^^^^
+Unbound value List.length_aux
+```
+
 
 
 ### Backtraking
