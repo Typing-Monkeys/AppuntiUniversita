@@ -1554,6 +1554,38 @@ Questa e' una lista di tipo `(string * int) list` ed associa a delle stringhe de
 let inserisci(k,v,assoc) = (k,v)::assoc;;
 ```
 
+#### In Memoria
+
+In memoria le liste vengono rappresentate come una lista concatenata:
+
+![mem1](imgs/lista_mem1.png)
+
+Per esempio, quando si effettua la concatenazione di due liste succede questo:
+
+![lista mem2](imgs/lista_mem2.png)
+
+#### Modulo List
+
+OCaml mette a disposizione vari moduli (librerie standar) tra cui uno per la gestione delle liste :scream:. Di seguito alcune funzioni utili:
+
+```ocaml
+List.length
+List.hd
+List.tl
+List.nth
+List.assoc
+```
+
+Alcuni esempi:
+
+```ocaml
+# List.nth [3;4;5;6;7;8] 3;;
+-: int = 6
+
+# List.assoc 3 [(1,"pippo"); (2,"pluto"); (3,"paperino")];;
+-: string = "paperino" 
+```
+
 ### Random
 
 E' possibile generare numeri pseudo casuali tramite la libreria `Random`:
@@ -1576,28 +1608,6 @@ Si puo' inizializzare un seme per la generazione tramite:
 Random.init <SEME>;;
 Random.full_init [<SEMI>];;
 Random.self_init<SEME>;;
-```
-
-### Modulo List
-
-OCaml mette a disposizione vari moduli (librerie standar) tra cui uno per la gestione delle liste :scream:. Di seguito alcune funzioni utili:
-
-```ocaml
-List.length
-List.hd
-List.tl
-List.nth
-List.assoc
-```
-
-Alcuni esempi:
-
-```ocaml
-# List.nth [3;4;5;6;7;8] 3;;
--: int = 6
-
-# List.assoc 3 [(1,"pippo"); (2,"pluto"); (3,"paperino")];;
--: string = "paperino" 
 ```
 
 ### Moduli
@@ -1753,7 +1763,31 @@ Un albero binario e' _completo_ se ogni nodo interno ha esattamente 2 figli.
 
 Un albero di dice _bilanciato_ se per ogni nodo `n`, le altezze di sottoalberi destro e sinistro di `n` differiscono al massimo di 1.
 
+In Ocaml un albero puo' essere rappresentato con:
+
+```ocaml
+type 'a tree = 
+	Leaf of 'a
+	| One of 'a * 'a tree
+	| Two of 'a * 'a tree * 'a tree;;
+		
+```
+
+Per esempio:
+
+```ocaml
+Two(1,
+	One(2, Leaf 4),
+	One(3, Two(5, Leaf 6, Leaf 7))) 
+```
+
+genera il seguente albero:
+
+![albero cammello](imgs/albero_ocaml.png)
+
 ### Sequenze di comandi
+
+In Ocaml non esistono comandi veri e propri, ma possiamo considerare tali le funzioni che ritornano `unit`, cioe' quelle funzioni che sono importanti non per il loro valore di ritorno ma per i loro effetit collaterali (tipo la funzione di stampa).
 
 E' possibile scrivere in una riga una sequenza di comandi:
 
@@ -1780,4 +1814,240 @@ Warning: this expression should have type unit.
 ciao
 -: int = 10 
 ```
+
+### Dati Modificabili
+
+In OCaml solo alcuni tipi di dato sono modificabili (puo' essere effettivamente cambiato il suo valore senza fare cose strane), per esempio le variabili non sono modificabili, modificare una variabile vuol dire creare un nuovo binding nell'ambiente che va ad oscurare quello precedente. 
+
+I tipi di dato modificabili sono:
+
+- array
+- stringhe di caratteri
+- records con campi mutabili
+- riferimenti
+
+#### Array
+
+In OCaml un array di `n` elementi si definisce come:
+
+```ocaml
+[|expr1; expr2; ...; exprn|];;
+```
+
+Le posizioni vanno da `0` fino a `n-1` e l'ordine di valutazione delle espressioni non e' specificato (???????).
+
+Per accedere ad un elemento si usa:
+
+```ocaml
+nomeArray.(posizione);;
+```
+
+Per modificare un elemento dell'array si usa:
+
+```ocaml
+nomeArray.(posizione) <- espressione;;
+```
+
+che modifica sul posto l'elemento in posizione `posizione` con il valore di `espressione`. Il valore di tutta l'espressione e' `unit`;
+
+In caso di `out of bounds exception` viene sollevata l'eccezione `Invalid_argument`.
+
+OCaml ha un modulo nella libreria standar per la gestione degli array, di seguito alcune funzioni utili:
+
+```ocaml
+Array.make n x;; (*ritorna un array di n elementi di valore x*)
+Array.length;;
+Array.to_list;;
+Array.of_list;;
+Array.iter f a;; (*applica la funzione f ad ogni elemento dell'array a*)
+Array.map f a;; (*applica la funzione f agli elementi di a ritornando un nuovo array con i risultati*)
+Array.get myArray i;; (*equivalente di myArray.(i)*)
+Array.set myArray i a;; (*equivalente di myArray.(i) <- a*)
+```
+
+E' importrante notare che con la funzoine `Array.make n x` si genera un nuovo array inizializzato a `x` di lunghezza `n`. Se `x` e' mutabile, questo verra' condiviso con tutti gli elementi dell'array (sara' fisicamente lo stesso) e quindi se verra' modificato un elemente dell'array anche tutti gli altri saranno modificati !
+
+```ocaml
+# let v = Array.make 2 5;;
+val v : int array = [|5; 5|]
+
+# let m = Array.make 3 v;;
+val m : int array array = [| [|5;5|];[|5;5|];[|5;5|] |] 
+```
+
+![array punta](imgs/array_punta.png)
+
+Le stringhe di caratteri possono essere viste come uno speciale array che ha una sintassi leggermente diversa:
+
+```ocaml
+# let s = "hello";;
+val s : string = "hello"
+
+# s.[2];;
+- : char = 'l'
+
+# s.[2]<-'Z';;
+- : unit = ()
+
+# s;;
+- : string = "heZlo" 
+```
+
+#### Record
+
+Un record e' un oggetto composto da vari componenti che possono essere diversi tra loro, ognuno dei quali viene identificato da un nome e un valore.
+
+```ocaml
+type esame = { 
+	studente: string;
+ 	voto:int;
+ 	lode:bool
+ };;
+ 
+let e1 = {studente=”pippo”; voto=28; lode=false};;
+```
+
+I campi sono accessibili con l'operatore `.`: `e1.studente;;` e lordine con cui si specificano i campi non e' importante:
+
+```ocaml
+let e1 = {studente=”pippo”; voto=28; lode=false};;
+let e1 = {voto=28; studente=”pippo”; lode=false};;
+```
+
+Se un campo di un record viene definito `mutable` allora questo puo' essere modificato tramite assegnazione:
+
+```ocaml
+type mut_point = { 
+	mutable x: float;
+ 	mutable y: float 
+ };; 
+ 
+let punto = {x=10.2; y=4.0};;
+punto.x <- 30.0;;
+```
+
+#### Riferimento
+
+In OCaml c'e' un sistema simile ai puntatori chiamato `ref`, che puo' essere visto come un record polimorfo con un unico componente mutabile.
+
+```ocaml
+# let x = ref 3 ;;
+val x : int ref = {contents=3}
+
+# x ;;
+- : int ref = {contents=3}
+
+# !x ;;
+- : int = 3
+
+# x := 4 ;;
+- : unit = () 
+
+# !x ;;
+- : int = 4
+```
+
+OCaml per essere coerente alla sua tipizzazione forte introduce la _variabile debole_ per gestire bene i rifierimenti caratterizzata dal tipo: `'_a`.
+
+```ocaml
+# let x = ref [] ;;
+val x : '_a list ref = {contents=[]} 
+
+# x := 0::!x ;;
+- : unit = ()
+
+# x ;;
+- : int list ref = {contents=[0]}
+```
+
+La prima volta che viene creato `x` avra' il tipo `'_a list ref`, poi la prima volta che verra' aggiunto un elemento, `x` avra' il tipo di quell'elemto (si vede dalle righe successive all'inizializzazione).
+
+### Grafi
+
+Un grafo orientato puo' essere rappresentato come una lista di archi:
+
+```ocaml
+type ’a graph = Gr of (’a * ’a) list;;
+let grafo1 = Gr [(1,2);(1,3);(1,4);(2,6);(3,5);(4,6);(6,5);(6,7);(5,4)];;
+```
+
+![grafo cammello](imgs/grafo_ocaml.png)
+
+Lo stesso grafo orientato si puo' rappresentare con una lista di successori:
+
+```ocaml
+type ’a graph = Gr of (’a * ’a list) list ;;
+let grafo1 = Gr [(1,[2;3;4]); (2,[6]); (3,[5]); (4,[6]); (5,[4]); (6,[5;7])] ;;
+```
+
+Un grafo puo' essere rappresentato anche come una funzione (utile in molti casi dove viene utilizzata solo la funzione `successori`):
+
+```ocaml
+type ’a graph = Graph of (’a -> ’a list);; 
+let f = function
+    1 -> [2;3;4]
+    | 2 -> [1;3;5]
+    | 3 -> [5;6]
+    | 4 -> [3]
+    | 6 -> [4]
+    | _ -> [];; 
+    
+# let g = Graph f;;
+val g : int graph = Graph <fun> 
+```
+
+![grafo funzione](imgs/grafo_funzione.png)
+
+<!-- in queste slide c'e' tanta merda, pieno di funzioni e roba molto incomprensibile -->
+
+### Cicli
+
+#### while
+
+```ocaml
+while e1 do
+	e2
+done
+```
+
+Si valuta `e1` che deve ritornare un valore booleano, finche' `e1 = true` si valuta `e2` (che di solito e' una sequenza). Quando `e1 = false` il ciclo termina
+
+#### for
+
+```ocaml
+(*ciclo cresente*)
+for v=e1 to e2 do
+	e3
+done
+
+(*ciclo calante*)
+for v=e1 downto e2 do
+	e3
+done
+```
+
+Le espressioni `e1` ed `e2` sono i limiti del cilco e devono ritornare un valore intero e vengono incrementati/decrementati a seconda del tipo di ciclo
+
+### Operazioni su file
+
+A quanto pare Ocaml mette anche a disposizione delle funzioni per interagire sui file (ma pensa, direi proprio TOURING COMPLETE).
+
+- operazioni di output:
+  ```ocaml
+  open_out: string -> out_cannel
+  flush: out_cannel -> unit
+  output_string: out_cannel -> string -> unit
+  output_char: out_cannel -> char -> unit
+  close_out: out_cannel -> unit 
+  ```
+
+- operazioni di input:
+  ```ocaml
+  open_in: string -> in_cannel
+  input_line: in_cannel -> string
+  input_char: in_cannel -> char
+  close_in: in_cannel -> unit
+  ```
+
+  
 
