@@ -1610,44 +1610,6 @@ Random.full_init [<SEMI>];;
 Random.self_init<SEME>;;
 ```
 
-### Moduli
-
-Un modulo, o libreria, e' formato da 2 file che lo definiscono:
-
-1. `modulo.ml`: contine una sequenza di definizioni
-2. `modulo.mli`: contiene una sequenza di specifiche e dice quali elementi sono accessibili "dall'esterno".
-
-Un esempio:
-
-```ocaml
-(*file list.ml*)
-let rec length_aux len = function
-     [] -> len
-     | a::l -> length_aux (len + 1) l
- 
-let length l = length_aux 0 l
-```
-
-```ocaml
-(*file list.mli*)
-val length : ’a list -> int
-```
-
-Se importo questo modulo in un altro file potro' utilizzare la funzione `length` ma non `length_aux` dato che non e' definita nel file `.mli`:
-
-```ocaml
-# List.length;;
-- : 'a list -> int = <fun>
-
-# List.length_aux;;
-Characters 0-15:
- List.length_aux;;
- ^^^^^^^^^^^^^^^
-Unbound value List.length_aux
-```
-
-
-
 ### Backtraking
 
 E' una delle tecniche piu' generali per la progettazioni di algoritmi per la risoluzioni di problemi di ricerca in un insieme di soluzioni che soddisfano date condizioni. Per esempio la ricerca dell'uscita di un labirinto.
@@ -2051,3 +2013,46 @@ A quanto pare Ocaml mette anche a disposizione delle funzioni per interagire sui
 
   
 
+### Modello a Moduli vs Oggetti
+
+OCaml per gestire progetti di grandi dimensione offre due modelli differenti: *Moduli* e *Oggetti*.
+
+#### Moduli
+
+Un modulo, o libreria, e' formato da 2 file che lo definiscono:
+
+1. `modulo.ml`: contine una sequenza di definizioni
+2. `modulo.mli`: contiene una sequenza di specifiche e dice quali elementi sono accessibili "dall'esterno".
+
+Un esempio:
+
+```ocaml
+(*file list.ml*)
+let rec length_aux len = function
+     [] -> len
+     | a::l -> length_aux (len + 1) l
+ 
+let length l = length_aux 0 l
+```
+
+```ocaml
+(*file list.mli*)
+val length : ’a list -> int
+```
+
+Se importo questo modulo in un altro file potro' utilizzare la funzione `length` ma non `length_aux` dato che non e' definita nel file `.mli`:
+
+```ocaml
+# List.length;;
+- : 'a list -> int = <fun>
+
+# List.length_aux;;
+Characters 0-15:
+ List.length_aux;;
+ ^^^^^^^^^^^^^^^
+Unbound value List.length_aux
+```
+
+#### Oggetti
+
+Le descrizioni dei dati e delle procedure vengono raccolte all'interno di entita' chiamate *Classi*. Un'istanza di una classe si chiama *Oggetto*.
