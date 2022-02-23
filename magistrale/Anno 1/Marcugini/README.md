@@ -1714,3 +1714,70 @@ let prova = function
 ```
 
 <!-- c'e' altra roba ma non si capisce un cazzo -->
+
+### Alberi
+
+Un albero e' un insieme di oggetti chiamati _nodi_ su cui e' definita una relazione binaria `G(n,m)` (si legge `n e' genitore di m`) tale che:
+
+- esiste un unico nodo, chiamato _radice_, che non ha genitori
+- ogni nodo diverso dalla radice ha uno ed un solo genitore
+- per ogni nodo `n`, che non sia la radice, esiste un cammino dalla radice che arriva a quel nodo
+
+Se `n` e' genitore di `m` allora possiamo dire che `m` e' _figlio_ di `n`. Definiamo un _albero binario_ come un albero dove ogni nodo ha al massimo 2 figli.
+
+![albero binario](imgs/albero_binario.png)
+
+Alcune definizioni utili:
+
+- **cammino**: una sequenza di nodi che unisce un nodo `n` ad un nodo `m`
+- **lunghezza del cammino**: numero `k` di nodi attraversati
+- **antenato e discendente:** se esiste un cammino da `n` a `m`, allora `n` e' un _antenato_ di `m`  ed `m` e' un *discendente* di `n`.
+- **fratelli**: nodi che hanno lo stesso genitore
+- **sottoalbero**: un insieme costituito da un nodo `n` e tutti i suoi discendenti
+- **foglia**: nodo senza figli
+- **nodo interno:** nodo con 1 o piu' figli
+- **profondita' del nodo:** lunghezza del cammino dalla radice al nodo stesso
+- **altezza del nodo**: lunghezza del cammino piu' lungo che va dal nodo ad una foglia
+- **altezza dell'albero**: altezza della sua radice ovvero la profondita' massima di un nodo nell'albero
+- **dimensione dell'albero**: numero di nodi
+
+Esiste anche l'albero vuoto, in pratica e' l'insieme vuoto. Questo semplifica alcuni calcoli (forse non li riportero' mai).
+
+![vuoto](imgs/albero_vuoto.png)
+
+La precedente e' una rappresentazione di un albero binario con anche l'abero vuoto. In pratica le foglie hanno come figli alberi vuoti. Cosi' facendo, ogni albero che non sia quello vuoto ha esattamente due sottoalberi, se e' una foglia i sottoalberi sono vuoti, se e' un nodo con un solo figlio uno dei due sottoalberi e' vuoto.
+
+Un albero binario e' _completo_ se ogni nodo interno ha esattamente 2 figli.
+
+![albero binario completo](imgs/albero_completo.png)
+
+Un albero di dice _bilanciato_ se per ogni nodo `n`, le altezze di sottoalberi destro e sinistro di `n` differiscono al massimo di 1.
+
+### Sequenze di comandi
+
+E' possibile scrivere in una riga una sequenza di comandi:
+
+```ocaml
+(E1;E2;E3;...;En);;
+```
+
+Il tipo e il valore di questa espressione sono dati dal tipo e il valore di `En` (si, tutta sta roba ha il valore e il tipo dell'ultimo elemento :upside_down_face:). Le espressini `Ei` vengono tutte valutate, da sinistra a destra, ma i valori sono ignorati, tranne quello dell'ultimo elemento.
+
+```ocaml
+# (print_int 3;print_string "*";print_int 8; print_string " = ";print_int(3*8); print_newline(); 3*8);;
+3*8 = 24
+-: int = 24 
+```
+
+Se una delle espressioni prima dell'ultima non ha tipo `unit` avremo un warning:
+
+```ocaml
+# (3*8; print_string "ciao\n"; 10);;
+Characters 1-4:
+Warning: this expression should have type unit.
+ (3*8; print_string "ciao\n"; 10);;
+ ^^^
+ciao
+-: int = 10 
+```
+
