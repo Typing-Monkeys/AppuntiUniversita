@@ -107,8 +107,6 @@ Alcuni esempi:
 
 Il tipo `A -> B` e' l'insieme di tutte le fuzioni che hanno come dominio A e codominio B.
 
-
-
 Alcuni esempi:
 
 ![esempio1](imgs/funzioni_esempio1.png)
