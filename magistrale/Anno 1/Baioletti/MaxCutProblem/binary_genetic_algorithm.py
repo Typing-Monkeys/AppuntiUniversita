@@ -2,9 +2,15 @@
 
 import numpy as np
 
+
 class binay_genetic_algorithm:
 
-    def __init__(self, problem, num_elem = None, num_gen = 100, pcross = 0.9, pmut = 0.01):
+    def __init__(self,
+                 problem,
+                 num_elem=None,
+                 num_gen=100,
+                 pcross=0.9,
+                 pmut=0.01):
         self.problem = problem
         self.num_bits = problem.get_dim()
         if num_elem is None:
@@ -25,12 +31,12 @@ class binay_genetic_algorithm:
         return self.best, self.best_f
 
     def init_population(self):
-        self.population=[]
+        self.population = []
         self.f_obj = np.zeros(self.num_elem)
         self.best = None
         self.best_f = -1
         for i in range(0, self.num_elem):
-            ind = np.random.randint(0,1+1,self.num_bits)
+            ind = np.random.randint(0, 1 + 1, self.num_bits)
             self.population.append(ind)
             self.f_obj[i] = self.problem.objective_function(ind)
             self.update_best(ind, self.f_obj[i])
@@ -43,17 +49,17 @@ class binay_genetic_algorithm:
 
     def select_mating_pool(self):
         mating_pool = []
-        for i in range(0, self.num_elem//2):
+        for i in range(0, self.num_elem // 2):
             p1 = self.roulette_wheel()
             p2 = self.roulette_wheel()
-            mating_pool.append((p1,p2))
+            mating_pool.append((p1, p2))
             #mating_pool.append(p1)
             #mating_pool.append(p2)
         return mating_pool
 
     def roulette_wheel(self):
         s = np.sum(self.f_obj)
-        r = np.random.random()*s
+        r = np.random.random() * s
         i = 0
         while r > s:
             r = r - self.f_obj[i]
@@ -71,7 +77,7 @@ class binay_genetic_algorithm:
             children.append(c1)
             children.append(c2)
         return children
-    
+
     def crossover_operator(self, p1, p2):
         # one point crossover
         l1 = list(p1)
@@ -84,13 +90,14 @@ class binay_genetic_algorithm:
     def do_mutations(self, children):
         for c in children:
             for i in range(0, self.num_bits):
-                if np.random.random()<self.pmut:
+                if np.random.random() < self.pmut:
                     c[i] = 1 - c[i]
 
     def select_new_population(self, children):
         # survival of the fittest
         # find the best among the children and the parents
-        f_child = np.array([self.problem.objective_function(c) for c in children])
+        f_child = np.array(
+            [self.problem.objective_function(c) for c in children])
         ib1 = np.argmax(self.f_obj)
         ib2 = np.argmax(f_child)
         # first case: the best child is better than the best parent

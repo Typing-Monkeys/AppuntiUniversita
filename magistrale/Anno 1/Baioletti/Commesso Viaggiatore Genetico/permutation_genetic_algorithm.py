@@ -2,9 +2,15 @@
 
 import numpy as np
 
+
 class permutation_genetic_algorithm:
 
-    def __init__(self, problem, num_elem = None, num_gen = 100, pcross = 0.9, pmut = 0.01):
+    def __init__(self,
+                 problem,
+                 num_elem=None,
+                 num_gen=100,
+                 pcross=0.9,
+                 pmut=0.01):
         self.problem = problem
         self.num_nodes = problem.get_dim()
         if num_elem is None:
@@ -25,12 +31,12 @@ class permutation_genetic_algorithm:
         return self.best, self.best_f
 
     def init_population(self):
-        self.population=[]
+        self.population = []
         self.f_obj = np.zeros(self.num_elem)
         self.best = None
         self.best_f = 1e300
         for i in range(0, self.num_elem):
-            l = list(range(0,self.num_nodes))
+            l = list(range(0, self.num_nodes))
             ind = np.random.shuffle(l)
             self.population.append(ind)
             self.f_obj[i] = self.problem.objective_function(ind)
@@ -44,16 +50,16 @@ class permutation_genetic_algorithm:
 
     def select_mating_pool(self):
         mating_pool = []
-        self.fitness = np.array([1/f for f in self.f_obj])
-        for i in range(0, self.num_elem//2):
+        self.fitness = np.array([1 / f for f in self.f_obj])
+        for i in range(0, self.num_elem // 2):
             p1 = self.roulette_wheel()
             p2 = self.roulette_wheel()
-            mating_pool.append((p1,p2))
+            mating_pool.append((p1, p2))
         return mating_pool
 
     def roulette_wheel(self):
         s = np.sum(self.fitness)
-        r = np.random.random()*s
+        r = np.random.random() * s
         i = 0
         while r > s:
             r = r - self.fitness[i]
@@ -71,12 +77,12 @@ class permutation_genetic_algorithm:
             children.append(c1)
             children.append(c2)
         return children
-    
+
     def crossover_operator(self, p1, p2):
         ok = False
         while not ok:
-            i1 = np.random.randint(1, self.num_nodes-1)
-            i2 = np.random.randint(1, self.num_nodes-1)
+            i1 = np.random.randint(1, self.num_nodes - 1)
+            i2 = np.random.randint(1, self.num_nodes - 1)
             if i1 != i2:
                 ok = True
         j1 = min(i1, i2)
@@ -87,17 +93,17 @@ class permutation_genetic_algorithm:
 
     def ordered_crossover(p1, p2, j1, j2):
         n = len(p1)
-        c = [None]*n
-        for j in range(j1, j2+1):
+        c = [None] * n
+        for j in range(j1, j2 + 1):
             c[j] = p1[j]
         h = 0
         for j in range(n):
             if p2[j] not in c:
-                assert(c[h] == None)
+                assert (c[h] == None)
                 c[h] = p2[j]
                 h += 1
                 if h == j1:
-                    h = j2+1
+                    h = j2 + 1
         return c
 
     def do_mutations(self, children):
@@ -110,7 +116,7 @@ class permutation_genetic_algorithm:
         l = self.population + children
         fc = [self.problem.objective_function(c) for c in children]
         f = list(self.f_obj) + fc
-        l1 = list(range(2*self.num_elem))
+        l1 = list(range(2 * self.num_elem))
         l1.sort(key=lambda i: f[i])
         l1best = l1[:self.num_elem]
         self.population = [l[i] for i in l1best]

@@ -3,6 +3,7 @@
 
 import numpy as np
 
+
 class maxcut_problem:
 
     def __init__(self, num_nodes, edges):
@@ -11,10 +12,10 @@ class maxcut_problem:
 
     def create_random_istances(num_nodes, edge_prob):
         edges = []
-        for i in range(0 , num_nodes):
+        for i in range(0, num_nodes):
             for j in range(i + 1, num_nodes):
                 if np.random.random() < edge_prob:
-                    edges.append((i,j))
+                    edges.append((i, j))
         return maxcut_problem(num_nodes, edges)
 
     def objective_function(self, c):
