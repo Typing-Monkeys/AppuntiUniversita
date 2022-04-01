@@ -8,10 +8,9 @@ class tsp_problem:
         self.dist_matrix = dist_matrix
 
     def create_random_istance(n):
-        # non funziona così random
-        x = np.random.random(-5, 5, size=n)
-        y = np.random.random(-5, 5, size=n)
-        m = np.zeros((n, n))
+        x = np.random.random(size = n)
+        y = np.random.random(size = n)
+        m = np.zeros((n,n))
         for i in range(n):
             for j in range(n):
                 m[i, j] = np.sqrt((x[i] - x[j])**2 + (y[i] - y[j])**2)
@@ -31,5 +30,5 @@ class tsp_problem:
         cost += self.dist_matrix[c1, c2]
         return cost
 
-    def det_dim(self):
+    def get_dim(self):
         return self.n_cities
