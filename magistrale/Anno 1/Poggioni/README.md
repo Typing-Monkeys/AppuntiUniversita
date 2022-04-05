@@ -277,37 +277,40 @@ _Test condition con più attributi: `x + y < 1`_
 
 ## Errori
 
-Ci sono 2 tipi di errori:
+Ci sono 3 tipi di errori:
 
-* **Training**: sono gli errori effettuati nel dataset di training  
-* **Testing** o **Generalization**: sono gli errori effettuati nel dataset di testing
+* **Training**: sono gli errori effettuati durante la fase di training (utilizzando dataset di training)  
+* **Testing**: sono gli errori effettuati durante la fase di testing (utilizzando il dataset di testing)
+* **Generalization**: l'errore intrinseco del modello testato su un insieme di record non precedentemente visti appartenneti alla stessa distribuzione
 
 ### Overfitting e Underfitting
 
 ![overfitting](./imgs/overfitting.png)
 
 **Overfitting**: 
-Se i dati di training sono sottorappresentativi (non rappresentano bene l'ambiente), all'aumnetare dei nodi aumentano gli errori di testing e diminuiscono gli errori di training. Aumentando la dimenzione dei data di training riduce questa differenza tra i dati ad un qualsiasi numero di nodi.
+Se i dati di training sono sottorappresentativi (non rappresentano bene l'ambiente), all'aumnetare dei nodi aumentano gli errori di testing e diminuiscono gli errori di training. Aumentando la dimenzione dei dati di training riduce questa differenza tra i dati ad un qualsiasi numero di nodi.
 
-__In breve__: se vengono forniti dati che non reappresentano completamente il problema allora l'algoritmo andrà ad imaparare solamente come risolvere quelle situazioni e non riuscirà a gestirne di diverse (esempio: vengono fornite 2 razze di primati per il problema del riconscimento di scimmie, l'algoritmo impareaà a conoscere perfettamente quelle 2 razze, ma quando gli verrà presentata una nuova razza non comprednerà che è una scimmia).
+__In breve__: se vengono forniti dati che non reappresentano completamente il problema allora l'algoritmo andrà ad imaparare solamente come risolvere quelle situazioni e non riuscirà a gestirne di diverse (esempio: vengono fornite 2 razze di primati per il problema del riconscimento di scimmie, l'algoritmo impareà a conoscere perfettamente quelle 2 razze, ma quando gli verrà presentata una nuova razza non comprednerà che è una scimmia).
 
 Le cause dell'orvefittingo sono:
 
 * Dimenzioni dei dati di Training limitate
 * Alto livello di complessità del modello
 
-L'overfitting porta ad avere Decision Trees molto più complessi del dovuto.
+Decision Trees molto più complessi del dovuto portano all'Overfitting.
 Gli errori di Training non forniscono una buona stima degli errori di Testing.
+
+**Underfitting**:
+Quando un modello risulta troppo semplice e non è in grado di classificare correttamente i dati.
 
 ## Model Selection
 
-Serve per assicurare che il modello non incappi in overfitting e per stimare il Generalization Error.
-E' quindi necessario stimare il Generalization Error nei seguenti modi:
+Serve per valutare la bontà di un dato modello, e quindi per evitare che incappi in overfitting stimandone il Generalization. Il **Generalization Error** può essere calcolato nei seguenti modi:
 
-* Usando un Validation Set
+* Usando un **Validation Set**
     * E' un set di dati, diverso dal training, che serve per stimare quanto sia affidabile il modello, ma non è sufficiente per il testing (esempio dell'esame di Bartoli). Si creano e trainano più modelli differenti e con il validation set si sceglie quello più preciso.
-* Incorporando il Model Complexity
-    * Un alta complessità tende a causare un numero maggiori di errori, quindi, dati 2 modelli è sempre meglio preferire quallo con complessità minore. La complessitàsi equivale a: `GenError(Model) = TrainError(Model, TrainData) + a * Complexity(Model)`
+* Incorporando la **Model Complexity**
+    * Un'alta complessità tende a causare un numero maggiori di errori, quindi, dati 2 modelli è sempre meglio preferire quallo con complessità minore. La complessitàsi equivale a: `GenError(Model) = TrainError(Model, TrainData) + a * Complexity(Model)`
 * Stimando i Limiti Statistici
 
 ### Approccio pessimistico
@@ -332,16 +335,93 @@ Il PrePruning avviene prima del completamento del Decision Tree e per decidere q
 
 ### PostPruning
 
-E' simile al prepruning solo che la potatura viene effettuata solo dopo che il Decision Tree viene calcolato completamente, con modalità BottomUp.
+E' simile al prepruning solo che la potatura viene effettuata solo dopo che il Decision Tree viene calcolato completamente, con modalità Bottom-Up.
+La classe scelta per sostituire il sottoalbero sarà quella con il numero maggiore di record.
 E' più preciso del PrePruning però richiede più calcoli.
 
 ## Valutazione delle Performance di un Classificacatore
 
 Ci sono vari modi per valutare le performance di un classificacatore:
 
-* **Medoto Holdout**: consiste nel dividere i dati originali in 2 set: uno di training e uno di testing (la divisione è a discrezione dell'analista). Successivamente il calssificatore viene allenato col set di training e poi viene testata la sua accuratezza con il set di testing. Questo modello presenta svariati problemi: se forniamo troppi dati di testing e pochi di training, il modello potrebbe non operare al massimo delle sue potenzialità, mentre se vengono forniti troppi dati di training e pochi di testing, la stima finale potrebbe non essere affidabile al 100%. Inine, poiche i set di training e di testing sono derivati dallo stesso insieme di dati, potrebbe capitare che uno dei 2 sottoinsieme sia più rappresentatidvo del dataset orgiginale, mentre l'altro no. Per migliorare la precisione di questo metodo piò essere applicato il Random Subsampling che consiste nel ripetere più volte l'allenamento e il tesing con sottoset differenti per ogni iterazione.
+* **Medoto Holdout**: consiste nel dividere i dati originali in 2 set: uno di training e uno di testing (la divisione è a discrezione dell'analista). Successivamente il calssificatore viene allenato col set di training e poi viene testata la sua accuratezza con il set di testing. Questo modello presenta svariati problemi: se forniamo troppi dati di testing e pochi di training, il modello potrebbe non operare al massimo delle sue potenzialità, mentre se vengono forniti troppi dati di training e pochi di testing, la stima finale potrebbe non essere affidabile al 100%. Infine, poichè i set di training e di testing sono derivati dallo stesso insieme di dati, potrebbe capitare che uno dei 2 sottoinsieme sia più rappresentatidvo del dataset orgiginale, mentre l'altro no. Per migliorare la precisione di questo metodo piò essere applicato il Random Subsampling che consiste nel ripetere più volte l'allenamento e il tesing con sottoset differenti per ogni iterazione.
 
-* **Cross-Validation**: un'alternativa al Random Subsempling è il Cross-Validation che consisnte nel dividere il dataset in `k` partizioni di dimenzioni equivalenti e successivamente di utilizzare `k -1 ` partizioni per il training e 1 per il testing. Queste partizioni si scambieranno fin quando tutti gli elementi verranno utilizzati per il testing 1 sola volta. Un metodo speciale è il _leav on out_, che è simile al metodo descritto sopra ma ha `k = N` (dove `N` è la dimenzione del dataset) e consiste nell'usare un solo record alla volta per il tesing. Questa procedura risulta molto precisa ma molto costosa.
+* **Cross-Validation**: un'alternativa al Random Subsempling è il Cross-Validation che consisnte nel dividere il dataset in `k` partizioni di dimenzioni equivalenti e successivamente di utilizzare `k-1 ` partizioni per il training e 1 per il testing. Queste partizioni si scambieranno fin quando tutti gli elementi verranno utilizzati per il testing 1 sola volta. Un metodo speciale è il _leave on out_, che è simile al metodo descritto sopra ma ha `k = N` (dove `N` è la dimenzione del dataset) e consiste nell'usare un solo record alla volta per il tesing. Questa procedura risulta molto precisa ma molto costosa.
+
+## Imbalanced Class Problem ⚖️
+
+In alcuni problemi di classificazione il numero di record delle classi potrebbero essere sbilanciati. Come si può valutare la precisione di un classificatore con queste caratteristiche ??
+
+### Precision & Recall
+
+Per valutare la bontà di un classificatore possiamo utilizzare varie metrice, la più comune è l'Accuracy. Tuttavia, se è più importante che il modello rilevi la "classe rara" (e.g. trasnsazione fraudolenta su dataset di transazioni) l'accuracy non è molto utile perhè il suo valore viene incrementato notevolmente dai record dell'altra classe (quella più comune).
+
+Per visualizzare meglio il problema possiamo utilizzare la **confusion matrix**, una matrice che mette in evidenza come vengono classificati i vari record.
+
+![confusione](./imgs/confusione.png)
+
+Basandoci sulla confusion matrix possiamo calcolare l'accuracy come: ![accuracy](./imgs/accuracy.png)
+
+Esistono altre metriche importanti per valutare meglio i classificatori:
+
+- **Precision**: serve a mettere in evidenza i _false positive_, più è alta la percentuale meno ce ne sono. (verticale) ![precision](./imgs/precision.png)
+- **Recall**: serve a mettere in evidenza i _false negative_, più è alta la percentuale meno ce ne sono. (orizzontale) ![recall](./imgs/recall.png)
+- **F-measure**: sintetizza in un'unica misura i valori di Precisione e Recall. ![fmeasure](./imgs/fmeasure.png)
+
+Ne esistono tantissime altre che vanno utilizzate in base al problema specifico che andiamo ad affrontare (generalmente Precision e Recall sono quelle più utili ed efficaci).
+
+![misure](./imgs/misure.png)
+
+**Esempio**:
+
+Nel seguente esepmio possiamo vedere come l'Accuracy è alta ma i valori di Precision e Recall sono estremamente bassi, indice di un classificatore dalle scarse performance (tabella 1).
+
+![esempio](./imgs/precision_esempi.png)
+
+### ROC 🪨
+
+<img src="./imgs/wock.png" align=right width="300px">
+
+Un metodo grafico per confrontare vari modelli è quello di utilizzare le curve **ROC** (Reciver Operating Characteristics). Esse rappresentano la relazione tra True Positive Rate (**TPR**, asse y) e False Positive Rate (**FPR**, asse x) mostrando i compromessi tra TPR e FPR. 
+
+Nelle ROC ci sono dei punti che hanno un'interpretazione ben conosciuta:
+
+- (0, 0): un modello che predice tutte le istanze come negative 
+- (1, 1): un modello che predice tutte le istanze come positive
+- (1, 0): modello ideale con assenza di False Positive (le azzecca tutte)
+
+La retta che congiunge i punti (0, 0) e (1, 1) rappresenta il Random Guessing. Se un grafico si avvicina a questa il modello fa molto schifo.
+
+Se un grafico si trova più a sinistra dell'altro (più verso (1, 0)) allora è migliore localmente. Non possiamo però affermare che uno è meglio dell'altro in generale.
+
+![roc](./imgs/roc.png)
+
+Nella figura precedente possiamo vedere che il modello M1 risulta migliore con un FPR inveriore di ~0.36, invece M2 è migliore con un FPR maggiore. Non possiamo però affermare che uno sia meglio dell'altro globalmente.
+
+Un buon indice per valutare quando un modello è migliore di un altro in generale è calcolare l'area sotto la curva ROC, se questa è maggiore di un altro modello possiamo affermare che questo è migliore dell'altro globalmente. Se l'area di una ROC è 0.5 rappresenta un modello equivalente al Random Guessing. Un modello ideale ha l'area uguale ad 1.
+
+#### Generazione di una ROC
+
+Le curve ROC possono essere rappresentate solo se il modello produce output continui che verranno utilizzati per fare il ranking delle predizioni. Questi output continui potrebbero essere le Posterior Probabilities generate da un Naive Bayesian Classifier o valori numerici prodotti da un ANN.
+
+Assumendo che gli output del modello siano continui per tracciare la curva ROC bisogna:
+
+1. Ordinare tutti i record di test in ordine crescente in base al loro valore di output
+2. Selezionare il record con rank più basso e assegnare questo e tutti gli altri record sopra di lui come Positive Class (equivale a classificare tutto come Positive Class, TPR = FPR = 1)
+3. Selezionare il record successivo, classificare il record selezionato e tutti quelli superiori come Positive e quelli sotto di esso come Negative. Aggiornare il TPR e FPR come segue:
+    - se il record precedente è Positive, decrementa il TP Count e lasciare inalterato i FP Count
+    - se il record precedente è Negative, decrementa i FP Count e lascia inalterati i TP Count
+4. Ripeti lo step 3 fin quando non raggiungi il record con il rank più alto.
+5. Stampa TPR e FPR
+
+![rooc_do](./imgs/roc_do.png)
+
+### Conclusione del problema
+
+Per risolvere il problema delle classi sbilanciate bisogna:
+
+- Undersample della classe più popolosa
+- Oversample della classe più rara.
+
 
 # Artificial Neural Network (ANN)
 
