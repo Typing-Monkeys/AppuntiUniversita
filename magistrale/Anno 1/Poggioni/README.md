@@ -44,8 +44,6 @@ In base al tipo di dato che è `y`, possiamo avere 2 tipi di supervised learning
 - `y` è un **numero reale**: regressione ![regressione](./imgs/regressione.png)
 - `y` è **categorico**: classificazione ![classificazione](./imgs/classificazione.png)
 
-
-
 **Unsupervised Learingn**
 
 L'utilizzo principale del Unspuervised Learning è l'individuazione di pattern nascosti nei dati di input.
@@ -87,33 +85,33 @@ Ogni algoritmo è costituito da 3 componenti:
 Alcune funzioni di rappresentazini:
 
 * Funzioni Numeriche
-    * Regressione Lineare
-    * Neural Network
+  * Regressione Lineare
+  * Neural Network
 * Funzioni simboliche
-    * Decison Tree :palm_tree:
+  * Decison Tree :palm_tree:
 * Funzioni Instance-based
-    * Nearest neigthbour
+  * Nearest neigthbour
 * Modelli Probabilistic Gaphical
-    * Naive Bayes
-    * Hidden Markov Models (HMMS)
-    * Probabilistic Context Free Grammars (PCFGs)
-    * Markov Networks
+  * Naive Bayes
+  * Hidden Markov Models (HMMS)
+  * Probabilistic Context Free Grammars (PCFGs)
+  * Markov Networks
 
 Algoritmi di Ricercara/Ottimizzazinoe:
 
 * Gradient decent
-    * Perceptron ([Pompotron](https://www.youtube.com/watch?v=0YQmE21aMnw&ab_channel=OrionNebula))
-    * BackPropagation
+  * Perceptron ([Pompotron](https://www.youtube.com/watch?v=0YQmE21aMnw&ab_channel=OrionNebula))
+  * BackPropagation
 * Dynamic Programming
-    * HMM Learning
-    * PCFG Learning
+  * HMM Learning
+  * PCFG Learning
 * Divide and Conquer 
-    * Decision tree induction
-    * Rule learingn
+  * Decision tree induction
+  * Rule learingn
 * Evalutaionary Comutation
-    * Genetic Algorhtim (GAs)
-    * Genetic Progarmming (GP)
-    * Neuro evolution 
+  * Genetic Algorhtim (GAs)
+  * Genetic Progarmming (GP)
+  * Neuro evolution 
 
 Alcuni criteri di valutazione:
 
@@ -142,17 +140,17 @@ Il nostro obbiettivo è quello di imparare un modello che mappa ogni set di attr
 Ci sono vari modi per effettuare la classificacazione che si dividono in 2 principali categorie:
 
 * Base Callificacazione
-    * Decision Tree :palm_tree:
-    * Rule Based
-    * Nearest Neigthbour
-    * Neural Netwroks
-    * Deep Learning
-    * Naive Bayes and Bayesina Belief metods
-    * Support Bector Machines
+  * Decision Tree :palm_tree:
+  * Rule Based
+  * Nearest Neigthbour
+  * Neural Netwroks
+  * Deep Learning
+  * Naive Bayes and Bayesina Belief metods
+  * Support Bector Machines
 * Ensemble Classificacazione
-    * Boosting
-    * Bagging
-    * Random Forest (:palm_tree: :palm_tree: ? :palm_tree: ?? :palm_tree:)
+  * Boosting
+  * Bagging
+  * Random Forest (:palm_tree: :palm_tree: ? :palm_tree: ?? :palm_tree:)
 
 ### Decision Treeee
 
@@ -179,24 +177,24 @@ ALcuni algortmi per la classificacazione basati su decison tree sono:
 Due problemi principali sono: 
 
 * la determinazione di una metodologia di split che dipende da due fattori principali:
-    * specifica di una condizione di test, che dipende dal tipo di attributo
-    * unità di misura per valutare la correttezza di una misura di test (quanto bene un attributo rappresenta la classe)
+  * specifica di una condizione di test, che dipende dal tipo di attributo
+  * unità di misura per valutare la correttezza di una misura di test (quanto bene un attributo rappresenta la classe)
 * determinare quando terminare la divisione:
-    * fermarla anticipatamente (Eraly termination :robot:)
-    * fermarla se tutti i record appartengono alla stessa classe (foglia raggiunta) oppure se hanno tutti gli attributi uguali (porteranno allo stesso risultato)
+  * fermarla anticipatamente (Eraly termination :robot:)
+  * fermarla se tutti i record appartengono alla stessa classe (foglia raggiunta) oppure se hanno tutti gli attributi uguali (porteranno allo stesso risultato)
 
 ### Metodi per effettuare i test
 
 Questi metodi variano in base al:
 
 * Tipo di Attributo
-    * Binary
-    * Nominal
-    * Ordinal
-    * Continussssss
+  * Binary
+  * Nominal
+  * Ordinal
+  * Continussssss
 * Numero di vie per lo split
-    * 2 way split
-    * multy way split
+  * 2 way split
+  * multy way split
 
 **Multiway or Biniary Split**:
 
@@ -223,9 +221,8 @@ Indici per misurare l'impurità sono :
 
 1. Calcolare l'indice di impurità `P` prima dello split
 2. Calcolare l'indice di impurità `M` dopo lo split
-    * `M` è l'impurità pesata dei figli
+   * `M` è l'impurità pesata dei figli
 3. Scegliere l'attributo che produce il valore `Gain` maggiore: `Gain = P - M` (equivalente a scegliere l'attributo con `M` minore)
-
 
 ![grafo](./imgs/grafico.png)
 
@@ -308,9 +305,9 @@ Quando un modello risulta troppo semplice e non è in grado di classificare corr
 Serve per valutare la bontà di un dato modello, e quindi per evitare che incappi in overfitting stimandone il Generalization. Il **Generalization Error** può essere calcolato nei seguenti modi:
 
 * Usando un **Validation Set**
-    * E' un set di dati, diverso dal training, che serve per stimare quanto sia affidabile il modello, ma non è sufficiente per il testing (esempio dell'esame di Bartoli). Si creano e trainano più modelli differenti e con il validation set si sceglie quello più preciso.
+  * E' un set di dati, diverso dal training, che serve per stimare quanto sia affidabile il modello, ma non è sufficiente per il testing (esempio dell'esame di Bartoli). Si creano e trainano più modelli differenti e con il validation set si sceglie quello più preciso.
 * Incorporando la **Model Complexity**
-    * Un'alta complessità tende a causare un numero maggiori di errori, quindi, dati 2 modelli è sempre meglio preferire quallo con complessità minore. La complessitàsi equivale a: `GenError(Model) = TrainError(Model, TrainData) + a * Complexity(Model)`
+  * Un'alta complessità tende a causare un numero maggiori di errori, quindi, dati 2 modelli è sempre meglio preferire quallo con complessità minore. La complessitàsi equivale a: `GenError(Model) = TrainError(Model, TrainData) + a * Complexity(Model)`
 * Stimando i Limiti Statistici
 
 ### Approccio pessimistico
@@ -408,8 +405,8 @@ Assumendo che gli output del modello siano continui per tracciare la curva ROC b
 1. Ordinare tutti i record di test in ordine crescente in base al loro valore di output
 2. Selezionare il record con rank più basso e assegnare questo e tutti gli altri record sopra di lui come Positive Class (equivale a classificare tutto come Positive Class, TPR = FPR = 1)
 3. Selezionare il record successivo, classificare il record selezionato e tutti quelli superiori come Positive e quelli sotto di esso come Negative. Aggiornare il TPR e FPR come segue:
-    - se il record precedente è Positive, decrementa il TP Count e lasciare inalterato i FP Count
-    - se il record precedente è Negative, decrementa i FP Count e lascia inalterati i TP Count
+   - se il record precedente è Positive, decrementa il TP Count e lasciare inalterato i FP Count
+   - se il record precedente è Negative, decrementa i FP Count e lascia inalterati i TP Count
 4. Ripeti lo step 3 fin quando non raggiungi il record con il rank più alto.
 5. Stampa TPR e FPR
 
@@ -449,7 +446,6 @@ _Diagramma di Voronoi per 1-nearest Neightbotr e Distanza Euclidea_
 - Poichè fanno classificazioni basate su informazioni locali sono molto suscettibili al rumore
 - Possono generare errori di classificazione se non avvengono step di preprocessing (aggiustamento delle scale dei dati)
 
-
 ## Bayesian Classification
 
 Un classificatore bayesiano basa il suo processo di learning su un importatne teoria statistico: Il teorema di Bayes.
@@ -478,9 +474,10 @@ Va però fatta una distinzione in base ai tipi di attributo che si prendono in c
 * **Categorici**: si calcola il rapporto tra il numero di volte che l'attributo compare all'interno dei record che contengono la classe in questione fratto il numero di volte che compare la classe Y in questione
 
 * **Continui**: per trattare questi dati si può procedere in 2 modi diversi:
-    * **Discretizzando**: si dividono i dati in intervalli più piccoli trasformando quindi l'attributo continuo in un attributo categorico e si procede come visto sopra. Bisogna fare attenzione a come vengono scelti gli intervalli: troppo grandi sono poco precisi e troppo piccoli causano overfitting
-
-    * **Utilizzano le distrubuzioni di Probabilità**: si cerca una distribuzione di probabilità più adatta alle variabili continue e si stimano i parametri della distribuzione usando i dati di training. Generalmente la ditribuzione Gaussaina è la più utilizzate e quindi ne deriva la seguente formula: ![gauss](./imgs/gauss.png)
+  
+  * **Discretizzando**: si dividono i dati in intervalli più piccoli trasformando quindi l'attributo continuo in un attributo categorico e si procede come visto sopra. Bisogna fare attenzione a come vengono scelti gli intervalli: troppo grandi sono poco precisi e troppo piccoli causano overfitting
+  
+  * **Utilizzano le distrubuzioni di Probabilità**: si cerca una distribuzione di probabilità più adatta alle variabili continue e si stimano i parametri della distribuzione usando i dati di training. Generalmente la ditribuzione Gaussaina è la più utilizzate e quindi ne deriva la seguente formula: ![gauss](./imgs/gauss.png)
 
 Se una probabilità condizionale è `0` allora verrà azzerata tutta l'espressione. Per questo motivo sono state implementate delle variazioni che permettono di evitare il problema:
 
@@ -502,7 +499,7 @@ A seconda del numero di nodi padri viene fatta una distinzione:
 * Se ha 1 solo genitore, contiene la probabilità condizionale `P(X|Y)`
 
 * Se ha più genitori, contine la probabilità condizione `P(X|Y1, Y2, ..., Yn)`
-![dag](./imgs/dag.png)
+  ![dag](./imgs/dag.png)
 
 Queste probabilià vengono poi inserite in una tabala relativa ad ogni nodo. Durante la classificazione vengono presi questi valori per caloclare la classe di appartenenza.
 
@@ -594,11 +591,37 @@ Come possiamo vedere da questo esempio, il decision boundary che originariamente
 
 ![fi no](./imgs/fi_no.png)
 
-Il difetto di questo approccio è che possiamo incappare nella **Maledizione della Dimensionalità**: aumentando il numero di dimensioni (featurs) il quantitativo di dati necessario per generalizzare con precisione aumenta esponenzialmente (servono tantissimi dati di training per permettere al modello di apprendere tutte le possibili combinazioni di feature possibili)!
+Il nuovo learning task potrà essere formalizzato come il seguente problema di ottimizzazione:
+
+![](./imgs/fi_nuovo.png)
+
+L'unica differenza con il caso linearmente separabile è che il vincolo viene calcolato non più sul set degli attributi base `x` ma, sulla loro trasformazione `fi(x)`, che è un vettore con tante componenti quante sono le dimensioni dello spazio trasformato.
+
+Sviluppando la Lagrangiana, il calcolo si ridurrà a un *dot product* (prodotto scalare o similarità) tra una coppia di vettori dello spazio trasformato (`fi(xi) * fi(xj)` ). Tuttavia questo calcolo risulta essere tremendamente costoso e per causa sua possiamo incappare nella **Maledizione della Dimensionalità**: aumentando il numero di dimensioni (featurs) il quantitativo di dati necessario per generalizzare con precisione aumenta esponenzialmente (servono tantissimi dati di training per permettere al modello di apprendere tutte le possibili combinazioni di feature possibili)!
 
 Questo problema può essere aggirato tramite il **Kernel Trick**.
 
-margini grossi molto buono
+Il kernel trick è un metodo che permette di calcolare la similarità tra 2 vettori partendo dal set di attributi originale, che può essere espresso come segue:
+
+![kernel trik](./imgs/kernel_trik.png)
+
+La sua applicabilità richiede che sia vera la seguente affermazione: deve esistere una trasformazione corrispondente tale che la kernel function calcolata per una coppia di vettori è equivalente al dot product dei vettori nello spazio trasformato. Tale proprietà viene espressa dal teorema di Mercer.
+
+![mercer](./imgs/mercer.png)
+
+In sostanza, applicando la funzione kernel si evita di calcolare le `fi`, riducendo il costo computazionale dell'algoritmo.
+
+### Caratteristiche
+
+Le caratteristiche generali delle SVM sono le seguenti:
+
+- Il learning problem può essere formulato come un problema di ottimizzazione convesso per i quali sono disponibili algoritmi molto efficienti che garantiscono il ritrovamento di un minimo globale (che fornisce le performance migliori)
+
+- Performa il Capacity Control, massimizzando il margine del Decision Baundary
+
+- Può essere applicato a variabili categoriche introducendo Dummy Variables per ogni categoria degli attributi
+
+- Sono applicabili a problemi multiclasse
 
 # Artificial Neural Network (ANN)
 
@@ -646,7 +669,6 @@ In modo molto intuitivo, il nuovo peso `w(k+1)` è la combinazione del vecchio p
 
 Lambda è chiamato _Learning Rate_, che è un valore che varia tra 0 e 1 e serve per controllare quanto fini devo essere gli aggiustamenti durante il processo di learning. Se lambda è più vicino a 0, i nuovi pesi variano meno rispetto a quelli precedenti. Se è più vicina ad 1, i nuovi pesi possono variare molto rispetto a quelli vecchi. Alcune volte si può usare il valore lambda in modo adattivo: all'inizio sarà più vicino ad 1 in quanto "deve imparare di più" per poi avvicinarsi sempre più allo 0 pere effettuare delle piccole modifiche per raggiungere la precisione.
 
-
 Il percettrone sa fare operazioni di classificazione solo se  i dati sono linearmente separabili, altrimenti è necessario aumentare la complessità del percettrone aggiungendo degli Hidden Layer.
 
 I set di dati linearmente separabili possono essere visti come un Hyperpiano che può essere separato da una retta. L'algoritmo di leraning del percettrone converge in problemi linearmente separabili, altrove non converge.
@@ -659,15 +681,14 @@ La funzione XOR non è lineramente separabile.
 Per creare strutture più complesse per classificare dati non linearmente divisibili si possono utilizzare 2 metodi:
 
 * Il primo è quello di inserire vari livelli, detti _Hidden Layer_, tra il livello di input e quello di outpt. La struttura risultante si chiama **MultyLayer Neural Network** può essere distinta in base ai link tra i livelli in 2 categorie:
-    * Feed-Forward, dove i noodi in un livello possono solamente connettersi al livello successivo
-    * Recurrent, dove i link possono connettere nodi tra lo stesso livello o tra un livello precedente.
+  * Feed-Forward, dove i noodi in un livello possono solamente connettersi al livello successivo
+  * Recurrent, dove i link possono connettere nodi tra lo stesso livello o tra un livello precedente.
 
 ![mnn](./imgs/mnn.png)
 
 * Il secondo è quello di utilizzare funzioni di attivazioni diverse da quella segno, come funzioni lineari, sigmoidi, tangente, ecc..
-Queste funzioni di attivazione permettono ai nodi nascosti e di output di produrre valori di output che hanno valori di input non lineari (come la funzione XOR).
-![funzioni](./imgs/funzioni.png)
-
+  Queste funzioni di attivazione permettono ai nodi nascosti e di output di produrre valori di output che hanno valori di input non lineari (come la funzione XOR).
+  ![funzioni](./imgs/funzioni.png)
 
 ![xor](./imgs/xor.png)
 
@@ -705,12 +726,10 @@ Quando si sviluppa una ANN bisogna tenere in cosiderazione questi problemi di de
 * Il numero di nodi di output deve essere prestabilito: per un problema a 2 calssi basta un solo nodo di output, ma per un problema con k classi ne servono k
 
 * Deve essere scelta una topologia per la rete poichè essa andrà ad influenzare la target function. Per scegliere la giusta topologia si può procedere in 2 modi:
-    1. Creare una fully connected network e iterarci sopra per costriure una nuova rete ogni volta con un numero minore di nodi (si reitera la procedura di model-buildin e ha una complessità di tempo mooolto alta)
-    2. Creare una fully connected network e togliergli nodi per poi ripetere il processo di valutazione della rete.
+  
+  1. Creare una fully connected network e iterarci sopra per costriure una nuova rete ogni volta con un numero minore di nodi (si reitera la procedura di model-buildin e ha una complessità di tempo mooolto alta)
+  2. Creare una fully connected network e togliergli nodi per poi ripetere il processo di valutazione della rete.
 
 * Vanno inizializzati i pesi e i bias. E' comunemente accettata una inizializzazione randomica
 
 * Gli esempi di trainign con valori mancanti dovrebbero essere sostituiti o rimossi
-
-
-
