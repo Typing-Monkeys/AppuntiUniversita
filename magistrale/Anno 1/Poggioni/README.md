@@ -556,7 +556,7 @@ Riassumendo, il processo di training di una Linear SVM con dati separabili, può
 
 ![lsvm](./imgs/lsvm.png)
 
-Per risolvere effettivamente questo problema, sarà necessario riscrivere la funzione obbiettivo come Lagrangiana affinchè essa tenga conto dei vincoli importi alle sue soluzioni.
+Per risolvere effettivamente questo problema, sarà necessario riscrivere la funzione obbiettivo come Lagrangiana affinchè essa tenga conto dei vincoli imposti alle sue soluzioni.
 
 ![lagrange](./imgs/lagrange.png)
 
@@ -655,11 +655,34 @@ TODO: capire che roba è e se serve
 
 ### Bagging
 
-TODO: completare
+È un metodo di classificazione che manipola i dati di training campionando con ripetizione l'insime di training e ottenendo così `n` sottoset (tutti della stessa dimensione `m`) che verranno utilizzati per allenare `n` modelli dell'ensamble. Un dato record ha la probabilità del `66%` di appartenere ad un dato sottoset (fase di bootstrap). Una volta allenati  i modelli per classificare un record mai visto prima, viene effettuata una votazione di maggioranza e la classa con più voti risulterà la classe di output (aggregation).
+
+![bagging](./imgs/bagging.png)
+_Romani Artista 🖌️_
 
 ### Boosting
 
-TODO: completare
+Il Boosting è una procedura iterativa che cambia in maniera adattiva la distribuzione dei campioni di training in maniera tale che vengano favoriti i campioni classificati erroneamente. Ad ogni campione viene assegnato un peso (nella fase iniziale hanno tutti lo stesso `1/N`, con `N` il numero di record) e si effettua un campionamento con ripetizione con cui verrà costruito il primo modello. Successivamente il modello viene testato ed in base agli errori di classificazione commessi, i pesi dei campioni del dataset originale verranno aggioranti e si ripeterà il processo fino ad ottenere il numero di modelli richiesto. I pesi dei record correttamente classificati verranno decrementati metre quelli misclassificati saranno aumentati per far si che nello step successivo verrano scelti.
+
+![boosting](./imgs/boosting.png)
+_Esempio di classificatori generati con 10 Round di Boosting_
+
+Esistono differenti versioni che variano nel come i pesi vengon aggiornati e in come le predizioni fatte dai vari classificatori sono combinate. Una possibile implementazione di questo metodo è l' **Ada Boosting**.
+
+#### AdaBoosting
+
+L'algoritmo di Ada Boosting funziona nel seguente modo:
+
+1. Inizialmente viene assegnato ad ogni record del dataset lo stesso peso: `1/N`.
+
+2. Per ogni feature del dataset viene generato un modello base (e.g. decision stump) e viene calcolato l'errore pesato `ei` di ogni modello. Se `ei` supera `0.5` allora i pesi vengono resettati ai valori di partenza (`1/N`). ![ada2](./imgs/ada2.png).
+Da questo errore è possibile ricavarsi il parametro `aj` che verrà utilizzato per aggiornare i pesi nello step successivo (è tipo un indice di performance). ![perfomance](./imgs/adaperformance.png)
+
+3. Aggiorna i pesi di ogni record basandosi sulla seguente formula: ![ada 1](./imgs/ada1.png). Se il record è classificato correttamente il peso viene diminuito, altrimenti viene aumentato. `Zj` è un fattore di normalizzazione che permette di far tornare la somma di tutti i nuovi pesi del dataset a 1 (ricondotto alla probabilità che venga scelto nella nuova istanza di training)(calcola i nuovi pesi e li normalizza).
+
+4. Continua partendo dai nuovi pesi fin quando non si ottine il numero di classificatori voluti.
+
+Dato un test record, il risultato viene scelto basandosi su una media pesata dei risultati di classificazione di tutti i classificatori base.
 
 # Artificial Neural Network (ANN)
 
