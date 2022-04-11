@@ -651,14 +651,61 @@ Gli ensablme methods funzionano meglio con classificatori instabili, ovvero mode
 
 ### Bias-Variance Decomposition
 
-TODO: capire che roba è e se serve
+<!-- 
+La Decomposizione Bias-Varianza è un metodo per analizzare l'errore di predizione di un calassificatore. Si può rapprsentare questo metodo con il seguente esempio:
+
+Prendiamo in cosiderazione il lancio di una palla di cannone verso un bersaglio `y`.
+
+![bias varianza](./imgs/bias_varianza.png)
+
+- Bias: misura la distanza media tra la posizione del target e la posizione in cui cade il proiettile (di quanto sbaglia il classificatore ??)
+
+- Varianza: misura la differenza tra la posizoine in cui cade il proiettile `x` e la media `x'` delle posizioni in cui cade mediamente
+
+- Noise: variabilità della posizione del target
+
+Unendo tutte queste componenti otteniamo la seguente formula:
+
+![bias formula](./imgs/bias.png)
+
+Per il problema della classificazione possiamo utilizzare lo stesso approccio dell'esempio precedente: si può decomporre l'errore in 3 termini diversi (come l'equazione di prima).
+
+Esempi di bias sono: pruning sugli alberi decisionali (dove farlo, quando e su che ramo), numero di vicini in un knn, topologia della rete di un ANN.
+
+I metodi Ensamble cercano di ridurre la varianza di modelli complessi (a basso bias) aggregando le risposte di più classificatori di base.
+
+![bias fiting](./imgs/bias_fitting.png)
+-->
+**Dal tizio di youtube spiegato bene**
+
+L'inabilità di un modello di machine learning nel catturare la vera relazione tra i dati è chiamata **Bias** (min sqrt error, la distanza tra i pallini e la riga rossa).
+
+![bias bello](./imgs/bias_bello.png)
+
+A sinistra un esempio di bias elevato (c'è molta distanza tra i pallini e la retta), a destra un esempio di bias nullo, la riga rossa riesce perfettametne a dividere ogni pallino.
+
+La **Varianza** è quanta differenza tra acurracy nel dataset di training ed in quello di testing (quanto classifica bene il training e il testing).
+
+![varianza bello](./imgs/varianza_bello.png)
+
+A sinistra il training set viene classificato perfettamente, a destra il testing set viene classificato abbastanza male (distanza tra pallini e line) quindi abbiamo una varianza elevata.
+
+Con un bias estremamente piccolo ed un elevata varianza siamo di fronte all'overfitting.
 
 ### Bagging
 
-È un metodo di classificazione che manipola i dati di training campionando con ripetizione l'insime di training e ottenendo così `n` sottoset (tutti della stessa dimensione `m`) che verranno utilizzati per allenare `n` modelli dell'ensamble. Un dato record ha la probabilità del `66%` di appartenere ad un dato sottoset (fase di bootstrap). Una volta allenati  i modelli per classificare un record mai visto prima, viene effettuata una votazione di maggioranza e la classa con più voti risulterà la classe di output (aggregation).
+È un metodo di classificazione che manipola i dati di training campionando con ripetizione l'insime di training e ottenendo così `n` sottoset, tutti della stessa dimensione del dataset originale,(fase di bootstrap) che verranno utilizzati per allenare `n` modelli dell'ensamble. I record vengono scelti secondo la distribuzione uniforme e dunque ongi campione di bootstrap conterrà circa `63%` dei dati del set originale. Può capitare che in alcuni campioni di bootstrap compaiano molteplici volte lo stesso record o che alcuni siano del tutto assenti.
+
+Una volta allenati i modelli, per classificare un record mai visto prima viene effettuata una votazione di maggioranza e la classa con più voti risulterà la classe di output (aggregation).
 
 ![bagging](./imgs/bagging.png)
 _Romani Artista 🖌️_
+
+Il Bagging migliora l'errore di generalizzazione ridicuendo la varianza dei calssificatori di base, questo perchè le prestazioni del bagging dipendono dal calssificatore di base:
+
+- se il calssificatore di base è instabile, aiuta a ridurre gli errori associati alle fluttuazioni nei dati di training
+
+- se il classificatore di base è stabile (robusto a piccole perturbazioni nell'insieme di addestramento), l'errore dell'ensabmle è principlamente causato da bias nel calssificatore di base. In questo caso il bagging potrebbe non migliorare le performance ma andare addirittura a peggiorarle.
 
 ### Boosting
 
@@ -682,7 +729,26 @@ Da questo errore è possibile ricavarsi il parametro `aj` che verrà utilizzato 
 
 4. Continua partendo dai nuovi pesi fin quando non si ottine il numero di classificatori voluti.
 
-Dato un test record, il risultato viene scelto basandosi su una media pesata dei risultati di classificazione di tutti i classificatori base.
+Dato un test record, il risultato viene scelto basandosi su una media pesata dei risultati di classificazione di tutti i classificatori base. Si tende a dare più peso ai classificatori con accuracy più alta sfavorendo quelli dalle performance peggiori (che solitamente sono quelli generati durante le prime fasi di boosting).
+
+È importante notare che possiamo stimare l'errore di training dell'esnamble ed è dato dalla seguente formula (pone un limite superiore):
+
+![errore limite](./imgs/ada_errore.png)
+
+Dato che questo algoritmo tende a concentrarsi su esempi di allenamento che vengon classificati in modo errato, la tecnica di boosting può essere piuttosto suscettibile all'overfitting.
+
+### Random Forest
+
+Algoritmo di Random Forset
+
+
+- 1 boostrap dataset per 1 albero
+- faccio tante volte il passaggio precedente ed ottengo un random forset
+- ad ogni albero della rando forset vado a fargli vedere i sample outo f bag presi dal bootstrap dataset da cui è generato. COsì vedo l'accuracy del singolo albero. Unisco tutte le accuracy con una proporsione e faccio l'accuracy totale della random forest così posso scegliere meglio il numero di feature da scegliere ad ogni step.
+
+
+
+
 
 # Artificial Neural Network (ANN)
 
