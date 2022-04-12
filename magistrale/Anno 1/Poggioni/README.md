@@ -762,8 +762,8 @@ Un vettore casuale può essere incorporato nella crescita dell'albero in più mo
      
      Un modo (trade-off) per scegiere la dimensione di `F` è data dalla seguente formula:
       ![trade off](./imgs/tradeoff.png)   dove `d` è il numero di features.
-     
-     Dato che non vengono prese in cosiderazione tutte le features per effettuare gli split, il tempo di runtime è considerevolmente ridotto.
+   
+   Dato che non vengono prese in cosiderazione tutte le features per effettuare gli split, il tempo di runtime è considerevolmente ridotto.
 
 2. **Forest-RC**: se il numero di feature originale `d` è troppo piccolo è difficile scegliere un set di random features indipendente, quindi un modo per risolvere questo problema è quello di creare nuove combinazioni lineari di feature. Per fare questo, ad ogni split dell'albero vengono prese `L` features di input e vengono combinate tra loro seguendo una distribuzione uniforme ([-1, 1]) e di queste nuove feature viene scelta qualla che genera lo split migliroe. Anche questa migliora le performance di tempo.
 
@@ -771,7 +771,7 @@ Un vettore casuale può essere incorporato nella crescita dell'albero in più mo
 
 Le Random Forest sono più robuste al rumore e veloci rispetto all'AdaBoost, sono anche più resistenti all'overfitting dato che hanno alberi più profondi e quindi hanno un bias ridotto.
 
-# Artificial Neural Network (ANN)
+## Artificial Neural Network (ANN)
 
 Le ANN si ispirano al funzionamento del cervello umano, si basano su:
 
@@ -784,9 +784,9 @@ Le ANN non hanno tutti questi elemnti ma solo i Neuori (Nodi) e gli Assoni (link
 
 Il modello più semplice di ANN è chiamato Percettrone e vedremo che sarà utile per risolvere porblemi di classificazione.
 
-## Percettrone (pompotron :robot: )
+### Percettrone (pompotron :robot:)
 
-Il percettrone consiste in 2 tipo di Nodi:
+Il percettrone consiste in 2 tipi di Nodi:
 
 * Più Nodi di Input: che rappresentano i dati di input
 * Un Nodo di Output: che rappresenta l'output del modello
@@ -799,11 +799,11 @@ Ogni nodo input è connesso con il nodo outpit tramite un collegamento pesato ch
 
 _Esempio di un percettrone_
 
-Il risultato di un neuroen di output può essere scritto come:
+Il risultato di un neurone di output può essere scritto come:
 
 ![output_percettrone](./imgs/output_percettrone.png)
 
-## Modello di Apprendimento del Pompotron
+#### Modello di Apprendimento del Pompotron
 
 Come detto prima la fase di Training di un Percettrone vuol dire aggiustare i pesi dei collegamenti. La seguente formula indica come effettivamente viene aggiornato il valore dei pesi dei collegamenti:
 
@@ -815,7 +815,7 @@ In modo molto intuitivo, il nuovo peso `w(k+1)` è la combinazione del vecchio p
 
 * Se `y = -1` e `y^ = +1`: l'errore è dunque uguale a `-2` e per compensare l'errore bisogna diminuire il peso dei link positivi e aumentare il peso dei link negativi.
 
-Lambda è chiamato _Learning Rate_, che è un valore che varia tra 0 e 1 e serve per controllare quanto fini devo essere gli aggiustamenti durante il processo di learning. Se lambda è più vicino a 0, i nuovi pesi variano meno rispetto a quelli precedenti. Se è più vicina ad 1, i nuovi pesi possono variare molto rispetto a quelli vecchi. Alcune volte si può usare il valore lambda in modo adattivo: all'inizio sarà più vicino ad 1 in quanto "deve imparare di più" per poi avvicinarsi sempre più allo 0 pere effettuare delle piccole modifiche per raggiungere la precisione.
+Lambda è chiamato _Learning Rate_, che è un valore che varia tra 0 e 1 e serve per controllare quanto fini devo essere gli aggiustamenti durante il processo di learning. Se lambda è più vicino a 0, i nuovi pesi variano meno rispetto a quelli precedenti. Se è più vicina ad 1, i nuovi pesi possono variare molto rispetto a quelli vecchi. Alcune volte si può usare il valore lambda in modo adattivo: all'inizio sarà più vicino ad 1 in quanto "deve imparare di più" per poi avvicinarsi sempre più allo 0 per effettuare delle piccole modifiche per raggiungere la precisione.
 
 Il percettrone sa fare operazioni di classificazione solo se  i dati sono linearmente separabili, altrimenti è necessario aumentare la complessità del percettrone aggiungendo degli Hidden Layer.
 
@@ -824,13 +824,31 @@ La funzione XOR non è lineramente separabile.
 
 ![ipercubo](./imgs/ipercubo.png)
 
-## MultyLayer ANN
+### Esempi di Funzioni di Attivazione
+
+Alcuni esempi di funzioni di attivazione usati negli ANN sono:
+
+- *identity*: viene utilizzata quando il target è un valore reale (quando si lavora con numeri reali)
+
+- *sign*: si usa su problemi binari
+
+- *sigmoid*: si usa quando si lavora con le probabilità perchè i valori di ritorno sono compresi tra 0 e 1
+
+- *tanh*: simile alla sigmoid ma varia tra -1 e 1. Preferibile alla sigmoid quando gli output richiedono valori sia positivi che negativi
+
+- *ReLU*
+
+- *Hard Tanh*
+
+![funzioni di attivazione](./imgs/attivazione.png)
+
+### MultyLayer ANN
 
 Per creare strutture più complesse per classificare dati non linearmente divisibili si possono utilizzare 2 metodi:
 
 * Il primo è quello di inserire vari livelli, detti _Hidden Layer_, tra il livello di input e quello di outpt. La struttura risultante si chiama **MultyLayer Neural Network** può essere distinta in base ai link tra i livelli in 2 categorie:
-  * Feed-Forward, dove i noodi in un livello possono solamente connettersi al livello successivo
-  * Recurrent, dove i link possono connettere nodi tra lo stesso livello o tra un livello precedente.
+  * *Feed-Forward*, dove i nodi in un livello possono solamente connettersi al livello successivo
+  * *Recurrent*, dove i link possono connettere nodi tra lo stesso livello o tra un livello precedente.
 
 ![mnn](./imgs/mnn.png)
 
@@ -844,19 +862,23 @@ _MNN per classificazione di funzione XOR_
 
 ### Learning per ANN
 
-<!-- 
-Lo scopo dell'algoritmo di learning di un ANN è quello di determinare un seti di pesi che deve minimizzare la somma totale degli errori quadratici:
+L'obiettivo dell'allenamnto di una rete neurale è quello determinare un set di pesi ch e minimizzano la somma degli errori quadratici medi: 
 
-![quadratici](./imgs/quadratici.png)
--->
+![learning task](./imgs/learning.png)
 
-Il processo di learning si basa sul continuo aggiustamento dei pesi e dei bias, che vengono ricalcolati tramite una funzione costo che varia da implementazione ad implementazione.
+La somma degli errori dipende da `w` perchè la classe predetta `y^` è una funzione che dipende dai pesi assegnati ai nodi nascosti e quelli di output.
 
-Quella più utilizzata è la Gradient Descent che utilizza il gradiente(rappresenta il cammino più ripido verso l'alto) invertito per raggiungere dei minimi locali dell'errore.
+Poichè spesso l'output di un ANN è *non lineare* non si riesce a determinare una soluzione per `w` che sia garantita essere globalmente ottimale. Tuttavia sono stati sviluppati dei metodi per aggirare questo problema come il **Gradient Descent**.
 
-Tramite la tecnicla del Back-Propagation si utilizza l'errore nel layer di output per modificare i pesi e i bias degli hidden layer.
+La formula per determinare i pesi secondo il gradient descent è la seguente:
 
 ![differenziali](./imgs/differenziale.png)
+
+dove `lambda` rappresenta il larning rate. Il secondo termine è l'errore che va minimizzato (modifichi i pesi `w` per diminuirlo), tuttavia succede spesso che rimane intrappolato in un minimo locale (perchè la error function non è lineare) senza riuscire a trovare il minimo globale. Questo metodo viene utilizzato per trovare i pesi dei nodi di output e di quelli hidden, ma per questultimi risulta molto difficile calcolare il secondo termine dato che non si conoscono i valori di output. Questo problema si risolve tramite la **Back Propagation**: in questo metodo, ogni iterazione dell'algoritmo viene suddivisa in 2 fasi:
+
+1.  *Forward*: i pesi ottenuti dalle precedenti iterazioni sono utilizzate per calcolare i valori di outpu di ogni neurone
+
+2. *Backward*: la formula per l'aggiornamento dei pesi viene applicata al contrario e qui ndi i pesi al lviello.  Questo ci permette di usare l'errore dei nodi al layer `k+1` per stimare l'errore dei nodi al layer `k`.
 
 ### Convolutional Neuarl Network
 
@@ -865,7 +887,7 @@ Questo filtraggio serve per trovare pattern e più la rete sarà profonda e più
 
 ![kernel](./imgs/kernel.png)
 
-## Problemi di Design delle ANN
+### Problemi di Design delle ANN
 
 Quando si sviluppa una ANN bisogna tenere in cosiderazione questi problemi di design:
 
