@@ -46,7 +46,7 @@ In base al tipo di dato che è `y`, possiamo avere 2 tipi di supervised learning
 
 **Unsupervised Learingn**
 
-L'utilizzo principale del Unspuervised Learning è l'individuazione di pattern nascosti nei dati di input.
+L'utilizzo principale dell'Unspuervised Learning è l'individuazione di pattern nascosti nei dati di input.
 Delle applicazioni concrete possono essere:
 
 * l'organizzazione di cluster di computer
@@ -67,7 +67,7 @@ Alcuni esempi possono essere:
 
 ## Progettare un sistema di Learning
 
-Per progettare un sistema di leaning vanno seguiti i deguneti passi:
+Per progettare un sistema di leaning vanno seguiti i seguneti passi:
 
 1. Scegliere il tipo di learning (supervised, unsupervised, ...)
 2. Scegliere che cosa si vuole imparare (l'obbiettivo da raggiungere)
@@ -145,8 +145,8 @@ Ci sono vari modi per effettuare la classificacazione che si dividono in 2 princ
   * Nearest Neigthbour
   * Neural Netwroks
   * Deep Learning
-  * Naive Bayes and Bayesina Belief metods
-  * Support Bector Machines
+  * Naive Bayes and Bayesian Belief metods
+  * Support Vector Machines
 * Ensemble Classificacazione
   * Boosting
   * Bagging
@@ -165,10 +165,10 @@ ALcuni algortmi per la classificacazione basati su decison tree sono:
 
 ### Hunt's Algorithm
 
-**Funzionamento**: sia Dt un set di dati di training si ha la segunete procedura:
+**Funzionamento**: sia `Dt` un set di dati di training si ha la segunete procedura:
 
-* se Dt contiene record che apparengono alla stessa classe yt, allora t è un nodo foglia ed appartiene alla classe yt
-* se Dt contiene record che appartengono a più di una classe, allora testa un attributo per dividere i dati in sottoinsiemi più piccoloi. Poi viene applicata ricorsivamente la procedura di prima.
+* se `Dt` contiene record che apparengono alla stessa classe `yt`, allora `t` è un nodo foglia ed appartiene alla classe `yt`
+* se `Dt` contiene record che appartengono a più di una classe, allora testa un attributo per dividere i dati in sottoinsiemi più piccoloi. Poi viene applicata ricorsivamente la procedura di prima.
 
 ![hunt_example](./imgs/hunt_example.png)
 
@@ -676,6 +676,7 @@ I metodi Ensamble cercano di ridurre la varianza di modelli complessi (a basso b
 
 ![bias fiting](./imgs/bias_fitting.png)
 -->
+
 **Dal tizio di youtube spiegato bene**
 
 L'inabilità di un modello di machine learning nel catturare la vera relazione tra i dati è chiamata **Bias** (min sqrt error, la distanza tra i pallini e la riga rossa).
@@ -723,7 +724,7 @@ L'algoritmo di Ada Boosting funziona nel seguente modo:
 1. Inizialmente viene assegnato ad ogni record del dataset lo stesso peso: `1/N`.
 
 2. Per ogni feature del dataset viene generato un modello base (e.g. decision stump) e viene calcolato l'errore pesato `ei` di ogni modello. Se `ei` supera `0.5` allora i pesi vengono resettati ai valori di partenza (`1/N`). ![ada2](./imgs/ada2.png).
-Da questo errore è possibile ricavarsi il parametro `aj` che verrà utilizzato per aggiornare i pesi nello step successivo (è tipo un indice di performance). ![perfomance](./imgs/adaperformance.png)
+   Da questo errore è possibile ricavarsi il parametro `aj` che verrà utilizzato per aggiornare i pesi nello step successivo (è tipo un indice di performance). ![perfomance](./imgs/adaperformance.png)
 
 3. Aggiorna i pesi di ogni record basandosi sulla seguente formula: ![ada 1](./imgs/ada1.png). Se il record è classificato correttamente il peso viene diminuito, altrimenti viene aumentato. `Zj` è un fattore di normalizzazione che permette di far tornare la somma di tutti i nuovi pesi del dataset a 1 (ricondotto alla probabilità che venga scelto nella nuova istanza di training)(calcola i nuovi pesi e li normalizza).
 
@@ -739,16 +740,34 @@ Dato che questo algoritmo tende a concentrarsi su esempi di allenamento che veng
 
 ### Random Forest
 
-Algoritmo di Random Forset
+L'algoritmo Random Forest combina le decisioni di più alberi decisionali (ensamble). Ogni albero viene generato basandosi su valori di un vettore scelto a caso tramite una distribuzione di probabilità fissa (a differenza di quella dell'AdaBoosting che variava nel tempo).
 
+Usare il Bagging con alberi decisionali è un particolare tipo di Random Forest che serve per aggiungere casualità durante la costruzione del modello per evitare alberi troppo correlati tra di loro.
 
-- 1 boostrap dataset per 1 albero
-- faccio tante volte il passaggio precedente ed ottengo un random forset
-- ad ogni albero della rando forset vado a fargli vedere i sample outo f bag presi dal bootstrap dataset da cui è generato. COsì vedo l'accuracy del singolo albero. Unisco tutte le accuracy con una proporsione e faccio l'accuracy totale della random forest così posso scegliere meglio il numero di feature da scegliere ad ogni step.
+Si può stimare un limite superiore del generalizzation error (a patto che il numero di alberi della random forest sia abbastanza elevato): 
 
+![gen forest](./imgs/genforest.png)
 
+dove `p` rappresenta la correlazione media tra gli aberi e `s` misura la forza dell'albero di decision (le performance medie dei classificatori). Più gli alberi diventano correlati (`p` grande) o la forza `s` diminuisce, maggiore sarà il limite dell'errore (il generalization error aumenta). La correlazione più essere migliorata tramite la randomizzazione.
 
+![random forest](./imgs/randomforest.png)
 
+Un vettore casuale può essere incorporato nella crescita dell'albero in più modi (come creare il vettore random):
+
+1. **Forest-RI** (random input selection):  vengono selezionate randomicamente `F` features (colonne) tra cui scegliere per effettuare lo split di ogni nodo dell'albero. L'albero viene costruito interamente senza effettuare pruning per ridurre il baias. La forza `s` e la correlazione `p` dipendono da `F`: 
+   
+   - F **piccolo** genera una minore correlazione (la migliora) tra gli alberi ma una minore forza (la peggiora)
+   
+   - F **grande**: genera una meggiore correlazione (la peggiora) ma una maggiore forza (la migliora)
+     
+     Un modo (trade-off) per scegiere la dimensione di `F` è data dalla seguente formula:
+      ![trade off](./imgs/tradeoff.png)   dove `d` è il numero di features.
+     
+     Dato che non vengono prese in cosiderazione tutte le features per effettuare gli split, il tempo di runtime è considerevolmente ridotto.
+
+2. **Forest-RC**: se il numero di feature originale 
+
+3. **Metodo 3**: 
 
 # Artificial Neural Network (ANN)
 
