@@ -202,7 +202,7 @@ Questi metodi variano in base al:
 
 **Splitting di Attributi Continui**
 
-Possono essere gestiti i 2 modi principali:
+Possono essere gestiti in 2 modi principali:
 
 * Discretizzazione: permettono di formare categorie ordinali. Possono essere raggruppati in cluster, in insiemi di frequenze equivalenti o intervalli equivalenti. Questa divisione può essere effettuata in maniera **Statica** (solo all'inizio) o **Dinamica** (per ogni nodo)
 * Decisione Binaria: esegue dei test binari come `A > v` o `A <= V`
@@ -246,17 +246,17 @@ Per aggirare questo problema viene introdotto il Gain Ration che penalizza le pa
 
 #### Pro Vs Cons
 
-Pro:
+*Pro*:
 
 * Costruzione poco costosa
-* Incedibile velocità della classificaizone di record sconosciuti :rocket: 
+* Incredibile velocità della classificaizone di record sconosciuti :rocket: 
 * Di facile interpertazione per alberi di piccole dimenzioni
 * Resistente al rumore (IP68)
-* Può gestire facilmente attributi ridondanti o irrilevanit
+* Può gestire facilmente attributi ridondanti o irrilevanti
 
-Contro:
+*Contro*:
 
-* lo sapzio delle decisioni piò essere esponenziale e quindi l'approccio greedeeeee non reisce spesso a trovare l'albero migliore
+* lo sapzio delle decisioni piò essere esponenziale e quindi l'approccio greedeeeee non riesce spesso a trovare l'albero migliore
 * Non considera le interazioni tra gli attributi
 * Il confine decisionale considera solo un attributo alla volta
 
@@ -862,7 +862,7 @@ _MNN per classificazione di funzione XOR_
 
 ### Learning per ANN
 
-L'obiettivo dell'allenamnto di una rete neurale è quello determinare un set di pesi ch e minimizzano la somma degli errori quadratici medi: 
+L'obiettivo dell'allenamnto di una rete neurale è quello determinare un set di pesi che minimizzano la somma degli errori quadratici medi: 
 
 ![learning task](./imgs/learning.png)
 
@@ -876,16 +876,25 @@ La formula per determinare i pesi secondo il gradient descent è la seguente:
 
 dove `lambda` rappresenta il larning rate. Il secondo termine è l'errore che va minimizzato (modifichi i pesi `w` per diminuirlo), tuttavia succede spesso che rimane intrappolato in un minimo locale (perchè la error function non è lineare) senza riuscire a trovare il minimo globale. Questo metodo viene utilizzato per trovare i pesi dei nodi di output e di quelli hidden, ma per questultimi risulta molto difficile calcolare il secondo termine dato che non si conoscono i valori di output. Questo problema si risolve tramite la **Back Propagation**: in questo metodo, ogni iterazione dell'algoritmo viene suddivisa in 2 fasi:
 
-1.  *Forward*: i pesi ottenuti dalle precedenti iterazioni sono utilizzate per calcolare i valori di outpu di ogni neurone
+1. *Forward*: i pesi ottenuti dalle precedenti iterazioni sono utilizzate per calcolare i valori di outpu di ogni neurone
 
 2. *Backward*: la formula per l'aggiornamento dei pesi viene applicata al contrario e qui ndi i pesi al lviello.  Questo ci permette di usare l'errore dei nodi al layer `k+1` per stimare l'errore dei nodi al layer `k`.
 
 ### Convolutional Neuarl Network
 
-Questo tipo di rete neurale ha dei layer chiamati Convolutional che hanno a disposizione una matrice detta kernel che verrà sovrapposta ai pixel dell'immagine di input generando una nuova immagine "filtrata" che verrà poi utilizzata dagli hidden layer successivi.
-Questo filtraggio serve per trovare pattern e più la rete sarà profonda e più questi pattern saranno complessi (si va da linee e cerchi, fino a volti e animali)
+Poichè in alcuni problemi la posizione del pattern da individuare può variare all'interno dell'input è importante che i modelli siano *Shift Invariant*, ovvero che nel cambiamento della posizione dell'oggetto che si vuole analizzare non deve andare a degradare la capacità di classificarlo del classificatore. Di solito nei modelli standard questo non è possibile a meno che non si creino più modelli che prendono in input varie parti del campione da analizzare, i cui output verranno combinati per individuare il pattern. Tutti i modelli che formano questa mega rete devono essere identici.
 
-![kernel](./imgs/kernel.png)
+![retona](./imgs/retona.png)
+
+Il modo migliore per risolvere questo problema è di utilizzare le **Convolutional Neaural Network**  (CNN) che introducono 2 nuovi tipi di layer che permettono di estrarre le feature latenti presenti nell'immagine (*Convolutional* e *DownSampling*):
+
+- Il layer **Convolutivo**: è composto da un insieme di kernel/filter (matrici) che vengono fatte scorrere sull'immagine per generare una nuova matrice di output che mette in risalto determinate fearure presenti nell'input. Questo layer è definito dai pesi (valori del filtro), bias e la dimensione dei passi che farà mentre si sposta lungo l'input (stride). Spesso la dimensione della matrice di output è minore di quella di input e dunque ci sarà una perdita di informazione, per questo a volte può essere importante aggiungere del padding (tanti 0) attorno all'input originale per mantenere gli output identici. ![filters](./imgs/filters.png) ![padding](./imgs/padding.png)
+
+- Il **Pooling** Layer: serve a sintetizzare l'applicazione del kernerl in un numero che viene inserito in una matrice che ha dimensione pari alla dimensione dello stride. ![pooling](./imgs/pooling.png)
+
+Combinando questi due layer con una fully connected network si può ottenere una rete convolutiva.
+
+![cnn](./imgs/cnn.png)
 
 ### Problemi di Design delle ANN
 
