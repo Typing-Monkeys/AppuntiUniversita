@@ -139,7 +139,7 @@ Il nostro obbiettivo è quello di imparare un modello che mappa ogni set di attr
 
 Ci sono vari modi per effettuare la classificacazione che si dividono in 2 principali categorie:
 
-* Base Callificacazione
+* Base Classification
   * Decision Tree :palm_tree:
   * Rule Based
   * Nearest Neigthbour
@@ -147,12 +147,12 @@ Ci sono vari modi per effettuare la classificacazione che si dividono in 2 princ
   * Deep Learning
   * Naive Bayes and Bayesian Belief metods
   * Support Vector Machines
-* Ensemble Classificacazione
+* Ensemble Classification
   * Boosting
   * Bagging
   * Random Forest (:palm_tree: :palm_tree: ? :palm_tree: ?? :palm_tree:)
 
-### Decision Treeee
+### Decision Treeee :evergreen_tree:
 
 ![decision_tree_example](./imgs/decision_tree_example.png)
 
@@ -172,7 +172,7 @@ ALcuni algortmi per la classificacazione basati su decison tree sono:
 
 ![hunt_example](./imgs/hunt_example.png)
 
-## Problemi di design di alberi ad induzione elettromagnetica
+## Problemi di design di alberi ad induzione elettromagnetica :zap:
 
 Due problemi principali sono: 
 
@@ -240,7 +240,7 @@ L'indice Gini è usato negli algoritmi CART, SLIQ SPRINT
 
 L'entropia è come l'indice geany, serve per trovare lo split migliore (quello che ha valore di entropia più vicino allo 0). Questi indici però tendono a tenere in considerazione la purezza degli attributi, senza tenere conto della larghezza dell'albero.
 
-Per aggirare questo problema viene introdotto il Gain Ration che penalizza le partizioni piccole con molti elementi.
+Per aggirare questo problema viene introdotto il Gain Ratio che penalizza le partizioni piccole con molti elementi.
 
 ![gain_ratio](./imgs/gain_ratio.png)
 
@@ -305,7 +305,7 @@ Quando un modello risulta troppo semplice e non è in grado di classificare corr
 Serve per valutare la bontà di un dato modello, e quindi per evitare che incappi in overfitting stimandone il Generalization. Il **Generalization Error** può essere calcolato nei seguenti modi:
 
 * Usando un **Validation Set**
-  * E' un set di dati, diverso dal training, che serve per stimare quanto sia affidabile il modello, ma non è sufficiente per il testing (esempio dell'esame di Bartoli). Si creano e trainano più modelli differenti e con il validation set si sceglie quello più preciso.
+  * E' un set di dati, diverso dal training, che serve per stimare quanto sia affidabile il modello, ma non è sufficiente per il testing (esempio dell'esame di Bartoli). Si creano e allenano più modelli differenti e con il validation set si sceglie quello più preciso.
 * Incorporando la **Model Complexity**
   * Un'alta complessità tende a causare un numero maggiori di errori, quindi, dati 2 modelli è sempre meglio preferire quallo con complessità minore. La complessitàsi equivale a: `GenError(Model) = TrainError(Model, TrainData) + a * Complexity(Model)`
 * Stimando i Limiti Statistici
@@ -340,7 +340,7 @@ E' più preciso del PrePruning però richiede più calcoli.
 
 Ci sono vari modi per valutare le performance di un classificacatore:
 
-* **Medoto Holdout**: consiste nel dividere i dati originali in 2 set: uno di training e uno di testing (la divisione è a discrezione dell'analista). Successivamente il calssificatore viene allenato col set di training e poi viene testata la sua accuratezza con il set di testing. Questo modello presenta svariati problemi: se forniamo troppi dati di testing e pochi di training, il modello potrebbe non operare al massimo delle sue potenzialità, mentre se vengono forniti troppi dati di training e pochi di testing, la stima finale potrebbe non essere affidabile al 100%. Infine, poichè i set di training e di testing sono derivati dallo stesso insieme di dati, potrebbe capitare che uno dei 2 sottoinsieme sia più rappresentatidvo del dataset orgiginale, mentre l'altro no. Per migliorare la precisione di questo metodo piò essere applicato il Random Subsampling che consiste nel ripetere più volte l'allenamento e il tesing con sottoset differenti per ogni iterazione.
+* **Medoto Holdout**: consiste nel dividere i dati originali in 2 set: uno di training e uno di testing (la divisione è a discrezione dell'analista). Successivamente il calssificatore viene allenato col set di training e poi viene testata la sua accuratezza con il set di testing. Questo modello presenta svariati problemi: se forniamo troppi dati di testing e pochi di training, il modello potrebbe non operare al massimo delle sue potenzialità, mentre se vengono forniti troppi dati di training e pochi di testing, la stima finale potrebbe non essere affidabile al 100%. Infine, poichè i set di training e di testing sono derivati dallo stesso insieme di dati, potrebbe capitare che uno dei 2 sottoinsieme sia più rappresentativo del dataset originale, mentre l'altro no. Per migliorare la precisione di questo metodo piò essere applicato il Random Subsampling che consiste nel ripetere più volte l'allenamento e il tesing con sottoset differenti per ogni iterazione.
 
 * **Cross-Validation**: un'alternativa al Random Subsempling è il Cross-Validation che consisnte nel dividere il dataset in `k` partizioni di dimenzioni equivalenti e successivamente di utilizzare `k-1 ` partizioni per il training e 1 per il testing. Queste partizioni si scambieranno fin quando tutti gli elementi verranno utilizzati per il testing 1 sola volta. Un metodo speciale è il _leave on out_, che è simile al metodo descritto sopra ma ha `k = N` (dove `N` è la dimenzione del dataset) e consiste nell'usare un solo record alla volta per il tesing. Questa procedura risulta molto precisa ma molto costosa.
 
@@ -350,7 +350,7 @@ In alcuni problemi di classificazione il numero di record delle classi potrebber
 
 ### Precision & Recall
 
-Per valutare la bontà di un classificatore possiamo utilizzare varie metrice, la più comune è l'Accuracy. Tuttavia, se è più importante che il modello rilevi la "classe rara" (e.g. trasnsazione fraudolenta su dataset di transazioni) l'accuracy non è molto utile perhè il suo valore viene incrementato notevolmente dai record dell'altra classe (quella più comune).
+Per valutare la bontà di un classificatore possiamo utilizzare varie metriche, la più comune è l'Accuracy. Tuttavia, se è più importante che il modello rilevi la "classe rara" (e.g. trasnsazione fraudolenta su dataset di transazioni) l'accuracy non è molto utile perchè il suo valore viene incrementato notevolmente dai record dell'altra classe (quella più comune).
 
 Per visualizzare meglio il problema possiamo utilizzare la **confusion matrix**, una matrice che mette in evidenza come vengono classificati i vari record.
 
@@ -425,7 +425,7 @@ Esistono dei tipi di algoritmi di learning che non costruiscono un modello a pri
 
 Esso si basa sullo stesso concetto della Rote Classifire ma non guarda l'equivalenza ma la similarità tra il dato di testing e quelli di training, ovvero cerca i vicini più vicini al record di testing.
 
-I dati con n attributi vengono rappresenati su uno spazio ndimenzionale e la precisione della classificazione dipende da una variabile distanza `k`. Ci sono altre varianti di questo algoritmo che alternao il modo di determinare i vicini più vicini basandosi non solo sulla distanza ma anche sulla _classe di maggioranza_, oppure sulla _classe di maggioranza con distanze pesate_ dove non conta solamente la classe che compare più volte ma anche la sua distanza dal record di testing (più lontano sarà e minore sarà l'importanza).
+I dati con `n` attributi vengono rappresenati su uno spazio n-dimenzionale e la precisione della classificazione dipende da una variabile distanza `k`. Ci sono altre varianti di questo algoritmo che alternao il modo di determinare i vicini più vicini basandosi non solo sulla distanza ma anche sulla _classe di maggioranza_, oppure sulla _classe di maggioranza con distanze pesate_ dove non conta solamente la classe che compare più volte ma anche la sua distanza dal record di testing (più lontano sarà e minore sarà l'importanza).
 È importante notare che un numero `k` troppo alto di vicini potrebbe includere anche classi errate ed un numero troppo piccolo risulta essere molto sensibile al rumore.
 
 ![near](./imgs/near.png)
@@ -438,7 +438,7 @@ _Diagramma di Voronoi per 1-nearest Neightbotr e Distanza Euclidea_
 
 * Non hanno bisogno di manterere un modello astratto derivato dai dati
 * Non richiedono model building 
-* Poichè possono genereare decision boundaries arbitrariamente dispongono di una maggiore flessibilità rispetto agli eager lerner
+* Poichè possono genereare decision boundaries arbitrariamente dispongono di una maggiore flessibilità rispetto agli eager learner
 
 ### Svantaggi
 
