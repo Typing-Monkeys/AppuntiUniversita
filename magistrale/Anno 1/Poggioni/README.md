@@ -448,12 +448,12 @@ _Diagramma di Voronoi per 1-nearest Neightbotr e Distanza Euclidea_
 
 ## Bayesian Classification
 
-Un classificatore bayesiano basa il suo processo di learning su un importatne teoria statistico: Il teorema di Bayes.
+Un classificatore bayesiano basa il suo processo di learning su un importatne teorema statistico: Il teorema di Bayes.
 
 ![bayes](./imgs/bayes.png)
 
 Questo teorema fornisce un modo per revisionare delle predizioni o teorie esistenti, aggiornandone le probabilità in seguito alla scoperta di informazioni aggiuntive.
-Il teorema afferma che: la _probabilità a posteriori_ `P(Y|X)` è data dal prodo dotto della _probabilità condizionale di classe_ `P(X|Y)` per la _probabilità a priori_ `P(Y)` fratto le _nuove inofrmazioni_ `P(X)`
+Il teorema afferma che: la _probabilità a posteriori_ `P(Y|X)` è data dal prodotto della _probabilità condizionale di classe_ `P(X|Y)` per la _probabilità a priori_ `P(Y)` fratto le _nuove inofrmazioni_ `P(X)`
 
 **N.B.** quando si confrontano varie probabilità per differenti valori di Y, il denominatore può essere ignorato.
 
@@ -566,7 +566,7 @@ _Ulteriori spiegazioni sono delegate al Dott. Cristian Cosci :scroll:._
 
 ![soft margin](./imgs/soft.png)
 
-Come si vede dall'immagine, `B2` è l'unico margine privo di errori, tuttavia essendo piccolo è molto suscettibile all'overfitting. Per questo motivo può essere una buona opzione scegliere il margine `B1` che, anche se presenta dei piccoli errori, è molto probabile che dia performance che siano migliori in generale. Questo approccio è detto **Soft Margin** e consiste nel trovare un compromesso tra larghezza del margine e numero di errori commessi nella fasi di training. Questo permette anche di risolvere semplici problemi non linearmente separabili.
+Come si vede dall'immagine, `B2` è l'unico margine privo di errori, tuttavia essendo piccolo è molto suscettibile all'overfitting. Per questo motivo può essere una buona opzione scegliere il margine `B1` che, anche se presenta dei piccoli errori, è molto probabile che dia performance che siano migliori in generale. Questo approccio è detto **Soft Margin** e consiste nel trovare un compromesso tra larghezza del margine e numero di errori commessi nella fase di training. Questo permette anche di risolvere semplici problemi non linearmente separabili.
 
 La funzione per la massimizzazione del margine rimane invariata rispetto a quella dell'approccio per dati separabili, tuttavia bisognerà cambiare le restrizioni che verranno invalidate dal nostro nuovo approccio. Sarà necessario avere una piccola soglia di tolleranza agli errori durante la fase di training, questo viene raggiunto introducendo le *Slack Variables* che forniscono una stima dell'errore per il decision baundary su un dato esempio di training.
 
