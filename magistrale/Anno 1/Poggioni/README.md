@@ -636,7 +636,7 @@ Dall'immagine possiamo notare come i metodi ensamble vanno a migliorare il gener
 
 1. **Manipolando i dati di training (training set)**: vengono creati più set di training basandosi su una qualche distribuzione di campionamento. Dopodichè viene creato un classificatore utilizzando degli algoritmi particolari come _Bagging_ e _Boosting_.
 
-2. **Manipolando le input features**: da ogni dataset viene scelto un sottoinsime di input features che verranno poi utilizzate poi per allenare i vari classificatori dell'ensamble.
+2. **Manipolando le input features**: da ogni dataset viene scelto un sottoinsime di input features che verranno poi utilizzate per allenare i vari classificatori dell'ensamble.
 
 3. **Manipolando le lable di classe**: questo metodo si usa quando ci sono un grande numero di classi, il dataset di training viene trasformato in un problema di classificazione binario partizionando le lable in due sottoinsiemi disgiunti A0 e A1 che verranno utilizzate successivamente per allenare un classificatore. Ripetendo questo step più volte (relabling) si otterrà un ensamble di classificatori base. Quando poi verrà passato un dato di test `x` viene fatta la somma delle volte che viene classificato nella classe A0 o nella classe A1 e poi viene scelta la calsse di maggioranza.
 
@@ -685,11 +685,11 @@ L'inabilità di un modello di machine learning nel catturare la vera relazione t
 
 A sinistra un esempio di bias elevato (c'è molta distanza tra i pallini e la retta), a destra un esempio di bias nullo, la riga rossa riesce perfettametne a dividere ogni pallino.
 
-La **Varianza** è quanta differenza tra acurracy nel dataset di training ed in quello di testing (quanto classifica bene il training e il testing).
+La **Varianza** è quanta differenza c'è tra acurracy nel dataset di training ed in quello di testing (quanto classifica bene il training e il testing).
 
 ![varianza bello](./imgs/varianza_bello.png)
 
-A sinistra il training set viene classificato perfettamente, a destra il testing set viene classificato abbastanza male (distanza tra pallini e line) quindi abbiamo una varianza elevata.
+A sinistra il training set viene classificato perfettamente, a destra il testing set viene classificato abbastanza male (distanza tra pallini e linea) quindi abbiamo una varianza elevata.
 
 Con un bias estremamente piccolo ed un elevata varianza siamo di fronte all'overfitting.
 
@@ -715,7 +715,7 @@ Il Boosting è una procedura iterativa che cambia in maniera adattiva la distrib
 ![boosting](./imgs/boosting.png)
 _Esempio di classificatori generati con 10 Round di Boosting_
 
-Esistono differenti versioni che variano nel come i pesi vengon aggiornati e in come le predizioni fatte dai vari classificatori sono combinate. Una possibile implementazione di questo metodo è l' **Ada Boosting**.
+Esistono differenti versioni che variano nel come i pesi vengono aggiornati e in come le predizioni fatte dai vari classificatori sono combinate. Una possibile implementazione di questo metodo è l' **Ada Boosting**.
 
 #### AdaBoosting
 
@@ -736,7 +736,7 @@ Dato un test record, il risultato viene scelto basandosi su una media pesata dei
 
 ![errore limite](./imgs/ada_errore.png)
 
-Dato che questo algoritmo tende a concentrarsi su esempi di allenamento che vengon classificati in modo errato, la tecnica di boosting può essere piuttosto suscettibile all'overfitting.
+Dato che questo algoritmo tende a concentrarsi su esempi di allenamento che vengono classificati in modo errato, la tecnica di boosting può essere piuttosto suscettibile all'overfitting.
 
 ### Random Forest
 
@@ -748,7 +748,7 @@ Si può stimare un limite superiore del generalizzation error (a patto che il nu
 
 ![gen forest](./imgs/genforest.png)
 
-dove `p` rappresenta la correlazione media tra gli aberi e `s` misura la forza dell'albero di decision (le performance medie dei classificatori). Più gli alberi diventano correlati (`p` grande) o la forza `s` diminuisce, maggiore sarà il limite dell'errore (il generalization error aumenta). La correlazione più essere migliorata tramite la randomizzazione.
+dove `p` rappresenta la correlazione media tra gli aberi e `s` misura la forza dell'albero di decision (le performance medie dei classificatori). Più gli alberi diventano correlati (`p` grande) o la forza `s` diminuisce, maggiore sarà il limite dell'errore (il generalization error aumenta). La correlazione può essere migliorata tramite la randomizzazione.
 
 ![random forest](./imgs/randomforest.png)
 
@@ -862,7 +862,7 @@ _MNN per classificazione di funzione XOR_
 
 ### Learning per ANN
 
-L'obiettivo dell'allenamnto di una rete neurale è quello determinare un set di pesi che minimizzano la somma degli errori quadratici medi: 
+L'obiettivo dell'allenamnto di una rete neurale è quello di determinare un set di pesi che minimizzano la somma degli errori quadratici medi: 
 
 ![learning task](./imgs/learning.png)
 
@@ -878,7 +878,7 @@ dove `lambda` rappresenta il larning rate. Il secondo termine è l'errore che va
 
 1. *Forward*: i pesi ottenuti dalle precedenti iterazioni sono utilizzate per calcolare i valori di outpu di ogni neurone
 
-2. *Backward*: la formula per l'aggiornamento dei pesi viene applicata al contrario e qui ndi i pesi al lviello.  Questo ci permette di usare l'errore dei nodi al layer `k+1` per stimare l'errore dei nodi al layer `k`.
+2. *Backward*: la formula per l'aggiornamento dei pesi viene applicata al contrario , questo ci permette di usare l'errore dei nodi al layer `k+1` per stimare l'errore dei nodi al layer `k`.
 
 ### Convolutional Neuarl Network
 
