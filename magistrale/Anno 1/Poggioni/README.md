@@ -164,13 +164,13 @@ Algoritmi di Ricercara/Ottimizzazinoe:
 * Dynamic Programming
   * HMM Learning
   * PCFG Learning
-* Divide and Conquer 
+* Divide and Conquer
   * Decision tree induction
   * Rule learingn
 * Evalutaionary Comutation
   * Genetic Algorhtim (GAs)
   * Genetic Progarmming (GP)
-  * Neuro evolution 
+  * Neuro evolution
 
 Alcuni criteri di valutazione:
 
@@ -233,7 +233,7 @@ ALcuni algortmi per la classificacazione basati su decison tree sono:
 
 ## Problemi di design di alberi ad induzione elettromagnetica :zap:
 
-Due problemi principali sono: 
+Due problemi principali sono:
 
 * la determinazione di una metodologia di split che dipende da due fattori principali:
   * specifica di una condizione di test, che dipende dal tipo di attributo
@@ -276,7 +276,7 @@ Indici per misurare l'impurità sono :
 * Entropy<br> ![entropy](./imgs/entropy.png)
 * Miscalssification error<br> ![error](./imgs/error.png)
 
-**Come scegliere lo split migliore**: 
+**Come scegliere lo split migliore**:
 
 1. Calcolare l'indice di impurità `P` prima dello split
 2. Calcolare l'indice di impurità `M` dopo lo split
@@ -308,7 +308,7 @@ Per aggirare questo problema viene introdotto il Gain Ratio che penalizza le par
 *Pro*:
 
 * Costruzione poco costosa
-* Incredibile velocità della classificaizone di record sconosciuti :rocket: 
+* Incredibile velocità della classificaizone di record sconosciuti :rocket:
 * Di facile interpertazione per alberi di piccole dimenzioni
 * Resistente al rumore (IP68)
 * Può gestire facilmente attributi ridondanti o irrilevanti
@@ -335,7 +335,7 @@ _Test condition con più attributi: `x + y < 1`_
 
 Ci sono 3 tipi di errori:
 
-* **Training**: sono gli errori effettuati durante la fase di training (utilizzando dataset di training)  
+* **Training**: sono gli errori effettuati durante la fase di training (utilizzando dataset di training)
 * **Testing**: sono gli errori effettuati durante la fase di testing (utilizzando il dataset di testing)
 * **Generalization**: l'errore intrinseco del modello testato su un insieme di record non precedentemente visti appartenneti alla stessa distribuzione
 
@@ -343,7 +343,7 @@ Ci sono 3 tipi di errori:
 
 ![overfitting](./imgs/overfitting.png)
 
-**Overfitting**: 
+**Overfitting**:
 Se i dati di training sono sottorappresentativi (non rappresentano bene l'ambiente), all'aumnetare dei nodi aumentano gli errori di testing e diminuiscono gli errori di training. Aumentando la dimenzione dei dati di training riduce questa differenza tra i dati ad un qualsiasi numero di nodi.
 
 __In breve__: se vengono forniti dati che non reappresentano completamente il problema allora l'algoritmo andrà ad imaparare solamente come risolvere quelle situazioni e non riuscirà a gestirne di diverse (esempio: vengono fornite 2 razze di primati per il problema del riconscimento di scimmie, l'algoritmo impareà a conoscere perfettamente quelle 2 razze, ma quando gli verrà presentata una nuova razza non comprednerà che è una scimmia).
@@ -400,7 +400,6 @@ E' più preciso del PrePruning però richiede più calcoli.
 Ci sono vari modi per valutare le performance di un classificacatore:
 
 * **Medoto Holdout**: consiste nel dividere i dati originali in 2 set: uno di training e uno di testing (la divisione è a discrezione dell'analista). Successivamente il calssificatore viene allenato col set di training e poi viene testata la sua accuratezza con il set di testing. Questo modello presenta svariati problemi: se forniamo troppi dati di testing e pochi di training, il modello potrebbe non operare al massimo delle sue potenzialità, mentre se vengono forniti troppi dati di training e pochi di testing, la stima finale potrebbe non essere affidabile al 100%. Infine, poichè i set di training e di testing sono derivati dallo stesso insieme di dati, potrebbe capitare che uno dei 2 sottoinsieme sia più rappresentativo del dataset originale, mentre l'altro no. Per migliorare la precisione di questo metodo piò essere applicato il Random Subsampling che consiste nel ripetere più volte l'allenamento e il tesing con sottoset differenti per ogni iterazione.
-
 * **Cross-Validation**: un'alternativa al Random Subsempling è il Cross-Validation che consisnte nel dividere il dataset in `k` partizioni di dimenzioni equivalenti e successivamente di utilizzare `k-1 ` partizioni per il training e 1 per il testing. Queste partizioni si scambieranno fin quando tutti gli elementi verranno utilizzati per il testing 1 sola volta. Un metodo speciale è il _leave on out_, che è simile al metodo descritto sopra ma ha `k = N` (dove `N` è la dimenzione del dataset) e consiste nell'usare un solo record alla volta per il tesing. Questa procedura risulta molto precisa ma molto costosa.
 
 ## Imbalanced Class Problem ⚖️
@@ -437,11 +436,11 @@ Nel seguente esepmio possiamo vedere come l'Accuracy è alta ma i valori di Prec
 
 <img src="./imgs/wock.png" align=right width="300px">
 
-Un metodo grafico per confrontare vari modelli è quello di utilizzare le curve **ROC** (Reciver Operating Characteristics). Esse rappresentano la relazione tra True Positive Rate (**TPR**, asse y) e False Positive Rate (**FPR**, asse x) mostrando i compromessi tra TPR e FPR. 
+Un metodo grafico per confrontare vari modelli è quello di utilizzare le curve **ROC** (Reciver Operating Characteristics). Esse rappresentano la relazione tra True Positive Rate (**TPR**, asse y) e False Positive Rate (**FPR**, asse x) mostrando i compromessi tra TPR e FPR.
 
 Nelle ROC ci sono dei punti che hanno un'interpretazione ben conosciuta:
 
-- (0, 0): un modello che predice tutte le istanze come negative 
+- (0, 0): un modello che predice tutte le istanze come negative
 - (1, 1): un modello che predice tutte le istanze come positive
 - (1, 0): modello ideale con assenza di False Positive (le azzecca tutte)
 
@@ -496,7 +495,7 @@ _Diagramma di Voronoi per 1-nearest Neightbotr e Distanza Euclidea_
 ### Vantaggi
 
 * Non hanno bisogno di manterere un modello astratto derivato dai dati
-* Non richiedono model building 
+* Non richiedono model building
 * Poichè possono genereare decision boundaries arbitrariamente dispongono di una maggiore flessibilità rispetto agli eager learner
 
 ### Svantaggi
@@ -518,7 +517,7 @@ Il teorema afferma che: la _probabilità a posteriori_ `P(Y|X)` è data dal prod
 
 Tale teorema può essere applicato da un algoritmo di ML in due modi in base a come viene implementato il calcolo della _probabilità condizionale di classe_:
 
-* Naive 
+* Naive
 * Belif Network
 
 Per la classificazione si va a vedere il valore più alto tra le varie probabilità a posteriori `P(Y|X)` e la classe con probabilità maggiore sarà la vincente.
@@ -531,11 +530,9 @@ Il metodo Naive calcola il valore di `P(X|Y)` nel seguente modo:
 Va però fatta una distinzione in base ai tipi di attributo che si prendono in considerazione:
 
 * **Categorici**: si calcola il rapporto tra il numero di volte che l'attributo compare all'interno dei record che contengono la classe in questione fratto il numero di volte che compare la classe Y in questione
-
 * **Continui**: per trattare questi dati si può procedere in 2 modi diversi:
-  
+
   * **Discretizzando**: si dividono i dati in intervalli più piccoli trasformando quindi l'attributo continuo in un attributo categorico e si procede come visto sopra. Bisogna fare attenzione a come vengono scelti gli intervalli: troppo grandi sono poco precisi e troppo piccoli causano overfitting
-  
   * **Utilizzano le distrubuzioni di Probabilità**: si cerca una distribuzione di probabilità più adatta alle variabili continue e si stimano i parametri della distribuzione usando i dati di training. Generalmente la ditribuzione Gaussaina è la più utilizzate e quindi ne deriva la seguente formula: ![gauss](./imgs/gauss.png)
 
 Se una probabilità condizionale è `0` allora verrà azzerata tutta l'espressione. Per questo motivo sono state implementate delle variazioni che permettono di evitare il problema:
@@ -554,9 +551,7 @@ Se sono presenti degli attributi correlati questo algoritmo offre performance mi
 A seconda del numero di nodi padri viene fatta una distinzione:
 
 * Se non ha genitroi allora contiene la probabilità a priori `P(X)`
-
 * Se ha 1 solo genitore, contiene la probabilità condizionale `P(X|Y)`
-
 * Se ha più genitori, contine la probabilità condizione `P(X|Y1, Y2, ..., Yn)`
   ![dag](./imgs/dag.png)
 
@@ -629,7 +624,7 @@ Come si vede dall'immagine, `B2` è l'unico margine privo di errori, tuttavia es
 
 La funzione per la massimizzazione del margine rimane invariata rispetto a quella dell'approccio per dati separabili, tuttavia bisognerà cambiare le restrizioni che verranno invalidate dal nostro nuovo approccio. Sarà necessario avere una piccola soglia di tolleranza agli errori durante la fase di training, questo viene raggiunto introducendo le *Slack Variables* che forniscono una stima dell'errore per il decision baundary su un dato esempio di training.
 
-![slack](./imgs/slack.png) 
+![slack](./imgs/slack.png)
 
 Tuttavia, applicando questa definizione direttamente all'algoritmo di training, non viene imposto alcun vincolo sul numero di errori che possono essere commessi e di conseguenza, l'algoritmo troverebbe un margine molto ampio ma pieno di errori in fase di training. Per evitare il problema è necessario penalizzare decision baundary con un valore delle slack variable alto.
 
@@ -638,7 +633,7 @@ Tuttavia, applicando questa definizione direttamente all'algoritmo di training, 
 I parametri `C`e `k` rappresentano quanto l'errore penalizzi il modello. Per esempio:
 
 - con valori di C **grandi**, il peso delle violazioni aumenta e di conseguenza si avrà un margine piccolo che porterà ad overfitting
-- con valori di C **piccoli**, si avrà un margine ampio con molti errori ed un elevato bias 
+- con valori di C **piccoli**, si avrà un margine ampio con molti errori ed un elevato bias
 
 ### Training - Caso Non Lineare
 
@@ -675,11 +670,8 @@ In sostanza, applicando la funzione kernel si evita di calcolare le `fi`, riduce
 Le caratteristiche generali delle SVM sono le seguenti:
 
 - Il learning problem può essere formulato come un problema di ottimizzazione convesso per i quali sono disponibili algoritmi molto efficienti che garantiscono il ritrovamento di un minimo globale (che fornisce le performance migliori)
-
 - Performa il Capacity Control, massimizzando il margine del Decision Baundary
-
 - Può essere applicato a variabili categoriche introducendo Dummy Variables per ogni categoria degli attributi
-
 - Sono applicabili a problemi multiclasse
 
 ## Ensamble Methods
@@ -694,11 +686,8 @@ Dall'immagine possiamo notare come i metodi ensamble vanno a migliorare il gener
 ### Metodi per costriuire Ensamble Classifier
 
 1. **Manipolando i dati di training (training set)**: vengono creati più set di training basandosi su una qualche distribuzione di campionamento. Dopodichè viene creato un classificatore utilizzando degli algoritmi particolari come _Bagging_ e _Boosting_.
-
 2. **Manipolando le input features**: da ogni dataset viene scelto un sottoinsime di input features che verranno poi utilizzate per allenare i vari classificatori dell'ensamble.
-
 3. **Manipolando le lable di classe**: questo metodo si usa quando ci sono un grande numero di classi, il dataset di training viene trasformato in un problema di classificazione binario partizionando le lable in due sottoinsiemi disgiunti A0 e A1 che verranno utilizzate successivamente per allenare un classificatore. Ripetendo questo step più volte (relabling) si otterrà un ensamble di classificatori base. Quando poi verrà passato un dato di test `x` viene fatta la somma delle volte che viene classificato nella classe A0 o nella classe A1 e poi viene scelta la calsse di maggioranza.
-
 4. **Manipolando l'algoritmo di leanring**: l'algoritmo di learning scelto viene applicato più volte per ottenere più modelli di base che poi verranno utilizzati per creare l'ensamble. Un esempio di modelli che si prestano meglio a questo processo sono i decision tree e le ann, perchè variando i parametri (pesi, bias, topologia del modello, ecc.) con cui sono costruiti creano calssificatori abbastanza diversi.
 
 I primi 3 approcci sono metodi generici, mentre l'ultimo è dipendente dal tipo di classifciatore utilizzato.
@@ -764,7 +753,6 @@ _Romani Artista 🖌️_
 Il Bagging migliora l'errore di generalizzazione ridicuendo la varianza dei calssificatori di base, questo perchè le prestazioni del bagging dipendono dal calssificatore di base:
 
 - se il calssificatore di base è instabile, aiuta a ridurre gli errori associati alle fluttuazioni nei dati di training
-
 - se il classificatore di base è stabile (robusto a piccole perturbazioni nell'insieme di addestramento), l'errore dell'ensabmle è principlamente causato da bias nel calssificatore di base. In questo caso il bagging potrebbe non migliorare le performance ma andare addirittura a peggiorarle.
 
 ### Boosting
@@ -781,12 +769,9 @@ Esistono differenti versioni che variano nel come i pesi vengono aggiornati e in
 L'algoritmo di Ada Boosting funziona nel seguente modo:
 
 1. Inizialmente viene assegnato ad ogni record del dataset lo stesso peso: `1/N`.
-
 2. Per ogni feature del dataset viene generato un modello base (e.g. decision stump) e viene calcolato l'errore pesato `ei` di ogni modello. Se `ei` supera `0.5` allora i pesi vengono resettati ai valori di partenza (`1/N`). ![ada2](./imgs/ada2.png).
    Da questo errore è possibile ricavarsi il parametro `aj` che verrà utilizzato per aggiornare i pesi nello step successivo (è tipo un indice di performance). ![perfomance](./imgs/adaperformance.png)
-
 3. Aggiorna i pesi di ogni record basandosi sulla seguente formula: ![ada 1](./imgs/ada1.png). Se il record è classificato correttamente il peso viene diminuito, altrimenti viene aumentato. `Zj` è un fattore di normalizzazione che permette di far tornare la somma di tutti i nuovi pesi del dataset a 1 (ricondotto alla probabilità che venga scelto nella nuova istanza di training)(calcola i nuovi pesi e li normalizza).
-
 4. Continua partendo dai nuovi pesi fin quando non si ottine il numero di classificatori voluti.
 
 Dato un test record, il risultato viene scelto basandosi su una media pesata dei risultati di classificazione di tutti i classificatori base. Si tende a dare più peso ai classificatori con accuracy più alta sfavorendo quelli dalle performance peggiori (che solitamente sono quelli generati durante le prime fasi di boosting).
@@ -803,7 +788,7 @@ L'algoritmo Random Forest combina le decisioni di più alberi decisionali (ensam
 
 Usare il Bagging con alberi decisionali è un particolare tipo di Random Forest che serve per aggiungere casualità durante la costruzione del modello per evitare alberi troppo correlati tra di loro.
 
-Si può stimare un limite superiore del generalizzation error (a patto che il numero di alberi della random forest sia abbastanza elevato): 
+Si può stimare un limite superiore del generalizzation error (a patto che il numero di alberi della random forest sia abbastanza elevato):
 
 ![gen forest](./imgs/genforest.png)
 
@@ -813,20 +798,17 @@ dove `p` rappresenta la correlazione media tra gli aberi e `s` misura la forza d
 
 Un vettore casuale può essere incorporato nella crescita dell'albero in più modi (come creare il vettore random):
 
-1. **Forest-RI** (random input selection):  vengono selezionate randomicamente `F` features (colonne) tra cui scegliere per effettuare lo split di ogni nodo dell'albero. L'albero viene costruito interamente senza effettuare pruning per ridurre il baias. La forza `s` e la correlazione `p` dipendono da `F`: 
-   
+1. **Forest-RI** (random input selection):  vengono selezionate randomicamente `F` features (colonne) tra cui scegliere per effettuare lo split di ogni nodo dell'albero. L'albero viene costruito interamente senza effettuare pruning per ridurre il baias. La forza `s` e la correlazione `p` dipendono da `F`:
+
    - F **piccolo** genera una minore correlazione (la migliora) tra gli alberi ma una minore forza (la peggiora)
-   
    - F **grande**: genera una meggiore correlazione (la peggiora) ma una maggiore forza (la migliora)
-     
+
      Un modo (trade-off) per scegiere la dimensione di `F` è data dalla seguente formula:
-      ![trade off](./imgs/tradeoff.png)   dove `d` è il numero di features.
-   
+     ![trade off](./imgs/tradeoff.png)   dove `d` è il numero di features.
+
    Dato che non vengono prese in cosiderazione tutte le features per effettuare gli split, il tempo di runtime è considerevolmente ridotto.
-
 2. **Forest-RC**: se il numero di feature originale `d` è troppo piccolo è difficile scegliere un set di random features indipendente, quindi un modo per risolvere questo problema è quello di creare nuove combinazioni lineari di feature. Per fare questo, ad ogni split dell'albero vengono prese `L` features di input e vengono combinate tra loro seguendo una distribuzione uniforme ([-1, 1]) e di queste nuove feature viene scelta qualla che genera lo split migliroe. Anche questa migliora le performance di tempo.
-
-3. **Metodo 3**:  viene selezionata randomicamente una tra le migliori feature di split (le guarda tutte quelle a disposizione). Se le feature a disposizione sono poche può generare alberi correlati tra di loro (meglio utilizzare uno degli altri due metodi). Questo metodo non ha il vantaggio di andare a migliorare il tempo di esecuzione perchè è costretto a controllare tutte le features ad ogni split. 
+3. **Metodo 3**:  viene selezionata randomicamente una tra le migliori feature di split (le guarda tutte quelle a disposizione). Se le feature a disposizione sono poche può generare alberi correlati tra di loro (meglio utilizzare uno degli altri due metodi). Questo metodo non ha il vantaggio di andare a migliorare il tempo di esecuzione perchè è costretto a controllare tutte le features ad ogni split.
 
 Le Random Forest sono più robuste al rumore e veloci rispetto all'AdaBoost, sono anche più resistenti all'overfitting dato che hanno alberi più profondi e quindi hanno un bias ridotto.
 
@@ -871,7 +853,6 @@ Come detto prima la fase di Training di un Percettrone vuol dire aggiustare i pe
 In modo molto intuitivo, il nuovo peso `w(k+1)` è la combinazione del vecchio peso `w(k)` e un valore proporzionale all'errore di predizione `(y - y^)`. Se la predizione è corretta (il risultato di `(y - y^)` è `0`) allora il peso rimane invariato. Altrimenti viene modificato nel seguente modo:
 
 * Se `y = +1` e `y^ = -1` : l'errore è dunque uguale a `2` e per compensare l'errore bisogna aumentare il peso dei link positivi e diminurie il peso dei link negativi.
-
 * Se `y = -1` e `y^ = +1`: l'errore è dunque uguale a `-2` e per compensare l'errore bisogna diminuire il peso dei link positivi e aumentare il peso dei link negativi.
 
 Lambda è chiamato _Learning Rate_, che è un valore che varia tra 0 e 1 e serve per controllare quanto fini devo essere gli aggiustamenti durante il processo di learning. Se lambda è più vicino a 0, i nuovi pesi variano meno rispetto a quelli precedenti. Se è più vicina ad 1, i nuovi pesi possono variare molto rispetto a quelli vecchi. Alcune volte si può usare il valore lambda in modo adattivo: all'inizio sarà più vicino ad 1 in quanto "deve imparare di più" per poi avvicinarsi sempre più allo 0 per effettuare delle piccole modifiche per raggiungere la precisione.
@@ -888,15 +869,10 @@ La funzione XOR non è lineramente separabile.
 Alcuni esempi di funzioni di attivazione usati negli ANN sono:
 
 - *identity*: viene utilizzata quando il target è un valore reale (quando si lavora con numeri reali)
-
 - *sign*: si usa su problemi binari
-
 - *sigmoid*: si usa quando si lavora con le probabilità perchè i valori di ritorno sono compresi tra 0 e 1
-
 - *tanh*: simile alla sigmoid ma varia tra -1 e 1. Preferibile alla sigmoid quando gli output richiedono valori sia positivi che negativi
-
 - *ReLU*
-
 - *Hard Tanh*
 
 ![funzioni di attivazione](./imgs/attivazione.png)
@@ -921,7 +897,7 @@ _MNN per classificazione di funzione XOR_
 
 ### Learning per ANN
 
-L'obiettivo dell'allenamnto di una rete neurale è quello di determinare un set di pesi che minimizzano la somma degli errori quadratici medi: 
+L'obiettivo dell'allenamnto di una rete neurale è quello di determinare un set di pesi che minimizzano la somma degli errori quadratici medi:
 
 ![learning task](./imgs/learning.png)
 
@@ -936,7 +912,6 @@ La formula per determinare i pesi secondo il gradient descent è la seguente:
 dove `lambda` rappresenta il larning rate. Il secondo termine è l'errore che va minimizzato (modifichi i pesi `w` per diminuirlo), tuttavia succede spesso che rimane intrappolato in un minimo locale (perchè la error function non è lineare) senza riuscire a trovare il minimo globale. Questo metodo viene utilizzato per trovare i pesi dei nodi di output e di quelli hidden, ma per questultimi risulta molto difficile calcolare il secondo termine dato che non si conoscono i valori di output. Questo problema si risolve tramite la **Back Propagation**: in questo metodo, ogni iterazione dell'algoritmo viene suddivisa in 2 fasi:
 
 1. *Forward*: i pesi ottenuti dalle precedenti iterazioni sono utilizzate per calcolare i valori di outpu di ogni neurone
-
 2. *Backward*: la formula per l'aggiornamento dei pesi viene applicata al contrario , questo ci permette di usare l'errore dei nodi al layer `k+1` per stimare l'errore dei nodi al layer `k`.
 
 ### Convolutional Neuarl Network
@@ -948,7 +923,6 @@ Poichè in alcuni problemi la posizione del pattern da individuare può variare 
 Il modo migliore per risolvere questo problema è di utilizzare le **Convolutional Neaural Network**  (CNN) che introducono 2 nuovi tipi di layer che permettono di estrarre le feature latenti presenti nell'immagine (*Convolutional* e *DownSampling*):
 
 - Il layer **Convolutivo**: è composto da un insieme di kernel/filter (matrici) che vengono fatte scorrere sull'immagine per generare una nuova matrice di output che mette in risalto determinate fearure presenti nell'input. Questo layer è definito dai pesi (valori del filtro), bias e la dimensione dei passi che farà mentre si sposta lungo l'input (stride). Spesso la dimensione della matrice di output è minore di quella di input e dunque ci sarà una perdita di informazione, per questo a volte può essere importante aggiungere del padding (tanti 0) attorno all'input originale per mantenere gli output identici. ![filters](./imgs/filters.png) ![padding](./imgs/padding.png)
-
 - Il **Pooling** Layer: serve a sintetizzare l'applicazione del kernerl in un numero che viene inserito in una matrice che ha dimensione pari alla dimensione dello stride. ![pooling](./imgs/pooling.png)
 
 Combinando questi due layer con una fully connected network si può ottenere una rete convolutiva.
@@ -960,14 +934,58 @@ Combinando questi due layer con una fully connected network si può ottenere una
 Quando si sviluppa una ANN bisogna tenere in cosiderazione questi problemi di design:
 
 * Il numero di nodi di input deve essere determinato, solitamente bisogna creare un nodo di input per ogni variabile, tuttavia, per le variabili categoriche è accettabile codificarle in una variabile k-arry avente `int_sup(log2(k))` nodi di input.
-
 * Il numero di nodi di output deve essere prestabilito: per un problema a 2 calssi basta un solo nodo di output, ma per un problema con k classi ne servono k
-
 * Deve essere scelta una topologia per la rete poichè essa andrà ad influenzare la target function. Per scegliere la giusta topologia si può procedere in 2 modi:
-  
+
   1. Creare una fully connected network e iterarci sopra per costriure una nuova rete ogni volta con un numero minore di nodi (si reitera la procedura di model-buildin e ha una complessità di tempo mooolto alta)
   2. Creare una fully connected network e togliergli nodi per poi ripetere il processo di valutazione della rete.
-
 * Vanno inizializzati i pesi e i bias. E' comunemente accettata una inizializzazione randomica
-
 * Gli esempi di trainign con valori mancanti dovrebbero essere sostituiti o rimossi
+
+## Cluster Analysis
+
+La Claster Analysis divide i dati in vari gruppi (clusters) che sono sia Significativi che Utili. In base allo scopo finale della cluster analysis possiamo identificare 2 differenti tipi di analisi:
+
+- **Understanding**: serve per dividere i dati in vari gruppi in base alle caratteristiche che accomunano i dati stessi (serve per identificare le possibili classi per la classificazione in modo automatico).
+- **Utility**: approccio che fonrinisce un'astrazione dei dati individuali all'interno del cluster, generando un **cluster prototype**. Questi cluster prototypes possono essere utilizzati come basi per tecniche di data analysis e data pocessing.
+
+È difficile definire come ogni cluster debba essere costituito poichè per certo dataset esistono molteplici modi  corretti di suddividere i dati in vari cluster (guarda foto sotto). L'unico modo per capire qual è la corretta suddivisione in cluster e' analizzando i dati.
+
+_N.B il clustering può sembrare simile alla classificaizone ma risulta essere privo di fase di training supervisionato._
+
+![cluster esempio](./imgs/cluster.png)
+
+### Tipi di clustering
+
+Il clustering è la collezione di un insieme di cluster. Possono essere suddivisi in base ad alcune caratteristiche che possono presentare:
+
+#### Hierachicla vs Partitional
+
+- _hierachical_: suddivide i dati in cluster nestati che possono essere rappresentati con un albero in cui la radice rappresenta la totalità del dataset e, più si va in profondità, più aumenterà il numero di clustere e diminuirà il numero di record.
+- *partitional*: i dati vengono suddivisi in maniera "standard", dunque non sono ammessi sottocluster all'interno di ogni cluster. Ogni layer dell'albero di un Hierachical Clustering può essere visto come un Partitonal Clustering diverso.
+
+
+
+#### Exclusive vs Overlappign vs Fuzzy
+
+- *exclusive*: ogni data object può appartenere ad un solo cluster
+- _overlapping_: ogni data object può appartenere a più cluster simultaneamente. Questo può essere utili per dati che possono essere identificati in più classi (uno studente universitario può anche essere un dipendente dell'università)
+- _fuzzy_: ogni data object appartiene a tutti i cluster con un peso di appartenzenza (mebership) che varia tra `0` e `1` dove `0` rappresenta la NON appartenenza e `1` la totale appartenenza. Sostanzialmente crea una distribuzioen di probabilità dell'appartenenza dei dati alle varie classi (è esclusivo, ogni dato può appartenere solo ad un cluster).
+
+
+#### Complete vs Partial
+
+- *complete*: assegna tutti i data object del data ad un cluster senza lasciarne nessuno fuori
+- *partial*: esclude dai cluster alcuni elementi che non mostrano appartenenza a nessun cluster (possono essere punti di *rumore* o *outliers*)
+
+
+### Tipi di Cluster
+
+- *Well Separated*: sono dati ben divisi tra di loro (appiano naturalmente separati e non globulari). Ogni dato del cluster è più vicini ai punti del cluster a cui appartiene che ai punti di altri cluster.
+- Prototype Based: si basa sul concetto di Prototype (la generalizzazione del Cluster), ogni data object è più vicino al Prtototype del cluster di appartenenza che del Prototype di altri cluster. Per attributi continui, il prototype del cluster è il **Centroid** (la media); per attributi categorici è il **Medoid** (il punto più rappresentativo). Viene anche chiamato **Center Based**.
+- Graph Based: i dati sono raggruppati in base alle connessioni che hanno sul grafo che li rappresenta. Un cluster è un insieme di punti connessi tra di loro che non sono connessi con altri elementi. È suscettibile al rumore in quanto un punto può creare ponti tra cluster differenti ed unirli.
+- Density Based: guarda la densità dei punti. Un cluster è un insieme denso di punti corcondato un un insime con scarsa densità. È più resistente al rumore del Graph Based.
+- Shared Property: un cluster è formato da data object che hanno alcune caratteristiche in comune
+
+
+![tipi di cluster](./imgs/tipi_clusters.png)
