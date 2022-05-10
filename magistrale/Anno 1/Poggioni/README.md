@@ -1008,9 +1008,6 @@ Spesso la condizione `3.` genera dei punti che oscillano tra cluster differenti 
 si continua fino a quando solo l'1% dei punti cambia cluster
 ```
 
-
-
-
 A seconda del tipo di spazio di dati con cui si lavora possono essere utilizzate varie misure di prossimità per calcolare la distanza punti-centroidi. Alcuni esempi sono:
 
 - **Euclidea (L2)** o **Manhattan (L1)** per gli spazi Euclidei
@@ -1020,7 +1017,6 @@ Per scegliere i Centroidi migliori ottenuti con varie esecuzioni del K-means è 
 
 ![sse](./imgs/sse.png)
 
-
 La formula che segue è come vengono aggiornati i centroidi all'i-esima iterazione
 
 ![ci](./imgs/sse1.png)
@@ -1029,6 +1025,31 @@ Con vari calcoli, utilizzando la distanza euclide, si può dimostrare che il cen
 
 ![basic](./imgs/basic.png)
 
+Inizializzare in modo Random i Centroidi può degradare la qualità dei Cluster creati dato che non è garantita la convergenza ad un minimo globale. Un approccio naive per risolvere questo problema potrebbe essere quello eseguire più volte il K-means scegliendo ogni volta Centroidi di partenza diversi ed infine scegliendo il Clustering con SSE minore. Risulta essere molto costoso e non garantisce il ritrovamento di una soluzione. Un altro metodo è di creare dei Cluster di tipo Hierarchical campionando dei punti dal dataset ed utilizzarli per calcolare i Centroidi che verranno poi utilizzati come centroidi iniziali. Questo approccio è utilizzabile solo se i campioni sono piccoli (Hierarchical Clustering è costoso) e `K` deve essere piccolo rispetto alla dimensione dei campioni.
+
+##### Costo
+
+- Spazio: `O((m+K)n)` dove `m` è il numero di data point, `n` è il numero di attributi
+- Tempo: `O(I*K*m*n)` dove `I` è il numero di iterazioni richieste per la convergenza
+
+`I` può essere limitata superiormente dato che tendenzialmente i cambiamenti più significativi avvengono nelle prime iterazioni. L'algoritmo risulta efficiente e semplice a patto che `K` sia significativamente minore di `m`.
+
+##### Bisecting K-Means
+
+Il funzionamento è il seguente:
+
+1. Considera tutti i dati come un unico mega cluster
+2. Applica 2-means (k-means con 2 centroidi) per ottenere 2 sotto cluster
+3. Scegli il sottocluster da suddividere basandosi su criteri come numero di elementi (splitti quello più grosso) o SSE (splitti quello con SSE maggiore)
+4. Ripetere step 2. e 3. fino al numero desiderato di cluster
+
+![bisect](./imgs/bisect.png)
+
+##### Applicabilità
+
+K-means si applica a cluster globulari, ben separabili e con dimensioni e denstià simili. Per K abbastanza grando può essere applicato a cluster naturali ed è in grado di trovare sottocluster puri. È molto susciettebile agli outliears e la loro detection e rimozione può essere molto utile.
+
+![applicabilità](./imgs/applicabilita.png)
 
 #### Agglomerative Hierarchical
 
