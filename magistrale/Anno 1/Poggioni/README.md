@@ -964,20 +964,16 @@ Il clustering è la collezione di un insieme di cluster. Possono essere suddivis
 - _hierachical_: suddivide i dati in cluster nestati che possono essere rappresentati con un albero in cui la radice rappresenta la totalità del dataset e, più si va in profondità, più aumenterà il numero di clustere e diminuirà il numero di record.
 - *partitional*: i dati vengono suddivisi in maniera "standard", dunque non sono ammessi sottocluster all'interno di ogni cluster. Ogni layer dell'albero di un Hierachical Clustering può essere visto come un Partitonal Clustering diverso.
 
-
-
 #### Exclusive vs Overlappign vs Fuzzy
 
 - *exclusive*: ogni data object può appartenere ad un solo cluster
 - _overlapping_: ogni data object può appartenere a più cluster simultaneamente. Questo può essere utili per dati che possono essere identificati in più classi (uno studente universitario può anche essere un dipendente dell'università)
 - _fuzzy_: ogni data object appartiene a tutti i cluster con un peso di appartenzenza (mebership) che varia tra `0` e `1` dove `0` rappresenta la NON appartenenza e `1` la totale appartenenza. Sostanzialmente crea una distribuzioen di probabilità dell'appartenenza dei dati alle varie classi (è esclusivo, ogni dato può appartenere solo ad un cluster).
 
-
 #### Complete vs Partial
 
 - *complete*: assegna tutti i data object del data ad un cluster senza lasciarne nessuno fuori
 - *partial*: esclude dai cluster alcuni elementi che non mostrano appartenenza a nessun cluster (possono essere punti di *rumore* o *outliers*)
-
 
 ### Tipi di Cluster
 
@@ -987,5 +983,53 @@ Il clustering è la collezione di un insieme di cluster. Possono essere suddivis
 - Density Based: guarda la densità dei punti. Un cluster è un insieme denso di punti corcondato un un insime con scarsa densità. È più resistente al rumore del Graph Based.
 - Shared Property: un cluster è formato da data object che hanno alcune caratteristiche in comune
 
-
 ![tipi di cluster](./imgs/tipi_clusters.png)
+
+### Clustering Algorithms
+
+#### K-means
+
+Questo algoritmo è una tecnica di **Partitional Clustering** basata su **Prototype-Based Cluster**. Funziona cercando di trovare, dato un numero di Centroidi definito dall'utente `K`, i punti che sono più vicini ad ogni centroide e che andranno quindi ad identificare un cluster (simile al knn).
+
+Ci sono due variazioni di questo algoritmo, a seconda del tipo di dato con cui lavoriamo:
+
+- K-means per dati continui
+- K-medoid per dati categorici
+
+##### Algoritmo
+
+1. Si selezionano `K` punti come Centroidi (punti a caso nel dataset)
+2. Si assegna ogni punto del dataset al suo centroide più vicino e si ricalcolano i centroidi dei nuovi cluster così generati
+3. Si continua fin quando i centroidi non cambiano più
+
+Spesso la condizione `3.` genera dei punti che oscillano tra cluster differenti impedendo che l'agoritmo converga in una soluzione, dunque è possibile rilassare questa condizione rimpiazzandola con la seguente:
+
+```
+si continua fino a quando solo l'1% dei punti cambia cluster
+```
+
+
+
+
+A seconda del tipo di spazio di dati con cui si lavora possono essere utilizzate varie misure di prossimità per calcolare la distanza punti-centroidi. Alcuni esempi sono:
+
+- **Euclidea (L2)** o **Manhattan (L1)** per gli spazi Euclidei
+- **Cosine Similarity** o la **Jaccard Measure** per i documenti
+
+Per scegliere i Centroidi migliori ottenuti con varie esecuzioni del K-means è necessario scegliere un objective function adeguata. Per farlo è necessario calcolare la qualità del Clustering utilizzando la Somma dell'Errore Quadratico (SSE). Guardando questo indice, dati due cluster ottentuti con K-means, quello che avrà SSE minore sarà il migliore. Per calcolare l'SSE con la distanza Euclidea si usa la seguente foruma:
+
+![sse](./imgs/sse.png)
+
+
+La formula che segue è come vengono aggiornati i centroidi all'i-esima iterazione
+
+![ci](./imgs/sse1.png)
+
+Con vari calcoli, utilizzando la distanza euclide, si può dimostrare che il centroide migliore è la media.
+
+![basic](./imgs/basic.png)
+
+
+#### Agglomerative Hierarchical
+
+#### DBScan
