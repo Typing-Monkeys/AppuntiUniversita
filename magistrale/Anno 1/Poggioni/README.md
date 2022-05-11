@@ -1097,3 +1097,54 @@ Questi costi molto elevati rendono la scalabilità di questi tipi di clustering 
 2. Sono suciettibili al rumore
 3. Presentando difficolta nel gestire cluster di diverse dimensioni e di forma non globlulare
 4. Dividono cluster grandi in cluster più piccoli
+
+#### DBScan
+
+DBScan è un algoritmo di Clustering che si basa sul concetto di densità: per uno specifico punto è la quantià di punti vicini ad esso compresi in un dato raggio (definito dall'utente) _EPS_ (questo include anche il punto stesso !). Questo metodo è abbastanza semplice da implementare ma la scelta del raggio risulta critica, per un EPS abbastanza grande possiamo avere, come densità di un punto, `m` (il numero dei punti nel nostro dataset) e per un raggio sufficientemente piccolo riusciamo a trovare come densità 1. L'algoritmo DBScan cerca di trovare un modo per la scelta di un EPS adeguato.
+
+In base al punto in cui si trovano, i data point di un Clustering di tipo Center-Based possono essere classificati nel seguente modo:
+
+- **Core Point**: punti interni ad un density based cluster sono quei punti che ricadono all'interno di un ragio specifico (_EPS_) e superano una certa condizione _MinPts_. Sia EPS che MinPTS sono scelti dall'utente.
+- **Border Point**: sono quei puti che non sono Core Point, ma che ricadono all'interno di un vicinato di un Core Point. Un Border Point può appartenere a diversi vicinati di Core Point diversi
+- **Noice Point**: sono quei punti che non sono nè Core Point nè Border Point.
+
+
+Nella figura sottostante possiamo vedere che, dato un EPS e MinPts <= 7, il Punto `A` risulta essere un Core Point (ha 7 punti nel suo vicinato e quindi supera la condizione di MinPts); il punto `B` non soddisfa la condizione MinPts ma ricade all'interno di un vicinato (quello del punto A) quindi è un Border Point; `C` non è nè un core poitn nè un border point quindi è un Noise Point.
+
+![raggio](./imgs/raggio.png)
+
+
+
+##### Algoritmo
+
+1. Etichetta tutti i punti come **Core**, **Border** o **Noise**
+2. Elimina i Noise Point
+3. Raggruppa tutti i Core Point che sono all'interno di un raggio _EPS_ gli uni degli altri
+4. Crea un cluster con ogni gruppo di Core Point creato allo step 3.
+5. Assegna ogni border point ad uno dei suoi core point associati 
+
+Il problema principale di questo algoritmo è quello di selezionare un valore appropriato per _EPS_ e _MinPts_. L'approccio base per trovarli è quello di guardare come varia la distanza tra i punti ed i loro k-esimi vicini più vicini (k-dist). Per punti che appartentgono ad un cluster, k-dist sarà piccola (alta densità); mentre per Noice Point sarà grande (bassa densità). È dunque possibile stimare i parametri calcolando la k-dist per ogni punto del dataset, ordinarli in ordine crescente e vedere il punto in cui c'è la variazione più netta (il momento di transizione tra elementi appartenenti ad un cluster e rumore). Questo valore verrà utilizzato com EPS ed il valore k (utilizzato nella k-dist) verrà assegnato a MinPts. Il varole EPS dipende dalla scleta di `k`, ma generalmente non cambia poi così tanto al variare di k. Se `k` viene scelto troppo piccolo, allora anche alcuni Noice Point verranno inseriti nei cluster; invece con `k` troppo grande, cluster di piccole dimensioni verranno etichettati come rumore. DBScan originale utilizza `k = 4` dato che funziona generalmente bene per la maggior parte dei dataset di 2 dimensioni.
+
+![noice](./imgs/noice.png)
+
+##### Complessità in Spazio e Tempo
+
+La complessità in spazio di questo algoritmo è `O(m)` in quanto deve salvare in memoria solo poche informazioni (l'etichetta di ogni punto: Core, Noise, Border ed il cluster lable).
+
+La complessità in tempo è, nel caso peggiore `O(m^2)`, ma tramite l'utilizzo di strutture dati come i kd-tree (solo nel caso di dataset con spazio a bassa dimensione), riesce a scendere fino a `O(m logm)`.
+
+##### Vantaggi e Svantaggi
+
+- Può trovare cluster con forme che non potrebero essere trovate da nessun altro algoritmo
+- Se la densità dei punti del dataset sono estremamente variabili non è garatntito il rirovamteno di una soluzioen corretta
+- È resistente al rumore
+- Poco applicabile quando si lavora con alte dimensionalità
+- Se non è possibile calcolare i vicini più vicini utilizzando struttre dati particolari, l'algoritmo può risultare costoso (generalmente succede in dataset ad alte dimensioni)
+
+![dbscan](./imgs/dbscan.png)
+
+### Cluster Evaluation
+
+A volte può essere utile valutare i risultati forniti da un algoritmo di Clustering allo stesso modo in cui viene valutato un modello di classificazione. Spesso non è necessario e non è facile da applicare dato che ci sono vari algoritmi con funzonamenti diversi e per ogni caso servirebbere metodi e mteriche diverse. Gli algoritmi di clustering trovano sempre cluster anche se effettivamente non esistono cluster naturali nei dati, quindi risulta utile controllare se quiei cluster sono sensati (in dati con alte dimensioni non è facile individuare visivamente questa problematica).
+
+![validation](./imgs/clustervalidation.png)
