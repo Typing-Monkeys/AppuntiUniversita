@@ -1053,4 +1053,47 @@ K-means si applica a cluster globulari, ben separabili e con dimensioni e densti
 
 #### Agglomerative Hierarchical
 
-#### DBScan
+Queste tecniche sono utilizzate per generare cluster di tipo Hierarchical e ne esistono 2 diversi tipi:
+
+- **Agglomerative**: all'inizio ogni punto è un cluster e procedendo con l'algoritmo, punti vicini vengono fusi insieme fino ad ottenere un unico mega cluster. È necessario definire il concetto di 'prossimità'.
+- **Divisive**: inizia con un cluster contenente tutti i punti che mano a mano viene diviso, fino ad ottenere cluster singleton. Serve una tecnica per decidere chi e come splittare.
+
+È possibile rappresentare Clustering di questo tipo con un diagramma simile ad un albero chiamato _Dendrogramma_.
+
+![dendrogram](./imgs/dendo.png)
+
+##### Basic alghoritm
+
+1. Calcola la prozimity matrix (se necessario)
+2. Unisci i due cluster più vicini
+3. Aggiorna la proximity matrix
+4. Ripeti i punti 2. e 3. fin quando non rimane un solo cluster
+
+Ciò che caratterizza questi algoritmi di Clustering è il metodo con cui viene definita la _prossimità_. I due approcci principali sono:
+
+- Graph Based: Si basa su un'astrazione del cluster che viene visto come un Grafo. Per questa tecnicha si hanno varie implementazioni:
+
+  - **MIN**: calcola la prossimità in funzione della distanza tra i punti più VICINI di cluster differenti (aka single link). Questa tecnica è buona per gestire cluster dalla forma non-ellittica, ma molto sensibile a rumore e punti di outlier.
+  - **MAX**: calcola la prossimità in funzione della distanza tra i punti più LONTANI di cluster differenti (aka complete link). Risulta più resistente al rumore ed agli outliers ma può spezzare cluster grandi favorendo forme globulari.
+  - **GROUP AVARAGE**: calcola la media delle distanze tra tutti i punti di due cluster differenti. Questo approccio è un compromesso tra il MIN e il MAX. È meno suscettibile al rumore ma predilige forme globulari.![graph based](./imgs/graphbased.png)
+- Prototype Based: basa il calcolo della prossimità sui centroidi (che rappresentano il cluster).
+
+  - **Centroid Method**: basa il calcolo della prossimità sulla distanza tra i centroidi di differenti cluster (forse deve essere minima). Questo metodo presenta un problema che non è presente in nessun altro metodo Hierarchical: l'**inversione**, in cui due cluster che vengono fusi possono essere più simili di un paio di cluster fusi in precedenza.
+  - **Ward's Method**: aggiunge al calcolo, oltre all'uso dei centroidi, il concetto di SSE che deve risultare minia quando vengono fusi due cluster. Questa tecnica è meno susciettibile al rumore, ma favoreggia cluster di forma globulare. Utilizza la stessa objective function del K-means ('è l'equivalente gerarchico del K-means').
+
+##### Complessità
+
+La complessità in spazio è: `O(m^2)`.
+
+La complessità in tempo è: `O(m^3)`.
+
+Va notato che questa può essere ridotta se si utilizzano liste ordinate o heape per teneree traccia dei dati. Questo riduce la complessità in tempo a: `O(m^2 logm)`.
+
+Questi costi molto elevati rendono la scalabilità di questi tipi di clustering molto difficile.
+
+##### Forza e Punti Deboli
+
+1. **Mancanza di una objective function globale**: le tecniche appena viste decidono localmente il processo di ottimizzazione. Questo è uno svantaggio perchè non ci sarà un processo di ottimizzazione globale, però semplifica anche la risoluzioen del problema. Per via della sua complessità in spazio e in tempo molti dataset non sono risolvibili. Questo problema dell'ottimizzaizone dervia dal fatto che una votla effettuata l'operazioen di merge essa non potrà essere annullata. Una possibile soluzione a questo problema di non reversibilità è quello di provare a spostare i rami dell'albero generato per provare a migliorare la global objective function; un altro metodo ancora è quello di utilizzare un algoritmo come K-means per generare molti piccoli cluster che verranno utilizzati come punto di partenza dall'algoritmo di hierarchcal clustering.
+2. Sono suciettibili al rumore
+3. Presentando difficolta nel gestire cluster di diverse dimensioni e di forma non globlulare
+4. Dividono cluster grandi in cluster più piccoli
