@@ -1,0 +1,2 @@
+Il dataset e il vocabolario sono troppo grandi per essere caricati su GitHub.
+Si possono trovare al seguente link: [cartella drive](https://drive.google.com/file/d/1zjpy9ubiPYjwWWwr1LSsxGDvMxYtV7zm/view?usp=sharing)
