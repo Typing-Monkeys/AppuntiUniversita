@@ -1148,3 +1148,48 @@ La complessità in tempo è, nel caso peggiore `O(m^2)`, ma tramite l'utilizzo d
 A volte può essere utile valutare i risultati forniti da un algoritmo di Clustering allo stesso modo in cui viene valutato un modello di classificazione. Spesso non è necessario e non è facile da applicare dato che ci sono vari algoritmi con funzonamenti diversi e per ogni caso servirebbere metodi e mteriche diverse. Gli algoritmi di clustering trovano sempre cluster anche se effettivamente non esistono cluster naturali nei dati, quindi risulta utile controllare se quiei cluster sono sensati (in dati con alte dimensioni non è facile individuare visivamente questa problematica).
 
 ![validation](./imgs/clustervalidation.png)
+
+Gli indici di valutazione utilizzati per valutare vari aspetti dei cluster sono suddivise nelle seguenti categorie:
+
+- **Unsupervised**: misura varia aspetti della struttura del cluster senza basarsi su dati esterni (un esempio è SSE), spesso sono chiamati **Internal Indices**. Ne esistono 2 sotto categorie:
+  - _Cluster Cohesion_: determina quanto gli oggetti del cluster sono correlati tra di loro
+  - _Cluster Separation_: determina quanto, cluster differenti, sono separati o ben distinti l'uno dall'altro
+- **Supervised**: misura quanto le strutture generate da un algoritmo di clustering, corrispondono ad una qualche struttura esterna (un esempio è l'Entropia). Spesso queste misure sono chiamate **External Indices**.
+- **Relative**: misura che serve per confrontare diversi clustering o cluster tra di loro. Può essere sia Supervised che Unsupervised. Un esempio può essere l'SSE per l'unsupervised e l'entropy per la supervised.
+
+#### Unsupervised Choesion and Separation
+
+La validità di un cluster per un insieme di K cluster, in generale può essere espressa come la somma pesata della validità dei singoli cluster:
+
+![coesione](./imgs/coesione.png)
+
+La funzione `validity` può essere sia Coesione, Separazione o una combinazione delle due. I pesi `w` dipendono da caratteristiche del cluster: potrebbero essere tutti 1, la radice quadrata della coesione, la dimenisone del cluster, ecc.
+Se, per la validity function si sceglie la coesione, valori grandi sono meglio; se viene scelta la separaziome, valori più piccoli sono meglio.
+
+##### Graph Based
+
+Per i graph based cluster, la Coesione e la Separazione vengono espressi nel seguente modo:
+
+- Coesion: è la somma dei pesi dei cammini nel proximity graph che connette punti nello stesso cluster ![formula](./imgs/coesione_formula.png)
+- Separation: è la somma dei pesi dei cammini dai punti di un cluster ai punti di un altro cluster. ![separazione](./imgs/separazione.png)
+
+![separation coesion](./imgs/separazioncoesion.png)
+
+##### Prototype Based
+
+Per i cluster prototype based la coesione e la separazione  si esprimono nel seguente modo:
+
+- Coesion: è definita come la somma delle prossimità tra il prototipo di un cluster (centroide/medoide) ed i suoi punti. ![proto coesione](./imgs/coesioneproto.png)
+- Separation: è data dalla misura della prossimità di prototipi di due cluster differenti. ![separation proto](./imgs/separation_proto.png)
+
+![proto seperation coesion](./imgs/protoseparationcoesion.png)
+
+##### Overoll
+
+Questi due indici possono essere misurati in vari modi in base a come viene calcolato il peso. Questi sono alcuni esempi:
+
+![overall](./imgs/overoll.png)
+
+##### Relazione tra Coesione e Separation
+
+La Coesione e la Seprarazione sono, in alcuni casi, fortemetne correlate tra di loro, infatti è possibile dimostrare (noi non lo faremo) che la somma tra SSE Totale e SSB Totale è costante, ergo massimizzare l'SSB (separazione) equivale a minimizzare l'SSE (Coesione).
