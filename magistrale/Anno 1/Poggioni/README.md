@@ -1193,3 +1193,49 @@ Questi due indici possono essere misurati in vari modi in base a come viene calc
 ##### Relazione tra Coesione e Separation
 
 La Coesione e la Seprarazione sono, in alcuni casi, fortemetne correlate tra di loro, infatti è possibile dimostrare (noi non lo faremo) che la somma tra SSE Totale e SSB Totale è costante, ergo massimizzare l'SSB (separazione) equivale a minimizzare l'SSE (Coesione).
+
+##### Silouett Coefficient
+
+Metodo per la valutazione di un singolo Cluster che combina i concetti di Coesione e Separazione. Si calcola come segue:
+
+1. Per l'i-esimo oggetto (punto) se ne calcola la distanza media tra tutti gli altri oggetti dello stesso cluster a cui appartiene. Il risultato di questo step viene chiamato `a_i`
+2. Per l'i-esimo oggetto e per ogni cluster non contenente l'oggetto calcolare la distanza media tra tutti gli oggetti in uno dei questi cluster (quelli che non contengono l'oggetto). Dopodiche si prende il valore minore tra queste distanze che chiameremo `b_i`.
+3. Per l'i-esimo oggetto il Silouette Coefficient è `s_i = (b_i - a_i) / max(a_i, b_i)`
+
+![silouette](./imgs/silouette.png)
+
+`s_i` può variare tra `-1` e `1`. Il valore `1` è il migliore (si ottiene solo quando `a_i = 0`) mentre `-1` è un valore brutto perchè, in questo caso, la distanza `a_i` risulta più grade di `b_i`, vuol dire che il punto analizzato apparterrebbe più ad un cluster che non lo contiene piuttosto che a quello che lo contiene.
+
+Questo coefficiente può essere utilizzato per misurare la bontà di un clustering calcolandolo su tutti i punti e poi facendo una media.
+
+##### Unsupervised Similarity Matrix
+
+Per giudicare la bontà di un clustering possiamo anche utilizzare un approccio grafico che si basa sulle matrici. È possibile farlo misurando la correlazione tra la similarity matrix e una similarity matrix ideale calcolata basandosi sui lable del dataset, se queste due matrici si assomigliano possiamo dire che il clustering è buono. È possibile espriemere un giudizio sulla bontà di un clustering anche ad occhio nudo osservando la similarity matrix: una matrice ``n x n`` dove `n` è il numero di punti del dataset, la i-esiam cella conterrà il valore della similarità (varia tra 0 e 1) tra i due punti che la identificano. Le righe e colonne di questa matrice verranno poi ordinate in modo tale da avere punti appartenenti allo stesso cluster tutti vicini. Nella matrice ideale, tutti i punti che appartengono allo stesso cluster avranno 1, mentri gli altri 0 e si formeranno blocchi ben definiti sulla diagonale che rapresenteranno i cluster trovati.
+
+
+![sim matr](./imgs/similaritymatrix.png)
+_Esempio di buona similarity matrix_
+
+![cattiva sim](./imgs/cattivasim.png)
+_Esempio di similarity matrix su dati random (no real clusters)_
+
+##### Giusto numero di cluster
+
+Per decidere qual è il giusto numero di cluster in cui dividere un dataset, bisogna analizzarre le cuve formate dagli indici di SSE o di Silouette Coefficient:
+
+- per SSE si guarde dove viene creato un 'gomito'
+- per Silouette di guarda dove compare un picco
+
+![bello bello](./imgs/bellobello.png)
+
+#### Supervised Measuers
+
+Quando si analizzano cluster con approccio supervised possiamo identificare due tecniche differenti: 
+
+- classification based: si basa su metodi per valutare i classificatori già visti in precedenza (Entropy, Precision, Purity, Recall, F-measure)
+- similarity based
+
+Lo scopo di questo tipo di approccio è quello di vedere quanto una tecnica automatica può produrre risultati comparabili ad un'analisi manuale.
+
+#### Assessing the Significance of Cluster Validity Measures
+
