@@ -1239,3 +1239,12 @@ Lo scopo di questo tipo di approccio è quello di vedere quanto una tecnica auto
 
 #### Assessing the Significance of Cluster Validity Measures
 
+Spesso, una volta ottenuto un valore dall'indice di misura utilizzato per valutare un cluster/clustering sarà necessario anche fornirne un'interpretazione. Per alcuni indici, come Purity o Entropy, si può utilizzare la definizione della misura per capire se il risultato ottenuto è buono o meno (`Entropy = 0` molto cattivo). Per tutte le altre si può utilizzare un approccio statistico: 
+
+1. si calcola una distribuzione della misura di nostro interesse basandosi sui dati
+2. si calcola l'effettivo valore per i cluster ottenuti
+3. si valuta quanto è probabile che la misura ottenuta sia un risultato puramente casuale. Se questa probabilità è bassa, allora la misura è buona.
+
+![ultimo](./imgs/ultimocluster.png)
+
+La precedente immagine è ottenuta campionando un dataset con cui è stato generato un cluster 3-mean. Mostra la distribuzione random dell'SSE dati 500 campioni. Per interpretare se l'SSE del cluster originale è buono o no, si guarda se il valore che assume cade o no all'interno dell'istogramma: se ci cade dentro è probabile che sia frutto di casualità (non va bene), se non ci cade allora è abbastanza probabile che sia effettivamente un buon indice.
