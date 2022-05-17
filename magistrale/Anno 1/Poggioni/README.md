@@ -1248,3 +1248,73 @@ Spesso, una volta ottenuto un valore dall'indice di misura utilizzato per valuta
 ![ultimo](./imgs/ultimocluster.png)
 
 La precedente immagine è ottenuta campionando un dataset con cui è stato generato un cluster 3-mean. Mostra la distribuzione random dell'SSE dati 500 campioni. Per interpretare se l'SSE del cluster originale è buono o no, si guarda se il valore che assume cade o no all'interno dell'istogramma: se ci cade dentro è probabile che sia frutto di casualità (non va bene), se non ci cade allora è abbastanza probabile che sia effettivamente un buon indice.
+
+## Anomaly Detection
+
+Spesso in un dataset sono presenti dati anomali che però possono avere un'importanza significativa, sono chiamati _outliers_. Può essere di interesse la loro individuazione e la branca che sudia come individuarle è chiamata Anomaly Detection. Storicamente è stata studiata per rimuovere dati anomali che potevano interferire con l'allenamento di un dato modello, esecuzione di algoritmi di clustering, ecc. Spesso questa è parte del preprocessing.
+
+Alcuni esempi di applicazione dell'anomaly detection sono:
+
+- Fraud Detection
+- Intrusion Detection
+- Echosistem Disturbancies
+- Public Healt
+- Medicine 🧑‍🦼
+
+### Cause delle Anomalie
+
+Un outlier (anomalia) è definito come segue (Definizione di Douglas Howking (Hawkins) Mortimer Giunior II(2)): un outlier è un osservazione che differisce talmente tanto dalle altre osservazioni che fa sorgere il sospetto (sus) che sia stata generata da un meccanismo differente.
+
+Le anomalie possono essere generate da differenti cause. Di seguito illustreremo le principali:
+
+- **Data from different classes**: un oggeto può essere diverso dagli altri oggetti, e quindi anomalo, poichè appartiene ad una classe di diverso tipo. Un esempio è una persona che usa la carta di credito in modo fraudolento, apparterrà ad una classe differente rispetto ad una che ne fa un uso normale. Questa classe di anomalie è il focus dell'anomaly detection nel data mining.
+- **Natural Varation**: spesso i dataset assumono distribuzioni che si possono ricondurre a distribuzioni statistiche ben conosciute (come la normale) e in queste distribuzioni la maggior parte die dati è concetrata intorno alla media, dunque dati anomali saranno quelli che una o più attributi assumono valori che si discostano, anceh di molto, dalla media (dal centro). Un esempio è l'altezza in cui una persona molto alta farà sempre parte della stessa classe delle altre, ma avrà il valore dell'altezza che varia di molto rispetto alla media generale.
+- **Data Mesurament and Collection Errors**: Spesso quando vengono raccolti i dati si possono generare errori causati o dallo strumento con cui si raccolgono o dall'errore umano. Si andranno dunque a generare delle anomalie che non sono desiderabili, dato che vanno a peggiorare la qualità del dataset. Dunque queste anomalie vanno eliminate e sono il focus del preprocessing e nello specifico del _data cleaning_.
+
+
+### Differenti Approcci
+
+Una distinzione ad alto livello tra gli approcci per la anomaly detection può essere la seguente:
+
+- **Model Based**: prima viene generato un modello partendo dai dati e vengono considerati anomali tutti i dati che non vengono riconosciuti dal modello (do not fit the model). Un esempio può essere la distribuzione creata stimando statisticamente i parametri. Questa tecnica può essere fatta sia con modelli di classificazione che regressione. Per la regressione un oggetto è un'anomalia se il suo valore è molto lontano da quello predetto. Per la classificazione si possono considerare 2 classi, una per i dati anomali ed una per quelli normali e procedere con la classificazione (servono sempre le lable perchè senno non possiamo creare un modello).
+- **Proximity Based**: vengono considerati anomali gli oggetti che distano maggiormente dalla maggioranza degli altri oggetti. Questo tipo di tecnica permette una visualizzazione grafica semplice delle anomalie (quando i dati sono 2 o 3 dimensionali) utilizzano degli scatter plot e individuanto i punti maggiormente separati dagli altri.
+- **Density Based**: oggetti che si trovano in regioni a bassa densità sono relativamente distanti dai loro vicini e dunque possono essere considerati anomali. Un'accortezza in più è quella di classificare come outlier i punti solo se hanno densità locale significativamente minore della maggior parte dei propri vicini (questo approccio evita di classificare erroneamente aree di minor densità del datase che però presentano valori validi).
+
+Questi approcci, in base alla conoscienza che si ha dei dati, possiamo dividerli in 3 categorie:
+
+- **Supervised**: si ha un dataset con oggetti normali e outlier che hanno entrambi lable che li identificano. Sarà dunque possibile allenare un modello in gradi di identificare le anomalie.
+- **Unsupervised**: non c'è disponibilità di class lable e dunque l'obbiettivo sarà quello di assegnare un punteggio ad ogni valore che andrà a riflettere quanto esso viene considerato anomalo. Tuttavia se le anomalie sono simili tra di loro, andranno a fare abbasare questo valore e dunque a farle riconoscere come oggetti normali.
+- **Semisupervised**: i lable sono presenti solo per gli oggetti normali, dunque l'obiettivo sarà analogo all'unsupervised però si avrà una maggiore resistenza alle anomalie simili.
+
+#### Approccio Statistico
+
+Un esempio di _model based_ approach è lo Statistical Approac. Tale approccio crea un modello statistico stimandone i parametri dal dataset di partenza e gli outlier vengono identificati in base alla loro probabilità dato il modello scelto.
+
+**Definizione porbabilistica di outlier**: un outlier è un oggetto che ha una bassa probabilità rispetto alla probability distribution utilizzata per modellare i dati.
+
+##### Problematiche
+
+- _Identificazione della giusta distribuzione_: spesso non è facile identificare la distribuzione che meglio rappresenta i dati e questo può portare a delle classificazioni errate.
+- _Numero di attributi usato_: le anomalie si possono presentare su uno o più degli attributi dei dati di interesse, dunque se un dato attributo non è anomalo non significa che quel dato non lo sia. È importante scegliere il giusto numero di attributi da analizzare a seconda dei dati che si hanno.
+- _Mischiaticcio di distribuzioni_: i dati possono essere modellati da una misticanza di distribuzioni, benchè più potente risulta essere più complicata sia da individuare che da utilizzare.
+
+**TODO: FINIRE QUESTA PARTE**
+
+#### Approccio Proximity Based
+
+È un approccio più facile ed intuitivo di quello statistico dato che è molto più facile determinare una misura di prossimità significativa risetto al determinare una distribuzioen statistica di un dato dataset. Il metodo più semplice per valutare la distanza è quello di k-nearest neighnor, in cui ad ogni punto viene assegnato un valore che riflette quanto esso sia un outlier oppure no. Questo valore è 0 per punti normali e infinito per punti che sono sicuramente outlier.
+
+**Definizione di outlier**: l'outlier score di un oggetto è dato dalla distanza dal suo knn.
+
+È importante scegleire correttamente il numero `k` poichè se si sceglie `k` grande quasi quanto la dimensione del dataset allora tutti i valori di quel dataset verranno considerati outlier, mentre se è troppo piccolo alcuni outlier verranno considerati normali. Per ridurre il problema della scelta di k è possibile utilizzare al posto della distanza dal suo knn la media tra le distanze dei primi knn.
+
+##### Pro e Contro
+
+- Semplice
+- Costoso e poco applicabile per dataset grandi (`O(m^2)` in tempo)
+- Sensibile alla scelta dei parametri
+- Non è in grado di gestire dataset con regioni a densità varaibili (utilizza threshold globali che non tengono conto di variazioni di densità)
+
+![outlier](./imgs/outlier.png)
+
+In questo esempio possiamo vedere come scegliendo `k` troppo grande i pochi punti in alto a destra che formano un cluster naturale vengono visti come outlier.
