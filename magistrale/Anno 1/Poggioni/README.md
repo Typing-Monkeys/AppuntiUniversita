@@ -1298,7 +1298,39 @@ Un esempio di _model based_ approach è lo Statistical Approac. Tale approccio c
 - _Numero di attributi usato_: le anomalie si possono presentare su uno o più degli attributi dei dati di interesse, dunque se un dato attributo non è anomalo non significa che quel dato non lo sia. È importante scegliere il giusto numero di attributi da analizzare a seconda dei dati che si hanno.
 - _Mischiaticcio di distribuzioni_: i dati possono essere modellati da una misticanza di distribuzioni, benchè più potente risulta essere più complicata sia da individuare che da utilizzare.
 
-**TODO: FINIRE QUESTA PARTE**
+
+##### Distribuzione Normale Univariata
+
+_Dati univariati = dati osservati in un solo attributo._
+
+Una delle distribuzioni più versatili è quella Normale che è in funzioni dei parametri `mu` e `sigma` (`N(mu, sigma)`). Questa può essere utilizzta per lo scopo di anomaly detection nel seguente modo:
+
+**Definizione di outlier per un singolo attributo N(0,1)**: un oggetto con attribute value `x` dalla distribuzione gaussiana `N(0,1)` è un outlier se `|x| >= c`, dove `c` è una costante scelta in maniera tale che `prob(|x|) >= c = a`.
+
+`a` è una costante che va scelta per far funzionare la definizione rappresenta il grado di rarità dell'oggetto `x` (quanto è improbabile che appartenga alla distribuzione). Molto probabilmente non avremmo mai una ditribuzione `N(0,1)` e dunque dovremmo trovare un modo per trasformare l'attributo `x` in un nuovo attributo `z` che abbia la distribuzione `N(0,1)`. Per farlo dobbiamo stimatimare i parametri `mu` e `sigma` tramite l'utilizzo della media campionaria e la deviazione standard campionaria. Questo approccio funziona bene quando abbiamo molti dati. Molto spesso però la distribuzione stimata non è proprio `N(0,1)` e  per risolver questo problma c'è il metodo di Grubb.
+
+##### Distribuzione Normale Multivariata
+
+Possiamo vedere il nostro dataset come mix di distribuzioni di probabilità:
+
+- M che è quella dei punti normali
+- A che è quella degli outliers
+
+Queste distribuzioni vanno scelte e di solito per gli outlier si utilizza una distribuzione normale. 
+
+Un metodo basato su questo concetto e quello della Verosimiglianza (likelihood), quanto una ditribuzione riesce ad approssimare un dataset, per effettuare Anomaly Detection è il seguente:
+
+1. Assumere che tutti i punti appartengono a M e A è vuoto
+2. Calcolare la versomogiliazna del dataset alla distribuzioen scelta
+3. Provare a spostare un punto da M ad A e vedere se la verosomiglianza aumenta: se lo fa quel punto viene messo permanentemente in A (quindi un outlier)
+4. Ripeter per tutti i punti del dataset
+
+##### Pro e Contro
+
+- Si basano sulla teoria di base della statistica (buono perchè sai che questa teoria funziona)
+- Quando c'è abbastanza conoscienza dei dati e dei tipi di testi da applicare, ha un'alta efficienza
+- Ci sono un'ampia varietà di test per attributi singoli, meno per opzioni per quelli multivariati
+- Scarse performance per dati multidimensionali
 
 #### Approccio Proximity Based
 
