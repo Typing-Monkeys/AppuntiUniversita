@@ -1400,3 +1400,35 @@ Un'altra problematica è quella di determianre il numero di cluster poichè può
 - Dipendono molto dal tipo di algoritmo di Clustering e quindi possono essere estremamente influenzati dagli outlier (il caso dei prototype based)
 - La bontà degli outlier dipende fortemente dall'algoritmo di clustering scelto (dipendono fortemente dai tipi di dato)
 
+#### Approccio Recostruction Based
+
+È possibile ridurre il numero di features di un dato insieme di dati in maniera tale che queste features siano ancora rappresentative per i dati nomrali, ma non per le anomalie. Per i dati lineari è possibile utilizzare la Principal Component Analisys (PCA), un apprccio basto su combinazioni lineari degli attributi originiali e altre trasformazioni strane dell'algebra lineare. Successivamente, dopo averle riportate alle dimensioni iniziali, sarà possibile vedere se un dato è anomalo in base a quanto si discosta dal valore originale. Questo prende il nome di reconstrauction error ed è definito come il quadrato della distanza euclidea.
+
+![rec error](./imgs/recerror.gif)
+
+dove `x` è il valore originale e `x^` è il valore ottenuto dalla ricostruzione.
+
+Ci aspettiamo che il recostruction error sia basso per dati appartentnti alla nostra distribuzione di dati, mentre risulti alto per dati anomali.
+
+![rec error 2](./imgs/recerror2.png)
+
+Nella foto precedente la linea nera rappresenta la direzione di massima varianza dell'istanza normale (come i dati vengono rappresentati una volta ricostruiti), le linee tratteggiate rappresentano il recostruction error, i cerchi sono i dati normali, i quadrati neri gli outlier.
+
+Per i dati non lineari non è possibile applciare la PCA ed è necessario utilizzare un approccio basato su MNN chiamato Autoencoder. Un autoencoder è un MNN avente un numero di neuroni di input e di output uguali al numero di attributi originali, la sua architettura è composta di due step principali:
+
+- Encoding: riduce sempre di più il numero di dimensioni delle featuer utilizzando trasformazioni non lineari
+- Decoding: mappa le rappresentaizoni ottenute con l'encoding con lo spazio degli attributi originali ottenendo così una ricostruzioen di `x` chiamata `x^`. La distanza tra questi 2 valoì sarà il recostruction error, ovvero l'indice per l'anomaly detecion. Il punto centrale di minori dimensinoi viene chiamato bottleneck.
+
+Esistono vari tipi di autoencoder come ad esempio il Denoising Outencoder che è in grado di apprendere rappresentaizoni non lineari anche in presenza di rumore.
+
+![autoencoder](./imgs/eutoencoder.png)
+
+##### Pro e Contro
+
+- Possono apprendere la rappresentazione di molte classi normali utilzzando svariate tenciche di Dimensionality Reduction
+- Possono essere utilizzate anche in presenza di attributi irrilevanti (verranno ignorati nello step di encoding)
+- Scarse performance quando il numero di attributi è grande (a causa del calcolo del reconstruction error)
+
+#### Approccio One Class SVM
+
+
