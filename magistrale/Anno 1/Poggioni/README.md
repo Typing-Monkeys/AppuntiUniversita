@@ -1318,3 +1318,53 @@ Un esempio di _model based_ approach è lo Statistical Approac. Tale approccio c
 ![outlier](./imgs/outlier.png)
 
 In questo esempio possiamo vedere come scegliendo `k` troppo grande i pochi punti in alto a destra che formano un cluster naturale vengono visti come outlier.
+
+#### Approccio Density Based
+
+Gli outlier per un approccio density based sono definiti nel seguente modo: l'outlier score di un oggetto è l'inverso della densità di quell'oggetto, dunque questo approccio basa il suo funzionamento sulla densità di una data area inorno ad un punto. È facilemnte ituibile che è strettamente correlato all'approccio Proximity Based poichè la densità è un concetto che deriva dalla prossimità.
+
+La desnsità è definita dalla seguente formula: ![densità](./imgs/densita.png) dove `N(x,k)` è un insieme che continene i k vicini più vicini di x; `|N(x,k)|` è la dimesnione dell'insieme; `y` è il vicino più vicino.
+
+Un altra definizione di densità può essere la seguente: la densità attorno ad un oggetto equivale al numero di oggetti che si trovano all'interno di una distanza specificata `d` dall'oggetto (come il knn). Il parametro `d` deve essere scelto con cura perchè valori troppo grandi falliranno nell''identificare gli outlier e valori troppo piccoli identificheranno punti normali come outliesr.
+
+La stessa problematica del proximity based si presenta anche in questo approccio, non è in grado di gestire dataset con aree di desntià variabile. Ci sta un metodo per aggirare il problema: invece di considerare la desnsità assoluta si considera solo la densità relativa di un dato punto che può essere trovata con la seguente formula: ![densità relatia](./imgs/densitarelativa.png). Un algoritmo che usa questo approccio pernde il nome di Local Outlier Factor (**LOF**) di cui vedremo una versione semplificata:
+
+1. Si itera per ogni `x` appartenente al dataset e si determinano i suoi k vicini più vicini
+2. Si calcola il valore `density(x,k)` per ogni `x` utilizzando i suoi `k` vicini più vicini (punto 1.)
+3. Per ogni `x` assegna un outlier score utilizzando l'equazione sopra riportata (avarage relative density)
+
+![lof](./imgs/lof.png)
+
+##### Pro e Contro
+
+- Se ci si basa sulla relative density si possono gestire anche aree di densità variabile
+- Complessità in tempo elevata: `O(m^2)`. Può essere ridotta a `O(m log m)` per dati a basse dimensioni utilizzano strutture dati speciali
+- La scelta dei parametri è difficili
+
+#### Approccio Clustering Based
+
+Poichè gli algoritmi di clustering trovano qunato un dato insieme di punti è correlato con altri punti viene intuitivo capire che questi algoritmi possono essere anche utilizzati per determinare l'inversio: quanto un punto si discosta notevolmente dagli altri. Un approccio per effettuare anomaly detection con clustering è quello di scartare piccoli cluster che sono lontani dagli altri cluster. Per questo approccio è necessario stimare dei trahsold minimi per la dimensione del cluster e la distanza. Un approccio più sistematico è quello di determiare quanto ogni punto appartiene ad un dato cluster (per prototype based la distanza dai centroidi, oppure quanto un punto peggiora la objective function).
+
+**Definizione di cluster based outlier**: un oggetto è un cluster based outlier se essono non appartiene fortemente a nessun cluster.
+
+##### Determinazione di quanto un oggetto appartiene ad un cluster
+
+Come detto in precedenza, per determinare un outlier score si possono applicare vari metodi. Per prototype based è possibile calcolare la distanza da il prototype e il oggetto, tuttavia questo metodo non funziona bene per cluster con densità variabili e quindi in questi casi l'outlier score può essere determinato con la distanza relativa tra il prototype e tutti gli altri oggetti. Se i cluster possono essere modellati in termini di distribuzioni gaussiane utilizziamo la distanza di Mahalanobis 🌴 ( aka Bionicle Divinità).
+
+Per tecniche di clustering che hanno un objective function possiamo assegnare come outlier score dell'oggetto il miglioramento che si avrà nell'objective function se quell'oggetto viene eliminato. Questo può essere molto costoso.
+
+##### Impact of Outlier on the Initial Cluster
+
+Ci si può porre la domanda "il clustering è valido dopo aver determinato i suoi outlier?" dato che gli outlier vanno ad influenzare l'algoritmo di clustering. Per gestire questa problematica si può rigenerare il clustering una volta rimossi gli outlier anche se questo non garantisce il miglioramento dei risultati. Un approccio piu sofisticato è quello di generare un gruppo di pontenziali outlier che verrà popolato dai punti che non sono fortemente connessi agli altri mentre si effettua il clustering così da poter essere eliminati direttametne. Anche questo metodo non garantisce un risultato ottimale o che funzioni meglio di quello più semplice descritto prima.
+
+##### Il numero di cluster da utilizzare
+
+Un'altra problematica è quella di determianre il numero di cluster poichè può far variare il processo di outlier detection. Per esempio, un numero elevato di cluster piccoli formisce meno outlier che probabilmente sono più veri rispetto a pochi cluster molto grandi. Un approccio per risolvere questo problema è quello di ripetere più volte l'analisi con differenti numeri di cluster oppure provare a trovare un grande numero di piccoli cluster perchè piccoli cluster tendono ad essere più coesi e perchè se un oggetto è un outlier con un grande numero di piccoli cluster allora è più probabile che sia un vero outlier.
+
+##### Pro e Contro
+
+- Alcune tecniche (come il K-means) hanno una complessità in spazio e tempo non lineare o lineare. Quelle con complessità lineari possono risultare molto efficienti
+- Di solito si possono trovare contemporanemante cluter e Outlier
+- Dipendono molto dal tipo di algoritmo di Clustering e quindi possono essere estremamente influenzati dagli outlier (il caso dei prototype based)
+- La bontà degli outlier dipende fortemente dall'algoritmo di clustering scelto (dipendono fortemente dai tipi di dato)
+
