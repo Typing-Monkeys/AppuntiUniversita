@@ -1328,7 +1328,7 @@ Un metodo basato su questo concetto e quello della Verosimiglianza (likelihood),
 ##### Pro e Contro
 
 - Si basano sulla teoria di base della statistica (buono perchè sai che questa teoria funziona)
-- Quando c'è abbastanza conoscienza dei dati e dei tipi di testi da applicare, ha un'alta efficienza
+- Quando c'è abbastanza conoscienza dei dati e dei tipi di test da applicare, ha un'alta efficienza
 - Ci sono un'ampia varietà di test per attributi singoli, meno per opzioni per quelli multivariati
 - Scarse performance per dati multidimensionali
 
@@ -1431,4 +1431,38 @@ Esistono vari tipi di autoencoder come ad esempio il Denoising Outencoder che è
 
 #### Approccio One Class SVM
 
+Si possono utilizzare i classificatori per risolovere problemi di anomaly detection trasformandoli in un One Class Problem: un problema in cui l'interesse è solo quello di determinare un decision baoundary che rappresenti la classe noramle.
 
+![one class](./imgs/oneclass.png)
+
+In questo caso possiamo utilzzare le SVM che riescono bene a trovare un boundary per effettuare questa distinzione. Come per il normale caso di SVM in ambito non lineare andremo ad utilizzare un kernel per trasformare i dati in una dimensione maggiore per torvare un hipiano che li separa. Un kernel molto utilizzato è quello Gaussiano che mappa i dati su una hipersfera di raggio 1 e tutti i punti sono sulla stessa orthant (l'equivalente del quadrante in più di 2 dimensioni). Quindi andremo a trovare l'hiperpiano che li separa meglio.
+Un hiperparametro molto importante è `v` (nu) che indica la percentuale di outlier che andremo a permettere. Questo fa si che nel nostro dataset possono essere presneti anche punti di outlier, a differenza degli autoencoder.
+
+Queste SVM riescono a trovare boundary molto intereseenati come le seguenti:
+
+![decision](./imgs/decisionsvm.png)
+
+##### Pro e Contro
+
+- Forte base teorica (cosa buona perchè sappiamo che funziona bene e perchè)
+- La scelta di `v` è molto difficile (va scelto bene)
+- Risultano computazionalmente costosi per dati a tante dimensioni
+- Ammetteno punti di outlier nel dataset di training
+- Molto efficaci per dataset di piccole dimensioni
+
+#### Approccio Information Theoretic
+
+Questo approccio codifica i dati e invece di apprendere la loro rappresentazione, basa la sua analisi sul quantitativo di informazioni che questi dati rappresentano. Le anomalie, poichè sono irregolari rispetto ai dati, aumentano la quantità di informazioni del dataset. Ci sono vari approcci a seconda del tipo di dato, per dati qualitativi si può utilizzare l'entropy, per i dati quantitativi si può usare la Kolmogorov (Karasni) complexity. Un approccio pratico è quello di comprimere i dati e rimuovere volta per volta dati per vedere se l'information gain aumenta. Nel processo di rimozione non si può rimuovere un signolo dato alla volta perchè le variazioni nell'information gain causte dalla rimozione di un signolo dato sono irrilevanti, dunque bisogna trovare il sottoinsieme X più piccolo del dataset che mostra la più grande variazione di information gai una volta eliminato.
+
+##### Pro e Contro
+
+- Sono versatili perchè non fanno alcun tipo di assunsioni sulla struttura del dataset
+- Non richiedono training
+- La loro performance dipende pesantemente dalla misura scelta per calcolare le informazioni
+- Sono computazionalmente costosi e difficilmente applicabili a dataset di grandi dimensioni
+
+### Valutazione dell'Anomaly Detection
+
+- Se sono presenti le class lable nel dataset, allora si utilizzano gli approcci standard per la classificaizone di classi rare: precision, recall, false positive rate (False alarm rate)
+- Se non sono presenti lable (unsupervised) si utilizzano misure fornite dal metodo di anomaly detection utilizzato: Reconstruction error o Infromation Gain 
+- Si può anche guarda la distribuzione degli anomaly scors con un istogramma o density plot per vedere se abbiamo dei risultati ragionevoli (se tutto è un anomalia c'è qualcosa che non va)
