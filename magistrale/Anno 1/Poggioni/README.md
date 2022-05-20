@@ -1491,3 +1491,67 @@ Entrambi questi approcci hanno costo `O(d^2)`.
 Cerca di trovare un insieme di nuove features mappate tramite una data funzione. Spesso le combinazioni lineari si prestano bene a questo approccio perchè sono semplici da calcolare e sono analiticamente trattabili.
 
 ![extraction](./imgs/extraction.png)
+
+In base alla loro objective, si possono classificare in varie categorie per esempio:
+
+- Minimizing information loss: rappresenta i dati nel modo più accurato possibile in uno spazio a meno dimensioni (PCA)
+- Maximise discriminatory information: accentua le informazioni determinanti per la clasificazione in una spazio a meno dimensioni (utile per la classificaizone)
+
+Ma ce ne sono molte altre.
+
+#### Tecniche Lineari
+
+L'approccio più comunemente utilizzato è quello del Principal Component Analisys (PCA) che cerca una proiezione che preserva il maggior numero di informazioni possibili. Altri metodi sono:
+
+- Linear Discriminant Analisys (LDA): cerca una proiezione che discrimina al meglio i dati
+- Indipendent Component Analisys (ICA): rende le features il più indipendenti possibile
+
+#### PCA
+
+Questa tecnica funziona proiettando i dati di input su gli eigenvector della matrice di covarianza dei dati.
+
+1. Si calcola la matrice di covarianza `C` che serve a quantificare la varianza dei dati e quanto una variabile varia rispetto ad un'altra. ![covarianza](./imgs/covarianza.png)
+2. Si trovano gli eigenvector `u_i` di `C`: ![culu](./imgs/culu.png)
+3. Si cercano i `K` eigenvector più grandi che corrispondono ai `K` eigenvalue più grandi (`<u1, u2, ..., uk>`). Questà sarà la nuova base del nostro spazio 
+
+Stiamo essenzialmente estraendo i componenti di ogni variabile che porta alla maggiore varianza quando poriettiamo i dati su questi vettori. Usiamo gli eigenvalue della matrice di covarianza perchè riflettono la magnitudine della varianza nella direzione dell'eigenvector corrispondente.
+
+Per scegliere la dimensione `K` si utilizzano una trashold scelto arbitrariamente `T` che rappresenta la percentuale dell'informazione che vogliamo preservare. Se `K = N` verranno mantenute il 100% delle informaizoni ed è solo un cambio di base. Applicare solo un cambio di base potrebbe essere utile per rappresentare e visualizzare meglio i dati. 
+
+![k](./imgs/k.png)
+
+##### Pro e Contro
+
+- Interpretabile
+- Veloce nell'esecuzione
+- Trova solo trasformazioi lineari
+- Problema del Crowding
+- La direzione della massima varianza non è detto che sia la più informativa
+- Fallisce su dati composti da molteplici cluster separati
+
+#### Crowding Problem
+
+Il Crowind problem si prsenta quando, passando da una dimensione più grande ad una più piccola, vogliamo preservare le distanze tra i vicini ma alcune volte risulta essere impossibile.
+
+![crowidng](./imgs/crowding.png)
+
+Dalla foto sopra possimo vedere che la distanza tra i vicini di `x1` non viene rispettata quando si riduce il numero di dimensioni.
+
+#### t-SNE
+
+t-distrib Stocastic Neighboord Embadding è una tecnica di dimensionality reduction che si presta molto bene per la visualizzazione dei dati che prova a concentrare i punti con similarità maggiore il più vicino possibile nello spazio a dimensioni minori (tenta di risolvere il crowding problem). Preserva la struttura locale dei dati utilizzando la distribuzione t-student.
+
+L'algoritmo funziona nel nel seguente modo:
+
+1. Cerca la pairwise similarity (similarità di coppia) tra punti vicini dello spazio ad alte dimensioni (definita in termini di probabilità di essere vicini)
+2. Mappa ogni punti nello spazio a meno dimensioni basandosi sulla pairwise similarity
+3. Cerca una rappresentazione nello spazio a meno dimensioni che minimizza le differenze tra i dati. Lo fa utilizzando il gradient descent e il KL-divergence (KullbakLaber divergence)
+
+![tsne](./imgs/tsne.gif)
+
+##### Pro e Contro
+
+- È ottimo per visualizzare i dati
+- Aiuta a comprendere gli algoritmi black box come DNN
+- Riduce il problema del Crowding con distribuzioni hevely tailed
+- Non convesso, quindi richiede gradient descend con momentum
