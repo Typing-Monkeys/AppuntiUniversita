@@ -1466,3 +1466,28 @@ Questo approccio codifica i dati e invece di apprendere la loro rappresentazione
 - Se sono presenti le class lable nel dataset, allora si utilizzano gli approcci standard per la classificaizone di classi rare: precision, recall, false positive rate (False alarm rate)
 - Se non sono presenti lable (unsupervised) si utilizzano misure fornite dal metodo di anomaly detection utilizzato: Reconstruction error o Infromation Gain 
 - Si può anche guarda la distribuzione degli anomaly scors con un istogramma o density plot per vedere se abbiamo dei risultati ragionevoli (se tutto è un anomalia c'è qualcosa che non va)
+
+## Dimensionality Reduction
+
+Spesso i dati hanno un numero estremamente alto di attributi che ne rendono la rappresentazion e complessa dunque per aumentare l'efficienza degli algoritmi di data mining spesso vengono applicate tecniche di dimensionality reduction che trasformano il dataset in un altro con un numero inferiore di features che vengono generate tramite combinazioni lienari delle features originali. Questo processo ha altri vantaggi come ad esempio la riduzione del numero di attributi irrilevanti o del rumore. Riesce anche a ridurre la Curese of Dimensionality :skull_and_crossbones:.
+
+### Curse of Dimentionality ☠️
+
+Si riferisce al fenomeno che rende i dati ad un elevato numero di dimensioni (attributi) difficilmente classificabili. Questo avviene perchè se le dimensioni aumentano i dati diventano incrementalmente sparsi nello spazio che occupano e quindi è possibile che i nostri data object non saranno un campione rappresentativo di tutti i possibili oggetti. Per la classificazione questo significa che non saremmo in grando di creare un modello affidabile e per il clustering significa che i concetti critici per la creazoine di un clustering, come densità e distanza, diventano meno significativi.
+
+![curse](./imgs/curse.png)
+
+### Frature Selection
+
+Un possibile approccio per ridurre il numero di dimenzioni è quello di selezionare un sottoset di attributi. Una possibile idea per sovlegere questo compito potrebbe essere quella di testare tutte le possibili combinazioni di attributi con l'algoritmo bersaglio ma per `d` attributi, verrebbero fuori `2^d` sottoset da controllare che nella maggior parte dei casi è un calcolo ingestibile. È possibile applicare altre tenciche come:
+
+- **forward selection**: inizi con un set di feautres vuoto e aggiungi ripetutamente le feature che riducono maggiormente l'errore fino a quando questi decrementi sono isnignificanti (mean sqerr error, missclassification error, ecc).
+- **backward selection**: iniziamo con tutte le features e si rimuove la feature che decrementa maggiormente l'errore e si contina fin quando l'incremento di errore della rimozione è molto significante.
+
+Entrambi questi approcci hanno costo `O(d^2)`.
+
+### Frature Extraction
+
+Cerca di trovare un insieme di nuove features mappate tramite una data funzione. Spesso le combinazioni lineari si prestano bene a questo approccio perchè sono semplici da calcolare e sono analiticamente trattabili.
+
+![extraction](./imgs/extraction.png)
