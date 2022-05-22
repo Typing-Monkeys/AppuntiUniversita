@@ -1047,7 +1047,7 @@ Il funzionamento è il seguente:
 
 ##### Applicabilità
 
-K-means si applica a cluster globulari, ben separabili e con dimensioni e denstià simili. Per K abbastanza grando può essere applicato a cluster naturali ed è in grado di trovare sottocluster puri. È molto susciettebile agli outliears e la loro detection e rimozione può essere molto utile.
+K-means si applica a cluster globulari, ben separabili e con dimensioni e densità simili. Per K abbastanza grande può essere applicato a cluster naturali ed è in grado di trovare sotto cluster puri. È molto suscettibile agli outliers e la loro detection e rimozione può essere molto utile.
 
 ![applicabilità](./imgs/applicabilita.png)
 
@@ -1062,24 +1062,24 @@ Queste tecniche sono utilizzate per generare cluster di tipo Hierarchical e ne e
 
 ![dendrogram](./imgs/dendo.png)
 
-##### Basic alghoritm
+##### Basic algorithm
 
-1. Calcola la prozimity matrix (se necessario)
+1. Calcola la proximity matrix (se necessario)
 2. Unisci i due cluster più vicini
 3. Aggiorna la proximity matrix
 4. Ripeti i punti 2. e 3. fin quando non rimane un solo cluster
 
 Ciò che caratterizza questi algoritmi di Clustering è il metodo con cui viene definita la _prossimità_. I due approcci principali sono:
 
-- Graph Based: Si basa su un'astrazione del cluster che viene visto come un Grafo. Per questa tecnicha si hanno varie implementazioni:
+- Graph Based: Si basa su un'astrazione del cluster che viene visto come un Grafo. Per questa tecnica si hanno varie implementazioni:
 
   - **MIN**: calcola la prossimità in funzione della distanza tra i punti più VICINI di cluster differenti (aka single link). Questa tecnica è buona per gestire cluster dalla forma non-ellittica, ma molto sensibile a rumore e punti di outlier.
   - **MAX**: calcola la prossimità in funzione della distanza tra i punti più LONTANI di cluster differenti (aka complete link). Risulta più resistente al rumore ed agli outliers ma può spezzare cluster grandi favorendo forme globulari.
-  - **GROUP AVARAGE**: calcola la media delle distanze tra tutti i punti di due cluster differenti. Questo approccio è un compromesso tra il MIN e il MAX. È meno suscettibile al rumore ma predilige forme globulari.![graph based](./imgs/graphbased.png)
+  - **GROUP AVERAGE**: calcola la media delle distanze tra tutti i punti di due cluster differenti. Questo approccio è un compromesso tra il MIN e il MAX. È meno suscettibile al rumore ma predilige forme globulari.![graph based](./imgs/graphbased.png)
 - Prototype Based: basa il calcolo della prossimità sui centroidi (che rappresentano il cluster).
 
   - **Centroid Method**: basa il calcolo della prossimità sulla distanza tra i centroidi di differenti cluster (forse deve essere minima). Questo metodo presenta un problema che non è presente in nessun altro metodo Hierarchical: l'**inversione**, in cui due cluster che vengono fusi possono essere più simili di un paio di cluster fusi in precedenza.
-  - **Ward's Method**: aggiunge al calcolo, oltre all'uso dei centroidi, il concetto di SSE che deve risultare minia quando vengono fusi due cluster. Questa tecnica è meno susciettibile al rumore, ma favoreggia cluster di forma globulare. Utilizza la stessa objective function del K-means ('è l'equivalente gerarchico del K-means').
+  - **Ward's Method**: aggiunge al calcolo, oltre all'uso dei centroidi, il concetto di SSE che deve risultare minia quando vengono fusi due cluster. Questa tecnica è meno suscettibile al rumore, ma favoreggia cluster di forma globulare. Utilizza la stessa objective function del K-means ('è l'equivalente gerarchico del K-means').
 
 ##### Complessità
 
@@ -1087,29 +1087,29 @@ La complessità in spazio è: `O(m^2)`.
 
 La complessità in tempo è: `O(m^3)`.
 
-Va notato che questa può essere ridotta se si utilizzano liste ordinate o heape per teneree traccia dei dati. Questo riduce la complessità in tempo a: `O(m^2 logm)`.
+Va notato che questa può essere ridotta se si utilizzano liste ordinate o heap per tenere traccia dei dati. Questo riduce la complessità in tempo a: `O(m^2 log m)`.
 
 Questi costi molto elevati rendono la scalabilità di questi tipi di clustering molto difficile.
 
 ##### Forza e Punti Deboli
 
-1. **Mancanza di una objective function globale**: le tecniche appena viste decidono localmente il processo di ottimizzazione. Questo è uno svantaggio perchè non ci sarà un processo di ottimizzazione globale, però semplifica anche la risoluzioen del problema. Per via della sua complessità in spazio e in tempo molti dataset non sono risolvibili. Questo problema dell'ottimizzaizone dervia dal fatto che una votla effettuata l'operazioen di merge essa non potrà essere annullata. Una possibile soluzione a questo problema di non reversibilità è quello di provare a spostare i rami dell'albero generato per provare a migliorare la global objective function; un altro metodo ancora è quello di utilizzare un algoritmo come K-means per generare molti piccoli cluster che verranno utilizzati come punto di partenza dall'algoritmo di hierarchcal clustering.
-2. Sono suciettibili al rumore
-3. Presentando difficolta nel gestire cluster di diverse dimensioni e di forma non globlulare
+1. **Mancanza di una objective function globale**: le tecniche appena viste decidono localmente il processo di ottimizzazione. Questo è uno svantaggio perché non ci sarà un processo di ottimizzazione globale, però semplifica anche la rivoluzione del problema. Per via della sua complessità in spazio e in tempo molti dataset non sono risolvibili. Questo problema dell'ottimizzazione deriva dal fatto che una volta effettuata l'operazione di merge essa non potrà essere annullata. Una possibile soluzione a questo problema di non reversibilità è quello di provare a spostare i rami dell'albero generato per provare a migliorare la global objective function; un altro metodo ancora è quello di utilizzare un algoritmo come K-means per generare molti piccoli cluster che verranno utilizzati come punto di partenza dall'algoritmo di hierarchal clustering.
+2. Sono suscettibili al rumore
+3. Presentando difficoltà nel gestire cluster di diverse dimensioni e di forma non globulare
 4. Dividono cluster grandi in cluster più piccoli
 
 #### DBScan
 
-DBScan è un algoritmo di Clustering che si basa sul concetto di densità: per uno specifico punto è la quantià di punti vicini ad esso compresi in un dato raggio (definito dall'utente) _EPS_ (questo include anche il punto stesso !). Questo metodo è abbastanza semplice da implementare ma la scelta del raggio risulta critica, per un EPS abbastanza grande possiamo avere, come densità di un punto, `m` (il numero dei punti nel nostro dataset) e per un raggio sufficientemente piccolo riusciamo a trovare come densità 1. L'algoritmo DBScan cerca di trovare un modo per la scelta di un EPS adeguato.
+DBScan è un algoritmo di Clustering che si basa sul concetto di densità: per uno specifico punto è la quantità di punti vicini ad esso compresi in un dato raggio (definito dall'utente) _EPS_ (questo include anche il punto stesso !). Questo metodo è abbastanza semplice da implementare ma la scelta del raggio risulta critica, per un EPS abbastanza grande possiamo avere, come densità di un punto, `m` (il numero dei punti nel nostro dataset) e per un raggio sufficientemente piccolo riusciamo a trovare come densità 1. L'algoritmo DBScan cerca di trovare un modo per la scelta di un EPS adeguato.
 
 In base al punto in cui si trovano, i data point di un Clustering di tipo Center-Based possono essere classificati nel seguente modo:
 
-- **Core Point**: punti interni ad un density based cluster sono quei punti che ricadono all'interno di un ragio specifico (_EPS_) e superano una certa condizione _MinPts_. Sia EPS che MinPTS sono scelti dall'utente.
-- **Border Point**: sono quei puti che non sono Core Point, ma che ricadono all'interno di un vicinato di un Core Point. Un Border Point può appartenere a diversi vicinati di Core Point diversi
-- **Noice Point**: sono quei punti che non sono nè Core Point nè Border Point.
+- **Core Point**: punti interni ad un density based cluster sono quei punti che ricadono all'interno di un raggio specifico (_EPS_) e superano una certa condizione _MinPts_. Sia EPS che MinPTS sono scelti dall'utente.
+- **Border Point**: sono quei punti che non sono Core Point, ma che ricadono all'interno di un vicinato di un Core Point. Un Border Point può appartenere a diversi vicinati di Core Point diversi
+- **Noise Point**: sono quei punti che non sono nè Core Point nè Border Point.
 
 
-Nella figura sottostante possiamo vedere che, dato un EPS e MinPts <= 7, il Punto `A` risulta essere un Core Point (ha 7 punti nel suo vicinato e quindi supera la condizione di MinPts); il punto `B` non soddisfa la condizione MinPts ma ricade all'interno di un vicinato (quello del punto A) quindi è un Border Point; `C` non è nè un core poitn nè un border point quindi è un Noise Point.
+Nella figura sottostante possiamo vedere che, dato un EPS e MinPts <= 7, il Punto `A` risulta essere un Core Point (ha 7 punti nel suo vicinato e quindi supera la condizione di MinPts); il punto `B` non soddisfa la condizione MinPts ma ricade all'interno di un vicinato (quello del punto A) quindi è un Border Point; `C` non è nè un core point nè un border point quindi è un Noise Point.
 
 ![raggio](./imgs/raggio.png)
 
@@ -1123,29 +1123,29 @@ Nella figura sottostante possiamo vedere che, dato un EPS e MinPts <= 7, il Punt
 4. Crea un cluster con ogni gruppo di Core Point creato allo step 3.
 5. Assegna ogni border point ad uno dei suoi core point associati 
 
-Il problema principale di questo algoritmo è quello di selezionare un valore appropriato per _EPS_ e _MinPts_. L'approccio base per trovarli è quello di guardare come varia la distanza tra i punti ed i loro k-esimi vicini più vicini (k-dist). Per punti che appartentgono ad un cluster, k-dist sarà piccola (alta densità); mentre per Noice Point sarà grande (bassa densità). È dunque possibile stimare i parametri calcolando la k-dist per ogni punto del dataset, ordinarli in ordine crescente e vedere il punto in cui c'è la variazione più netta (il momento di transizione tra elementi appartenenti ad un cluster e rumore). Questo valore verrà utilizzato com EPS ed il valore k (utilizzato nella k-dist) verrà assegnato a MinPts. Il varole EPS dipende dalla scleta di `k`, ma generalmente non cambia poi così tanto al variare di k. Se `k` viene scelto troppo piccolo, allora anche alcuni Noice Point verranno inseriti nei cluster; invece con `k` troppo grande, cluster di piccole dimensioni verranno etichettati come rumore. DBScan originale utilizza `k = 4` dato che funziona generalmente bene per la maggior parte dei dataset di 2 dimensioni.
+Il problema principale di questo algoritmo è quello di selezionare un valore appropriato per _EPS_ e _MinPts_. L'approccio base per trovarli è quello di guardare come varia la distanza tra i punti ed i loro k-esimi vicini più vicini (k-dist). Per punti che appartengono ad un cluster, k-dist sarà piccola (alta densità); mentre per Noise Point sarà grande (bassa densità). È dunque possibile stimare i parametri calcolando la k-dist per ogni punto del dataset, ordinarli in ordine crescente e vedere il punto in cui c'è la variazione più netta (il momento di transizione tra elementi appartenenti ad un cluster e rumore). Questo valore verrà utilizzato com EPS ed il valore k (utilizzato nella k-dist) verrà assegnato a MinPts. Il valore EPS dipende dalla scelta di `k`, ma generalmente non cambia poi così tanto al variare di k. Se `k` viene scelto troppo piccolo, allora anche alcuni Noise Point verranno inseriti nei cluster; invece con `k` troppo grande, cluster di piccole dimensioni verranno etichettati come rumore. DBScan originale utilizza `k = 4` dato che funziona generalmente bene per la maggior parte dei dataset di 2 dimensioni.
 
 ![noice](./imgs/noice.png)
 
 ##### Complessità in Spazio e Tempo
 
-La complessità in spazio di questo algoritmo è `O(m)` in quanto deve salvare in memoria solo poche informazioni (l'etichetta di ogni punto: Core, Noise, Border ed il cluster lable).
+La complessità in spazio di questo algoritmo è `O(m)` in quanto deve salvare in memoria solo poche informazioni (l'etichetta di ogni punto: Core, Noise, Border ed il cluster label).
 
-La complessità in tempo è, nel caso peggiore `O(m^2)`, ma tramite l'utilizzo di strutture dati come i kd-tree (solo nel caso di dataset con spazio a bassa dimensione), riesce a scendere fino a `O(m logm)`.
+La complessità in tempo è, nel caso peggiore `O(m^2)`, ma tramite l'utilizzo di strutture dati come i kd-tree (solo nel caso di dataset con spazio a bassa dimensione), riesce a scendere fino a `O(m log m)`.
 
 ##### Vantaggi e Svantaggi
 
-- Può trovare cluster con forme che non potrebero essere trovate da nessun altro algoritmo
-- Se la densità dei punti del dataset sono estremamente variabili non è garatntito il rirovamteno di una soluzioen corretta
+- Può trovare cluster con forme che non potrebbero essere trovate da nessun altro algoritmo
+- Se la densità dei punti del dataset sono estremamente variabili non è garantito il ritrovamento di una soluzione corretta
 - È resistente al rumore
 - Poco applicabile quando si lavora con alte dimensionalità
-- Se non è possibile calcolare i vicini più vicini utilizzando struttre dati particolari, l'algoritmo può risultare costoso (generalmente succede in dataset ad alte dimensioni)
+- Se non è possibile calcolare i vicini più vicini utilizzando strutture dati particolari, l'algoritmo può risultare costoso (generalmente succede in dataset ad alte dimensioni)
 
 ![dbscan](./imgs/dbscan.png)
 
 ### Cluster Evaluation
 
-A volte può essere utile valutare i risultati forniti da un algoritmo di Clustering allo stesso modo in cui viene valutato un modello di classificazione. Spesso non è necessario e non è facile da applicare dato che ci sono vari algoritmi con funzonamenti diversi e per ogni caso servirebbere metodi e mteriche diverse. Gli algoritmi di clustering trovano sempre cluster anche se effettivamente non esistono cluster naturali nei dati, quindi risulta utile controllare se quiei cluster sono sensati (in dati con alte dimensioni non è facile individuare visivamente questa problematica).
+A volte può essere utile valutare i risultati forniti da un algoritmo di Clustering allo stesso modo in cui viene valutato un modello di classificazione. Spesso non è necessario e non è facile da applicare dato che ci sono vari algoritmi con funzionamenti diversi e per ogni caso servirebbero metodi e metriche diverse. Gli algoritmi di clustering trovano sempre cluster anche se effettivamente non esistono cluster naturali nei dati, quindi risulta utile controllare se quei cluster sono sensati (in dati con alte dimensioni non è facile individuare visivamente questa problematica).
 
 ![validation](./imgs/clustervalidation.png)
 
@@ -1157,20 +1157,20 @@ Gli indici di valutazione utilizzati per valutare vari aspetti dei cluster sono 
 - **Supervised**: misura quanto le strutture generate da un algoritmo di clustering, corrispondono ad una qualche struttura esterna (un esempio è l'Entropia). Spesso queste misure sono chiamate **External Indices**.
 - **Relative**: misura che serve per confrontare diversi clustering o cluster tra di loro. Può essere sia Supervised che Unsupervised. Un esempio può essere l'SSE per l'unsupervised e l'entropy per la supervised.
 
-#### Unsupervised Choesion and Separation
+#### Unsupervised Cohesion and Separation
 
 La validità di un cluster per un insieme di K cluster, in generale può essere espressa come la somma pesata della validità dei singoli cluster:
 
 ![coesione](./imgs/coesione.png)
 
-La funzione `validity` può essere sia Coesione, Separazione o una combinazione delle due. I pesi `w` dipendono da caratteristiche del cluster: potrebbero essere tutti 1, la radice quadrata della coesione, la dimenisone del cluster, ecc.
-Se, per la validity function si sceglie la coesione, valori grandi sono meglio; se viene scelta la separaziome, valori più piccoli sono meglio.
+La funzione `validity` può essere sia Coesione, Separazione o una combinazione delle due. I pesi `w` dipendono da caratteristiche del cluster: potrebbero essere tutti 1, la radice quadrata della coesione, la dimensione del cluster, ecc.
+Se, per la validity function si sceglie la coesione, valori grandi sono meglio; se viene scelta la separazione, valori più piccoli sono meglio.
 
 ##### Graph Based
 
 Per i graph based cluster, la Coesione e la Separazione vengono espressi nel seguente modo:
 
-- Coesion: è la somma dei pesi dei cammini nel proximity graph che connette punti nello stesso cluster ![formula](./imgs/coesione_formula.png)
+- Cohesion: è la somma dei pesi dei cammini nel proximity graph che connette punti nello stesso cluster ![formula](./imgs/coesione_formula.png)
 - Separation: è la somma dei pesi dei cammini dai punti di un cluster ai punti di un altro cluster. ![separazione](./imgs/separazione.png)
 
 ![separation coesion](./imgs/separazioncoesion.png)
@@ -1179,12 +1179,12 @@ Per i graph based cluster, la Coesione e la Separazione vengono espressi nel seg
 
 Per i cluster prototype based la coesione e la separazione  si esprimono nel seguente modo:
 
-- Coesion: è definita come la somma delle prossimità tra il prototipo di un cluster (centroide/medoide) ed i suoi punti. ![proto coesione](./imgs/coesioneproto.png)
+- Cohesion: è definita come la somma delle prossimità tra il prototipo di un cluster (centroide/medoide) ed i suoi punti. ![proto coesione](./imgs/coesioneproto.png)
 - Separation: è data dalla misura della prossimità di prototipi di due cluster differenti. ![separation proto](./imgs/separation_proto.png)
 
 ![proto seperation coesion](./imgs/protoseparationcoesion.png)
 
-##### Overoll
+##### Overall
 
 Questi due indici possono essere misurati in vari modi in base a come viene calcolato il peso. Questi sono alcuni esempi:
 
@@ -1192,25 +1192,25 @@ Questi due indici possono essere misurati in vari modi in base a come viene calc
 
 ##### Relazione tra Coesione e Separation
 
-La Coesione e la Seprarazione sono, in alcuni casi, fortemetne correlate tra di loro, infatti è possibile dimostrare (noi non lo faremo) che la somma tra SSE Totale e SSB Totale è costante, ergo massimizzare l'SSB (separazione) equivale a minimizzare l'SSE (Coesione).
+La Coesione e la Separazione sono, in alcuni casi, fortemente correlate tra di loro, infatti è possibile dimostrare (noi non lo faremo) che la somma tra SSE Totale e SSB Totale è costante, ergo massimizzare l'SSB (separazione) equivale a minimizzare l'SSE (Coesione).
 
-##### Silouett Coefficient
+##### Silhouette Coefficient
 
 Metodo per la valutazione di un singolo Cluster che combina i concetti di Coesione e Separazione. Si calcola come segue:
 
 1. Per l'i-esimo oggetto (punto) se ne calcola la distanza media tra tutti gli altri oggetti dello stesso cluster a cui appartiene. Il risultato di questo step viene chiamato `a_i`
-2. Per l'i-esimo oggetto e per ogni cluster non contenente l'oggetto calcolare la distanza media tra tutti gli oggetti in uno dei questi cluster (quelli che non contengono l'oggetto). Dopodiche si prende il valore minore tra queste distanze che chiameremo `b_i`.
-3. Per l'i-esimo oggetto il Silouette Coefficient è `s_i = (b_i - a_i) / max(a_i, b_i)`
+2. Per l'i-esimo oggetto e per ogni cluster non contenente l'oggetto calcolare la distanza media tra tutti gli oggetti in uno dei questi cluster (quelli che non contengono l'oggetto). Dopodiché si prende il valore minore tra queste distanze che chiameremo `b_i`.
+3. Per l'i-esimo oggetto il Silhouette Coefficient è `s_i = (b_i - a_i) / max(a_i, b_i)`
 
 ![silouette](./imgs/silouette.png)
 
-`s_i` può variare tra `-1` e `1`. Il valore `1` è il migliore (si ottiene solo quando `a_i = 0`) mentre `-1` è un valore brutto perchè, in questo caso, la distanza `a_i` risulta più grade di `b_i`, vuol dire che il punto analizzato apparterrebbe più ad un cluster che non lo contiene piuttosto che a quello che lo contiene.
+`s_i` può variare tra `-1` e `1`. Il valore `1` è il migliore (si ottiene solo quando `a_i = 0`) mentre `-1` è un valore brutto perché, in questo caso, la distanza `a_i` risulta più grade di `b_i`, vuol dire che il punto analizzato apparterrebbe più ad un cluster che non lo contiene piuttosto che a quello che lo contiene.
 
 Questo coefficiente può essere utilizzato per misurare la bontà di un clustering calcolandolo su tutti i punti e poi facendo una media.
 
 ##### Unsupervised Similarity Matrix
 
-Per giudicare la bontà di un clustering possiamo anche utilizzare un approccio grafico che si basa sulle matrici. È possibile farlo misurando la correlazione tra la similarity matrix e una similarity matrix ideale calcolata basandosi sui lable del dataset, se queste due matrici si assomigliano possiamo dire che il clustering è buono. È possibile espriemere un giudizio sulla bontà di un clustering anche ad occhio nudo osservando la similarity matrix: una matrice ``n x n`` dove `n` è il numero di punti del dataset, la i-esiam cella conterrà il valore della similarità (varia tra 0 e 1) tra i due punti che la identificano. Le righe e colonne di questa matrice verranno poi ordinate in modo tale da avere punti appartenenti allo stesso cluster tutti vicini. Nella matrice ideale, tutti i punti che appartengono allo stesso cluster avranno 1, mentri gli altri 0 e si formeranno blocchi ben definiti sulla diagonale che rapresenteranno i cluster trovati.
+Per giudicare la bontà di un clustering possiamo anche utilizzare un approccio grafico che si basa sulle matrici. È possibile farlo misurando la correlazione tra la similarity matrix e una similarity matrix ideale calcolata basandosi sui label del dataset, se queste due matrici si assomigliano possiamo dire che il clustering è buono. È possibile esprimere un giudizio sulla bontà di un clustering anche ad occhio nudo osservando la similarity matrix: una matrice ``n x n`` dove `n` è il numero di punti del dataset, la i-esima cella conterrà il valore della similarità (varia tra 0 e 1) tra i due punti che la identificano. Le righe e colonne di questa matrice verranno poi ordinate in modo tale da avere punti appartenenti allo stesso cluster tutti vicini. Nella matrice ideale, tutti i punti che appartengono allo stesso cluster avranno 1, mentre gli altri 0 e si formeranno blocchi ben definiti sulla diagonale che rappresenteranno i cluster trovati.
 
 
 ![sim matr](./imgs/similaritymatrix.png)
@@ -1221,14 +1221,14 @@ _Esempio di similarity matrix su dati random (no real clusters)_
 
 ##### Giusto numero di cluster
 
-Per decidere qual è il giusto numero di cluster in cui dividere un dataset, bisogna analizzarre le cuve formate dagli indici di SSE o di Silouette Coefficient:
+Per decidere qual è il giusto numero di cluster in cui dividere un dataset, bisogna analizzare le curve formate dagli indici di SSE o di Silhouette Coefficient:
 
-- per SSE si guarde dove viene creato un 'gomito'
-- per Silouette di guarda dove compare un picco
+- per SSE si guarda dove viene creato un 'gomito'
+- per Silhouette si guarda dove compare un picco
 
 ![bello bello](./imgs/bellobello.png)
 
-#### Supervised Measuers
+#### Supervised Measures
 
 Quando si analizzano cluster con approccio supervised possiamo identificare due tecniche differenti: 
 
@@ -1251,14 +1251,14 @@ La precedente immagine è ottenuta campionando un dataset con cui è stato gener
 
 ## Anomaly Detection
 
-Spesso in un dataset sono presenti dati anomali che però possono avere un'importanza significativa, sono chiamati _outliers_. Può essere di interesse la loro individuazione e la branca che sudia come individuarle è chiamata Anomaly Detection. Storicamente è stata studiata per rimuovere dati anomali che potevano interferire con l'allenamento di un dato modello, esecuzione di algoritmi di clustering, ecc. Spesso questa è parte del preprocessing.
+Spesso in un dataset sono presenti dati anomali che però possono avere un'importanza significativa, sono chiamati _outliers_. Può essere di interesse la loro individuazione e la branca che studia come individuarle è chiamata Anomaly Detection. Storicamente è stata studiata per rimuovere dati anomali che potevano interferire con l'allenamento di un dato modello, esecuzione di algoritmi di clustering, ecc. Spesso questa è parte del preprocessing.
 
 Alcuni esempi di applicazione dell'anomaly detection sono:
 
 - Fraud Detection
 - Intrusion Detection
-- Echosistem Disturbancies
-- Public Healt
+- Ecosystem Disturbances
+- Public Health
 - Medicine 🧑‍🦼
 
 ### Cause delle Anomalie
@@ -1267,47 +1267,47 @@ Un outlier (anomalia) è definito come segue (Definizione di Douglas Howking (Ha
 
 Le anomalie possono essere generate da differenti cause. Di seguito illustreremo le principali:
 
-- **Data from different classes**: un oggeto può essere diverso dagli altri oggetti, e quindi anomalo, poichè appartiene ad una classe di diverso tipo. Un esempio è una persona che usa la carta di credito in modo fraudolento, apparterrà ad una classe differente rispetto ad una che ne fa un uso normale. Questa classe di anomalie è il focus dell'anomaly detection nel data mining.
-- **Natural Varation**: spesso i dataset assumono distribuzioni che si possono ricondurre a distribuzioni statistiche ben conosciute (come la normale) e in queste distribuzioni la maggior parte die dati è concetrata intorno alla media, dunque dati anomali saranno quelli che una o più attributi assumono valori che si discostano, anceh di molto, dalla media (dal centro). Un esempio è l'altezza in cui una persona molto alta farà sempre parte della stessa classe delle altre, ma avrà il valore dell'altezza che varia di molto rispetto alla media generale.
-- **Data Mesurament and Collection Errors**: Spesso quando vengono raccolti i dati si possono generare errori causati o dallo strumento con cui si raccolgono o dall'errore umano. Si andranno dunque a generare delle anomalie che non sono desiderabili, dato che vanno a peggiorare la qualità del dataset. Dunque queste anomalie vanno eliminate e sono il focus del preprocessing e nello specifico del _data cleaning_.
+- **Data from different classes**: un oggetto può essere diverso dagli altri oggetti, e quindi anomalo, poiché appartiene ad una classe di diverso tipo. Un esempio è una persona che usa la carta di credito in modo fraudolento, apparterrà ad una classe differente rispetto ad una che ne fa un uso normale. Questa classe di anomalie è il focus dell'anomaly detection nel data mining.
+- **Natural Variation**: spesso i dataset assumono distribuzioni che si possono ricondurre a distribuzioni statistiche ben conosciute (come la normale) e in queste distribuzioni la maggior parte die dati è concentrata intorno alla media, dunque dati anomali saranno quelli che una o più attributi assumono valori che si discostano, anche di molto, dalla media (dal centro). Un esempio è l'altezza in cui una persona molto alta farà sempre parte della stessa classe delle altre, ma avrà il valore dell'altezza che varia di molto rispetto alla media generale.
+- **Data Measurement and Collection Errors**: Spesso quando vengono raccolti i dati si possono generare errori causati o dallo strumento con cui si raccolgono o dall'errore umano. Si andranno dunque a generare delle anomalie che non sono desiderabili, dato che vanno a peggiorare la qualità del dataset. Dunque queste anomalie vanno eliminate e sono il focus del preprocessing e nello specifico del _data cleaning_.
 
 
 ### Differenti Approcci
 
 Una distinzione ad alto livello tra gli approcci per la anomaly detection può essere la seguente:
 
-- **Model Based**: prima viene generato un modello partendo dai dati e vengono considerati anomali tutti i dati che non vengono riconosciuti dal modello (do not fit the model). Un esempio può essere la distribuzione creata stimando statisticamente i parametri. Questa tecnica può essere fatta sia con modelli di classificazione che regressione. Per la regressione un oggetto è un'anomalia se il suo valore è molto lontano da quello predetto. Per la classificazione si possono considerare 2 classi, una per i dati anomali ed una per quelli normali e procedere con la classificazione (servono sempre le lable perchè senno non possiamo creare un modello).
-- **Proximity Based**: vengono considerati anomali gli oggetti che distano maggiormente dalla maggioranza degli altri oggetti. Questo tipo di tecnica permette una visualizzazione grafica semplice delle anomalie (quando i dati sono 2 o 3 dimensionali) utilizzano degli scatter plot e individuanto i punti maggiormente separati dagli altri.
-- **Density Based**: oggetti che si trovano in regioni a bassa densità sono relativamente distanti dai loro vicini e dunque possono essere considerati anomali. Un'accortezza in più è quella di classificare come outlier i punti solo se hanno densità locale significativamente minore della maggior parte dei propri vicini (questo approccio evita di classificare erroneamente aree di minor densità del datase che però presentano valori validi).
+- **Model Based**: prima viene generato un modello partendo dai dati e vengono considerati anomali tutti i dati che non vengono riconosciuti dal modello (do not fit the model). Un esempio può essere la distribuzione creata stimando statisticamente i parametri. Questa tecnica può essere fatta sia con modelli di classificazione che regressione. Per la regressione un oggetto è un'anomalia se il suo valore è molto lontano da quello predetto. Per la classificazione si possono considerare 2 classi, una per i dati anomali ed una per quelli normali e procedere con la classificazione (servono sempre le label perché senno non possiamo creare un modello).
+- **Proximity Based**: vengono considerati anomali gli oggetti che distano maggiormente dalla maggioranza degli altri oggetti. Questo tipo di tecnica permette una visualizzazione grafica semplice delle anomalie (quando i dati sono 2 o 3 dimensionali) utilizzano degli scatter plot e individuando i punti maggiormente separati dagli altri.
+- **Density Based**: oggetti che si trovano in regioni a bassa densità sono relativamente distanti dai loro vicini e dunque possono essere considerati anomali. Un'accortezza in più è quella di classificare come outlier i punti solo se hanno densità locale significativamente minore della maggior parte dei propri vicini (questo approccio evita di classificare erroneamente aree di minor densità del dataset che però presentano valori validi).
 
-Questi approcci, in base alla conoscienza che si ha dei dati, possiamo dividerli in 3 categorie:
+Questi approcci, in base alla conoscenza che si ha dei dati, possiamo dividerli in 3 categorie:
 
-- **Supervised**: si ha un dataset con oggetti normali e outlier che hanno entrambi lable che li identificano. Sarà dunque possibile allenare un modello in gradi di identificare le anomalie.
-- **Unsupervised**: non c'è disponibilità di class lable e dunque l'obbiettivo sarà quello di assegnare un punteggio ad ogni valore che andrà a riflettere quanto esso viene considerato anomalo. Tuttavia se le anomalie sono simili tra di loro, andranno a fare abbasare questo valore e dunque a farle riconoscere come oggetti normali.
-- **Semisupervised**: i lable sono presenti solo per gli oggetti normali, dunque l'obiettivo sarà analogo all'unsupervised però si avrà una maggiore resistenza alle anomalie simili.
+- **Supervised**: si ha un dataset con oggetti normali e outlier che hanno entrambi label che li identificano. Sarà dunque possibile allenare un modello in gradi di identificare le anomalie.
+- **Unsupervised**: non c'è disponibilità di class label e dunque l'obbiettivo sarà quello di assegnare un punteggio ad ogni valore che andrà a riflettere quanto esso viene considerato anomalo. Tuttavia se le anomalie sono simili tra di loro, andranno a fare abbassare questo valore e dunque a farle riconoscere come oggetti normali.
+- **Semisupervised**: i label sono presenti solo per gli oggetti normali, dunque l'obiettivo sarà analogo all'unsupervised però si avrà una maggiore resistenza alle anomalie simili.
 
 #### Approccio Statistico
 
-Un esempio di _model based_ approach è lo Statistical Approac. Tale approccio crea un modello statistico stimandone i parametri dal dataset di partenza e gli outlier vengono identificati in base alla loro probabilità dato il modello scelto.
+Un esempio di _model based_ approach è lo Statistical Approach. Tale approccio crea un modello statistico stimandone i parametri dal dataset di partenza e gli outlier vengono identificati in base alla loro probabilità dato il modello scelto.
 
-**Definizione porbabilistica di outlier**: un outlier è un oggetto che ha una bassa probabilità rispetto alla probability distribution utilizzata per modellare i dati.
+**Definizione probabilistica di outlier**: un outlier è un oggetto che ha una bassa probabilità rispetto alla probability distribution utilizzata per modellare i dati.
 
 ##### Problematiche
 
 - _Identificazione della giusta distribuzione_: spesso non è facile identificare la distribuzione che meglio rappresenta i dati e questo può portare a delle classificazioni errate.
 - _Numero di attributi usato_: le anomalie si possono presentare su uno o più degli attributi dei dati di interesse, dunque se un dato attributo non è anomalo non significa che quel dato non lo sia. È importante scegliere il giusto numero di attributi da analizzare a seconda dei dati che si hanno.
-- _Mischiaticcio di distribuzioni_: i dati possono essere modellati da una misticanza di distribuzioni, benchè più potente risulta essere più complicata sia da individuare che da utilizzare.
+- _Mischiaticcio di distribuzioni_: i dati possono essere modellati da una misticanza di distribuzioni, benché più potente risulta essere più complicata sia da individuare che da utilizzare.
 
 
 ##### Distribuzione Normale Univariata
 
 _Dati univariati = dati osservati in un solo attributo._
 
-Una delle distribuzioni più versatili è quella Normale che è in funzioni dei parametri `mu` e `sigma` (`N(mu, sigma)`). Questa può essere utilizzta per lo scopo di anomaly detection nel seguente modo:
+Una delle distribuzioni più versatili è quella Normale che è in funzioni dei parametri `mu` e `sigma` (`N(mu, sigma)`). Questa può essere utilizzata per lo scopo di anomaly detection nel seguente modo:
 
 **Definizione di outlier per un singolo attributo N(0,1)**: un oggetto con attribute value `x` dalla distribuzione gaussiana `N(0,1)` è un outlier se `|x| >= c`, dove `c` è una costante scelta in maniera tale che `prob(|x|) >= c = a`.
 
-`a` è una costante che va scelta per far funzionare la definizione rappresenta il grado di rarità dell'oggetto `x` (quanto è improbabile che appartenga alla distribuzione). Molto probabilmente non avremmo mai una ditribuzione `N(0,1)` e dunque dovremmo trovare un modo per trasformare l'attributo `x` in un nuovo attributo `z` che abbia la distribuzione `N(0,1)`. Per farlo dobbiamo stimatimare i parametri `mu` e `sigma` tramite l'utilizzo della media campionaria e la deviazione standard campionaria. Questo approccio funziona bene quando abbiamo molti dati. Molto spesso però la distribuzione stimata non è proprio `N(0,1)` e  per risolver questo problma c'è il metodo di Grubb.
+`a` è una costante che va scelta per far funzionare la definizione rappresenta il grado di rarità dell'oggetto `x` (quanto è improbabile che appartenga alla distribuzione). Molto probabilmente non avremmo mai una distribuzione `N(0,1)` e dunque dovremmo trovare un modo per trasformare l'attributo `x` in un nuovo attributo `z` che abbia la distribuzione `N(0,1)`. Per farlo dobbiamo stimare i parametri `mu` e `sigma` tramite l'utilizzo della media campionaria e la deviazione standard campionaria. Questo approccio funziona bene quando abbiamo molti dati. Molto spesso però la distribuzione stimata non è proprio `N(0,1)` e  per risolver questo problema c'è il metodo di Grubb.
 
 ##### Distribuzione Normale Multivariata
 
@@ -1318,34 +1318,34 @@ Possiamo vedere il nostro dataset come mix di distribuzioni di probabilità:
 
 Queste distribuzioni vanno scelte e di solito per gli outlier si utilizza una distribuzione normale. 
 
-Un metodo basato su questo concetto e quello della Verosimiglianza (likelihood), quanto una ditribuzione riesce ad approssimare un dataset, per effettuare Anomaly Detection è il seguente:
+Un metodo basato su questo concetto e quello della Verosimiglianza (likelihood), quanto una distribuzione riesce ad approssimare un dataset, per effettuare Anomaly Detection è il seguente:
 
 1. Assumere che tutti i punti appartengono a M e A è vuoto
-2. Calcolare la versomogiliazna del dataset alla distribuzioen scelta
-3. Provare a spostare un punto da M ad A e vedere se la verosomiglianza aumenta: se lo fa quel punto viene messo permanentemente in A (quindi un outlier)
+2. Calcolare la verosimiglianza del dataset alla distribuzione scelta
+3. Provare a spostare un punto da M ad A e vedere se la verosimiglianza aumenta: se lo fa quel punto viene messo permanentemente in A (quindi un outlier)
 4. Ripeter per tutti i punti del dataset
 
 ##### Pro e Contro
 
-- Si basano sulla teoria di base della statistica (buono perchè sai che questa teoria funziona)
-- Quando c'è abbastanza conoscienza dei dati e dei tipi di test da applicare, ha un'alta efficienza
+- Si basano sulla teoria di base della statistica (buono perché sai che questa teoria funziona)
+- Quando c'è abbastanza conoscenza dei dati e dei tipi di test da applicare, ha un'alta efficienza
 - Ci sono un'ampia varietà di test per attributi singoli, meno per opzioni per quelli multivariati
 - Scarse performance per dati multidimensionali
 
 #### Approccio Proximity Based
 
-È un approccio più facile ed intuitivo di quello statistico dato che è molto più facile determinare una misura di prossimità significativa risetto al determinare una distribuzioen statistica di un dato dataset. Il metodo più semplice per valutare la distanza è quello di k-nearest neighnor, in cui ad ogni punto viene assegnato un valore che riflette quanto esso sia un outlier oppure no. Questo valore è 0 per punti normali e infinito per punti che sono sicuramente outlier.
+È un approccio più facile ed intuitivo di quello statistico dato che è molto più facile determinare una misura di prossimità significativa rispetto al determinare una distribuzione statistica di un dato dataset. Il metodo più semplice per valutare la distanza è quello di k-nearest neighbor, in cui ad ogni punto viene assegnato un valore che riflette quanto esso sia un outlier oppure no. Questo valore è 0 per punti normali e infinito per punti che sono sicuramente outlier.
 
 **Definizione di outlier**: l'outlier score di un oggetto è dato dalla distanza dal suo knn.
 
-È importante scegleire correttamente il numero `k` poichè se si sceglie `k` grande quasi quanto la dimensione del dataset allora tutti i valori di quel dataset verranno considerati outlier, mentre se è troppo piccolo alcuni outlier verranno considerati normali. Per ridurre il problema della scelta di k è possibile utilizzare al posto della distanza dal suo knn la media tra le distanze dei primi knn.
+È importante scegliere correttamente il numero `k` poiché se si sceglie `k` grande quasi quanto la dimensione del dataset allora tutti i valori di quel dataset verranno considerati outlier, mentre se è troppo piccolo alcuni outlier verranno considerati normali. Per ridurre il problema della scelta di k è possibile utilizzare al posto della distanza dal suo knn la media tra le distanze dei primi knn.
 
 ##### Pro e Contro
 
 - Semplice
 - Costoso e poco applicabile per dataset grandi (`O(m^2)` in tempo)
 - Sensibile alla scelta dei parametri
-- Non è in grado di gestire dataset con regioni a densità varaibili (utilizza threshold globali che non tengono conto di variazioni di densità)
+- Non è in grado di gestire dataset con regioni a densità variabili (utilizza threshold globali che non tengono conto di variazioni di densità)
 
 ![outlier](./imgs/outlier.png)
 
@@ -1353,17 +1353,17 @@ In questo esempio possiamo vedere come scegliendo `k` troppo grande i pochi punt
 
 #### Approccio Density Based
 
-Gli outlier per un approccio density based sono definiti nel seguente modo: l'outlier score di un oggetto è l'inverso della densità di quell'oggetto, dunque questo approccio basa il suo funzionamento sulla densità di una data area inorno ad un punto. È facilemnte ituibile che è strettamente correlato all'approccio Proximity Based poichè la densità è un concetto che deriva dalla prossimità.
+Gli outlier per un approccio density based sono definiti nel seguente modo: l'outlier score di un oggetto è l'inverso della densità di quell'oggetto, dunque questo approccio basa il suo funzionamento sulla densità di una data area intorno ad un punto. È facilmente intuibile che è strettamente correlato all'approccio Proximity Based poiché la densità è un concetto che deriva dalla prossimità.
 
-La desnsità è definita dalla seguente formula: ![densità](./imgs/densita.png) dove `N(x,k)` è un insieme che continene i k vicini più vicini di x; `|N(x,k)|` è la dimesnione dell'insieme; `y` è il vicino più vicino.
+La densità è definita dalla seguente formula: ![densità](./imgs/densita.png) dove `N(x,k)` è un insieme che contiene i k vicini più vicini di x; `|N(x,k)|` è la dimensione dell'insieme; `y` è il vicino più vicino.
 
-Un altra definizione di densità può essere la seguente: la densità attorno ad un oggetto equivale al numero di oggetti che si trovano all'interno di una distanza specificata `d` dall'oggetto (come il knn). Il parametro `d` deve essere scelto con cura perchè valori troppo grandi falliranno nell''identificare gli outlier e valori troppo piccoli identificheranno punti normali come outliesr.
+Un altra definizione di densità può essere la seguente: la densità attorno ad un oggetto equivale al numero di oggetti che si trovano all'interno di una distanza specificata `d` dall'oggetto (come il knn). Il parametro `d` deve essere scelto con cura perché valori troppo grandi falliranno nell''identificare gli outlier e valori troppo piccoli identificheranno punti normali come outliers.
 
-La stessa problematica del proximity based si presenta anche in questo approccio, non è in grado di gestire dataset con aree di desntià variabile. Ci sta un metodo per aggirare il problema: invece di considerare la desnsità assoluta si considera solo la densità relativa di un dato punto che può essere trovata con la seguente formula: ![densità relatia](./imgs/densitarelativa.png). Un algoritmo che usa questo approccio pernde il nome di Local Outlier Factor (**LOF**) di cui vedremo una versione semplificata:
+La stessa problematica del proximity based si presenta anche in questo approccio, non è in grado di gestire dataset con aree di densità variabile. Ci sta un metodo per aggirare il problema: invece di considerare la densità assoluta si considera solo la densità relativa di un dato punto che può essere trovata con la seguente formula: ![densità relatia](./imgs/densitarelativa.png). Un algoritmo che usa questo approccio prende il nome di Local Outlier Factor (**LOF**) di cui vedremo una versione semplificata:
 
 1. Si itera per ogni `x` appartenente al dataset e si determinano i suoi k vicini più vicini
 2. Si calcola il valore `density(x,k)` per ogni `x` utilizzando i suoi `k` vicini più vicini (punto 1.)
-3. Per ogni `x` assegna un outlier score utilizzando l'equazione sopra riportata (avarage relative density)
+3. Per ogni `x` assegna un outlier score utilizzando l'equazione sopra riportata (average relative density)
 
 ![lof](./imgs/lof.png)
 
@@ -1375,7 +1375,7 @@ La stessa problematica del proximity based si presenta anche in questo approccio
 
 #### Approccio Clustering Based
 
-Poichè gli algoritmi di clustering trovano qunato un dato insieme di punti è correlato con altri punti viene intuitivo capire che questi algoritmi possono essere anche utilizzati per determinare l'inversio: quanto un punto si discosta notevolmente dagli altri. Un approccio per effettuare anomaly detection con clustering è quello di scartare piccoli cluster che sono lontani dagli altri cluster. Per questo approccio è necessario stimare dei trahsold minimi per la dimensione del cluster e la distanza. Un approccio più sistematico è quello di determiare quanto ogni punto appartiene ad un dato cluster (per prototype based la distanza dai centroidi, oppure quanto un punto peggiora la objective function).
+Poiché gli algoritmi di clustering trovano quanto un dato insieme di punti è correlato con altri punti viene intuitivo capire che questi algoritmi possono essere anche utilizzati per determinare l'inverso: quanto un punto si discosta notevolmente dagli altri. Un approccio per effettuare anomaly detection con clustering è quello di scartare piccoli cluster che sono lontani dagli altri cluster. Per questo approccio è necessario stimare dei threshold minimi per la dimensione del cluster e la distanza. Un approccio più sistematico è quello di determinare quanto ogni punto appartiene ad un dato cluster (per prototype based la distanza dai centroidi, oppure quanto un punto peggiora la objective function).
 
 **Definizione di cluster based outlier**: un oggetto è un cluster based outlier se essono non appartiene fortemente a nessun cluster.
 
@@ -1387,124 +1387,124 @@ Per tecniche di clustering che hanno un objective function possiamo assegnare co
 
 ##### Impact of Outlier on the Initial Cluster
 
-Ci si può porre la domanda "il clustering è valido dopo aver determinato i suoi outlier?" dato che gli outlier vanno ad influenzare l'algoritmo di clustering. Per gestire questa problematica si può rigenerare il clustering una volta rimossi gli outlier anche se questo non garantisce il miglioramento dei risultati. Un approccio piu sofisticato è quello di generare un gruppo di pontenziali outlier che verrà popolato dai punti che non sono fortemente connessi agli altri mentre si effettua il clustering così da poter essere eliminati direttametne. Anche questo metodo non garantisce un risultato ottimale o che funzioni meglio di quello più semplice descritto prima.
+Ci si può porre la domanda "il clustering è valido dopo aver determinato i suoi outlier?" dato che gli outlier vanno ad influenzare l'algoritmo di clustering. Per gestire questa problematica si può rigenerare il clustering una volta rimossi gli outlier anche se questo non garantisce il miglioramento dei risultati. Un approccio piu sofisticato è quello di generare un gruppo di potenziali outlier che verrà popolato dai punti che non sono fortemente connessi agli altri mentre si effettua il clustering così da poter essere eliminati direttamente. Anche questo metodo non garantisce un risultato ottimale o che funzioni meglio di quello più semplice descritto prima.
 
 ##### Il numero di cluster da utilizzare
 
-Un'altra problematica è quella di determianre il numero di cluster poichè può far variare il processo di outlier detection. Per esempio, un numero elevato di cluster piccoli formisce meno outlier che probabilmente sono più veri rispetto a pochi cluster molto grandi. Un approccio per risolvere questo problema è quello di ripetere più volte l'analisi con differenti numeri di cluster oppure provare a trovare un grande numero di piccoli cluster perchè piccoli cluster tendono ad essere più coesi e perchè se un oggetto è un outlier con un grande numero di piccoli cluster allora è più probabile che sia un vero outlier.
+Un'altra problematica è quella di determinare il numero di cluster poiché può far variare il processo di outlier detection. Per esempio, un numero elevato di cluster piccoli fornisce meno outlier che probabilmente sono più veri rispetto a pochi cluster molto grandi. Un approccio per risolvere questo problema è quello di ripetere più volte l'analisi con differenti numeri di cluster oppure provare a trovare un grande numero di piccoli cluster perché piccoli cluster tendono ad essere più coesi e perché se un oggetto è un outlier con un grande numero di piccoli cluster allora è più probabile che sia un vero outlier.
 
 ##### Pro e Contro
 
 - Alcune tecniche (come il K-means) hanno una complessità in spazio e tempo non lineare o lineare. Quelle con complessità lineari possono risultare molto efficienti
-- Di solito si possono trovare contemporanemante cluter e Outlier
+- Di solito si possono trovare contemporaneamente cluster e Outlier
 - Dipendono molto dal tipo di algoritmo di Clustering e quindi possono essere estremamente influenzati dagli outlier (il caso dei prototype based)
 - La bontà degli outlier dipende fortemente dall'algoritmo di clustering scelto (dipendono fortemente dai tipi di dato)
 
-#### Approccio Recostruction Based
+#### Approccio Reconstruction Based
 
-È possibile ridurre il numero di features di un dato insieme di dati in maniera tale che queste features siano ancora rappresentative per i dati nomrali, ma non per le anomalie. Per i dati lineari è possibile utilizzare la Principal Component Analisys (PCA), un apprccio basto su combinazioni lineari degli attributi originiali e altre trasformazioni strane dell'algebra lineare. Successivamente, dopo averle riportate alle dimensioni iniziali, sarà possibile vedere se un dato è anomalo in base a quanto si discosta dal valore originale. Questo prende il nome di reconstrauction error ed è definito come il quadrato della distanza euclidea.
+È possibile ridurre il numero di features di un dato insieme di dati in maniera tale che queste features siano ancora rappresentative per i dati normali, ma non per le anomalie. Per i dati lineari è possibile utilizzare la Principal Component Analysis (PCA), un approccio basto su combinazioni lineari degli attributi originali e altre trasformazioni strane dell'algebra lineare. Successivamente, dopo averle riportate alle dimensioni iniziali, sarà possibile vedere se un dato è anomalo in base a quanto si discosta dal valore originale. Questo prende il nome di reconstruction error ed è definito come il quadrato della distanza euclidea.
 
 ![rec error](./imgs/recerror.gif)
 
 dove `x` è il valore originale e `x^` è il valore ottenuto dalla ricostruzione.
 
-Ci aspettiamo che il recostruction error sia basso per dati appartentnti alla nostra distribuzione di dati, mentre risulti alto per dati anomali.
+Ci aspettiamo che il reconstruction error sia basso per dati appartenenti alla nostra distribuzione di dati, mentre risulti alto per dati anomali.
 
 ![rec error 2](./imgs/recerror2.png)
 
-Nella foto precedente la linea nera rappresenta la direzione di massima varianza dell'istanza normale (come i dati vengono rappresentati una volta ricostruiti), le linee tratteggiate rappresentano il recostruction error, i cerchi sono i dati normali, i quadrati neri gli outlier.
+Nella foto precedente la linea nera rappresenta la direzione di massima varianza dell'istanza normale (come i dati vengono rappresentati una volta ricostruiti), le linee tratteggiate rappresentano il reconstruction error, i cerchi sono i dati normali, i quadrati neri gli outlier.
 
-Per i dati non lineari non è possibile applciare la PCA ed è necessario utilizzare un approccio basato su MNN chiamato Autoencoder. Un autoencoder è un MNN avente un numero di neuroni di input e di output uguali al numero di attributi originali, la sua architettura è composta di due step principali:
+Per i dati non lineari non è possibile applicare la PCA ed è necessario utilizzare un approccio basato su MNN chiamato Autoencoder. Un autoencoder è un MNN avente un numero di neuroni di input e di output uguali al numero di attributi originali, la sua architettura è composta di due step principali:
 
-- Encoding: riduce sempre di più il numero di dimensioni delle featuer utilizzando trasformazioni non lineari
-- Decoding: mappa le rappresentaizoni ottenute con l'encoding con lo spazio degli attributi originali ottenendo così una ricostruzioen di `x` chiamata `x^`. La distanza tra questi 2 valoì sarà il recostruction error, ovvero l'indice per l'anomaly detecion. Il punto centrale di minori dimensinoi viene chiamato bottleneck.
+- Encoding: riduce sempre di più il numero di dimensioni delle feature utilizzando trasformazioni non lineari
+- Decoding: mappa le rappresentazioni ottenute con l'encoding con lo spazio degli attributi originali ottenendo così una ricostruzione di `x` chiamata `x^`. La distanza tra questi 2 valori sarà il reconstruction error, ovvero l'indice per l'anomaly detection. Il punto centrale di minori dimensioni viene chiamato bottleneck.
 
-Esistono vari tipi di autoencoder come ad esempio il Denoising Outencoder che è in grado di apprendere rappresentaizoni non lineari anche in presenza di rumore.
+Esistono vari tipi di autoencoder come ad esempio il Denoising Autoencoder che è in grado di apprendere rappresentazioni non lineari anche in presenza di rumore.
 
 ![autoencoder](./imgs/eutoencoder.png)
 
 ##### Pro e Contro
 
-- Possono apprendere la rappresentazione di molte classi normali utilzzando svariate tenciche di Dimensionality Reduction
+- Possono apprendere la rappresentazione di molte classi normali utilizzando svariate tecniche di Dimensionality Reduction
 - Possono essere utilizzate anche in presenza di attributi irrilevanti (verranno ignorati nello step di encoding)
 - Scarse performance quando il numero di attributi è grande (a causa del calcolo del reconstruction error)
 
 #### Approccio One Class SVM
 
-Si possono utilizzare i classificatori per risolovere problemi di anomaly detection trasformandoli in un One Class Problem: un problema in cui l'interesse è solo quello di determinare un decision baoundary che rappresenti la classe noramle.
+Si possono utilizzare i classificatori per risolvere problemi di anomaly detection trasformandoli in un One Class Problem: un problema in cui l'interesse è solo quello di determinare un decision boundary che rappresenti la classe normale.
 
 ![one class](./imgs/oneclass.png)
 
-In questo caso possiamo utilzzare le SVM che riescono bene a trovare un boundary per effettuare questa distinzione. Come per il normale caso di SVM in ambito non lineare andremo ad utilizzare un kernel per trasformare i dati in una dimensione maggiore per torvare un hipiano che li separa. Un kernel molto utilizzato è quello Gaussiano che mappa i dati su una hipersfera di raggio 1 e tutti i punti sono sulla stessa orthant (l'equivalente del quadrante in più di 2 dimensioni). Quindi andremo a trovare l'hiperpiano che li separa meglio.
-Un hiperparametro molto importante è `v` (nu) che indica la percentuale di outlier che andremo a permettere. Questo fa si che nel nostro dataset possono essere presneti anche punti di outlier, a differenza degli autoencoder.
+In questo caso possiamo utilizzare le SVM che riescono bene a trovare un boundary per effettuare questa distinzione. Come per il normale caso di SVM in ambito non lineare andremo ad utilizzare un kernel per trasformare i dati in una dimensione maggiore per trovare un iperpiano che li separa. Un kernel molto utilizzato è quello Gaussiano che mappa i dati su una ipersfera di raggio 1 e tutti i punti sono sulla stessa orthant (l'equivalente del quadrante in più di 2 dimensioni). Quindi andremo a trovare l'iperpiano che li separa meglio.
+Un iperparametro molto importante è `v` (nu) che indica la percentuale di outlier che andremo a permettere. Questo fa si che nel nostro dataset possono essere presenti anche punti di outlier, a differenza degli autoencoder.
 
-Queste SVM riescono a trovare boundary molto intereseenati come le seguenti:
+Queste SVM riescono a trovare boundary molto interessanti come le seguenti:
 
 ![decision](./imgs/decisionsvm.png)
 
 ##### Pro e Contro
 
-- Forte base teorica (cosa buona perchè sappiamo che funziona bene e perchè)
+- Forte base teorica (cosa buona perché sappiamo che funziona bene e perché)
 - La scelta di `v` è molto difficile (va scelto bene)
 - Risultano computazionalmente costosi per dati a tante dimensioni
-- Ammetteno punti di outlier nel dataset di training
+- Ammettono punti di outlier nel dataset di training
 - Molto efficaci per dataset di piccole dimensioni
 
 #### Approccio Information Theoretic
 
-Questo approccio codifica i dati e invece di apprendere la loro rappresentazione, basa la sua analisi sul quantitativo di informazioni che questi dati rappresentano. Le anomalie, poichè sono irregolari rispetto ai dati, aumentano la quantità di informazioni del dataset. Ci sono vari approcci a seconda del tipo di dato, per dati qualitativi si può utilizzare l'entropy, per i dati quantitativi si può usare la Kolmogorov (Karasni) complexity. Un approccio pratico è quello di comprimere i dati e rimuovere volta per volta dati per vedere se l'information gain aumenta. Nel processo di rimozione non si può rimuovere un signolo dato alla volta perchè le variazioni nell'information gain causte dalla rimozione di un signolo dato sono irrilevanti, dunque bisogna trovare il sottoinsieme X più piccolo del dataset che mostra la più grande variazione di information gai una volta eliminato.
+Questo approccio codifica i dati e invece di apprendere la loro rappresentazione, basa la sua analisi sul quantitativo di informazioni che questi dati rappresentano. Le anomalie, poiché sono irregolari rispetto ai dati, aumentano la quantità di informazioni del dataset. Ci sono vari approcci a seconda del tipo di dato, per dati qualitativi si può utilizzare l'entropy, per i dati quantitativi si può usare la Kolmogorov (Karasni) complexity. Un approccio pratico è quello di comprimere i dati e rimuovere volta per volta dati per vedere se l'information gain aumenta. Nel processo di rimozione non si può rimuovere un singolo dato alla volta perché le variazioni nell'information gain causate dalla rimozione di un singolo dato sono irrilevanti, dunque bisogna trovare il sottoinsieme X più piccolo del dataset che mostra la più grande variazione di information gai una volta eliminato.
 
 ##### Pro e Contro
 
-- Sono versatili perchè non fanno alcun tipo di assunsioni sulla struttura del dataset
+- Sono versatili perché non fanno alcun tipo di assunzioni sulla struttura del dataset
 - Non richiedono training
 - La loro performance dipende pesantemente dalla misura scelta per calcolare le informazioni
 - Sono computazionalmente costosi e difficilmente applicabili a dataset di grandi dimensioni
 
 ### Valutazione dell'Anomaly Detection
 
-- Se sono presenti le class lable nel dataset, allora si utilizzano gli approcci standard per la classificaizone di classi rare: precision, recall, false positive rate (False alarm rate)
-- Se non sono presenti lable (unsupervised) si utilizzano misure fornite dal metodo di anomaly detection utilizzato: Reconstruction error o Infromation Gain 
-- Si può anche guarda la distribuzione degli anomaly scors con un istogramma o density plot per vedere se abbiamo dei risultati ragionevoli (se tutto è un anomalia c'è qualcosa che non va)
+- Se sono presenti le class label nel dataset, allora si utilizzano gli approcci standard per la classificazione di classi rare: precision, recall, false positive rate (False alarm rate)
+- Se non sono presenti label (unsupervised) si utilizzano misure fornite dal metodo di anomaly detection utilizzato: Reconstruction error o Information Gain 
+- Si può anche guarda la distribuzione degli anomaly scores con un istogramma o density plot per vedere se abbiamo dei risultati ragionevoli (se tutto è un anomalia c'è qualcosa che non va)
 
 ## Dimensionality Reduction
 
-Spesso i dati hanno un numero estremamente alto di attributi che ne rendono la rappresentazion e complessa dunque per aumentare l'efficienza degli algoritmi di data mining spesso vengono applicate tecniche di dimensionality reduction che trasformano il dataset in un altro con un numero inferiore di features che vengono generate tramite combinazioni lienari delle features originali. Questo processo ha altri vantaggi come ad esempio la riduzione del numero di attributi irrilevanti o del rumore. Riesce anche a ridurre la Curese of Dimensionality :skull_and_crossbones:.
+Spesso i dati hanno un numero estremamente alto di attributi che ne rendono la rappresentazione e complessa dunque per aumentare l'efficienza degli algoritmi di data mining spesso vengono applicate tecniche di dimensionality reduction che trasformano il dataset in un altro con un numero inferiore di features che vengono generate tramite combinazioni lineari delle features originali. Questo processo ha altri vantaggi come ad esempio la riduzione del numero di attributi irrilevanti o del rumore. Riesce anche a ridurre la Curse of Dimensionality :skull_and_crossbones:.
 
-### Curse of Dimentionality ☠️
+### Curse of Dimensionality ☠️
 
-Si riferisce al fenomeno che rende i dati ad un elevato numero di dimensioni (attributi) difficilmente classificabili. Questo avviene perchè se le dimensioni aumentano i dati diventano incrementalmente sparsi nello spazio che occupano e quindi è possibile che i nostri data object non saranno un campione rappresentativo di tutti i possibili oggetti. Per la classificazione questo significa che non saremmo in grando di creare un modello affidabile e per il clustering significa che i concetti critici per la creazoine di un clustering, come densità e distanza, diventano meno significativi.
+Si riferisce al fenomeno che rende i dati ad un elevato numero di dimensioni (attributi) difficilmente classificabili. Questo avviene perché se le dimensioni aumentano i dati diventano incrementalmente sparsi nello spazio che occupano e quindi è possibile che i nostri data object non saranno un campione rappresentativo di tutti i possibili oggetti. Per la classificazione questo significa che non saremmo in grado di creare un modello affidabile e per il clustering significa che i concetti critici per la creazione di un clustering, come densità e distanza, diventano meno significativi.
 
 ![curse](./imgs/curse.png)
 
-### Frature Selection
+### Feature Selection
 
-Un possibile approccio per ridurre il numero di dimenzioni è quello di selezionare un sottoset di attributi. Una possibile idea per sovlegere questo compito potrebbe essere quella di testare tutte le possibili combinazioni di attributi con l'algoritmo bersaglio ma per `d` attributi, verrebbero fuori `2^d` sottoset da controllare che nella maggior parte dei casi è un calcolo ingestibile. È possibile applicare altre tenciche come:
+Un possibile approccio per ridurre il numero di dimensioni è quello di selezionare un sotto set di attributi. Una possibile idea per svolgere questo compito potrebbe essere quella di testare tutte le possibili combinazioni di attributi con l'algoritmo bersaglio ma per `d` attributi, verrebbero fuori `2^d` sotto set da controllare che nella maggior parte dei casi è un calcolo ingestibile. È possibile applicare altre tecniche come:
 
-- **forward selection**: inizi con un set di feautres vuoto e aggiungi ripetutamente le feature che riducono maggiormente l'errore fino a quando questi decrementi sono isnignificanti (mean sqerr error, missclassification error, ecc).
-- **backward selection**: iniziamo con tutte le features e si rimuove la feature che decrementa maggiormente l'errore e si contina fin quando l'incremento di errore della rimozione è molto significante.
+- **forward selection**: inizi con un set di features vuoto e aggiungi ripetutamente le feature che riducono maggiormente l'errore fino a quando questi decrementi sono insignificanti (mean square error, misclassification error, ecc).
+- **backward selection**: iniziamo con tutte le features e si rimuove la feature che decrementa maggiormente l'errore e si continua fin quando l'incremento di errore della rimozione è molto significante.
 
 Entrambi questi approcci hanno costo `O(d^2)`.
 
-### Frature Extraction
+### Feature Extraction
 
-Cerca di trovare un insieme di nuove features mappate tramite una data funzione. Spesso le combinazioni lineari si prestano bene a questo approccio perchè sono semplici da calcolare e sono analiticamente trattabili.
+Cerca di trovare un insieme di nuove features mappate tramite una data funzione. Spesso le combinazioni lineari si prestano bene a questo approccio perché sono semplici da calcolare e sono analiticamente trattabili.
 
 ![extraction](./imgs/extraction.png)
 
 In base alla loro objective, si possono classificare in varie categorie per esempio:
 
 - Minimizing information loss: rappresenta i dati nel modo più accurato possibile in uno spazio a meno dimensioni (PCA)
-- Maximise discriminatory information: accentua le informazioni determinanti per la clasificazione in una spazio a meno dimensioni (utile per la classificaizone)
+- Maximize discriminatory information: accentua le informazioni determinanti per la classificazione in una spazio a meno dimensioni (utile per la classificazione)
 
 Ma ce ne sono molte altre.
 
 #### Tecniche Lineari
 
-L'approccio più comunemente utilizzato è quello del Principal Component Analisys (PCA) che cerca una proiezione che preserva il maggior numero di informazioni possibili. Altri metodi sono:
+L'approccio più comunemente utilizzato è quello del Principal Component Analysis (PCA) che cerca una proiezione che preserva il maggior numero di informazioni possibili. Altri metodi sono:
 
-- Linear Discriminant Analisys (LDA): cerca una proiezione che discrimina al meglio i dati
-- Indipendent Component Analisys (ICA): rende le features il più indipendenti possibile
+- Linear Discriminant Analysis (LDA): cerca una proiezione che discrimina al meglio i dati
+- Independent Component Analysis (ICA): rende le features il più indipendenti possibile
 
 #### PCA
 
@@ -1512,11 +1512,11 @@ Questa tecnica funziona proiettando i dati di input su gli eigenvector della mat
 
 1. Si calcola la matrice di covarianza `C` che serve a quantificare la varianza dei dati e quanto una variabile varia rispetto ad un'altra. ![covarianza](./imgs/covarianza.png)
 2. Si trovano gli eigenvector `u_i` di `C`: ![culu](./imgs/culu.png)
-3. Si cercano i `K` eigenvector più grandi che corrispondono ai `K` eigenvalue più grandi (`<u1, u2, ..., uk>`). Questà sarà la nuova base del nostro spazio 
+3. Si cercano i `K` eigenvector più grandi che corrispondono ai `K` eigenvalue più grandi (`<u1, u2, ..., uk>`). Questa sarà la nuova base del nostro spazio 
 
-Stiamo essenzialmente estraendo i componenti di ogni variabile che porta alla maggiore varianza quando poriettiamo i dati su questi vettori. Usiamo gli eigenvalue della matrice di covarianza perchè riflettono la magnitudine della varianza nella direzione dell'eigenvector corrispondente.
+Stiamo essenzialmente estraendo i componenti di ogni variabile che porta alla maggiore varianza quando proiettiamo i dati su questi vettori. Usiamo gli eigenvalue della matrice di covarianza perché riflettono la magnitudine della varianza nella direzione dell'eigenvector corrispondente.
 
-Per scegliere la dimensione `K` si utilizzano una trashold scelto arbitrariamente `T` che rappresenta la percentuale dell'informazione che vogliamo preservare. Se `K = N` verranno mantenute il 100% delle informaizoni ed è solo un cambio di base. Applicare solo un cambio di base potrebbe essere utile per rappresentare e visualizzare meglio i dati. 
+Per scegliere la dimensione `K` si utilizzano una threshold scelto arbitrariamente `T` che rappresenta la percentuale dell'informazione che vogliamo preservare. Se `K = N` verranno mantenute il 100% delle informazioni ed è solo un cambio di base. Applicare solo un cambio di base potrebbe essere utile per rappresentare e visualizzare meglio i dati. 
 
 ![k](./imgs/k.png)
 
@@ -1524,22 +1524,22 @@ Per scegliere la dimensione `K` si utilizzano una trashold scelto arbitrariament
 
 - Interpretabile
 - Veloce nell'esecuzione
-- Trova solo trasformazioi lineari
+- Trova solo trasformazioni lineari
 - Problema del Crowding
 - La direzione della massima varianza non è detto che sia la più informativa
 - Fallisce su dati composti da molteplici cluster separati
 
 #### Crowding Problem
 
-Il Crowind problem si prsenta quando, passando da una dimensione più grande ad una più piccola, vogliamo preservare le distanze tra i vicini ma alcune volte risulta essere impossibile.
+Il Crowding problem si presenta quando, passando da una dimensione più grande ad una più piccola, vogliamo preservare le distanze tra i vicini ma alcune volte risulta essere impossibile.
 
 ![crowidng](./imgs/crowding.png)
 
-Dalla foto sopra possimo vedere che la distanza tra i vicini di `x1` non viene rispettata quando si riduce il numero di dimensioni.
+Dalla foto sopra possiamo vedere che la distanza tra i vicini di `x1` non viene rispettata quando si riduce il numero di dimensioni.
 
 #### t-SNE
 
-t-distrib Stocastic Neighboord Embadding è una tecnica di dimensionality reduction che si presta molto bene per la visualizzazione dei dati che prova a concentrare i punti con similarità maggiore il più vicino possibile nello spazio a dimensioni minori (tenta di risolvere il crowding problem). Preserva la struttura locale dei dati utilizzando la distribuzione t-student.
+t-distributed Stochastic Neighbor Embedding è una tecnica di dimensionality reduction che si presta molto bene per la visualizzazione dei dati che prova a concentrare i punti con similarità maggiore il più vicino possibile nello spazio a dimensioni minori (tenta di risolvere il crowding problem). Preserva la struttura locale dei dati utilizzando la distribuzione t-student.
 
 L'algoritmo funziona nel nel seguente modo:
 
@@ -1553,5 +1553,5 @@ L'algoritmo funziona nel nel seguente modo:
 
 - È ottimo per visualizzare i dati
 - Aiuta a comprendere gli algoritmi black box come DNN
-- Riduce il problema del Crowding con distribuzioni hevely tailed
+- Riduce il problema del Crowding con distribuzioni heavily tailed
 - Non convesso, quindi richiede gradient descend con momentum
