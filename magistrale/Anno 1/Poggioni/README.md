@@ -1555,3 +1555,124 @@ L'algoritmo funziona nel nel seguente modo:
 - Aiuta a comprendere gli algoritmi black box come DNN
 - Riduce il problema del Crowding con distribuzioni heavily tailed
 - Non convesso, quindi richiede gradient descend con momentum
+
+### Representation Learning (aka Features Learning)
+
+Questo tipo di learning basa il suo principio di funzionamento sull'apprendere una rappresentazione dei dati di input che potranno poi essere passati a vari modelli che riescono a gestire tale rappresentazione. Si presta bene a Unsupervised e SemiSupervised learning perchè permette di combinare dataset con lable e dataset senza label insieme per ridurre l'overfitting che potrebbe derivare dall'utilizzo del solo dataset con label. Questo perchè l'algoritmo studia features sul dataset senza lable ed impara come classifciarle utilizzando il dataset con lable.
+
+In sostanza, rende input che potrebbero essere difficili da utilizzare per algoritmi di ML facilmente rappresentabili ed utilizzabili.
+
+<hr>
+--prima lezione
+
+nel 1990 è stato introdotto il concentto di hieigenfece (c'è scritta una definizione su wikipedia che non sono risucito a leggere),
+sono risuciti a trovare un nuovo spazio dove le facce possono essere rappresentate con pochissime features (ha detto con solo 3, esempio su wikipedia). 3 perche 2d + il colore 
+
+pca non va utilizzata per preprocessing in classification problem
+non buono per la classifciazione
+
+representational learning è una specie di generalizzazione di feature learning, vogliamo imparare le migliroe feature per rappresetnare melgio i nostri dati. dimentionality reduction è un tipo di feature learning.
+il processo deve essere automatico e deve ottimazzare i dati in base al procblema che vogliamo rislvere.
+ml richiede input che siano matematici e conveneinti per il processo di apprendimento (tipo che il testo non sanno cosa farci)
+Utilizzare il bag of word per tradurre e anlaizzare il testo non è motlo buono perchè vwengono tenute solo alcune parole molto importanti ma potrebbero non essere utili o comunque rovinare il risultato. Si utilizza il WOrd Embedding per fare meglio.
+i dati nel bootl nek in autoencoder possono essere utilizzati ocme features in un nuvoo spazio dimensionzal (tipo una specie di reduction)
+pca può essere visto come autoencoder lineare quando encodere e doceoder hanno funzioni lienari
+
+ok
+la dim redu ci serve perche alte dimensionalit sono troppo costose, mettono in cirisi algorimti di ml, problema di curse of dim, troppe dim impossibili da visualizzare, 
+utilizzata per un sacco di cose, preprocessing (pochi dat ifanno funzionare meglio molti algorimti), visualizzazione, modellazione dati (se modell obene i dati quel modello posso riutilizzarlo), compressione
+feature selection, proiezioneie in un sottospazio
+feature extraction, creaimo delle nuove feartures. 
+
+PCA, necessità di spiegare perche AI tenchice danno un crisolutato piuttosto che un altro. metodo geometrico che mantiene la varianza dei dati, (la esalta per la precisione). se una feaute assume quasi lo stesso valore per tutto i ldataset risutla inutile.
+
+--seconda lezione
+
+pca oltre che come un caso particolare di autoencoder lineare puo essere visto come matrix factroialization. 
+matrix fact e' una tecnica geometrica che rappresenta una matrice come prodotto di vettori in uno spazio a meno dimensioni
+
+Word embeding e' utilizzato per rappresentare palore  quando dobbiamo risolvere problemi di ml con le parole, ml translation, hand writte interpretatio, text analysisi in generale.
+sta roba serve perche non possoamo passare parole a modelli di ml
+le parole vengono passate come array di parloe (guardare definizioen su slide l'ha letta)
+// sta leggendo le slide nietne di piu
+possiamo trovare il significato di una parola in base al suo contesto
+
+Per paralre di WE ci serve un introduzione a NLP, //legge la slide
+hanno ottenuto risutlati interessanti in questo campo. //legge la slide per dove viene utilizzato NLP
+
+riesce a risolvere problemi che prima erano impossibili ??
+// legge la slide, i punti
+
+e' un task molto difficile ed e' stato focussato dai linguisti per molti anni
+linguisti e computer scienziati lavorano insieme per iroslvoere problemi tipo separch anderstanding (gli uomini lo fanno ogni giorno, le macchine un po meno)
+quando decidiamo di risolvere un NLP problem dobbiamo affrontare un sacco di sfide/problemi che sono tipici e unici solo per NLP: //legga slide, i punti
+Generalemtne abbiamo taaaantissimi dati
+
+Polosemi e Sintatci abigiuti sono i problemi che abbaimo perche le parole hanno diversi significati //legge le slide per far capire meglio
+tipo book come verbo o come sostantivo
+polyuesi affect il singificato di una frase
+sintacit abigiuiti, la stessa sequenza di parole puo aver differenti significati //legge slide, parte basso a sinistra
+
+Dobbiamo affrontare anche la variability, stesse parole cone lo stesso significato ?? //legge le slide per capire meglio
+
+Co-referecne Resolution, un problema molto ifficine perche il linguaggio naturale e' ambiguo per natura. Il problema consiste nel trovare i soggetti della frase o il nome al quale il pronome si riferisce // la slide fa caprie bene il problema
+ci ha mostrato questa lista di prolbmei per far capire che e' un prolbme molto difficile. questo problema ha attualmente buone soluzionei, non perfette ma molto buone. 10 anni fa facevano schifo, abbiamo fatto molti passia avanit
+
+Alcunni modelli per rappresentare testo
+dobbiamo trovare una soluziooen pratica per tradurre il testo in vettori di numeri per ml modelli.
+i modelli piu famosi sono Word2Vec, Glove e Fast Text, sono modelli molto giovani //ci sono le date 
+Word2Vec e' stata la prima tencica che fu molto propolare 
+Glove e l'altro sono molto effective
+Ci fa veder ela struttura generale di Word2Vec, NIENTE DETTAGLI e' la piu semplice e inturitiva delle latre
+Word Emadding sono utilizzate come blackbox, non ci servono i dettagli per usarle, le usiamo e basta.
+
+word2vec e' stato il primo modello ad esplorare l'uso efficiente delle NN come tecnica capcare di allenare una struttura per cerare l'embedding
+in pratica e' capcare di tradurre la definizioen di semantic closenss dellee parole nella closness nel nuovo spazio coi numeri ??
+questo presenta 2 modi differetni: cbow e skip gram
+non ce ne' una in assoluto, onguna funziona meglio in un caso specifico
+rappresentanco come il learning e' implementato e definito per creare l'embedding
+cbow prender una varieta di parole e cerca di predere quelle mancati
+skip gram prova a predrire il contexto partendo da una sola parola //legge le slide 
+il lerning task non ha l'embedding come l'objective ma e' un effetto secondario che otteniamo quando
+quando utilizzamo autoerncoder per repr learn non cerchiamo di risolvere direttamente il repere problem, creiamo un lerarning problem ie durante il learning computiamo la struttura delel latent features. In questo caso abbamo una roba simile, quando cerchiamo di risolver i problem di CBOW o laltro com effetto secondiario otteniamo l'embedding.
+
+prendiamo un tesot, una sequenza di paroel (molto lunghi e molto corti, non importa) e dobbiamo avere un quintalata di testo  per caprie il linguaggio chiamato corpus. il corpus e' un quintale di testo scritto grammaticalmente bene, tipo possiamo prenderlo da frasi di wikipoedia, griornali ecc. non dobbiamo sapere la grammatica o le parole ma solo avere del testo che "funziona". dobbiamo avere corpus diversi in base al contesto, per esempio quelo della vita normale e' diverso a quello che is utilizza nei social network tipo grammatica semplificata, abbrviazioi, ecc.
+il corpus porssiamo crearcelo adohc per il nostro contesto. QUesto concetto dice che e' molto importante. spesso succede che utilizi coprus errati e dici "ah il problema non e' risolvibile"
+//legge la slide per dire cosa fa cbow
+la nostra parola puo esser rappresentata dalle 2 preceneti e le due sucessive //guardare slide
+e' un problema supervised, usiamo il testo per creare un problema supervisionato.
+trovare una parola w in base ad alcune parole prima e dopo la parola. (questo e' il sunto sunto)
+questo e' un modello con un solo layer e generalemtne utilizza la cross entropy loss. dopo un lungo training siamo in grado di sapere la reappresetnaizone della parola. alla fine abbiamo copuntato la matrice dei pesi come l'embedding.
+l'iddea e' ho tantissimo testo preso da tante fonti, definisco un learnign tast superviesd, traino la rete e ottengo i vector embedding poi li posso utilizzare per la mia applicazione in nlp (questi gia allenati si trovano, tipo li ha fatti google e sicuramente funzionano meglio di quelli che possiamo farci da soli)
+
+skip gram e' lo speculare di CBOW, il leraning task e' definito come l'iverso, partiamo da una parola e vogliamo predirre il contesto.
+anche in questo caso non ci interessa l'output del modello, ma siamo interessati solo ai pesi che saranno il nostro embedding. //la slide si capsice 
+una volta allentata esraiamo la matrice dei pesi e la utilizzaimo come embedidng per task simili.
+// Ludovica non sa cosa sia una matrice 🙃
+sulla slide: abbiamo 100k paroele e decidiamo di rappresentare una parola con 300 feature: abbiamo quindi una matrice 100kx300 EZ
+
+//skippa skip gram con quadtrato rosso
+
+quando usiamo un embeddi gia fatto (tipo da google) dobbiamo sapere il numero e i valori dei parametri scelti (window size e' il numerod iparolw che utilizziamo per la predizione, tipo wt-1, wt-2 delle slide di prima.) con windows = 3, usiamo 3 paroel prima e 3 dopo.
+abbiamo 3 parametri importanti che caimbiano il risultato: widows size, il numero di iteraizoni e number of dimention. in piu dobbiamo anche saper eil corpus, quello cambia il risultato.
+
+con questa roba possiamo rappresentare caratteristiche importanti, possiamo tipo stampare le paroel su un grafico 2D
+// da ora solo voce nietne slide
+quando plottiamo in 2d, 2 non e' la dimensione dell'embedding ! e; la visualzizzaione ottenuta utilizzando un visualization algortitm tipo t-sne
+
+e' posibile definire una specie di algebra per le paroel
+la slide fa un eemopio carino: king - man + woman = queen
+// la poggioni si perde e parole (spoiler era proprorsione)
+// IN ITALIANO WE SAY PROPROSIONE
+hanno visto che si possono risolvere proporiaoni con alcune parole:
+roma : italia = parigi : francia 
+si potrebbero risolvere robe come: roma: italia = x : cuba
+
+<hr>
+
+
+
+
+
+
+
