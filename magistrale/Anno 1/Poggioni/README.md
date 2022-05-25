@@ -1653,3 +1653,44 @@ Si è anche visto che è possibile definire una specie di algebra con queste par
 
 > in italiano we say proporzioni.
 
+## Recurrent Neural Networks
+
+In alcune applicaizoni del machine learning è importante tenere in consdierazione la sequenza in cui si presentano i dati in input, questo perchè sono informaizoni che risultano significative per ottenere il corretto output (andamento del mercato che dipende dai prezzi precedenti o text processing che dipende dalla semantica). Nelle architetture standard tuttavia non si può tenere conto di questa sequenzialità dato che trattano ogni input come indipendente l'uno dall'altro (tipo i pixel di una foto). Per questo motivo sono state studiate le Recurrent Neaural Networks che effettuano parameter sharing tra i vari leyer della rete e risucendo così a tenere in cosideraizone la seuqneuza in cui si presentano i dati. Spesso sono anche in grado di prendere in input sequenze di diemsnioni variabili. Esempi possibili sono:
+
+- Predizione di testo
+- Traduzione 
+- Image Captioning
+- Sentiment Analysis
+- Sentene Centric Classificaiton
+
+Due esempi di architetture di RNN sono:
+
+- LSTM, Long Short Term Memory
+- GRU, Gayted Recurrent Unit
+
+Le RNN sono _TURING COMPLETE ⚧️_, con abbastanza tempo e risorse può simulare qualsiasi algoritmo. Questa infromazione è completamente inutile perchè per risucire in questo compito servono risorse e tempo estremamente elevate che a volte potrebbero essere anche irrealistiche. Spesso un altro problema in cui incappano questi modelli è quello del gradient vanishing e exploding la cui severità aumenta all'aumentare della lunghezza della sequenza in input.
+
+![alan gay](./imgs/analgay.gif)
+
+### Struttura Base
+
+Per semplificare la visualizzaizone di queste reti si può introdurre l'idea dell'Unfolding COmputational Graph, con cui si dispuiegano una serie di calcoli ricorsivi in un grafo che ha una struttura ripetitiva tipacmente corrispondente ad una catena di eventi. Questo grafo inolte mostra la condivisione dei parametri lungo la DNN.
+
+![unfolding](./imgs/unfolding.png)
+
+Ora che abbiamo introdotto il concetto di unfolding possiamo analizzare le varie metodologie di desin delle RNN.
+
+I desing patter più importanti sono i seguneti:
+
+- Recurrent Network che producono un output ad ogni time-step ed hanno connessioni ricorrenti tra le hidden unit ![rnn](./imgs/rnn.png)
+- Recurrent Network che producono un output ad ogni time-step ed hanno recurrent connection solo tra output ad un time step e hidden uinit al time step successivo. Questo desin sarà sempre peggiore degli altri e non è turing completo perchè le informazioni non vengono passate direttamente tra hidden layer ma tra outpt ed hidden layuer poichè l'output layer prova a far combiaciare con la propria matrice dei pesi l'output con la ground trouth sarà difficile preservare le informaizoni. Il vantaggio di togliere hittnd to hiddn connection è che il calcolo del gradiente per ogni time stamp può essere parallelizzato ![rrn out h](./imgs/rnnouth.png)
+- Recurrent NEtwork con un solo outoput finale con connessioni ricorrenti tra hidden units. ![rnn fine](./imgs/rnnoutfine.png)
+
+Nella forward pahse abbiamo le seguenti equazioni:
+
+- ![ht](./imgs/ht.png)
+- ![altre](./imgs/altrernnform.png)
+
+Dove `sigma` è la funzione di attivazione per l'hidden layer che di solito è la `tanh`; `b` e `c` sono i parametri che rappresentano i vettori di bias; `U`, `V`, `W` sono altri parametri, matrici dei pesi, che rappresentano rispettivamente le connessioni input-to-hidden, hidden-to-output, hidden-to-hidden; `y^` è la probabilità di output normalizzata che servirà per il confrotno, tramite Loss Function, con la groudtohru `y`; `ot` è l'output non normalizzato che verrà utilizzato per calcolare `y^` tramite una funzione di attivazione (di solito la softmax).
+
+Calcolare il gradietne è costoso e richiede svariati passaggi, inoltra non può essere parallelizzato e duqneu il tempo è `O(T)` (dove `T` è il numero di time step). Dato che stati calcolati nella fase forward devono essere salvati avremo un costo in memoria equivaletne. Questo approccio è chiamato Back Propagatio Through Time (BPTT).
