@@ -344,7 +344,7 @@ Ci sono 3 tipi di errori:
 ![overfitting](./imgs/overfitting.png)
 
 **Overfitting**:
-Se i dati di training sono sottorappresentativi (non rappresentano bene l'ambiente), all'aumentare dei nodi aumentano gli errori di testing e diminuiscono gli errori di training. Aumentando la dimensione dei dati di training riduce questa differenza tra i dati ad un qualsiasi numero di nodi.
+Se i dati di training sono sotto rappresentativi (non rappresentano bene l'ambiente), all'aumentare dei nodi aumentano gli errori di testing e diminuiscono gli errori di training. Aumentando la dimensione dei dati di training riduce questa differenza tra i dati ad un qualsiasi numero di nodi.
 
 __In breve__: se vengono forniti dati che non rappresentano completamente il problema allora l'algoritmo andrà ad imparare solamente come risolvere quelle situazioni e non riuscirà a gestirne di diverse (esempio: vengono fornite 2 razze di primati per il problema del riconoscimento di scimmie, l'algoritmo imparerà a conoscere perfettamente quelle 2 razze, ma quando gli verrà presentata una nuova razza non comprenderà che è una scimmia).
 
@@ -1558,29 +1558,29 @@ L'algoritmo funziona nel nel seguente modo:
 
 ### Representation Learning (aka Features Learning)
 
-Questo tipo di learning basa il suo principio di funzionamento sull'apprendere una rappresentazione dei dati di input che potranno poi essere passati a vari modelli che riescono a gestire tale rappresentazione. Si presta bene a Unsupervised e SemiSupervised learning perchè permette di combinare dataset con lable e dataset senza label insieme per ridurre l'overfitting che potrebbe derivare dall'utilizzo del solo dataset con label. Questo perchè l'algoritmo studia features sul dataset senza lable ed impara come classifciarle utilizzando il dataset con lable.
+Questo tipo di learning basa il suo principio di funzionamento sull'apprendere una rappresentazione dei dati di input che potranno poi essere passati a vari modelli che riescono a gestire tale rappresentazione. Si presta bene a Unsupervised e SemiSupervised learning perché permette di combinare dataset con label e dataset senza label insieme per ridurre l'overfitting che potrebbe derivare dall'utilizzo del solo dataset con label. Questo perché l'algoritmo studia features sul dataset senza label ed impara come classificarle utilizzando il dataset con label.
 
 In sostanza, rende input che potrebbero essere difficili da utilizzare per algoritmi di ML facilmente rappresentabili ed utilizzabili.
 
 #### Natural Language Processing 🗻 🪵
 
-NLP è il campo che si occupa della comprensioen del processing, dell'analisi e della generazione dei linguaggi naturali (CARPI TRIGGERED).
+NLP è il campo che si occupa della comprensione del processing, dell'analisi e della generazione dei linguaggi naturali (CARPI TRIGGERED).
 Può essere applicata a vari campi come:
 
 - TRANSlation
-- Infromation Extraction
+- Information Extraction
 - Summarization
 - Parsing
-- Question ansewring
+- Question answering
 - Sentiment Analysis ❤️
 - Text Classification
 
-NPL è un campo molto difficile che presneta svariati problemi da risolvere ma negli ultimi anni linguisti e informatici ci si sono dedicati moltissimo ed hanno ottenuto risultati molto interessanti. Questi risultati non sono quelli ottimali, ma risultano essere molto buoni e soprattutto estremamenti migliori rispetto a quelli ottenuti 10 anni fa.
+NPL è un campo molto difficile che presenta svariati problemi da risolvere ma negli ultimi anni linguisti e informatici ci si sono dedicati moltissimo ed hanno ottenuto risultati molto interessanti. Questi risultati non sono quelli ottimali, ma risultano essere molto buoni e soprattutto estremamente migliori rispetto a quelli ottenuti 10 anni fa.
 
 Gli aspetti più complessi dell'NLP sono i seguenti:
 
-- **Polisemy**: a seconda di dove vengono utilizzate le parole possono assumere diversi significati. `Book a flight` e `read a book`, `book` come prenotare o libro. 
-- **Sintactig Ambiguity**: la sintassi della frase può essere interperetata in modi diversi. `Kids make nutrition snaks` si interpreta come `I bambini sono degli snak nutrienti` (come mangiare i bambini) o `I bambini fanno degli snak nutrienti` (come li preparano).
+- **Polysemy**: a seconda di dove vengono utilizzate le parole possono assumere diversi significati. `Book a flight` e `read a book`, `book` come prenotare o libro. 
+- **Syntactic Ambiguity**: la sintassi della frase può essere interpretata in modi diversi. `Kids make nutrition snacks` si interpreta come `I bambini sono degli snack nutrienti` (come mangiare i bambini) o `I bambini fanno degli snack nutrienti` (come li preparano).
 - **Variability**: frasi con diverse parole ma che assumono lo stesso significato. `They allowed him to ...` e `They let him ...`
 - **Co-reference Resolution**: trovare i nomi a cui i pronomi fanno riferimento. ![esempio coreference](./imgs/coreference.png)
 - **Carenza** di dati o quantitativi **enormi** di dati
@@ -1588,12 +1588,12 @@ Gli aspetti più complessi dell'NLP sono i seguenti:
 
 ##### World Embedding
 
-La rappresentazione delle parole è semplice per l'uomo e non per la macchina dunque è necessario studiare un metodo per rendere questa rappresentazione utilizzabile nei processi di allenamento di ML. A questo scopo è stato studiato il World Embedding in cui le parole vengono rappresentate come vettori a valori reali che codificano il significato delle parole in maniera tale che le parole più vicine nello spazio vettoriale ci si aspetta che saranno simili nel significato. Si utilizza anche il contesto in cui la parola viene utilizzati per capirne il significato. Il Word Embedding si può ottenre utilizzando un insieme di tecniche di language modeling e feature learning.
+La rappresentazione delle parole è semplice per l'uomo e non per la macchina dunque è necessario studiare un metodo per rendere questa rappresentazione utilizzabile nei processi di allenamento di ML. A questo scopo è stato studiato il World Embedding in cui le parole vengono rappresentate come vettori a valori reali che codificano il significato delle parole in maniera tale che le parole più vicine nello spazio vettoriale ci si aspetta che saranno simili nel significato. Si utilizza anche il contesto in cui la parola viene utilizzati per capirne il significato. Il Word Embedding si può ottenere utilizzando un insieme di tecniche di language modeling e feature learning.
 
-Viene uitlizzato per vari problemi di NLP come:
+Viene utilizzato per vari problemi di NLP come:
 
 - Semantic Similarity
-- Word Sense Disnabiguation
+- Word Sense Disambiguation
 - Semantic Role (Playing) Labeling
 - Named Entity Recognition 👻
 - Summarization
@@ -1608,18 +1608,18 @@ I modelli più famosi per World Embedding sono (vengono visti come blackbox, non
 
 ###### Word2Vec
 
-questa è la tencica più giovane e la prima ad esplorare l'utilizzo delle Neural Network in modo efficacie per generare l'embedding. L'implementazione si basa sulla seguente intuizione: due parole che condividono un contesto simile sono associate con vettori vicini tra loro nello spazio vettoriale. Non siamo interessati all'output di questi modelli ma solo ai pesi appresi durante il learning process perchè saranno quelli che faranno il nostro embedding. Un po' come gli Autoencoder che, come side effect, hanno la featuere reduction, anche questi come side effect hanno l'embedding. In parica ci sono 2 diversi modelli:
+Questa è la tecnica più giovane e la prima ad esplorare l'utilizzo delle Neural Network in modo efficacie per generare l'embedding. L'implementazione si basa sulla seguente intuizione: due parole che condividono un contesto simile sono associate con vettori vicini tra loro nello spazio vettoriale. Non siamo interessati all'output di questi modelli ma solo ai pesi appresi durante il learning process perché saranno quelli che faranno il nostro embedding. Un po' come gli Autoencoder che, come side effect, hanno la features reduction, anche questi come side effect hanno l'embedding. In pratica ci sono 2 diversi modelli:
 
 - CBOW 🐄: prova a prendere un insieme di parole e predirre quella mancante
 - Skip Gram: predice le parole in base al contesto dell'input
 
-Tutti e 2 i modelli come dataset utilizzano una enorme collezioni di testi grammaticalmente corretti del linguaggio scelto che prende il nome di `crpus`. La scelta dei testi è molto importante ed deve basarsi sull'obbiettivo finale dell'embedding: per fare l'embedding dei paper che trattano argomenti scientifici non si potranno utilizzare articoli di un forum di cucina. L'idea è che non devo insegnare al modello come funziona la gramamtica ma la apprende da solo.
+Tutti e 2 i modelli come dataset utilizzano una enorme collezioni di testi grammaticalmente corretti del linguaggio scelto che prende il nome di `corpus`. La scelta dei testi è molto importante ed deve basarsi sull'obbiettivo finale dell'embedding: per fare l'embedding dei paper che trattano argomenti scientifici non si potranno utilizzare articoli di un forum di cucina. L'idea è che non devo insegnare al modello come funziona la grammatica ma la apprende da solo.
 
 **Continuos Bag of Words (CBOW) 🐄**
 
 ![cbow](./imgs/cbow.png)
 
-Una parola può essere rappresentata da un tot di parole che la precedono e un tot che la seguono, questo è il contesto. Nella foto possiamo vede che la parola viene rappresentata come le 2 precedenti `wt-1 e wt-2` e le due successive `wt+1 e wt+2`. In pratica abbiamo un modello con un solo hidden layer, che generalmente utilizza la corss entropy loss, e creiamo un problema di apprendimento supervisionato basandoci sul testo che abbiamo (la label dell'output sarà la parola target). Successivamente alleno la rete per taaaantissime epoche e alla fine prendo in cosiderazione solo i pesi ottenuti duratne questa fase per creare l'embedding matrix che utilizzerò per il mio problema di NLP.
+Una parola può essere rappresentata da un tot di parole che la precedono e un tot che la seguono, questo è il contesto. Nella foto possiamo vede che la parola viene rappresentata come le 2 precedenti `wt-1 e wt-2` e le due successive `wt+1 e wt+2`. In pratica abbiamo un modello con un solo hidden layer, che generalmente utilizza la cross entropy loss, e creiamo un problema di apprendimento supervisionato basandoci sul testo che abbiamo (la label dell'output sarà la parola target). Successivamente alleno la rete per taaaantissime epoche e alla fine prendo in considerazione solo i pesi ottenuti durante questa fase per creare l'embedding matrix che utilizzerò per il mio problema di NLP.
 
 N.B.: nella foto, il numero 300 indica la dimensione del feature vector che rappresenta una parola e 100k il numero di parole che formano il dataset (corpus). Avrò quindi una matrice finale 100kx300. 
 
@@ -1628,11 +1628,11 @@ N.B.: nella foto, il numero 300 indica la dimensione del feature vector che rapp
 
 ![skipgram](./imgs/skipgram.png)
 
-Si basa sullo stesso concetto di CBOW ma è il controario: partiamo da una parola centrale e vogliamo trovare il contesto (le 2 parole successive e le 2 precedenti). Come per l'altro modello andiamo a creare un learning task supervisionato e alla fine dell'allenamento prendo i pesi e ignoro l'output (esattamente come l'altro).
+Si basa sullo stesso concetto di CBOW ma è il contrario: partiamo da una parola centrale e vogliamo trovare il contesto (le 2 parole successive e le 2 precedenti). Come per l'altro modello andiamo a creare un learning task supervisionato e alla fine dell'allenamento prendo i pesi e ignoro l'output (esattamente come l'altro).
 
 **Modelli Preallenati**
 
-Quando utilizzaimo modelli pre allenati (cosa abbastanza comune) bisogna prestare attenzione ai parametri del modello che possono andare ad alterarne le pefromance. Parametri importanti sono:
+Quando utilizziamo modelli pre allenati (cosa abbastanza comune) bisogna prestare attenzione ai parametri del modello che possono andare ad alterarne le performance. Parametri importanti sono:
 
 - window size: è il numero di parole che compongono il contesto (tipo `wt-1, wt-2 ecc`)
 - il corpus
@@ -1641,7 +1641,7 @@ Quando utilizzaimo modelli pre allenati (cosa abbastanza comune) bisogna prestar
 
 **Rappresentazione**
 
-Una volta ottenuto l'embedding possiamo anche rappresentare le parole in uno spazio 2D per poterle visualizzare meglio. È da notare che 2 (che viene dal 2D) non è il numero di faatures utilizzate per rappresentare le parole ma il tutto è il risultato di applicazione di un visualization algotithm tipo il t-sne.
+Una volta ottenuto l'embedding possiamo anche rappresentare le parole in uno spazio 2D per poterle visualizzare meglio. È da notare che 2 (che viene dal 2D) non è il numero di features utilizzate per rappresentare le parole ma il tutto è il risultato di applicazione di un visualization algorithm tipo il t-sne.
 
 ![parole gafo](./imgs/parolegrafo.png)
 
@@ -1655,54 +1655,54 @@ Si è anche visto che è possibile definire una specie di algebra con queste par
 
 ## Recurrent Neural Networks
 
-In alcune applicaizoni del machine learning è importante tenere in consdierazione la sequenza in cui si presentano i dati in input, questo perchè sono informaizoni che risultano significative per ottenere il corretto output (andamento del mercato che dipende dai prezzi precedenti o text processing che dipende dalla semantica). Nelle architetture standard tuttavia non si può tenere conto di questa sequenzialità dato che trattano ogni input come indipendente l'uno dall'altro (tipo i pixel di una foto). Per questo motivo sono state studiate le Recurrent Neaural Networks che effettuano parameter sharing tra i vari leyer della rete e risucendo così a tenere in cosideraizone la seuqneuza in cui si presentano i dati. Spesso sono anche in grado di prendere in input sequenze di diemsnioni variabili. Esempi possibili sono:
+In alcune applicazioni del machine learning è importante tenere in considerazione la sequenza in cui si presentano i dati in input, questo perché sono informazioni che risultano significative per ottenere il corretto output (andamento del mercato che dipende dai prezzi precedenti o text processing che dipende dalla semantica). Nelle architetture standard tuttavia non si può tenere conto di questa sequenzialità dato che trattano ogni input come indipendente l'uno dall'altro (tipo i pixel di una foto). Per questo motivo sono state studiate le Recurrent Neural Networks che effettuano parameter sharing tra i vari layer della rete e riuscendo così a tenere in considerazione la sequenza in cui si presentano i dati. Spesso sono anche in grado di prendere in input sequenze di dimensioni variabili. Esempi possibili sono:
 
 - Predizione di testo
 - Traduzione 
 - Image Captioning
 - Sentiment Analysis
-- Sentene Centric Classificaiton
+- Sentence Centric Classification
 
 Due esempi di architetture di RNN sono:
 
 - LSTM, Long Short Term Memory
 - GRU, Gayted Recurrent Unit
 
-Le RNN sono _TURING COMPLETE ⚧️_, con abbastanza tempo e risorse può simulare qualsiasi algoritmo. Questa infromazione è completamente inutile perchè per risucire in questo compito servono risorse e tempo estremamente elevate che a volte potrebbero essere anche irrealistiche. Spesso un altro problema in cui incappano questi modelli è quello del gradient vanishing e exploding la cui severità aumenta all'aumentare della lunghezza della sequenza in input.
+Le RNN sono _TURING COMPLETE ⚧️_, con abbastanza tempo e risorse può simulare qualsiasi algoritmo. Questa informazione è completamente inutile perché per riuscire in questo compito servono risorse e tempo estremamente elevate che a volte potrebbero essere anche irrealistiche. Spesso un altro problema in cui incappano questi modelli è quello del gradient vanishing e exploding la cui severità aumenta all'aumentare della lunghezza della sequenza in input.
 
 ![alan gay](./imgs/analgay.gif)
 
 ### Struttura Base
 
-Per semplificare la visualizzaizone di queste reti si può introdurre l'idea dell'Unfolding COmputational Graph, con cui si dispuiegano una serie di calcoli ricorsivi in un grafo che ha una struttura ripetitiva tipacmente corrispondente ad una catena di eventi. Questo grafo inolte mostra la condivisione dei parametri lungo la DNN.
+Per semplificare la visualizzazione di queste reti si può introdurre l'idea dell'Unfolding Computational Graph, con cui si dispiegano una serie di calcoli ricorsivi in un grafo che ha una struttura ripetitiva tipicamente corrispondente ad una catena di eventi. Questo grafo inoltre mostra la condivisione dei parametri lungo la DNN.
 
 ![unfolding](./imgs/unfolding.png)
 
-Ora che abbiamo introdotto il concetto di unfolding possiamo analizzare le varie metodologie di desin delle RNN.
+Ora che abbiamo introdotto il concetto di unfolding possiamo analizzare le varie metodologie di design delle RNN.
 
-I desing patter più importanti sono i seguneti:
+I design patter più importanti sono i seguenti:
 
 - Recurrent Network che producono un output ad ogni time-step ed hanno connessioni ricorrenti tra le hidden unit ![rnn](./imgs/rnn.png)
-- Recurrent Network che producono un output ad ogni time-step ed hanno recurrent connection solo tra output ad un time step e hidden uinit al time step successivo. Questo desin sarà sempre peggiore degli altri e non è turing completo perchè le informazioni non vengono passate direttamente tra hidden layer ma tra outpt ed hidden layuer poichè l'output layer prova a far combiaciare con la propria matrice dei pesi l'output con la ground trouth sarà difficile preservare le informaizoni. Il vantaggio di togliere hittnd to hiddn connection è che il calcolo del gradiente per ogni time stamp può essere parallelizzato ![rrn out h](./imgs/rnnouth.png)
-- Recurrent NEtwork con un solo outoput finale con connessioni ricorrenti tra hidden units. ![rnn fine](./imgs/rnnoutfine.png)
+- Recurrent Network che producono un output ad ogni time-step ed hanno recurrent connection solo tra output ad un time step e hidden unit al time step successivo. Questo design sarà sempre peggiore degli altri e non è turing completo perché le informazioni non vengono passate direttamente tra hidden layer ma tra output ed hidden layer poiché l'output layer prova a far combaciare con la propria matrice dei pesi l'output con la ground through sarà difficile preservare le informazioni. Il vantaggio di togliere hidden to hidden connection è che il calcolo del gradiente per ogni time stamp può essere parallelizzato ![rrn out h](./imgs/rnnouth.png)
+- Recurrent NEtwork con un solo output finale con connessioni ricorrenti tra hidden units. ![rnn fine](./imgs/rnnoutfine.png)
 
-Nella forward pahse abbiamo le seguenti equazioni:
+Nella forward phase abbiamo le seguenti equazioni:
 
 - ![ht](./imgs/ht.png)
 - ![altre](./imgs/altrernnform.png)
 
 Dove `sigma` è la funzione di attivazione per l'hidden layer che di solito è la `tanh`.
 
-I parametri "tranabili 🚆" della rete sono: 
+I parametri allenabili della rete sono: 
 - `b` e `c`: rappresentano i vettori di bias
 - `U`, `V`, `W`: sono le matrici dei pesi, che rappresentano rispettivamente le connessioni _input-to-hidden (U)_, _hidden-to-output (V)_, _hidden-to-hidden (W)_
 
-`y^` è la probabilità di output normalizzata che servirà per il confrotno, tramite Loss Function, con la groudtohru `y`; `ot` è l'output non normalizzato che verrà utilizzato per calcolare `y^` tramite una funzione di attivazione (di solito la softmax).
+`y^` è la probabilità di output normalizzata che servirà per il confronto, tramite Loss Function, con la ground through `y`; `ot` è l'output non normalizzato che verrà utilizzato per calcolare `y^` tramite una funzione di attivazione (di solito la softmax).
 
-Calcolare il gradietne è costoso e richiede svariati passaggi, inoltra non può essere parallelizzato e duqneu il tempo è `O(T)` (dove `T` è il numero di time step). Dato che stati calcolati nella fase forward devono essere salvati avremo un costo in memoria equivaletne. Questo approccio è chiamato Back Propagatio Through Time (BPTT).
+Calcolare il gradiente è costoso e richiede svariati passaggi, inoltra non può essere parallelizzato e dunque il tempo è `O(T)` (dove `T` è il numero di time step). Dato che stati calcolati nella fase forward devono essere salvati avremo un costo in memoria equivalente. Questo approccio è chiamato Back Propagation Through Time (BPTT).
 
 ### BPTT
 
-Per calcolare il gradiente si applica l'algoritmo standar di backpropagation su tutti i nodi dell'unrolled graph senza particolari modifici all'algoritmo originale. La back propagation applicata all'unroll graph prende il nome di BPTT. 
+Per calcolare il gradiente si applica l'algoritmo standard di back propagation su tutti i nodi dell'unrolled graph senza particolari modifiche all'algoritmo originale. La back propagation applicata all'unroll graph prende il nome di BPTT. 
 
-Il procedimento per il calcolo del gradiente è lo stesso che si applica per le reti neurali standard tranne che per il fatto che si procede sia in profondità che anche in maniera orizzantale, attraverzando i vari time stemp, questo perchè gli hidden layer degli ultimi time stamp dipendono dagli hidden layer precedenti e dai pesi hiddent-to-hidden. Dunque partendo dal fondo si calcolerà il gradiente degli hidden layer e dei nodi di output fino ad arrivare fino al primo time stamp. Questi gradietni andranno po icomibnati con i gradienti dei parametri W V c e b tramite la chain role (???).
+Il procedimento per il calcolo del gradiente è lo stesso che si applica per le reti neurali standard tranne che per il fatto che si procede sia in profondità che anche in maniera orizzontale, attraversando i vari time stamp, questo perché gli hidden layer degli ultimi time stamp dipendono dagli hidden layer precedenti e dai pesi hidden-to-hidden. Dunque partendo dal fondo si calcolerà il gradiente degli hidden layer e dei nodi di output fino ad arrivare fino al primo time stamp. Questi gradienti andranno poi combinati con i gradienti dei parametri `W`, `V`, `c` e `b` tramite la _chain role_ (???).
