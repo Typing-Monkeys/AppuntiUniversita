@@ -1691,6 +1691,18 @@ Nella forward pahse abbiamo le seguenti equazioni:
 - ![ht](./imgs/ht.png)
 - ![altre](./imgs/altrernnform.png)
 
-Dove `sigma` è la funzione di attivazione per l'hidden layer che di solito è la `tanh`; `b` e `c` sono i parametri che rappresentano i vettori di bias; `U`, `V`, `W` sono altri parametri, matrici dei pesi, che rappresentano rispettivamente le connessioni input-to-hidden, hidden-to-output, hidden-to-hidden; `y^` è la probabilità di output normalizzata che servirà per il confrotno, tramite Loss Function, con la groudtohru `y`; `ot` è l'output non normalizzato che verrà utilizzato per calcolare `y^` tramite una funzione di attivazione (di solito la softmax).
+Dove `sigma` è la funzione di attivazione per l'hidden layer che di solito è la `tanh`.
+
+I parametri "tranabili 🚆" della rete sono: 
+- `b` e `c`: rappresentano i vettori di bias
+- `U`, `V`, `W`: sono le matrici dei pesi, che rappresentano rispettivamente le connessioni _input-to-hidden (U)_, _hidden-to-output (V)_, _hidden-to-hidden (W)_
+
+`y^` è la probabilità di output normalizzata che servirà per il confrotno, tramite Loss Function, con la groudtohru `y`; `ot` è l'output non normalizzato che verrà utilizzato per calcolare `y^` tramite una funzione di attivazione (di solito la softmax).
 
 Calcolare il gradietne è costoso e richiede svariati passaggi, inoltra non può essere parallelizzato e duqneu il tempo è `O(T)` (dove `T` è il numero di time step). Dato che stati calcolati nella fase forward devono essere salvati avremo un costo in memoria equivaletne. Questo approccio è chiamato Back Propagatio Through Time (BPTT).
+
+### BPTT
+
+Per calcolare il gradiente si applica l'algoritmo standar di backpropagation su tutti i nodi dell'unrolled graph senza particolari modifici all'algoritmo originale. La back propagation applicata all'unroll graph prende il nome di BPTT. 
+
+Il procedimento per il calcolo del gradiente è lo stesso che si applica per le reti neurali standard tranne che per il fatto che si procede sia in profondità che anche in maniera orizzantale, attraverzando i vari time stemp, questo perchè gli hidden layer degli ultimi time stamp dipendono dagli hidden layer precedenti e dai pesi hiddent-to-hidden. Dunque partendo dal fondo si calcolerà il gradiente degli hidden layer e dei nodi di output fino ad arrivare fino al primo time stamp. Questi gradietni andranno po icomibnati con i gradienti dei parametri W V c e b tramite la chain role (???).
