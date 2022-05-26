@@ -1701,11 +1701,47 @@ I parametri allenabili della rete sono:
 
 Calcolare il gradiente è costoso e richiede svariati passaggi, inoltra non può essere parallelizzato e dunque il tempo è `O(T)` (dove `T` è il numero di time step). Dato che stati calcolati nella fase forward devono essere salvati avremo un costo in memoria equivalente. Questo approccio è chiamato Back Propagation Through Time (BPTT).
 
+#### Sequence To Sequence Learning
+
+A seconda della mappatura tra input e output possono essere realizzate delle reti che saranno utili per varie situazioni:
+
+- One to One: semplice rete feed forward, utile per l'image classification
+- One to Many: utile per image captioning
+- Many to One: utile per text classification e sentyment analysis
+- Many to Many: utile per machine translation
+- Sync Many to Many: utile per video classification (image classification per ogni frame)
+
+![sequenctetose](./imgs/sqeunecetosence.png)
+
 ### BPTT
 
-Per calcolare il gradiente si applica l'algoritmo standard di back propagation su tutti i nodi dell'unrolled graph senza particolari modifiche all'algoritmo originale. La back propagation applicata all'unroll graph prende il nome di BPTT. 
+Nella fase di apprendimento, per aggiornare le matrici di pesi non possiamo utilizzare la normale back propagation perchè la funzione `h_t()` dipende da `h_t-1()` (e così via fino all'inizio) e non risultano derivabili con la normale back progagation (causerebbe anche perdita di informazioni). Si utilizza una verisone leggermente diversa chiamata Back Propagation Thorught Time perchè sa toranre "indietro nel tempo".
+Vedremo una versione molto semplifcata dei calcoli.
 
-Il procedimento per il calcolo del gradiente è lo stesso che si applica per le reti neurali standard tranne che per il fatto che si procede sia in profondità che anche in maniera orizzontale, attraversando i vari time stamp, questo perché gli hidden layer degli ultimi time stamp dipendono dagli hidden layer precedenti e dai pesi hidden-to-hidden. Dunque partendo dal fondo si calcolerà il gradiente degli hidden layer e dei nodi di output fino ad arrivare fino al primo time stamp. Questi gradienti andranno poi combinati con i gradienti dei parametri `W`, `V`, `c` e `b` tramite la _chain role_ (???).
+L'idea è che nella la fase forward, andiamo a calcolare la Loss Totale (calcoliamo ogni `Loss_i` e le sommiamo insieme) e da questa possiamo calcolare il gradiente di ogni parametro per andarlo poi ad aggiornare nella fase backward. 
+
+<img src="./imgs/losstotale.png" width="400">
+
+_Dove `Li` è la loss function del time step i_
+
+Queste sono le formule con cui vengon aggiornate le matrici di pesi ad ogni peoca in base alla loss function.
+![formule](./imgs/formule.png)
+
+Prendiamo il caso di `V`, con pochi calcoli possiamo vedere che il calcolo del gradietne può essere riportato alla seguente sommatoria: ![calcoli](./imgs/caclolibptt.png)
+Tutti i prodotti tra quelle derivate sono date dalla chian rule che serve per redere derivabili funzion composte, dato che `Li` dipende da `y^` che dipende da `z`. Questi calcoli non sono problematici per il computer e si fa tutto senza tanti problemi.
+
+Il vero problem viene con `W` e `U`.
+Prendiamo in esame `W`, la cui formula per caloclare il gradiente è la seugnete: ![doppiaw](./imgs/doppiaw.png).
+Dobbiamo qindi calcolare tutte quelle derivate e sommarle. Per L1 no ci sono molti problemi dato che h1 dipende da h0 (che praticamente è una costante). Il problema sta nel calcolo di quelle successive, perchè bisogna ripercorrere i vari time stap precedenti fino ad arrivare ad h0 (qui prende il nome di BP trhogh time perchè torna "indietro nel tempo"). Di seguito un esempio di come effettivamente si torna indietro nel tempo per il calcolo della seconda derivata.
+
+![](./imgs/bpttgraph.png)
+
+Possiamo generalizzare tutti questi calcoli in una formula più compatta: ![produttoria2](./imgs/produttoria2.png). 
+Qui sorgono due problemi, il primo è che questi calcoli risultano mooolto complessi e numerosi piu andiamo avanti nel tempo (il time stap 20 dipended dal 19 che dipende dal 18, e così via) il secondo è che quella produttoria causa il vanishing/exploding del gradiente (moltiplicare tante volte la stessa cosa o la porta allinfitiot o a 0).
+
+Lo stesso problema avviene per `U` dato che anche qui per sviluppare i calocli dobbiamo passare per `h`.
+
+In caso guarda questo video: [Mega Indi che spiega cose](https://www.youtube.com/watch?v=phOVApJHjsU&list=LL&index=1&ab_channel=AhladKumar)
 
 ### Deep Recurrent Networks
 
@@ -1729,6 +1765,23 @@ Un problema molto importante dell RNN è quello delle Long-Term Dependecisa ovve
 Con questo problema la fase di learning può impiegare tantissimo tempo ad apprendere queste Long-Term Dependecies o non riuscirci affatto.
 
 Sono stati quindi introdotti alcuni metodi per cercare di risolvere qeusto problema.
+
+### Gestire le Long-Term Dependencies
+
+Un modo per gestire le long-term dependecies è quello di creare un modello che opera a molteplici time scale in maniera tale che alcune parti del modello opereranno con un time scale a grana fina e gestireanno piccoli dettagli mentre altre parti opereranno a time scale a grana grossa passando informazioni da passati distanti al presente in maniera efficiente. Le stategie piu importanti per gestire questo problema sono quelle delle:
+
+- Sikp Connection: aggiungono collegamenti tra variabili in un passato lontano a variabili nel presente
+- Leaky Units: integrano segnali con differenti costanti di tempo e rimuovono alcune connesioni utilizzate per modellare i time scale a grana fina
+
+#### Skip Connection
+
+Questa tecnica è stata introdotta per cercare di ridurre il problema del gradient vanishing/exploding introducendo delle connessioni dirette che passano da un time step `t` ad un time step `t + d` riducendo queindi il numero di dipendenze per tutti gli hidden layer sopra a `t + d` (da `t+d` può tornare indietro direttamente a `t` senza passare per tutti gli alrti). In questo modo il gradiente non diminuirà esponsenzialmente in funzione di `T` ma in funzione di `T/d` rallentandone quindi il vanishing/exploding (può comunque esplodere/scomparire). Questo permette all'algoritmo di learning di rappresentare delle dipendenze piu lunghe che però non è detto che verranno rappresentate bene.
+
+![skip the portal](./imgs/skiptheportal.png)
+
+#### Leaky Units
+
+L'effotto di skip di `d` time step (con `d` un numero intero) può anche essere ottenuto con un numero reale `a` che essendo reale permette aggiustamenti più fini e precisi. Le leaky units sono hidden units cone self connection lineari. Quando `a` è vicino ad 1 il modello ricorda informazioni del passato per un lungo tempo mentre quando è più vicino a 0 le informazioni vengono scartate rapidamente.
 
 #### Gradient Clipping
 
