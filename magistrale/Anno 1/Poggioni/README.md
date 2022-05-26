@@ -1706,3 +1706,35 @@ Calcolare il gradiente è costoso e richiede svariati passaggi, inoltra non può
 Per calcolare il gradiente si applica l'algoritmo standard di back propagation su tutti i nodi dell'unrolled graph senza particolari modifiche all'algoritmo originale. La back propagation applicata all'unroll graph prende il nome di BPTT. 
 
 Il procedimento per il calcolo del gradiente è lo stesso che si applica per le reti neurali standard tranne che per il fatto che si procede sia in profondità che anche in maniera orizzontale, attraversando i vari time stamp, questo perché gli hidden layer degli ultimi time stamp dipendono dagli hidden layer precedenti e dai pesi hidden-to-hidden. Dunque partendo dal fondo si calcolerà il gradiente degli hidden layer e dei nodi di output fino ad arrivare fino al primo time stamp. Questi gradienti andranno poi combinati con i gradienti dei parametri `W`, `V`, `c` e `b` tramite la _chain role_ (???).
+
+### Deep Recurrent Networks
+
+Fino ad ora abbiamo visto delle reti ricorrenti formate da un solo hidden layer, ma aggiungendone altri adiamo ad avere dei miglioramenti nelle performance significativi ?
+
+Da degli studi pratici è emerso che questa aggiunta è sensata e apporta miglioramenti nelle performance della nostra rete. 
+
+Esistono 3 modi per farlo:
+
+- **Hidden Recurrent Layers**: aggiungiamo più layer ricorrenti tra l'input e l'output. Questo fa si che i layer più vicino all'input riescono a trasformarlo in modo da rendere la rappresentazione dei dati più appropriata per i layer successivi ![hiddenrec](./imgs/hyddenrec.png)
+
+- **Hidden MLP/Popomotron layers**: possiamo aggiungere layer MLP in qualunque punto della rete (input-to-hidden, hidden-to-hidden, hidden-to-output). Questo aumenta la capacità (memoria) della rete ma, aggiungendo profondità, va a peggiorare in termini di tempo e risorse il processo di learning e ottimizzazione. Questo avviane perchè i MLP layer aumentano la distanza tra il time step `t` e il time step `t + 1` (solitamente la raddoppiano). ![hidden mlp](./imgs/mlprec.png)
+
+- **Hidden MLP/Pompotron + Skip Layers**: per evitare il problema dell'allungamento della distanza tra i time step (problema del punto precedente) possiamo introdurre, oltre che layer MLP, anche skip layer per accorciare queste distanze. ![skipmlp](./imgs/mlpskip.png)
+
+In generale è più semplice ottimizzare e lavorare con architetture più semplici e meno profonde possibili.
+
+### Il problema delle Long-Term Dependecies
+
+Un problema molto importante dell RNN è quello delle Long-Term Dependecisa ovvero la propagazione del gradiente per molti step (quindi passare per moooolti hidden layer recurrent, anche solamente 10 o 20), tende a risultare in un vanishing o exploding del gradiente. Da un punto di vista matematico, il problema risiede nel moltiplicare la matrice dei pesi hidden `W` tantissime volte per se stessa (alla fine viene fuori `W^t`). QUesta moltiplicazione di matrici deriva dal fatto che la fuzione `h^t` dipende da `h^t-1` e continua così ricorsivamente. Si possono fare calcoli strani per scriver questa matrice come prodotto di eignevalues e eigenvectrors(??). Moltiplicando moooolte volte eigenvalues con base (la chiama magnitude) < 1 il calcolo tende a diventare 0, quelli con magnitude > 1 tendono ad esplodere (infinito).
+Con questo problema la fase di learning può impiegare tantissimo tempo ad apprendere queste Long-Term Dependecies o non riuscirci affatto.
+
+Sono stati quindi introdotti alcuni metodi per cercare di risolvere qeusto problema.
+
+#### Gradient Clipping
+
+A causa delle numerose moltiplicazioni della stessa matrice di pesi si possono forma delle "colline": una regione di pianura seguida ta una discesa ripida e poi una sezione di pianura. Quando il calcolo del gradietne approccia questa collina può succedere che i parametri vengono lanciati molto lontano causando la perdita di tutta l'ottimizzazione fatta fin ora. Per risolver questo problema una tecnica è quella del Gradient Clipping che può essere applicata in 2 modi:
+
+- clippare il gradiente, prima che i parametri vengano aggiornati, all'interno di un minibach elemet-wise (dovrebbe essere un area oltre la quale il gradietne non può andare)
+- clippare il gradiente se la sua norma supera una certa soglia `v` ![clip form](./imgs/clippingforuma.png)
+
+![clppng](./imgs/gradientclipping.png)
