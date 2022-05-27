@@ -1533,7 +1533,7 @@ Per scegliere la dimensione `K` si utilizzano una threshold scelto arbitrariamen
 
 Il Crowding problem si presenta quando, passando da una dimensione più grande ad una più piccola, vogliamo preservare le distanze tra i vicini ma alcune volte risulta essere impossibile.
 
-![crowidng](./imgs/crowding.png)
+![crowding](./imgs/crowding.png)
 
 Dalla foto sopra possiamo vedere che la distanza tra i vicini di `x1` non viene rispettata quando si riduce il numero di dimensioni.
 
@@ -1643,7 +1643,7 @@ Quando utilizziamo modelli pre allenati (cosa abbastanza comune) bisogna prestar
 
 Una volta ottenuto l'embedding possiamo anche rappresentare le parole in uno spazio 2D per poterle visualizzare meglio. È da notare che 2 (che viene dal 2D) non è il numero di features utilizzate per rappresentare le parole ma il tutto è il risultato di applicazione di un visualization algorithm tipo il t-sne.
 
-![parole gafo](./imgs/parolegrafo.png)
+![parole grafo](./imgs/parolegrafo.png)
 
 Si è anche visto che è possibile definire una specie di algebra con queste parole, di seguito possiamo apprezzarne un esempio:
 
@@ -1707,7 +1707,7 @@ A seconda della mappatura tra input e output possono essere realizzate delle ret
 
 - One to One: semplice rete feed forward, utile per l'image classification
 - One to Many: utile per image captioning
-- Many to One: utile per text classification e sentyment analysis
+- Many to One: utile per text classification e sentiment analysis
 - Many to Many: utile per machine translation
 - Sync Many to Many: utile per video classification (image classification per ogni frame)
 
@@ -1715,8 +1715,8 @@ A seconda della mappatura tra input e output possono essere realizzate delle ret
 
 ### BPTT
 
-Nella fase di apprendimento, per aggiornare le matrici di pesi non possiamo utilizzare la normale back propagation perchè la funzione `h_t()` dipende da `h_t-1()` (e così via fino all'inizio) e non risultano derivabili con la normale back progagation (causerebbe anche perdita di informazioni). Si utilizza una verisone leggermente diversa chiamata Back Propagation Thorught Time perchè sa toranre "indietro nel tempo".
-Vedremo una versione molto semplifcata dei calcoli.
+Nella fase di apprendimento, per aggiornare le matrici di pesi non possiamo utilizzare la normale back propagation perché la funzione `h_t()` dipende da `h_t-1()` (e così via fino all'inizio) e non risultano derivabili con la normale back propagation (causerebbe anche perdita di informazioni). Si utilizza una versione leggermente diversa chiamata Back Propagation Thought Time perché sa tornare "indietro nel tempo".
+Vedremo una versione molto semplificata dei calcoli.
 
 L'idea è che nella la fase forward, andiamo a calcolare la Loss Totale (calcoliamo ogni `Loss_i` e le sommiamo insieme) e da questa possiamo calcolare il gradiente di ogni parametro per andarlo poi ad aggiornare nella fase backward. 
 
@@ -1724,22 +1724,22 @@ L'idea è che nella la fase forward, andiamo a calcolare la Loss Totale (calcoli
 
 _Dove `Li` è la loss function del time step i_
 
-Queste sono le formule con cui vengon aggiornate le matrici di pesi ad ogni peoca in base alla loss function.
+Queste sono le formule con cui vengono aggiornate le matrici di pesi ad ogni epoca in base alla loss function.
 ![formule](./imgs/formule.png)
 
-Prendiamo il caso di `V`, con pochi calcoli possiamo vedere che il calcolo del gradietne può essere riportato alla seguente sommatoria: ![calcoli](./imgs/caclolibptt.png)
-Tutti i prodotti tra quelle derivate sono date dalla chian rule che serve per redere derivabili funzion composte, dato che `Li` dipende da `y^` che dipende da `z`. Questi calcoli non sono problematici per il computer e si fa tutto senza tanti problemi.
+Prendiamo il caso di `V`, con pochi calcoli possiamo vedere che il calcolo del gradiente può essere riportato alla seguente sommatoria: ![calcoli](./imgs/caclolibptt.png)
+Tutti i prodotti tra quelle derivate sono date dalla chian rule che serve per rendere derivabili funzioni composte, dato che `Li` dipende da `y^` che dipende da `z`. Questi calcoli non sono problematici per il computer e si fa tutto senza tanti problemi.
 
 Il vero problem viene con `W` e `U`.
-Prendiamo in esame `W`, la cui formula per caloclare il gradiente è la seugnete: ![doppiaw](./imgs/doppiaw.png).
-Dobbiamo qindi calcolare tutte quelle derivate e sommarle. Per L1 no ci sono molti problemi dato che h1 dipende da h0 (che praticamente è una costante). Il problema sta nel calcolo di quelle successive, perchè bisogna ripercorrere i vari time stap precedenti fino ad arrivare ad h0 (qui prende il nome di BP trhogh time perchè torna "indietro nel tempo"). Di seguito un esempio di come effettivamente si torna indietro nel tempo per il calcolo della seconda derivata.
+Prendiamo in esame `W`, la cui formula per calcolare il gradiente è la seguente: ![doppiaw](./imgs/doppiaw.png).
+Dobbiamo quindi calcolare tutte quelle derivate e sommarle. Per L1 no ci sono molti problemi dato che h1 dipende da h0 (che praticamente è una costante). Il problema sta nel calcolo di quelle successive, perché bisogna ripercorrere i vari time step precedenti fino ad arrivare ad h0 (qui prende il nome di BP through time perché torna "indietro nel tempo"). Di seguito un esempio di come effettivamente si torna indietro nel tempo per il calcolo della seconda derivata.
 
 ![](./imgs/bpttgraph.png)
 
 Possiamo generalizzare tutti questi calcoli in una formula più compatta: ![produttoria2](./imgs/produttoria2.png). 
-Qui sorgono due problemi, il primo è che questi calcoli risultano mooolto complessi e numerosi piu andiamo avanti nel tempo (il time stap 20 dipended dal 19 che dipende dal 18, e così via) il secondo è che quella produttoria causa il vanishing/exploding del gradiente (moltiplicare tante volte la stessa cosa o la porta allinfitiot o a 0).
+Qui sorgono due problemi, il primo è che questi calcoli risultano mooolto complessi e numerosi piu andiamo avanti nel tempo (il time step 20 dipende dal 19 che dipende dal 18, e così via) il secondo è che quella produttoria causa il vanishing/exploding del gradiente (moltiplicare tante volte la stessa cosa o la porta all'infinito o a 0).
 
-Lo stesso problema avviene per `U` dato che anche qui per sviluppare i calocli dobbiamo passare per `h`.
+Lo stesso problema avviene per `U` dato che anche qui per sviluppare i calcoli dobbiamo passare per `h`.
 
 In caso guarda questo video: [Mega Indi che spiega cose](https://www.youtube.com/watch?v=phOVApJHjsU&list=LL&index=1&ab_channel=AhladKumar)
 
@@ -1759,23 +1759,23 @@ Esistono 3 modi per farlo:
 
 In generale è più semplice ottimizzare e lavorare con architetture più semplici e meno profonde possibili.
 
-### Il problema delle Long-Term Dependecies
+### Il problema delle Long-Term Dependencies
 
-Un problema molto importante dell RNN è quello delle Long-Term Dependecisa ovvero la propagazione del gradiente per molti step (quindi passare per moooolti hidden layer recurrent, anche solamente 10 o 20), tende a risultare in un vanishing o exploding del gradiente. Da un punto di vista matematico, il problema risiede nel moltiplicare la matrice dei pesi hidden `W` tantissime volte per se stessa (alla fine viene fuori `W^t`). QUesta moltiplicazione di matrici deriva dal fatto che la fuzione `h^t` dipende da `h^t-1` e continua così ricorsivamente. Si possono fare calcoli strani per scriver questa matrice come prodotto di eignevalues e eigenvectrors(??). Moltiplicando moooolte volte eigenvalues con base (la chiama magnitude) < 1 il calcolo tende a diventare 0, quelli con magnitude > 1 tendono ad esplodere (infinito).
-Con questo problema la fase di learning può impiegare tantissimo tempo ad apprendere queste Long-Term Dependecies o non riuscirci affatto.
+Un problema molto importante dell RNN è quello delle Long-Term Dependencies ovvero la propagazione del gradiente per molti step (quindi passare per moooolti hidden layer recurrent, anche solamente 10 o 20), tende a risultare in un vanishing o exploding del gradiente. Da un punto di vista matematico, il problema risiede nel moltiplicare la matrice dei pesi hidden `W` tantissime volte per se stessa (alla fine viene fuori `W^t`). QUesta moltiplicazione di matrici deriva dal fatto che la funzione `h^t` dipende da `h^t-1` e continua così ricorsivamente. Si possono fare calcoli strani per scriver questa matrice come prodotto di eigenvalues e eigenvectors(??). Moltiplicando moooolte volte eigenvalues con base (la chiama magnitude) < 1 il calcolo tende a diventare 0, quelli con magnitude > 1 tendono ad esplodere (infinito).
+Con questo problema la fase di learning può impiegare tantissimo tempo ad apprendere queste Long-Term Dependencies o non riuscirci affatto.
 
-Sono stati quindi introdotti alcuni metodi per cercare di risolvere qeusto problema.
+Sono stati quindi introdotti alcuni metodi per cercare di risolvere questo problema.
 
 ### Gestire le Long-Term Dependencies
 
-Un modo per gestire le long-term dependecies è quello di creare un modello che opera a molteplici time scale in maniera tale che alcune parti del modello opereranno con un time scale a grana fina e gestireanno piccoli dettagli mentre altre parti opereranno a time scale a grana grossa passando informazioni da passati distanti al presente in maniera efficiente. Le stategie piu importanti per gestire questo problema sono quelle delle:
+Un modo per gestire le long-term dependencies è quello di creare un modello che opera a molteplici time scale in maniera tale che alcune parti del modello opereranno con un time scale a grana fine e gestiranno piccoli dettagli mentre altre parti opereranno a time scale a grana grossa passando informazioni da passati distanti al presente in maniera efficiente. Le strategie piu importanti per gestire questo problema sono quelle delle:
 
-- Sikp Connection: aggiungono collegamenti tra variabili in un passato lontano a variabili nel presente
-- Leaky Units: integrano segnali con differenti costanti di tempo e rimuovono alcune connesioni utilizzate per modellare i time scale a grana fina
+- Skip Connection: aggiungono collegamenti tra variabili in un passato lontano a variabili nel presente
+- Leaky Units: integrano segnali con differenti costanti di tempo e rimuovono alcune connessioni utilizzate per modellare i time scale a grana fine
 
 #### Skip Connection
 
-Questa tecnica è stata introdotta per cercare di ridurre il problema del gradient vanishing/exploding introducendo delle connessioni dirette che passano da un time step `t` ad un time step `t + d` riducendo queindi il numero di dipendenze per tutti gli hidden layer sopra a `t + d` (da `t+d` può tornare indietro direttamente a `t` senza passare per tutti gli alrti). In questo modo il gradiente non diminuirà esponsenzialmente in funzione di `T` ma in funzione di `T/d` rallentandone quindi il vanishing/exploding (può comunque esplodere/scomparire). Questo permette all'algoritmo di learning di rappresentare delle dipendenze piu lunghe che però non è detto che verranno rappresentate bene.
+Questa tecnica è stata introdotta per cercare di ridurre il problema del gradient vanishing/exploding introducendo delle connessioni dirette che passano da un time step `t` ad un time step `t + d` riducendo quindi il numero di dipendenze per tutti gli hidden layer sopra a `t + d` (da `t+d` può tornare indietro direttamente a `t` senza passare per tutti gli altri). In questo modo il gradiente non diminuirà esponenzialmente in funzione di `T` ma in funzione di `T/d` rallentandone quindi il vanishing/exploding (può comunque esplodere/scomparire). Questo permette all'algoritmo di learning di rappresentare delle dipendenze piu lunghe che però non è detto che verranno rappresentate bene.
 
 ![skip the portal](./imgs/skiptheportal.png)
 
