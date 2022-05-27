@@ -1753,7 +1753,7 @@ Esistono 3 modi per farlo:
 
 - **Hidden Recurrent Layers**: aggiungiamo più layer ricorrenti tra l'input e l'output. Questo fa si che i layer più vicino all'input riescono a trasformarlo in modo da rendere la rappresentazione dei dati più appropriata per i layer successivi ![hiddenrec](./imgs/hyddenrec.png)
 
-- **Hidden MLP/Popomotron layers**: possiamo aggiungere layer MLP in qualunque punto della rete (input-to-hidden, hidden-to-hidden, hidden-to-output). Questo aumenta la capacità (memoria) della rete ma, aggiungendo profondità, va a peggiorare in termini di tempo e risorse il processo di learning e ottimizzazione. Questo avviane perchè i MLP layer aumentano la distanza tra il time step `t` e il time step `t + 1` (solitamente la raddoppiano). ![hidden mlp](./imgs/mlprec.png)
+- **Hidden MLP/Pompotron layers**: possiamo aggiungere layer MLP in qualunque punto della rete (input-to-hidden, hidden-to-hidden, hidden-to-output). Questo aumenta la capacità (memoria) della rete ma, aggiungendo profondità, va a peggiorare in termini di tempo e risorse il processo di learning e ottimizzazione. Questo avviane perché i MLP layer aumentano la distanza tra il time step `t` e il time step `t + 1` (solitamente la raddoppiano). ![hidden mlp](./imgs/mlprec.png)
 
 - **Hidden MLP/Pompotron + Skip Layers**: per evitare il problema dell'allungamento della distanza tra i time step (problema del punto precedente) possiamo introdurre, oltre che layer MLP, anche skip layer per accorciare queste distanze. ![skipmlp](./imgs/mlpskip.png)
 
@@ -1781,13 +1781,43 @@ Questa tecnica è stata introdotta per cercare di ridurre il problema del gradie
 
 #### Leaky Units
 
-L'effotto di skip di `d` time step (con `d` un numero intero) può anche essere ottenuto con un numero reale `a` che essendo reale permette aggiustamenti più fini e precisi. Le leaky units sono hidden units cone self connection lineari. Quando `a` è vicino ad 1 il modello ricorda informazioni del passato per un lungo tempo mentre quando è più vicino a 0 le informazioni vengono scartate rapidamente.
+L'effetto di skip di `d` time step (con `d` un numero intero) può anche essere ottenuto con un numero reale `a` che essendo reale permette aggiustamenti più fini e precisi. Le leaky units sono hidden units cone self connection lineari. Quando `a` è vicino ad 1 il modello ricorda informazioni del passato per un lungo tempo mentre quando è più vicino a 0 le informazioni vengono scartate rapidamente.
+
+#### Gated RNN :family_man_man_girl_boy:
+
+Ad oggi le Gated RNN sono il metodo più utilizzato nella pratica per realizzare RNN. Come le Leaky Unit il loro funzionamento si basa sull'idea della creazione di cammini attraverso il tempo le cui derivate non svaniscano o esplodano. Mentre nelle leaky unit queste weighted connection venivano scelte manualmente le gayted RNN provano a generalizzare, permettendo al modello di apprendere quale sia il migliore valore da assegnargli (ricordiamo che per valori vicino ad 1 si ha una memoria a lungo termine, per valori vicino a 0 si indurrà il modello a dimenticare il passato). Quindi il modello sarà in grado di decidere automaticamente quando dimenticare eventi passati impostando lo stato a 0.
+
+Due implementazioni di Gayted RNN sono:
+
+- Long Short-Term Memory (LSTM) [BDSM]
+- Gayted Recurrent Unit (GRU)
+
+#### LSTM
+
+Per permettere al modello di aggiustare i parametri di queste connessioni tra i vari time step viene introdotta un'unità che andrà a sostituire il classico hidden state visto fin ora. Queste unità sono composte internamente da 3 gate che prendono in input l'hidden state precedente e la sequenza in input attuale. Queste gate sono:
+
+- Input Gate
+- Output Gate
+- Forget Gate
+
+Esternamente si comportano come un hidden state visto fin ora quindi si collegano anche con l'hidden state successivo.
+
+![lstm](./imgs/lstm.png)
+_Rappresentazione interna di una cella_
+
+> LARGER IS BETTER
+>  _Valentina Poggioni_
+
+#### GRU
+
+È una semplificazione di LSTM che combina l'input e il forget gate in un unico update gate e unisce in una sola cella la Cell State e l'hidden state. Queste stanno diventando sempre più popolari per via della loro semplicità e perché sono più semplici da allenare.
+
 
 #### Gradient Clipping
 
-A causa delle numerose moltiplicazioni della stessa matrice di pesi si possono forma delle "colline": una regione di pianura seguida ta una discesa ripida e poi una sezione di pianura. Quando il calcolo del gradietne approccia questa collina può succedere che i parametri vengono lanciati molto lontano causando la perdita di tutta l'ottimizzazione fatta fin ora. Per risolver questo problema una tecnica è quella del Gradient Clipping che può essere applicata in 2 modi:
+A causa delle numerose moltiplicazioni della stessa matrice di pesi si possono forma delle "colline": una regione di pianura seguita ta una discesa ripida e poi una sezione di pianura. Quando il calcolo del gradiente approccia questa collina può succedere che i parametri vengono lanciati molto lontano causando la perdita di tutta l'ottimizzazione fatta fin ora. Per risolver questo problema una tecnica è quella del Gradient Clipping che può essere applicata in 2 modi:
 
-- clippare il gradiente, prima che i parametri vengano aggiornati, all'interno di un minibach elemet-wise (dovrebbe essere un area oltre la quale il gradietne non può andare)
+- clippare il gradiente, prima che i parametri vengano aggiornati, all'interno di un minibach element-wise (dovrebbe essere un area oltre la quale il gradiente non può andare)
 - clippare il gradiente se la sua norma supera una certa soglia `v` ![clip form](./imgs/clippingforuma.png)
 
 ![clppng](./imgs/gradientclipping.png)
