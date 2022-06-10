@@ -1,0 +1,97 @@
+\chapter{Cosa è un algoritmo}\label{ch:descrizione}
+\section{Le regole di un algoritmo}
+\begin{enumerate}
+    \item Un algoritmo è di lunghezza finita.
+    
+    \item Esiste un agente di calcolo (la macchina calcolatrice, appunto) che sviluppa la computazione eseguendo le istruzioni dell’ algoritmo.
+    
+    \item L’agente di calcolo ha a disposizione una memoria, dove vengono immagazzinati i risultati intermedi del calcolo.
+    
+    \item Il calcolo avviene per passi discreti.
+    
+    \item Il calcolo non è probabilistico.
+    
+    \item Non deve esserci alcun limite finito alla lunghezza dei dati di ingresso.
+    
+    \item  Non deve esserci alcun limite alla quantità di memoria disponibile.
+    
+    \item Deve esserci un limite finito alla complessità delle istruzioni eseguibili dal dispositivo.
+    
+    \item Il numero di passi della computazione è finito ma non limitato.
+    
+    \item Sono ammesse computazioni senza fine.
+\end{enumerate}
+
+\section{Linguaggi Formali}
+Ogni informazione può essere rappresentata da una sequenza finita di simboli su un opportuno alfabeto finito.\\\\
+\textbf{Esempio.}\\La Divina Commedia, il genoma umano, i numeri interi e quelli razionali (per es. in base 10), grafi, polinomi, ecc... Possiamo quindi assumere che i processi di calcolo riguardino stringhe di simboli scelti in un insieme finito e non vuoto.
+
+\subsection{Parole}
+\textbf{Definizione}\\
+Chiameremo alfabeto un insieme finito non vuoto A di simboli. I suoi elementi sono detti lettere.\\\\
+\textbf{Esempi:}\\
+$\{a, b\} , \{0, 1\} , \{a, b, c\} , \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E,F\}$.\\\\
+\textbf{Definizione}\\
+Ogni sequenza finita di lettere di A si dice parola sull’alfabeto A. L’insieme delle parole sull’alfabeto A sarà denotato con A*.\\\\
+\textbf{Esempi}\\
+a, abb, ababbabb sono parole sull’alfabeto \{a, b\}.\\
+01001010, 0110, 0000 sono parole sull’alfabeto \{0, 1\}.\\\\
+Possiamo anche considerare la sequenza priva di lettere, che si denota con $\wedge$ (oppure $\epsilon$) e si dice parola vuota.
+
+\newpage
+\subsection{Lunghezza}
+Una parola sull’alfabeto A è una sequenza u = a1a2...ak con k $>=$ 0, a1, a2, . . . , ak $\in$ A.\\\\
+\textbf{Definizione}\\
+\vspace{0.3cm}
+L’intero k si dice lunghezza della parola u e si denota con l(u).\\\\
+\textbf{Esempi}\\
+l(a) = 1, l(aab) = 3, l(ababbabb) = 8, l($\wedge$) = 0.
+\subsection{Concatenzione, fattori}
+\textbf{Definizione}\\
+Si considerino le parole u = a1a2...ak e v = b1b2...bh con k, h $>= 0$ \\
+a1, a2, . . . , ak , b1, b2, ... ,bh $\in$ A.\\
+La concatenazione di u e v è \textbf{la parola uv}:\\
+\begin{center}
+uv = a1a2...ak b1b2 ... bh.    
+\end{center}
+\textbf{Esempi}\\
+La concatenazione delle parole abb e aaab è la parola abbaaab.\\
+La concatenazione delle parole aaab e abb è la parola aaababb.\\
+La concatenazione delle parole baa e $\wedge$ è la parola baa.\\\\ 
+\textbf{Definizione}\\
+Diremo che una parola v è un \textbf{fattore} di una parola w se risulta w = xvy.\\
+Per opportune parole x , y. Nel caso in cui x = $\epsilon$ (risp., y = $\wedge$) il fattore v si dice 
+prefisso (\textbf{risp}., \textbf{suffisso}) di w.\\ 
+Diremo che v è un fattore proprio se v $\neq$ w.\\\\
+\textbf{Esempio}\\
+I fattori di abb sono $\wedge$, a, b, ab, bb e abb. Dove i prefissi sono $\wedge$, a, ab e abb ed i suffissi sono  $\wedge$, b, bb e abb.
+\subsection{Linguaggio Formale}
+\textbf{Definizione}\\
+Ogni sottoinsieme di A* si dice linguaggio formale o linguaggio o problema sull’alfabeto A.\\\\
+\textbf{Esempio}\\
+Sono linguaggi formali sull’alfabeto A = \{a, b\}:\\
+L0 = \{a, b\} , L1 = \{a, ab, abb\} , L2 = \{abna $|$ n $>=$ 0\} , L3 = $\emptyset$ , L4 = A*,\\L5 = \{a$^p$ $|$ p primo\}\\
+Le espansioni binarie dei numeri primi costituiscono un linguaggio sull’alfabeto \{0,1\}.\\
+L’insieme dei polinomi Diofantei nelle variabili x , $x'$, $x''$, $x'''$, . . . che ammettono una radice intera possono essere rappresentati come un linguaggio sull’alfabeto
+\begin{center}
+\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, $+$, $-$ ,$^\wedge$, x ,$"$\}
+\end{center}
+
+\subsection{Ordinamento}
+\textbf{Definizione}\\
+Sia A un alfabeto totalmente ordinato. L’ordine radicale (o militare) su A* è definito come segue:\\ 
+siano u, v $\in$ A*.\\
+Si ha u $<$ v se è soddisfatta una delle due condizioni seguenti:
+\begin{itemize}
+    \item l(u) $<$ l(v)
+    
+    \item l(u) = l(v) e u precede v nell’ordine lessicografico 
+    
+    (cioè u = ras, v = rbt con r,s,t $\in$ A* a, b $\in$ A e a $<$ b nell’ordinamento dell’alfabeto A)
+\end{itemize}
+\textbf{Esempio}\\
+I numeri naturali sono rappresentati in base 10 da parole sull’alfabeto:
+\begin{center}
+    \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}, prive di 0 iniziali.
+\end{center}
+L’ordinamento usuale dei numeri naturali coincide con ordine radicale delle corrispondenti espansioni decimali.
