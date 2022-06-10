@@ -1,0 +1,47 @@
+\chapter{La somma di sottoinsiemi è NP-completa} \label{ch:capitolo19}
+\section{La somma di sottoinsiemi è NP-completa}
+Il problema della somma di sottoinsiemi è il seguente: dati n numeri interi non negativi 
+\begin{center}
+    $w1,..., wn$
+\end{center}
+e una somma obiettivo W, si tratta di decidere se esiste un sottoinsieme $I \subset \{1,...,n\}$ tale che $\sum_{i\in I}$ $w_i = W$. Si tratta di un caso molto particolare del problema di \textbf{Knapsack}.
+\\Nel problema di Knapsack, anche gli oggetti hanno valori $v_i$, e il problema consiste nel massimizzare $\sum_{i\in I}$ $v_ii \in I vi$ soggetto a $\sum_{i\in I}$ $w_i = W$. 
+\\Se impostiamo $v_i = w_i$ per tutti gli i, la Somma di sottoinsiemi è un caso speciale del problema di Knapsack che abbiamo discusso quando abbiamo considerato la programmazione dinamica. In quella sezione, abbiamo fornito un algoritmo per il problema che viene eseguito in tempo $O(n*W)$.
+\\Questo algoritmo funziona bene quando W non è troppo grande, ma notiamo che questo algoritmo non è un algoritmo a tempo polinomiale. Per scrivere un intero W, abbiamo bisogno solo di log W cifre. È naturale assumere che tutti i $w_i <= W$, e quindi la lunghezza dell'ingresso è $(n + 1) \log W$, e il tempo di esecuzione di $O(n*W)$ non è polinomiale per questa lunghezza di input.
+\\In questa dispensa mostriamo che, in effetti, la somma di sottoinsiemi è NP-completa. Innanzitutto dimostriamo che
+La somma di sottoinsiemi è in NP.\\\\
+\textbf{Proposizione 1}
+\\La somma di sottoinsiemi è in NP.\\\\
+\textbf{Dimostrazione}\\ 
+Dato un insieme proposto I, basta verificare se effettivamente  $\sum_{i\in I}$ $w_i = W$. Sommare al massimo n numeri, ciascuno di dimensione W, richiede un tempo $O(n \log W)$, lineare rispetto alla dimensione dell'input. Per stabilire che la somma di insiemi è NP-completa, dimostreremo che è almeno altrettanto difficile di SAT.
+\\\\\textbf{Teorema}
+\begin{center}
+    SAT <= Somma di sottoinsiemi.
+\end{center}
+\textbf{Dimostrazione}\\
+Per dimostrare l'affermazione è necessario considerare una formula $\phi$, un input di SAT, e trasformarla in un input equivalente alla somma dei sotto-insieme. 
+\\Supponiamo che $\phi$ abbia n variabili $x_1,..., x_n$, e m clausole $c_1,...,c_m,$ dove la clausola $c_j$ ha $k_j$ letterali.
+\\Definiremo il nostro problema della somma di sottoinsiemi utilizzando una base B molto grande, quindi scriveremo i numeri come $\sum_{j=0}^n+m a_j B^j$ e impostiamo la base B come $B = 2 max_j k_j$ che assicura che le addizioni tra i numeri tra i nostri numeri non causeranno mai un riporto.
+\\Scritte in base B, le cifre $i = 1, . . . , n$ corrisponderanno alle n variabili $x_1,... x:n$, e l'obiettivo di queste cifre sarà quello di assicurarsi di impostare ogni variabile su vero o falso (e non su entrambi). Avremo due numeri $w_i$ e $w_{i+n}$ che corrispondono alla variabile $x_i$ che viene impostata vera o falsa, e la cifra i farà in modo di utilizzare uno dei due numeri $w_{i+n}$ in qualsiasi soluzione. Per fare ciò, impostiamo la decima cifra di W, $w_i$ e $w_{i+n}$ come 1 e impostiamo questa cifra in tutti gli altri numeri come 0. Le successive m cifre corrisponderanno alla variabile $x_i$.
+Le successive m cifre corrispondono alle m clausole e la cifra obiettivo n + j serve a garantire che la j-esima clausola sia soddisfatta dalla nostra impostazione delle variabili.
+\\Il valore obiettivo sarà $ W= $ $\sum_{j=1}^n B^i + \sum_{j=1}^m k_j B^{n+j}$.
+\\Si inizia definendo 2n numeri, per ciascuno dei letterali $x_i$ e $x\Bar{i}$. Le cifre 1,...,n faranno in modo che ogni sottoinsieme che somma a W utilizzi esattamente solo uno dei due numeri $x_i$ e $x\Bar{i}$, mentre le successive m cifre avranno lo scopo di garantire che ogni clausola sia soddisfatta. Avremo bisogno di alcuni numeri aggiuntivi che definiremo in seguito.
+\\Il numero corrispondente al letterale $x_i$ è il seguente $wi = B^i + \sum_{j:x_i \in c_j} B^{n+j}$, mentre il numero corrispondente al letterale $x\Bar{i}$ è il seguente
+corrispondente al letterale $w_i = B^i + \sum_{j:x_i \in c_j} B^{n+j}$. Se aggiungiamo un insieme di n numeri corrispondente a un'assegnazione di verità soddisfacente per $\phi$, si ottiene una qualche forma di $\sum_{i=1}^n b_j B^{i} + \sum_{j=1}^m b_j B^{n+j} $ dove $b_j$ è il numero di letterali veri nella clausola $c_j$. Poiché si trattava di un'assegnazione soddisfacente, dobbiamo avere $b_j >= 1$.
+\\Come ultimo dettaglio, aggiungeremo $k_j - 1$ copie del numero $B^{n+j}$ per tutte le clausole $c_j$ . In questo modo definito il nostro problema della somma dei sottoinsiemi, con l'obiettivo W e i $2n + \sum_{j} (k+j-1) $ numeri definiti, l'aggiunta di questi numeri aggiuntivi ci permetterà di raggiungere esattamente W.
+Per dimostrare che si tratta di una riduzione valida, dobbiamo stabilire due affermazioni di seguito riportate che stabiliscono rispettivamente la direzione del se e del solo se della prova.\\\\
+\textbf{Proposizione 2}\\
+Se il problema SAT definito dalla formula $\phi$ è risolvibile, allora anche il problema della Somma di sottoinsiemi appena definito con $2n - m + \sum_{j} k_j$ numeri è anch'esso risolvibile.
+\\\\\textbf{Dimostrazione}
+\\Supponiamo di avere un'assegnazione soddisfacente per la formula $\phi$, prima consideriamo di aggiungere i numeri che corrispondono $a_i$ letterali veri. Abbiamo usato esattamente uno dei numeri $w_i$ e $w_{n+i}$, quindi avremo 1 nella cifra i-esima e otterremo una somma della forma $\sum_{i=1}^n B_i + \sum_{j=1}^m a_j B^{n+j}$.
+\\Inoltre, si avrà $1 <= a_i <= k_i$, dove $a_i$ è almeno 1, in quanto l'assegnazione ha soddisfatto la formula, quindi almeno uno dei numeri aggiunti ha un 1 nella (n+j) terza cifra, e al massimo $k_j$ in quanto anche sommando tutti i numeri al massimo $k_j$ di essi ha un 1 nella (n+j)terza cifra. In particolare, con $B > k_j$, non ci saranno riporti.
+\\Per fare in modo che la somma sia esattamente W, aggiungiamo $k_j - a_j$ copie del numero $B^{n+j}$ che abbiamo aggiunto alla fine della costruzione.
+\\Dobbiamo poi dimostrare l'altra direzione:
+\\\\\textbf{Proposizione 3}
+\\ Se il problema della somma di sottoinsiemi che abbiamo appena definito con $2n - m + \sum_{j} k_j$ numeri è risolvibile, allora la Somma di sottoinsiemi definita dalla formula $\phi$ è risolvibile.\\\\
+\textbf{Dimostrazione}\\
+Si noti innanzitutto che per qualsiasi sottoinsieme si possa aggiungere, non ci sarà mai un riporto in nessuna cifra. 
+\\Per capire perché, si noti che tutti i numeri da sommare hanno tutte le cifre 0 o 1; per la cifra $i = 1,..., n$ abbiamo due numeri con un 1 in quella cifra $w_i e w_{i+n}$; la cifra 0 è sempre 0; e per la cifra n + j abbiamo esattamente $2 max_j$ $k_j - 1$ numeri che hanno un 1 in quella cifra: $k_j$ corrispondenti ai $k_j$ letterali nella clausola e $k_j - 1$ numeri extra $B^{n+j}$ che abbiamo aggiunto alla fine. 
+\\Quindi, anche se anche se aggiungiamo tutti i numeri, non possiamo causare un riporto in nessuna delle cifre!.
+\\In base all'osservazione di cui sopra sull'assenza di riporti, per ottenere il numero W dobbiamo trovare un sottoinsieme I che abbia esattamente il numero giusto di 1 in ogni cifra. Per prima cosa concentriamoci sulle cifre 1,..., n. Questa cifra in W è un 1 e i due numeri che hanno un 1 in questa cifra sono $w_i$ e $w_{i+n}$, per sommare a W, dobbiamo usare esattamente uno di questi, sia I' $\subset$ I corrispondente ai letterali. Questo Questo dimostra che i numeri selezionati tra i primi 2n corrispondono a un'assegnazione di verità delle variabili $x_1, . . . , x_n$.
+\\Infine, dobbiamo dimostrare che questa assegnazione di verità soddisfa la formula $\phi$. Consideriamo la somma $W' = \sum_{j \in I'} wj$ aggiungendo solo il sottoinsieme I che corrisponde alle variabili. Si noti che $W' = \sum_{j=1}^n B_i + \sum_{j=1}^m a'_j B^{n+j>}$ con $a'_j j <= k_j$. Dobbiamo dimostrare che $a'_j >= 1$, il che dimostrerà che abbiamo un'assegnazione soddisfacente. Ricordiamo che il sottoinsieme I somma esattamente a W. Per essere in grado di estendere I' con un sottoinsieme di numeri aggiuntivi che sommano a W, dobbiamo avere $a'_j$, poiché ci sono ci sono solo $k_j - 1$ copie di $B^{n+j}$ .
