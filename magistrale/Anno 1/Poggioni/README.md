@@ -28,7 +28,7 @@
   * [PrePruning](#prepruning)
   * [PostPruning](#postpruning)
 - [Valutazione delle Performance di un Classificacatore](#valutazione-delle-performance-di-un-classificacatore)
-- [Imbalanced Class Problem ⚖️](#imbalanced-class-problem-)
+- [Imbalanced Class Problem ⚖️](#imbalanced-class-problem-balance_scale)
   * [Precision & Recall](#precision-recall)
   * [ROC 🪨](#roc-)
     + [Generazione di una ROC](#generazione-di-una-roc)
