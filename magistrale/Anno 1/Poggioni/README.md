@@ -909,7 +909,7 @@ Come detto prima la fase di Training di un Percettrone vuol dire aggiustare i pe
 
 ![perceptron_learning](./imgs/perceptron_learning.png)
 
-In modo molto intuitivo, il nuovo peso `w(k+1)` è la combinazione del vecchio peso `w(k)` e un valore proporzionale all'errore di predizione $(y - \hat{y})$. Se la predizione è corretta (il risultato di $(y - \hat{y})$ è $0$) allora il peso rimane invariato. Altrimenti viene modificato nel seguente modo:
+In modo molto intuitivo, il nuovo peso $w^{(k+1)}$ è la combinazione del vecchio peso $w^{(k)}$ e un valore proporzionale all'errore di predizione $(y - \hat{y})$. Se la predizione è corretta (il risultato di $(y - \hat{y})$ è $0$) allora il peso rimane invariato. Altrimenti viene modificato nel seguente modo:
 
 * Se $y = +1$ e $\hat{y} = -1$ : l'errore è dunque uguale a `2` e per compensare l'errore bisogna aumentare il peso dei link positivi e diminuire il peso dei link negativi.
 * Se $y = -1$ e $\hat{y} = +1$: l'errore è dunque uguale a `-2` e per compensare l'errore bisogna diminuire il peso dei link positivi e aumentare il peso dei link negativi.
