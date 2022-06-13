@@ -1810,11 +1810,17 @@ Da degli studi pratici è emerso che questa aggiunta è sensata e apporta miglio
 
 Esistono 3 modi per farlo:
 
-- **Hidden Recurrent Layers**: aggiungiamo più layer ricorrenti tra l'input e l'output. Questo fa si che i layer più vicino all'input riescono a trasformarlo in modo da rendere la rappresentazione dei dati più appropriata per i layer successivi ![hiddenrec](./imgs/hyddenrec.png)
+- **Hidden Recurrent Layers**: aggiungiamo più layer ricorrenti tra l'input e l'output. Questo fa si che i layer più vicino all'input riescono a trasformarlo in modo da rendere la rappresentazione dei dati più appropriata per i layer successivi 
 
-- **Hidden MLP/Pompotron layers**: possiamo aggiungere layer MLP in qualunque punto della rete (input-to-hidden, hidden-to-hidden, hidden-to-output). Questo aumenta la capacità (memoria) della rete ma, aggiungendo profondità, va a peggiorare in termini di tempo e risorse il processo di learning e ottimizzazione. Questo avviane perché i MLP layer aumentano la distanza tra il time step `t` e il time step `t + 1` (solitamente la raddoppiano). ![hidden mlp](./imgs/mlprec.png)
+   ![hiddenrec](./imgs/hyddenrec.png)
 
-- **Hidden MLP/Pompotron + Skip Layers**: per evitare il problema dell'allungamento della distanza tra i time step (problema del punto precedente) possiamo introdurre, oltre che layer MLP, anche skip layer per accorciare queste distanze. ![skipmlp](./imgs/mlpskip.png)
+- **Hidden MLP/Pompotron layers**: possiamo aggiungere layer MLP in qualunque punto della rete (input-to-hidden, hidden-to-hidden, hidden-to-output). Questo aumenta la capacità (memoria) della rete ma, aggiungendo profondità, va a peggiorare in termini di tempo e risorse il processo di learning e ottimizzazione. Questo avviane perché i MLP layer aumentano la distanza tra il time step `t` e il time step `t + 1` (solitamente la raddoppiano).
+
+   ![hidden mlp](./imgs/mlprec.png)
+
+- **Hidden MLP/Pompotron + Skip Layers**: per evitare il problema dell'allungamento della distanza tra i time step (problema del punto precedente) possiamo introdurre, oltre che layer MLP, anche skip layer per accorciare queste distanze.
+
+   ![skipmlp](./imgs/mlpskip.png)
 
 In generale è più semplice ottimizzare e lavorare con architetture più semplici e meno profonde possibili.
 
