@@ -178,12 +178,12 @@ Alcuni campi in cui il Machine Learning ottiene ottimi risultati sono:
 
 ### Supervised Learning
 
-Date le coppie di input e label `(x1,y1), (x2,y2), ...`, guardando il loro andamento è possibile trovare una funzione `f(x)` che permette di predire `y` dato `x`.
+Date le coppie di input e label $(x_1,y_1), (x_2,y_2), ...$, guardando il loro andamento è possibile trovare una funzione $f(x)$ che permette di predire $y$ dato $x$.
 
-In base al tipo di dato che è `y`, possiamo avere 2 tipi di supervised learning differenti:
+In base al tipo di dato che è $y$, possiamo avere 2 tipi di supervised learning differenti:
 
-- `y` è un **numero reale**: regressione ![regressione](./imgs/regressione.png)
-- `y` è **categorico**: classificazione ![classificazione](./imgs/classificazione.png)
+- $y$ è un **numero reale**: regressione ![regressione](./imgs/regressione.png)
+- $y$ è **categorico**: classificazione ![classificazione](./imgs/classificazione.png)
 
 **Unsupervised Learning**
 
