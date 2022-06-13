@@ -346,7 +346,7 @@ Questi metodi variano in base al:
 Possono essere gestiti in 2 modi principali:
 
 * Discretizzazione: permettono di formare categorie ordinali. Possono essere raggruppati in cluster, in insiemi di frequenze equivalenti o intervalli equivalenti. Questa divisione può essere effettuata in maniera **Statica** (solo all'inizio) o **Dinamica** (per ogni nodo)
-* Decisione Binaria: esegue dei test binari come `A > v` o `A <= V`
+* Decisione Binaria: esegue dei test binari come $A > v$ o $A <= V$
 
 Un possibile approccio è quello greedy che guarda l'indice di purezza della divisione delle classi:
 
@@ -371,7 +371,7 @@ Indici per misurare l'impurità sono :
 
 `p(j|t)` è la frequenza relativa della classe j al nodo t
 
-Il valore massimo che può assumere è `1 - 1/nc` quando i record sono distribuiti in maniera equa e quindi si ha un alto livello di impurità
+Il valore massimo che può assumere è $1 - \frac{1}{nc}$ quando i record sono distribuiti in maniera equa e quindi si ha un alto livello di impurità
 
 Il minimo è 0.0 che implica che titti i record appartengono ad una sola classe (l'informazione più interessante)
 
@@ -448,7 +448,7 @@ Serve per valutare la bontà di un dato modello, e quindi per evitare che incapp
 * Usando un **Validation Set**
   * E' un set di dati, diverso dal training, che serve per stimare quanto sia affidabile il modello, ma non è sufficiente per il testing (esempio dell'esame di Bartoli). Si creano e allenano più modelli differenti e con il validation set si sceglie quello più preciso.
 * Incorporando la **Model Complexity**
-  * Un'alta complessità tende a causare un numero maggiori di errori, quindi, dati 2 modelli è sempre meglio preferire quello con complessità minore. La complessità equivale a: `GenError(Model) = TrainError(Model, TrainData) + a * Complexity(Model)`
+  * Un'alta complessità tende a causare un numero maggiori di errori, quindi, dati 2 modelli è sempre meglio preferire quello con complessità minore. La complessità equivale a: $GenError(Model) = TrainError(Model, TrainData) + a \cdot Complexity(Model)$
 * Stimando i Limiti Statistici
 
 ### Approccio pessimistico
@@ -456,7 +456,7 @@ Serve per valutare la bontà di un dato modello, e quindi per evitare che incapp
 Questa formula serve per calcolare il Generalization Error e quindi la complessità del Decision Tree
 
 ![pessimo](./imgs/pessimistico.png)
-_E' equivalente alla formula `GenError(Model) = TrainError(Model, TrainData) + a * Complexity(Model)`_
+_E' equivalente alla formula $GenError(Model) = TrainError(Model, TrainData) + a \cdot Complexity(Model)$_
 
 ### Approccio Ottimistico
 
@@ -719,11 +719,11 @@ I parametri `C`e `k` rappresentano quanto l'errore penalizzi il modello. Per ese
 
 ### Training - Caso Non Lineare
 
-Gli approcci definiti fino ad ora non sono applicabili agli spazi di training non linearmente separabili, dunque è necessario trovare un nuovo approccio che consiste nel trasformare lo spazio di partenza `x` in uno spazio linearmente separabile `fi(x)`.
+Gli approcci definiti fino ad ora non sono applicabili agli spazi di training non linearmente separabili, dunque è necessario trovare un nuovo approccio che consiste nel trasformare lo spazio di partenza $x$ in uno spazio linearmente separabile $\Phi(x)$.
 
 ![fi](./imgs/fi.png)
 
-Come possiamo vedere da questo esempio, il decision boundary che originariamente era circolare viene linearizzato applicando la trasformazione non lineare `fi(x)`.
+Come possiamo vedere da questo esempio, il decision boundary che originariamente era circolare viene linearizzato applicando la trasformazione non lineare $\Phi(x)$.
 
 ![fi no](./imgs/fi_no.png)
 
@@ -731,9 +731,9 @@ Il nuovo learning task potrà essere formalizzato come il seguente problema di o
 
 ![](./imgs/fi_nuovo.png)
 
-L'unica differenza con il caso linearmente separabile è che il vincolo viene calcolato non più sul set degli attributi base `x` ma, sulla loro trasformazione `fi(x)`, che è un vettore con tante componenti quante sono le dimensioni dello spazio trasformato.
+L'unica differenza con il caso linearmente separabile è che il vincolo viene calcolato non più sul set degli attributi base $x$ ma, sulla loro trasformazione $\Phi(x)$, che è un vettore con tante componenti quante sono le dimensioni dello spazio trasformato.
 
-Sviluppando la Lagrangiana, il calcolo si ridurrà a un *dot product* (prodotto scalare o similarità) tra una coppia di vettori dello spazio trasformato (`fi(xi) * fi(xj)` ). Tuttavia questo calcolo risulta essere tremendamente costoso e per causa sua possiamo incappare nella **Maledizione della Dimensionalità**: aumentando il numero di dimensioni (features) il quantitativo di dati necessario per generalizzare con precisione aumenta esponenzialmente (servono tantissimi dati di training per permettere al modello di apprendere tutte le possibili combinazioni di feature possibili)!
+Sviluppando la Lagrangiana, il calcolo si ridurrà a un *dot product* (prodotto scalare o similarità) tra una coppia di vettori dello spazio trasformato ($\Phi(x_i) \cdot \Phi(x_j)$ ). Tuttavia questo calcolo risulta essere tremendamente costoso e per causa sua possiamo incappare nella **Maledizione della Dimensionalità**: aumentando il numero di dimensioni (features) il quantitativo di dati necessario per generalizzare con precisione aumenta esponenzialmente (servono tantissimi dati di training per permettere al modello di apprendere tutte le possibili combinazioni di feature possibili)!
 
 Questo problema può essere aggirato tramite il **Kernel Trick**.
 
@@ -745,7 +745,7 @@ La sua applicabilità richiede che sia vera la seguente affermazione: deve esist
 
 ![mercer](./imgs/mercer.png)
 
-In sostanza, applicando la funzione kernel si evita di calcolare le `fi`, riducendo il costo computazionale dell'algoritmo.
+In sostanza, applicando la funzione kernel si evita di calcolare le $\Phi$, riducendo il costo computazionale dell'algoritmo.
 
 ### Caratteristiche
 
@@ -769,7 +769,7 @@ Dall'immagine possiamo notare come i metodi ensemble vanno a migliorare il gener
 
 1. **Manipolando i dati di training (training set)**: vengono creati più set di training basandosi su una qualche distribuzione di campionamento. Dopodiché viene creato un classificatore utilizzando degli algoritmi particolari come _Bagging_ e _Boosting_.
 2. **Manipolando le input features**: da ogni dataset viene scelto un sottoinsieme di input features che verranno poi utilizzate per allenare i vari classificatori dell'ensemble.
-3. **Manipolando le label di classe**: questo metodo si usa quando ci sono un grande numero di classi, il dataset di training viene trasformato in un problema di classificazione binario partizionando le label in due sottoinsiemi disgiunti A0 e A1 che verranno utilizzate successivamente per allenare un classificatore. Ripetendo questo step più volte (relabeling) si otterrà un ensemble di classificatori base. Quando poi verrà passato un dato di test `x` viene fatta la somma delle volte che viene classificato nella classe A0 o nella classe A1 e poi viene scelta la classe di maggioranza.
+3. **Manipolando le label di classe**: questo metodo si usa quando ci sono un grande numero di classi, il dataset di training viene trasformato in un problema di classificazione binario partizionando le label in due sottoinsiemi disgiunti $A_0$ e $A_1$ che verranno utilizzate successivamente per allenare un classificatore. Ripetendo questo step più volte (relabeling) si otterrà un ensemble di classificatori base. Quando poi verrà passato un dato di test $x$ viene fatta la somma delle volte che viene classificato nella classe $A_0$ o nella classe $A_1$ e poi viene scelta la classe di maggioranza.
 4. **Manipolando l'algoritmo di learning**: l'algoritmo di learning scelto viene applicato più volte per ottenere più modelli di base che poi verranno utilizzati per creare l'ensemble. Un esempio di modelli che si prestano meglio a questo processo sono i decision tree e le ann, perché variando i parametri (pesi, bias, topologia del modello, ecc.) con cui sono costruiti creano classificatori abbastanza diversi.
 
 I primi 3 approcci sono metodi generici, mentre l'ultimo è dipendente dal tipo di classificatore utilizzato.
@@ -780,34 +780,6 @@ Gli ensemble methods funzionano meglio con classificatori instabili, ovvero mode
 ![ensamble code](./imgs/ensamble_code.png)
 
 ### Bias-Variance Decomposition
-
-<!-- 
-La Decomposizione Bias-Varianza è un metodo per analizzare l'errore di predizione di un calassificatore. Si può rapprsentare questo metodo con il seguente esempio:
-
-Prendiamo in cosiderazione il lancio di una palla di cannone verso un bersaglio `y`.
-
-![bias varianza](./imgs/bias_varianza.png)
-
-- Bias: misura la distanza media tra la posizione del target e la posizione in cui cade il proiettile (di quanto sbaglia il classificatore ??)
-
-- Varianza: misura la differenza tra la posizoine in cui cade il proiettile `x` e la media `x'` delle posizioni in cui cade mediamente
-
-- Noise: variabilità della posizione del target
-
-Unendo tutte queste componenti otteniamo la seguente formula:
-
-![bias formula](./imgs/bias.png)
-
-Per il problema della classificazione possiamo utilizzare lo stesso approccio dell'esempio precedente: si può decomporre l'errore in 3 termini diversi (come l'equazione di prima).
-
-Esempi di bias sono: pruning sugli alberi decisionali (dove farlo, quando e su che ramo), numero di vicini in un knn, topologia della rete di un ANN.
-
-I metodi Ensamble cercano di ridurre la varianza di modelli complessi (a basso bias) aggregando le risposte di più classificatori di base.
-
-![bias fiting](./imgs/bias_fitting.png)
--->
-
-**Dal tizio di youtube spiegato bene**
 
 L'inabilità di un modello di machine learning nel catturare la vera relazione tra i dati è chiamata **Bias** (min sqrt error, la distanza tra i pallini e la riga rossa).
 
@@ -932,10 +904,10 @@ Come detto prima la fase di Training di un Percettrone vuol dire aggiustare i pe
 
 ![perceptron_learning](./imgs/perceptron_learning.png)
 
-In modo molto intuitivo, il nuovo peso `w(k+1)` è la combinazione del vecchio peso `w(k)` e un valore proporzionale all'errore di predizione `(y - y^)`. Se la predizione è corretta (il risultato di `(y - y^)` è `0`) allora il peso rimane invariato. Altrimenti viene modificato nel seguente modo:
+In modo molto intuitivo, il nuovo peso `w(k+1)` è la combinazione del vecchio peso `w(k)` e un valore proporzionale all'errore di predizione $(y - \hat{y})$. Se la predizione è corretta (il risultato di $(y - \hat{y})$ è $0$) allora il peso rimane invariato. Altrimenti viene modificato nel seguente modo:
 
-* Se `y = +1` e `y^ = -1` : l'errore è dunque uguale a `2` e per compensare l'errore bisogna aumentare il peso dei link positivi e diminuire il peso dei link negativi.
-* Se `y = -1` e `y^ = +1`: l'errore è dunque uguale a `-2` e per compensare l'errore bisogna diminuire il peso dei link positivi e aumentare il peso dei link negativi.
+* Se $y = +1$ e $\hat{y} = -1$ : l'errore è dunque uguale a `2` e per compensare l'errore bisogna aumentare il peso dei link positivi e diminuire il peso dei link negativi.
+* Se $y = -1$ e $\hat{y} = +1$: l'errore è dunque uguale a `-2` e per compensare l'errore bisogna diminuire il peso dei link positivi e aumentare il peso dei link negativi.
 
 Lambda è chiamato _Learning Rate_, che è un valore che varia tra 0 e 1 e serve per controllare quanto fini devo essere gli aggiustamenti durante il processo di learning. Se lambda è più vicino a 0, i nuovi pesi variano meno rispetto a quelli precedenti. Se è più vicina ad 1, i nuovi pesi possono variare molto rispetto a quelli vecchi. Alcune volte si può usare il valore lambda in modo adattivo: all'inizio sarà più vicino ad 1 in quanto "deve imparare di più" per poi avvicinarsi sempre più allo 0 per effettuare delle piccole modifiche per raggiungere la precisione.
 
@@ -983,7 +955,7 @@ L'obiettivo dell'allenamento di una rete neurale è quello di determinare un set
 
 ![learning task](./imgs/learning.png)
 
-La somma degli errori dipende da `w` perché la classe predetta `y^` è una funzione che dipende dai pesi assegnati ai nodi nascosti e quelli di output.
+La somma degli errori dipende da `w` perché la classe predetta $\hat{y}$ è una funzione che dipende dai pesi assegnati ai nodi nascosti e quelli di output.
 
 Poiché spesso l'output di un ANN è *non lineare* non si riesce a determinare una soluzione per `w` che sia garantita essere globalmente ottimale. Tuttavia sono stati sviluppati dei metodi per aggirare questo problema come il **Gradient Descent**.
 
@@ -1111,8 +1083,8 @@ Inizializzare in modo Random i Centroidi può degradare la qualità dei Cluster 
 
 ##### Costo
 
-- Spazio: `O((m+K)n)` dove `m` è il numero di data point, `n` è il numero di attributi
-- Tempo: `O(I*K*m*n)` dove `I` è il numero di iterazioni richieste per la convergenza
+- Spazio: $O((m+K)n)$ dove $m$ è il numero di data point, $n$ è il numero di attributi
+- Tempo: $O(I \cdot K \cdot m \cdot n)$ dove $I$ è il numero di iterazioni richieste per la convergenza
 
 `I` può essere limitata superiormente dato che tendenzialmente i cambiamenti più significativi avvengono nelle prime iterazioni. L'algoritmo risulta efficiente e semplice a patto che `K` sia significativamente minore di `m`.
 
