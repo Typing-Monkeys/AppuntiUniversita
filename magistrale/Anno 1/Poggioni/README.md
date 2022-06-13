@@ -1740,7 +1740,7 @@ I design patter più importanti sono i seguenti:
 
 - Recurrent Network che producono un output ad ogni time-step ed hanno connessioni ricorrenti tra le hidden unit ![rnn](./imgs/rnn.png)
 - Recurrent Network che producono un output ad ogni time-step ed hanno recurrent connection solo tra output ad un time step e hidden unit al time step successivo. Questo design sarà sempre peggiore degli altri e non è turing completo perché le informazioni non vengono passate direttamente tra hidden layer ma tra output ed hidden layer poiché l'output layer prova a far combaciare con la propria matrice dei pesi l'output con la ground through sarà difficile preservare le informazioni. Il vantaggio di togliere hidden to hidden connection è che il calcolo del gradiente per ogni time stamp può essere parallelizzato ![rrn out h](./imgs/rnnouth.png)
-- Recurrent NEtwork con un solo output finale con connessioni ricorrenti tra hidden units. ![rnn fine](./imgs/rnnoutfine.png)
+- Recurrent Network con un solo output finale con connessioni ricorrenti tra hidden units. ![rnn fine](./imgs/rnnoutfine.png)
 
 Nella forward phase abbiamo le seguenti equazioni:
 
