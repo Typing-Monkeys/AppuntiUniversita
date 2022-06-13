@@ -1265,7 +1265,7 @@ Metodo per la valutazione di un singolo Cluster che combina i concetti di Coesio
 
 ![silouette](./imgs/silouette.png)
 
-$s_i$ può variare tra $-1$ e $1$. Il valore $1$ è il migliore (si ottiene solo quando $a_i = 0$) mentre $-1$ è un valore brutto perché, in questo caso, la distanza `a_i` risulta più grade di $b_i$, vuol dire che il punto analizzato apparterrebbe più ad un cluster che non lo contiene piuttosto che a quello che lo contiene.
+$s_i$ può variare tra $-1$ e $1$. Il valore $1$ è il migliore (si ottiene solo quando $a_i = 0$) mentre $-1$ è un valore brutto perché, in questo caso, la distanza $a_i$ risulta più grade di $b_i$, vuol dire che il punto analizzato apparterrebbe più ad un cluster che non lo contiene piuttosto che a quello che lo contiene.
 
 Questo coefficiente può essere utilizzato per misurare la bontà di un clustering calcolandolo su tutti i punti e poi facendo una media.
 
