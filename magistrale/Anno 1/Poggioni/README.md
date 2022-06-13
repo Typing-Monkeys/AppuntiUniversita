@@ -182,8 +182,8 @@ Date le coppie di input e label $(x_1,y_1), (x_2,y_2), ...$, guardando il loro a
 
 In base al tipo di dato che è $y$, possiamo avere 2 tipi di supervised learning differenti:
 
-- $y$ è un **numero reale**: regressione ![regressione](./imgs/regressione.png)
-- $y$ è **categorico**: classificazione ![classificazione](./imgs/classificazione.png)
+- `y` è un **numero reale**: regressione ![regressione](./imgs/regressione.png)
+- `y` è **categorico**: classificazione ![classificazione](./imgs/classificazione.png)
 
 **Unsupervised Learning**
 
@@ -269,12 +269,12 @@ Alcuni criteri di valutazione:
 
 ## Classificazione
 
-**Definizione Classificazione**: dato un training set, ogni elemento è caratterizzato da una tupla `(x, y)` dove:
+**Definizione Classificazione**: dato un training set, ogni elemento è caratterizzato da una tupla $(x, y)$ dove:
 
-* `x` è un insieme di attributi (_input_)
-* `y` è il nome della classe (_label_)
+* $x$ è un insieme di attributi (_input_)
+* $y$ è il nome della classe (_label_)
 
-Il nostro obbiettivo è quello di imparare un modello che mappa ogni set di attributi `x` in una data classe `y`.
+Il nostro obbiettivo è quello di imparare un modello che mappa ogni set di attributi $x$ in una data classe $y$.
 
 ![schema_classificazione](./imgs/schema_classificazione.png)
 
@@ -306,10 +306,10 @@ ALcuni algoritmi per la classificacazione basati su decision tree sono:
 
 ### Hunt's Algorithm
 
-**Funzionamento**: sia `Dt` un set di dati di training si ha la seguente procedura:
+**Funzionamento**: sia $D_t$ un set di dati di training si ha la seguente procedura:
 
-* se `Dt` contiene record che appartengono alla stessa classe `yt`, allora `t` è un nodo foglia ed appartiene alla classe `yt`
-* se `Dt` contiene record che appartengono a più di una classe, allora testa un attributo per dividere i dati in sottoinsiemi più piccoli. Poi viene applicata ricorsivamente la procedura di prima.
+* se $D_t$ contiene record che appartengono alla stessa classe $y_t$, allora $t$ è un nodo foglia ed appartiene alla classe $y_t$
+* se $D_t$ contiene record che appartengono a più di una classe, allora testa un attributo per dividere i dati in sottoinsiemi più piccoli. Poi viene applicata ricorsivamente la procedura di prima.
 
 ![hunt_example](./imgs/hunt_example.png)
 
