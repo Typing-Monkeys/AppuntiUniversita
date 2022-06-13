@@ -128,7 +128,7 @@
     + [t-SNE](#t-sne)
       - [Pro e Contro](#pro-e-contro-8)
   * [Representation Learning (aka Features Learning)](#representation-learning-aka-features-learning)
-    + [Natural Language Processing 🗻 🪵](#natural-language-processing-)
+    + [Natural Language Processing 🗻 🪵](#natural-language-processing-mount_fuji-wood)
       - [World Embedding](#world-embedding)
         * [Word2Vec](#word2vec)
 - [Recurrent Neural Networks](#recurrent-neural-networks)
@@ -1624,7 +1624,7 @@ Questo tipo di learning basa il suo principio di funzionamento sull'apprendere u
 
 In sostanza, rende input che potrebbero essere difficili da utilizzare per algoritmi di ML facilmente rappresentabili ed utilizzabili.
 
-#### Natural Language Processing 🗻 🪵
+#### Natural Language Processing :mount_fuji: :wood:
 
 NLP è il campo che si occupa della comprensione del processing, dell'analisi e della generazione dei linguaggi naturali (CARPI TRIGGERED).
 Può essere applicata a vari campi come:
