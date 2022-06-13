@@ -1785,6 +1785,7 @@ Queste sono le formule con cui vengono aggiornate le matrici di pesi ad ogni epo
 ![formule](./imgs/formule.png)
 
 Prendiamo il caso di `V`, con pochi calcoli possiamo vedere che il calcolo del gradiente può essere riportato alla seguente sommatoria: ![calcoli](./imgs/caclolibptt.png)
+
 Tutti i prodotti tra quelle derivate sono date dalla chian rule che serve per rendere derivabili funzioni composte, dato che $L_i$ dipende da $\hat{y}$ che dipende da `z`. Questi calcoli non sono problematici per il computer e si fa tutto senza tanti problemi.
 
 Il vero problem viene con `W` e `U`.
