@@ -1779,7 +1779,7 @@ L'idea è che nella la fase forward, andiamo a calcolare la Loss Totale (calcoli
 
 <img src="./imgs/losstotale.png" width="400">
 
-*Dove $L_i$ è la loss function del time step $i$.*
+_Dove_ $L_i$ _è la loss function del time step_ $i$
 
 Queste sono le formule con cui vengono aggiornate le matrici di pesi ad ogni epoca in base alla loss function.
 ![formule](./imgs/formule.png)
