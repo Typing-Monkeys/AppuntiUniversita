@@ -456,6 +456,7 @@ Serve per valutare la bontà di un dato modello, e quindi per evitare che incapp
 Questa formula serve per calcolare il Generalization Error e quindi la complessità del Decision Tree
 
 ![pessimo](./imgs/pessimistico.png)
+
 _E' equivalente alla formula_ $GenError(Model) = TrainError(Model, TrainData) + a \cdot Complexity(Model)$
 
 ### Approccio Ottimistico
