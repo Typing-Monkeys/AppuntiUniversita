@@ -1,5 +1,9 @@
 # Machine Learning
 
+![intro](./imgs/intro.jpg)
+
+>A.I means: Artificial Ignorance
+
 ## Indice
 
 * [Definizione di un problema di learning](#definizione-di-un-problema-di-learning)
