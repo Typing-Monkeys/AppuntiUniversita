@@ -612,8 +612,9 @@ Il metodo Naive calcola il valore di `P(X|Y)` nel seguente modo:
 Va però fatta una distinzione in base ai tipi di attributo che si prendono in considerazione:
 
 * **Categorici**: si calcola il rapporto tra il numero di volte che l'attributo compare all'interno dei record che contengono la classe in questione fratto il numero di volte che compare la classe Y in questione
-* **Continui**: per trattare questi dati si può procedere in 2 modi diversi:
 
+* **Continui**: per trattare questi dati si può procedere in 2 modi diversi:
+  
   * **Discretizzando**: si dividono i dati in intervalli più piccoli trasformando quindi l'attributo continuo in un attributo categorico e si procede come visto sopra. Bisogna fare attenzione a come vengono scelti gli intervalli: troppo grandi sono poco precisi e troppo piccoli causano overfitting
   * **Utilizzano le distribuzioni di Probabilità**: si cerca una distribuzione di probabilità più adatta alle variabili continue e si stimano i parametri della distribuzione usando i dati di training. Generalmente la distribuzione Gaussiana è la più utilizzate e quindi ne deriva la seguente formula: ![gauss](./imgs/gauss.png)
 
@@ -853,15 +854,18 @@ dove `p` rappresenta la correlazione media tra gli alberi e `s` misura la forza 
 Un vettore casuale può essere incorporato nella crescita dell'albero in più modi (come creare il vettore random):
 
 1. **Forest-RI** (random input selection):  vengono selezionate randomicamente `F` features (colonne) tra cui scegliere per effettuare lo split di ogni nodo dell'albero. L'albero viene costruito interamente senza effettuare pruning per ridurre il bias. La forza `s` e la correlazione `p` dipendono da `F`:
-
+   
    - F **piccolo** genera una minore correlazione (la migliora) tra gli alberi ma una minore forza (la peggiora)
+   
    - F **grande**: genera una maggiore correlazione (la peggiora) ma una maggiore forza (la migliora)
-
+     
      Un modo (trade-off) per scegliere la dimensione di `F` è data dalla seguente formula:
      ![trade off](./imgs/tradeoff.png)   dove `d` è il numero di features.
-
+   
    Dato che non vengono prese in considerazione tutte le features per effettuare gli split, il tempo di runtime è considerevolmente ridotto.
+
 2. **Forest-RC**: se il numero di feature originale `d` è troppo piccolo è difficile scegliere un set di random features indipendente, quindi un modo per risolvere questo problema è quello di creare nuove combinazioni lineari di feature. Per fare questo, ad ogni split dell'albero vengono prese `L` features di input e vengono combinate tra loro seguendo una distribuzione uniforme ([-1, 1]) e di queste nuove feature viene scelta quella che genera lo split migliore. Anche questa migliora le performance di tempo.
+
 3. **Metodo 3**:  viene selezionata randomicamente una tra le migliori feature di split (le guarda tutte quelle a disposizione). Se le feature a disposizione sono poche può generare alberi correlati tra di loro (meglio utilizzare uno degli altri due metodi). Questo metodo non ha il vantaggio di andare a migliorare il tempo di esecuzione perché è costretto a controllare tutte le features ad ogni split.
 
 Le Random Forest sono più robuste al rumore e veloci rispetto all'AdaBoost, sono anche più resistenti all'overfitting dato che hanno alberi più profondi e quindi hanno un bias ridotto.
@@ -988,12 +992,16 @@ Combinando questi due layer con una fully connected network si può ottenere una
 Quando si sviluppa una ANN bisogna tenere in considerazione questi problemi di design:
 
 * Il numero di nodi di input deve essere determinato, solitamente bisogna creare un nodo di input per ogni variabile, tuttavia, per le variabili categoriche è accettabile codificarle in una variabile k-array avente `int_sup(log2(k))` nodi di input.
-* Il numero di nodi di output deve essere prestabilito: per un problema a 2 classi basta un solo nodo di output, ma per un problema con k classi ne servono k
-* Deve essere scelta una topologia per la rete poiché essa andrà ad influenzare la target function. Per scegliere la giusta topologia si può procedere in 2 modi:
 
+* Il numero di nodi di output deve essere prestabilito: per un problema a 2 classi basta un solo nodo di output, ma per un problema con k classi ne servono k
+
+* Deve essere scelta una topologia per la rete poiché essa andrà ad influenzare la target function. Per scegliere la giusta topologia si può procedere in 2 modi:
+  
   1. Creare una fully connected network e iterarci sopra per costruire una nuova rete ogni volta con un numero minore di nodi (si reitera la procedura di model-building e ha una complessità di tempo mooolto alta)
   2. Creare una fully connected network e togliergli nodi per poi ripetere il processo di valutazione della rete.
+
 * Vanno inizializzati i pesi e i bias. E' comunemente accettata una inizializzazione randomica
+
 * Gli esempi di training con valori mancanti dovrebbero essere sostituiti o rimossi
 
 ## Cluster Analysis
@@ -1126,22 +1134,23 @@ Queste tecniche sono utilizzate per generare cluster di tipo Hierarchical e ne e
 Ciò che caratterizza questi algoritmi di Clustering è il metodo con cui viene definita la _prossimità_. I due approcci principali sono:
 
 - Graph Based: Si basa su un'astrazione del cluster che viene visto come un Grafo. Per questa tecnica si hanno varie implementazioni:
-
+  
   - **MIN**: calcola la prossimità in funzione della distanza tra i punti più VICINI di cluster differenti (aka single link). Questa tecnica è buona per gestire cluster dalla forma non-ellittica, ma molto sensibile a rumore e punti di outlier.
   - **MAX**: calcola la prossimità in funzione della distanza tra i punti più LONTANI di cluster differenti (aka complete link). Risulta più resistente al rumore ed agli outliers ma può spezzare cluster grandi favorendo forme globulari.
   - **GROUP AVERAGE**: calcola la media delle distanze tra tutti i punti di due cluster differenti. Questo approccio è un compromesso tra il MIN e il MAX. È meno suscettibile al rumore ma predilige forme globulari.![graph based](./imgs/graphbased.png)
-- Prototype Based: basa il calcolo della prossimità sui centroidi (che rappresentano il cluster).
 
+- Prototype Based: basa il calcolo della prossimità sui centroidi (che rappresentano il cluster).
+  
   - **Centroid Method**: basa il calcolo della prossimità sulla distanza tra i centroidi di differenti cluster (forse deve essere minima). Questo metodo presenta un problema che non è presente in nessun altro metodo Hierarchical: l'**inversione**, in cui due cluster che vengono fusi possono essere più simili di un paio di cluster fusi in precedenza.
   - **Ward's Method**: aggiunge al calcolo, oltre all'uso dei centroidi, il concetto di SSE che deve risultare minia quando vengono fusi due cluster. Questa tecnica è meno suscettibile al rumore, ma favoreggia cluster di forma globulare. Utilizza la stessa objective function del K-means ('è l'equivalente gerarchico del K-means').
 
 ##### Complessità
 
-La complessità in spazio è: `O(m^2)`.
+La complessità in spazio è: $O(m^2)$.
 
-La complessità in tempo è: `O(m^3)`.
+La complessità in tempo è: $O(m^3)$.
 
-Va notato che questa può essere ridotta se si utilizzano liste ordinate o heap per tenere traccia dei dati. Questo riduce la complessità in tempo a: `O(m^2 log m)`.
+Va notato che questa può essere ridotta se si utilizzano liste ordinate o heap per tenere traccia dei dati. Questo riduce la complessità in tempo a: $O(m^2 \ log(m))$.
 
 Questi costi molto elevati rendono la scalabilità di questi tipi di clustering molto difficile.
 
@@ -1162,12 +1171,9 @@ In base al punto in cui si trovano, i data point di un Clustering di tipo Center
 - **Border Point**: sono quei punti che non sono Core Point, ma che ricadono all'interno di un vicinato di un Core Point. Un Border Point può appartenere a diversi vicinati di Core Point diversi
 - **Noise Point**: sono quei punti che non sono nè Core Point nè Border Point.
 
-
 Nella figura sottostante possiamo vedere che, dato un EPS e MinPts <= 7, il Punto `A` risulta essere un Core Point (ha 7 punti nel suo vicinato e quindi supera la condizione di MinPts); il punto `B` non soddisfa la condizione MinPts ma ricade all'interno di un vicinato (quello del punto A) quindi è un Border Point; `C` non è nè un core point nè un border point quindi è un Noise Point.
 
 ![raggio](./imgs/raggio.png)
-
-
 
 ##### Algoritmo
 
@@ -1183,9 +1189,9 @@ Il problema principale di questo algoritmo è quello di selezionare un valore ap
 
 ##### Complessità in Spazio e Tempo
 
-La complessità in spazio di questo algoritmo è `O(m)` in quanto deve salvare in memoria solo poche informazioni (l'etichetta di ogni punto: Core, Noise, Border ed il cluster label).
+La complessità in spazio di questo algoritmo è $O(m)$ in quanto deve salvare in memoria solo poche informazioni (l'etichetta di ogni punto: Core, Noise, Border ed il cluster label).
 
-La complessità in tempo è, nel caso peggiore `O(m^2)`, ma tramite l'utilizzo di strutture dati come i kd-tree (solo nel caso di dataset con spazio a bassa dimensione), riesce a scendere fino a `O(m log m)`.
+La complessità in tempo è, nel caso peggiore $O(m^2)$, ma tramite l'utilizzo di strutture dati come i kd-tree (solo nel caso di dataset con spazio a bassa dimensione), riesce a scendere fino a $O(m \ log(m))$.
 
 ##### Vantaggi e Svantaggi
 
@@ -1252,20 +1258,19 @@ La Coesione e la Separazione sono, in alcuni casi, fortemente correlate tra di l
 
 Metodo per la valutazione di un singolo Cluster che combina i concetti di Coesione e Separazione. Si calcola come segue:
 
-1. Per l'i-esimo oggetto (punto) se ne calcola la distanza media tra tutti gli altri oggetti dello stesso cluster a cui appartiene. Il risultato di questo step viene chiamato `a_i`
-2. Per l'i-esimo oggetto e per ogni cluster non contenente l'oggetto calcolare la distanza media tra tutti gli oggetti in uno dei questi cluster (quelli che non contengono l'oggetto). Dopodiché si prende il valore minore tra queste distanze che chiameremo `b_i`.
-3. Per l'i-esimo oggetto il Silhouette Coefficient è `s_i = (b_i - a_i) / max(a_i, b_i)`
+1. Per l'i-esimo oggetto (punto) se ne calcola la distanza media tra tutti gli altri oggetti dello stesso cluster a cui appartiene. Il risultato di questo step viene chiamato $a_i$
+2. Per l'i-esimo oggetto e per ogni cluster non contenente l'oggetto calcolare la distanza media tra tutti gli oggetti in uno dei questi cluster (quelli che non contengono l'oggetto). Dopodiché si prende il valore minore tra queste distanze che chiameremo $b_i$.
+3. Per l'i-esimo oggetto il Silhouette Coefficient è $s_i = \frac{b_i - a_i}{ max(a_i, b_i)}$
 
 ![silouette](./imgs/silouette.png)
 
-`s_i` può variare tra `-1` e `1`. Il valore `1` è il migliore (si ottiene solo quando `a_i = 0`) mentre `-1` è un valore brutto perché, in questo caso, la distanza `a_i` risulta più grade di `b_i`, vuol dire che il punto analizzato apparterrebbe più ad un cluster che non lo contiene piuttosto che a quello che lo contiene.
+$s_i$ può variare tra $-1$ e $1$. Il valore $1$ è il migliore (si ottiene solo quando $a_i = 0$) mentre $-1$ è un valore brutto perché, in questo caso, la distanza `a_i` risulta più grade di $b_i$, vuol dire che il punto analizzato apparterrebbe più ad un cluster che non lo contiene piuttosto che a quello che lo contiene.
 
 Questo coefficiente può essere utilizzato per misurare la bontà di un clustering calcolandolo su tutti i punti e poi facendo una media.
 
 ##### Unsupervised Similarity Matrix
 
 Per giudicare la bontà di un clustering possiamo anche utilizzare un approccio grafico che si basa sulle matrici. È possibile farlo misurando la correlazione tra la similarity matrix e una similarity matrix ideale calcolata basandosi sui label del dataset, se queste due matrici si assomigliano possiamo dire che il clustering è buono. È possibile esprimere un giudizio sulla bontà di un clustering anche ad occhio nudo osservando la similarity matrix: una matrice ``n x n`` dove `n` è il numero di punti del dataset, la i-esima cella conterrà il valore della similarità (varia tra 0 e 1) tra i due punti che la identificano. Le righe e colonne di questa matrice verranno poi ordinate in modo tale da avere punti appartenenti allo stesso cluster tutti vicini. Nella matrice ideale, tutti i punti che appartengono allo stesso cluster avranno 1, mentre gli altri 0 e si formeranno blocchi ben definiti sulla diagonale che rappresenteranno i cluster trovati.
-
 
 ![sim matr](./imgs/similaritymatrix.png)
 _Esempio di buona similarity matrix_
@@ -1325,7 +1330,6 @@ Le anomalie possono essere generate da differenti cause. Di seguito illustreremo
 - **Natural Variation**: spesso i dataset assumono distribuzioni che si possono ricondurre a distribuzioni statistiche ben conosciute (come la normale) e in queste distribuzioni la maggior parte die dati è concentrata intorno alla media, dunque dati anomali saranno quelli che una o più attributi assumono valori che si discostano, anche di molto, dalla media (dal centro). Un esempio è l'altezza in cui una persona molto alta farà sempre parte della stessa classe delle altre, ma avrà il valore dell'altezza che varia di molto rispetto alla media generale.
 - **Data Measurement and Collection Errors**: Spesso quando vengono raccolti i dati si possono generare errori causati o dallo strumento con cui si raccolgono o dall'errore umano. Si andranno dunque a generare delle anomalie che non sono desiderabili, dato che vanno a peggiorare la qualità del dataset. Dunque queste anomalie vanno eliminate e sono il focus del preprocessing e nello specifico del _data cleaning_.
 
-
 ### Differenti Approcci
 
 Una distinzione ad alto livello tra gli approcci per la anomaly detection può essere la seguente:
@@ -1352,16 +1356,15 @@ Un esempio di _model based_ approach è lo Statistical Approach. Tale approccio 
 - _Numero di attributi usato_: le anomalie si possono presentare su uno o più degli attributi dei dati di interesse, dunque se un dato attributo non è anomalo non significa che quel dato non lo sia. È importante scegliere il giusto numero di attributi da analizzare a seconda dei dati che si hanno.
 - _Mischiaticcio di distribuzioni_: i dati possono essere modellati da una misticanza di distribuzioni, benché più potente risulta essere più complicata sia da individuare che da utilizzare.
 
-
 ##### Distribuzione Normale Univariata
 
 _Dati univariati = dati osservati in un solo attributo._
 
-Una delle distribuzioni più versatili è quella Normale che è in funzioni dei parametri `mu` e `sigma` (`N(mu, sigma)`). Questa può essere utilizzata per lo scopo di anomaly detection nel seguente modo:
+Una delle distribuzioni più versatili è quella Normale che è in funzioni dei parametri $\mu$ e $\sigma$ ($N(\mu, \sigma)$). Questa può essere utilizzata per lo scopo di anomaly detection nel seguente modo:
 
 **Definizione di outlier per un singolo attributo N(0,1)**: un oggetto con attribute value `x` dalla distribuzione gaussiana `N(0,1)` è un outlier se `|x| >= c`, dove `c` è una costante scelta in maniera tale che `prob(|x|) >= c = a`.
 
-`a` è una costante che va scelta per far funzionare la definizione rappresenta il grado di rarità dell'oggetto `x` (quanto è improbabile che appartenga alla distribuzione). Molto probabilmente non avremmo mai una distribuzione `N(0,1)` e dunque dovremmo trovare un modo per trasformare l'attributo `x` in un nuovo attributo `z` che abbia la distribuzione `N(0,1)`. Per farlo dobbiamo stimare i parametri `mu` e `sigma` tramite l'utilizzo della media campionaria e la deviazione standard campionaria. Questo approccio funziona bene quando abbiamo molti dati. Molto spesso però la distribuzione stimata non è proprio `N(0,1)` e  per risolver questo problema c'è il metodo di Grubb.
+`a` è una costante che va scelta per far funzionare la definizione rappresenta il grado di rarità dell'oggetto `x` (quanto è improbabile che appartenga alla distribuzione). Molto probabilmente non avremmo mai una distribuzione `N(0,1)` e dunque dovremmo trovare un modo per trasformare l'attributo `x` in un nuovo attributo `z` che abbia la distribuzione `N(0,1)`. Per farlo dobbiamo stimare i parametri $\mu$ e $\sigma$ tramite l'utilizzo della media campionaria e la deviazione standard campionaria. Questo approccio funziona bene quando abbiamo molti dati. Molto spesso però la distribuzione stimata non è proprio `N(0,1)` e  per risolver questo problema c'è il metodo di Grubb.
 
 ##### Distribuzione Normale Multivariata
 
@@ -1397,7 +1400,7 @@ Un metodo basato su questo concetto e quello della Verosimiglianza (likelihood),
 ##### Pro e Contro
 
 - Semplice
-- Costoso e poco applicabile per dataset grandi (`O(m^2)` in tempo)
+- Costoso e poco applicabile per dataset grandi ($O(m^2)$ in tempo)
 - Sensibile alla scelta dei parametri
 - Non è in grado di gestire dataset con regioni a densità variabili (utilizza threshold globali che non tengono conto di variazioni di densità)
 
@@ -1424,7 +1427,7 @@ La stessa problematica del proximity based si presenta anche in questo approccio
 ##### Pro e Contro
 
 - Se ci si basa sulla relative density si possono gestire anche aree di densità variabile
-- Complessità in tempo elevata: `O(m^2)`. Può essere ridotta a `O(m log m)` per dati a basse dimensioni utilizzano strutture dati speciali
+- Complessità in tempo elevata: $O(m^2)$. Può essere ridotta a $O(m \ log(m))$ per dati a basse dimensioni utilizzano strutture dati speciali
 - La scelta dei parametri è difficili
 
 #### Approccio Clustering Based
@@ -1460,7 +1463,7 @@ Un'altra problematica è quella di determinare il numero di cluster poiché può
 
 ![rec error](./imgs/recerror.gif)
 
-dove `x` è il valore originale e `x^` è il valore ottenuto dalla ricostruzione.
+dove $x$ è il valore originale e $\hat{x}$ è il valore ottenuto dalla ricostruzione.
 
 Ci aspettiamo che il reconstruction error sia basso per dati appartenenti alla nostra distribuzione di dati, mentre risulti alto per dati anomali.
 
@@ -1471,7 +1474,7 @@ Nella foto precedente la linea nera rappresenta la direzione di massima varianza
 Per i dati non lineari non è possibile applicare la PCA ed è necessario utilizzare un approccio basato su MNN chiamato Autoencoder. Un autoencoder è un MNN avente un numero di neuroni di input e di output uguali al numero di attributi originali, la sua architettura è composta di due step principali:
 
 - Encoding: riduce sempre di più il numero di dimensioni delle feature utilizzando trasformazioni non lineari
-- Decoding: mappa le rappresentazioni ottenute con l'encoding con lo spazio degli attributi originali ottenendo così una ricostruzione di `x` chiamata `x^`. La distanza tra questi 2 valori sarà il reconstruction error, ovvero l'indice per l'anomaly detection. Il punto centrale di minori dimensioni viene chiamato bottleneck.
+- Decoding: mappa le rappresentazioni ottenute con l'encoding con lo spazio degli attributi originali ottenendo così una ricostruzione di $x$ chiamata $\hat{x}$. La distanza tra questi 2 valori sarà il reconstruction error, ovvero l'indice per l'anomaly detection. Il punto centrale di minori dimensioni viene chiamato bottleneck.
 
 Esistono vari tipi di autoencoder come ad esempio il Denoising Autoencoder che è in grado di apprendere rappresentazioni non lineari anche in presenza di rumore.
 
@@ -1490,7 +1493,7 @@ Si possono utilizzare i classificatori per risolvere problemi di anomaly detecti
 ![one class](./imgs/oneclass.png)
 
 In questo caso possiamo utilizzare le SVM che riescono bene a trovare un boundary per effettuare questa distinzione. Come per il normale caso di SVM in ambito non lineare andremo ad utilizzare un kernel per trasformare i dati in una dimensione maggiore per trovare un iperpiano che li separa. Un kernel molto utilizzato è quello Gaussiano che mappa i dati su una ipersfera di raggio 1 e tutti i punti sono sulla stessa orthant (l'equivalente del quadrante in più di 2 dimensioni). Quindi andremo a trovare l'iperpiano che li separa meglio.
-Un iperparametro molto importante è `v` (nu) che indica la percentuale di outlier che andremo a permettere. Questo fa si che nel nostro dataset possono essere presenti anche punti di outlier, a differenza degli autoencoder.
+Un iperparametro molto importante è $\nu$ (nu) che indica la percentuale di outlier che andremo a permettere. Questo fa si che nel nostro dataset possono essere presenti anche punti di outlier, a differenza degli autoencoder.
 
 Queste SVM riescono a trovare boundary molto interessanti come le seguenti:
 
@@ -1499,7 +1502,7 @@ Queste SVM riescono a trovare boundary molto interessanti come le seguenti:
 ##### Pro e Contro
 
 - Forte base teorica (cosa buona perché sappiamo che funziona bene e perché)
-- La scelta di `v` è molto difficile (va scelto bene)
+- La scelta di $\nu$ è molto difficile (va scelto bene)
 - Risultano computazionalmente costosi per dati a tante dimensioni
 - Ammettono punti di outlier nel dataset di training
 - Molto efficaci per dataset di piccole dimensioni
@@ -1533,12 +1536,12 @@ Si riferisce al fenomeno che rende i dati ad un elevato numero di dimensioni (at
 
 ### Feature Selection
 
-Un possibile approccio per ridurre il numero di dimensioni è quello di selezionare un sotto set di attributi. Una possibile idea per svolgere questo compito potrebbe essere quella di testare tutte le possibili combinazioni di attributi con l'algoritmo bersaglio ma per `d` attributi, verrebbero fuori `2^d` sotto set da controllare che nella maggior parte dei casi è un calcolo ingestibile. È possibile applicare altre tecniche come:
+Un possibile approccio per ridurre il numero di dimensioni è quello di selezionare un sotto set di attributi. Una possibile idea per svolgere questo compito potrebbe essere quella di testare tutte le possibili combinazioni di attributi con l'algoritmo bersaglio ma per $d$ attributi, verrebbero fuori $2^d$ sotto set da controllare che nella maggior parte dei casi è un calcolo ingestibile. È possibile applicare altre tecniche come:
 
 - **forward selection**: inizi con un set di features vuoto e aggiungi ripetutamente le feature che riducono maggiormente l'errore fino a quando questi decrementi sono insignificanti (mean square error, misclassification error, ecc).
 - **backward selection**: iniziamo con tutte le features e si rimuove la feature che decrementa maggiormente l'errore e si continua fin quando l'incremento di errore della rimozione è molto significante.
 
-Entrambi questi approcci hanno costo `O(d^2)`.
+Entrambi questi approcci hanno costo $O(d^2)$.
 
 ### Feature Extraction
 
@@ -1589,7 +1592,7 @@ Il Crowding problem si presenta quando, passando da una dimensione più grande a
 
 ![crowding](./imgs/crowding.png)
 
-Dalla foto sopra possiamo vedere che la distanza tra i vicini di `x1` non viene rispettata quando si riduce il numero di dimensioni.
+Dalla foto sopra possiamo vedere che la distanza tra i vicini di $x_1$ non viene rispettata quando si riduce il numero di dimensioni.
 
 #### t-SNE
 
@@ -1639,7 +1642,6 @@ Gli aspetti più complessi dell'NLP sono i seguenti:
 - **Co-reference Resolution**: trovare i nomi a cui i pronomi fanno riferimento. ![esempio coreference](./imgs/coreference.png)
 - **Carenza** di dati o quantitativi **enormi** di dati
 
-
 ##### World Embedding
 
 La rappresentazione delle parole è semplice per l'uomo e non per la macchina dunque è necessario studiare un metodo per rendere questa rappresentazione utilizzabile nei processi di allenamento di ML. A questo scopo è stato studiato il World Embedding in cui le parole vengono rappresentate come vettori a valori reali che codificano il significato delle parole in maniera tale che le parole più vicine nello spazio vettoriale ci si aspetta che saranno simili nel significato. Si utilizza anche il contesto in cui la parola viene utilizzati per capirne il significato. Il Word Embedding si può ottenere utilizzando un insieme di tecniche di language modeling e feature learning.
@@ -1673,10 +1675,9 @@ Tutti e 2 i modelli come dataset utilizzano una enorme collezioni di testi gramm
 
 ![cbow](./imgs/cbow.png)
 
-Una parola può essere rappresentata da un tot di parole che la precedono e un tot che la seguono, questo è il contesto. Nella foto possiamo vede che la parola viene rappresentata come le 2 precedenti `wt-1 e wt-2` e le due successive `wt+1 e wt+2`. In pratica abbiamo un modello con un solo hidden layer, che generalmente utilizza la cross entropy loss, e creiamo un problema di apprendimento supervisionato basandoci sul testo che abbiamo (la label dell'output sarà la parola target). Successivamente alleno la rete per taaaantissime epoche e alla fine prendo in considerazione solo i pesi ottenuti durante questa fase per creare l'embedding matrix che utilizzerò per il mio problema di NLP.
+Una parola può essere rappresentata da un tot di parole che la precedono e un tot che la seguono, questo è il contesto. Nella foto possiamo vede che la parola viene rappresentata come le 2 precedenti $w_{t-1}$ e $w_{t-2}$ e le due successive $w_{t+1}$ e $w_{t+2}$. In pratica abbiamo un modello con un solo hidden layer, che generalmente utilizza la cross entropy loss, e creiamo un problema di apprendimento supervisionato basandoci sul testo che abbiamo (la label dell'output sarà la parola target). Successivamente alleno la rete per taaaantissime epoche e alla fine prendo in considerazione solo i pesi ottenuti durante questa fase per creare l'embedding matrix che utilizzerò per il mio problema di NLP.
 
 N.B.: nella foto, il numero 300 indica la dimensione del feature vector che rappresenta una parola e 100k il numero di parole che formano il dataset (corpus). Avrò quindi una matrice finale 100kx300. 
-
 
 **Skip Gram**
 
@@ -1688,7 +1689,7 @@ Si basa sullo stesso concetto di CBOW ma è il contrario: partiamo da una parola
 
 Quando utilizziamo modelli pre allenati (cosa abbastanza comune) bisogna prestare attenzione ai parametri del modello che possono andare ad alterarne le performance. Parametri importanti sono:
 
-- window size: è il numero di parole che compongono il contesto (tipo `wt-1, wt-2 ecc`)
+- window size: è il numero di parole che compongono il contesto (tipo $w_{t-1}, w_{t-2}, ecc.$)
 - il corpus
 - numero di iterazioni
 - dimensione del feature vector
@@ -1745,13 +1746,14 @@ Nella forward phase abbiamo le seguenti equazioni:
 - ![ht](./imgs/ht.png)
 - ![altre](./imgs/altrernnform.png)
 
-Dove `sigma` è la funzione di attivazione per l'hidden layer che di solito è la `tanh`.
+Dove $\sigma$ è la funzione di attivazione per l'hidden layer che di solito è la `tanh`.
 
 I parametri allenabili della rete sono: 
+
 - `b` e `c`: rappresentano i vettori di bias
 - `U`, `V`, `W`: sono le matrici dei pesi, che rappresentano rispettivamente le connessioni _input-to-hidden (U)_, _hidden-to-output (V)_, _hidden-to-hidden (W)_
 
-`y^` è la probabilità di output normalizzata che servirà per il confronto, tramite Loss Function, con la ground through `y`; `ot` è l'output non normalizzato che verrà utilizzato per calcolare `y^` tramite una funzione di attivazione (di solito la softmax).
+$\hat{y}$ è la probabilità di output normalizzata che servirà per il confronto, tramite Loss Function, con la ground through $y$; $o_t$ è l'output non normalizzato che verrà utilizzato per calcolare $\hat{y}$ tramite una funzione di attivazione (di solito la softmax).
 
 Calcolare il gradiente è costoso e richiede svariati passaggi, inoltra non può essere parallelizzato e dunque il tempo è `O(T)` (dove `T` è il numero di time step). Dato che stati calcolati nella fase forward devono essere salvati avremo un costo in memoria equivalente. Questo approccio è chiamato Back Propagation Through Time (BPTT).
 
@@ -1769,23 +1771,24 @@ A seconda della mappatura tra input e output possono essere realizzate delle ret
 
 ### BPTT
 
-Nella fase di apprendimento, per aggiornare le matrici di pesi non possiamo utilizzare la normale back propagation perché la funzione `h_t()` dipende da `h_t-1()` (e così via fino all'inizio) e non risultano derivabili con la normale back propagation (causerebbe anche perdita di informazioni). Si utilizza una versione leggermente diversa chiamata Back Propagation Thought Time perché sa tornare "indietro nel tempo".
+Nella fase di apprendimento, per aggiornare le matrici di pesi non possiamo utilizzare la normale back propagation perché la funzione $h_t()$ dipende da $h_{t-1}()$ (e così via fino all'inizio) e non risultano derivabili con la normale back propagation (causerebbe anche perdita di informazioni). Si utilizza una versione leggermente diversa chiamata Back Propagation Thought Time perché sa tornare "indietro nel tempo".
 Vedremo una versione molto semplificata dei calcoli.
 
-L'idea è che nella la fase forward, andiamo a calcolare la Loss Totale (calcoliamo ogni `Loss_i` e le sommiamo insieme) e da questa possiamo calcolare il gradiente di ogni parametro per andarlo poi ad aggiornare nella fase backward. 
+L'idea è che nella la fase forward, andiamo a calcolare la Loss Totale (calcoliamo ogni $Loss_i$ e le sommiamo insieme) e da questa possiamo calcolare il gradiente di ogni parametro per andarlo poi ad aggiornare nella fase backward. 
 
 <img src="./imgs/losstotale.png" width="400">
 
-_Dove `Li` è la loss function del time step i_
+*Dove $L_i$ è la loss function del time step $i$.*
 
 Queste sono le formule con cui vengono aggiornate le matrici di pesi ad ogni epoca in base alla loss function.
 ![formule](./imgs/formule.png)
 
 Prendiamo il caso di `V`, con pochi calcoli possiamo vedere che il calcolo del gradiente può essere riportato alla seguente sommatoria: ![calcoli](./imgs/caclolibptt.png)
-Tutti i prodotti tra quelle derivate sono date dalla chian rule che serve per rendere derivabili funzioni composte, dato che `Li` dipende da `y^` che dipende da `z`. Questi calcoli non sono problematici per il computer e si fa tutto senza tanti problemi.
+Tutti i prodotti tra quelle derivate sono date dalla chian rule che serve per rendere derivabili funzioni composte, dato che $L_i$ dipende da $\hat{y}$ che dipende da `z`. Questi calcoli non sono problematici per il computer e si fa tutto senza tanti problemi.
 
 Il vero problem viene con `W` e `U`.
-Prendiamo in esame `W`, la cui formula per calcolare il gradiente è la seguente: ![doppiaw](./imgs/doppiaw.png).
+Prendiamo in esame `W`, la cui formula per calcolare il gradiente è la seguente: ![doppiaw](./imgs/doppiaw.png)
+
 Dobbiamo quindi calcolare tutte quelle derivate e sommarle. Per L1 no ci sono molti problemi dato che h1 dipende da h0 (che praticamente è una costante). Il problema sta nel calcolo di quelle successive, perché bisogna ripercorrere i vari time step precedenti fino ad arrivare ad h0 (qui prende il nome di BP through time perché torna "indietro nel tempo"). Di seguito un esempio di come effettivamente si torna indietro nel tempo per il calcolo della seconda derivata.
 
 ![](./imgs/bpttgraph.png)
@@ -1815,7 +1818,7 @@ In generale è più semplice ottimizzare e lavorare con architetture più sempli
 
 ### Il problema delle Long-Term Dependencies
 
-Un problema molto importante dell RNN è quello delle Long-Term Dependencies ovvero la propagazione del gradiente per molti step (quindi passare per moooolti hidden layer recurrent, anche solamente 10 o 20), tende a risultare in un vanishing o exploding del gradiente. Da un punto di vista matematico, il problema risiede nel moltiplicare la matrice dei pesi hidden `W` tantissime volte per se stessa (alla fine viene fuori `W^t`). QUesta moltiplicazione di matrici deriva dal fatto che la funzione `h^t` dipende da `h^t-1` e continua così ricorsivamente. Si possono fare calcoli strani per scriver questa matrice come prodotto di eigenvalues e eigenvectors(??). Moltiplicando moooolte volte eigenvalues con base (la chiama magnitude) < 1 il calcolo tende a diventare 0, quelli con magnitude > 1 tendono ad esplodere (infinito).
+Un problema molto importante dell RNN è quello delle Long-Term Dependencies ovvero la propagazione del gradiente per molti step (quindi passare per moooolti hidden layer recurrent, anche solamente 10 o 20), tende a risultare in un vanishing o exploding del gradiente. Da un punto di vista matematico, il problema risiede nel moltiplicare la matrice dei pesi hidden `W` tantissime volte per se stessa (alla fine viene fuori $W^t$). QUesta moltiplicazione di matrici deriva dal fatto che la funzione $h_t$ dipende da $h_{t-1}$ e continua così ricorsivamente. Si possono fare calcoli strani per scriver questa matrice come prodotto di eigenvalues e eigenvectors(??). Moltiplicando moooolte volte eigenvalues con base (la chiama magnitude) < 1 il calcolo tende a diventare 0, quelli con magnitude > 1 tendono ad esplodere (infinito).
 Con questo problema la fase di learning può impiegare tantissimo tempo ad apprendere queste Long-Term Dependencies o non riuscirci affatto.
 
 Sono stati quindi introdotti alcuni metodi per cercare di risolvere questo problema.
@@ -1865,7 +1868,6 @@ _Rappresentazione interna di una cella_
 #### GRU
 
 È una semplificazione di LSTM che combina l'input e il forget gate in un unico update gate e unisce in una sola cella la Cell State e l'hidden state. Queste stanno diventando sempre più popolari per via della loro semplicità e perché sono più semplici da allenare.
-
 
 #### Gradient Clipping
 
