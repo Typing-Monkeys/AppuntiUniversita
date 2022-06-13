@@ -118,7 +118,7 @@
       - [Pro e Contro](#pro-e-contro-6)
   * [Valutazione dell'Anomaly Detection](#valutazione-dellanomaly-detection)
 - [Dimensionality Reduction](#dimensionality-reduction)
-  * [Curse of Dimensionality ☠️](#curse-of-dimensionality-)
+  * [Curse of Dimensionality ☠️](#curse-of-dimensionality-skull_and_crossbones)
   * [Feature Selection](#feature-selection)
   * [Feature Extraction](#feature-extraction)
     + [Tecniche Lineari](#tecniche-lineari)
@@ -1533,7 +1533,7 @@ Questo approccio codifica i dati e invece di apprendere la loro rappresentazione
 
 Spesso i dati hanno un numero estremamente alto di attributi che ne rendono la rappresentazione e complessa dunque per aumentare l'efficienza degli algoritmi di data mining spesso vengono applicate tecniche di dimensionality reduction che trasformano il dataset in un altro con un numero inferiore di features che vengono generate tramite combinazioni lineari delle features originali. Questo processo ha altri vantaggi come ad esempio la riduzione del numero di attributi irrilevanti o del rumore. Riesce anche a ridurre la Curse of Dimensionality :skull_and_crossbones:.
 
-### Curse of Dimensionality ☠️
+### Curse of Dimensionality :skull_and_crossbones:
 
 Si riferisce al fenomeno che rende i dati ad un elevato numero di dimensioni (attributi) difficilmente classificabili. Questo avviene perché se le dimensioni aumentano i dati diventano incrementalmente sparsi nello spazio che occupano e quindi è possibile che i nostri data object non saranno un campione rappresentativo di tutti i possibili oggetti. Per la classificazione questo significa che non saremmo in grado di creare un modello affidabile e per il clustering significa che i concetti critici per la creazione di un clustering, come densità e distanza, diventano meno significativi.
 
