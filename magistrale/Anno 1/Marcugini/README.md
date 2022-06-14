@@ -16,9 +16,9 @@ Supporta diversi paradigmi di programmazione:
 
 ### Imperativo
 
-Il modello di calcolo e' basato sull'hardware (architettura di Von Neauman) e ha 2 elementi di base: Variabili e Assegnazione. Programmare vuol dire pianificare il flusso di informazioni. E.g. in C descrivo tutto il flusso (azione dopo azione) da fare per risolvere un problema. Questa programmazione e' basata su *comandi* che operano sulla *memoria* (stato del programma).
+Il modello di calcolo è basato sull'hardware (architettura di Von Neumann) e ha 2 elementi di base: Variabili e Assegnazione. Programmare vuol dire pianificare il flusso di informazioni. E.g. in C descrivo tutto il flusso (azione dopo azione) da fare per risolvere un problema. Questa programmazione è basata su *comandi* che operano sulla *memoria* (stato del programma).
 
-Un programma e' **corretto** se per risolvere il problema `P` produice, per ogni input `X` un output `Y`, tale che tra `X` e `Y` vale sempre la relazione specificata da `P`.
+Un programma è **corretto** se per risolvere il problema `P` produce, per ogni input `X` un output `Y`, tale che tra `X` e `Y` vale sempre la relazione specificata da `P`.
 
 ```c
 # calcolo del massimo comun divisore
@@ -32,16 +32,16 @@ int gcd (int m, int m) {
 
 ### Funzionale
 
-Un programma di questo tipo e' la descrizione di cosa si deve calcolare piuttosto che il come calcolarlo.
+Un programma di questo tipo è la descrizione di cosa si deve calcolare piuttosto che il come calcolarlo.
 
-Un programma e' una funzione !
+Un programma è una funzione !
 
 Strutture di controllo:
 
 - applicazione di funzione ad un argomento
-- coposizione di funzioni
+- composizione di funzioni
 
-I costrutti di base sono *espressioni* e non comandi. Le espressioni sono costruite a partire da espressioni seplici (*Costanti*) tramite *l'applicazione* di operazioni. Si calcola riducendo un'espressione ad un'altra piu' semplice e cosi' via fino ad ottenere un *Valore*, un'espressione che *non si puo' piu' semplificare*.
+I costrutti di base sono *espressioni* e non comandi. Le espressioni sono costruite a partire da espressioni semplici (*Costanti*) tramite *l'applicazione* di operazioni. Si calcola riducendo un'espressione ad un'altra più semplice e così via fino ad ottenere un *Valore*, un'espressione che *non si può più semplificare*.
 
 ```ocaml
 (6 + 3) x (8 - 2) <- 9 x (8 - 2) <- 9 x 6 <- 54
@@ -51,9 +51,9 @@ La valutazione delle espressioni avviene nel seguente modo:
 
 - Ogni espressione ha un valore
 - Non ci sono effetti collaterali
-- `(6 + 3) x (8 - 2)`viene valutato, ma il valore non viene 'salvato'da nessuna parte
+- `(6 + 3) x (8 - 2)`viene valutato, ma il valore non viene 'salvato' da nessuna parte
 
-**La ricorsione e' il costurtto di controllo fondamentale !**
+**La ricorsione è il costrutto di controllo fondamentale !**
 
 ***Esempi**:*
 
@@ -61,7 +61,7 @@ La valutazione delle espressioni avviene nel seguente modo:
 
 ```ocaml
 let rec gcd (m, n) = if n = m then n
-						esle if n > m then gcd(n-m, m)
+						else if n > m then gcd(n-m, m)
 							else gcd(n, m-n);;
 ```
 
@@ -73,7 +73,7 @@ let rec fact n =
 			else n * fact(n-1);;
 ```
 
-La principale modalita' di coalcolo e' l'applicazione di funzioni, il calcolo procede valutando espressioni e non ci sono effetti collaterali. Un programma e' quindi una collezioni di dichiarazioni.
+La principale modalità di calcolo è l'applicazione di funzioni, il calcolo procede valutando espressioni e non ci sono effetti collaterali. Un programma è quindi una collezioni di dichiarazioni.
 Le *funzioni* sono oggetti di prima classe, possono essere componenti di una struttura dati o far parte degli argomenti di altre funzioni: `let sort (order, lst) = ... let comp (f, g) = ...`. I linguaggi funzionali supportano l'uso di funzioni di ordine superiore: funzioni che prendono funzioni come argomento o ritornano funzioni come valore.
 Nei linguaggi funzionali "puri" non esistono strutture di controllo come `for`, `while`, ecc. ma il principale strumento di controllo e' la ricorsione !! (IL MAAAALEEE :japanese_ogre:)
 
@@ -83,29 +83,29 @@ Alcune caratteristiche di ML:
 
 - un linguaggio interattivo
 - a 'scopo statico': determina a tempo di compilazione il valore delle variabili in una dichiarazione
-- fotemente tipato: ogni espressione ha un tipo (determinato a tempo di compilaizone)
-- ha inferenza di tipo che gli consente di dedurre quale tipo e' un'esrpessione senza doverlo scrivere esplicitamente
+- fortemente tipizzato: ogni espressione ha un tipo (determinato a tempo di compilazione)
+- ha inferenza di tipo che gli consente di dedurre quale tipo è un'espressione senza doverlo scrivere esplicitamente
 - sistema polimorfo di tipi
 - ha un meccanismo per la gestione di errori
 - ha un potente sistema di moduli
-- e' efficiente
-- il codice e' piu' corto, piu' veloce da scrivere e mantenere
+- è efficiente
+- il codice è piu' corto, più veloce da scrivere e mantenere
 
 ### Funzioni
 
 ![funzione](imgs/funzioni.png)
 
-F associa ogni elemento del *dominio* uno ed un solo elemento del *codominio*. Il tipo di F e': `DOMINIO -> CODOMINIO`. 
+`F` associa ogni elemento del *dominio* uno ed un solo elemento del *codominio*. Il tipo di `F` è: `DOMINIO -> CODOMINIO`. 
 Un tipo descrive un insieme di valori e le operazioni che si possono fare su di essi.
-Se `A` e' un tipo e `x € A` diciamo che `x` e' di tipo `A`. `x: A`.
+Se $A$ è un tipo e $x \in A`$ diciamo che $x$ è di tipo $A$. In breve si scrive: `x: A`.
 
 Alcuni esempi: 
 
-- `3: IN`
-- `(2, 5): IN x IN`
-- `(1, 2 , 3): IN x IN x IN` oppure `(1, 2, 3): IN^3`
+- $3: \ IN$
+- $(2, 5): \ IN x IN$
+- $(1, 2 , 3): \ IN x IN x IN$ oppure $(1, 2, 3): \ IN^3$
 
-Il tipo `A -> B` e' l'insieme di tutte le fuzioni che hanno come dominio A e codominio B.
+Il tipo $A \rightarrow B$ è l'insieme di tutte le fusioni che hanno come dominio $A$ e codominio $B$.
 
 Alcuni esempi:
 
@@ -115,11 +115,10 @@ Alcuni esempi:
 F: FORME -> COLORI
 ```
 
-F si applica ad un elemento di FORME (argomento della funzione) e ritorna  un elemento di COLORE come valore.
+`F` si applica ad un elemento di FORME (argomento della funzione) e ritorna  un elemento di COLORE come valore.
 
 
-
-La funzione `square` associa ad ogni numero intero il suo quadrato: `square: IZ -> IN` quindi `n -> n^2`
+La funzione `square` associa ad ogni numero intero il suo quadrato: $square: \ IZ \rightarrow IN$ quindi $n \rightarrow n^2$.
 
 ```
 square(0) = 0
@@ -127,7 +126,7 @@ square(1) = 1 square(-1) = 1
 square(2) = 4 square(-2) = 4
 ```
 
-In Ocaml una definizione di square puo' essere:
+In Ocaml una definizione di `square` può essere:
 
 ```oca
 let square n = n*n;;
@@ -137,47 +136,47 @@ let square n = n*n;;
 
 Dati `A = {0, 1, 2}` e `B = {rosso, verde}`, allora `A x B = {(0, rosso), (0, verde), (1, rosso), (1, verde), (2, rosso), (3, verde)}`
 
-Questa e' la definzione di prodotto cartesiano.
+Questa è la definizione di prodotto cartesiano.
 
-Le funzioni sono qunindi un sottoinsieme del prodotto cartesiano di `DOMINIO x CODOMINIO` che forma un insieme di coppie (estensione di F) `{(x1, y1), (x2, y2), ...}` tali che:
+Le funzioni sono quindi un sottoinsieme del prodotto cartesiano di `DOMINIO x CODOMINIO` che forma un insieme di coppie (estensione di F) `{(x1, y1), (x2, y2), ...}` tali che:
 
-- ogni `xi` apparteiene al dominio
-- ogni `yi` appartieen al codominio
+- ogni $x_i$ appartiene al dominio
+- ogni $y_i$ appartiene al codominio
 - per ogni `x` del dominio, se `(x, y)` e `(x, y')` allora `y = y'`. `x` puo' essere in coppia cono un solo elemento del codominio !
-- `F(x) = y` allora la coppia `(x, y)` appartiene all'estensione di F
+- `F(x) = y` allora la coppia `(x, y)` appartiene all'estensione di `F`
 
-Un esempio di estensione e' quella della funzione `square`: `{(0, 0), (1, 1), (3, 9), (-1, 1), ...}`.
+Un esempio di estensione è quella della funzione `square`: `{(0, 0), (1, 1), (3, 9), (-1, 1), ...}`.
 
 
 
 ### Funzioni a piu' argomenti
 
-La funzione `times` e' definita come segue: 
+La funzione `times` è definita come segue: 
 
 ```ocaml
 times = function (n, m) -> n*m;;
 ```
 
-Il suo codominio e' `IZ`. Il suo dominio e' l'insieme `{(n, m) | n, m in IN}`. Quindi:
+Il suo codominio è `IZ`. Il suo dominio è l'insieme $\{(n, m) | n, m \in IN\}$. Quindi:
 
 ```
 times: IZ x IZ -> IZ
 ```
 
-Qunado si applica `times` a `(n, m)` diciamo che `n` e' il primo argomento e `m` il secondo, ma in realta' in Ocaml `times` ha un solo argomento: un coppia di numeri.
+Quando si applica `times` a `(n, m)` diciamo che `n` è il primo argomento e `m` il secondo, ma in realtà in Ocaml `times` ha un solo argomento: un coppia di numeri.
 
-Se una funzione si applica a `n` argomenti, appertenenti a `A1, A2, ... An` e ritorna un valore dell'insieme `B`, il suo tipo e': 
+Se una funzione si applica a `n` argomenti, appartenenti a `A1, A2, ... An` e ritorna un valore dell'insieme `B`, il suo tipo è: 
 
 ```
 A1 x A2 x ... x An -> B
 ```
 
-Il suo dominio e' un insieme di tuple di `n` elementi: `{..., (a1, a2, ..., an), ...}`.
-La sua estensione e' un insieme di tuple con `n + 1` elementi: `{..., (a1, a2, ..., an, b), ...}`.
+Il suo dominio è un insieme di tuple di `n` elementi: `{..., (a1, a2, ..., an), ...}`.
+La sua estensione è un insieme di tuple con `n + 1` elementi: `{..., (a1, a2, ..., an, b), ...}`.
 
 ### Funzioni che ritornano coppie di valori
 
-Sia `quorem` la funzione che si applica a due numeri natuarli `n`e `m` e che ritorna il quoziente intero e il resto della divisione tra `n` e `m`.
+Sia `quorem` la funzione che si applica a due numeri naturali `n` e `m` e che ritorna il quoziente intero e il resto della divisione tra `n` e `m`.
 
 ```ocam
 let quorem = function (n, m) -> (n / .m, n mod m);;
@@ -188,14 +187,14 @@ quorem(3, 2) = (1, 1)  quorem(3, 3) = (1, 0)
 quorem(7, 2) = (3, 2)  quorem(15, 6) = (2, 3)
 ```
 
-L'estensione di quorem e': `{..., (3, 2, (1, 1)), ..., (3, 3, (1, 0)), ...}`.
-C'e da notare che quorem non e' definito per gli argomenti `(n, 0)` (non si puo' dividere per 0).
+L'estensione di quorem è: `{..., (3, 2, (1, 1)), ..., (3, 3, (1, 0)), ...}`.
+C'e da notare che quorem non è definito per gli argomenti `(n, 0)` (non si puo' dividere per 0).
 
 ### Funzioni Totali vs Parziali
 
-Le funzioni **Totali** sono definite per ogni elemento del dominio. Per ogni `x` nel dominio, esiste una ed una sola coppia `(x, y)` nell'estensione di F.
+Le funzioni **Totali** sono definite per ogni elemento del dominio. Per ogni `x` nel dominio, esiste una ed una sola coppia `(x, y)` nell'estensione di `F`.
 
-Le funzioni **Parziali** possono essere defiiti per alcuni elementi del dominio, possono esistere alcuni elementi del dominio `x` per cui non esiste nessuna coppia `(x, y)` nell'estesione di F.
+Le funzioni **Parziali** possono essere definite per alcuni elementi del dominio, possono esistere alcuni elementi del dominio `x` per cui non esiste nessuna coppia `(x, y)` nell'estensione di `F`.
 
 Una funzione Parziale diventa Totale se si restringe opportunamente il suo dominio.
 
@@ -228,13 +227,13 @@ IN x COLORI -> IN
 TIPO1 x TIPO2 -> TIPO1
 ```
 
-`first` si chiama funzione polimorfa. Possiamo identificarlo in modo piu' generale utilizzando variabili come: 
+`first` si chiama funzione polimorfa. Possiamo identificarlo in modo più generale utilizzando variabili come: 
 
 ```
 first = alfa x beta -> alfa
 ```
 
-Ogni tipo di `first` e' un'istanza del suo tipo piu' generale.
+Ogni tipo di `first` è un'istanza del suo tipo più generale.
 
 ### Applicazione di funzioni
 
@@ -244,13 +243,7 @@ F(x) = y
 F: A -> B
 ```
 
-
-
-`x` e' l'argomento della funzione. E' di tipo `x: A`
-
-`y` e' il valore di ritorno dell'applicazione `F(x)`. E' di tipo `F(x): B`
-
-
+`x` è l'argomento della funzione, è di tipo `x: A`; `y` è il valore di ritorno dell'applicazione `F(x)` ed è di tipo `F(x): B`
 
 ### Calcolo come riduzione
 
@@ -279,7 +272,7 @@ Date
 G: A -> B	e 	F: C -> A
 ```
 
-due funzini, allora
+due funzioni, allora
 
 ```
 H = G o F: C -> B
@@ -293,11 +286,11 @@ e se `x: C` allora
 
 Quindi `(G o F)(x): B`.
 
-La funzione `H` e' la composzione di due funzioni: `G` e `F`. Questo vuol dire che il risultato e' dato prima dall'applicazione di `F` a `x`, al risultato di questo si applica`G`. Risulta quindi che il tipo di `G o F` e' `B` perche' `C -> A -> B`.
+La funzione `H` è la composizione di due funzioni: `G` e `F`. Questo vuol dire che il risultato è dato prima dall'applicazione di `F` a `x`, al risultato di questo si applica `G`. Risulta quindi che il tipo di `G o F` e' `B` perché `C -> A -> B`.
 
-La composizione di funzioni e' un'operazione che prende in ingresso una coppia di funzioni `A -> B` e `C -> A`  e riporta una funzione di tipo `C -> B`.
+La composizione di funzioni è un'operazione che prende in ingresso una coppia di funzioni `A -> B` e `C -> A`  e riporta una funzione di tipo `C -> B`.
 
-La composizione e' quindi una funzione:
+La composizione è quindi una funzione:
 
 - con dominio `(A -> B) x (C -> A)`
 - con codominio `C -> B`
@@ -306,7 +299,7 @@ La composizione e' quindi una funzione:
 (A -> B) x (C -> A) -> (C -> B)
 ```
 
-E' una funzione polimorfa, con il suo tipo generale:
+È una funzione polimorfa, con il suo tipo generale:
 
 ```
 (alfa -> beta) x (gamma -> alfa) -> (gamma -> beta)
@@ -320,7 +313,7 @@ let componi (g, f) = function n -> g(f n);;
 
 ### Funzione Costante K
 
-Una funzione costante e' una funzione che ritorna sempre lo stesso valore costante `K`.
+Una funzione costante è una funzione che ritorna sempre lo stesso valore costante `K`.
 
 ```ocaml
 let k = function x -> 0;;
@@ -329,11 +322,9 @@ k 20 -> 0
 k 10 -> 0
 ```
 
-
-
 ### Funzioni in forma Currificata
 
-Non ci ho capito nulla, forse lo scrivero' in futuro :+1: :japanese_goblin:
+Non ci ho capito nulla, forse lo scriverò in futuro :+1: :japanese_goblin:
 
 ## OCaml
 
@@ -344,7 +335,8 @@ Non ci ho capito nulla, forse lo scrivero' in futuro :+1: :japanese_goblin:
 -: <TIPO> = <VALORE>
 ```
 
-OCaml dispone di una modalita' interattiva, avviabile da terminale con `ocaml`. Il sibolo `#` e' il prompt di ocaml ed in questa modalita' aspetta un espressione da valutare. Ogni espressione deve terminare con il sibolo `;;`. Una volta scritta un espressione e premuto il tasto ENTER, ocaml valutera' l'espressione e stampera' a  video il risultato dell'espressione con il tipo ed il valore di ritorno. 
+OCaml dispone di una modalità interattiva, utilizzabile da terminale con il comando `ocaml`. Il simbolo `#` e' il prompt di ocaml ed in questa modalità aspetta un espressione da valutare. Ogni espressione deve terminare con il simbolo `;;`. Una volta scritta un espressione e premuto il tasto ENTER, ocaml valuterà l'espressione e stamperà a  video il risultato dell'espressione con il tipo ed il valore di ritorno. 
+
 Per esempio:
 
 ```ocaml
@@ -352,7 +344,7 @@ Per esempio:
 -: int = 24
 ```
 
-E' possibile caricare in memoria un file gia' scritto con il comando `use`:
+È possibile caricare in memoria un file già scritto con il comando `use`:
 
 ```ocaml
 # use "libreria.ml";;
@@ -366,7 +358,7 @@ Per uscire dall'interprete si usa il comando `exit`:
 
 ### Compilazione
 
-E' possibile compilare un file `.ml` con il seguente comando:
+È possibile compilare un file `.ml` con il seguente comando:
 
 ```bash
 ocamlc file.ml -o executable.exe 
@@ -382,11 +374,11 @@ main();;
 ```
 
 possiamo compilarlo con `ocamlc hello.ml -o hello.exe` ed eseguirlo con `hello.exe`.
-In linux possiamo omettere l'esetensione finale (nella fase di compilazione) e lanciare il programma compilato con `./hello`.
+In linux possiamo omettere l'estensione finale (nella fase di compilazione) e lanciare il programma compilato con `./hello`.
 
 ### Commenti
 
-I commeti in OCaml si scrivono tra `(* *)`.
+I commenti in OCaml si scrivono tra `(* *)`.
 
 ```ocaml
 (* questo e' un commento prima di un'espressione *)
@@ -397,8 +389,6 @@ su piu' linee *)
 
 (* let x = 20;;*)
 ```
-
-
 
 ### Variabili
 
@@ -422,7 +412,7 @@ three * 8;;
 ### Operatori e Tipi
 
 In OCaml gli operatori cambiano in base al tipo di dato!!!
-Questo simbolo `*` e' diverso da `*.`!
+Questo simbolo `*` è diverso da `*.`!
 
 Differenza tra operatori:
 
@@ -431,7 +421,7 @@ Differenza tra operatori:
 
 Gli operatori sui reali hanno un `.` dopo l'operatore.
 
-E' molto importante utilizzare i giusti operatori in base al tipo, altrimenti avremo un errore:
+È molto importante utilizzare i giusti operatori in base al tipo, altrimenti avremo un errore:
 
 ```ocaml
 # let pi = 3.14;;
@@ -460,12 +450,12 @@ Un esempio di dichiarazione di una funzione:
 val area_quadrato : int -> int = <fun>
 ```
 
-`area_quadrato` e' una funzione da interi a interi ed applicata ad un intero `n` (che rappresenta il lato di un quadrato) riporta l'area del quadrato.
-Il valore di una funzione NON e' stampabile. Ocaml riporta solo il fatto che si tratta di una funzione `<fun>`.
+`area_quadrato` è una funzione da interi a interi ed applicata ad un intero `n` (che rappresenta il lato di un quadrato) riporta l'area del quadrato.
+Il valore di una funzione NON è stampabile. Ocaml riporta solo il fatto che si tratta di una funzione `<fun>`.
 
-Dato che ML ha un meccanismo di inferenza di tipo riesce a capire che tipo e' una data espressione. Per l'esempio di prima capisce che si tratta di una funzione `int -> int` per via dell'operatore `*`. `*` e' un operatore tra INTERI e quindi il dominio e il codominio della nostra funzione non possono che essere interi!
+Dato che ML ha un meccanismo di inferenza di tipo riesce a capire che tipo è una data espressione. Per l'esempio di prima capisce che si tratta di una funzione `int -> int` per via dell'operatore `*`. `*` è un operatore tra INTERI e quindi il dominio e il codominio della nostra funzione non possono che essere interi!
 
-C'e' anche un modo alternativo per dichiarare le funzioni:
+C'è anche un modo alternativo per dichiarare le funzioni:
 
 ```ocaml
 let <NOME FUNZIONE> <PARAMETRO FORMALE> = <ESPRESSIONE>;;
@@ -485,7 +475,7 @@ Prendiamo in considerazione la funzione che raddoppia un dato intero:
 val double : int -> int = <fun> 
 ```
 
-Ml ha dedotto il tipo della funzione perche' se `x` viene moltiplicato per 2 (tramite l'operatore di moltiplicazione tra interi `*`), allora `x` deve essere per forza un intero (il dominio e' INT). Il valore della funzione , `x*2`, e' quindi di tipo int, percio' il codominio e' di tipo INT.
+Ml ha dedotto il tipo della funzione perché se `x` viene moltiplicato per 2 (tramite l'operatore di moltiplicazione tra interi `*`), allora `x` deve essere per forza un intero (il dominio e' INT). Il valore della funzione , `x*2`, è quindi di tipo int, perciò' il codominio è di tipo INT.
 
 ### Applicazione di Funzioni
 
@@ -499,7 +489,7 @@ Dopo aver dichiarato una funzione questa va applicata ad un argomento.
 -: int = 6
 ```
 
-Considernado le due funzioni:
+Considerando le due funzioni:
 
 ```ocaml
 # let pi = 3.14;;
@@ -512,37 +502,37 @@ val area: float -> float = <fun>
 val area: float -> float = <fun>
 ```
 
-L'espressione `area(square 3.0)` risulta corretta perche':
+L'espressione `area(square 3.0)` risulta corretta perché':
 
-- `square: float -> float = <fun>`, la funzione `square` va da `float` in `float` ed e' di tipo funzione
+- `square: float -> float = <fun>`, la funzione `square` va da `float` in `float` ed è di tipo funzione
 - `square 3.0: float`, restituisce un `float`
-- `area: float -> float = <fun>`, e' una funzione che va da `float` in `float`
-- Quindi il risultato di `square 3.0` che e' un `float` puo' essere passato alla funzione `area` che come parametro richiede un `float`.
+- `area: float -> float = <fun>`, è una funzione che va da `float` in `float`
+- Quindi il risultato di `square 3.0` che è un `float` può essere passato alla funzione `area` che come parametro richiede un `float`.
 
-E' molto importante tenere a mente che l'applicazione di funzioni e' **associativa a sinistra**!!!
-In mancanza di parentesi l'espressione `area square 3.0` viene interpretata come `(area square) 3.0` che non e' corretta !!
+È molto importante tenere a mente che l'applicazione di funzioni è **associativa a sinistra**!!!
+In mancanza di parentesi l'espressione `area square 3.0` viene interpretata come `(area square) 3.0` che non è corretta !!
 
-- `square: float -> float = <fun>`, la funzione `square` va da `float` in `float` ed e' di tipo funzione
-- `area: float -> float = <fun>`, e' una funzione che va da `float` in `float`
-- `area` non puo' ricevere come parametro una funzione !!! scrivere `area square` equivale passare una funzione ad `area` !
-- Supponendo che `area square` fossse un'espressione corretta (quindi tipo`float`) non andrebbe comunque bene in quando non sarebbe di tipo funzione !!! non si puo' applicare un `float` ad un `float`, si possono applicare solo le funzioni !!!
+- `square: float -> float = <fun>`, la funzione `square` va da `float` in `float` ed è di tipo funzione
+- `area: float -> float = <fun>`, è una funzione che va da `float` in `float`
+- `area` non può ricevere come parametro una funzione !!! scrivere `area square` equivale passare una funzione ad `area` !
+- Supponendo che `area square` fosse un'espressione corretta (quindi tipo`float`) non andrebbe comunque bene in quando non sarebbe di tipo funzione !!! Non si può applicare un `float` ad un `float`, si possono applicare solo le funzioni !!!
 
 ### Inferenza di Tipi e Ambiente
 
 ML possiede un meccanismo di inferenza di tipi che gli permette di capire il tipo di un'espressione senza che questo deve essere scritto in modo esplicito. Lo fa nel seguente modo:
 
-- OCaml controlla che l'espressione sia corretta: se e' possibile determinarne il tipo
+- OCaml controlla che l'espressione sia corretta: se è possibile determinarne il tipo
 - Ne determina il tipo
 - Se si tratta di un'espressione ne calcola il valore e lo stampa
 - Se si tratta di una dichiarazione estende l'ambiente di valutazione con un nuovo "legame"
 
-Ogni esecuzione di un programma in OCaml viene fatta all'interndo di un ambiente: un insieme di legami `variabile - valore` contenute all'interno di una tabella.
+Ogni esecuzione di un programma in OCaml viene fatta all'interno di un ambiente: un insieme di legami `variabile - valore` contenute all'interno di una tabella.
 
 ![tabella ambiente](imgs/tabella_ambiente.png)
 
 L'ambiente di esecuzione di default si chiama `Pervasives` e contiene alcune definizioni come `not`, `mod`, ecc.
 
-Ogni valutazione di una nuova dichiarazione va a modificare l'abiemente aggiungendo un nuovo legame:
+Ogni valutazione di una nuova dichiarazione va a modificare l'ambiente aggiungendo un nuovo legame:
 
 ```ocaml
 let two = 2;;
@@ -553,27 +543,27 @@ Valuta le espressioni ed aggiunge nuovi legami all'ambiente:
 
 ![ambietne nuovo](imgs/ambiente_nuovo.png)
 
-Questo viene gestito come una PILA e le nuove insersioni vengono aggiunte in cima. Se aggiungo un nuovo valore `let two = "due";;` vado ad aggiungerlo in cima alla pila oscurando il vecchio legame `two`. Quindi da ora in poi, se utilizzero' `two` non sara' piu' un intero ma una stringa !
+Questo viene gestito come una PILA e le nuove inserzioni vengono aggiunte in cima. Se aggiungo un nuovo valore `let two = "due";;` vado ad aggiungerlo in cima alla pila oscurando il vecchio legame `two`. Quindi da ora in poi, se utilizzerò `two` non sarà più un intero ma una stringa !
 
 ![sovrascrivo](imgs/sovrascrivo.png)
 
-ML e' un lingaggio a scopo statico, determina a tempo di compilazione il valore delle variabili di una dichiarazione !
+ML è un linguaggio a scopo statico, determina a tempo di compilazione il valore delle variabili di una dichiarazione !
 
 ![cattive](imgs/funzioni_cattive.png)
 
-In questo caso, anche se la variabile `six` e' cambiata nel tempo, il valore di `sixtimes` e' stato gia' calcolato prima con `six = 6`, quindi rimarra' quello sempre.
+In questo caso, anche se la variabile `six` è cambiata nel tempo, il valore di `sixtimes` è stato già calcolato prima con `six = 6`, quindi rimarrà quello sempre.
 
-Se prendiamo la seguente chiamata `# sixtimes (2+1);;` viene creato il lagame Provvisorio `n - 3` per la valutazione di `sixtimes`:
+Se prendiamo la seguente chiamata `# sixtimes (2+1);;` viene creato il legame Provvisorio `n - 3` per la valutazione di `sixtimes`:
 
 ![legame provvisorio](imgs/legame_provvisorio.png)
 
 ### Espressioni e Tipi Semplici
 
-Un tipo e' un insieme di valori e descrive le varie operazioni che possono essere fatte su quei valori.
+Un tipo è un insieme di valori e descrive le varie operazioni che possono essere fatte su quei valori.
 
 - **`int`** :
 
-  - e.g: `0`, `-23`, `14` (e' a 31 bit)
+  - e.g: `0`, `-23`, `14` (è a 31 bit)
   - Operazioni: `+ - * / mod succ pred ...`
 
 - **`float`**:
@@ -585,7 +575,7 @@ Un tipo e' un insieme di valori e descrive le varie operazioni che possono esser
 
   - e.g. `true false`
   - Operazioni: `not && ||`
-  - Note: viene effettuata una valutazione `cicuited lazy`:
+  - Note: viene effettuata una valutazione `circuited lazy`:
     - `E && E'`, `E'` viene valutato solo se `E = true`
     - `E || E'`, `E'` viene valutato solo se `E = false`
 
@@ -593,7 +583,7 @@ Un tipo e' un insieme di valori e descrive le varie operazioni che possono esser
 
   - e.g.: `'a' 'b' '9' ' '`
 
-  - Note: `# Char.code 'A';;` restituisce il valore intero della tabella ASCII `-: int = 65`. Si puo' fare anche il contrario: `# Char.chr 65;;`.
+  - Note: `# Char.code 'A';;` restituisce il valore intero della tabella ASCII `-: int = 65`. Si può fare anche il contrario: `# Char.chr 65;;`.
     ```ocaml
     # Char.code ’A’;;
     -: int = 65 
@@ -608,7 +598,7 @@ Un tipo e' un insieme di valori e descrive le varie operazioni che possono esser
 
   - Operazioni: `^` (concatenazione)
 
-  - Note: si possono concatenare due stringhe con l'operatore `^` e si puo' prendere un carattere di una stringa con `.[index]`. Si puo' trasformare un INT in stringa con `string_of_int` e viceversa `int_of_string`.
+  - Note: si possono concatenare due stringhe con l'operatore `^` e si può prendere un carattere di una stringa con `.[index]`. Si può trasformare un INT in stringa con `string_of_int` e viceversa `int_of_string`.
     ```ocaml
     # "programmazione " ^ "funzionale";;
     -: string = "programmazione funzionale"
@@ -627,13 +617,9 @@ Un tipo e' un insieme di valori e descrive le varie operazioni che possono esser
 
   - e.g.: `()`
 
-	
-	
-	
-
 ### Conversione di Tipi
 
-Si possono effettuare conversioni di tipi con le seguneti funzioni:
+Si possono effettuare conversioni di tipi con le seguenti funzioni:
 
 ```
 float_of_int		int_of_float				string_of_float
@@ -643,9 +629,9 @@ float_of_string 	int_of_string 				string_of_int
 
 ### Uguaglianza e Disuguaglianza
 
-L'operatore di ugaglianza e' `=` (non `==` come in molti linguaggi normali :upside_down_face:).
+L'operatore di uguaglianza è `=` (non `==` come in molti linguaggi normali :upside_down_face:).
 
-E' definito per tutti i tipi di dato tranne che per le funzioni !
+È definito per tutti i tipi di dato tranne che per le funzioni !
 
 ```ocaml
 # 3*8 = 24;;
@@ -670,8 +656,6 @@ val treble : int -> int = <fun>
 # double = treble;;
 Exception: Invalid_argument "equal: functional value" 
 ```
-
-
 
 ### Operatori di Confronto
 
@@ -713,27 +697,25 @@ Exception: Invalid_argument "equal: functional value"
 ### Espressioni Condizionali
 
 ```ocaml
-if E then F alse G
+if E then F else G
 ```
 
-E' un espressione condizionale se:
+È un espressione condizionale se:
 
-- `E` e' di tipo `bool`
+- `E` è di tipo `bool`
 - `F` e `G` hanno lo stesso tipo
 
-Il tipo di un `if` e' dato dal tipo di `F` e `G` e il suo valore e':
+Il tipo di un `if` è dato dal tipo di `F` e `G` e il suo valore è:
 
-- il valore di `F` se `E` e' `true`
-- il valore di `G` se `E` e' `false`
+- il valore di `F` se `E` è `true`
+- il valore di `G` se `E` è `false`
 
-Questo non e' un costrutto ma un'espressione !! La parte `else` deve esserci per forza !
+Questo non è un costrutto ma un'espressione !! La parte `else` deve esserci per forza !
 
 Nel valutare un if:
 
-- se `E` e' `true`, `G`  non viene valutata
-- se `E` e' `false`, `F`  non viene valutata
-
-
+- se `E` è `true`, `G`  non viene valutata
+- se `E` è `false`, `F`  non viene valutata
 
 Alcuni esempi di valutazione di `if`:
 
@@ -770,8 +752,8 @@ Error: This expression has type float but an expression was expected of type int
 
 ### Coppie
 
-Un coppia ordinata si scrivere `(E, F)`, dove `E` e' il primo elemento della coppia ed `F` e' il secondo.
-Il tipo delle coppie ordinate e' dato da `t1 x t2`, dove `t1` e' il tipo del primo elemento e `t2` e' il tipo del secondo elemento (`t1 x t2` e' il prodotto cartesiano). `x` viene chiamato costruttore di tipo e serve a costruire il tipo di una coppia ordinata.
+Un coppia ordinata si scrivere `(E, F)`, dove `E` è il primo elemento della coppia ed `F` è il secondo.
+Il tipo delle coppie ordinate è dato da `t1 x t2`, dove `t1` è il tipo del primo elemento e `t2` è il tipo del secondo elemento (`t1 x t2` è il prodotto cartesiano). `x` viene chiamato costruttore di tipo e serve a costruire il tipo di una coppia ordinata.
 
 ```ocaml
 # (5,8);;
@@ -786,7 +768,7 @@ Il tipo delle coppie ordinate e' dato da `t1 x t2`, dove `t1` e' il tipo del pri
 
 ### Tuple
 
-Le tuple sono coppie con piu' di due elementi ed una tupla puo' essere un elemento di una tupla:
+Le tuple sono coppie con più di due elementi ed una tupla può essere un elemento di una tupla:
 
 ```ocaml
 # (true,5*4,"venti");;
@@ -799,7 +781,7 @@ Le tuple sono coppie con piu' di due elementi ed una tupla puo' essere un elemen
 -: bool * (string * int) * float = (true, ("pippo", 98), 4) 
 ```
 
-`*` non e' associativo !! Ad esempio, il tipo `bool * (int * string)`  e' divers oda `(bool * int) * string`. E.g.: `(true, (10, "stringa"))` e' diverso da `((true, 10), "stringa")`!!!
+`*` non è associativo !! Ad esempio, il tipo `bool * (int * string)`  è diverso da `(bool * int) * string`. E.g.: `(true, (10, "stringa"))` è diverso da `((true, 10), "stringa")`!!!
 
 Le funzioni possono essere un elemento di una tupla dato che sono oggetti di prima classe:
 
@@ -810,7 +792,7 @@ Le funzioni possono essere un elemento di una tupla dato che sono oggetti di pri
 
 ### Costruttori e Selettori di tipo di dato
 
-Ogni tipo di dato e' caratterizzato da un insieme di:
+Ogni tipo di dato è caratterizzato da un insieme di:
 
 - **Costruttori**: costanti e operazioni che “costruiscono” valori di quel tipo
 - **Selettori**: operazioni che “selezionano” componenti da un valore del tipo
@@ -838,8 +820,6 @@ val t : bool * (string * int) = true, ("pippo", 98)
 -: int = 98 
 ```
 
-
-
 Queste due funzioni sono polimorfe:
 
 ```ocaml
@@ -850,9 +830,9 @@ Queste due funzioni sono polimorfe:
 -: ’a * ’b -> ’b = <fun> 
 ```
 
-### Funzioni a piu' argomenti
+### Funzioni a più argomenti
 
-Ocaml accetta come input ad una funzione un unico parametro o una coppia/tupla. Per far accettare ad una funzione piu' parametri si usa:
+Ocaml accetta come input ad una funzione un unico parametro o una coppia/tupla. Per far accettare ad una funzione più parametri si usa:
 
 ```ocaml
 let quoremC n m = (n/m, n mod m);;
@@ -865,7 +845,7 @@ let quoremC = function n -> function m -> (n/m, n mod m);;
 -: int -> int * int = <fun>
 ```
 
-Altrimenti il modo che sembra essere piu' carino (ed e' quello visto semrpe fin ora):
+Altrimenti il modo che sembra essere più carino (ed è quello visto sempre fin ora):
 
 ```ocaml
 let quorem (n,m) = (n/m, n mod m);;
@@ -891,26 +871,26 @@ A volte OCaml, per 'far quadrare i conti' unifica i tipi:
 val sort1 : 'a * 'a * int -> 'a * 'a = <fun>
 ```
 
-Qui capisce che `n` e' un intero perche' viene confrontato con `5` (che e' un intero). `x` e `y` vengono unificato (tutti e due del tipo `'a`) per 'far tornare i conti' con l'espressione `if` (la parte then e else devono avere lo steso tipo). 
+Qui capisce che `n` è un intero perché viene confrontato con `5` (che è un intero). `x` e `y` vengono unificato (tutti e due del tipo `'a`) per 'far tornare i conti' con l'espressione `if` (la parte then e else devono avere lo steso tipo). 
 
 ### Schemi di Tipo ed Istanze
 
 `’a * ’b -> ’a` è uno schema di tipo: indica un insieme infinito di tipi, tutti quelli della forma: `T1 * T2 -> T1`. Ogni tipo che si ottiene sostituendo `’a` con un tipo e `’b` con un tipo è un’istanza di `’a * ’b -> ’a`:
 
--  `int * bool -> int`
+- `int * bool -> int`
 - `int * int -> int`
 - `(int * bool) * (int -> bool) -> (int * bool) `
 - ecc.
 
 ### Dichiarazione locale in Funzione
 
-E' possibile dichiarare una variabile locale in una funzione con:
+È possibile dichiarare una variabile locale in una funzione con:
 
 ```ocaml
 let x = E in F;;
 ```
 
-dove `E` e `F` sono espressioni. Il tipo di questa espressione e' il tipo di `F`, il valore e' quello che ha `F` quando `x` e' sostituto da `E`.
+dove `E` e `F` sono espressioni. Il tipo di questa espressione è il tipo di `F`, il valore è quello che ha `F` quando `x` è sostituto da `E`.
 
 Per esempio, prendiamo il seguente problema: 
 
@@ -924,7 +904,7 @@ let soluzione (n,m,k) = let somma = n + m in (somma/k, somma mod k);;
 
 In pratica, sostituisce somma con il valore dato da `n + m`.
 
-Questo problema puo' essere risolto in vari altri modi:
+Questo problema può essere risolto in vari altri modi:
 
 - con una "funzione anonima":
   ```ocaml
@@ -938,11 +918,9 @@ Questo problema puo' essere risolto in vari altri modi:
   let soluzione(n,m,k) = quorem(n+m,k);;
   ```
 
-  
-
 ### Variabili locali
 
-Nell'espressione vista prima `let x = E in F`, `x` e' una variabile locale:`x` ha un valore (quello di `E`) solo allinterno dell'espressione `F`, quanto questa viene valutata tutta ,`x` non ha piu' valore.
+Nell'espressione vista prima `let x = E in F`, `x` è una variabile locale:`x` ha un valore (quello di `E`) solo all'interno dell'espressione `F`, quanto questa viene valutata tutta ,`x` non ha più valore.
 
 ```ocaml
 # let x = 1+2 in x*8;;
@@ -954,7 +932,7 @@ Characters 0-1: x;;
  Unbound value x 
 ```
 
-Il "legame" locale sovrascrive lagami globali in un ambiente:
+Il "legame" locale sovrascrive legami globali in un ambiente:
 
 ```ocaml
 # let x="pippo";;
@@ -967,14 +945,14 @@ val x : string = "pippo"
 -: string = "pippo" 
 ```
 
-L'espressione `let x = E in F` si calocla nel seguetne modo:
+L'espressione `let x = E in F` si calcola nel seguente modo:
 
 - viene calcolato il valore di `E`
 - la variabile `x` viene provvisoriamente legata al valore di `E`
-- tenendo conto di questo legame, viene calcolato il valore di `F` che sara' il valore di tutta l'espressione
-- il legame provvisorio `x` viene sciolto ed `x` torna ad avere il valore di prima o nessun valore (dipende se `x` era gia' stato assegnato o no)
+- tenendo conto di questo legame, viene calcolato il valore di `F` che sarà il valore di tutta l'espressione
+- il legame provvisorio `x` viene sciolto ed `x` torna ad avere il valore di prima o nessun valore (dipende se `x` era già stato assegnato o no)
 
-Un altro problema dove risulta utile utilizzare una variabile locale (dichiarazione locale) e' il seguente:
+Un altro problema dove risulta utile utilizzare una variabile locale (dichiarazione locale) è il seguente:
 
 _Dato il seguente codice, il valore `gdc(n,d)` viene calcolato 2 volte._
 
@@ -1000,13 +978,14 @@ let fraction (n,d) =
 -: int * int = (8, 7) 
 ```
 
-<!-- dopo sta roba, Marcugini mette alcuni esempi di mini problemi da risolvere, la cosa divertente e' che il procedimento per risolverli lo scrive in maniera sequenziale ... Sara' mica un indizio di quanto fa schifo sto paradigma ??? -->
+<!-- dopo sta roba, Marcugini mette alcuni esempi di mini problemi da risolvere, la cosa divertente è che il procedimento per risolverli lo scrive in maniera sequenziale ... Sarà mica un indizio di quanto fa schifo sto paradigma ??? -->
 
 ### Ricorsione
 
-Nei linguaggi funzionali puri non esistono costrutti per effettuare cicli come `while` o `for`. Si utilizza quindi la ricorsione. <!-- se non ci hanno manco messo i cilic for e si fa tutto con la ricorsione e' un ottimo motivo per non usarli ! Un po come i carciofi, se e' cosi' noioso pulirli e lavarli perche' mangiarli ?? -->
+Nei linguaggi funzionali puri non esistono costrutti per effettuare cicli come `while` o `for`. Si utilizza quindi la ricorsione. 
+<!-- se non ci hanno manco messo i cicli for e si fa tutto con la ricorsione è un ottimo motivo per non usarle questo paradigma ! Un po' come i carciofi, se è così noioso pulirli e lavarli perché mangiarli ?? -->
 
-Quando si dichiara una funzione ricorsiva e' necessario specificarlo tramite la parola chiave `rec`.
+Quando si dichiara una funzione ricorsiva è necessario specificarlo tramite la parola chiave `rec`.
 
 ```ocaml
 (*errata dichiarazione*)
@@ -1026,7 +1005,7 @@ Unbound value fac
 val fact: int -> int = <fun>
 ```
 
-E' anche possibile implementare questo algoritmo in modo "iterativo", che e' un po una cazzata perche' non e' proprio iterativo ma in verita' e' sempre una merda ricorsiva solo che sfrutta una funzione ausiliaria e si chiama "ricorsione in coda". Una barca di stronzate :robot:.
+È anche possibile implementare questo algoritmo in modo "iterativo", che è un po una cazzata perché' non è proprio iterativo ma in verità è sempre una merda ricorsiva solo che sfrutta una funzione ausiliaria e si chiama "ricorsione in coda". Una barca di stronzate :robot:.
 
 ```ocaml
 let rec aux (n,f) =
@@ -1036,7 +1015,7 @@ let rec aux (n,f) =
 let fact n = aux(n,1);;
 ```
 
-Utilizzando le variabili locali pue' diventare ancora piu' incomprensibile :rocket: 
+Utilizzando le variabili locali può diventare ancora più incomprensibile :rocket: 
 
 ```ocaml
 let fact n = 
@@ -1046,11 +1025,9 @@ let fact n =
 		in aux(n,1);;
 ```
 
+Quando un problema P1 viene convertito un un altro P2 in modo che la soluzione di P2 sia identica alla soluzione di P1, allora si dice che P1 è stato ridotto a P2 (P2 è una riduzione di P1).
 
-
-Qunado un problema P1 viene convertito un un altro P2 in modo che la soluzione di P2 sia identica alla soluzione di P1, allora si dice che P1 e' stato ridotto a P2 (P2 e' una riduzione di P1).
-
-Qunado una funzione ricorsiva e' definita in modo tale che tutte le chiamate ricorsive sono riduzioni, allora la funzione viene detta Ricorsiva Di Cosa (Tail Recursive).
+Quando una funzione ricorsiva è definita in modo tale che tutte le chiamate ricorsive sono riduzioni, allora la funzione viene detta Ricorsiva Di Cosa (Tail Recursive).
 
 ### Input da Tastiera
 
@@ -1095,7 +1072,7 @@ let max_n (n) =
 
 ### Eccezioni
 
-Ocaml mette a dispozione una gestione delle eccezioni per segnalare problemi, come per esempio la funzione fattoriale definita prima che se viene chiamata con un numero negativo va in stack overflow ! Modificare la funzione per far si che accetti anche i numeri negativi vorrebbe dire creare una nuova funzione che non e' piu' il fattoriale classico (gli si va a cambiare il dominio). Quindi si possono usare le eccezioni.
+Ocaml mette a disposizione una gestione delle eccezioni per segnalare problemi, come per esempio la funzione fattoriale definita prima che se viene chiamata con un numero negativo va in stack overflow ! Modificare la funzione per far si che accetti anche i numeri negativi vorrebbe dire creare una nuova funzione che non è più il fattoriale classico (gli si va a cambiare il dominio). Quindi si possono usare le eccezioni.
 
 Ne esistono di default come: `Match failure`, `Division by zero`, ecc., ma se ne possono dichiarare anche di nuove cone:
 
@@ -1142,7 +1119,7 @@ let positivo n =
 	else raise ValoreZero ;;
 ```
 
-Un esempio di come utilizzare le eccezioni e' dato dal seguente problema:
+Un esempio di come utilizzare le eccezioni è dato dal seguente problema:
 
 _Leggere da tastiera una sequenza di numeri interi separati dal carattere ENTER, che termina con un qualsiasi carattere non  numerico e  calcolarne la somma_
 
@@ -1158,7 +1135,7 @@ let main () = aux 0;;
 
 ### Pattern
 
-Un pattern e' un'espressione costituita da variabili e costruttori di tipo:
+Un pattern è un'espressione costituita da variabili e costruttori di tipo:
 
 - x
 - "pippo"
@@ -1166,16 +1143,16 @@ Un pattern e' un'espressione costituita da variabili e costruttori di tipo:
 - (x, y)
 - (x, true, y)
 
-Tutti questi sono pattern perche' sono composti da costruttori di tipo  e variabili: `(x, true, y)` e' un pattern perche' `x`  e `y` sono variabili, `true` e' un costruttore di bool e `(,,)` e' un costruttore di tuple.
+Tutti questi sono pattern perché sono composti da costruttori di tipo  e variabili: `(x, true, y)` è un pattern perché `x`  e `y` sono variabili, `true` è un costruttore di bool e `(,,)` è un costruttore di tuple.
 
 Non sono pattern i seguenti in quanto non sono costruttori, ne variabili ma espressioni:
 
 - x+y
 - -n
 
-In un pattern non possono esserci piu' occorrenze di una variabile (ad eccezione della variabile muta ????????): `(x,x)` non e' un pattern anche se e' composto da costruttori di tipo e variabili, perche' compare 2 volte la variabile `x`.
+In un pattern non possono esserci più occorrenze di una variabile (ad eccezione della variabile muta ????????): `(x,x)` non è un pattern anche se è composto da costruttori di tipo e variabili, perché compare 2 volte la variabile `x`.
 
-Sono utili per passare piu' argomenti alle funzioni, in Ocaml le funzioni accettano un solo parametro !!
+Sono utili per passare più argomenti alle funzioni, in Ocaml le funzioni accettano un solo parametro !!
 
 La funzione definita prima quorem con uso di pattern:
 
@@ -1190,12 +1167,10 @@ let quorem pair =
 	((fst pair)/(snd pair), (fst pair) mod (snd pair));; 
 ```
 
-
-
-**Pattern matching**: un valore `V` e' conforme ad un pattern `P` se e' possibile sostiutire le variabili in P con sottoespressioni di V in modo tale da ottenere `V` stesso.
+**Pattern matching**: un valore `V` è conforme ad un pattern `P` se è possibile sostituire le variabili in P con sottoespressioni di V in modo tale da ottenere `V` stesso.
 Viene quindi confrontata un'espressione `E` con il pattern `P` e:
 
-- il confronto ha successo se il valore `V` di `E` e' conforme al pattern P
+- il confronto ha successo se il valore `V` di `E` è conforme al pattern P
 - in caso di successo, viene stabilito come sostituire le variabili del pattern in modo da ottenere `V`
 
 ![pattern](imgs/pattern.png)
@@ -1206,19 +1181,19 @@ Quando si dichiara un variabile con:
 let x = <ESPRESSIONE>
 ```
 
-`x` in verita' e' un pattern, quindi la forma generale di una dichiarazione di variabile in realta' e':
+`x` in verità è un pattern, quindi la forma generale di una dichiarazione di variabile in realtà è:
 
 ```ocaml
 let <PATTERN> = <ESPRESSIONE>
 ```
 
-Lo stesso vale per le funzioni ! L'argomento della funzione in realta' e' un pattern:
+Lo stesso vale per le funzioni ! L'argomento della funzione in realtà è un pattern:
 
 ```ocaml
 function <PATTERN> -> <ESPRESSIONE>
 ```
 
-Un esempio dove `(n,m)` e' il pattern:
+Un esempio dove `(n,m)` è il pattern:
 
 ```ocaml
 let quorem = function (n,m) -> (n/m, n mod m) ;;
@@ -1227,7 +1202,7 @@ let quorem (n,m) = (n/m, n mod m)
 
 ### Funzioni per Casi
 
-OCaml mette a disposizione una definizione di funzioni ancora piu' generale di quella vista fin ora: la definizione per casi.
+OCaml mette a disposizione una definizione di funzioni ancora più generale di quella vista fin ora: la definizione per casi.
 
 Fin ora abbiamo definito una funzione come:
 
@@ -1240,7 +1215,7 @@ fact n:
 Possiamo anche definire una funzione come:
 
 ```
-fact e' quella funzione che
+fact è quella funzione che
 	applicata a 0 ritorna 1
 	applicata a un altro intero ritorna n * fact(n-1)
 ```
@@ -1263,29 +1238,28 @@ function
 	| Pn -> En
 ```
 
-
-
 Quando si applica una funzione definita per casi ad un valore `E` succede:
 
 - `fact E`
 - Viene calcolato il valore `V` dell'espressione `E`
-- il valore viene confrontato con il primo pattern: 0, se e' conforme allora ritorna 1
-- se non e' conforme al pattern 0, viene confrontato con il pattern successivo: `n`. In questo caso essendo sempre conforme, `n` prende temporaneamente il valore di `V` (una dichiarazione locale in pratica), si calcola `n * fact (n-1)` e si ritorna il valore ottenuto
+- il valore viene confrontato con il primo pattern: 0, se è conforme allora ritorna 1
+- se non è conforme al pattern 0, viene confrontato con il pattern successivo: `n`. In questo caso essendo sempre conforme, `n` prende temporaneamente il valore di `V` (una dichiarazione locale in pratica), si calcola `n * fact (n-1)` e si ritorna il valore ottenuto
 - il legame `n` viene sciolto
-- se il valore `V` non e' conforme a nessun pattern ritorna un errore
+- se il valore `V` non è conforme a nessun pattern ritorna un errore
 
 ### Variabile Muta
 
-> la _ e' muta bifolco !
+> la _ è muta bifolco !
 
 Prendiamo la definizione di questa funzione come esempio:
+
 ```ocaml
 let xor = function 
 		(true,q) -> not q
  		| (p,q) -> q;; 
 ```
 
-Il secondo pattern contiene la variabile `p` che nell'espressione non viene mai utilizzata ! Nella valutazione del pattern matching viene creato un legame provvisorio inutile. E' possibile quindi utilizzare la variabile muta `_` per risolvere questo problema:
+Il secondo pattern contiene la variabile `p` che nell'espressione non viene mai utilizzata ! Nella valutazione del pattern matching viene creato un legame provvisorio inutile. È possibile quindi utilizzare la variabile muta `_` per risolvere questo problema:
 
 ```ocaml
 let xor = function 
@@ -1293,9 +1267,9 @@ let xor = function
  		| (_,q) -> q ;;
 ```
 
-Cosi' facendo, non viene creato nessun legame temporane per `_`, ma solo per la variabiele che veramente si sta utilizzando: `q`.
+Così facendo, non viene creato nessun legame temporaneo per `_`, ma solo per la variabile che veramente si sta utilizzando: `q`.
 
-La variabile muta e' un pattern ed e' l'unica che puo' comparire piu' volte all'interno di un pattern. Il pattern matching con la variabile muta ha sempre senso, ma non viene mai creato alcun nuovo legame. E' importante notare che la variabile muta non puo' comparire all'interno delle espressioni, ma solo nei pattern !!
+La variabile muta è un pattern ed è l'unica che può comparire più volte all'interno di un pattern. Il pattern matching con la variabile muta ha sempre senso, ma non viene mai creato alcun nuovo legame. È importante notare che la variabile muta non può comparire all'interno delle espressioni, ma solo nei pattern !!
 
 Un esempio:
 
@@ -1304,7 +1278,7 @@ xor (false, true);;
 ```
 
 - Viene valutato il pattern matching tra `(true, q)` e `(false, true)`, che fallisce dato che `true != false`
-- Viene valutato il pattern matching tra `(_, q)` e `(false, true)`, che ha successo (pattern matching con `_` ha sempre succsso) e viene creato il valore provvisorio `q - true`
+- Viene valutato il pattern matching tra `(_, q)` e `(false, true)`, che ha successo (pattern matching con `_` ha sempre successo) e viene creato il valore provvisorio `q - true`
 - Viene valutata l'espressione `q` con il nuovo legame
 - Viene ritornato il valore di `xor(false, ture)`
 - Viene sciolto il legame provvisorio `q - true`
@@ -1322,7 +1296,7 @@ xor(p, q):
 		in tutti gli altri casi, ritorna il valore di q
 ```
 
-Questo e' possibile con le parole chiavi: `match <ESPRESSIONE> with`:
+Questo è possibile con le parole chiavi: `match <ESPRESSIONE> with`:
 
 ```ocaml
 let xor (p,q) = 
@@ -1331,7 +1305,7 @@ let xor (p,q) =
             | _ -> q 
 ```
 
-La forma generale e' quindi:
+La forma generale è quindi:
 
 ```ocaml
 match E with
@@ -1343,7 +1317,7 @@ match E with
 
 - I pattern `P1 ... Pn` devono essere tutti dello stesso tipo e dello stesso tipo di `E`
 - Le espressioni `E1 ... En` devono essere tutte dello stesso tipo `T`
-- Il tipo dell'espressione `match ...` e' dato dal tipo delle espressioni `E1 ... En` (`T`)
+- Il tipo dell'espressione `match ...` è dato dal tipo delle espressioni `E1 ... En` (`T`)
 
 Anche in questo caso, se il match fallisce per tutti i `P` allora si ha un errore.
 
@@ -1360,7 +1334,7 @@ Here is an example of a value that is not matched:
 false
 ```
 
-L'espressione e' comunque valida e possiamo continuare ad usarla ma:
+L'espressione è comunque valida e possiamo continuare ad usarla ma:
 
 ```ocaml
 # xor(false,true);;
@@ -1407,9 +1381,9 @@ val k : ’a -> ’b -> ’a = <fun>
 
 Le funzioni che accettano come parametro altre funzioni si chiamano Funzioni di ordine superiore
 
-### Funzioni di forma curificata
+### Funzioni di forma currificata
 
-Le funzioni su tule si possono scrivere come una funzione che "consuma un argomento alla volta".
+Le funzioni su tuple si possono scrivere come una funzione che "consuma un argomento alla volta".
 Prendiamo per esempio il metodo con cui abbiamo sempre scritto le funzioni con tuple fino adesso:
 
 ```ocaml
@@ -1418,7 +1392,7 @@ mult : int * int -> int
 ```
 
 Questa funzione prende una coppia e moltiplica i suoi elementi. 
-Questa puo' anche essere scritta come:
+Questa può anche essere scritta come:
 
 ```ocaml
 # let times m n = m * n;;
@@ -1428,9 +1402,9 @@ times : int->int->int
 int -> int
 ```
 
-`times 5;;` e' un'applicazione parziale di `times`.
+`times 5;;` è un'applicazione parziale di `times`.
 
-In generale, `fc` e' la forma curificata di `f` se:
+In generale, `fc` è la forma currificata di `f` se:
 
 ```
 f: t1 x ... x tn -> t
@@ -1443,7 +1417,7 @@ e per ogni `a1, ..., an`:
 f (a1, ..., an) = (((fc a1) a2) ... an)
 ```
 
-(le parentesi in `fc` possono essere omesse perche' in ocaml si associa a destra !)
+(le parentesi in `fc` possono essere omesse perché in ocaml si associa a destra !)
 
 ### Liste
 
@@ -1454,10 +1428,10 @@ Le liste sono sequenze finite di elementi dello stesso tipo:
 -: int list = [1; 2; 3; 4] 
 ```
 
-La parola `list` e' un costruttore di tipi: se `T` e' un tipo, `T list` e' il tipo delle liste di elementi di tipo `T`.
+La parola `list` è un costruttore di tipi: se `T` è un tipo, `T list` è il tipo delle liste di elementi di tipo `T`.
 
-La lista vuota e' denotata da `[]` ed e' un oggetto polimorfo di tipo `'a list`.
-L'operazione per aggiungere un elemento in testa alla lista e' `::`:
+La lista vuota è denotata da `[]` ed è un oggetto polimorfo di tipo `'a list`.
+L'operazione per aggiungere un elemento in testa alla lista è `::`:
 
 ```ocam
 [1;2] = 1::[2] = 1::(2::[]) = 1::2::[]
@@ -1470,7 +1444,7 @@ List.hd <LISTA>
 List.tl <LISTA>
 ```
 
-Con la prima andiamo a selezionare il primo elemente della lista, con la seconda tutti gli elementi tranne il primo:
+Con la prima andiamo a selezionare il primo elementi della lista, con la seconda tutti gli elementi tranne il primo:
 
 ```ocaml
 # List.hd [1;2;3;4];;
@@ -1488,7 +1462,7 @@ let rec length lst =
  		else 1 + length (List.tl lst) ;;
 ```
 
-Questa funzione puo' anche essere definita con il patter matching:
+Questa funzione può anche essere definita con il patter matching:
 
 ```ocaml
 let rec length = function
@@ -1521,14 +1495,14 @@ let rec maxlist = function
         | x::rest -> max x (maxlist rest) 
 ```
 
-E' possibile concatenare liste con il simbolo `@` ed e' possibile concatenare solo liste dello stesso tipo:
+È possibile concatenare liste con il simbolo `@` ed è possibile concatenare solo liste dello stesso tipo:
 
 ```ocaml
 # [1;2] @ [3;4;5;6]
 -: int list = [1; 2; 3; 4; 5; 6] 
 ```
 
-Per l'inserimento in cosa si puo' utilizzare sempre l'operazione `@`:
+Per l'inserimento in cosa si può utilizzare sempre l'operazione `@`:
 
 ```ocaml
 (*aggiungere in coda alla mia lista 3*)
@@ -1540,13 +1514,13 @@ let in_coda x lst = lst @ [x];;
 
 #### Dizionario
 
-Un dizionario e' un tipo di dato astratto che in pratica e' una lista i cui elementi sono formati da una coppia `(chiave, valore)`. In pratica si realizza con una lista associativa:
+Un dizionario è un tipo di dato astratto che in pratica è una lista i cui elementi sono formati da una coppia `(chiave, valore)`. In pratica si realizza con una lista associativa:
 
 ```ocaml
 [("pippo", 0); ("pluto", 10); ("paperiano", 2000)];;
 ```
 
-Questa e' una lista di tipo `(string * int) list` ed associa a delle stringhe dei valori interi.
+Questa è una lista di tipo `(string * int) list` ed associa a delle stringhe dei valori interi.
 
 **Inserimento**:
 
@@ -1566,7 +1540,7 @@ Per esempio, quando si effettua la concatenazione di due liste succede questo:
 
 #### Modulo List
 
-OCaml mette a disposizione vari moduli (librerie standar) tra cui uno per la gestione delle liste :scream:. Di seguito alcune funzioni utili:
+OCaml mette a disposizione vari moduli (librerie standard) tra cui uno per la gestione delle liste :scream:. Di seguito alcune funzioni utili:
 
 ```ocaml
 List.length
