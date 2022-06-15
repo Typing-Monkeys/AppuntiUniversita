@@ -1562,7 +1562,7 @@ Alcuni esempi:
 
 ### Random
 
-E' possibile generare numeri pseudo casuali tramite la libreria `Random`:
+È possibile generare numeri pseudo casuali tramite la libreria `Random`:
 
 ```ocaml
 # Random.int(50000);;
@@ -1575,7 +1575,7 @@ E' possibile generare numeri pseudo casuali tramite la libreria `Random`:
 - : bool = false
 ```
 
-Si puo' inizializzare un seme per la generazione tramite:
+Si può inizializzare un seme per la generazione tramite:
 
 ```ocaml
 (*differenti modi per scegliere un seme*)
@@ -1584,23 +1584,23 @@ Random.full_init [<SEMI>];;
 Random.self_init<SEME>;;
 ```
 
-### Backtraking
+### Backtracking
 
-E' una delle tecniche piu' generali per la progettazioni di algoritmi per la risoluzioni di problemi di ricerca in un insieme di soluzioni che soddisfano date condizioni. Per esempio la ricerca dell'uscita di un labirinto.
+È una delle tecniche più generali per la progettazioni di algoritmi per la risoluzioni di problemi di ricerca in un insieme di soluzioni che soddisfano date condizioni. Per esempio la ricerca dell'uscita di un labirinto.
 
-C'e' il classico approccio a forza bruta: generare ad una ad una tutte le possibili sequenze e controllare se soddisfino le condizioni (cercare di beccare a caso la soluzione). Oppure utilizzare l'approccio con Backtracking: costruire la soluzione aggiungendo un elemento alla volta ed utilizzare un criterio per capire se la sequenza parziale (la strada che sto percorrendo) ha possibilita' di successo.
+C'è il classico approccio a forza bruta: generare ad una ad una tutte le possibili sequenze e controllare se soddisfino le condizioni (cercare di beccare a caso la soluzione). Oppure utilizzare l'approccio con Backtracking: costruire la soluzione aggiungendo un elemento alla volta ed utilizzare un criterio per capire se la sequenza parziale (la strada che sto percorrendo) ha possibilità di successo.
 
 Soluzione: `(x1, ..., xn)`
-Ad ogni stadio `i` controllo se `(x1, ..., xi)` ha possibilita' di successo. Se ha possibilita', si sceglia un nuovo `xi+1` tra le possibili alternative. Se con tale scelta si arriva alla soluzione alloa quella e' la soluzione (ma va ?!). Altrimenti scelgo un diverso `xi+1`. Se dopo aver provato tutte le varie possibilita' non si arriva ad una soluzione ritorno un fallimento. Se si verifica che `(x1, ..., xi)` non ha possibilita' di successo non adro' a generare le sequenze che "passano" per lui `(x1, ..., xi, ...)`.
+Ad ogni stadio `i` controllo se `(x1, ..., xi)` ha possibilità di successo. Se ha possibilità, si sceglia un nuovo `xi+1` tra le possibili alternative. Se con tale scelta si arriva alla soluzione allora quella è la soluzione (ma va ?!). Altrimenti scelgo un diverso `xi+1`. Se dopo aver provato tutte le varie possibilità non si arriva ad una soluzione ritorno un fallimento. Se si verifica che `(x1, ..., xi)` non ha possibilità di successo non adro' a generare le sequenze che "passano" per lui `(x1, ..., xi, ...)`.
 
-Cosi' facendo riesco a diminuire lo spazio di ricerca applicando un criterio di eliminaizone.
+Così facendo riesco a diminuire lo spazio di ricerca applicando un criterio di eliminazione.
 
 Prendiamo il seguente problema: 
 
 _Dato un insieme S di numeri positivo ed un numero intero N, determinare un sottoinsieme Y di S tale che la somma degli elementi di Y dia N_.
 
 Esempio: `S = {1, 4, 5, 8}` e `N = 9`. Dobbiamo trovare un sottoinsieme di S dove sommando tutti gli elementi il risultato sia 9.
-Questo problema puo' essere rappresentato con un albero:
+Questo problema può essere rappresentato con un albero:
 
 ![albero](imgs/albero.png)
 
@@ -1625,12 +1625,12 @@ let subset_search set n =
 		in aux [] n set;;
 ```
 
-Quando si progetta un algoritmo di backtracking e' importante chiarire:
+Quando si progetta un algoritmo di backtracking è importante chiarire:
 
-- quando termina la ricerca, cioe' come determinare quando la soluzione parziale e' completa
-- il criterio di "ammissibilita'" per aggiungere x alla soluzione
+- quando termina la ricerca, cioè come determinare quando la soluzione parziale è completa
+- il criterio di "ammissibilità" per aggiungere x alla soluzione
 - quali sono i dati di cui si deve disporre ad ogni stadio
-- come si trasforma il "roblema locale"
+- come si trasforma il "problema locale"
 
 ### Definizioni di nuovi tipi
 
