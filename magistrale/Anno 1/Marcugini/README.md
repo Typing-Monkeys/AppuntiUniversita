@@ -75,7 +75,7 @@ let rec fact n =
 
 La principale modalità di calcolo è l'applicazione di funzioni, il calcolo procede valutando espressioni e non ci sono effetti collaterali. Un programma è quindi una collezioni di dichiarazioni.
 Le *funzioni* sono oggetti di prima classe, possono essere componenti di una struttura dati o far parte degli argomenti di altre funzioni: `let sort (order, lst) = ... let comp (f, g) = ...`. I linguaggi funzionali supportano l'uso di funzioni di ordine superiore: funzioni che prendono funzioni come argomento o ritornano funzioni come valore.
-Nei linguaggi funzionali "puri" non esistono strutture di controllo come `for`, `while`, ecc. ma il principale strumento di controllo e' la ricorsione !! (IL MAAAALEEE :japanese_ogre:)
+Nei linguaggi funzionali "puri" non esistono strutture di controllo come `for`, `while`, ecc. ma il principale strumento di controllo è la ricorsione !! (IL MAAAALEEE :japanese_ogre:)
 
 ## ML
 
@@ -89,7 +89,7 @@ Alcune caratteristiche di ML:
 - ha un meccanismo per la gestione di errori
 - ha un potente sistema di moduli
 - è efficiente
-- il codice è piu' corto, più veloce da scrivere e mantenere
+- il codice è più corto, più veloce da scrivere e mantenere
 
 ### Funzioni
 
@@ -149,7 +149,7 @@ Un esempio di estensione è quella della funzione `square`: `{(0, 0), (1, 1), (3
 
 
 
-### Funzioni a piu' argomenti
+### Funzioni a più argomenti
 
 La funzione `times` è definita come segue: 
 
@@ -286,7 +286,7 @@ e se `x: C` allora
 
 Quindi `(G o F)(x): B`.
 
-La funzione `H` è la composizione di due funzioni: `G` e `F`. Questo vuol dire che il risultato è dato prima dall'applicazione di `F` a `x`, al risultato di questo si applica `G`. Risulta quindi che il tipo di `G o F` e' `B` perché `C -> A -> B`.
+La funzione `H` è la composizione di due funzioni: `G` e `F`. Questo vuol dire che il risultato è dato prima dall'applicazione di `F` a `x`, al risultato di questo si applica `G`. Risulta quindi che il tipo di `G o F` è `B` perché `C -> A -> B`.
 
 La composizione di funzioni è un'operazione che prende in ingresso una coppia di funzioni `A -> B` e `C -> A`  e riporta una funzione di tipo `C -> B`.
 
@@ -335,7 +335,7 @@ Non ci ho capito nulla, forse lo scriverò in futuro :+1: :japanese_goblin:
 -: <TIPO> = <VALORE>
 ```
 
-OCaml dispone di una modalità interattiva, utilizzabile da terminale con il comando `ocaml`. Il simbolo `#` e' il prompt di ocaml ed in questa modalità aspetta un espressione da valutare. Ogni espressione deve terminare con il simbolo `;;`. Una volta scritta un espressione e premuto il tasto ENTER, ocaml valuterà l'espressione e stamperà a  video il risultato dell'espressione con il tipo ed il valore di ritorno. 
+OCaml dispone di una modalità interattiva, utilizzabile da terminale con il comando `ocaml`. Il simbolo `#` è il prompt di ocaml ed in questa modalità aspetta un espressione da valutare. Ogni espressione deve terminare con il simbolo `;;`. Una volta scritta un espressione e premuto il tasto ENTER, ocaml valuterà l'espressione e stamperà a  video il risultato dell'espressione con il tipo ed il valore di ritorno. 
 
 Per esempio:
 
@@ -475,7 +475,7 @@ Prendiamo in considerazione la funzione che raddoppia un dato intero:
 val double : int -> int = <fun> 
 ```
 
-Ml ha dedotto il tipo della funzione perché se `x` viene moltiplicato per 2 (tramite l'operatore di moltiplicazione tra interi `*`), allora `x` deve essere per forza un intero (il dominio e' INT). Il valore della funzione , `x*2`, è quindi di tipo int, perciò' il codominio è di tipo INT.
+Ml ha dedotto il tipo della funzione perché se `x` viene moltiplicato per 2 (tramite l'operatore di moltiplicazione tra interi `*`), allora `x` deve essere per forza un intero (il dominio è INT). Il valore della funzione , `x*2`, è quindi di tipo int, perciò' il codominio è di tipo INT.
 
 ### Applicazione di Funzioni
 
@@ -659,7 +659,7 @@ Exception: Invalid_argument "equal: functional value"
 
 ### Operatori di Confronto
 
-Gli operatori  di confronto sono definiti per tutti i tipi di dato tranne che per le funzioni.
+Gli operatori di confronto sono definiti per tutti i tipi di dato tranne che per le funzioni.
 
 ```ocaml
 # 3*8 <= 30;;
@@ -799,7 +799,7 @@ Ogni tipo di dato è caratterizzato da un insieme di:
 
 I costruttori per i tipi di dato semplice sono i valori: `6 - int`, `5.0 - float`, `"stringa" - string`, ecc.
 
-Il costruttore per le coppie ordinate e' `(,)`: le parentesi e la virgola.
+Il costruttore per le coppie ordinate è `(,)`: le parentesi e la virgola.
 
 Si possono selezionare i componenti di una coppia con `fst`e `snd`:
 
@@ -1072,7 +1072,7 @@ let max_n (n) =
 
 ### Eccezioni
 
-Ocaml mette a disposizione una gestione delle eccezioni per segnalare problemi, come per esempio la funzione fattoriale definita prima che se viene chiamata con un numero negativo va in stack overflow ! Modificare la funzione per far si che accetti anche i numeri negativi vorrebbe dire creare una nuova funzione che non è più il fattoriale classico (gli si va a cambiare il dominio). Quindi si possono usare le eccezioni.
+Ocaml mette a disposizione una gestione delle eccezioni per segnalare problemi, come per esempio la funzione fattoriale definita prima che, se viene chiamata con un numero negativo, va in stack overflow ! Modificare la funzione per far si che accetti anche i numeri negativi vorrebbe dire creare una nuova funzione che non è più il fattoriale classico (gli si va a cambiare il dominio). Quindi si possono usare le eccezioni.
 
 Ne esistono di default come: `Match failure`, `Division by zero`, ecc., ma se ne possono dichiarare anche di nuove cone:
 
@@ -1517,7 +1517,7 @@ let in_coda x lst = lst @ [x];;
 Un dizionario è un tipo di dato astratto che in pratica è una lista i cui elementi sono formati da una coppia `(chiave, valore)`. In pratica si realizza con una lista associativa:
 
 ```ocaml
-[("pippo", 0); ("pluto", 10); ("paperiano", 2000)];;
+[("pippo", 0); ("pluto", 10); ("paperino", 2000)];;
 ```
 
 Questa è una lista di tipo `(string * int) list` ed associa a delle stringhe dei valori interi.
@@ -1647,7 +1647,7 @@ Sono tipi costituiti da un insieme finito di valori, tipo `bool` che contiene so
 type direzione = Su | Giu | Destra | Sinistra;;
 ```
 
-In questa dichiarazione di tipo `direzione` e' il nome del nuovo tipo e `Su, Giu Destra, Sinistra` sono i valori del nuovo tipo. Questi devono essere sempre separati dal carattere `|` ed iniziare con la lettera maiuscola.
+In questa dichiarazione di tipo `direzione` è il nome del nuovo tipo e `Su, Giu Destra, Sinistra` sono i valori del nuovo tipo. Questi devono essere sempre separati dal carattere `|` ed iniziare con la lettera maiuscola.
 
 Le nuove costanti sono quindi costruttori di tipo e possono anche comparire all'interno di un pattern e quindi valgono le operazioni di pattern matching:
 
@@ -1663,13 +1663,13 @@ let prova = function
 
 ### Alberi
 
-Un albero e' un insieme di oggetti chiamati _nodi_ su cui e' definita una relazione binaria `G(n,m)` (si legge `n e' genitore di m`) tale che:
+Un albero è un insieme di oggetti chiamati _nodi_ su cui è definita una relazione binaria `G(n,m)` (si legge `n è genitore di m`) tale che:
 
 - esiste un unico nodo, chiamato _radice_, che non ha genitori
 - ogni nodo diverso dalla radice ha uno ed un solo genitore
 - per ogni nodo `n`, che non sia la radice, esiste un cammino dalla radice che arriva a quel nodo
 
-Se `n` e' genitore di `m` allora possiamo dire che `m` e' _figlio_ di `n`. Definiamo un _albero binario_ come un albero dove ogni nodo ha al massimo 2 figli.
+Se `n` è genitore di `m` allora possiamo dire che `m` è _figlio_ di `n`. Definiamo un _albero binario_ come un albero dove ogni nodo ha al massimo 2 figli.
 
 ![albero binario](imgs/albero_binario.png)
 
@@ -1677,29 +1677,29 @@ Alcune definizioni utili:
 
 - **cammino**: una sequenza di nodi che unisce un nodo `n` ad un nodo `m`
 - **lunghezza del cammino**: numero `k` di nodi attraversati
-- **antenato e discendente:** se esiste un cammino da `n` a `m`, allora `n` e' un _antenato_ di `m`  ed `m` e' un *discendente* di `n`.
+- **antenato e discendente:** se esiste un cammino da `n` a `m`, allora `n` è un _antenato_ di `m`  ed `m` è un *discendente* di `n`.
 - **fratelli**: nodi che hanno lo stesso genitore
-- **sottoalbero**: un insieme costituito da un nodo `n` e tutti i suoi discendenti
+- **sotto albero**: un insieme costituito da un nodo `n` e tutti i suoi discendenti
 - **foglia**: nodo senza figli
-- **nodo interno:** nodo con 1 o piu' figli
-- **profondita' del nodo:** lunghezza del cammino dalla radice al nodo stesso
-- **altezza del nodo**: lunghezza del cammino piu' lungo che va dal nodo ad una foglia
-- **altezza dell'albero**: altezza della sua radice ovvero la profondita' massima di un nodo nell'albero
+- **nodo interno:** nodo con 1 o piU figli
+- **profondità del nodo:** lunghezza del cammino dalla radice al nodo stesso
+- **altezza del nodo**: lunghezza del cammino più lungo che va dal nodo ad una foglia
+- **altezza dell'albero**: altezza della sua radice ovvero la profondità massima di un nodo nell'albero
 - **dimensione dell'albero**: numero di nodi
 
-Esiste anche l'albero vuoto, in pratica e' l'insieme vuoto. Questo semplifica alcuni calcoli (forse non li riportero' mai).
+Esiste anche l'albero vuoto, in pratica è l'insieme vuoto. Questo semplifica alcuni calcoli (forse non li riporterò mai).
 
 ![vuoto](imgs/albero_vuoto.png)
 
-La precedente e' una rappresentazione di un albero binario con anche l'abero vuoto. In pratica le foglie hanno come figli alberi vuoti. Cosi' facendo, ogni albero che non sia quello vuoto ha esattamente due sottoalberi, se e' una foglia i sottoalberi sono vuoti, se e' un nodo con un solo figlio uno dei due sottoalberi e' vuoto.
+La precedente è una rappresentazione di un albero binario con anche l'albero vuoto. In pratica le foglie hanno come figli alberi vuoti. Così facendo, ogni albero che non sia quello vuoto ha esattamente due sotto alberi, se è una foglia i sotto alberi sono vuoti, se è un nodo con un solo figlio uno dei due sotto alberi è vuoto.
 
-Un albero binario e' _completo_ se ogni nodo interno ha esattamente 2 figli.
+Un albero binario è _completo_ se ogni nodo interno ha esattamente 2 figli.
 
 ![albero binario completo](imgs/albero_completo.png)
 
-Un albero di dice _bilanciato_ se per ogni nodo `n`, le altezze di sottoalberi destro e sinistro di `n` differiscono al massimo di 1.
+Un albero di dice _bilanciato_ se per ogni nodo `n`, le altezze di sotto alberi destro e sinistro di `n` differiscono al massimo di 1.
 
-In Ocaml un albero puo' essere rappresentato con:
+In Ocaml un albero può essere rappresentato con:
 
 ```ocaml
 type 'a tree = 
@@ -1723,15 +1723,15 @@ genera il seguente albero:
 
 ### Sequenze di comandi
 
-In Ocaml non esistono comandi veri e propri, ma possiamo considerare tali le funzioni che ritornano `unit`, cioe' quelle funzioni che sono importanti non per il loro valore di ritorno ma per i loro effetit collaterali (tipo la funzione di stampa).
+In Ocaml non esistono comandi veri e propri, ma possiamo considerare tali le funzioni che ritornano `unit`, cioè quelle funzioni che sono importanti non per il loro valore di ritorno ma per i loro effetti collaterali (tipo la funzione di stampa).
 
-E' possibile scrivere in una riga una sequenza di comandi:
+È possibile scrivere in una riga una sequenza di comandi:
 
 ```ocaml
 (E1;E2;E3;...;En);;
 ```
 
-Il tipo e il valore di questa espressione sono dati dal tipo e il valore di `En` (si, tutta sta roba ha il valore e il tipo dell'ultimo elemento :upside_down_face:). Le espressini `Ei` vengono tutte valutate, da sinistra a destra, ma i valori sono ignorati, tranne quello dell'ultimo elemento.
+Il tipo e il valore di questa espressione sono dati dal tipo e il valore di `En` (si, tutta sta roba ha il valore e il tipo dell'ultimo elemento :upside_down_face:). Le espressioni `Ei` vengono tutte valutate, da sinistra a destra, ma i valori sono ignorati, tranne quello dell'ultimo elemento.
 
 ```ocaml
 # (print_int 3;print_string "*";print_int 8; print_string " = ";print_int(3*8); print_newline(); 3*8);;
@@ -1770,7 +1770,7 @@ In OCaml un array di `n` elementi si definisce come:
 [|expr1; expr2; ...; exprn|];;
 ```
 
-Le posizioni vanno da `0` fino a `n-1` e l'ordine di valutazione delle espressioni non e' specificato (???????).
+Le posizioni vanno da `0` fino a `n-1` e l'ordine di valutazione delle espressioni non è specificato (???????).
 
 Per accedere ad un elemento si usa:
 
@@ -1784,11 +1784,11 @@ Per modificare un elemento dell'array si usa:
 nomeArray.(posizione) <- espressione;;
 ```
 
-che modifica sul posto l'elemento in posizione `posizione` con il valore di `espressione`. Il valore di tutta l'espressione e' `unit`;
+che modifica sul posto l'elemento in posizione `posizione` con il valore di `espressione`. Il valore di tutta l'espressione è `unit`;
 
 In caso di `out of bounds exception` viene sollevata l'eccezione `Invalid_argument`.
 
-OCaml ha un modulo nella libreria standar per la gestione degli array, di seguito alcune funzioni utili:
+OCaml ha un modulo nella libreria standard per la gestione degli array, di seguito alcune funzioni utili:
 
 ```ocaml
 Array.make n x;; (*ritorna un array di n elementi di valore x*)
@@ -1801,7 +1801,7 @@ Array.get myArray i;; (*equivalente di myArray.(i)*)
 Array.set myArray i a;; (*equivalente di myArray.(i) <- a*)
 ```
 
-E' importrante notare che con la funzoine `Array.make n x` si genera un nuovo array inizializzato a `x` di lunghezza `n`. Se `x` e' mutabile, questo verra' condiviso con tutti gli elementi dell'array (sara' fisicamente lo stesso) e quindi se verra' modificato un elemente dell'array anche tutti gli altri saranno modificati !
+È importante notare che con la funzione `Array.make n x` si genera un nuovo array inizializzato a `x` di lunghezza `n`. Se `x` è mutabile, questo verrà condiviso con tutti gli elementi dell'array (sarà fisicamente lo stesso) e quindi se verrà modificato un elemento dell'array anche tutti gli altri saranno modificati !
 
 ```ocaml
 # let v = Array.make 2 5;;
@@ -1831,7 +1831,7 @@ val s : string = "hello"
 
 #### Record
 
-Un record e' un oggetto composto da vari componenti che possono essere diversi tra loro, ognuno dei quali viene identificato da un nome e un valore.
+Un record è un oggetto composto da vari componenti che possono essere diversi tra loro, ognuno dei quali viene identificato da un nome e un valore.
 
 ```ocaml
 type esame = { 
@@ -1843,7 +1843,7 @@ type esame = {
 let e1 = {studente=”pippo”; voto=28; lode=false};;
 ```
 
-I campi sono accessibili con l'operatore `.`: `e1.studente;;` e lordine con cui si specificano i campi non e' importante:
+I campi sono accessibili con l'operatore `.`: `e1.studente;;` e l'ordine con cui si specificano i campi non è importante:
 
 ```ocaml
 let e1 = {studente=”pippo”; voto=28; lode=false};;
@@ -1864,7 +1864,7 @@ punto.x <- 30.0;;
 
 #### Riferimento
 
-In OCaml c'e' un sistema simile ai puntatori chiamato `ref`, che puo' essere visto come un record polimorfo con un unico componente mutabile.
+In OCaml c'è un sistema simile ai puntatori chiamato `ref`, che puo' essere visto come un record polimorfo con un unico componente mutabile.
 
 ```ocaml
 # let x = ref 3 ;;
@@ -1883,7 +1883,7 @@ val x : int ref = {contents=3}
 - : int = 4
 ```
 
-OCaml per essere coerente alla sua tipizzazione forte introduce la _variabile debole_ per gestire bene i rifierimenti caratterizzata dal tipo: `'_a`.
+OCaml per essere coerente alla sua tipizzazione forte introduce la _variabile debole_ per gestire bene i riferimenti caratterizzati dal tipo: `'_a`.
 
 ```ocaml
 # let x = ref [] ;;
@@ -1896,7 +1896,7 @@ val x : '_a list ref = {contents=[]}
 - : int list ref = {contents=[0]}
 ```
 
-La prima volta che viene creato `x` avra' il tipo `'_a list ref`, poi la prima volta che verra' aggiunto un elemento, `x` avra' il tipo di quell'elemto (si vede dalle righe successive all'inizializzazione).
+La prima volta che viene creato `x` avrà il tipo `'_a list ref`, poi la prima volta che verrà aggiunto un elemento, `x` avrà il tipo di quell'elemento (si vede dalle righe successive all'inizializzazione).
 
 ### Grafi
 
@@ -1946,12 +1946,12 @@ while e1 do
 done
 ```
 
-Si valuta `e1` che deve ritornare un valore booleano, finche' `e1 = true` si valuta `e2` (che di solito e' una sequenza). Quando `e1 = false` il ciclo termina
+Si valuta `e1` che deve ritornare un valore booleano, finché `e1 = true` si valuta `e2` (che di solito è una sequenza). Quando `e1 = false` il ciclo termina
 
 #### for
 
 ```ocaml
-(*ciclo cresente*)
+(*ciclo crescente*)
 for v=e1 to e2 do
 	e3
 done
@@ -1962,7 +1962,7 @@ for v=e1 downto e2 do
 done
 ```
 
-Le espressioni `e1` ed `e2` sono i limiti del cilco e devono ritornare un valore intero e vengono incrementati/decrementati a seconda del tipo di ciclo
+Le espressioni `e1` ed `e2` sono i limiti del ciclo e devono ritornare un valore intero e vengono incrementati/decrementati a seconda del tipo di ciclo
 
 ### Operazioni su file
 
@@ -1993,9 +1993,9 @@ OCaml per gestire progetti di grandi dimensione offre due modelli differenti: *M
 
 #### Moduli
 
-Un modulo, o libreria, e' formato da 2 file che lo definiscono:
+Un modulo, o libreria, è formato da 2 file che lo definiscono:
 
-1. `modulo.ml`: contine una sequenza di definizioni
+1. `modulo.ml`: contiene una sequenza di definizioni
 2. `modulo.mli`: contiene una sequenza di specifiche e dice quali elementi sono accessibili "dall'esterno".
 
 Un esempio:
@@ -2014,7 +2014,7 @@ let length l = length_aux 0 l
 val length : ’a list -> int
 ```
 
-Se importo questo modulo in un altro file potro' utilizzare la funzione `length` ma non `length_aux` dato che non e' definita nel file `.mli`:
+Se importo questo modulo in un altro file potrò utilizzare la funzione `length` ma non `length_aux` dato che non è definita nel file `.mli`:
 
 ```ocaml
 # List.length;;
@@ -2029,4 +2029,4 @@ Unbound value List.length_aux
 
 #### Oggetti
 
-Le descrizioni dei dati e delle procedure vengono raccolte all'interno di entita' chiamate *Classi*. Un'istanza di una classe si chiama *Oggetto*.
+Le descrizioni dei dati e delle procedure vengono raccolte all'interno di entità chiamate *Classi*. Un'istanza di una classe si chiama *Oggetto*.
