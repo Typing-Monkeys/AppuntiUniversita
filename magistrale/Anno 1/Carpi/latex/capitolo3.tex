@@ -67,8 +67,8 @@ Una macchina di Turing M è una quadrupla:
 \begin{itemize}
     \item $Q$ è un insieme finito di stati
     \item $A$ è un alfabeto a cui si aggiunge il simbolo \textit{bianco} \#
-    \item $\delta$ è una funzione \textbf{parziale} da Q x (A U \{\# \}) a \\
-    Q x (A U \{\# \}) x \{-1,+1\}
+    \item $\delta$ è una funzione \textbf{parziale} da $Q \times (A \cup \{\# \})$ a \\
+    $Q \times (A \cup \{\# \}) \times \{-1,+1\}$
     \item $q_0 \in Q$ è lo stato iniziale
 \end{itemize}
 Le 5-ple (q, a, $q'$, $a'$, x ) tali che $\delta$(q,a) = ($q'$, $a'$, x) sono dette \textbf{istruzioni} di M.
@@ -78,13 +78,13 @@ Lo stato di una Macchina di Turing a un dato istante può essere descritta da un
    $$C_i = (\xi,q,a,\eta)$$ 
 \end{center}
 \begin{itemize}
-    \item $\xi$ è il contenuto del nastro a sinistra della cella indicata dalla testina, privato della sequenza infinita di celle bianche che precedono l’ultimo simbolo non bianco.
+    \item $\xi \ (xi)$ è il contenuto del nastro a sinistra della cella indicata dalla testina, privato della sequenza infinita di celle bianche che precedono l’ultimo simbolo non bianco. \emoji{orangutan}: $\xi$ contiene tutte le lettere a sinistra della testina fino alle infinite celle bianche (il nastro \`{e} infinito sia a destra che a sinistra)
     
     \item q è lo stato della Macchina di Turing nell’istante considerato
     
     \item a è la lettera nella cella indicata dalla testina
     
-    \item $\eta$ è il contenuto del nastro a destra della cella indicata dalla testina, privato della sequenza infinita di celle bianche che seguono l’ultimo simbolo non bianco.
+    \item $\eta \ (eta)$ è il contenuto del nastro a destra della cella indicata dalla testina, privato della sequenza infinita di celle bianche che seguono l’ultimo simbolo non bianco. \emoji{orangutan}: \`{e} come $\xi$ ma a destra
 \end{itemize}
 \textbf{Esempio}
 \vspace{0.2cm}
@@ -116,7 +116,7 @@ Se M ha l’istruzione (q, a, $q$, b, $-$1), allora:
     \end{itemize}
 \end{itemize}
 \begin{itemize}
-    \item Se all’istante i, M si trova nella configurazione Ci e C$_i$  $\vdash/_M$ C$_i$+1, allora all’istante i+1 M sarà nella configurazione C$-i$+1.
+    \item Se all’istante i, M si trova nella configurazione C$_i$ e C$_i$  $\vdash_M$ C$_i$+1, allora all’istante i+1 M sarà nella configurazione C$_i$+1.
     
     \item Se invece C$_i$ $\vdash/_M$, allora la macchina si arresta.
     
