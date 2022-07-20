@@ -1,0 +1,37 @@
+
+\chapter{Esercizi}
+
+\section{Esercizio su M/M/m} \label{es:m/m/m}
+La clinica oculistica dell’Ospedale offre ogni mercoledì pomeriggio dei test gratuiti della vista.
+Ci sono 3 oculisti in contemporanea. Un test impiega, in media, 20 minuti e il tempo reale è stato
+riscontrato essere approssimativamente distribuito in modo esponenziale intorno a questa media.
+I clienti arrivano in accordo ad un processo di Poisson con un tasso medio di 6 all’ora e i pazienti
+sono serviti seguendo una politica FIFO.\\
+
+\noindent I dirigenti dell’Ospedale sono interessati a conoscere:
+\begin{enumerate}
+    \item Quale è il numero medio di persone in attesa?
+    \item Quale è il tempo medio speso da un paziente nella clinica?
+    \item Quale è la percentuale media del tempo in cui i dottori non lavorano?
+    \item Quale è la frazione di tempo nella quale un cliente che arriva trova almeno 1 dottore libero.
+\end{enumerate}
+
+\subsection{Soluzione}
+Troviamo alcuni parametri, m=3 $\mu= \frac{1}{20}/min = \frac{20}{60} = \frac{1}{3}/ora$ questo vuol dire che in un ora vengono effettuate 3 visite, $\lambda = 6/ora$ quindi
+\[\rho = \frac{\lambda}{\mu m} = \frac{6}{3 \cdot 3} = \frac{2}{3} < 1 \]
+
+\begin{enumerate}
+    \item  Il numero medio di persone in attesa è
+            \begin{align*}
+                 & W = \pi_m \frac{\rho}{(1-\rho)^2} = \frac{4}{27} \cdot \frac{2/3}{(1-2/3)^2} = \frac{8}{9}\\
+                 & \pi_0 = \left [  \sum_{k=0}^{m-1} \frac{(m\rho)^k}{k!} +  \frac{(m\rho)^m}{m!}\cdot \frac{1}{1-\rho} \right ]^{-1} = \left [  \sum_{k=0}^{2} \frac{(3 \cdot 2/3)^k}{k!} +  \frac{(3 \cdot 2/3)^3}{3!}\cdot \frac{1}{1-2/3} \right ]^{-1} = \\
+                 & \left [ \frac{2^0}{0!}+ \frac{2^1}{1!} + \frac{2^2}{2!} + 4 \right]^{-1} = [9]^{-1} = \frac{1}{9}\\
+                 & \pi_k = \frac{(3\cdot 2/3)^3}{3!} \frac{1}{9} = \frac{8}{54} = \frac{4}{27}
+            \end{align*}
+    
+    \item Il tempo medio speso da un paziente nella clinica è:
+            \begin{align*}
+                   & R = \frac{1}{\mu} + \frac{\pi_m}{(m\mu(1-\rho)^2)} = \frac{1}{\frac{1}{20}} + \frac{}{}\pi_m
+            \end{align*}
+\end{enumerate}
+

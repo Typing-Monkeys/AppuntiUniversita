@@ -1,0 +1,140 @@
+\documentclass[a4paper,12 pt]{report}
+\usepackage{latexsym}
+\usepackage[utf8]{inputenc}
+
+
+
+%\usepackage[english]{babel}
+\usepackage[italian]{babel}
+
+\usepackage[protrusion=true,expansion=true]{microtype}	
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage[pdftex]{graphicx}	
+\usepackage{mathtools}
+
+\usepackage{hyperref}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{url}
+
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\newcommand\myworries[1]{\textcolor{red}{#1}}
+
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{todonotes}
+\usepackage{placeins}
+
+\usepackage{graphicx}  
+\usepackage{array}
+\usepackage{booktabs} 
+\usepackage{pifont}
+\newcommand{\xmark}{\ding{55}}
+\newcommand{\cmark}{\ding{51}} 
+
+\usepackage[square,numbers]{natbib}
+
+%per pseudocodice
+\usepackage{algorithm} 
+\usepackage{algorithmic}
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\thealgorithm}{\unskip}
+\newlength\myindent
+\setlength\myindent{2em}
+\newcommand\bindent{%
+	\begingroup
+	\setlength{\itemindent}{\myindent}
+	\addtolength{\algorithmicindent}{\myindent}
+}
+\newcommand\eindent{\endgroup}
+\usepackage{listings}
+% package italiano
+%
+% Opzionale
+%
+%\renewcommand{\contentsname}{Sommario}
+%\renewcommand{\listfigurename}{List of Figures}
+%\renewcommand{\listtablename}{List of Tables}
+%\renewcommand{\bibname}{Bibliografia}
+%\renewcommand{\indexname}{Indice}
+%\renewcommand{\figurename}{Figura}
+%\renewcommand{\tablename}{Tavola}
+%\renewcommand{\partname}{Parte}
+%\renewcommand{\chaptername}{Capitolo}
+%\renewcommand{\appendixname}{Appendice}
+%\renewcommand{\abstractname}{Abstract}
+%\renewcommand{\footnotesize}{\scriptsize}
+%\renewcommand{\today}{\ifcase\month\or
+%  Gennaio\or Febbraio\or Marzo\or Aprile\or Maggio\or Giugno\or
+%  Luglio\or Agosto\or Settembre\or Ottobre\or Novembre\or Dicembre\fi
+%  \space\number\day, \number\year}
+
+% package formato
+\pagestyle{plain}
+\setlength{\topmargin}{0.0in}
+\setlength{\headheight}{0.1in}
+\setlength{\headsep}{0.0in}
+\setlength{\footskip}{0.8in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.0in}
+\setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{0.2in}
+\setlength{\parindent}{0.4 in}
+\onehalfspacing
+
+
+\def\cent{\centerline}
+\def\vs{\vskip 10 pt plus 1 pt}
+\def\bs{\bf}
+\def\grad{\vec{\nabla}}
+\def\gradx{\vec{\nabla}_x}
+\def\epsilon{\varepsilon}
+
+
+
+\newcommand{\cvd}{\begin{flushright}$\Box$\end{flushright}}
+\newcommand{\tr}{{\rm Tr}\;}
+\newcommand{\eq}{\begin{equation}}
+\newcommand{\feq}{\end{equation}}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+ 
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\definecolor{blu_dmi}{HTML}{002e62}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+    \input{frontmatter}
+    \newpage
+  	\tableofcontents
+    \newpage
+    %\lstlistoflistings
+	\newpage
+	\listoffigures
+    \newpage
+    \input{capitolo1.tex}
+ 	\newpage
+    % ...
+    \bibliographystyle{plainnat}
+    % Opzionale
+    \newpage
+    \bibliography{bibliografia}
+	
+
+    
+\end{document}
