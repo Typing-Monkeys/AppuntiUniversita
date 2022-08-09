@@ -1,0 +1,124 @@
+\subsection{Caratteristiche di un Algoritmo}
+
+Il grande scrittore di fantascienza Isaac Asimov fissò nei suoi racconti le 3 leggi
+fondamentali che dovevano regolare il comportamento dei robot nei loro rapporti
+con l'Uomo, ispirandole a principi inderogabili di rispetto, obbedienza e collaborazione.
+Il nostro obiettivo qui è per certi versi analogo. Come già detto, vogliamo
+infatti descrivere in modo rigoroso come avviene una computazione e precisare:
+
+\begin{itemize}
+    \item anzitutto chi computa (l'algoritmo che la svolge e la macchina su cui si svolge),
+    \item ma anche e soprattutto come si computa\\
+          (le regole che algoritmo e macchina
+          devono rispettare nel loro lavoro);
+\end{itemize}
+
+formulare in conclusione una specie di decalogo del bravo algoritmo e del bravo
+calcolatore. Dunque il nostro contesto richiama in qualche senso le leggi dei robot androidi di Asimov.
+Ma per ottenere il nostro obiettivo seguiamo, più che i romanzi di fantascienza, le riflessioni che gli
+autorevoli scienziati citati alla fine dello scorso paragrafo, e tra essi segnatamente Alan Turing,
+svolsero intorno al 1936.
+Notiamo anzitutto che, per calcolare un dato problema, serve anzitutto un alfabeto appropriato con cui formalizzame i
+contenuti (una lingua characteristica, per dirla alla Leibniz): una sequenza finita di simboli che descrivano i termini
+della questione. Questo alfabeto può essere semplicemente quello della lingua italiana, o magari quello della lingua
+scientifica dominante (l'inglese), ma può anche talora allargarsi in ragione del contesto.
+Ad esempio, se trattiamo i polinomi a coefficienti interi, come nel caso del Decimo Problema di Hilbert,
+è bene che prevediamo anche i simboli $0, 1, 2, 3, 4, 5, 6, 7, 8, 9, +, \cdot, -$. Altri ambiti ci potranno
+poi suggerire alfabeti ancor più specialistici e mirati. Concordato dunque il nostro alfabeto,
+possiamo formulare in modo adeguato il nostro problema e trasmetterlo all'algoritmo e alla macchina calcolatrice
+per la loro computazione.
+A questo punto dobbiamo finalmente pensare a concordare con precisione a quali
+modelli di algoritmo e di macchina intendiamo ricorrere. In questo possiamo fare
+momentaneo riferimento alla nostra esperienza personale e a un'idea intuitiva di
+algoritmo e di calcolatore, per immaginare quali regole di buon comportamento ci
+aspettiamo che essi rispettino durante il loro lavoro. Semmai, nei casi più delicati
+ed incerti, proviamo a riferirci al modo di agire della mente umana come possibile
+termine di paragone. Possiamo allora convenire quanto segue.
+
+\begin{enumerate}
+    \item Un algoritmo è di lunghezza finita.
+    \item Esiste un agente di calcolo (la macchina calcolatrice, appunto) che sviluppa la
+          computazione eseguendo le istruzioni dell' algoritmo.
+    \item L'agente di calcolo ha a disposizione una memoria, dove vengono immagazzinati i risultati intermedi
+          del calcolo.
+    \item Il calcolo avviene per passi discreti.
+    \item Il calcolo non è probabilistico.
+\end{enumerate}
+
+I punti 1-3 hanno un'ovvia interpretazione. Il punto 4 afferma che il calcolo non
+avviene mediante dispositivi analogici, ma si svolge ordinatamente, un passo dietro l'altro.
+Il punto 5 afferma che il calcolo non è soggetto a fattori casuali, ma si
+svolge in modo assolutamente preciso e rigoroso (o anche, come in genere si dice,
+"deterministico"). Altre caratteristiche degli algoritmi sono le seguenti.
+
+\begin{enumerate}
+    \setcounter{enumi}{5}
+    \item Non deve esserci alcun limite finito alla lunghezza dei dati di ingresso.
+    \item Allo stesso modo, non deve esserci alcun limite alla quantità di memoria
+          disponibile.
+\end{enumerate}
+
+Il punto 6 ci dice che l'input del problema può essere arbitrariamente lungo.
+La condizione è assolutamente ragionevole: ad esempio, un algoritmo di somma tra
+gli interi si deve applicare ad ogni possibile addendo, quindi ad ogni numero intero, comunque grande.
+Anche il punto 7 è meritevole di qualche chiarimento.
+Asserisce la possibilità di accedere ad una memoria potenzialmente illimitata.
+Per sostenere la plausibilità di questa assunzione, proviamo a pensare che cosa accade in caso contrario,
+se ammettiamo di limitare preliminarmente ad un livello uniforme prefissato le potenzialità di memoria.
+In queste condizioni può capitare che algoritmi anche elementari, costruiti per eseguire semplici computazioni,
+si trovino talora nell'impossibilità di completarle. Ad esempio, la funzione che ad
+ogni intero associa il suo quadrato $f(x) = x^{2}$ non è più calcolabile, perchè lo
+spazio di memoria necessario per computare il quadrato di $x$ dipende ovviamente
+da $x$ e dunque, per $x$ molto grande, si trova ad infrangere i limiti eventualmente
+prefissati. Così 7 risulta del tutto plausibile.
+Anche le seguenti osservazioni sono essenziali per cogliere la natura del calcolo.
+
+\begin{enumerate}
+    \setcounter{enumi}{7}
+    \item  Deve esserci un limite finito alla complessità delle istruzioni eseguibili dal
+          dispositivo.
+    \item Il numero di passi della computazione è finito ma non limitato.
+    \item Sono ammesse computazioni senza fine.
+\end{enumerate}
+
+Il punto 8 ribadisce, insieme al punto 1, l'intrinseca finitezza del dispositivo di calcolo.
+Ci deve essere una limitazione finita non solo per il numero delle istruzioni
+di un algoritmo (come 1 sostiene), ma anche per la complessità delle singole istruzioni; in altre parole,
+solo una porzione finita della memoria dell'agente di calcolo
+deve essere occupata da queste istruzioni iniziali al momento in cui la computazione su un dato input si avvia.
+La condizione non contraddice la condizione 7,
+che riguarda i successivi passi del calcolo e afferma la possibilità di accoglierne
+senza limite le informazioni nella restante porzione di memoria. D' altra parte 8
+si può intuitivamente giustificare proprio in riferimento alle caratteristiche della
+mente umana, considerandone l'intrinseca limitatezza (ma anche le possibilità potenzialmente illimitate di crescita).
+Il punto 9, poi, ci dice che non è possibile stabilire a priori un limite massimo per
+Il numero dei passi richiesti per eseguire un generico algoritmo su un certo input.
+11 punto 10, infine, fa riferimento all'eventualità di dover affrontare problemi senza soluzione,
+come quelli accennati nei precedenti paragrafi: in questi casi una
+computazione è destinata a prolungarsi indefinitamente senza riuscire a produrre
+risposte soddisfacenti.
+Queste sono le condizioni che possiamo ragionevolmente richiedere ad un qualunque sistema di computazione
+(che includa sia il programma di calcolo che la macchina che lo esegue).
+Sono 10, e quindi completano il nostro decalogo nel
+senso stretto del termine. Sono anche sufficienti ad individuare il nostro obiettivo. Infatti, proprio a partire da
+queste riflessioni, Alan Turing affrontò nel 1936
+il problema di definire rigorosamente che cosa possa intendersi per computabile,
+proponendo un semplicissimo modello di calcolatore ante litteram (la macchina
+di Turing, appunto) e sostenendo che computabile è esattamente quanto una macchina di Turing riesce a computare;
+dimostrò conseguentemente l'impossibilità
+di risolvere, ad esempio, l'Entscheidungsproblem di Hilbert, perchè non ci sono
+macchine di Turing che lo soddisfino e, di conseguenza, neppure algoritmi di alcun genere con questa capacità.
+Tra parentesi, potrà essere interessante anticipare che, qualche anno dopo, nel 1970, anche il Decimo Problema di Hilbert
+dte. qualche anno dopo, nel 1970, anche il Decimo Problema di Hilbert ottenne la
+ottenne la stessa risposta negativa, come racconteremo in maggior dettaglio nelle prossime pagine.
+In realtà, nei capitoli che verranno, avremo modo di presentare, descrivere e discutere vari modelli di computazione,
+anzitutto quello di Turing, ma anche altri,
+classici come quello delle funzioni ricorsive o delle grammatiche, ed altri relativamente più recenti,
+collegati ai linguaggi di programmazione. Avremo modo
+di confrontare questi approcci e di mostrarne la sostanziale equivalenza. Incontreremo anche
+(come già anticipato nelle scorse righe) casi di funzioni che non
+si possono calcolare e di problemi che non si possono risolvere (perché estranei
+a qualunque trattamento mediante i nostri modelli di calcolo). La teoria della
+computabilità si interessa principalmente a tutte queste tematiche; in questo senso precorre ed inaugura,
+come già accennato, la moderna Informatica Teorica;
+concorre ancora sostanzialmente al suo sviluppo.
