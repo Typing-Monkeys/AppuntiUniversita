@@ -42,13 +42,26 @@ Alcuni programmatori abituati ad usare altri linguaggi come Java, Pascal o Ada c
 Il SEI CERT C Coding Standard è una codifica standard per i software per il linguaggio di programmazione C, sviluppato da il CERT Coordination Center per migliorare la sicurezza, l'affibidabilità del sistema di software.
 
 \section{Tipi di dato e Interi}
-TODO: riempire con qualche robina carina
+I tipi \verb|int| sono rappresentati dall'insieme dei numeri naturali, incluso lo $0$, ($0, 1, 2, 3, ...$) uniti
+ai numeri naturali negativi ($-1, -2, -3, ...$). In C sono presenti vari tipi di interi come mostrati nella tabella sottostante:
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/vari_tipi.png}
     \caption{Tabella raffigurante tutti i tipi in C con la loro dimensione.}\label{fig:vari_tipi}
 \end{figure}
+
+I numeri interi con segno (\verb|signed int|) sono ottenuti utilizzando il \textbf{complemento a 2}, che permette di rappresentare sia numeri positivi
+che negativi utilizzando 1 bit per il segno (il primo bit) e risolvendo il problema del doppio 0 aggiungendo 1 dopo aver fatto il complemento bit a bit.
+Rappresentando 8 bit con il complemento a 2 avremmo un range che varia tra $-128$ a $127$.
+In generale il range di rappresentazione sarà dato dalla seguente formula:
+\[
+    da \ -2^{N} - 1 \ \ a \ \ 2^{N - 1} - 1
+\]
+
+dove $N$ è il numero di bit.
+
+%%TODO: aggiungere wraparound
 
 \section{Vulnerabilità degli Interi}
 
