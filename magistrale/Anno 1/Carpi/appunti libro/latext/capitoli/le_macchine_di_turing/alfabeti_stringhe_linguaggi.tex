@@ -1,0 +1,214 @@
+\subsection{Alfabeti, Stringhe e Linguaggi}
+
+L'abilità nel rappresentare l'informazione è cruciale nel processo di calcolo\\
+dell'informazione stessa. Le società umane hanno creato linguaggi parlati
+per comunicare ad un livello elementare, e hanno sviluppato il metodo della
+scrittura per raggiungere un livello ben più sofisticato.
+La lingua italiana, ad esempio, nella
+sua forma parlata si basa su un insieme finito di suoni elementari,
+le parole sono definite in termini di sequenze finite di tali suoni, le frasi vengono derivate da
+sequenze finite di parole, i discorsi sono ottenuti da sequenze di frasi, e così via.
+L'italiano scritto usa un insieme finito di simboli come insieme di primitive, le
+parole sono definite da sequenze finite di simboli, i periodi vengono derivati da
+sequenze finite di parole, i paragrafi da sequenze finite di periodi, e così via.
+Approcci simili sono stati sviluppati anche in altri contesti; per esempio, abbiamo
+già visto nel precedente capitolo che un numero naturale può essere rappresentato
+come una sequenza finita di cifre decimali $0, 1, 2, 3, 4, 5, 6, 7, 8, 9$; ma anche
+alternativamente in forma binaria cioè come sequenza finita di bit $0, 1$, quando
+
+\[
+    0, 1, 2, 3, 4, 5, ... , 10, 11, 12, ...
+\]
+
+diventano rispettivamente
+
+\[
+    0, 1, 10, 11, 100, 101, ... , 1010, 1011, 1100, ...
+\]
+
+Ci sono del resto altre possibili rappresentazioni dei naturali,
+rispetto a basi ancora diverse;
+ad esempio un naturale si può esprimere in modo molto rozzo con l'uso
+del solo simbolo 1, come sequenza finita di 1: in questo caso
+
+\[
+    0, 1, 2, 3, ...
+\]
+
+diventano
+\[
+    1, 11, 111, 1111, ...
+\]
+
+e così via.\\
+Se poi parliamo di polinomi a coefficienti interi, possiamo espandere i simboli
+precedenti accogliendo $+, \cdot, -, x, y, z, t, ...$ e costruire l'oggetto della
+nostra attenzione - i polinomi, appunto - come sequenze finite di tutti questi
+elementi. Ovviamente ci si aspetta che i processi di calcolo trattino
+l'informazione anche in ambiti più generali:
+infatti essi manipolano non solo interi, ma anche grafi, programmi, e molti altri
+tipi di entità. Comunque questi oggetti possono essere tutti
+descritti come sequenze finite di lettere su opportuni alfabeti; dunque possiamo
+assumere in astratto che i processi di calcolo considerino stringhe di simboli
+scelti in un insieme finito e non vuoto (che viene in genere chiamato alfabeto).
+Una sequenza finita di simboli di un dato alfabeto $A$ viene chiamata \textit{stringa} o
+\textit{parola} su $A$. La stringa, formata dalla sequenza di simboli
+$a_1, a_2, ..., a_n$, viene usualmente denotata $a_1a_2...a_n$.
+Ammettiamo anche l'eventualità di una stringa
+costituita da nessun simbolo, chiamata \textit{stringa vuota} e denotata
+dalla lettere greca $\lambda$.
+
+\paragraph{Esempio.} $A = \{a, b, c, ..., z\}$ e $B = \{0, 1, 2, ..., 9\}$ sono alfabeti.
+$abb$ è una stringa su $A$, mentre $123$ è una stringa su $B$. $b12$ non è una stringa
+su $A$, in quanto contiene simboli non di $A$. Analogamente,
+l'allineamento delle cifre decimali di $\pi$: $1415...$
+non è una stringa su $B$, perchè non è una sequenza finita.\\
+
+Ribadiamo che un alfabeto $A$ non è mai vuoto: infatti, per costruire stringhe,
+dobbiamo avere dei simboli che le compongano. Inoltre si assume di solito $A$ finito.
+In realtà, già nei casi del Decimo problema di Hilbert e dei polinomi a
+coefficienti interi, si ammettono infinite indeterminate $x, y, z, t,...$
+e dunque infiniti simboli;
+ma si può facilmente rimediare con qualche artificio, ad esempio adoperando per
+le indeterminate due soli simboli $x, |$ e convenendo di rappresentare
+$x, y, z, t,...$ come
+
+\[
+    x, x|, x||, x|||, ...
+\]
+
+cioè come stringhe su $x, |$.\\
+
+La lunghezza di una stringa $\alpha$ - denotata $l(\alpha)$ - è il numero dei
+simboli che la compongono: per $\alpha = a_1a_2 \cdots a_n, \ l(\alpha) = n$.
+
+\paragraph{Esempio.}
+$aa$ è una stringa di lunghezza $2$; $l(\lambda) = 0$; $l(ab) + l(b) = 3$.\\
+
+Date due stringhe $\alpha, \beta$ se ne può formare un'altra in cui $\alpha$ è
+seguita da $\beta$: essa è
+denotata $\alpha\beta$ e chiamata la \textit{concatenazione} di $\alpha$ e $\beta$.
+La notazione $\alpha^{i}$ è usata per la
+stringa ottenuta concatenando $i$ copie della stringa $\alpha$ quando
+$i$ è un intero positivo.
+Così $\alpha^2 = \alpha\alpha$, $\alpha^3 = \alpha\alpha\alpha$ e via dicendo.
+Si intende poi $\alpha^1 = \alpha $ e $\alpha^0 = \lambda$.
+La concatenazione si applica ovviamente anche alle lettere di $A$,
+viste come parole su $A$, e anzi rappresenta la via
+secondo cui esse generano le altre stringhe.
+
+\paragraph{Esempio.}
+La concatenazione di $ab$ con $baa$ produce la stringa $abbaa$, quella di $baa$
+con $ab$ determina $baaab$, cioè $ba^{3}b$. Le concatenazioni $\lambda\alpha$ e
+$\alpha\lambda$, per ogni stringa $\alpha$, producono la stessa stringa $\alpha$.
+In particolare, $\lambda\lambda = \lambda$.\\
+
+Diciamo che una stringa $\alpha$ è una \textit{sottostringa}
+di $\beta$ se $\beta = \gamma\alpha\rho$, per qualche scelta
+di stringhe $\gamma$ e $\rho$. Una sottostringa $\alpha$
+di una stringa $\beta$ si chiama \textit{prefisso} di $\beta$ se
+$\beta = \alpha\rho$ per qualche stringa $\rho$ (dunque per $\gamma = \lambda$);
+$\alpha$ è un \textit{prefisso proprio} se
+$\rho \neq \lambda$. Una sottostringa $\alpha$ di una stringa $\beta$
+è un \textit{suffisso} di $\beta$ se $\beta = \gamma\alpha$ per
+qualche stringa $\gamma$; $\alpha$ è un \textit{suffisso proprio} se $\gamma \neq \lambda$.
+
+\paragraph{Esempio.}
+$\lambda, a, b, ab, abb$ sono sottostringhe di $abb$. $\lambda, a, ab$ sono prefissi
+propri di $abb$. $\lambda, b, bb$ sono suffissi propri di $abb$.
+$abb$ è prefisso e suffisso di $abb$.\\
+
+Se $\alpha = a_1 \cdots a_n$, allora $a_n \cdots a_1$ è chiamata
+l'\textit{inversa} di $\alpha$ e viene denotata $\alpha^{rev}$.
+L'insieme di tutte le stringhe su un alfabeto $A$ viene indicato $A*$,
+mentre $A+$ denota l'insieme $A* - \{\lambda\}$ delle stringhe non vuote su $A$.
+Un alfabeto $A$, come insieme finito di simboli, si può sempre ordinare in più
+modi possibili. Sarà spesso conveniente nel seguito di questi appunti fissare
+un tale ordinamento totale $<$ e, per $A = \{a_1, ...,a_n\}$, assumere ad esempio
+
+\[
+    a_1 < a_2 < \cdots < a_n.
+\]
+
+In realtà è bene concordare sin d'ora un qualche ordinamento anche per
+le parole su $A$. Infatti in Scienza dell'Informazione si affrontano
+comunemente tecniche di ricerca sequenziale e binaria,
+\textit{insertion sort}, \textit{quick sort} e \textit{merge sort} che
+trattano stringhe e si riferiscono a un loro prefissato ordinamento. Una strategia
+frequentemente usata è quella \textit{lessicografica}, definita nel modo che segue.
+
+\paragraph{Definizione.}
+Sia $A$ un alfabeto (ordinato da qualche relazione $\le$) e siano $\alpha$ e
+$\beta$ stringhe in $A*$. Si dice che $\alpha$ è \textit{lessicograficamente minore}
+di $\beta$, $\alpha < \beta$, o
+equivalentemente $\beta$ \textit{lessicograficamente maggiore} di $\alpha$,
+$\beta > \alpha$, se vale uno dei due casi:
+
+\begin{enumerate}
+    \item $\alpha$ è prefisso di $\beta$,
+    \item $\alpha$ ha un prefisso $\gamma a$,
+          $\beta$ ha un prefisso $\gamma b$, per lo stesso $\gamma \in A*$,
+          con $a, b \in A$ e $a < b$ in $A$.
+\end{enumerate}
+
+\paragraph{Esempi.}
+\begin{enumerate}
+    \item Se $A$ è l'alfabeto della lingua italiana, ordinato ponendo
+          $a < b < c < \cdots$,
+          l'ordine lessicografico in $A*$ non è quello comune dei vocabolari;
+          infatti $aba < abb$ perché $a < b$, e $abb$ precede $abba$ perché ha lunghezza
+          minore, proprio
+          come nei dizionari, ma $z$ precede $ab$ perché ha lunghezza minore.
+    \item Consideriamo ora l'alfabeto $A = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$
+          dove si fissa, come di consueto, $0 < 1 < 2 < \cdots < 9$.
+          L'ordine che ne deriva sui naturali, intesi
+          come stringhe in $A*$ è il loro ordine abituale: ad esempio
+          \begin{itemize}
+              \item $151 < 153$ perché $1 < 3$,
+              \item $151 < 1327$ perché $151$ ha lunghezza minore.
+          \end{itemize}
+\end{enumerate}
+
+Consideriamo ancora i numeri naturali $\mathbb{N}$,
+intesi come parole su $A = \{0, 1, 2, ..., 9\}$ rispetto alla loro tradizionale
+rappresentazione in base $10$. È ben noto che
+$N$ è primo se $N \ge 2$ e gli unici divisori di $N$ sono $1$ e $N$,
+e che ogni $N \ge 2$ si decompone in modo unico nel prodotto di fattori primi.
+Nascono così due classici problemi: entrambi hanno per input il nostro $N \ge 2$,
+
+\begin{itemize}
+    \item il primo chiede se $N$ è primo o no,
+    \item il secondo di decomporre $N$ nei suoi fattori primi.
+\end{itemize}
+
+Allora la prima domanda intende riconoscere tra le stringhe su $A$
+quelle che corrispondono ai numeri primi; la seconda vuole calcolare,
+per ogni $N$, quelle stringhe
+che rappresentano numeri primi che dividono $N$.
+Nel primo caso si vuole individuare un sottoinsieme di $A*$, nel secondo
+computare una funzione che da parole
+su $A$ genera nuove sequenze di parole su $A$. Sotto questo punto di vista,
+il Decimo problema di Hilbert presenta molte analogie col quesito di riconoscere
+i primi. È vero che tratta polinomi piuttosto che
+numeri, e che adopera tutt'altro criterio di selezione
+(l'esistenza di radici intere piuttosto che la primalità);
+tuttavia ha ancora a che fare con un alfabeto $A$
+(quello dei polinomi a coefficienti interi) e con parole su $A$
+(i polinomi, appunto) e vuole scegliere quelle parole che soddisfano il criterio
+fissato (l'esistenza di radici intere),
+individuare quindi un particolare sottoinsieme di $A*$.
+In generale, dato un alfabeto $A$, un sottoinsieme $L$ di $A*$ si chiama \textit{linguaggio
+    formale}, o più semplicemente \textit{linguaggio}, o anche \textit{problema}.
+La prima notazione fa riferimento alla sua natura di insieme di parole,
+come ogni lingua tradizionale; la seconda alla questione computazionale che $L$
+ovviamente propone, e cioè
+riconoscere le stringhe su $A$ che stanno in $L$ e escludere le altre.
+
+\paragraph{Esempio.}
+L'insieme dei numeri primi è un linguaggio su $A = \{0, 1, 2, ..., 9\}$
+(e su qualunque alfabeto per i naturali). L'insieme dei polinomi a coefficienti e
+radici intere è un linguaggio sull'alfabeto del Decimo problema di Hilbert.\\
+
+Non dimentichiamo che, accanto al "problema" di riconoscere un linguaggio, c'è
+anche quello di computare funzioni su stringhe su un alfabeto $A$, come il caso
+della decomposizione in fattori primi ci ha sopra illustrato.
