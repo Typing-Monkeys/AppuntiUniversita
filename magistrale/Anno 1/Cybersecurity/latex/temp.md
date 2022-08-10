@@ -5,7 +5,6 @@ sfruttando la block chain per sincronizzare e slavarsi i cambiamenti di stato de
 Oltre ai contratti etherium sfrutta anche una criptovaluta chiamata ETHER per misurare e vincolare le risorse per 
 l'esecuzione dei contratti.
 
-inserire il simbolo etherium e ether
 
 ### Etherium vs Bitcoin
 

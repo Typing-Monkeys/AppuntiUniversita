@@ -1,0 +1,179 @@
+\chapter{Introduzione ad Ethereum}
+Ethereum è un piattaforma di caclolo decentralizzata che permette di eseguire programmi
+chiamati \textit{Smart Contracts},
+sfruttando la blockchain per sincronizzare e slavare i cambiamenti di stato del sistema.
+Spesso viene denotata con "World Computer".
+Oltre ai contratti, ethereum sfrutta anche una criptovaluta chiamata \textit{Ether} per
+misurare e vincolare le risorse per l'esecuzione dei contratti.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1cm, keepaspectratio]{capitoli/ethereum/imgs/ethereum.png}
+    \caption{Logo di Ethereum.}
+\end{figure}
+
+\section{Ethereum vs Bitcoin}
+Per alcuni aspetti Ethereum può essere comparato a Bitcoin,
+possiamo notare le seguenti caratteristiche comuni:
+
+\begin{itemize}
+    \item P2P,
+    \item Un algoritmo di consenso per sincornizzare gli stati,
+    \item Concetto simile alla PoW (Proof of Work),
+    \item Utilizzo di funzioni crittografiche (hash, firme digitali, ...),
+    \item Criptovaluta.
+\end{itemize}
+
+Tuttavia presenta anche molte differenze sostanziali:
+
+\begin{itemize}
+    \item Ethereum non è stato sviluppato per pagamenti, ma è una piattaforma di caclolo
+          decentralizzata
+    \item La criptovaluta è utilizzata solo come compenso per permettere
+          l'utilizzo delle piattaforme di Ethereum
+    \item Il linguaggio utilizzato da Ethereum è \textit{Turing-Completo} e dunque
+          la blockchain può funzionare come un computer general porpouse.
+          Quello di Bitcoin è intensionalmente limitato a valutazioni \verb|true/false|,
+          non è quindi Turing-Completo e risulta molto più sicuro.
+\end{itemize}
+
+\section{Componenti della Blockchain}
+
+Una blockchain pubblica è solitamente formata dai seguenti elementi:
+
+\begin{itemize}
+    \item \textbf{Una rete P2P}: serve per connettere i partecipanti e propagare le transazioni
+    \item \textbf{Messaggi}: sono le transazioni
+    \item \textbf{Regole del consenso}: dettano cosa costituisce una transazione valida
+    \item \textbf{La Macchina degli stati}: calcola la transazione seguendo le regole del consenso
+    \item \textbf{Una Catena di blocchi crittografati}: fungono da libro mastro per tutte
+          le transazioni effettuate
+    \item \textbf{Un algoritmo di consenso}: decentralizza il controllo della blockchain
+    \item \textbf{Un sistema di incentivi}: ricompense date per chi approva le transazioni
+          affinchè queste ultime continuino ad essere approvate
+    \item \textbf{Un Client}: implementazioni software dei precedenti punti
+\end{itemize}
+
+Nello specifico in Ethereum abbiamo:
+
+\begin{itemize}
+    \item \textbf{Rete P2P}: si chiama \textit{Ethereum Main Network} ed
+          utilizza un protocollo chiamato \DH$\equiv$Vp2p.
+    \item \textbf{Regole del Consenso}: sono definite in una specifica di riferimento chiamata
+          Yello Paper.
+    \item \textbf{Transaction}: sono messaggi di rete che includono mittente, destinatario,
+          valore, data payload, ...
+    \item \textbf{State Machine}: le transizioni di stato di Ethereum sono processate dalla
+          EVM (Ethereum Virtual Machine), una stack-based virtual machine che esegue il bytcode
+          degli smart contracts. Questi vengono scritti in uno speciale lingauggio ad alto livello
+          (come Solidity).
+    \item \textbf{Data Structure}: lo stato di Ethereum è salvato localmente su ogni nodo come
+          un database contenente transazioni e stato del sistema in una struttura dati chiamata
+          \textit{Merker Patricia Tree}.
+    \item \textbf{Algoritmo del Consenso}: Ethereum utilizza lo stesso metodo dei Bitcoin
+          (Nakamoto Consensuns) che utilizza la PoW per approvare le transazioni,
+          determinando così lo stato attuale in base a qual'è la catena più lunga.
+          Ci sono piani per passare alla PoS (Proof of Stake) che verranno introdotti dal
+          progetto Casper.
+    \item \textbf{Economic Security}: Ethereum utilizza un algoritmo di PoW chiamato \textit{Ethash},
+          ma verrà abbandonato quando si passerà alla PoS.
+    \item \textbf{Clients}: Ethereum ha diverse implementazioni di vari client,
+          tutte quante valide ed intercambiabili, tra cui Go-Etherium (Geth) e Parity.
+\end{itemize}
+
+\section{Implicazioni della Turing-Completeza}
+Come sappiamo dall'Halting Problem, non possiamo a priori simulare un programma per
+determinare se esso si arresterà oppure no. Poichè il linguaggio utilizzzato da Ethereum è
+Turing-Completo, gli smart contracts possono incappare in loop infiniti. Questo risulta
+particolarmente problematico nelle blockchain pubbliche dato che non ci sarà modo di interromperli
+(esempio della stampante). Per evitare questi problemi, che sono effettivamente degli attacchi DoS,
+Ethereum introduce un meccanismo di misurazione chiamato \textbf{Gas}, in cui ogni operazione
+effettuata dallo smart contract ha un costo in gas. Prima dell'esecuzione dello smart contract
+viene imposto un limite massimo di gas utilizzabile per l'esecuzione del codice.
+Dunque, se uno smart contract dovesse superare la soglia massima di gas consentitagli,
+verrà interrotto.
+
+Il gas si acquista con gli ether quando viene lanciato uno smart cotract,
+dunque si paga per un numero massimo di istruzioni che quello smart contract può eseguire.
+Tutto il gas avanzato viene rimborasto al client sotto forma di ether.
+
+\section{DApps}
+
+Sono degli applicativi web, riconducibili a smart contracts, che vengono costruiti sopra
+un'infrastruttura aperta, decentralizzata e P2P.
+Sono composti sempre da:
+
+\begin{itemize}
+    \item uno smart contract
+    \item alcune interffcie utenti web
+\end{itemize}
+
+Ma possono anche presentare:
+
+\begin{itemize}
+    \item Protocolli e piattaforme di memorizzazione decentralizzate
+    \item Protocolli e piattaforme di comunicazione decentralizzate
+\end{itemize}
+
+\section{JSON-RPC}
+
+Affinché un'applicazione software interagisca con la blockchain di Ethereum
+(leggendo i dati della blockchain e/o inviando le transazioni alla rete), deve connettersi a
+un nodo di Ethereum.
+A tale scopo, ogni client di Ethereum implementa una specifica di JSON-RPC, in modo tale che vi
+sia una serie uniforme di metodi su cui si basano le applicazioni.
+JSON-RPC è un protocollo di chiamata della procedura remota (RPC) leggero e privo di stato.
+Principalmente, la specifica definisce diverse strutture di dati e le regole intorno alla loro
+elaborazione. È indipendente dal trasporto, poiché i concetti sono utilizzabili entro lo stesso
+processo, su prese, via HTTP o in svariati ambienti di passaggio dei messaggi. Usa JSON (RFC 4627)
+come formato dei dati.
+Di solito, l'accesso alle RPC è fornito da un servizio HTTP sulla porta 8584 che
+generalmente è accessibile solo da localhost.
+
+\begin{lstlisting}[caption=Esempio di richiesta tramite jsonrpc]
+$ curl -X POST \ 
+       -H "Content-Type: application/json" \  
+       --data \
+       '{
+           "jsonrpc":"2.0",
+           "method":"eth_gasPrice",
+           "params":[],
+           "id":4213
+        }' \
+ http://localhost:8545/
+ 
+{"jsonrpc":"2.0","id":4213,"result":"0x430e23400"}
+\end{lstlisting}
+
+\section{Tipi di Account}
+In etherium ci sono 2 tipologie di Account: EOA e Contracts Account.
+
+\paragraph{Externally Owned Accounts (EOA):}
+sono account che hanno una chiave privata e sono gestiti da una persona fisica.
+Sono in grado di trasmettere e ricevere ether.
+
+\paragraph{Contracts Accout:}
+Questo tipo di account ha uno smart contract code che un semplice account esterno non può avere.
+Non ha una chiave privata ed è posseduto e gestito dalla logica del suo smart contract.
+Ha un suo indirizzo, e dunque può ricevere e mandare ether.
+Qunado esseo è destinatario di una transazione, l'account eseguirà il codice del controatto
+nella EVM utilizzando la transazione ed i dati presenti in essa come input.
+Inoltre, può ricevere in input una tasnazione senza ether ma con dati ed una specifica
+funzione del suo codice da eseguire. Questo tipo di account, non avendo una chiave privata
+non può iniziare transazioni, ma può solo reagire a transazioni chiamando altri contratti o
+spostando ether.
+
+\section{Hard Fork}
+
+\paragraph{Block \#1,192,000} \ \\
+DAO—A hard fork that reimbursed victims of the hacked DAO contract and
+caused Ethereum and Ethereum Classic to split into two competing systems.
+
+\paragraph{Block \#2,463,000} \ \\
+Tangerine Whistle—A hard fork to change the gas calculation for certain I/Oheavy operations and to clear the accumulated state from a denial-of-service
+(DoS) attack that exploited the low gas cost of those operations.
+
+\paragraph{Block \#2,675,000} \ \\
+Spurious Dragon—A hard fork to address more DoS attack vectors, and another
+state clearing. Also, a replay attack protection mechanism.

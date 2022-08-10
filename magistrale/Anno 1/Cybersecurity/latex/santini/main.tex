@@ -1,0 +1,21 @@
+\documentclass[a4paper,12 pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+
+% Resetta la numerazione dei chapter quando
+% una nuova part viene creata
+\makeatletter
+\@addtoreset{chapter}{part}
+\makeatother
+
+\begin{document}
+%%TODO: definire prima pagina
+
+\include{capitoli/secure_coding/main.tex}
+\include{capitoli/ethereum/main.tex}
+\include{capitoli/id_managing/main.tex}
+\end{document}
