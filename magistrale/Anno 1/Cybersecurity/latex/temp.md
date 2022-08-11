@@ -103,3 +103,19 @@ Block #2,463,000
 Block #2,675,000
     Spurious Dragon—A hard fork to address more DoS attack vectors, and another
     state clearing. Also, a replay attack protection mechanism.
+
+### PoS
+
+Come il PoW, il PoS (Proof of Stake) è un modo per validare e dare consenso alle 
+transazioni. Il PoW paga miner che risolvono problemi matematici con lo scopo di creare e validare nuovi blocchi per far crescere la blockchain.
+Con il PoS, il creatore  di un nuovo blocco viene scleto in base alla quantità di moneta che possiede, quanto "stake" ha quella persona nella determinata moneta (currency). _More stake, more power_.
+Lo stake non è solo definito come la quantità di moneta posseduta ma è importante anche da quanto tempo questa persona possiede la valuta. Per esempio, se una persona ha comprato recentemente una grossa somma di cryptocurrency, il suo stake sarà inferiore di una persona che possiede meno moneta ma da molto più tempo.
+Nel sistema PoS, un algoritmo trova il miner con maggiore stake.
+Questo sistema scoraggia gli hacker in quanto per dominare la blockachin è necessario avere tanto stake e possederlo da molto tempo.
+Il principale vantaggio di questo sistema è il risparmio energetico, non servono immense potense di calcolo per risolvere complessi calcoli matematici.
+Alcune cryptocurrencies che sfruttano il PoS sono:
+
+- ShadowCash
+- Nxt
+- BlockCoin
+- Nav Coin
