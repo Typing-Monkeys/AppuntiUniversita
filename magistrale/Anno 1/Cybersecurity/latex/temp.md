@@ -109,7 +109,7 @@ Block #2,675,000
 Come il PoW, il PoS (Proof of Stake) è un modo per validare e dare consenso alle 
 transazioni. Il PoW paga miner che risolvono problemi matematici con lo scopo di creare e validare nuovi blocchi per far crescere la blockchain.
 Con il PoS, il creatore  di un nuovo blocco viene scleto in base alla quantità di moneta che possiede, quanto "stake" ha quella persona nella determinata moneta (currency). _More stake, more power_.
-Lo stake non è solo definito come la quantità di moneta posseduta ma è importante anche da quanto tempo questa persona possiede la valuta. Per esempio, se una persona ha comprato recentemente una grossa somma di cryptocurrency, il suo stake sarà inferiore di una persona che possiede meno moneta ma da molto più tempo.
+Lo stake non è solo definito come la quantità di moneta posseduta ma è importante anche da quanto tempo questa persona possiede la valuta. Per esempio, se una persona ha comprato recentemente una grossa somma di cryptocurrency, il suo stake sarà inferiore a quello di una persona che possiede meno moneta ma da molto più tempo.
 Nel sistema PoS, un algoritmo trova il miner con maggiore stake.
 Questo sistema scoraggia gli hacker in quanto per dominare la blockachin è necessario avere tanto stake e possederlo da molto tempo.
 Il principale vantaggio di questo sistema è il risparmio energetico, non servono immense potense di calcolo per risolvere complessi calcoli matematici.
@@ -119,3 +119,86 @@ Alcune cryptocurrencies che sfruttano il PoS sono:
 - Nxt
 - BlockCoin
 - Nav Coin
+
+<!-- l'ethereum fa parte di queste è importantissimo !!!-->
+
+### Smart Contracts
+
+Il termine Smart Contract è stato coniato da Nick Szabo ed è definito come: "un insieme di promesse, specificato in forma digitale che includono protocolli, all'interno dei quali le due parti coinvolte adempiono alle loro promesse contrattuali".
+Il termine Smart Contract quando usato in riferimento da Ethereum può essere fuorviante in quanto
+non si riferisce a contratti legali ma ad un programma software che viene eseguito dalla EVM sull'Ethereum
+World Computer. Gli Smart Contract hanno 2 caratteristiche:
+
+- Sono immutabili: una volta mandato in esecuzione il codice di uno smart contract esso non portà cambiare.
+L'unico modo per modificarne il codice è quello di effettuare un nuovo deployment.
+- Sono determiistici: l'output di uno smart contract sarà sempre lo stesso su ogni macchina che lo esegue dato il contesto della transazione che lo ha inizializzato e lo stato della blockchain nel momento dell'esecuzione.
+
+
+## Securty Contract
+
+## Introduzione
+
+Come per altri programmi, un contratto intelligente eseguirà esattamente ciò che è scritto,
+che non sempre è ciò che il programmatore intendeva. Tutti i contratti smart sono pubblici e
+qualsiasi utente può interagire con essi semplicemente creando una transazione.
+Una volta che la transazione viene mandata sulla blockchain, significa che fa parte di un
+blocco e non può essere più annullata. I dati della transazione sono inalterabili anche perchè
+sono distribuiti.
+Gli smart contract possono gestire denaro, ma una volta perso è praticamente impossibile
+recuperarlo. Il codice del contratto intelligente è spietato. Ogni bug può portare a perdite
+monetarie.
+La complessità è nemica della sicurezza. Più semplice è il codice, minori sono le possibilità
+che si verifichi un bug o un effetto imprevisto. Quando ci si impegna per la prima volta nella
+programmazione a contratto intelligente, gli sviluppatori sono spesso tentati di provare a
+scrivere molto codice. Invece, si dovrebbe trovare il modo per fare meno, con meno linee di
+codice, meno complessità e meno "features".
+Se esiste già una libreria o un contratto che fa gran parte del necessario, riutilizzatela.
+All'interno del codice, seguite il principio DRY: Don’t Repeat Yourself.
+Attenzione alla sindrome del "Not Invented Here", dove si è tentati di "migliorare" una
+caratteristica o un componente costruendola da zero.
+Non si dovrebbe trattare la programmazione a contratto intelligente allo stesso modo della
+programmazione generale. Piuttosto, si dovrebbero applicare rigorose metodologie di
+ingegneria e di sviluppo software.
+Una volta "lanciato" il vostro codice, c'è poco da fare per risolvere eventuali problemi.
+Il vostro codice deve essere chiaro e facile da comprendere. Più è facile da leggere, più è
+facile da controllare.
+I contratti intelligenti sono pubblici, poiché tutti possono leggere il bytecode e chiunque può
+invertirlo e modificarlo. Pertanto, è utile sviluppare il proprio lavoro in pubblico, utilizzando
+metodologie collaborative e open source, per attingere alla saggezza collettiva.
+Dato che l'ambiente di esecuzione è pubblico, prima di poter essere lanciato, il codice deve essere
+testato in maniera approfondita. Vanno soprattutto analizzati i possibili input maligni e i loro effetti.
+
+pagina 47 degli appunti riscriver if require
+pagina 48 foto all'esempio
+
+### DAO
+Copiare pagine 48-50
+
+### Arithmetic underflow/overflow
+
+Copiare pagina 51. Modificare quando aprla della funzione deposit, non lo dice ma ne parla
+
+### Unexpected Ether
+
+Copiare pagina 52.
+Ricordare che questo non serve per rubare soldi ma per fare danni e rompere contratti
+
+### Default Visibilities
+
+Copiare pagina 53
+
+### Entropy illusion
+
+Copiare pagina 53-54
+Controllare alcune parole che non hanno senso sono scritte male
+
+### Manipolazione dei Time Blockstamp
+
+Copiare pagina 54
+
+Mancano da riassumere:
+
+- Delegate Call
+- Unchecked Call Return Values
+- DoS
+- Race Conditions/Front Running
