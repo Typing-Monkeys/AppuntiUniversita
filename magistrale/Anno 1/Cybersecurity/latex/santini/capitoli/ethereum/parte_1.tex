@@ -8,9 +8,9 @@ misurare e vincolare le risorse per l'esecuzione dei contratti.
 
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=1cm, keepaspectratio]{capitoli/ethereum/imgs/ethereum.png}
-    \caption{Logo di Ethereum.}
+      \centering
+      \includegraphics[width=1cm, keepaspectratio]{capitoli/ethereum/imgs/ethereum.png}
+      \caption{Logo di Ethereum.}
 \end{figure}
 
 \section{Ethereum vs Bitcoin}
@@ -18,24 +18,26 @@ Per alcuni aspetti Ethereum può essere comparato a Bitcoin,
 possiamo notare le seguenti caratteristiche comuni:
 
 \begin{itemize}
-    \item P2P,
-    \item Un algoritmo di consenso per sincornizzare gli stati,
-    \item Concetto simile alla PoW (Proof of Work),
-    \item Utilizzo di funzioni crittografiche (hash, firme digitali, ...),
-    \item Criptovaluta.
+      \item P2P,
+      \item Un algoritmo di consenso per sincornizzare gli stati,
+      \item Concetto simile alla PoW (Proof of Work),
+      \item Utilizzo di funzioni crittografiche (hash, firme digitali, ...),
+      \item Criptovaluta.
 \end{itemize}
 
 Tuttavia presenta anche molte differenze sostanziali:
 
 \begin{itemize}
-    \item Ethereum non è stato sviluppato per pagamenti, ma è una piattaforma di caclolo
-          decentralizzata
-    \item La criptovaluta è utilizzata solo come compenso per permettere
-          l'utilizzo delle piattaforme di Ethereum
-    \item Il linguaggio utilizzato da Ethereum è \textit{Turing-Completo} e dunque
-          la blockchain può funzionare come un computer general porpouse.
-          Quello di Bitcoin è intensionalmente limitato a valutazioni \verb|true/false|,
-          non è quindi Turing-Completo e risulta molto più sicuro.
+      \item Ethereum non è stato sviluppato per pagamenti, ma è una piattaforma di caclolo
+            decentralizzata
+      \item La criptovaluta è utilizzata solo come compenso per permettere
+            l'utilizzo delle piattaforme di Ethereum
+      \item Il linguaggio utilizzato da Ethereum è \textit{Turing-Completo} e dunque
+            la blockchain può funzionare come un computer general porpouse.
+            Quello di Bitcoin è intensionalmente limitato a valutazioni \verb|true/false|,
+            non è quindi Turing-Completo e risulta molto più sicuro.
+      \item La disponibilità massima di Bitcoin è pari a 21 milioni di unità, mentre gli
+            Ether sono illimitati.
 \end{itemize}
 
 \section{Componenti della Blockchain}
@@ -43,43 +45,43 @@ Tuttavia presenta anche molte differenze sostanziali:
 Una blockchain pubblica è solitamente formata dai seguenti elementi:
 
 \begin{itemize}
-    \item \textbf{Una rete P2P}: serve per connettere i partecipanti e propagare le transazioni
-    \item \textbf{Messaggi}: sono le transazioni
-    \item \textbf{Regole del consenso}: dettano cosa costituisce una transazione valida
-    \item \textbf{La Macchina degli stati}: calcola la transazione seguendo le regole del consenso
-    \item \textbf{Una Catena di blocchi crittografati}: fungono da libro mastro per tutte
-          le transazioni effettuate
-    \item \textbf{Un algoritmo di consenso}: decentralizza il controllo della blockchain
-    \item \textbf{Un sistema di incentivi}: ricompense date per chi approva le transazioni
-          affinchè queste ultime continuino ad essere approvate
-    \item \textbf{Un Client}: implementazioni software dei precedenti punti
+      \item \textbf{Una rete P2P}: serve per connettere i partecipanti e propagare le transazioni
+      \item \textbf{Messaggi}: sono le transazioni
+      \item \textbf{Regole del consenso}: dettano cosa costituisce una transazione valida
+      \item \textbf{La Macchina degli stati}: calcola la transazione seguendo le regole del consenso
+      \item \textbf{Una Catena di blocchi crittografati}: fungono da libro mastro per tutte
+            le transazioni effettuate
+      \item \textbf{Un algoritmo di consenso}: decentralizza il controllo della blockchain
+      \item \textbf{Un sistema di incentivi}: ricompense date per chi approva le transazioni
+            affinchè queste ultime continuino ad essere approvate
+      \item \textbf{Un Client}: implementazioni software dei precedenti punti
 \end{itemize}
 
 Nello specifico in Ethereum abbiamo:
 
 \begin{itemize}
-    \item \textbf{Rete P2P}: si chiama \textit{Ethereum Main Network} ed
-          utilizza un protocollo chiamato \DH$\equiv$Vp2p.
-    \item \textbf{Regole del Consenso}: sono definite in una specifica di riferimento chiamata
-          Yello Paper.
-    \item \textbf{Transaction}: sono messaggi di rete che includono mittente, destinatario,
-          valore, data payload, ...
-    \item \textbf{State Machine}: le transizioni di stato di Ethereum sono processate dalla
-          EVM (Ethereum Virtual Machine), una stack-based virtual machine che esegue il bytcode
-          degli smart contracts. Questi vengono scritti in uno speciale lingauggio ad alto livello
-          (come Solidity).
-    \item \textbf{Data Structure}: lo stato di Ethereum è salvato localmente su ogni nodo come
-          un database contenente transazioni e stato del sistema in una struttura dati chiamata
-          \textit{Merker Patricia Tree}.
-    \item \textbf{Algoritmo del Consenso}: Ethereum utilizza lo stesso metodo dei Bitcoin
-          (Nakamoto Consensuns) che utilizza la PoW per approvare le transazioni,
-          determinando così lo stato attuale in base a qual'è la catena più lunga.
-          Ci sono piani per passare alla PoS (Proof of Stake) che verranno introdotti dal
-          progetto Casper.
-    \item \textbf{Economic Security}: Ethereum utilizza un algoritmo di PoW chiamato \textit{Ethash},
-          ma verrà abbandonato quando si passerà alla PoS.
-    \item \textbf{Clients}: Ethereum ha diverse implementazioni di vari client,
-          tutte quante valide ed intercambiabili, tra cui Go-Etherium (Geth) e Parity.
+      \item \textbf{Rete P2P}: si chiama \textit{Ethereum Main Network} ed
+            utilizza un protocollo chiamato \DH$\equiv$Vp2p.
+      \item \textbf{Regole del Consenso}: sono definite in una specifica di riferimento chiamata
+            Yello Paper.
+      \item \textbf{Transaction}: sono messaggi di rete che includono mittente, destinatario,
+            valore, data payload, ...
+      \item \textbf{State Machine}: le transizioni di stato di Ethereum sono processate dalla
+            EVM (Ethereum Virtual Machine), una stack-based virtual machine che esegue il bytcode
+            degli smart contracts. Questi vengono scritti in uno speciale lingauggio ad alto livello
+            (come Solidity).
+      \item \textbf{Data Structure}: lo stato di Ethereum è salvato localmente su ogni nodo come
+            un database contenente transazioni e stato del sistema in una struttura dati chiamata
+            \textit{Merker Patricia Tree}.
+      \item \textbf{Algoritmo del Consenso}: Ethereum utilizza lo stesso metodo dei Bitcoin
+            (Nakamoto Consensuns) che utilizza la PoW per approvare le transazioni,
+            determinando così lo stato attuale in base a qual'è la catena più lunga.
+            Ci sono piani per passare alla PoS (Proof of Stake) che verranno introdotti dal
+            progetto Casper.
+      \item \textbf{Economic Security}: Ethereum utilizza un algoritmo di PoW chiamato \textit{Ethash},
+            ma verrà abbandonato quando si passerà alla PoS.
+      \item \textbf{Clients}: Ethereum ha diverse implementazioni di vari client,
+            tutte quante valide ed intercambiabili, tra cui Go-Etherium (Geth) e Parity.
 \end{itemize}
 
 \section{Implicazioni della Turing-Completeza}
@@ -92,11 +94,17 @@ Ethereum introduce un meccanismo di misurazione chiamato \textbf{Gas}, in cui og
 effettuata dallo smart contract ha un costo in gas. Prima dell'esecuzione dello smart contract
 viene imposto un limite massimo di gas utilizzabile per l'esecuzione del codice.
 Dunque, se uno smart contract dovesse superare la soglia massima di gas consentitagli,
-verrà interrotto.
+verrà interrotto.\\
 
 Il gas si acquista con gli ether quando viene lanciato uno smart cotract,
 dunque si paga per un numero massimo di istruzioni che quello smart contract può eseguire.
 Tutto il gas avanzato viene rimborasto al client sotto forma di ether.
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=10cm, keepaspectratio]{capitoli/ethereum/imgs/costo_gas.png}
+      \caption{Costo in Gas di alcune operazioni.}
+\end{figure}
 
 \section{DApps}
 
@@ -105,15 +113,15 @@ un'infrastruttura aperta, decentralizzata e P2P.
 Sono composti sempre da:
 
 \begin{itemize}
-    \item uno smart contract
-    \item alcune interffcie utenti web
+      \item uno smart contract
+      \item alcune interffcie utenti web
 \end{itemize}
 
 Ma possono anche presentare:
 
 \begin{itemize}
-    \item Protocolli e piattaforme di memorizzazione decentralizzate
-    \item Protocolli e piattaforme di comunicazione decentralizzate
+      \item Protocolli e piattaforme di memorizzazione decentralizzate
+      \item Protocolli e piattaforme di comunicazione decentralizzate
 \end{itemize}
 
 \section{JSON-RPC}
@@ -163,6 +171,31 @@ Inoltre, può ricevere in input una tasnazione senza ether ma con dati ed una sp
 funzione del suo codice da eseguire. Questo tipo di account, non avendo una chiave privata
 non può iniziare transazioni, ma può solo reagire a transazioni chiamando altri contratti o
 spostando ether.
+
+\section{PoW vs PoS}
+
+\section{Smart Contracts}
+
+\section{Coins and Tokens}
+In questo paragrafo andremo ad analizzare brevemente le differenze tra Coin e Token.
+
+\paragraph{Coins:}
+un Coin può essere definito tale se rispetta le seguenti caratteristiche:
+
+\begin{enumerate}
+      \item Opera all'interno della sua blockchain
+      \item Funziona come denaro
+      \item Può essere minato
+\end{enumerate}
+
+\paragraph{Tokens:}
+la principale differenza con i Coin è che un Token non ha una sua propria blockchain
+ma si appoggia ad altre già esistenti, come per esempio ERC20, BAT e BNT che
+sfruttano Ethereum. Un'altra sostanziale differenza è che le transazioni di Coins
+sono gestite dalla blockchain mentre quelle di token sono governate da Smart Contracts.
+Quando un token viene "speso" viene fisicamento spostato da un posto ad un altro,
+a differenza dei Coin, quando un coin viene speso viene solo aggiornato il saldo
+delle due parti. Un esempio di token sono gli NFT (Non Fungible Tokens).
 
 \section{Hard Fork}
 

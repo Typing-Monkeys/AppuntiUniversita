@@ -41,9 +41,15 @@ Alcuni programmatori abituati ad usare altri linguaggi come Java, Pascal o Ada c
 \section{CERT C coding standard}
 Il SEI CERT C Coding Standard è una codifica standard per i software per il linguaggio di programmazione C, sviluppato da il CERT Coordination Center per migliorare la sicurezza, l'affibidabilità del sistema di software.
 
-\section{Tipi di dato e Interi}
-I tipi \verb|int| sono rappresentati dall'insieme dei numeri naturali, incluso lo $0$, ($0, 1, 2, 3, ...$) uniti
-ai numeri naturali negativi ($-1, -2, -3, ...$). In C sono presenti vari tipi di interi come mostrati nella tabella sottostante:
+\section{Integer Security}
+
+Gli interi sono formati dai numeri naturali positivi (incluso lo 0) e dai naturali
+negativi (escluso lo 0): $..., -3, -2, -1, 0, 1, 2, 3, ...$\\
+I numeri interi rappresentano una fonte crescente e sottovalutata di vulnerabilità
+nei programmi C. Quando si sviluppano sistemi sicuri, non possiamo dare per scontato
+che un programma funzioni normalmente data una serie di input,
+in quanto gli attaccanti cercheranno sicuramente dei valori che produrranno
+poi un effetto anomalo.
 
 \begin{figure}[H]
     \centering
@@ -51,17 +57,57 @@ ai numeri naturali negativi ($-1, -2, -3, ...$). In C sono presenti vari tipi di
     \caption{Tabella raffigurante tutti i tipi in C con la loro dimensione.}\label{fig:vari_tipi}
 \end{figure}
 
-I numeri interi con segno (\verb|signed int|) sono ottenuti utilizzando il \textbf{complemento a 2}, che permette di rappresentare sia numeri positivi
-che negativi utilizzando 1 bit per il segno (il primo bit) e risolvendo il problema del doppio 0 aggiungendo 1 dopo aver fatto il complemento bit a bit.
+\subsection{Tipi unsigned}
+
+Un calcolo che coinvolge operandi senza segno non può mai fare overflow.
+Se un valore è fuori intervallo, viene eseguito il seguente calcolo:
+
+\[
+    toolargevalue \ mod \ MaxValue + 1
+\]
+
+Si ha un \textbf{wraparound} quando un valore sfora il massimo numero
+rappresentabile. Di seguito vediamo gli operatori che possono o no avere
+wraparound (a partire da operazioni con gli unsigned):
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/wraparound.png}
+    \caption{Tabella raffigurante le operazioni che effettuano wraparound.}
+\end{figure}
+
+\subsection{Tipi signed}
+
+In C, ogni tipo di numero intero unsigned, escluso \_Bool, ha un corrispondente
+tipo di numero intero signed che occupa la stessa quantità di memoria.
+Se non viene precisato, un valore viene automaticamente considerato signed
+(non vale per il char).
+I numeri interi con segno (\verb|signed int|) sono ottenuti utilizzando il \textbf{complemento a 2},
+che permette di rappresentare sia numeri positivi
+che negativi utilizzando 1 bit per il segno (il primo bit) e risolvendo il problema del doppio 0 aggiungendo
+1 dopo aver fatto il complemento bit a bit.
 Rappresentando 8 bit con il complemento a 2 avremmo un range che varia tra $-128$ a $127$.
 In generale il range di rappresentazione sarà dato dalla seguente formula:
 \[
     da \ -2^{N} - 1 \ \ a \ \ 2^{N - 1} - 1
 \]
 
-dove $N$ è il numero di bit.
+dove $N$ è il numero di bit.\\
+Di seguito vediamo gli operatori che possono o no avere wraparound (a partire da
+operazioni con i signed):
 
-%%TODO: aggiungere wraparound
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/wraparound_signed.png}
+    \caption{Tabella raffigurante le operazioni che effettuano wraparound su signed.}
+\end{figure}
+
+\subsection{Esempi}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/esempi.png}
+\end{figure}
 
 \section{Vulnerabilità degli Interi}
 
@@ -86,7 +132,13 @@ Ci sono vari modi per prevenire tali errori:
           ("INT01-C. Use \verb|size_t| for all integer values representing the size of
           an object.").
           Si può anche utilizzare \verb|short|.\\
-          Un esempio: \verb|size_t total = strlen(argv[1])+ 1;|
+          Un esempio: \verb|size_t total = strlen(argv[1])+ 1;|\\
+          Un altro esempio:
+          \begin{figure}[H]
+              \centering
+              \includegraphics[width=12cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/esempio_sizet.png}
+          \end{figure}
+
     \item \textbf{Type Range Checking}:
           controlla se avvengono errori legati al superamento del range degli interi,
           alcuni modi per farlo solo: \begin{itemize}
