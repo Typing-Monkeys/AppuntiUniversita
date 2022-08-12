@@ -2,7 +2,7 @@
 \chapter{Return-oriented Programming ROP}
 ROP è una tipologia di attacco a basso livello, assembly. Quando si compila un codice, viene caricata in quasi tutti i programmi Unix anche la libreria standard \textbf{libc}, la quale contiene delle routine utili per un attaccante. Per l'attacco vengono utilizzate solo piccole sequenze di codice, esse sono lunghe solo due o tre istruzioni (\textbf{gadget}). Alcune di esse sono presenti in \textbf{libc} come risultato delle scelte fatte dal compilatore durante la generazione del codice.
 
-\subsection{Funzionamento dell'attacco}
+\section{Funzionamento dell'attacco}
 La ROP è una tecnica simile all'arc injection, ma invece di ritornare alle funzioni, il codice di exploit ritorna a sequenze di istruzioni seguite da un return (\textbf{ret}).
 Ogni sequenza di istruzioni utile è chiamata \textbf{gadget},
 ognuno di essi specifica determinati valori da inserire nello stack che permettono di usare queste sequenza di istruzioni.

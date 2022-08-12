@@ -1,6 +1,6 @@
 \chapter{Pointer subterfuge}
 Il \textbf{pointer subterfuge} è un termine generale per gli exploit che modificano il valore di un puntatore. In C e C++ esistono sia i puntatori a funzioni che i puntatori a variabili.
-\subsection{Puntatori a funzioni}
+\section{Puntatori a funzioni}
 Nel caso dei puntatori a funzioni il valore di quest'ultimi può essere sovrascritto in modo da trasferire il controllo a una shellcode fornita dall'attaccante. Quando un programma esegue una  chiamata tramite il puntatore alla funzione, il codice dell'attaccante è eseguito al posto del codice previsto.
 \begin{figure}[H]
 	\centering

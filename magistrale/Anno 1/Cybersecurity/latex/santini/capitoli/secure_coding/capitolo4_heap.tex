@@ -1,5 +1,5 @@
 \chapter{Heap Overflows}
-\subsection{Alcuni problemi dello heap}
+\section{Alcuni problemi dello heap}
 Il problema riguardante la heap memory occorre quando essa non viene adeguatamente liberata
 dopo che non è più necessaria. Le memory leaks possono essere problematiche in processi a lungo termine
 o in attacchi di esaurimento delle risorse. La memoria può essere \textbf{esausta} quando un malitenzionato identifica delle azioni esterne che possono allocare memoria ma non liberarla. Di conseguenza le allocazioni successive  falliscono e l'applicazione è incapace di processare delle richieste valide dello user senza \textbf{crashare}. Inoltre è possibile accedere alla memoria liberata a meno che tutti puntatori che puntano a quella memoria sono settati a NULL o sovrascritti. Perciò quando si libera, bisogna impostare anche il puntatore alla memoria liberata a NULL.

@@ -5,6 +5,8 @@
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{subcaption}
+\usepackage{hyperref}
 
 % Resetta la numerazione dei chapter quando
 % una nuova part viene creata
@@ -12,7 +14,12 @@
 \@addtoreset{chapter}{part}
 \makeatother
 
+% Rimuove l'indentazione quando si crea un nuovo paragrafo
+\setlength{\parindent}{0pt}
+
 \begin{document}
+\tableofcontents
+
 %%TODO: definire prima pagina
 
 \include{capitoli/secure_coding/main.tex}
