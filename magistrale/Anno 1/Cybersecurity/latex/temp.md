@@ -267,3 +267,11 @@ Nel secondo caso può essere utile creare un failsafe utilizzabile nel caso in c
 ## Reace Condition e Fuzz Testing
 Copiare tutta la parte degli appunti.
 Attenzione che alcune cose sono scritte male o non hanno senso.
+
+Controllare anche le slide !!!
+
+## SQL Injection
+
+Copiare dagli appunti.
+Integrare gli esempi mancanti con le slide.
+Alcune frasi e concetti sono incomprensibili sugli appunti.
