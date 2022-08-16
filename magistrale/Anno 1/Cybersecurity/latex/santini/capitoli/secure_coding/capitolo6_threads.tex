@@ -119,11 +119,8 @@ C'è una race window tra le linee 4 e 6. La linea 6 consiste
 praticamente nell'andare in \verb|/tmp/a/b| e con la 7 si rimuove la
 directory \verb|c|. \verb|unlink| rimuove i link da tutti i file.
 Un exploit consiste nell'eseguire il seguente comando durante
-la race window:
-
-\begin{lstlisting}
-    mv /tmp/a/b/c /tmp/c
-\end{lstlisting}
+la race window:\\
+\verb|mv /tmp/a/b/c /tmp/c|\\
 
 Lanciato alla riga 5, ci ritroveremo all'interno di \verb|/tmp|!
 Verranno poi eseguite le righe 7 e 8 che potranno portare all'eliminazione
