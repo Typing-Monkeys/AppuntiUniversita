@@ -54,7 +54,6 @@ Le principali conseguenze di un attacco SQL Injectio sono:
           attacco SQL Injection
 \end{itemize}
 
-%%TODO: ricontrollare 
 In sostanza, l'attacco viene effettuato inserendo un metacarattere all'interno
 dei dati in input, per poi
 posizionare i comandi SQL nel piano di controllo che prima non esisteva in quel
@@ -224,13 +223,9 @@ Alcuni esempi pratici:
 
 \subsection{Procedura Memorizzata}
 
-%%TODO: ricontrollare meglio, l'ultima frase non ha senso.
 Il codice SQL per una \textbf{stored procedure} viene definito e memorizzato nel
 database stesso e
 poi richiamato dall'applicazione. Vanno sempre passati i parametri.
-%%Non capisco cosa voglia dire.
-%Con questa strategia c'è ancora meno probabilità che un attaccante scriva tra
-%i due momenti.
 
 \begin{lstlisting}[language=Java, caption=Esempio di codice Java che
     sfrutta una \textit{stored procedure}]
@@ -249,18 +244,32 @@ poi richiamato dall'applicazione. Vanno sempre passati i parametri.
 
 \subsection{Whitelist Input Validation}
 
-%%TODO: ricontrollare meglio
 I valori dei parametri devono essere mappati con i nomi di tabelle o di colonne
 validi (o comunque previsti) per assicurarsi che l'input dell'utente non
 convalidato non finisca nella
 query. Devono effettivamente esistere nel database.
+
+\begin{lstlisting}[language=Java, caption=Esempio di codic Java che effettua 
+    input validation tramite whitelist.]
+    String tableName;
+    switch(PARAM):
+        case "Value1": tableName = "fooTable";
+            break;
+        case "Value2": tableName = "barTable";
+            break;
+        ...
+        default: 
+            throw new InputValidationException("
+            unexpected value provided for table name
+            ");
+\end{lstlisting}
 
 \subsection{Escaping degli Input}
 
 Questa tecnica dovrebbe essere usata solo come ultima risorsa,
 quando nessuna delle
 precedenti è fattibile. Può essere combinata però con le altre tecniche.
-La validazione degli input della WhiteList è probabilmente la scelta migliore
+La Whitelist Input Validation è probabilmente la scelta migliore
 in quanto questa
 metodologia è fragile rispetto ad altre difese e non possiamo garantire che
 impedirà tutte le
@@ -271,7 +280,30 @@ l'escape di tutti gli input forniti dall'utente utilizzando lo schema di escape
 appropriato per il
 database che si sta utilizzando, il DBMS non confonderà quell'input con il codice
 SQL scritto
-dallo sviluppatore, evitando così eventuali vulnerabilità di SQL injection.
+dallo sviluppatore, evitando così eventuali vulnerabilità di SQL injection.\\
+
+In PHP generalmente si utilizza la funzione \verb|mysqli_real_escape_string()|
+per fare escaping dei parametri da utilizzare nella query prima di mandarla
+al database.
+
+\begin{lstlisting}[language=Php]
+    $mysqli = new mysqli(
+        'hostname', 
+        'db_username', 'db_password', 
+        'db_name'
+        );
+    $query = sprintf(
+        "SELECT * 
+        FROM `Users` 
+        WHERE UserName='%s' AND Password='%s'", 
+        $mysqli->real_escape_string($username), 
+        $mysqli->real_escape_string($password));
+    $mysqli->query($query);
+\end{lstlisting}
+
+Questa funzione antepone il carattere \verb|\\| (backslash) ai seguenti caratteri,
+effettuando quindi operazioni di escaping: \verb|\\x00|, \verb|\\n|, \verb|\\r|,
+\verb|\\|, \verb|'|, \verb|"| e \verb|\\x1a| (EOF).
 
 \subsection{Altre Difese Aggiuntive}
 
@@ -309,14 +341,17 @@ Diversi DB users possono essere utilizzati per diverse applicazioni web.
 In questo modo, il progettista dell'applicazione può avere una buona granularità
 nel controllo degli accessi e dunque,
 ogni utente del DB avrà l'accesso selezionato solo a ciò di cui ha bisogno, e
-l'accesso in scrittura a seconda delle necessità.
+l'accesso in scrittura a seconda delle necessità. Un esempio è la pagina di login
+di un sito. Questa avrà sicuramente bisogno dei diritti di accesso in lettura alla
+tabella contenente gli username e le password, ma NON dovrà poter scriverci in
+nessun modo (non richiede quindi diritti di scrittura su questa tabella).
 
 \paragraph{Views.}
 È possibile utilizzare le viste SQL per aumentare ulteriormente la granularità
 dell'accesso, limitando l'accesso in lettura a specifici campi di una tabella o
 ai join di tabelle.
 
-\paragraph{White list input validation.}
+\paragraph{Input validation.}
 Oltre ad essere una difesa primaria quando non è possibile nient'altro,
 la validazione degli
 input può anche essere una difesa secondaria utilizzata per rilevare gli input

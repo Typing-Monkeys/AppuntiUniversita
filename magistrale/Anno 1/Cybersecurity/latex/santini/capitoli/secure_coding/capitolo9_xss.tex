@@ -1,0 +1,57 @@
+\chapter{XSS (Cross-Site Scripting)}
+
+Gli attacchi Cross-Site Scripting (XSS) sono un tipo di injection, in cui gli
+script maligni
+vengono iniettati in siti web in realtà benigni e affidabili.
+Si verificano quando un aggressore
+utilizza un'applicazione web per inviare codice malevolo, generalmente sotto
+forma di script
+(javascript) lato browser, ad un altro utente finale.
+I flaws che permettono a questi attacchi di avere successo sono abbastanza diffusi
+e si
+verificano ovunque un'applicazione web utilizza l'input di un utente all'interno
+dell'output che
+genera, senza effettivamente validarlo o codificarlo.
+Gli attacchi Cross-Site Scripting si verificano quando:
+
+\begin{itemize}
+    \item I dati entrano in un'applicazione web attraverso una fonte non
+          attendibile, il più delle
+          volte tramite una richiesta web.
+    \item I dati sono inclusi in contenuti dinamici che vengono inviati ad un
+          utente web senza
+          essere convalidati per contenuti dannosi.
+\end{itemize}
+
+Il contenuto dannoso inviato al browser web spesso assume la forma di un segmento
+di JavaScript, ma può anche includere HTML, Flash o qualsiasi altro tipo di codice
+che il browser può eseguire.
+La varietà di attacchi basati su XSS è molto vasta, ma comunemente includono:
+
+\begin{itemize}
+    \item trasmettere all'aggressore dati privati, come cookies o altre
+          informazioni di sessione (password),
+    \item Dirigere la vittima a contenuti web controllati dall'aggressore,
+    \item Effettuare altre operazioni dannose sulla macchina dell'utente,
+          simulando il sito vulnerabile.
+\end{itemize}
+
+Gli attacchi XSS possono essere generalmente classificati in tre categorie:
+
+\begin{itemize}
+    \item \textbf{Stored}
+    \item \textbf{Reflected}
+    \item \textbf{DOM Based}
+\end{itemize}
+
+\section{Attacchi}
+
+\subsection{Stored}
+
+\subsection{Reflected}
+
+\subsection{DOM Based}
+
+\subsection{Un'altra Classificazione}
+
+\section{Mitigation}
