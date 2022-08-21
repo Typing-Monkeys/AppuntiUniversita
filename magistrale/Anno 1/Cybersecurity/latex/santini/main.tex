@@ -62,8 +62,13 @@
 \fancyhf{} % sets both header and footer to nothing
 \renewcommand{\headrulewidth}{0pt}
 \fancyfoot[L]{\href{https://github.com/Typing-Monkeys/AppuntiUniversita}{Typing Monkeys}}
-\fancyfoot[R]{Pagina \thepage}
+\fancyfoot[C]{\emoji{gorilla}}
+\fancyfoot[R]{\thepage}
 
+% configurazione emoji
+\usepackage{fontspec}
+\usepackage{emoji}
+\setemojifont{NotoColorEmoji.ttf}[Path=/usr/share/fonts/truetype/noto/]
 
 \begin{document}
 \tableofcontents
