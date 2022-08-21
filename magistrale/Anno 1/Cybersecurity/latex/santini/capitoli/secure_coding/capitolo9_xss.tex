@@ -58,6 +58,28 @@ informazioni memorizzate.
 Gli XSS memorizzati vengono anche chiamati \textit{XSS Persistenti} o
 \textit{XSS di tipo I}.
 
+\paragraph{Esempio.}
+Prendiamo in esame il seguente schema che rappresenta un attacco che avviene
+sfruttando i post dei forum:
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/secure_coding/img/cap_9/stored.png}
+      \caption{Schema di un attacco XSS Server Stored.}
+\end{figure}
+
+\begin{enumerate}
+      \item L'attaccante inserisce del codice javascript in un post e questo viene
+            automaticamente memorizzato nel database.
+      \item La vittima che vuole vedere quel post, ci clicca
+      \item Il commento viene scaricato automaticamente dal database e viene
+            visualizzato nel browser dell'utente andando ad eseguire il codice
+            javascript al suo interno
+\end{enumerate}
+
+Attacchi di questo tipo possono ad esempio rubare e
+fornire all'attaccante il file dei cookie.
+
 \subsection{Reflected}
 
 Gli attacchi \textit{Reflected} (riflessi) sono quelli in cui lo script iniettato
@@ -133,7 +155,11 @@ HTML, che funge
 da interfaccia tra JavaScript e il documento stesso e permette la creazione di
 pagine web dinamiche.
 
-%%TODO: riguardare meglio che manca qualche pezzo
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/secure_coding/img/cap_9/dom.png}
+\end{figure}
+
 \paragraph{Esempio.}
 Supponiamo che un codice venga utilizzato per creare un modulo che permetta
 all'utente di
