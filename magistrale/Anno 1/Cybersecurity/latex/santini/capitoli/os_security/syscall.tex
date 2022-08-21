@@ -6,7 +6,7 @@ In linux le applicazioni vengono eseguite nel cosiddetto \textit{user space},
 uno spazio che ha un minor numero di permessi rispetto al kernel del sistema.
 Se un'applicazione però vuole effettuare operazioni come accedere ad un file
 o comunicare tramite la rete deve per forza comunicare tali azioni al kernel.
-Nella programmazione, per effettuare queste azioni esistono delle interfaccie
+Nella programmazione, per effettuare queste azioni esistono delle interfacce
 chiamate \textbf{systemcall}. Alcuni esempi di systemcall sono:
 
 \begin{itemize}
@@ -18,16 +18,16 @@ chiamate \textbf{systemcall}. Alcuni esempi di systemcall sono:
     \item \verb|clone|
 \end{itemize}
 
-Solitamente i programmi hanno interfaccie a più alto livello che gestiscono queste
+Solitamente i programmi hanno interfacce a più alto livello che gestiscono queste
 systemcall ed i programmatori non devono preoccuparsene. I livelli di astrazione
-più bassi che si utilizzanon di solito sono \verb|glibc| e il pacchetto
+più bassi che si utilizzano di solito sono \verb|glibc| e il pacchetto
 \verb|syscall| per Golang.
 
 \section{File Permissions}
 
 Un aspetto molto importante in linux riguarda i permessi dei file, dato che in
 linux tutto quanto è un file, anche dispositivi fisici come stampanti e schermi.
-È facilmente compresnibile perchè è di vitale importanza fornire i permessi per
+È facilmente comprensibile perché è di vitale importanza fornire i permessi per
 la modifica dei file. Questi permessi vengono anche chiamati DAC:
 \textit{Discretionatory Access Control}.\\
 
@@ -49,12 +49,12 @@ se il file in questione è una directory) che possono essere visti come suddivis
 in gruppi di 3:
 
 \begin{itemize}
-    \item Il \textbf{primo} gruppo descreive i permessi dell'utente che possiede il file,
+    \item Il \textbf{primo} gruppo descrive i permessi dell'utente che possiede il file,
     \item Il \textbf{secondo} gruppo descrive i permessi del gruppo a cui appartiene il file,
     \item Il \textbf{terzo} descrive i permessi di tutti gli altri utenti.
 \end{itemize}
 
-Questi simobli corrisondono ad un bit che può essere o meno settato. In paticolare
+Questi simboli corrispondono ad un bit che può essere o meno settato. In particolare
 nell'immagine possiamo vedere i seguenti simboli:
 
 \begin{itemize}
@@ -110,7 +110,7 @@ e osserviamo i processi in esecuzione:
 Possiamo vedere che il processo \verb|sudo| viene eseguito come root ma il processo
 mysleep ha lo UID del proprietario del file (1000).\\
 
-Questo bit viene tipicamente usato per dare ad un porgramma privilegi di cui ha
+Questo bit viene tipicamente usato per dare ad un programma privilegi di cui ha
 bisogno ma che non sono forniti agli utenti regolari. L'esempio pratico più comune
 è quello del comando \verb|ping|, che necessita di speciali permessi per aprire
 dei \textit{raw network socket}. \verb|ping| viene spesso installato con il bit
@@ -124,7 +124,7 @@ in modo da cambiare il proprietario e il gruppo ad un non-root user.
     \includegraphics[width=\textwidth, keepaspectratio]{capitoli/os_security/imgs/ping1.png}
 \end{figure}
 
-Come possiamo vedere dall'esempio, il comando non va a buon fine perchè durante
+Come possiamo vedere dall'esempio, il comando non va a buon fine perché durante
 l'operazione di copia il bit \textit{setuid} non viene mantenuto.\\
 
 Proviamo ora a cambiare il proprietario del file in root e possiamo notare che
@@ -150,13 +150,13 @@ venga eseguito con UID 0 (root) ma non è questo il caso.
     \includegraphics[width=\textwidth, keepaspectratio]{capitoli/os_security/imgs/ping4.png}
 \end{figure}
 
-Questo perchè il comando \verb|ping|, dopo aver ottenuto i permessi di cui ha
+Questo perché il comando \verb|ping|, dopo aver ottenuto i permessi di cui ha
 bisogno (utilizzando le \textit{capabilities} di cui parleremo in seguito), resetta
 lo UID a quello dell'utente chiamante. Questa è una particolarità di \verb|ping|
 e non è detto che altri eseguibili si comportino così (un esempio è sleep).
 
-\textit{setuid} non è più ampiamente utilizzato poichè fornisce dei percorsi pericolosi
-per attacchi di tipo \textbf{privilece escalation}. Dalla versione del kernel 2.2
+\textit{setuid} non è più ampiamente utilizzato poiché fornisce dei percorsi pericolosi
+per attacchi di tipo \textbf{privilege escalation}. Dalla versione del kernel 2.2
 è stato introdotto un controllo dei privilegi più granulare, le \textbf{capabilities}.
 
 \subsection{Linux Capabilities}
@@ -186,7 +186,7 @@ assegnare le capabilities necessarie per far funzionare il comando ping.
     \includegraphics[width=\textwidth, keepaspectratio]{capitoli/os_security/imgs/cap2.png}
 \end{figure}
 
-Si può notare che la capabilities  è seguita dal caratter \verb|+p|, essa è un
+Si può notare che la capabilities  è seguita dal carattere \verb|+p|, essa è un
 parametro che va a cambiare le modalità di funzionamento della capability.
 Ce ne sono 3 differenti:
 
@@ -206,4 +206,4 @@ strettamente necessaire al funzionamento del programma.
 Questo è un tipo di attacco che punta ad estendere i privilegi che si hanno a
 disposizione per poter effettuare azioni che non si dovrebbero poter compiere.
 Un metodo comune per effettuare questo tipo di attacco è quello di cercare delle
-vulnerabilità nel softarwe, un esempio è la \textbf{Struts vulnerability}.
+vulnerabilità nel software, un esempio è la \textbf{Struts vulnerability}.

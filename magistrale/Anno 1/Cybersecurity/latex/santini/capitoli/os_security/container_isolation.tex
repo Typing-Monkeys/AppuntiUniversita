@@ -19,7 +19,7 @@ Oggigiorno ci sono molti tipi di namespace supportati da linux:
     \item Network
     \item User and group IDs
     \item Inter-process Communications (IPC)
-    \item Cotrol Groups (cgroups)
+    \item Control Groups (cgroups)
 \end{itemize}
 
 Un processo è sempre esattamente in un namespace di ogni tipo.
@@ -59,8 +59,8 @@ quello del resto del sistema.
     \includegraphics[width=\textwidth, keepaspectratio]{capitoli/os_security/imgs/hostname1.png}
 \end{figure}
 
-Docker riesce ad ottenere questo perchè crea il suo UTS namespace.
-È possibile ottenre un comportamento simile con il comando \verb|unshare| e creare
+Docker riesce ad ottenere questo perché crea il suo UTS namespace.
+È possibile ottenere un comportamento simile con il comando \verb|unshare| e creare
 un processo con il suo UTS namespace.\\
 
 Il comando \verb|unshare| permette di "eseguire un programma con alcuni namespace
@@ -109,7 +109,7 @@ otteniamo un errore. Possiamo notare che gli errori sono formattati nel seguente
 \verb|<command>: <process ID>: <message>|. Dal secondo in poi notiamo che i PID
 stanno incrementando e possiamo supporre che il PID del primo comando sia 1. Quindi
 in un certo modo abbiamo ottenuto quello che volevamo.\\
-Per risolvere questo problema ci viene in auito il manuale di \verb|unshare| che ci
+Per risolvere questo problema ci viene in aiuto il manuale di \verb|unshare| che ci
 suggerisce di utilizzare il flag \verb|--fork|: "effettua il fork del programma
 specificato come processo figlio di unshare invece di eseguirlo direttamente".
 Per come abbiamo eseguito il comando ora abbiamo la seguente situazione:
@@ -138,7 +138,7 @@ analizzando la situazione attuale abbiamo:
 \end{figure}
 
 Eseguendo il comando \verb|ps| all'interno del container ci accorgiamo che
-possiamo comunque vedere tutti i processi dell'host anche se ci tronviamo
+possiamo comunque vedere tutti i processi dell'host anche se ci troviamo
 in un nuovo namespace.
 
 \begin{figure}[H]
@@ -146,16 +146,16 @@ in un nuovo namespace.
     \includegraphics[width=12cm, keepaspectratio]{capitoli/os_security/imgs/pid5.png}
 \end{figure}
 
-Questo avviene perchè \verb|ps| legge i file virtuali contenuti nella cartella
-\verb|/proc|. Andiamo a vedere ora il contenuto di questa directroy.
+Questo avviene perché \verb|ps| legge i file virtuali contenuti nella cartella
+\verb|/proc|. Andiamo a vedere ora il contenuto di questa directory.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{capitoli/os_security/imgs/pid6.png}
 \end{figure}
 
-Ogni directroy numerata all'interno di \verb|/proc| corrisponde ad un Process ID,
-che contiene molte informazioni riguarante il processo. Per esempio il file
+Ogni directory numerata all'interno di \verb|/proc| corrisponde ad un Process ID,
+che contiene molte informazioni riguardante il processo. Per esempio il file
 \verb|/proc/<pid>/exe| è un \textit{link simbolico} all'eseguibile del processo
 con pid \verb|<pid>|.
 
@@ -165,24 +165,24 @@ con pid \verb|<pid>|.
 \end{figure}
 
 Dunque per far si che \verb|ps| mostri solo i processi all'interno del nuovo
-namespace servirà una copia della directroy \verb|/proc| in cui il kernel
+namespace servirà una copia della directory \verb|/proc| in cui il kernel
 potrà scrivere le informazioni riguardanti i nuovi processi e dato che
-\verb|/proc| si trova sotto root, questo implica cambiare la directroy di root.
+\verb|/proc| si trova sotto root, questo implica cambiare la directory di root.
 
 \section{Cambiare Root Directory}
 
-La directroy di root può essere cambiata con il comando \verb|chroot| e
+La directory di root può essere cambiata con il comando \verb|chroot| e
 una volta effettuato questo comando si perde l'accesso ad ogni cosa che si trova
-al di sopra della nuova directroy di root nella gerarchia del file system.
+al di sopra della nuova directory di root nella gerarchia del file system.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{capitoli/os_security/imgs/root1.png}
 \end{figure}
 
-Va fatto notare che quando si va a cambiare la directroy di root si perdono anche
+Va fatto notare che quando si va a cambiare la directory di root si perdono anche
 tutti gli eseguibili che sia hanno a disposizione solitamente in linux. Sarà
-dunque necessario copiare questi file nella nuova directroy di root che è
+dunque necessario copiare questi file nella nuova directory di root che è
 quello che viene effettuato da docker quando istanzia l'immagine del container.
 
 \begin{figure}[H]
@@ -194,11 +194,11 @@ quello che viene effettuato da docker quando istanzia l'immagine del container.
 
 % oggi abbiamo visto il mucco (reddit)
 È possibile combinare il namespacing e il cambio di root utilizzando \verb|chroot|
-in un nuovo namespace. Ora se andiamo a creare una copia della directroy
+in un nuovo namespace. Ora se andiamo a creare una copia della directory
 \verb|/proc| situata nel nuovo namespace riusciremo nell'intento precedente
 di vedere solo i processi all'interno del nuovo namespace ottenendo così un
-isolamento dei processi del container. Questo è possibile perchè, come detto
-in precedenza, \verb|/proc| è situato nella directroy di root quindi creandone una
+isolamento dei processi del container. Questo è possibile perché, come detto
+in precedenza, \verb|/proc| è situato nella directory di root quindi creandone una
 nuova si può creare una copia indipendente dalla directory originale.
 Questo è possibile tramite il seguente comando che dice al container di montare
 la cartella \verb|/proc| come uno pseudo-filesystem di tipo \verb|proc|
@@ -232,7 +232,7 @@ namespace con una nuova root per il filesystem utilizzando \verb|chroot|.
     \includegraphics[width=10cm, keepaspectratio]{capitoli/os_security/imgs/mount2.png}
 \end{figure}
 
-Nel precedente esmpio utilizziamo Alpine Linux come file system e questo non
+Nel precedente esempio utilizziamo Alpine Linux come file system e questo non
 ha a disposizione il comando \verb|findmnt|, quindi usiamo \verb|mount| senza
 parametri che fa la stessa cosa.\\
 
@@ -325,7 +325,7 @@ Come ultima cosa è necessario associare a queste interfacce un indirizzo IP.
 L'user namespace permette ai processi di avere la propria visione degli id dei
 gruppi e degli utenti. Il beneficio principale di questo è che si può mappare
 l'ID di root (0) all'interno del container, con un'altra identità non-root
-all'interno dell'host. Questo è un grande vantaggio nella sicurezza poichè
+all'interno dell'host. Questo è un grande vantaggio nella sicurezza poiché
 permette di evitare che un possibile attacco di privilege escalation, faccia ottenere
 anche i permessi di root all'interno dell'host.
 
