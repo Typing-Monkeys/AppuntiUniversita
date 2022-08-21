@@ -14,7 +14,7 @@ I \textit{flussi di controllo affidabili} (\textbf{trusted}) sono thread
 strettamente correlati tra di loro che fanno parte dello stesso programma.
 Invece, un \textit{flusso di controllo non affidabile} (\textbf{untrusted})
 è un'applicazione o un processo separato, spesso di origine sconosciuta,
-che viene eseguito in comtemporanea.\\
+che viene eseguito in contemporanea.\\
 
 Tre proprietà sono necessarie perché una race conditions esista:
 \begin{enumerate}
@@ -144,12 +144,12 @@ Se questo intervallo è particolarmente grande, è probabile che si verifichi un
 Abbiamo un puntatore a file \verb|*fd|.
 Controllo se il file è aperto in scrittura (se ho i diritti per scriverci).
 Alla linea 7 avviene il check mentre alla 9 il time-to-use.
-Tra questi due momenti c’è una race condition.
+Tra questi due momenti c'è una race condition.
 Supponiamo che il processo stia girando con i \textbf{diritti di root}.
 Ricordiamo che una delle operazioni più importanti da compiere quando si configura
-un sistema Unix è quello di disabilitare l’utente root.
+un sistema Unix è quello di disabilitare l'utente root.
 Immaginiamo però di aver dimenticato questa parte. Andremo a vedere come sfruttare
-questa vlunerabilità.
+questa vulnerabilità.
 Supponiamo che nella race window entri qualcuno con i comandi seguenti e li esegua in continuazione:
 
 \begin{lstlisting}
@@ -158,7 +158,7 @@ Supponiamo che nella race window entri qualcuno con i comandi seguenti e li eseg
 \end{lstlisting}
 
 Il programma controlla dunque i diritti di accesso al file.
-Se l’esito è positivo, si prosegue con il resto del codice, andando ad effettuare
+Se l'esito è positivo, si prosegue con il resto del codice, andando ad effettuare
 le operazioni di scrittura sul file.
 A questo punto \verb|a_file| viene cancellato e viene creato un link al file delle password,
 che però ha lo stesso nome del file appena rimosso. Il processo va ad aprire \verb|a_file|,
@@ -172,7 +172,7 @@ Una possibile soluzione che utilizza la funzione
 \verb|open()| è quella di ricorrere ai flag \verb|O_CREAT| e \verb|O_EXCL|.
 Se usati insieme, questi flag indicano alla funzione \verb|open()| di fallire
 se il file specificato da \verb|nome_file| esiste già.
-Non c’è possibilità che venga messo un link ad un altro file da parte di un
+Non c'è possibilità che venga messo un link ad un altro file da parte di un
 utente malintenzionato, prima che esso venga mandato in esecuzione.
 
 \begin{figure}
@@ -191,7 +191,7 @@ Ogni sezione critica appare atomica a tutti i thread opportunamente sincronizzat
 ad eccezione di quello che esegue la sezione critica.
 Quando si lavora con i thread, non dobbiamo fare affidamento sul fatto che le istruzioni
 vengano eseguite
-esattamente nell’ordine in cui sono poste.
+esattamente nell'ordine in cui sono poste.
 Le istruzioni assembly possono essere infatti riordinate dal
 
 \begin{itemize}
@@ -233,7 +233,7 @@ semplificarne l'utilizzo. Quando questo oggetto viene creato (generalmente in un
 funzione), blocca automaticamente la mutex. Quando questo viene distrutto (generalmente
 quando la funzione termina) rilascia automaticamente la mutex. Questo comportamento
 cerca di risolvere dimenticanze del programmatore come non rilasciare la mutex quando
-il thread ha terminato di lavorare con la risorsa condivissa.
+il thread ha terminato di lavorare con la risorsa condivisa.
 
 \begin{figure}[H]
     \centering
@@ -244,7 +244,7 @@ il thread ha terminato di lavorare con la risorsa condivissa.
 \paragraph{Definizione.}
 Un \textbf{atomic object} è un oggetto che garantisce che tutte le operazioni effettuate su di lui
 siano \textit{atomiche}. Questa sua proprietà fa si che non può mai venire corrotto da azioni di
-lettura e scrittura effettuate simultanemante. In breve non possono esserci data race.
+lettura e scrittura effettuate simultaneamente. In breve non possono esserci data race.
 
 \begin{figure}[H]
     \centering
@@ -258,11 +258,11 @@ mantiene anche un contatore il cui valore viene dichiarato al momento dell'\\ini
 Di conseguenza, i semafori sono decrementati e incrementati piuttosto che bloccati e sbloccati.
 Quando il contatore di un semaforo raggiunge lo 0, i tentativi successivi di decrementare
 il semaforo si bloccano fino a quando il contatore non viene nuovamente incrementato.
-Questo sta a segnalare che il massimo numero di thread che possono utilizzare la risosrsa è
+Questo sta a segnalare che il massimo numero di thread che possono utilizzare la risorsa è
 stato raggiunto.\ \\
 
 
-Di seguito andremo ad elencari i principali problemi che possono verificarsi quando si lavora
+Di seguito andremo ad elencare i principali problemi che possono verificarsi quando si lavora
 in un ambiente con più thread che concorrono tra di loro.
 
 \begin{itemize}
@@ -302,7 +302,7 @@ Una possibile soluzione è rappresentata dal \textit{memory fencing}:
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{capitoli/secure_coding/img/cap_6/sifance.png}
-    \caption{Possibile soluzione con memory fancing.}
+    \caption{Possibile soluzione con memory fencing.}
 \end{figure}
 
 Esiste una speciale funzione \verb|atomic_thread_fence| (alla linea 5) che
@@ -318,7 +318,7 @@ dipende chi viene eseguito per primo.
 Tutti i processi controllano se il file è già stato creato.
 Se così è, vanno in “sleep”. I vari controlli avvengono chiaramente in mutua esclusione.
 Alla fine, il primo processo che termina cancella il file;
-il primo che invece si sveglia e si rende conto del fatto che non c’è più, lo ricrea.
+il primo che invece si sveglia e si rende conto del fatto che non c'è più, lo ricrea.
 In realtà questa soluzione non è consigliata: è meglio usare strutture apposite, tipo mutex e simili.
 
 \subsection{Tools}
@@ -327,8 +327,8 @@ Esistono dei tools per controllare se vi sono race condition.
 Uno strumento di \textbf{analisi statica} analizza il software per ritrovarle,
 senza eseguirlo effettivamente.
 In generale la condition detection è un problema è NP completo (esponenziale).
-Diventa sempre più complesso con l’aumentare dei flussi di controllo.
-Per questo motivo gli strumenti di rilevamento statico delle race conditoin forniscono
+Diventa sempre più complesso con l'aumentare dei flussi di controllo.
+Per questo motivo gli strumenti di rilevamento statico delle race condition forniscono
 un'identificazione approssimativa.
 Di conseguenza, tutti gli algoritmi di analisi statica sono soggetti ad alcuni falsi
 negativi e falsi positivi.

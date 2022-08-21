@@ -94,7 +94,7 @@ Analizziamo il seguente schema:
             In questo caso è buono, non è
             malevolo. Nel link è stato inserito un parametro che non è una stringa
             ma uno script.
-            Solitamente questo server che sitamo chiamando restituisce una
+            Solitamente questo server che stiamo chiamando restituisce una
             pagina contenente la keyword
             cercata con il link
             o un messaggio per l'esito negativo della ricerca.
@@ -108,7 +108,7 @@ Analizziamo il seguente schema:
       \item ...viene eseguito il codice javascript malevolo.
 \end{enumerate}
 
-L'attacco viene detto "\textit{reflected}" perchè il server web ha riflesso la
+L'attacco viene detto "\textit{reflected}" perché il server web ha riflesso la
 domanda. Il sito è giusto,
 il server web è lecito (fa solo da veicolo), ma la keyword è stata scritta in
 modo da far eseguire il codice malevolo nel browser.
@@ -260,7 +260,7 @@ codice lato server che dal lato client.
 Al fine di proteggere da XSS tradizionali, la gestione sicura degli input deve
 essere
 eseguita nel codice lato server. Questo viene fatto utilizzando qualsiasi linguaggio
-supportato dal server. Invece, per proteggeresi da XSS basati su DOM in cui il
+supportato dal server. Invece, per proteggersi da XSS basati su DOM in cui il
 server non riceve mai la stringa
 dannosa, la gestione sicura degli input deve essere eseguita nel codice lato client.
 Questo viene fatto utilizzando JavaScript.

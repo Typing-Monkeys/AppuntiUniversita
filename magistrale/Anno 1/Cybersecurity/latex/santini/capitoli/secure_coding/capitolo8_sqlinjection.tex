@@ -29,7 +29,7 @@ Potenziali vulnerabilità ad SQL injection si verificano quando:
           dinamicamente una query SQL.
 \end{itemize}
 
-Le principali conseguenze di un attacco SQL Injectio sono:
+Le principali conseguenze di un attacco SQL Injection sono:
 
 \begin{itemize}
     \item \textbf{Riservatezza} (confidentiality):
@@ -144,7 +144,7 @@ La query risulterà essere:
 \end{lstlisting}
 
 Siamo quindi riusciti ad eliminare l'intera tabella !\\
-Questo accade perchè molti database (incluso Microsoft SQL Server 2000)
+Questo accade perché molti database (incluso Microsoft SQL Server 2000)
 permettono l'esecuzione consecutiva di più query separata da un \verb|;|.
 Per esempio, questo non funzionerebbe in Oracle DB in quanto non permette questo
 comportamento.
@@ -214,7 +214,7 @@ Alcuni esempi pratici:
       user_name = ? 
     ";
 
-    // qui viene effettuato il binding e reso sicuro linput
+    // qui viene effettuato il binding e reso sicuro l'input
     PreparedStatement pstmt = connection.prepareStatement( query );
     pstmt.setString( 1, custname);
 
@@ -318,7 +318,7 @@ privilegi assegnati ad ogni account. Non assegnate diritti di accesso di tipo DB
 o admin agli
 account dell'applicazione. È meglio partire da zero per determinare quali diritti
 di accesso
-richiedono gli accountt piuttosto che cercare di capire quali diritti di accesso
+richiedono gli account piuttosto che cercare di capire quali diritti di accesso
 si devono togliere.
 In breve:
 

@@ -10,8 +10,13 @@
         "disallocando",
         "disallocare",
         "Dlmalloc",
+        "firstname",
+        "fuzzer",
+        "Helgrind",
         "incapacitato",
+        "itemname",
         "l'ebp",
+        "lastname",
         "libc",
         "linkata",
         "malloc",
@@ -27,6 +32,8 @@
         "specificatori",
         "sull'heap",
         "timelock",
-        "triggera"
+        "TOCTOU",
+        "triggera",
+        "Valgrind"
     ]
 }
