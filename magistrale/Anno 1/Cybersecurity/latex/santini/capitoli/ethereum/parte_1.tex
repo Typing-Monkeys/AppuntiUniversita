@@ -53,7 +53,7 @@ Una blockchain pubblica è solitamente formata dai seguenti elementi:
             le transazioni effettuate
       \item \textbf{Un algoritmo di consenso}: decentralizza il controllo della blockchain
       \item \textbf{Un sistema di incentivi}: ricompense date per chi approva le transazioni
-            affinchè queste ultime continuino ad essere approvate
+            affinché queste ultime continuino ad essere approvate
       \item \textbf{Un Client}: implementazioni software dei precedenti punti
 \end{itemize}
 
@@ -63,7 +63,7 @@ Nello specifico in Ethereum abbiamo:
       \item \textbf{Rete P2P}: si chiama \textit{Ethereum Main Network} ed
             utilizza un protocollo chiamato \DH$\equiv$Vp2p.
       \item \textbf{Regole del Consenso}: sono definite in una specifica di riferimento chiamata
-            Yello Paper.
+            Yellow Paper.
       \item \textbf{Transaction}: sono messaggi di rete che includono mittente, destinatario,
             valore, data payload, ...
       \item \textbf{State Machine}: le transizioni di stato di Ethereum sono processate dalla
@@ -84,7 +84,7 @@ Nello specifico in Ethereum abbiamo:
             tutte quante valide ed intercambiabili, tra cui Go-Ethereum (Geth) e Parity.
 \end{itemize}
 
-\section{Implicazioni della Turing-Completeza}
+\section{Implicazioni della Turing-Completezza}
 Come sappiamo dall'Halting Problem, non possiamo a priori simulare un programma per
 determinare se esso si arresterà oppure no. Poiché il linguaggio utilizzato da Ethereum è
 Turing-Completo, gli smart contracts possono incappare in loop infiniti. Questo risulta
