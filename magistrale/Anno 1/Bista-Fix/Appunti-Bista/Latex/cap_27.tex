@@ -290,6 +290,7 @@ Mentre il modello BLP potrebbe, in teoria, porre le basi per un calcolo sicuro a
 \newpage
 \section{Altri modelli per la sicurezza informatica}
 È importante notare che i modelli descritti in questo capitolo si concentrano sulla riservatezza o sull'integrità, con l'eccezione del Chinese Wall Model. L'incompatibilità delle preoccupazioni di riservatezza e integrità è riconosciuta come una grande limitazione all'usabilità di MLS in generale, e a MLS focalizzati sulla riservatezza in particolare.
+
 \subsection{Modello di integrità Biba}
 Il modello BLP si occupa della riservatezza ed è preoccupato della divulgazione non autorizzata delle informazioni. Il modello Biba si occupa dell'integrità e si occupa della modifica non autorizzata dei dati. Il modello Biba è destinato a trattare il caso in cui ci sono dati che devono essere visibili agli utenti a più o a tutti i livelli di sicurezza, ma devono essere modificati solo in modi controllati da agenti autorizzati.
 
@@ -327,7 +328,10 @@ I primi tre modi sono analoghi ai modi di accesso BLP. Il modo invoke è nuovo. 
 Le prime due regole sono analoghe a quelle del modello BLP ma riguardano dell'integrità e invertono il significato di lettura e scrittura. La semplice regola di integrità è la restrizione logica di scrittura che impedisce la contaminazione dei dati ad alta integrità.
 Un processo a bassa integrità può leggere dati a bassa integrità ma gli viene impedito di contaminare un file ad alta integrità con quei dati grazie alla semplice regola di integrità. Se solo questa regola è in vigore, un processo ad alta integrità potrebbe plausibilmente copiare dati a bassa integrità in un file ad alta integrità in un file ad alta integrità. Normalmente, ci si aspetterebbe che un processo ad alta integrità non contamini un file ad alta integrità, ma un errore nel codice del processo o un cavallo di Troia potrebbe risultare in tale contaminazione; da qui la necessità della regola di confinamento dell'integrità.
 
-Inserire immagine 27.4
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/figura27.4.png}
+\end{figure}
 
 \subsection{Modello di integrità Clark-Wilson}
 Un modello di integrità più elaborato e forse più pratico è stato proposto da Clark e Wilson. Il modello di integrità Clark-Wilson (CWM) è rivolto ad applicazioni commerciali piuttosto che militari e modella da vicino le reali operazioni commerciali. Il modello si basa su due concetti che sono tradizionalmente usati per applicare politiche di sicurezza commerciali:
@@ -387,7 +391,11 @@ Le regole sono le seguenti:
     \textbf{E4:} Solo l'agente autorizzato a certificare entità può cambiare la lista di tali entità associate ad altre entità: in particolare, la lista dei TP  associati con un CDI e la lista degli utenti associati a un TP. Un agente che può certificare un'entità non può avere alcun diritto di esecuzione rispetto a tale entità.
 \end{center}
 
-Inserire figura 27.5
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/figura27.5.png}
+\end{figure}
+
 
 \newpage
 \subsection{Modello Muraglia Cinese}
@@ -429,7 +437,12 @@ Regola di sicurezza semplice:
     \item O si trova nello stesso DS di un oggetto a cui S ha già avuto accesso
     \item O appartiene a un CI da cui S non ha ancora avuto accesso a nessuna informazione.
 \end{itemize}
-inserire figura 27.6
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/figura27.6.png}
+\end{figure}
+
 
 John ha fatto la sua prima richiesta di lettura a qualsiasi oggetto in questo set per un oggetto nella Banca A DS. Poiché John non ha precedentemente avuto accesso ad un oggetto in nessun altro DS in CI 1, l'accesso accesso è concesso. Inoltre, il sistema deve ricordare che l'accesso è stato concesso in modo che ogni successiva richiesta di accesso a un oggetto nella Banca B DS sarà negata. Qualsiasi richiesta di accesso ad altri oggetti nella Banca A DS è concessa. In un momento successivo, John richiede l'accesso ad un oggetto nella Banca A DS. Poiché non c'è conflitto, questo accesso viene concesso, ma viene creato un muro che proibisce il successivo accesso all'Oil B DS, come mostrato nella Figura 27.6b. Allo stesso modo, la Figura 27.6c riflette la storia di accesso alternativo di Jane. Nel nostro esempio, John ha accesso a Oil A DS e Bank A DS; Jane ha accesso a Oil B DS e Bank A DS. Se John è autorizzato a leggere dall'Oil A DS e scrivere nel Bank A DS, John può trasferire informazioni sull'olio A nel Bank A DS; ciò è indicato dal cambiamento del valore del primo oggetto sotto il Bank A DS a g. I dati possono poi essere letti da Jane. Così, Jane avrebbe accesso alle informazioni sia sul petrolio A che sul petrolio B, creando un conflitto di interessi.
 
@@ -505,7 +518,11 @@ La seguente specifica formale indica come un sistema RBAC può essere usato per 
 \end{itemize}
 Le definizioni e i vincoli precedenti applicano il modello BLP. Un ruolo può includere permessi di accesso per più oggetti. Il livello r del ruolo indica la più alta classificazione di sicurezza per gli oggetti assegnati al ruolo. Così, la semplice proprietà di sicurezza (nessuna lettura) richiede che un utente possa essere assegnato a un ruolo solo se l'autorizzazione dell'utente è almeno pari al livello r del ruolo. Allo stesso modo, il livello w del ruolo indica la classificazione di sicurezza più bassa dei suoi oggetti. La proprietà sicurezza (no write down) richiede che un utente sia assegnato a un ruolo solo se il suo non è superiore al livello w del ruolo.
 
-Inserire Tabella 27.2
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/tabella27.2.png}
+\end{figure}
+
 
 \subsection{Sicurezza dei database e sicurezza multilivello}
 L'aggiunta della sicurezza multilivello a un sistema di database aumenta la complessità della funzione di controllo dell'accesso e del design del database stesso. Una questione chiave è la granularità della classificazione. I seguenti sono possibili metodi per imporre la sicurezza multilivello su un database relazionale, in termini di granularità di classificazione (vedi Figura 27.9):
@@ -528,7 +545,11 @@ La tabella Employee contiene informazioni sensibili sullo stipendio ed è classi
 \end{itemize}
 La granularità dello schema di classificazione influisce sul modo in cui il controllo dell'accesso viene applicato. In particolare, gli sforzi per prevenire l'inferenza dipendono dalla granularità della classificazione.
 
-Inserire figura 27.9
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/figura27.9.png}
+\end{figure}
+
 
 \section{Trusted Computing e il Trusted Platform Module}
 
@@ -600,7 +621,11 @@ La figura 27.12 fornisce un esempio di questa protezione. In questo caso, c'è u
 \end{enumerate}
 La crittografia di un file procede in modo analogo. In quest'ultimo caso, un processo richiede una chiave simmetrica per cifrare il file. Il TPM fornisce quindi una versione criptata della chiave da memorizzare con il file.
 
-Inserire foto27.12
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/figura27.12.png}
+\end{figure}
+
 \section{Criteri comuni per la valutazione della sicurezza informatica}
 
 Il lavoro svolto dalla National Security Agency e da altre agenzie governative statunitensi per sviluppare requisiti e criteri di valutazione per i sistemi affidabili ha portato alla pubblicazione del Trusted Computer System Evaluation Criteria (TCSEC), informalmente noto come Orange Book, nei primi anni '80. Questo si concentrava principalmente per proteggere la riservatezza delle informazioni. Successivamente, altri paesi hanno iniziato a lavorare per sviluppare criteri basati sul TCSEC che fossero più flessibili e adattabili alla natura in evoluzione dell'informatica. Il processo di fusione, estensione e consolidamento di questi vari sforzi alla fine è sfociato nello sviluppo dei Criteri Comuni alla fine degli anni '90. I Common Criteria (CC) per l'Information Technology e la valutazione della sicurezza sono standard ISO per specificare i requisiti di sicurezza e definire i criteri di valutazione.
@@ -626,7 +651,15 @@ Sia i requisiti funzionali che quelli di garanzia sono organizzati in classi:
 \end{center}
 Le tabelle 27.3 e 27.4 definiscono brevemente le classi per i requisiti funzionali e di garanzia. Ciascuna di queste classi contiene un certo numero di famiglie. I requisiti all'interno di ogni famiglia condividono obiettivi di sicurezza, ma differiscono per enfasi o rigore. Per esempio, la classe di audit contiene sei famiglie che si occupano di vari aspetti dell'auditing (ad es, generazione di dati di audit, analisi di audit e memorizzazione di eventi di audit). Ogni famiglia, a sua volta, contiene uno o più componenti. Un componente descrive un insieme specifico di requisiti di sicurezza requisiti di sicurezza ed è il più piccolo insieme selezionabile di requisiti di sicurezza da includere nelle strutture definite nel CC.
 
-Inserire tabella 27.3 e 27.4
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/tabella27.3.png}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/tabella27.4.png}
+\end{figure}
 \newpage
 \subsection{Profili e Obiettivi}
 Il CC definisce anche due tipi di documenti che possono essere generati usando i requisiti definiti dal CC.
