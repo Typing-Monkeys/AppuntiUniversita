@@ -8,9 +8,9 @@ Questo protocollo è \textbf{OIDC} (\textit{Open ID Connect}) che fornisce un id
 per OAuth 2.0.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/oidc1.png}
-    \caption{Schema di autenticazione con OIDC.}
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/oidc1.png}
+      \caption{Schema di autenticazione con OIDC.}
 \end{figure}
 
 Nella figura precedente possiamo vedere come funziona l'autenticazione in OIDC a
@@ -32,13 +32,13 @@ OIDC definisce i seguenti termini.
 Ci sono 3 differenti ruoli:
 
 \begin{itemize}
-    \item \textbf{End User}: rappresenta l'utente fisico che si vuole autenticare.
-    \item \textbf{OpenID Provider} (OP): è un server di autorizzazione OAuth 2.0 che
-          implementa OIDC. Può autenticare l'utente e ritornare i dati dell'autenticazione
-          al relaying party.
-    \item \textbf{Relying Party} (RP): un client OAuth 2.0 che delega la user
-          authentication
-          ad un OP. Generalmente è indicato con il termina Applicazione.
+      \item \textbf{End User}: rappresenta l'utente fisico che si vuole autenticare.
+      \item \textbf{OpenID Provider} (OP): è un server di autorizzazione OAuth 2.0 che
+            implementa OIDC. Può autenticare l'utente e ritornare i dati dell'autenticazione
+            al relaying party.
+      \item \textbf{Relying Party} (RP): un client OAuth 2.0 che delega la user
+            authentication
+            ad un OP. Generalmente è indicato con il termina Applicazione.
 \end{itemize}
 
 \subsection{Client Types}
@@ -69,22 +69,22 @@ gli attestati di autenticazione a un'applicazione. Questi token sono codificati
 con il formato \textit{JSON Web Token} (\textbf{JWT}).
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/jwt.png}
-    \caption{Esempio di ID Token codificato con il formato JWT.}
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/jwt.png}
+      \caption{Esempio di ID Token codificato con il formato JWT.}
 \end{figure}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/jwttable.png}
-    \caption{Tabella esplicativa di tutti i campi del JWT.}
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/jwttable.png}
+      \caption{Tabella esplicativa di tutti i campi del JWT.}
 \end{figure}
 
 \newpage
 
 Un ID Token come un JWT\footnote{Ricordare che JWT non sta per
-    \textit{Jehovah's Witnesses are Trans}.
-    Nel dubbio consultare il sito \hyperlink{https://www.jw.org/it/}{https://www.jw.org/it/}}
+      \textit{Jehovah's Witnesses are Trans}.
+      Nel dubbio consultare il sito \url{https://www.jw.org/it/}}
 è composto da \textit{header},
 \textit{payload} e \textit{signature}.
 La sezione header contiene informazioni sul tipo dell'oggetto
@@ -103,9 +103,9 @@ l'integrità dei dati.
 OIDC definisce 3 differenti flow di interazione con un'applicazione:
 
 \begin{itemize}
-    \item Authorization Code Flow
-    \item Implicit Flow
-    \item Hybrid Flow
+      \item Authorization Code Flow
+      \item Implicit Flow
+      \item Hybrid Flow
 \end{itemize}
 
 Nelle seguenti sezioni andremo a spiegarli nel dettaglio.
@@ -113,26 +113,26 @@ Nelle seguenti sezioni andremo a spiegarli nel dettaglio.
 \subsection{OIDC Authorization Code Flow}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/codeflow.png}
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/codeflow.png}
 \end{figure}
 
 \begin{enumerate}
-    \item L'utente accede all'applicazione.
-    \item Il browser dell'utente viene reindirizzato all'OpenID Provider con una
-          richiesta di autenticazione.
-    \item L'OpenID provider interagisce con l'utente per l'autenticazione e per
-          ottenere il consenso dello scope della UserInfo Request.
-    \item L'utente si autentica e dà il consenso e l'OpenID provider crea o aggiorna
-          la sessione di autenticazione dell'utente.
-    \item  Il browser dell'utente viene reindirizzato all'applicazione con il codice
-          di autorizzazione.
-    \item L'applicazione manda una token request all'OpenID Provider con
-          l'authorization code.
-    \item L'OpenID Provider risponde con un ID Token, un Access Token e opzionalmente
-          un Refresh Token.
-    \item L'applicazione può usare l'access token allo UserInfo Endpoint dell'OpenID
-          provider.
+      \item L'utente accede all'applicazione.
+      \item Il browser dell'utente viene reindirizzato all'OpenID Provider con una
+            richiesta di autenticazione.
+      \item L'OpenID provider interagisce con l'utente per l'autenticazione e per
+            ottenere il consenso dello scope della UserInfo Request.
+      \item L'utente si autentica e dà il consenso e l'OpenID provider crea o aggiorna
+            la sessione di autenticazione dell'utente.
+      \item  Il browser dell'utente viene reindirizzato all'applicazione con il codice
+            di autorizzazione.
+      \item L'applicazione manda una token request all'OpenID Provider con
+            l'authorization code.
+      \item L'OpenID Provider risponde con un ID Token, un Access Token e opzionalmente
+            un Refresh Token.
+      \item L'applicazione può usare l'access token allo UserInfo Endpoint dell'OpenID
+            provider.
 \end{enumerate}
 
 Per la seconda chiamata la token endpoint è necessario che l'applicazione abbia
@@ -158,8 +158,8 @@ GET /authorize?
 \end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/codeflowtab.png}
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/codeflowtab.png}
 \end{figure}
 
 \subsubsection{Token Request}
@@ -201,45 +201,45 @@ Pragma: no-cache
 \subsection{OIDC Implicit Flow}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/implicitflow.png}
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/implicitflow.png}
 \end{figure}
 
 \begin{enumerate}
-    \item L'utente accede all'applicazione.
-    \item Il browser dell'utente viene reindirizzato all'OpenID Provider con una
-          richiesta di autenticazione.
-    \item L'OpenID provider interagisce con l'utente per l'autenticazione e per
-          ottenere il consenso dello scope della UserInfo Request.
-    \item L'utente si autentica e dà il consenso e l'OpenID provider crea o aggiorna
-          la sessione di autenticazione dell'utente.
-    \item Il browser dell'utente viene reindirizzato all'applicazione con l'ID Token.
-    \item L'applicazione ottiene gli attestati dell'utente dall'ID Token e mostra un
-          contenuto dell'applicazione adeguato all'utente.
+      \item L'utente accede all'applicazione.
+      \item Il browser dell'utente viene reindirizzato all'OpenID Provider con una
+            richiesta di autenticazione.
+      \item L'OpenID provider interagisce con l'utente per l'autenticazione e per
+            ottenere il consenso dello scope della UserInfo Request.
+      \item L'utente si autentica e dà il consenso e l'OpenID provider crea o aggiorna
+            la sessione di autenticazione dell'utente.
+      \item Il browser dell'utente viene reindirizzato all'applicazione con l'ID Token.
+      \item L'applicazione ottiene gli attestati dell'utente dall'ID Token e mostra un
+            contenuto dell'applicazione adeguato all'utente.
 \end{enumerate}
 
 \subsection{OIDC Hybrid Flow}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/hybridflow.png}
+      \centering
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/id_managing/imgs/hybridflow.png}
 \end{figure}
 
 \begin{enumerate}
-    \item L'utente accede all'applicazione.
-    \item Il browser dell'utente viene reindirizzato all'OpenID Provider con una
-          richiesta di autenticazione.
-    \item L'OpenID provider interagisce con l'utente per l'autenticazione e per
-          ottenere il consenso dello scope della UserInfo Request.
-    \item L'utente si autentica e dà il consenso e l'OpenID provider crea o aggiorna
-          la sessione di autenticazione dell'utente.
-    \item Il browser dell'utente viene reindirizzato all'applicazione con un
-          Authorization Code e un ID Token.
-    \item L'applicazione valida l'ID Token e se valido, chiama la funzione backend
-          de token endpoint con l'authorization code per ottenere token aggiuntivi.
-    \item L'OpenID Provider token endpoint ritorna i token richiesti.
-    \item Il Client Application può chiamare lo UserInfo Endpoint dell'OpenID
-          Provider con l'access token.
-    \item L'applicazione ottiene gli attestati dell'utente dall'ID Token e mostra un
-          contenuto dell'applicazione adeguato all'utente.
+      \item L'utente accede all'applicazione.
+      \item Il browser dell'utente viene reindirizzato all'OpenID Provider con una
+            richiesta di autenticazione.
+      \item L'OpenID provider interagisce con l'utente per l'autenticazione e per
+            ottenere il consenso dello scope della UserInfo Request.
+      \item L'utente si autentica e dà il consenso e l'OpenID provider crea o aggiorna
+            la sessione di autenticazione dell'utente.
+      \item Il browser dell'utente viene reindirizzato all'applicazione con un
+            Authorization Code e un ID Token.
+      \item L'applicazione valida l'ID Token e se valido, chiama la funzione backend
+            de token endpoint con l'authorization code per ottenere token aggiuntivi.
+      \item L'OpenID Provider token endpoint ritorna i token richiesti.
+      \item Il Client Application può chiamare lo UserInfo Endpoint dell'OpenID
+            Provider con l'access token.
+      \item L'applicazione ottiene gli attestati dell'utente dall'ID Token e mostra un
+            contenuto dell'applicazione adeguato all'utente.
 \end{enumerate}
