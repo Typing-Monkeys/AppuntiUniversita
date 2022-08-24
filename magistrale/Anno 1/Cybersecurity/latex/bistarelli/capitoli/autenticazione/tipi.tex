@@ -1,0 +1,95 @@
+\chapter{Tipi di Autenticazione}
+
+\section{Introduzione}
+
+L'\textbf{autenticazione} è il processo attraverso il quale viene verificata
+l'identità di un utente che vuole
+accedere ad un computer o ad una una rete. È il sistema che verifica,
+effettivamente, che un
+individuo è chi sostiene di essere. Stabilisce l'identità di una parte ad un'altra.
+Le parti possono essere utenti o computer:
+
+\begin{itemize}
+    \item \textbf{computer-computer} (stampa in rete, delega,…)
+    \item \textbf{utente-utente} (protocolli di sicurezza, …)
+    \item \textbf{computer-utente} (autenticare un server web,…)
+    \item \textbf{utente-computer} (per accedere a un sistema…)
+\end{itemize}
+
+In realtà sono spesso richieste varie combinazioni di queste.
+L'autenticazione è una proprietà primaria, viene richiesta da un corretto
+controllo d'accesso.
+Garantire l'autenticazione significa fare in modo che un sistema sia in grado di
+associare con
+certezza un'identità ad una persona.\\
+
+Esistono vari tipi di autenticazione:
+
+\begin{itemize}
+    \item \textbf{Locale}: funziona anche offline ed è la singola macchina
+          che autentica l'utente (desktop systems);
+    \item \textbf{Diretta}: l'autenticazione avviene su una macchina diversa
+          da quella dove è avvenuto il
+          collegamento; sul server digitando le proprie credenziali
+          (per aprire file, fare login..);
+    \item \textbf{Indiretta}: l'autenticazione non sulla macchina ma su un server
+          di logging remoto (Windows
+          domain, radius, kerberos, nis). Un esempio è l'autenticazione che
+          facciamo in laboratorio. L'utente richiede al server l'accesso ad una
+          risorsa; il server invia la richiesta di accesso al
+          programma gestore degli accessi, il quale ritorna l'esito
+          dell'autenticazione al server. Quest'ultimo
+          infine rigira l'esito all'utente iniziale;
+    \item \textbf{Offline}: controllo con chiave pubblica e privata.
+          Grazie al certificato associato alla chiave
+          pubblica, siamo ricondotti al destinatario (PKI…).
+\end{itemize}
+
+\section{Autenticazione utente-computer}
+
+\section{Autenticazione su conoscenza}
+
+\section{Gestione delle password}
+
+\subsection{Vulnerabilità delle password}
+
+\subsection{Come difendersi dagli attacchi alle pw}
+
+\section{Autenticazione su possesso}
+
+\paragraph{Tipi di Token: }
+
+\begin{itemize}
+    \item Carte magnetiche, ormai obsolete;
+    \item Smart card per memorizzare una pwd robusta:
+          \begin{itemize}
+              \item Memory card: ha una memoria ma non ha capacità computazionali.
+                    È impossibile
+                    controllare o codificare il PIN, ma essendo trasmesso in chiaro può
+                    essere soggetto
+                    a sniffing;
+              \item Microprocessor card: sono più evoluti. Ha una memoria e
+                    un microprocessore, ma
+                    può esserci un controllo o la codifica del PIN;
+          \end{itemize}
+    \item Smart token:
+          \begin{itemize}
+              \item Protetto da PIN;
+              \item  Microprocessor card + tastierina e display
+              \item  Vero e proprio computer;
+              \item  Svantaggi: costoso e fragile
+              \item  Funzionamento: Hanno una Chiave segreta (seme o seed)
+                    memorizzata dalla fabbrica,
+                    condivisa col server. Preleva le informazioni esterne,
+                    per esempio il PIN inserito oppure
+                    l'ora, per generare una one-time password.
+                    La Password compare poi sul display e viene
+                    rinnovata ogni 30-90 secondi.
+                    La Sincronizzazione col server avviene grazie al seme ed un
+                    algoritmo comune;
+          \end{itemize}
+\end{itemize}
+
+\section{Autenticazione su caratteristiche}
+
+%% No esempio
