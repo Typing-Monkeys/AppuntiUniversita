@@ -69,5 +69,6 @@
         "triggera",
         "Valgrind",
         "veth"
-    ]
+    ],
+    "cSpell.language": "en,it"
 }
