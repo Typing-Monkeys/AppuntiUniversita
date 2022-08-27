@@ -107,11 +107,11 @@ Le policy prese in considerazione per il controllo sugli accessi sono:
 \end{itemize}
 
 \section{Confidentiality Policies}
-Una politica di riservatezza, chiamata anche “information flow policy”, 
+Una politica di riservatezza, chiamata anche “information flow policy”,
 impedisce la divulgazione
-non autorizzata di informazioni. Il suo obiettivo è quello di specificare quali 
+non autorizzata di informazioni. Il suo obiettivo è quello di specificare quali
 dati devono essere
-protetti e da chi o da che cosa vanno protetti. In poche parole, indicano un 
+protetti e da chi o da che cosa vanno protetti. In poche parole, indicano un
 insieme di principi e
 regole che definiscono i possibili accessi al sistema.
 
@@ -124,9 +124,9 @@ Distinguiamo tra:
             gli oggetti (persone o processi).
 \end{itemize}
 
-Un modello di sicurezza definisce i soggetti, gli oggetti ai quali i soggetti 
+Un modello di sicurezza definisce i soggetti, gli oggetti ai quali i soggetti
 hanno accesso ed i diritti
-di accesso, che non sono altro che le operazioni con le quali è possibile 
+di accesso, che non sono altro che le operazioni con le quali è possibile
 operare. Un soggetto può
 avere diritti di accesso sia per gli oggetti che per altri soggetti.
 Esistono due tipi di modelli di sicurezza:
@@ -145,7 +145,7 @@ Esistono due tipi di modelli di sicurezza:
             \end{itemize}
       \item \textit{Mandatory access control} (\textbf{MAC}): meccanismo
             attraverso il quale le decisioni di accesso
-            sono basate su delle etichette che contengono informazioni 
+            sono basate su delle etichette che contengono informazioni
             rilevanti alla sicurezza di un
             oggetto. Questo metodo fornisce l'accesso alla risorsa in base al
             livello di autorizzazione dell'utente.
@@ -163,72 +163,71 @@ Esistono due tipi di modelli di sicurezza:
 \end{itemize}
 
 \subsection{Modello Bell-LaPadula}
-\'{E} un modello tipico MAC. Fu proposto da Bell-LaPadula nel 1976 con lo scopo di 
+È un modello tipico \textbf{MAC}. Fu proposto da Bell-LaPadula nel 1976 con lo scopo di
 rafforzare i
-controlli ai possibili accessi alle applicazioni militari (corrisponde, infatti, 
+controlli ai possibili accessi alle applicazioni militari (corrisponde, infatti,
 alle classificazioni
-stile-militare). Viene anche chiamato modello “a multi-livelli”.
-Nelle applicazioni i soggetti e gli oggetti vengono partizionati in differenti 
+stile-militare). Viene anche chiamato modello “\textit{a multi-livelli}”.
+Nelle applicazioni i soggetti e gli oggetti vengono partizionati in differenti
 livelli di sicurezza. Un
-soggetto può solo accedere ad oggetti a certi livelli, i quali sono dipendono 
+soggetto può solo accedere ad oggetti a certi livelli, i quali dipendono
 strettamente dal loro
-livello di sicurezza. Per esempio, i seguenti sono due tipici specificazioni di 
+livello di sicurezza. Per esempio, i seguenti sono due tipici specificazioni di
 accessi: “una persona
-UNCLASSIFIED non può leggere informazioni a livello CONFIDENTIAL” e 
-“informazioni TOP
-SECRET non possono essere scritte in files di livello UNCLASSIFIED”.
-Gli oggetti sono classificati in 4 diversi livelli di sensibilità, cioè di 
+\verb|UNCLASSIFIED| non può leggere informazioni a livello \verb|CONFIDENTIAL|” e
+“informazioni \verb|TOP SECRET| non possono essere scritte in files di livello
+\verb|UNCLASSIFIED|”.
+Gli oggetti sono classificati in 4 diversi livelli di sensibilità, cioè di
 confidentiality. Ciascun oggetto
 può essere associato a uno o più livelli, detti compartments.
-Ad ogni soggetto, invece, viene associata una “clearance” ovvero 
+Ad ogni soggetto, invece, viene associata una “\textit{clearance}” ovvero
 un’autorizzazione. Una
-clearance non è altro che una coppia del tipo <rank, compartments> dove Rank è 
-il massimo
-livello di sensibilità dell’informazione a cui il soggetto ha accesso; 
-Compartment indica i comparti a
+clearance non è altro che una coppia del tipo \verb|<rank, compartments>|
+dove \verb|rank| è il massimo livello di sensibilità dell’informazione a cui
+il soggetto ha accesso; \verb|compartment| indica i comparti a
 cui il soggetto può accedere.
 A tutte le entità vengono assegnati dei livelli di sicurezza. In particolare:
 
 \begin{itemize}
-      \item Un soggetto S possiede “security clearance” \(L(S)=l_s\);
-      \item Un oggetto O possiede “security classification” \(L(O)=l_o\);
+      \item Un soggetto S possiede “\textit{security clearance}” \(L(S)=l_s\);
+      \item Un oggetto O possiede “\textit{security classification}” \(L(O)=l_o\);
 \end{itemize}
 
-Per ogni classificazione di sicurezza \(l_i, \ i=0,...,k-1 \ con \ l_i<l_i+1\), 
+Per ogni classificazione di sicurezza \(l_i, \ i=0,...,k-1 \ con \ l_i<l_i+1\),
 quindi i livelli di sicurezza sono
 disposti in ordine lineare.
-Il tipo più semplice di classificazione della confidenzialità è un insieme di 
+Il tipo più semplice di classificazione della confidenzialità è un insieme di
 autorizzazioni poste in
-gerarchia: Top secret > Secret > Confidential > Unclassified.
+gerarchia: \verb|Top secret > Secret > Confidential > Unclassified|.
 Il modello definisce due regole obbligatorie del controllo accessi (MAC):
 \begin{itemize}
       \item \textbf{Simple Security Condition:} S può leggere O se e solo se
             \(l_o \le l_s\) e S ha discrezione
-            nell’accesso in lettura a O. Questa regola viene anche detta “No Read Up” 
+            nell’accesso in lettura a O. Questa regola viene anche detta “No Read Up”
             e impedisce ai
-            soggetti di leggere oggetti a livelli superiori. Il proprietario può 
+            soggetti di leggere oggetti a livelli superiori. Il proprietario può
             aggiungere anche dei diritti di
             tipo DAC, ovvero può restringere ulteriormente l’accesso.
       \item \textbf{* Property} (Star property): S può scrivere su O se e solo
             se \(l_s \le l_o\) e S ha discrezione
-            nell’accesso alla scrittura su O. La regola è anche detta “No Write Down” 
+            nell’accesso alla scrittura su O. La regola è anche detta “No Write Down”
             e impedisce ai
-            soggetti di scrivere su oggetti di livello inferiore. Questo perché se no 
-            un utente potrebbe declassificare 
-            informazioni o oggetti scrivendoli all'interno di oggetti con grado di 
+            soggetti di scrivere su oggetti di livello inferiore. Questo perché se no
+            un utente potrebbe declassificare
+            informazioni o oggetti scrivendoli all'interno di oggetti con grado di
             classificazione inferiore.
 \end{itemize}
 
-Si potrebbe estendere il modello addizionando un gruppo di categorie per ogni 
+Si potrebbe estendere il modello addizionando un gruppo di categorie per ogni
 classificazione di
 sicurezza. Ogni categoria descrive un tipo di informazioni.
 Tali categorie risultano dal principio del “Need To know”: limito l’accesso alle
 sole informazioni per
 le quali l’utente ha necessità di accedere.
 
-\paragraph{Esempio:}
+\paragraph{Esempio:} %% TODO: ricontrollare foto e scritte, queste non coincidono
 CATEGORIE \(\rightarrow\) NUC, EUR e US
-Ogni soggetto ha un’autorizzazione ad un determinato livello di sicurezza e può 
+Ogni soggetto ha un’autorizzazione ad un determinato livello di sicurezza e può
 accedere anche
 ad alcuni dei livelli inferiori.
 
@@ -239,33 +238,33 @@ ad alcuni dei livelli inferiori.
 
 \subsection{Multilevel Security}
 Il concetto viene trattato per la prima volta nel “Red Book”nel 1987.
-La sicurezza multilivello o più livelli di sicurezza (\textbf{MLS}) è 
+La sicurezza multilivello o più livelli di sicurezza (\textbf{MLS}) è
 l'applicazione di un sistema di computer
-per elaborare le informazioni con incompatibili classificazioni (cioè, a diversi 
+per elaborare le informazioni con incompatibili classificazioni (cioè, a diversi
 livelli di sicurezza),
-consentire l'accesso da parte di utenti con diversi spazi di sicurezza e le 
+consentire l'accesso da parte di utenti con diversi spazi di sicurezza e le
 esigenze di sapere (need
-to know) e impedire agli utenti di ottenere l'accesso alle informazioni per 
+to know) e impedire agli utenti di ottenere l'accesso alle informazioni per
 le quali non hanno
 l'autorizzazione.
-La sicurezza multilivello viene implementata in ambiti particolari, dove è 
+La sicurezza multilivello viene implementata in ambiti particolari, dove è
 necessario un controllo
-obbligatorio degli accessi, per assicurare che le politiche di sicurezza siano 
+obbligatorio degli accessi, per assicurare che le politiche di sicurezza siano
 garantite dal sistema.
-L'ente definisce delle regole in merito a chi può accedere e anche a che cosa; 
+L'ente definisce delle regole in merito a chi può accedere e anche a che cosa;
 queste regole non
 possono essere modificate dai singoli utenti.
-I sistemi MLS ci assicurano diversi livelli di sicurezza L che definiscono la 
+I sistemi MLS ci assicurano diversi livelli di sicurezza L che definiscono la
 classificazione dei
-soggetti (processi) e degli oggetti. I livelli di affidabilità, cioè di 
+soggetti (processi) e degli oggetti. I livelli di affidabilità, cioè di
 “assurance”, vengono stabiliti in
 base a vari criteri di valutazione:
 \[
       (worst) \ D<C1<C2<C3<B1<B2<B3<A1 \ (best)
 \]
-In base ai dati e alle circostanze possono essere richiesti livelli più o meno 
+In base ai dati e alle circostanze possono essere richiesti livelli più o meno
 elevati. Solitamente, in
-presenza di un solo livello, è sufficiente una macchina del tipo C2 o C3. Da B1 
+presenza di un solo livello, è sufficiente una macchina del tipo C2 o C3. Da B1
 in poi, invece, si
 possono gestire efficacemente informazioni su livelli multipli.
 \begin{center}
@@ -294,24 +293,24 @@ I livelli di sicurezza delle macchine sono B1, B2 e B3. Lo
 sforzo (l’effort) viene effettuato da un attaccante, il quale
 cerca di penetrare una macchina con un determinato livello
 di sicurezza.
-Il “\textbf{cascade attack}” si ha quando una sola macchina viene attaccata ad 
+Il “\textbf{cascade attack}” si ha quando una sola macchina viene attaccata ad
 un certo livello, ma anche
 le altre vengono coinvolte conseguentemente.
-L’informazione tra i sistemi è condivisa, quindi può fluire tra le macchine. 
+L’informazione tra i sistemi è condivisa, quindi può fluire tra le macchine.
 Nell’esempio, infatti, sono
-tutte collegate a livello S. Grazie all’effort su B2 si riesce a portare 
+tutte collegate a livello S. Grazie all’effort su B2 si riesce a portare
 l'informazione da TS a U, che
-equivale a dire di aver buttato giù un sistema B3. Quindi, a partire da B2, 
+equivale a dire di aver buttato giù un sistema B3. Quindi, a partire da B2,
 si riesce a buttar giù
 anche B1 e B3.
-Si dice “attacco a cascata” perché grazie ad uno sforzo relativamente piccolo 
+Si dice “attacco a cascata” perché grazie ad uno sforzo relativamente piccolo
 (nel nostro caso
-effettuato su B2) si possono attaccare anche sistemi più grandi e sicuri, 
+effettuato su B2) si possono attaccare anche sistemi più grandi e sicuri,
 poiché sono interconnessi.
-In generale quindi, se l’attacco ha successo, il livello di segretezza può 
+In generale quindi, se l’attacco ha successo, il livello di segretezza può
 essere abbassato da
 TopSecret a Secret, fino a Unclassified.
-Si ha un “cascading attack” se esiste un “cascading path”, ovvero un cammino 
+Si ha un “cascading attack” se esiste un “cascading path”, ovvero un cammino
 tra sistemi che
 costa meno dello sforzo necessario a rompere i singoli sistemi.
 Ricordiamo che eliminare i cascade path è un problema che rientra in NP.
@@ -345,13 +344,13 @@ grande dello sforzo).
       \includegraphics[width=10cm, keepaspectratio]{capitoli/policy/imgs/secure_interoperation.png}
 \end{figure}
 
-Supponiamo di avere due sistemi all’interno ad un’azienda, uno per le Vendite e 
+Supponiamo di avere due sistemi all’interno ad un’azienda, uno per le Vendite e
 uno per
-l’Amministrazione. Ognuno ha la propria policy che chiaramente definisce i 
+l’Amministrazione. Ognuno ha la propria policy che chiaramente definisce i
 diritti degli utenti.
-Alice lavora su entrambi i sistemi e vorrebbe che i filesystem venissero 
+Alice lavora su entrambi i sistemi e vorrebbe che i filesystem venissero
 connessi (I sistemi sono
-sicuri individualmente). Se ciò avvenisse, allora anche Clare avrebbe accesso 
+sicuri individualmente). Se ciò avvenisse, allora anche Clare avrebbe accesso
 ai file dell’Admin
 System. Ciò rappresenta a tutti gli effetti un attacco al sistema.
 
@@ -362,7 +361,7 @@ Le possibili soluzioni sono:
       \item togliere ad Alice l’accesso ai file di Bob.
 \end{itemize}
 
-In generale quindi è necessario riconfigurare il sistema in modo da eliminare 
+In generale quindi è necessario riconfigurare il sistema in modo da eliminare
 alcune connessioni e
 di conseguenza ridurre i diritti degli utenti.
 
@@ -373,11 +372,11 @@ di conseguenza ridurre i diritti degli utenti.
       \includegraphics[width=4cm, keepaspectratio]{capitoli/policy/imgs/access_interoperation.png}
 \end{figure}
 
-Consideriamo la figura precedente che ci mostra una policy (rappresentata dalle 
+Consideriamo la figura precedente che ci mostra una policy (rappresentata dalle
 linee verdi) la quale definisce i seguenti accessi.
-L’accesso da \verb|A| a \verb|C| potrebbe essere ottenuto per transitività 
+L’accesso da \verb|A| a \verb|C| potrebbe essere ottenuto per transitività
 passando per \verb|B|.
-Stesso discorso vale per \verb|C| e \verb|B|: da \verb|C| si può arrivare a 
+Stesso discorso vale per \verb|C| e \verb|B|: da \verb|C| si può arrivare a
 \verb|B| tramite \verb|A|. Ma il fatto che
 da \verb|C| si possa raggiungere \verb|B| viola la policy, perché questo accesso
 non è definito in realtà. \'{E} necessario quindi riconfigurare il sistema.
@@ -391,22 +390,22 @@ Eventuali soluzioni potrebbero essere:
       \item Esplicitare soltanto ciò che è permesso (linee verdi) e quindi il
             resto è default deny.
 \end{itemize}
-Va ricordato che la riconfigurazione deve essere safe: ciò che viene stabilito 
-con la nuova 
+Va ricordato che la riconfigurazione deve essere safe: ciò che viene stabilito
+con la nuova
 configurazione deve
-essere un sottoinsieme di ciò che era permesso anche prima: non dobbiamo andare 
+essere un sottoinsieme di ciò che era permesso anche prima: non dobbiamo andare
 ad escludere per errore flussi già esistenti. La policy deve essere rispettata
 sempre, anche dopo la riconfigurazione.
 
 \subsection{Secure Reconfiguration}
 
-Supponiamo di avere due differenti policy, corrispondenti a due diversi sistemi 
+Supponiamo di avere due differenti policy, corrispondenti a due diversi sistemi
 che devono però
-interoperare. Unire le due policy potrebbe non essere così semplice, in quanto 
+interoperare. Unire le due policy potrebbe non essere così semplice, in quanto
 potrebbero
 verificarsi dei conflitti.
-A questo punto è necessario capire a cosa dare priorità, se a ciò che è permesso 
-o a ciò che non lo è. Solitamente si dà priorità al default deny, altrimenti 
+A questo punto è necessario capire a cosa dare priorità, se a ciò che è permesso
+o a ciò che non lo è. Solitamente si dà priorità al default deny, altrimenti
 non ci sarebbe garanzia del fatto che il sistema sia ancora safe.
 
 \begin{figure}[H]
@@ -414,10 +413,10 @@ non ci sarebbe garanzia del fatto che il sistema sia ancora safe.
       \includegraphics[width=10cm, keepaspectratio]{capitoli/policy/imgs/secure_recognition.png}
 \end{figure}
 
-Una volta esplicitato cosa è vietato, si può definire cosa è invece permesso, 
+Una volta esplicitato cosa è vietato, si può definire cosa è invece permesso,
 assicurando il fatto
 che non ci sia alcuna transitività.
-Il nuovo schema della policy deve essere proiettato sui sistemi a cui è 
+Il nuovo schema della policy deve essere proiettato sui sistemi a cui è
 destinato per verificare che
 non si presentino comunicazioni non corrette.
 
@@ -431,32 +430,32 @@ Possiamo distinguere due diversi tipi di integrità:
 \begin{itemize}
       \item \textbf{Il livello di integrità di un soggetto} è una misura della
             fiducia che si ripone nella sua
-            capacità di produrre o gestire informazioni. Per esempio, 
+            capacità di produrre o gestire informazioni. Per esempio,
             un'applicazione certificata può
-            avere una maggiore integrità rispetto al freeware 
+            avere una maggiore integrità rispetto al freeware
             scaricato da internet.
       \item \textbf{Il livello di integrità di un oggetto} descrive il grado
             di “affidabilità” dell’informazione
             contenuta in quell’oggetto.
 \end{itemize}
 
-Una meta-policy che i modelli di integrità devono soddisfare è necessariamente 
+Una meta-policy che i modelli di integrità devono soddisfare è necessariamente
 quella di non
-permettere che informazioni meno affidabili corrompano quelle più affidabili. 
+permettere che informazioni meno affidabili corrompano quelle più affidabili.
 Le informazioni con
 bassa integrità non dovrebbero fluire in domini ad alta integrità.
-Più alto è il livello, maggiore è la fiducia (trust). Quindi è più probabile 
+Più alto è il livello, maggiore è la fiducia (trust). Quindi è più probabile
 che:
 \begin{itemize}
       \item Un programma venga eseguito correttamente;
       \item I dati siano precisi e/o affidabili.
 \end{itemize}
-\'{E} importante precisare che avere un alto livello di integrità non significa 
+\'{E} importante precisare che avere un alto livello di integrità non significa
 avere un alto livello di
 confidenzialità e viceversa.
-In generale se P è un processo con un grado X di “affidabilità” 
+In generale se P è un processo con un grado X di “affidabilità”
 (\textbf{trustworthiness}) non può
-modificare dati ad un livello più alto di lui perché è certificato solo fino 
+modificare dati ad un livello più alto di lui perché è certificato solo fino
 a quel punto; quindi può
 modificare o scrivere informazioni nei livelli sottostanti.
 I requisiti che una policy di integrità deve rispettare sono:
@@ -466,11 +465,11 @@ I requisiti che una policy di integrità deve rispettare sono:
             DB già esistenti;
       \item Separazione delle funzioni: i programmatori sviluppano e testano
             programmi su un sistema
-            diverso da quello di produzione. Quando sono richiesti dei dati in 
+            diverso da quello di produzione. Quando sono richiesti dei dati in
             fase di testing, non
-            vengono presi i dati reali ma dei dati opportunamente modificati 
+            vengono presi i dati reali ma dei dati opportunamente modificati
             tramite un processo
-            speciale. Tali dati vengono usati solo nella fase di sviluppo e non 
+            speciale. Tali dati vengono usati solo nella fase di sviluppo e non
             in quella di produzione;
       \item Separazione dei compiti;
       \item Logging and auditing: il processo deve essere controllato,
@@ -483,12 +482,12 @@ I requisiti che una policy di integrità deve rispettare sono:
 
 \subsection{Modello BIBA}
 
-Il modello di integrità Biba venne sviluppato per aggirare le debolezze del 
+Il modello di integrità Biba venne sviluppato per aggirare le debolezze del
 modello di protezione
-Bell-LaPadula, il quale non prevedeva la possibilità di eliminazione implicita 
+Bell-LaPadula, il quale non prevedeva la possibilità di eliminazione implicita
 degli oggetti di
 sicurezza scritti da loro.
-Il modello di Biba in generale ha l’obiettivo di preservare l'integrità, ma in 
+Il modello di Biba in generale ha l’obiettivo di preservare l'integrità, ma in
 particolare vuole:
 
 \begin{itemize}
@@ -498,63 +497,63 @@ particolare vuole:
             rispecchino il mondo reale).
 \end{itemize}
 
-Implementa le protezioni definendo una serie ordinata di livelli di integrità 
+Implementa le protezioni definendo una serie ordinata di livelli di integrità
 per i soggetti e gli
 oggetti, rispettando le regole:
 
 \begin{itemize}
       \item \textbf{Read Up:} Questo significa che
-            un soggetto che si trova al livello di integrità X può leggere 
+            un soggetto che si trova al livello di integrità X può leggere
             solo oggetti allo stesso livello o
             superiore (“assioma di integrità semplice”);
       \item \textbf{Write Down:} un soggetto al livello di integrità X può
             scrivere solo oggetti allo stesso livello
-            o di livello più basso (assioma di integrità * o Proprietà di 
+            o di livello più basso (assioma di integrità * o Proprietà di
             semplice sicurezza);
 \end{itemize}
-Un esempio è quello della gerarchia militare: un generale può solo ricevere 
-ordini dai suoi superiori o parigrado e può imporre ordini solo ai suoi 
-sottoposti o parigrado per evitare un cambiamento/danneggiamento 
+Un esempio è quello della gerarchia militare: un generale può solo ricevere
+ordini dai suoi superiori o parigrado e può imporre ordini solo ai suoi
+sottoposti o parigrado per evitare un cambiamento/danneggiamento
 nella missione da svolgere.
-Da notare che Read Up e Wite Down sono l'opposto delle regole Read Down, 
-Write Up del modello Bell-LaPadula.\\
+Da notare che \textit{Read Up} e \textit{Wite Down} sono l'opposto delle regole
+\textit{Read Down}, \textit{Write Up} del modello Bell-LaPadula.\\
 
-\'{E} impossibile trasformare informazioni meno trusted in più trusted.
-L’obiettivo di tale modello è quello di evitare che il grado di fiducia di 
+È impossibile trasformare informazioni meno trusted in più trusted.
+L’obiettivo di tale modello è quello di evitare che il grado di fiducia di
 un’informazione aumenti. Se ciò
-si verificasse, si potrebbe considerare fidata un’informazione che in realtà 
+si verificasse, si potrebbe considerare fidata un’informazione che in realtà
 non lo è.
-Ad ogni risorsa del sistema viene assegnata un’\textit{etichetta} indicante 
+Ad ogni risorsa del sistema viene assegnata un’\textit{etichetta} indicante
 il livello di integrità minimo
-richiesto per l’accesso da parte dei soggetti. Le etichette di integrità, 
+richiesto per l’accesso da parte dei soggetti. Le etichette di integrità,
 non coincidono con quelle di
-confidenzialità: le prime limitano le modifiche che si possono fare alle 
+confidenzialità: le prime limitano le modifiche che si possono fare alle
 informazioni, mentre le
-seconde limitano il flusso delle informazioni. Maggiore è il livello di 
+seconde limitano il flusso delle informazioni. Maggiore è il livello di
 integrità e maggiore è la
 certezza che un programma sia eseguito correttamente e che i dati siano accurati
 e veritieri.
-Esistono delle relazioni tra integrità e la sua affidabilità. I livelli di 
+Esistono delle relazioni tra integrità e la sua affidabilità. I livelli di
 integrità sono un punto
 importante per la sicurezza ma non coincidono con i livelli di sicurezza.\\
 
-Ricordarsi che i modelli Bell-LaPadula e BIBA sono in conflitto tra loro e 
+Ricordarsi che i modelli Bell-LaPadula e BIBA sono in conflitto tra loro e
 non si possono utilizzare
 contemporaneamente.
 
 \subsection{Modello Clark-Wilson}
 
-Rappresenta un’alternativa al modello di Biba ed utilizza le transazioni come 
+Rappresenta un’alternativa al modello di Biba ed utilizza le transazioni come
 operazioni base per
 garantire integrità prima e dopo le operazioni.
 Si basa su questi tre principi:
 
 \begin{itemize}
-      \item Separazione dei compiti: Se sono necessarie due o più fasi per
+      \item \textbf{Separazione dei compiti}: Se sono necessarie due o più fasi per
             eseguire una funzione,
-            almeno due persone devono eseguire le fasi separandosi adeguatamente 
+            almeno due persone devono eseguire le fasi separandosi adeguatamente
             i compiti;
-      \item Separazione delle funzioni:
+      \item \textbf{Separazione delle funzioni}:
             \begin{itemize}
                   \item Una singola persona non può svolgere ruoli complementari
                         in un processo critico;
@@ -563,32 +562,32 @@ Si basa su questi tre principi:
                   \item Gli sviluppatori non elaborano i dati di produzione sui
                         sistemi di produzione;
             \end{itemize}
-      \item Auditing: I sistemi commerciali sottolineano l’importanza del
+      \item \textbf{Auditing}: I sistemi commerciali sottolineano l’importanza del
             recupero e della responsabilità
-            (recoverability e accountability). I sistemi vengono analizzati per 
+            (recoverability e accountability). I sistemi vengono analizzati per
             determinare quali azioni
             hanno avuto luogo e chi è stato coinvolto.
 \end{itemize}
 
-In generale un dato si può trovare in uno stato consistente o non consistente, 
+In generale un dato si può trovare in uno stato consistente o non consistente,
 in particolare si
-troverà nello stato consistente o valido se soddisfa un insieme di vincoli 
+troverà nello stato consistente o valido se soddisfa un insieme di vincoli
 (definizione di integrità
 secondo Clark Wilson).
 I tasselli alla base del modello CW sono quindi:
 
 \begin{itemize}
-      \item Autenticazione: l'identità di tutti gli utenti deve essere
+      \item \textbf{Autenticazione}: l'identità di tutti gli utenti deve essere
             autenticata correttamente;
-      \item Audit: le modifiche devono essere tracciate (logging) per registrare ogni
+      \item \textbf{Audit}: le modifiche devono essere tracciate (logging) per registrare ogni
             programma eseguito e da chi,
             in modo che non possa essere annullato;
-      \item Transazioni ben formate: gli utenti manipolano i dati solo in modo
+      \item \textbf{Transazioni ben formate}: gli utenti manipolano i dati solo in modo
             limitato. Sono consentiti
             solo accessi legittimi;
-      \item Separazione dei compiti: il sistema associa ad ogni utente un
+      \item \textbf{Separazione dei compiti}: il sistema associa ad ogni utente un
             insieme di programmi che
-            può eseguire. Impedisce le modifiche non autorizzate, preservando 
+            può eseguire. Impedisce le modifiche non autorizzate, preservando
             così l'integrità;
 \end{itemize}
 
@@ -604,30 +603,30 @@ I tasselli alla base del modello CW sono quindi:
 
 \subsubsection{Come funziona?}
 
-Il modello Clark-Wilson è di tipo MAC e le regole sono decise dal sistema e non 
+Il modello Clark-Wilson è di tipo MAC e le regole sono decise dal sistema e non
 dagli utenti.
 Si basa su altri due concetti chiave:
 
 \begin{itemize}
       \item Una transazione deve essere ben formata (WFT), cioè deve far passare
             il sistema da uno
-            stato consistente verso altri stati consistenti. E’ pertanto 
+            stato consistente verso altri stati consistenti. E’ pertanto
             importante stabilire un
-            meccanismo che permetta di esaminare e certificare che le transazioni 
+            meccanismo che permetta di esaminare e certificare che le transazioni
             siano eseguite
             correttamente;
       \item Viene rispettato il principio della separazione dei compiti:
             l’operazione viene divisa in
-            sottoparti che devono essere eseguite da soggetti differenti. 
+            sottoparti che devono essere eseguite da soggetti differenti.
             In questo modo, per attuare
-            una frode, ad esempio, è necessario che tutti i soggetti delle 
+            una frode, ad esempio, è necessario che tutti i soggetti delle
             transazioni ne siano
-            consapevoli. In pratica vi è una distinzione tra colui che esegue 
+            consapevoli. In pratica vi è una distinzione tra colui che esegue
             una transazione e colui che
             la certifica.
 \end{itemize}
 
-Il modello di Clark-Wilson richiede che il Sistema Informativo, nel quale viene 
+Il modello di Clark-Wilson richiede che il Sistema Informativo, nel quale viene
 applicato, disponga
 delle seguenti caratteristiche essenziali:
 
@@ -653,7 +652,7 @@ Formalmente il modello suddivide i dati in due set:
 \begin{itemize}
       \item \textbf{CDI} (\textit{Constrained Data Item}): contiene gli elementi
             del sistema da proteggere, ossia i dati
-            soggetti al controllo di integrità. Ad esempio in una banca, il CDI 
+            soggetti al controllo di integrità. Ad esempio in una banca, il CDI
             potrebbe essere composto
             dal saldo dei conti;
       \item \textbf{UDI} (\textit{Unconstrained Data Item}): contiene l’insieme
@@ -667,37 +666,37 @@ Il modello prevede due tipi di procedure:
 \begin{itemize}
       \item \textbf{IVP} (\textit{Integrity Verification Procedures}): è
             l’insieme delle funzioni che verificano se un
-            determinato set di dati, appartenenti alla classe CDI, soddisfa 
+            determinato set di dati, appartenenti alla classe CDI, soddisfa
             determinati vincoli di
             integrità, i quali sono implementati come vincoli nel linguaggio SQL;
       \item \textbf{TP} (\textit{Transformation Procedures}): è l’insieme delle
             procedure di trasformazione che hanno in input
-            ed in output dei dati appartenenti alla classe CDI. Se un set dati 
+            ed in output dei dati appartenenti alla classe CDI. Se un set dati
             CDI di partenza soddisfa
-            un determinato IVP, allora lo soddisferà anche il set CDI ottenuto 
+            un determinato IVP, allora lo soddisferà anche il set CDI ottenuto
             dopo la trasformazione;
             questo risulterà vero solo se la procedura è ben formata.
 \end{itemize}
 
-Le procedure tipo IVP permettono di garantire che il sistema parta da uno stato 
+Le procedure tipo IVP permettono di garantire che il sistema parta da uno stato
 consistente,
-mentre le procedure TP assicurano che lo stato sarà consistente anche in futuro. 
+mentre le procedure TP assicurano che lo stato sarà consistente anche in futuro.
 Una tipica
-transazione nel database è composta da TP, le quali trasformano dati UDI in CDI 
+transazione nel database è composta da TP, le quali trasformano dati UDI in CDI
 oppure
 aggiornano dati CDI.
-Una IVP quindi garantisce che tutti i CDI nel sistema siano validi in un 
+Una IVP quindi garantisce che tutti i CDI nel sistema siano validi in un
 determinato stato. Un TP,
 invece, prende in input un CDI o un UDI e produce sempre un CDI.
-Il modello utilizza le transazioni come operazioni di base. L’integrità deve 
+Il modello utilizza le transazioni come operazioni di base. L’integrità deve
 essere garantita prima e
-dopo le operazioni; di conseguenza i dati possono trovarsi in uno stato coerente 
+dopo le operazioni; di conseguenza i dati possono trovarsi in uno stato coerente
 oppure
-inconsistente. L’integrità viene definita mediante vincoli che i dati devono 
+inconsistente. L’integrità viene definita mediante vincoli che i dati devono
 rispettare.
-Definire le caratteristiche di una transazione ben formata è un lavoro manuale 
+Definire le caratteristiche di una transazione ben formata è un lavoro manuale
 eseguito da un
-security officer, il quale è l’unico che può specificare il set di procedure che 
+security officer, il quale è l’unico che può specificare il set di procedure che
 possono modificare
 certi CDI.
 
@@ -706,25 +705,25 @@ certi CDI.
       \includegraphics[width=8cm, keepaspectratio]{capitoli/policy/imgs/clark_wilson4.png}
 \end{figure}
 
-Nel caso debbano entrare nel sistema degli UDI questi devono essere processati 
+Nel caso debbano entrare nel sistema degli UDI questi devono essere processati
 solo da WFT per
 risultare CDI.
 Il minimo di sicurezza richiesta comprende:
 \begin{itemize}
       \item Integrità: i vincoli d’integrità esistono per proteggere IS da
             maligni o accidentali modifiche
-            dei dati. Le regole possono essere definite su stati statici del db 
+            dei dati. Le regole possono essere definite su stati statici del db
             o su transazioni (es. prima
             di poter effettuare un modifica);
       \item Identificazione, autenticazione: prima di accedere a un sistema ogni
             utente deve essere
-            identificato e autenticato per mantenerne traccia e per dargli 
+            identificato e autenticato per mantenerne traccia e per dargli
             l’accesso;
       \item Autorizzazioni (cioè controllo sugli accessi)
 \end{itemize}
 
 \subsubsection{Regole di certificazione}
-Al fine di garantire la validità dei dati nel sistema, il modello di 
+Al fine di garantire la validità dei dati nel sistema, il modello di
 Clark-Wilson prevede le seguenti
 regole di certificazione:
 \begin{itemize}
@@ -740,11 +739,11 @@ regole di certificazione:
                         certificata per lavorare
                         con quel CDI
                         \begin{itemize}
-                              \item ESEMPIO: la TP che investe denaro nel
+                              \item \textit{Esempio}: la TP che investe denaro nel
                                     portafoglio azionario della banca
-                                    corromperebbe i bilanci anche se la TP 
+                                    corromperebbe i bilanci anche se la TP
                                     fosse certificata a lavorare sul
-                                    portafoglio, poiché le azioni della TP 
+                                    portafoglio, poiché le azioni della TP
                                     potrebbero non avere senso sui conti
                                     bancari
                               \item Da ciò nasce la prima regola di rinforzo
@@ -755,9 +754,9 @@ regole di certificazione:
 \subsubsection{Regole di rinforzo}
 
 Tutte le TP devono essere certificate per essere valide.
-Un TP può manipolare in modo errato (cioè non conforme ad un IVP) un CDI se 
+Un TP può manipolare in modo errato (cioè non conforme ad un IVP) un CDI se
 non è stato
-certificato a lavorare per questo. Per evitare il problema, esistono delle 
+certificato a lavorare per questo. Per evitare il problema, esistono delle
 regole di rinforzo
 (enforcement):
 
@@ -766,14 +765,14 @@ regole di rinforzo
             operare su determinati CDI svolgano
             operazioni su di essi.
       \item \textbf{ER2} Il sistema deve associare a ciascun TP un utente e un
-            insieme di CDI su cui l'utente e la TP possono lavorare. Il TP può 
-            accedere a quei CDI per conto dell’utente, ma non può accedere per conto di 
+            insieme di CDI su cui l'utente e la TP possono lavorare. Il TP può
+            accedere a quei CDI per conto dell’utente, ma non può accedere per conto di
             utenti non autorizzati.
             \begin{itemize}
                   \item Il sistema deve mantenere le relazioni certificate;
                   \item Il sistema deve restringere l’accesso degli utenti alle
                         TP mediante una relazione di
-                        permesso che specifica quali utenti possono eseguire 
+                        permesso che specifica quali utenti possono eseguire
                         certi TP e su quali CDI.
             \end{itemize}
 \end{itemize}
@@ -806,13 +805,13 @@ regole di rinforzo
 \begin{itemize}
       \item \textbf{CR5} Ogni TP che prende in input un UDI può eseguire solo
             trasformazioni valide, oppure
-            nessuna trasformazione, per ogni possibile valore dell’UDI. 
+            nessuna trasformazione, per ogni possibile valore dell’UDI.
             La trasformazione può quindi rifiutare il
             UDI o trasformarlo in un CDI.
             \begin{itemize}
                   \item Un possibile esempio: in un banca i numeri inseriti
                         da tastiera sono UDI, i quali non possono essere dati in input
-                        ad una TP. Un’apposita TP deve validare tali numeri 
+                        ad una TP. Un’apposita TP deve validare tali numeri
                         (rendendoli un CDI) prima di usarli; se
                         la validazione fallisce, la TP rigetta il UDI.
             \end{itemize}
@@ -823,7 +822,7 @@ regole di rinforzo
 \begin{itemize}
       \item \textbf{ER4} Solo il certificatore di un TP può cambiare la lista di
             entità associate al TP. Nessun
-            certificatore di un TP, o di un’entità associata al TP, potranno mai 
+            certificatore di un TP, o di un’entità associata al TP, potranno mai
             farlo.
 \end{itemize}
 
@@ -842,14 +841,14 @@ regole di rinforzo
 
 \subsubsection{Biba vs. Clark-Wilson}
 In Biba la fiducia nei soggetti viene valutata in base alle azioni
-che soddisfano le regole e non in base alla nozione di regola di certificazione. 
+che soddisfano le regole e non in base alla nozione di regola di certificazione.
 I dati non fidati
-vengono esaminati prima di essere dichiarati fidati. In Clark-Wilson ci sono 
+vengono esaminati prima di essere dichiarati fidati. In Clark-Wilson ci sono
 degli espliciti requisiti
-che regolano le azioni che possono essere fatte; inoltre le entità fidate devono 
+che regolano le azioni che possono essere fatte; inoltre le entità fidate devono
 certificare il metodo
 per aggiornare il dato da non fidato a fidato (e non il dato stesso).
-Biba si basa sull'integrità multi-livello, mentre Clark-Wilson focalizza la 
+Biba si basa sull'integrità multi-livello, mentre Clark-Wilson focalizza la
 separazione dei compiti e
 delle transazioni.
 
