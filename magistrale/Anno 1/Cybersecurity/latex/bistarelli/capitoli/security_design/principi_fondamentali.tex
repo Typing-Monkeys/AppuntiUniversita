@@ -1,0 +1,204 @@
+\section{Principi Fondamentali}
+
+I primi 8 sono stati definiti da un docente di nome
+Saelzer in un articolo del 1975. Gli altri sono stati
+aggiunti dai ricercatori nel tempo. Nello specifico:
+
+\paragraph{Economy of mechanism}
+La progettazione delle misure di sicurezza incorporate
+nell'hardware che nel software dovrebbe essere la più semplice e piccola possibile.
+Tenere il sistema più semplice possibile nel progetto, nell'implementazione,
+per quanto riguarda il
+numero di operazioni, le interazioni con altre componenti e addirittura nella
+specifica. “Semplice”
+significa che ci sono meno cose da controllare e quindi in caso di errori è più
+facile identificarli e
+correggerli.
+Particolare attenzione deve essere posta nelle interfacce ad altri moduli
+(possono fare assunzioni
+non verificate); bisogna sempre definire completamente tutte le interfacce,
+ad esempio le variabili
+ambientali e le variabili globali, nonché le liste dei parametri.
+Include altri principi come:
+
+\begin{itemize}
+    \item \textbf{KISS} è un acronimo usato in progettazione, che sta per
+          “\textit{Keep It Simple, Stupid}”, ossia
+          "\textit{rimani sul semplice, stupido}".
+          In riferimento al codice sorgente di un programma significa
+          non occuparsi delle ottimizzazioni fin dall'inizio, ma cercare invece
+          di mantenere uno stile di
+          programmazione semplice e lineare, affidando le ottimizzazioni al
+          compilatore o a
+          successive fasi dello sviluppo;
+    \item \textbf{Minimalists Design}: gli sviluppatori possono creare interfacce
+          utente fatte per essere il più
+          semplice possibile eliminando pulsanti e finestre di dialogo che
+          possono potenzialmente
+          confondere l'utente;
+    \item \textbf{Worse is better}: la qualità non è necessariamente funzionale;
+    \item \textbf{YAGNI}: l'espressione “\textit{you aren't gonna need it}”,
+          dall'inglese "\textit{non ne avrai bisogno}",
+          in ingegneria del software si riferisce a un principio secondo cui un
+          programmatore non dovrebbe sviluppare software che implementi funzionalità non
+          esplicitamente richieste.\footnote{Un esempio è la vulnerabilità
+              trovata all'interno della libreria Log4J. Per saperne di più
+              \url{https://www.cybersecurity360.it/nuove-minacce/log4shell-ecco-come-funziona-lexploit-della-vulnerabilita-di-log4j/},
+              \url{https://logging.apache.org/log4j/2.x/security.html}.}
+\end{itemize}
+
+\paragraph{Fail-safe defaults}
+Le decisioni di accesso dovrebbero essere basate sull'autorizzazione
+piuttosto che sull'esclusione: la situazione predefinita è la mancanza di accesso
+e il sistema
+di protezione identifica le condizioni in cui l'accesso è consentito
+(default deny).
+Per default l'accesso di un soggetto ad un oggetto deve essere negato.
+Ogni diritto deve essere concesso esplicitamente.
+Inoltre se un'azione fallisce il sistema deve restare sicuro, come se
+l'azione non fosse stata svolta.
+In realtà sarebbe più corretto parlare di \textbf{fail-secure}: un sistema
+è fail-secure quando in caso di un
+determinato guasto, risponde in modo tale che l'accesso o i dati vengano negati.
+Un sistema \textbf{fail-safe}, invece, in caso di guasto non provoca alcun danno
+o solo in minima parte.
+Mentre i prodotti fail-safe sono sbloccati quando viene tolta la corrente
+(cioè viene applicata la corrente per bloccare la porta), i prodotti
+fail-secure sono bloccati quando viene tolta la corrente
+(cioè viene applicata la corrente per sbloccare la porta)
+In sintesi i sistemi:
+
+\begin{itemize}
+    \item \textbf{Fail-secure}: vige la default-deny nei firewall.
+          I programmatori dovrebbero controllare i valori
+          di ritorno in caso di eccezioni o fallimenti; si devono basare le
+          decisioni sul permesso, non
+          tanto sull'esclusione.
+    \item \textbf{Fail-insecure}: rappresentano esempi di design sbagliati.
+\end{itemize}
+
+\paragraph{Complete mediation}
+Bisogna controllare ogni accesso: di solito il controllo viene fatto al primo.
+Ad esempio in UNIX il
+controllo di accesso in lettura ad un file è fatto solo all'apertura del file e
+non ad ogni operazioni di lettura.
+Se i permessi cambiano durante l'operazione, si possono generare accessi non
+validi.
+
+\paragraph{Open design}
+La progettazione di un meccanismo di sicurezza dovrebbe essere aperta e
+non segreta.
+La sicurezza non dovrebbe dipendere dalla segretezza nella progettazione o
+dell'implementazione del sistema, ma dalla bontà di tale progettazione ed
+implementazione. Si potrebbe però intendere
+che il codice sorgente dovrebbe essere pubblico.
+È molto importante ricorda che questo metodo non va bene con informazioni
+tipo passwords o chiavi crittografiche.
+
+\paragraph{Separation of privilege}
+Sono necessari molteplici attributi di privilegio per ottenere
+l'accesso a una risorsa limitata.
+Non si può concedere un diritto in base ad una condizione sola.
+Ad esempio in molti Unix per
+diventare root bisogna conoscere la password di root e far parte del gruppo wheel.
+Perciò si devono richiedere più condizioni per garantire un privilegio.
+Anche il design può dipendere dai diversi privilegi: non sempre l'accesso al
+file viene considerato
+un privilegio, come lo stesso accesso alla rete.
+Vanno inoltre distinti lettura e scrittura.
+Vige anche il principio
+
+\begin{itemize}
+    \item della “separazione funzionale”: persone diverse, pur avendo diversi
+          compiti, devono cooperare;
+    \item del “controllo duale”.
+\end{itemize}
+
+\paragraph{Least privilege}
+Ogni processo e ogni utente del sistema dovrebbe operare ricorrendo al
+minor numero di privilegi necessari per eseguire il compito.
+I meccanismi di accesso alle risorse dovrebbero essere condivisi il meno possibile.
+L'informazione può fluire attraverso i canali condivisi.
+
+\paragraph{Least common mechanism}
+Il progetto dovrebbe ridurre al minimo le funzioni condivise dai
+diversi utenti, garantendo la sicurezza reciproca (separazione dei compiti).
+Un soggetto deve possedere solo i diritti di cui ha bisogno per svolgere i propri
+compiti. I diritti sono concessi in base alla funzione, non all'identità (RBAC).
+I diritti vengono aggiunti quando servono e quando non servono più sono revocati
+(sessions/Dynamic).
+Non tutti i sistemi, a causa della granularità dei permessi, sono in grado di
+soddisfare tale principio.
+
+\paragraph{Psychological acceptability}
+Implica che i meccanismi di sicurezza non devono interferire
+sul lavoro degli utenti, soddisfacendo al tempo stesso le esigenze di chi
+autorizza l'accesso.
+I meccanismi di sicurezza non dovrebbero rendere più difficile l'accesso alle
+risorse. È pertanto importante la chiarezza nei messaggi di errore e la
+facilità di installazione, configurazione e uso.
+
+\paragraph{Isolation}
+Questo principio che si applica in tre contesti:
+\begin{enumerate}
+    \item i sistemi di accesso pubblico dovrebbero essere isolati dalle
+          risorse critiche per evitare la
+          divulgazione ed eventuali manomissioni;
+    \item i processi e i file dei singoli utenti dovrebbero essere isolati
+          l'uno dall'altro, tranne quando
+          ciò sia esplicitamente voluto;
+    \item i meccanismi di sicurezza dovrebbero essere isolati nel senso di
+          impedire l'accesso ad essi.
+\end{enumerate}
+
+\paragraph{Encapsulation}
+Considerato come una forma specifica di isolamento basata sulla funzionalità
+orientata agli oggetti.
+
+\paragraph{Modularity}
+Si riferisce sia allo sviluppo di funzioni di sicurezza come moduli separati e
+protetti, sia all'uso di
+un'architettura modulare per la progettazione e l'implementazione di meccanismi.
+
+\paragraph{Layering}
+Si riferisce all'uso di approcci di protezione multipli e sovrapposti che
+riguardano le persone, la
+tecnologia e gli aspetti operativi dei sistemi informativi.
+
+\paragraph{Least astonishment}
+Un programma o un'interfaccia utente dovrebbe sempre rispondere nel modo meno
+probabile per stupire l'utente.
+
+\paragraph{Defense in Depth}
+La “\textit{difesa in profondità}” o \textit{Defense in Depth} è
+l'approccio alla sicurezza delle informazioni che
+prevede il raggiungimento di una corretta postura di sicurezza attraverso
+l'utilizzo coordinato e combinato di molteplici contromisure di sicurezza.
+Questa complessa strategia difensiva si fonda sull'integrazione di tre differenti
+categorie di elementi: le \textit{persone}, la \textit{tecnologia} e le
+\textit{modalità operative}. La ridondanza e la distribuzione delle
+contromisure possono essere sintetizzate in due
+frasi: \textit{“difesa in differenti posizioni}” e
+“\textit{difesa a differenti livelli}”
+(“Defense in Multiple places”, “Layered Defenses”).
+Nel caso che un attacco abbia successo, che tradotto in termini di difesa
+consiste nel fallimento di un meccanismo di sicurezza, altri meccanismi di
+sicurezza possono intervenire per consentire un'adeguata protezione dell'intero
+sistema.
+
+\paragraph{Confinement problem}
+Uno dei principali problemi che si può presentare in un sistema in ci sono più
+utenti ed un server che elabora le richieste, è il \textit{“confinement problem}”:
+evitare che il server lasci trapelare informazioni che l'utente ritiene
+confidenziali.
+Una possibile soluzione è rappresentata dall’\textit{isolamento totale},
+in cui i processi non possono comunicare tra loro, né osservare gli altri.
+Ciò evita la fuoriuscita di informazioni dal sistema, ma è
+irrealizzabile se i processi usano delle risorse osservabili. In tal caso,
+si potrebbe aggirare il
+problema utilizzando i \textbf{covert channel}, i quali sfruttano dei percorsi
+nati per compiere altre operazioni diverse dalla comunicare, per fare invece
+delle comunicazioni in realtà proibite. Un’altra
+soluzione, potrebbe essere quella che prevede l’utilizzo di \textbf{sandbox},
+ossia scatole dove viene confinata l'esecuzione di processi e su cui sono
+vigenti delle policy di sicurezza restrittive a piacere.
