@@ -5,28 +5,28 @@ Il rapporto interno/interagenzia NIST NISTIR 7298 (Glossario di informazioni chi
 Termini di sicurezza, maggio 2013) definisce il termine sicurezza informatica  come segue:
 
 \begin{center}
-    \textit{Misure e controlli che garantiscono riservatezza, integrità,
-        e disponibilità delle risorse del sistema informativo inclusi hardware, software, firmware,
-        e le informazioni che vengono elaborate, archiviate e comunicate.}
+      \textit{Misure e controlli che garantiscono riservatezza, integrità,
+            e disponibilità delle risorse del sistema informativo inclusi hardware, software, firmware,
+            e le informazioni che vengono elaborate, archiviate e comunicate.}
 \end{center}
 
 
 Questa definizione introduce tre obiettivi chiave che sono al centro della cybersecurity:
 
 \begin{itemize}
-    \item \textbf{Confidentiality} (Riservatezza):  conservazione delle restrizioni autorizzate all'accesso alle informazioni e divulgazione, compresi i mezzi per proteggere la privacy personale e le proprie informazioni. Una perdita di riservatezza è la divulgazione non autorizzata di informazioni. Questo termine copre due concetti correlati:
-          \begin{itemize}
-              \item  \textbf{Data Confidentiality} : garantisce che le informazioni private o riservate non siano disponibili o divulgate a soggetti non autorizzati.
-              \item \textbf{Privacy}: assicura che le persone controllino o influenzino le informazioni
-                    ad essi relativi, esse possono essere raccolte e conservate, inoltre si definisce da chi e a chi possono essere divulgate.
-          \end{itemize}
-    \item \textbf{Integrity} (Integrità): prevenire la modifica o la distruzione impropria delle informazioni, compresa la garanzia del non ripudio e dell'autenticità delle informazioni.
-          La perdita d'integrità è la modifica o la distruzione non autorizzata di informazioni. Questo termine copre due concetti correlati:
-          \begin{itemize}
-              \item \textbf{Data integrity}:  garantisce che le informazioni e i programmi vengano modificati solo in modo determinato e autorizzato.
-              \item \textbf{System integrity}: assicura che un sistema svolga la sua funzione prevista in modo inalterato, libero da intenzionali o involontarie manipolazioni non autorizzate del sistema.
-          \end{itemize}
-    \item \textbf{Availability}(Disponibilità): garantisce un accesso tempestivo e affidabile nell'utilizzo delle informazioni. Una perdita di disponibilità è l'interruzione dell'accesso o dell'uso di informazioni o un sistema informativo.
+      \item \textbf{Confidentiality} (Riservatezza):  conservazione delle restrizioni autorizzate all'accesso alle informazioni e divulgazione, compresi i mezzi per proteggere la privacy personale e le proprie informazioni. Una perdita di riservatezza è la divulgazione non autorizzata di informazioni. Questo termine copre due concetti correlati:
+            \begin{itemize}
+                  \item  \textbf{Data Confidentiality} : garantisce che le informazioni private o riservate non siano disponibili o divulgate a soggetti non autorizzati.
+                  \item \textbf{Privacy}: assicura che le persone controllino o influenzino le informazioni
+                        ad essi relativi, esse possono essere raccolte e conservate, inoltre si definisce da chi e a chi possono essere divulgate.
+            \end{itemize}
+      \item \textbf{Integrity} (Integrità): prevenire la modifica o la distruzione impropria delle informazioni, compresa la garanzia del non ripudio e dell'autenticità delle informazioni.
+            La perdita d'integrità è la modifica o la distruzione non autorizzata di informazioni. Questo termine copre due concetti correlati:
+            \begin{itemize}
+                  \item \textbf{Data integrity}:  garantisce che le informazioni e i programmi vengano modificati solo in modo determinato e autorizzato.
+                  \item \textbf{System integrity}: assicura che un sistema svolga la sua funzione prevista in modo inalterato, libero da intenzionali o involontarie manipolazioni non autorizzate del sistema.
+            \end{itemize}
+      \item \textbf{Availability}(Disponibilità): garantisce un accesso tempestivo e affidabile nell'utilizzo delle informazioni. Una perdita di disponibilità è l'interruzione dell'accesso o dell'uso di informazioni o un sistema informativo.
 \end{itemize}
 
 Questi tre concetti formano quella che viene spesso definita la triade della CIA. I tre
@@ -36,33 +36,33 @@ Categorization of Federal Information and Information Systems , febbraio 2004) e
 per i sistemi informativi.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=7cm, keepaspectratio]{capitoli/cap_1/imgs/cia.png}
-    \caption{Requisiti essenziali in Cybersecurity.}\label{fig:cia}
+      \centering
+      \includegraphics[width=7cm, keepaspectratio]{capitoli/cap_1/imgs/cia.png}
+      \caption{Requisiti essenziali in Cybersecurity.}\label{fig:cia}
 \end{figure}
 
 Sebbene l'uso della triade della CIA per definire gli obiettivi di sicurezza sia ben consolidato,
 alcuni nel campo della sicurezza ritengono che siano necessari concetti aggiuntivi per presentare
 un quadro completo. Due dei più comunemente citati sono i seguenti:
 \begin{itemize}
-    \item \textbf{Authenticity} (Autenticità): la proprietà di essere genuini e di poter essere verificati e di essere trusted. Fiducia nella validità di una trasmissione di un messaggio o di un messaggio originatore. Ciò significa verificare che gli utenti siano chi dicono di essere e che ogni input che arriva al sistema proviene da una fonte attendibile.
-    \item \textbf{Accountability} (Responsabilità): è la capacità di un sistema di identificare un singolo utente, di determinarne le azioni e il comportamento all'interno del sistema stesso. La rendicontabilità è un aspetto del controllo di accesso e si basa sulla concezione che gli individui siano responsabili delle loro azioni all'interno del sistema. Questo supporta il non ripudio, deterrenza, isolamento dei guasti, rilevamento e prevenzione delle intrusioni, il recupero post-azione in concomitanza con l'azione legale . Poiché i sistemi veramente sicuri non sono ancora un obiettivo realizzabile, dobbiamo essere in grado di tracciare una violazione della sicurezza al/ai responsabile/i. I sistemi devono tenere traccia delle loro attività per consentire successive analisi forensi per rintracciare violazioni della sicurezza o per aiutare nelle controversie sulle transazioni.
+      \item \textbf{Authenticity} (Autenticità): la proprietà di essere genuini e di poter essere verificati e di essere trusted. Fiducia nella validità di una trasmissione di un messaggio o di un messaggio originatore. Ciò significa verificare che gli utenti siano chi dicono di essere e che ogni input che arriva al sistema proviene da una fonte attendibile.
+      \item \textbf{Accountability} (Responsabilità): è la capacità di un sistema di identificare un singolo utente, di determinarne le azioni e il comportamento all'interno del sistema stesso. La rendicontabilità è un aspetto del controllo di accesso e si basa sulla concezione che gli individui siano responsabili delle loro azioni all'interno del sistema. Questo supporta il non ripudio, deterrenza, isolamento dei guasti, rilevamento e prevenzione delle intrusioni, il recupero post-azione in concomitanza con l'azione legale . Poiché i sistemi veramente sicuri non sono ancora un obiettivo realizzabile, dobbiamo essere in grado di tracciare una violazione della sicurezza al/ai responsabile/i. I sistemi devono tenere traccia delle loro attività per consentire successive analisi forensi per rintracciare violazioni della sicurezza o per aiutare nelle controversie sulle transazioni.
 \end{itemize}
 
 Si noti che FIPS 199 include l'autenticità sotto integrità.\\
 
 La sicurezza informatica è allo stesso tempo affascinante e complessa, alcuni dei motivi sono:
 \begin{enumerate}
-    \item \textit{La sicurezza informatica non è così semplice come potrebbe sembrare a un principiante}. I requisiti sembrano essere semplici,in effetti, la maggior parte dei requisiti principali per i servizi di sicurezza possono essere definiti con etichette autoesplicative formate da una sola parola: riservatezza, autenticazione, non ripudio e integrità. Ma i meccanismi utilizzati per soddisfare tali requisiti possono essere piuttosto complessi, e capirli può portare a un ragionamento piuttosto sottile.
-    \item \textit{Nello sviluppo di un particolare meccanismo di sicurezza o algoritmo, bisogna sempre considerare potenziali attacchi a tali funzionalità di sicurezza.} In molti casi gli attacchi di successo sono progettati guardando un problema in un modo completamente differente, dunque sfruttando una debolezza inaspettata del meccanismo.
-    \item \textit{A causa del punto 2 , le procedure usate per fornire dei servizi particolari sono spesso controintuitive.} Tipicamente, un meccanismo di sicurezza è complesso e non è ovvio dalle dichiarazioni di una particolare esigenza che tali misure elaborate sono necessarie. Solo quando si prendono in considerazione i vari aspetti della minaccia si elaborano i meccanismi di sicurezza hanno un senso.
-    \item \textit{I meccanismi di sicurezza in genere coinvolgono più di un particolare algoritmo o
-              protocollo.}Richiedono inoltre che i partecipanti siano in possesso di un'informazione segreta (ad es. una chiave di crittografia), che sollevano domande sulla creazione, distribuzione e protezione di tali informazioni segrete. Potrebbe esserci anche una dipendenza sui protocolli di comunicazione il cui comportamento può complicare il compito di sviluppare il meccanismo di sicurezza. Ad esempio, se il corretto funzionamento del meccanismo di sicurezza richiede la definizione di limiti di tempo per il tempo di transito di un messaggio dal mittente al destinatario, allora qualsiasi protocollo o rete che introduce variabili e/o ritardi imprevedibili può rendere tali termini privi di significato.
-    \item \textit{ La sicurezza informatica è essenzialmente una battaglia di ingegni tra un perpetratore che prova a  trovare buchi e il progettista o l'amministratore che tenta di chiuderli.} Il grande vantaggio che l'attaccante ha è che lei o lui ha solo bisogno di trovare una singola vulnerabilità, mentre il progettista deve trovare e eliminare tutte le vulnerabilità per ottenere una sicurezza perfetta.
-    \item \textit{La sicurezza è ancora troppo spesso un'"aggiunta" (surplus) per essere incorporata in un sistema dopo che il progetto è completo, piuttosto che essere parte integrante del processo di progettazione.}
-    \item \textit{La sicurezza richiede un monitoraggio regolare, anche costante, e questo è difficile nei tempi attuali.}
-    \item \textit{C'è una naturale tendenza da parte di utenti e gestori di sistema a percepire pochi vantaggi nell'investimento sulla sicurezza fino a quando non si verifica un problema.}
-    \item \textit{ Molti utenti e persino gli amministratori della sicurezza vedono una sicurezza forte come un ostacolo al funzionamento o all'uso efficiente di un sistema informativo o di un'informazione.}
+      \item \textit{La sicurezza informatica non è così semplice come potrebbe sembrare a un principiante}. I requisiti sembrano essere semplici,in effetti, la maggior parte dei requisiti principali per i servizi di sicurezza possono essere definiti con etichette autoesplicative formate da una sola parola: riservatezza, autenticazione, non ripudio e integrità. Ma i meccanismi utilizzati per soddisfare tali requisiti possono essere piuttosto complessi, e capirli può portare a un ragionamento piuttosto sottile.
+      \item \textit{Nello sviluppo di un particolare meccanismo di sicurezza o algoritmo, bisogna sempre considerare potenziali attacchi a tali funzionalità di sicurezza.} In molti casi gli attacchi di successo sono progettati guardando un problema in un modo completamente differente, dunque sfruttando una debolezza inaspettata del meccanismo.
+      \item \textit{A causa del punto 2 , le procedure usate per fornire dei servizi particolari sono spesso controintuitive.} Tipicamente, un meccanismo di sicurezza è complesso e non è ovvio dalle dichiarazioni di una particolare esigenza che tali misure elaborate sono necessarie. Solo quando si prendono in considerazione i vari aspetti della minaccia si elaborano i meccanismi di sicurezza hanno un senso.
+      \item \textit{I meccanismi di sicurezza in genere coinvolgono più di un particolare algoritmo o
+                  protocollo.}Richiedono inoltre che i partecipanti siano in possesso di un'informazione segreta (ad es. una chiave di crittografia), che sollevano domande sulla creazione, distribuzione e protezione di tali informazioni segrete. Potrebbe esserci anche una dipendenza sui protocolli di comunicazione il cui comportamento può complicare il compito di sviluppare il meccanismo di sicurezza. Ad esempio, se il corretto funzionamento del meccanismo di sicurezza richiede la definizione di limiti di tempo per il tempo di transito di un messaggio dal mittente al destinatario, allora qualsiasi protocollo o rete che introduce variabili e/o ritardi imprevedibili può rendere tali termini privi di significato.
+      \item \textit{ La sicurezza informatica è essenzialmente una battaglia di ingegni tra un perpetratore che prova a  trovare buchi e il progettista o l'amministratore che tenta di chiuderli.} Il grande vantaggio che l'attaccante ha è che lei o lui ha solo bisogno di trovare una singola vulnerabilità, mentre il progettista deve trovare e eliminare tutte le vulnerabilità per ottenere una sicurezza perfetta.
+      \item \textit{La sicurezza è ancora troppo spesso un'"aggiunta" (surplus) per essere incorporata in un sistema dopo che il progetto è completo, piuttosto che essere parte integrante del processo di progettazione.}
+      \item \textit{La sicurezza richiede un monitoraggio regolare, anche costante, e questo è difficile nei tempi attuali.}
+      \item \textit{C'è una naturale tendenza da parte di utenti e gestori di sistema a percepire pochi vantaggi nell'investimento sulla sicurezza fino a quando non si verifica un problema.}
+      \item \textit{ Molti utenti e persino gli amministratori della sicurezza vedono una sicurezza forte come un ostacolo al funzionamento o all'uso efficiente di un sistema informativo o di un'informazione.}
 \end{enumerate}
 
 \subsection{Terminologie}
@@ -99,25 +99,25 @@ Una misura del grado in cui un'entità è minacciata da una potenziale circostan
 evento. Tipicamente è una funzione di stima:
 
 \begin{itemize}
-    \item degli impatti negativi che si verificherebbero se la circostanza o
-          l'evento si verificassero
-    \item della probabilità che si verifichi.
+      \item degli impatti negativi che si verificherebbero se la circostanza o
+            l'evento si verificassero
+      \item della probabilità che si verifichi.
 \end{itemize}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=11cm, keepaspectratio]{capitoli/cap_1/imgs/relazione_concetti_sicurezza.png}
-    \caption{Concetti di sicurezza e le loro relazioni.}\label{fig:relazioni_concetti_sec}
+      \centering
+      \includegraphics[width=11cm, keepaspectratio]{capitoli/cap_1/imgs/relazione_concetti_sicurezza.png}
+      \caption{Concetti di sicurezza e le loro relazioni.}\label{fig:relazioni_concetti_sec}
 \end{figure}
 
 \subsection{Asset di un sistema informatico}
 
 Gli asset di un sistema informatico possono essere suddivisi come di seguito:
 \begin{itemize}
-    \item \textbf{Hardware}: compresi i sistemi informatici e altri trattamenti di dati, archiviazione dei dati,e dispositivi di comunicazione dati;
-    \item \textbf{Software}: include il sistema operativo, le utilità di sistema e le applicazioni;
-    \item \textbf{Data}: inclusi file e database, nonché dati relativi alla sicurezza, ad esempio file di password.
-    \item \textbf{Strutture e reti di comunicazione}: rete locale e geografica, collegamenti di comunicazione, bridge, router e così via.
+      \item \textbf{Hardware}: compresi i sistemi informatici e altri trattamenti di dati, archiviazione dei dati,e dispositivi di comunicazione dati;
+      \item \textbf{Software}: include il sistema operativo, le utilità di sistema e le applicazioni;
+      \item \textbf{Data}: inclusi file e database, nonché dati relativi alla sicurezza, ad esempio file di password.
+      \item \textbf{Strutture e reti di comunicazione}: rete locale e geografica, collegamenti di comunicazione, bridge, router e così via.
 \end{itemize}
 
 \subsection{Vulnerabilità, minacce e attacchi}
@@ -127,12 +127,12 @@ ha elencato le seguenti categorie generali di
 vulnerabilità di un sistema informatico o di una risorsa di rete:
 
 \begin{itemize}
-    \item Il sistema può essere danneggiato (\textbf{corrupted}), quindi fa la cosa sbagliata o dà risposte sbagliate. Ad esempio, i valori dei dati memorizzati possono differire da quello che dovrebbero essere perché sono stati modificati in modo improprio.
-    \item Il sistema può avere delle perdite (\textbf{be leaky}). Ad esempio,
-          qualcuno che non dovrebbe avere accesso ad alcune o a tutte le informazioni
-          disponibili attraverso la rete riesce ad ottenerlo ottengono.
-    \item Il sistema può diventare non disponibile (\textbf{unavailable}) o molto
-          lento. Cioè, utilizzare il sistema o la rete diventa impossibile o impraticabile.
+      \item Il sistema può essere danneggiato (\textbf{corrupted}), quindi fa la cosa sbagliata o dà risposte sbagliate. Ad esempio, i valori dei dati memorizzati possono differire da quello che dovrebbero essere perché sono stati modificati in modo improprio.
+      \item Il sistema può avere delle perdite (\textbf{be leaky}). Ad esempio,
+            qualcuno che non dovrebbe avere accesso ad alcune o a tutte le informazioni
+            disponibili attraverso la rete riesce ad ottenerlo ottengono.
+      \item Il sistema può diventare non disponibile (\textbf{unavailable}) o molto
+            lento. Cioè, utilizzare il sistema o la rete diventa impossibile o impraticabile.
 \end{itemize}
 
 Questi tre tipi generali di vulnerabilità corrispondono ai concetti di integrità,
@@ -144,24 +144,25 @@ L'agente che effettua l'attacco viene definito \textbf{attaccante} o
 \textbf{agente di minaccia}. Possiamo distinguere due tipi ti attacchi differenti:
 
 \begin{itemize}
-    \item \textbf{Attacco attivo}: un tentativo di alterare le risorse del
-          sistema o di influenzare il funzionamento.
-    \item \textbf{Attacco passivo}: un tentativo di apprendere o
-          utilizzare le informazioni di un sistema che però non verrà influenzato
-          direttamente.
+      \item \textbf{Attacco attivo}: un tentativo di alterare le risorse del
+            sistema o di influenzare il funzionamento.
+      \item \textbf{Attacco passivo}: un tentativo di apprendere o
+            utilizzare le informazioni di un sistema che però non verrà influenzato
+            direttamente.
 \end{itemize}
 
 Possiamo anche classificare gli attacchi in base alla loro origine:
 
 \begin{itemize}
-    \item \textbf{Attacco interno}: iniziato da un entità interna al perimetro
-          di sicurezza (chiamato "insider"). L'insider è autorizzato ad accedere alle
-          risorse di sistema ma le utilizza in modi che non sono approvati da coloro che
-          gli hanno forntio l'uatorizzazione.
-    \item \textbf{Attacco esterno}: iniziato fuori dal perimetro, da un utente
-          non autorizzato o illegittimo del sistema (un "outsider").
-          Su Internet, potenziali aggressori esterni variano dai dilettanti "burloni"
-          a criminali organizzati, terroristi internazionali o governi ostili. %%TODO: jhiad emoji
+      \item \textbf{Attacco interno}: iniziato da un entità interna al perimetro
+            di sicurezza (chiamato "insider"). L'insider è autorizzato ad accedere alle
+            risorse di sistema ma le utilizza in modi che non sono approvati da coloro che
+            gli hanno forntio l'uatorizzazione.
+      \item \textbf{Attacco esterno}: iniziato fuori dal perimetro, da un utente
+            non autorizzato o illegittimo del sistema (un "outsider").
+            Su Internet, potenziali aggressori esterni variano dai dilettanti "burloni"
+            a criminali organizzati, terroristi internazionali o governi ostili
+            \emoji{man-wearing-turban-mediumdark-skin-tone}.
 \end{itemize}
 
 Infine, una \textbf{contromisura} è qualsiasi mezzo adottato per affrontare un
@@ -177,15 +178,15 @@ proprietari dell'asset.
 , Unauthorized disclosure, è una minaccia alla riservatezza.
 
 \begin{itemize}
-    \item \textbf{Exposure}: quando un insider rilascia intenzionalmente
-          informazioni sensibili a un estraneo.
-    \item \textbf{Interception}: un'entità non autorizzata che accede
-          direttamente a dati sensibili che viaggiano tra fonti autorizzate.
-    \item \textbf{Inference}: un attacco in cui un entità non autorizzata
-          accede indirettametne a dati sensibili, con l'analisi del traffico nella rete
-          per ottenere informaioni.
-    \item \textbf{Intrusion}: un entità non autorizzata ottiene accesso a dati
-          snsibili dopo aver superato le ptoretzioni del sistema.
+      \item \textbf{Exposure}: quando un insider rilascia intenzionalmente
+            informazioni sensibili a un estraneo.
+      \item \textbf{Interception}: un'entità non autorizzata che accede
+            direttamente a dati sensibili che viaggiano tra fonti autorizzate.
+      \item \textbf{Inference}: un attacco in cui un entità non autorizzata
+            accede indirettametne a dati sensibili, con l'analisi del traffico nella rete
+            per ottenere informaioni.
+      \item \textbf{Intrusion}: un entità non autorizzata ottiene accesso a dati
+            snsibili dopo aver superato le ptoretzioni del sistema.
 \end{itemize}
 
 \paragraph{Deception: } l'inganno, Deception, è una minaccia per l'integrità
@@ -193,11 +194,11 @@ del sistema o per l'integrità dei dati.
 I seguenti tipi di attacchi possono portare a queste conseguenze:
 
 \begin{itemize}
-    \item \textbf{Masquerade}: un entità non autorizzata ottiene accesso a un sistema
-          o effettua azioni malevole spaccaindosi per un'entità autorizzata.
-    \item \textbf{Falsification}: dati falsificati ingannano un'entità autorizzata.
-    \item \textbf{Repudiation}: un'entità inganna un'altra negando la responsabilità
-          di un'azione.
+      \item \textbf{Masquerade}: un entità non autorizzata ottiene accesso a un sistema
+            o effettua azioni malevole spaccaindosi per un'entità autorizzata.
+      \item \textbf{Falsification}: dati falsificati ingannano un'entità autorizzata.
+      \item \textbf{Repudiation}: un'entità inganna un'altra negando la responsabilità
+            di un'azione.
 \end{itemize}
 
 \paragraph{Disruption}: L'interruzione, Disruption, è una minaccia alla
@@ -205,12 +206,12 @@ disponibilità o all'integrità del sistema.
 I seguenti tipi di attacchi possono portare a queste conseguenze:
 
 \begin{itemize}
-    \item \textbf{Incapacitation}: impedisce o interrompe le operazioni di un sistema
-          disattivandone un componente.
-    \item \textbf{Corruption}: alterazione non desiderata delle operaizoni di
-          sistema causata dalla modifica di funzioni di sistema o dati di sistema.
-    \item \textbf{Obstruction}: un attacco che interrompe la capacità di
-          completare servizi di sistema ostacolando le operazioni di sistema.
+      \item \textbf{Incapacitation}: impedisce o interrompe le operazioni di un sistema
+            disattivandone un componente.
+      \item \textbf{Corruption}: alterazione non desiderata delle operaizoni di
+            sistema causata dalla modifica di funzioni di sistema o dati di sistema.
+      \item \textbf{Obstruction}: un attacco che interrompe la capacità di
+            completare servizi di sistema ostacolando le operazioni di sistema.
 \end{itemize}
 
 \paragraph{Usurpation: } l'usurpazione, Usurpation, è una minaccia dell'integrità
@@ -219,10 +220,10 @@ del sistema.
 I seguenti tipi di attacchi possono portare a queste conseguenze:
 
 \begin{itemize}
-    \item \textbf{Misappropriation}: un'entità assume il controllo logico o fisico
-          di una risorsa di sistema senza essere autorizzata.
-    \item \textbf{Misuse}: causa un componente di sistema ad effettuare azioni o
-          funzioni che sono dannose alla sicurezza del sistema.
+      \item \textbf{Misappropriation}: un'entità assume il controllo logico o fisico
+            di una risorsa di sistema senza essere autorizzata.
+      \item \textbf{Misuse}: causa un componente di sistema ad effettuare azioni o
+            funzioni che sono dannose alla sicurezza del sistema.
 \end{itemize}
 
 \subsection{Asset e minacce}
@@ -233,9 +234,9 @@ descriviamo brevemente mettendoli in relazione con i concetti di integrità,
 riservatezza e disponibilità.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=14cm, keepaspectratio]{capitoli/cap_1/imgs/asset_sec.png}
-    \caption{ Scopo della sicurezza informatica.}\label{fig:asset_sec}
+      \centering
+      \includegraphics[width=14cm, keepaspectratio]{capitoli/cap_1/imgs/asset_sec.png}
+      \caption{ Scopo della sicurezza informatica.}\label{fig:asset_sec}
 \end{figure}
 
 \paragraph{Hardware.}
@@ -362,86 +363,86 @@ in termini di requisiti funzionali, e seguiamo la classificazione definita in
 FIPS 200.
 
 \begin{enumerate}
-    \item \textbf{Accesso controllato}: limitare l'accesso al sistema informativo
-          agli utenti autorizzati, ai processi che agiscono per conto degli utenti
-          autorizzati, o ai dispositivi (inclusi altri sistemi informativi) e alle
-          tipologie di transazioni e funzioni che gli utenti autorizzati possono
-          esercitare.
-    \item \textbf{Consapevolezza e Formazione}: garantire che i gestori e gli
-          utenti dei sistemi informativi siano consapevoli dei rischi
-          per la sicurezza e delle norme da applicare e che il personale sia
-          adeguatamente addestrato a svolgere i compiti e le responsabilità assegnate.
-    \item \textbf{Audit e responsabilità}: creare, proteggere e conservare i
-          record di audit del sistema informativo per consentire il monitoraggio,
-          l'analisi, l'indagine e la segnalazione di atti illeciti. Garantire inoltre
-          che le azioni dei singoli individui  nel sistema possano essere ricondotte
-          in modo univoco a tali utenti in modo che possano essere ritenuti responsabili
-          di esse.
-    \item \textbf{Certificazione, accreditamento e valutazioni di sicurezza}:
-          valutare periodicamente i controlli di sicurezza nei sistemi informativi
-          per determinare se i controlli sono efficaci nella loro
-          applicazione. Sviluppare e attuare piani d'azione volti a correggere le
-          carenze e ridurre o eliminare le vulnerabilità in questi sistemi.
-    \item \textbf{Gestione della configurazione}: stabilire e mantenere le
-          configurazioni di base e gli inventari dei sistemi
-          (inclusi hardware, software, firmware e documentazione) durante i
-          rispettivi cicli di vita di sviluppo del sistema.
-    \item \textbf{Pianificazione di emergenza}: stabilire, mantenere e
-          implementare piani di risposta alle emergenze, operazioni di backup,
-          e il ripristino post-disastro per i sistemi in modo da garantire la
-          disponibilità di risorse informative critiche e continuità operativa
-          in situazioni di emergenza.
-    \item \textbf{Identificazione e autenticazione}: identificare gli utenti
-          del sistema, i processi che agiscono per conto degli utenti o dei dispositivi
-          e autenticare (o verificare) le identità di tali utenti, processi o
-          dispositivi, come prerequisito per consentire l'accesso ai sistemi.
-    \item \textbf{Risposta all'incidente}: stabilire una capacità operativa
-          di gestione degli incidenti per le informazioni organizzative dei sistemi
-          che includono un'adeguata preparazione, rilevamento, analisi, contenimento,
-          recupero e un controllo delle attività di risposta dell'utente.
-    \item \textbf{Manutenzione}: eseguire la manutenzione periodica e
-          tempestiva dei sistemi, fornire controlli efficaci sugli strumenti,
-          sulle tecniche, sui meccanismi e sul personale utilizzato per condurre
-          una manutenzione del sistema informativo.
-    \item \textbf{Protezione dei media}: proteggere i media dei sistemi, sia
-          cartacei che digitali, limitare l'accesso alle informazioni dei media agli
-          utenti autorizzati e sanificare o distruggere i supporti del sistema
-          informativo prima dello smaltimento o del rilascio per il riutilizzo.
-    \item \textbf{Protezione fisica e ambientale}: limitare l'accesso fisico
-          dei soggetti autorizzati ai sistemi informativi, alle apparecchiature e ai
-          rispettivi ambienti operativi.
-    \item \textbf{Pianificazione}: sviluppare, documentare, aggiornare
-          periodicamente e implementare piani di sicurezza per le informazioni
-          organizzative dei sistemi che descrivono i controlli di sicurezza esistenti
-          o previsti e le regole di comportamento dei soggetti che accedono ai sistemi.
-    \item \textbf{Sicurezza del personale}: garantire che le persone che occupano
-          posizioni di responsabilità all'interno delle organizzazioni
-          (compresi i fornitori di servizi di terze parti) siano affidabili e
-          soddisfino i criteri di sicurezza stabiliti per quelle posizioni.
-          Garantire che le informazioni organizzative e i sistemi informativi siano
-          protetti durante e dopo le azioni del personale quali licenziamenti e
-          trasferimenti. Applicare sanzioni formali per il personale che non fa
-          rispettare le politiche e le procedure di sicurezza dell'organizzazione.
-    \item \textbf{Valutazione del rischio}: valutare periodicamente il rischio
-          per le operazioni organizzative (inclusi missioni, funzioni, immagine o
-          reputazione), risorse organizzative e individui, risultanti dal funzionamento
-          del sistema e il relativo trattamento, archiviazione o trasmissione di
-          informazioni organizzative.
-    \item \textbf{Acquisizione di sistemi e servizi}: Allocare risorse sufficienti
-          per proteggere adeguatamente l'organizzazione dei sistemi. Impiegare
-          processi del ciclo di vita dello sviluppo del sistema che incorporano
-          considerazioni sulla sicurezza. Imporre limitazioni all'utilizzo e
-          all'installazione del software e garantire che i fornitori di terze parti
-          adottino adeguate misure di sicurezza per proteggere le informazioni, le
-          applicazioni e/o i servizi "esternalizzati" dall'organizzazione.
-    \item \textbf{Protezione del sistema e delle comunicazioni}: monitorare,
-          controllare e proteggere le comunicazioni organizzative ai confini
-          esterni e interni. Impiegare progetti "architettonici", sviluppo software
-          tecniche e principi di ingegneria dei sistemi che promuovono un'efficace
-          sicurezza delle informazioni all'interno di dei sistemi organizzativi.
-    \item \textbf{Integrità del sistema e delle informazioni}: identificare,
-          segnalare e correggere le informazioni e le falle del sistema in modo
-          tempestivo. Fornire protezione da codice dannoso in posizioni appropriate
-          all'interno del sistema organizzativo e monitorare gli avvisi di sicurezza
-          del sistema informativo e adottare le azioni appropriate in risposta.
+      \item \textbf{Accesso controllato}: limitare l'accesso al sistema informativo
+            agli utenti autorizzati, ai processi che agiscono per conto degli utenti
+            autorizzati, o ai dispositivi (inclusi altri sistemi informativi) e alle
+            tipologie di transazioni e funzioni che gli utenti autorizzati possono
+            esercitare.
+      \item \textbf{Consapevolezza e Formazione}: garantire che i gestori e gli
+            utenti dei sistemi informativi siano consapevoli dei rischi
+            per la sicurezza e delle norme da applicare e che il personale sia
+            adeguatamente addestrato a svolgere i compiti e le responsabilità assegnate.
+      \item \textbf{Audit e responsabilità}: creare, proteggere e conservare i
+            record di audit del sistema informativo per consentire il monitoraggio,
+            l'analisi, l'indagine e la segnalazione di atti illeciti. Garantire inoltre
+            che le azioni dei singoli individui  nel sistema possano essere ricondotte
+            in modo univoco a tali utenti in modo che possano essere ritenuti responsabili
+            di esse.
+      \item \textbf{Certificazione, accreditamento e valutazioni di sicurezza}:
+            valutare periodicamente i controlli di sicurezza nei sistemi informativi
+            per determinare se i controlli sono efficaci nella loro
+            applicazione. Sviluppare e attuare piani d'azione volti a correggere le
+            carenze e ridurre o eliminare le vulnerabilità in questi sistemi.
+      \item \textbf{Gestione della configurazione}: stabilire e mantenere le
+            configurazioni di base e gli inventari dei sistemi
+            (inclusi hardware, software, firmware e documentazione) durante i
+            rispettivi cicli di vita di sviluppo del sistema.
+      \item \textbf{Pianificazione di emergenza}: stabilire, mantenere e
+            implementare piani di risposta alle emergenze, operazioni di backup,
+            e il ripristino post-disastro per i sistemi in modo da garantire la
+            disponibilità di risorse informative critiche e continuità operativa
+            in situazioni di emergenza.
+      \item \textbf{Identificazione e autenticazione}: identificare gli utenti
+            del sistema, i processi che agiscono per conto degli utenti o dei dispositivi
+            e autenticare (o verificare) le identità di tali utenti, processi o
+            dispositivi, come prerequisito per consentire l'accesso ai sistemi.
+      \item \textbf{Risposta all'incidente}: stabilire una capacità operativa
+            di gestione degli incidenti per le informazioni organizzative dei sistemi
+            che includono un'adeguata preparazione, rilevamento, analisi, contenimento,
+            recupero e un controllo delle attività di risposta dell'utente.
+      \item \textbf{Manutenzione}: eseguire la manutenzione periodica e
+            tempestiva dei sistemi, fornire controlli efficaci sugli strumenti,
+            sulle tecniche, sui meccanismi e sul personale utilizzato per condurre
+            una manutenzione del sistema informativo.
+      \item \textbf{Protezione dei media}: proteggere i media dei sistemi, sia
+            cartacei che digitali, limitare l'accesso alle informazioni dei media agli
+            utenti autorizzati e sanificare o distruggere i supporti del sistema
+            informativo prima dello smaltimento o del rilascio per il riutilizzo.
+      \item \textbf{Protezione fisica e ambientale}: limitare l'accesso fisico
+            dei soggetti autorizzati ai sistemi informativi, alle apparecchiature e ai
+            rispettivi ambienti operativi.
+      \item \textbf{Pianificazione}: sviluppare, documentare, aggiornare
+            periodicamente e implementare piani di sicurezza per le informazioni
+            organizzative dei sistemi che descrivono i controlli di sicurezza esistenti
+            o previsti e le regole di comportamento dei soggetti che accedono ai sistemi.
+      \item \textbf{Sicurezza del personale}: garantire che le persone che occupano
+            posizioni di responsabilità all'interno delle organizzazioni
+            (compresi i fornitori di servizi di terze parti) siano affidabili e
+            soddisfino i criteri di sicurezza stabiliti per quelle posizioni.
+            Garantire che le informazioni organizzative e i sistemi informativi siano
+            protetti durante e dopo le azioni del personale quali licenziamenti e
+            trasferimenti. Applicare sanzioni formali per il personale che non fa
+            rispettare le politiche e le procedure di sicurezza dell'organizzazione.
+      \item \textbf{Valutazione del rischio}: valutare periodicamente il rischio
+            per le operazioni organizzative (inclusi missioni, funzioni, immagine o
+            reputazione), risorse organizzative e individui, risultanti dal funzionamento
+            del sistema e il relativo trattamento, archiviazione o trasmissione di
+            informazioni organizzative.
+      \item \textbf{Acquisizione di sistemi e servizi}: Allocare risorse sufficienti
+            per proteggere adeguatamente l'organizzazione dei sistemi. Impiegare
+            processi del ciclo di vita dello sviluppo del sistema che incorporano
+            considerazioni sulla sicurezza. Imporre limitazioni all'utilizzo e
+            all'installazione del software e garantire che i fornitori di terze parti
+            adottino adeguate misure di sicurezza per proteggere le informazioni, le
+            applicazioni e/o i servizi "esternalizzati" dall'organizzazione.
+      \item \textbf{Protezione del sistema e delle comunicazioni}: monitorare,
+            controllare e proteggere le comunicazioni organizzative ai confini
+            esterni e interni. Impiegare progetti "architettonici", sviluppo software
+            tecniche e principi di ingegneria dei sistemi che promuovono un'efficace
+            sicurezza delle informazioni all'interno di dei sistemi organizzativi.
+      \item \textbf{Integrità del sistema e delle informazioni}: identificare,
+            segnalare e correggere le informazioni e le falle del sistema in modo
+            tempestivo. Fornire protezione da codice dannoso in posizioni appropriate
+            all'interno del sistema organizzativo e monitorare gli avvisi di sicurezza
+            del sistema informativo e adottare le azioni appropriate in risposta.
 \end{enumerate}

@@ -225,8 +225,8 @@ Tali categorie risultano dal principio del “Need To know”: limito l'accesso 
 sole informazioni per
 le quali l'utente ha necessità di accedere.
 
-\paragraph{Esempio:} %% TODO: ricontrollare foto e scritte, queste non coincidono
-CATEGORIE \(\rightarrow\) NUC, EUR e US
+\paragraph{Esempio:}
+CATEGORIE \(\rightarrow\) Alpha, Beta e Gamma.
 Ogni soggetto ha un'autorizzazione ad un determinato livello di sicurezza e può
 accedere anche
 ad alcuni dei livelli inferiori.
@@ -283,7 +283,8 @@ possono gestire efficacemente informazioni su livelli multipli.
 TopSecret+Unclassified rappresentano in realtà 3 livelli, insieme al Secret.
 Attaccare una macchina B3 costa certamente di più che attaccare B1 o B2.
 
-\subsubsection{Configurazione di reti MLS: Channel Cascade Attacks}     %% TODO: troppo lungo rompe l'indice
+\subsubsection{Channel Cascade Attacks}
+
 Prendiamo in esame la seguente immagine:
 \begin{figure}[H]
       \centering
@@ -591,15 +592,42 @@ I tasselli alla base del modello CW sono quindi:
             così l'integrità;
 \end{itemize}
 
-%TODO:Aggiungere l'esempio sul modello Clark-Wilson e riscriverlo a verso con matematica
+\paragraph{Esempio.}\ \\
+
 \begin{figure}[H]
       \centering
-      \includegraphics[width=8cm, keepaspectratio]{capitoli/policy/imgs/clark_wilson.png}
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/policy/imgs/clark_wilson.png}
 \end{figure}
+
+Consideriamo il momento in cui il fornitore consegna la merce ad una specifica e
+ciò è testimoniato dalla shipnote, ovvero la bolla di consegna. Una possibile
+organizzazione dell'impresa prevede che vi sia una persona addetta al magazzino
+che verifica se la merce ricevuta corrisponde a quella specificata nella bolla.
+Se così è, viene generata la fattura e avviene il pagamento per la merce. Un
+vincolo di integrità che vogliamo avere (dal lato dell'azienda) è che venga
+pagato solo quello che è stato consegnato, quindi che il valore del pagamento
+sia minore o uguale a quello indicato nella bolla di consegna. Il discorso è
+inverso per il lato del fornitore.\\
+
+C'è poi una \textit{Seconda Organizzazione} in cui la bolla viene affidata a due
+persone (separazione dei compiti): entrambe verificano che ciò che è stato
+consegnato corrisponda a quanto indicato dalla bolla ed eventualmente la
+inoltrano all'ufficio pagamenti. L'ufficio deve a questo punto constatare che le
+due comunicazioni siano coerenti tra loro.
+
 \begin{figure}[H]
       \centering
-      \includegraphics[width=8cm, keepaspectratio]{capitoli/policy/imgs/clark_wilson2.png}
+      \includegraphics[width=\textwidth, keepaspectratio]{capitoli/policy/imgs/clark_wilson2.png}
 \end{figure}
+
+Questo secondo sistema è più forte e ciò può essere verificato formalmente:
+\begin{itemize}
+      \item funziona lo stesso anche se interviene un utente disonesto;
+      \item può essere attaccato, ma occorrono due operai disonesti che scrivono
+            bolle con importi più alti rispetto al valore reale;
+      \item se un attacco dovesse avere successo, il sistema non risulta essere
+            più sicuro dal lato integrità.
+\end{itemize}
 
 \subsubsection{Come funziona?}
 
