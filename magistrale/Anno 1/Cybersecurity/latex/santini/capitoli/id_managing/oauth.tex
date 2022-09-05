@@ -225,7 +225,7 @@ Questo tipo di grant è ottimizzato per l'utilizzo con public client.
 \subsection{Resource Owner Password Credential Grant}
 
 Il resource owner password credential grant è un tipo di grant che non richiede che
-l'utenti si interfacci con l'authorization server poiché le credenziali dell'utente
+l'utente si interfacci con l'authorization server poiché le credenziali dell'utente
 finale vengono gestite direttamente dall'applicazione. L'utilizzo di questo
 tipo di grant è sconsigliato poiché espone le credenziali dell'utente a potenziali rischi.
 Inoltre, non è previsto uno step in cui l'utente fornisce il consenso ad utilizzare parte
@@ -282,7 +282,7 @@ nel campo \verb|Authorization| dell'header.
       Authorization: Bearer <access_token>
 \end{lstlisting}
 
-L'access token ha un tempo di scadenza per ottimizzare le performance, a volte
+L'access token ha un tempo di scadenza e, per ottimizzare le performance, a volte
 può essere anche salvato in cache fin quando non scade. È importante fornire
 all'access token  l'appropriato scope di privilegi per le chiamate \api{}.
 

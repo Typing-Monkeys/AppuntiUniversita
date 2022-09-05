@@ -139,7 +139,7 @@ come formato dei dati.
 Di solito, l'accesso alle RPC è fornito da un servizio HTTP sulla porta 8584 che
 generalmente è accessibile solo da localhost.
 
-\begin{lstlisting}[caption=Esempio di richiesta tramite jsonrpc]
+\begin{lstlisting}[language=Bash, caption=Esempio di richiesta tramite jsonrpc]
 $ curl -X POST \ 
        -H "Content-Type: application/json" \  
        --data \
@@ -237,7 +237,7 @@ un Coin può essere definito tale se rispetta le seguenti caratteristiche:
 la principale differenza con i Coin è che un Token non ha una sua propria blockchain
 ma si appoggia ad altre già esistenti, come per esempio ERC20, BAT e BNT che
 sfruttano Ethereum. Un'altra sostanziale differenza è che le transazioni di Coins
-sono gestite dalla blockchain mentre quelle di token sono governate da Smart Contracts.
+sono gestite dalla blockchain mentre quelle di token sono governate da Smart Contract.
 Quando un token viene "speso" viene fisicamente spostato da un posto ad un altro,
 a differenza dei Coin, quando un coin viene speso viene solo aggiornato il saldo
 delle due parti. Un esempio di token sono gli NFT (Non Fungible Tokens).
@@ -245,14 +245,14 @@ delle due parti. Un esempio di token sono gli NFT (Non Fungible Tokens).
 \section{Hard Fork}
 
 \paragraph{Block \#1,192,000} \ \\
-DAO—A hard fork that reimbursed victims of the hacked DAO contract and
-caused Ethereum and Ethereum Classic to split into two competing systems.
+DAO - Un Hard Fork che rimborsò le vittime dell'attacco al contratto DAO e causò
+la separazione tra Ethereum ed Ethereum Classic.
 
 \paragraph{Block \#2,463,000} \ \\
-Tangerine Whistle—A hard fork to change the gas calculation for certain I/O
-heavy operations and to clear the accumulated state from a denial-of-service
-(DoS) attack that exploited the low gas cost of those operations.
+Tangerine Whistle — Un Hard Fok avvenuto per cambiare il costo in gas di certe
+operazioni di I/O e per risanare lo stato della blockchain da alcuni attacchi
+DoS che sfruttavano queste operazioni a bassissimo costo.
 
 \paragraph{Block \#2,675,000} \ \\
-Spurious Dragon—A hard fork to address more DoS attack vectors, and another
-state clearing. Also, a replay attack protection mechanism.
+Spurious Dragon — Un Hard Fork che introdusse protezione ad altre forme di DoS
+e aggiunse un nuovo meccanismo di protezione a replay attack.

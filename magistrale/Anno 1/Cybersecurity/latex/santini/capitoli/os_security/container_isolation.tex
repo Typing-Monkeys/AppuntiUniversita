@@ -248,7 +248,7 @@ delle interfacce di rete e delle \textit{routing table}.
 Si può creare un processo con il proprio namespace utilizzando il comando
 \verb|unshare| con il flag \verb|--net|.
 È possibile vedere tutti i processi che hanno un proprio namespace tramite
-il comando\verb|lsns|.
+il comando \verb|lsns|.
 
 \begin{figure}[H]
     \centering
@@ -362,13 +362,13 @@ nel seguente esempio:
 Questo permette di eseguire container con un metodo chiamato \textit{rootless container}
 che risulta essere un grande vantaggio dal punto di vista della sicurezza.
 
-\section{Inter-Process Communications (IPC) Namespace}
+\section{IPC Namespace}
 
 In linux è possibile comunicare tra processi diversi dandogli accesso ad un'area
 di memoria condivisa o utilizzando un coda di messaggi condivisa (queue).
 Questi due processi devono essere membri dello stesso IPC namespace per avere
 accesso agli stessi identificatori per questi meccanismi.
-In generale non si vuole che un container sia in gradi di accedere a della memoria
+In generale non si vuole che un container sia in grado di accedere a della memoria
 condivisa che non gli appartiene quindi gli vengono dati i propri IPC namespace.
 Per ottenere questo utilizziamo il comando \verb|unshare| con il flag \verb|--ipc|.
 
@@ -388,5 +388,5 @@ cgroup namespace tramite il comando \verb|unshare| con il flag \verb|--cgroup|.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm, keepaspectratio]{capitoli/os_security/imgs/cspace.png}
+    \includegraphics[width=6cm, keepaspectratio]{capitoli/os_security/imgs/cspace.png}
 \end{figure}

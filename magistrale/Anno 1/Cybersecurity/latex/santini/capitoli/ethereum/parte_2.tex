@@ -19,7 +19,7 @@ minori sono le possibilità
 che si verifichi un bug o un effetto imprevisto. Quando ci si impegna per la
 prima volta nella
 programmazione di uno Smart Contract, gli sviluppatori sono spesso tentati di
-provare a scrivere codice molto codice ed articolato.
+provare a scrivere codice molto complesso ed articolato.
 Invece, si dovrebbe trovare il modo per fare meno, con meno linee di
 codice, meno complessità e meno "features".
 Se esiste già una libreria o un contratto che fa gran parte del necessario,
@@ -47,7 +47,7 @@ Vanno soprattutto analizzati i possibili input maligni e i loro effetti.
 
 \section{IF e REQUIRE}
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Solidity]
     if(_newDelegate != delegateContract){
         // Do something
     }
@@ -69,7 +69,7 @@ ripristinata. Viene rimborsato anche il gas.
 \ \\
 \paragraph{Esempio.}\
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Solidity]
 uint256 input;
 address sender;
 function some_state_changing_fn(uint256 _input) public 
@@ -269,9 +269,9 @@ dello specifico indirizzo ad 1 settimana (riga 8): tra 1 settimana sarà possibi
 La funzione \verb|increaseLockTime| permette di allungare il \verb|lockTime|, specificando
 il numero di secondi.
 La funzione \verb|withdraw|, dopo aver controllato se abbiamo abbastanza denaro
-(riga 16) e che sia trascorso il \verb|lockTime| (riga 17), viene azzerato
+(riga 16) e che sia trascorso il \verb|lockTime| (riga 17), azzera
 il bilancio (riga 18)
-e trasferiti, in modo sicuro, tutti i soldi all'indirizzo del chiamante (riga 19).
+e trasferisce, in modo sicuro, tutti i soldi all'indirizzo del chiamante (riga 19).
 Il problema però è in \verb|increaseLockTime| (riga 11).
 La variabile richiesta è un uint: se sommassi un
 numero sufficientemente alto di secondi, farei il giro completo dei uint e
@@ -339,7 +339,7 @@ non viene chiamata nessuna funzione, neanche la fallback. Pertanto, la funzione 
 self-destruct può essere utilizzata per l'invio forzato di ether a qualsiasi
 contratto,
 indipendentemente dal suo codice e anche ai contratti senza funzioni payable.
-Ciò significa che ogni attaccante può creare un contratto e con una funzione di
+Ciò significa che ogni attaccante può creare un contratto e, con una funzione di
 \verb|self-destruct|,
 inviare ether ad esso: non si fa altro che chiamare \verb|selfdestruct(target)|
 e forzare
@@ -467,7 +467,7 @@ pericoloso se essi venissero utilizzati in modo scorretto.
 
 Prendiamo in considerazione in precedente codice di un contratto che simula
 una roulette.
-Chiunque può puntare 10 ether (riga8 ).
+Chiunque può puntare 10 ether (riga 8).
 Il secondo \verb|require| (riga 9) controlla che ci sia una
 sola transazione nel nuovo blocco;
 poi questa verrà aggiornata subito,

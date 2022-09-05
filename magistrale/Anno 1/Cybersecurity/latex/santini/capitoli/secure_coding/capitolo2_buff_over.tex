@@ -156,7 +156,7 @@ che negativi utilizzando 1 bit per il segno (il primo bit) e risolvendo il probl
 Rappresentando 8 bit con il complemento a 2 avremmo un range che varia tra $-128$ a $127$.
 In generale il range di rappresentazione sarà dato dalla seguente formula:
 \[
-    da \ -2^{N} - 1 \ \ a \ \ 2^{N - 1} - 1
+    da \ -2^{N - 1} \ \ a \ \ 2^{N - 1} - 1
 \]
 
 dove $N$ è il numero di bit.\\
@@ -214,7 +214,7 @@ Ci sono vari modi per prevenire tali errori:
                     questa tecnica si basa sul controllare la possibile presenza di
                     overflow o wrapping prima che un'operazione venga eseguita.
                     Di seguito un esempio:
-                    \begin{lstlisting}
+                    \begin{lstlisting}[language=C]
 unsigned int ui1, ui2, usum;
 
 // initialize ui1 and ui2
@@ -230,7 +230,7 @@ else {
                     è equivalente alla pre-condition ma viene eseguita dopo
                     l'esecuzione di un'operazione ed è in grado di controllare solo la
                     presenza di wrapping. Di seguito un esempio:
-                    \begin{lstlisting}
+                    \begin{lstlisting}[language=C]
     unsigned int ui1, ui2, usum;
 
     // initialize ui1 and ui2
@@ -270,7 +270,7 @@ Esempio:
 
 \paragraph{Stringhe.}
 Le stringhe sono un concetto fondamentale nell'ingegneria del software,
-ma essi non sono un tipo integrato in C o C++. Infatti la libreria standard di C
+ma esse non sono un tipo integrato in C o C++. Infatti la libreria standard di C
 supporta le stringhe di tipo \verb|char| e le stringhe larghe di tipo \verb|wchar_t|.
 
 \begin{figure}[H]
@@ -333,11 +333,11 @@ nell'array \textbf{c} e questo porta ad avere dei problemi ovvero:
 
 \begin{itemize}
     \item non viene salvato sia in \textbf{a} che in \textbf{b} il carattere di fine
-          stringa "\textbackslash0" allora essendo che la stringa non termina
+          stringa "\verb|\0|" allora essendo che la stringa non termina
           e che 'array \textbf{b} è memorizzato subito dopo \textbf{a} si ha di conseguenza che
           \[a = [0123456789abcde0123456789abcde\backslash 0]\]
     \item quindi quando si va a copiare \textbf{a} dentro \textbf{c} si copiano 32
-          caratteri più "\textbackslash0" e non 16 sforando così la memoria allocata inizialmente.
+          caratteri più "\verb|\0|" e non 16 sforando così la memoria allocata inizialmente.
 \end{itemize}
 
 \section{Vulnerabilità delle stringhe ed exploit}
@@ -354,13 +354,13 @@ chiamato \textbf{corrotto (tainted)} quando viene da una risorsa non fidata, al 
 fuori del controllo del programma, e non \textbf{è stato sanificato} per assicurarsi
 che sia conferme a qualsiasi vincolo posto su di esso.
 
+\subsection{Buffer overflow.}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/password_example.png}
     \caption{Esempio password.}\label{fig:password}
 \end{figure}
-
-\subsection{Buffer overflow.}
 
 In questo caso la falla sta nella funzione \verb|IsPasswordOk()| poiché permette ad
 un attaccante di guadagnare l'accesso non autorizzato causato dalla
@@ -485,7 +485,7 @@ inserito nello stack in modo che può essere ripristinato quando la subroutine t
 
 Il \textbf{puntatore di istruzione (eip)} punta all'istruzione successiva da eseguire,
 quando si esegue una sequenza di istruzioni esso è aumentato automaticamente dalla
-grandezza di ogni istruzioni. Eip non può essere modificato direttamente ma deve
+grandezza di ogni istruzioni. \textbf{eip} non può essere modificato direttamente ma deve
 essere modificato indirettamente con delle istruzioni come:
 
 \begin{itemize}
@@ -632,7 +632,7 @@ funzione chiamante sa dove si trovano i valori di ritorno e li può usare.
 \section{Stack smashing}
 
 Stack smashing è quando un attaccante intenzionalmente fa overflow di un buffer nello
-stack per ottenere l'accesso a vietato regioni della memoria del computer.
+stack per ottenere l'accesso a regioni della memoria vietate.
 Questo avviene quando si riscrivono dei dati all'interno della memoria allocata
 all'esecuzione dello stack. Si possono avere delle serie conseguenze come ad esempio
 la modifica di valori delle \textbf{variabili automatiche} o l'esecuzione di codice
