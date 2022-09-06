@@ -6,7 +6,7 @@ Una “concorrenza incontrollata” può portare a un comportamento non determin
 (cioè un programma può mostrare un comportamento diverso per lo stesso insieme
 di input).
 Una \textit{race condition} si verifica in qualsiasi scenario in cui due (o più)
-threads possono
+thread possono
 produrre un comportamento diverso, a seconda del thread che viene eseguito per primo.
 Le race conditions possono derivare da flussi di controllo affidabili o non
 affidabili.\\
@@ -31,7 +31,7 @@ Tre proprietà sono necessarie perché una race conditions esista:
 
 \section{Race Window}
 
-Le Race Conditions sono un difetto del software e sono una frequente fonte di
+Le Race Condition sono un difetto del software e sono una frequente fonte di
 vulnerabilità.
 Sono particolarmente insidiose perché dipendono dal timing e si manifestano
 sporadicamente. Di conseguenza, sono difficili da rilevare, riprodurre ed
@@ -47,7 +47,7 @@ sia correttamente
 sequenziato, indipendentemente da come gli ambienti di runtime programmano
 l'esecuzione
 della programmazione.
-La loro eliminazione inizia con l'identificazione delle \textit{Race Windows}.
+La loro eliminazione inizia con l'identificazione delle \textit{Race Window}.
 Una race window è un
 segmento di codice che accede all'oggetto condiviso in modo da aprire una
 finestra di opportunità
@@ -55,7 +55,7 @@ durante la quale altri flussi concorrenti potrebbero "correre dentro" (race in)
 e alterare
 l'oggetto. Fondamentalmente è una zona di codice sottoposta a più flussi di
 controllo.
-Una race windows non è protetta da un lock o da qualsiasi altro meccanismo.
+Una race window non è protetta da un lock o da qualsiasi altro meccanismo.
 Se viene
 protetta da una lock o simili viene detta “\textit{sezione critica}”.
 

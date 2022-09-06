@@ -62,9 +62,6 @@ meno.
     \includegraphics[width=12cm, keepaspectratio]{capitoli/secure_coding/img/cap_4/bin.png}
     \caption{Esempio di un bin.}\label{fig:bin}
 \end{figure}
-Sia il puntatore in avanti nell'ultimo chunk che quello indietro nel primo chunk della
-lista puntano alla testa. Quando la lista è vuota, la testa del puntatore si riferisce
-direttamente a se stessa.  Ogni %%TODO: qui mi sa che manca qualcosa. anche sull'originale è così
 
 \subsubsection{UNLINK}
 
@@ -139,7 +136,7 @@ eseguire codice malevolo. L'attaccante può sovrascrivere i boundary tag associa
 con il secondo chunk della memoria, perché questo tag di confine è collocato
 immediatamente dopo la fine del primo blocco. La grandezza del primo chunk (672 byte)
 è il risultato della grandezza richiesta di 666 byte, più 4 byte per la grandezza,
-arrotondato al multiple più vicino a 8 poiché tutti chunk devono essere divisibili
+arrotondato al multiplo più vicino a 8 poiché tutti chunk devono essere divisibili
 per 8 byte.
 
 \begin{figure}[H]

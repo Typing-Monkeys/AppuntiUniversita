@@ -53,9 +53,9 @@ Di seguito alcuni strumenti per il fuzz-testing del codice.
 black-box del software che trova difetti nelle applicazioni che girano su piattaforme Windows,
 Linux e macOs. BFF raccoglie automaticamente i casi di test che causano il crash del software.
 
-\paragraph{LibFuzzer} è uno strumento effettuare fuzz-testing di librerie o programmi.
+\paragraph{LibFuzzer} è uno strumento per effettuare fuzz-testing di librerie o programmi.
 Viene selezionato uno specifico punto di ingresso (la funzione a cui passare gli input)
-chiamata \textit{target function} per poi tenere tracci di quali aree del codice
+chiamata \textit{target function} per poi tenere traccia di quali aree del codice
 vengono raggiunte. Vengono anche generate delle mutazioni sul
 \textit{corpus} di dati in ingresso al fine di massimizzare la copertura del codice.
 I fuzzer coverage-guided come libFuzzer sono \textbf{black-box} e si basano su un

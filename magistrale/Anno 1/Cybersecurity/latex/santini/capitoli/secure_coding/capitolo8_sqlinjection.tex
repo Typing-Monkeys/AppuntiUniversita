@@ -68,7 +68,7 @@ e quello dei dati.
 
 Prendiamo in esame il seguente codice SQL:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Sql]
     SELECT id, firstname, lastname
     FROM authors
     WHERE firstname = $input1 AND lastname = $input2
@@ -77,14 +77,14 @@ Prendiamo in esame il seguente codice SQL:
 Assumiamo che il valore delle due variabili \verb|\$input1| \verb|\$input2|
 sia:
 
-\begin{lstlisting}
-    $input1 = evil'ex
-    $input2 = Newman
+\begin{lstlisting}[language=PHP]
+    $input1 = "evil'ex"
+    $input2 = "Newman"
 \end{lstlisting}
 
 La query quindi risulterà essere la seguente:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Sql]
     SELECT id, firstname, lastname
     FROM authors
     WHERE firstname = 'evil'ex' AND lastname = 'Newman'

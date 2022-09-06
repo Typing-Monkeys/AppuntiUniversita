@@ -667,9 +667,9 @@ invece di tornare all'istruzione subito dopo la chiamata in main() ritorna al ra
 accesso al sistema.
 Un metodo per capire dove è salvato il return address di una funzione nello stack è
 l'utilizzo del comando
-\verb|void * __builtin_return_address (unsigned int level)| il quale permette di con
-un valore di 0 di avere il return address della funzione corrente e con un valore di
-1 ritorna il valore della funzione chiamante. Questa tecnica di buffer overflow si
+\verb|void * __builtin_return_address (unsigned int level)| il quale permette, con
+input \verb|0|, di avere il return address della funzione corrente e, con un valore di
+\verb|1|, ritorna il valore della funzione chiamante. Questa tecnica di buffer overflow si
 chiama \textbf{Arc Injection}.
 
 
@@ -690,7 +690,7 @@ per vari motivi:
 
 \subsection{Code Injection (Shell Code)}
 
-Quando l'indirizzo di ritorno viene sovrascritto a causa di un software difetto,
+Quando l'indirizzo di ritorno viene sovrascritto a causa di un difetto nel software,
 raramente indica istruzioni valide. Per un attaccante è possibile creare delle
 stringhe speciali che contengono \textbf{un puntatore a qualche codice malevolo},
 sempre creato dall'attaccante. Questo implica che quando il return address sovrascritto

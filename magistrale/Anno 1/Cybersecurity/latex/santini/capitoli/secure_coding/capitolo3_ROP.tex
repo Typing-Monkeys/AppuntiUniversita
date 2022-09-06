@@ -9,7 +9,7 @@ come risultato delle scelte fatte dal compilatore durante la generazione del cod
 
 \section{Funzionamento dell'attacco}
 
-La ROP è una tecnica simile all'arc injection, ma invece di ritornare alle funzioni,
+La ROP è una tecnica simile all'Arc Injection, ma invece di ritornare alle funzioni,
 il codice di exploit ritorna a sequenze di istruzioni seguite da un return (\textbf{ret}).
 Ogni sequenza di istruzioni utile è chiamata \textbf{gadget},
 ognuno di essi specifica determinati valori da inserire nello stack che permettono
@@ -135,7 +135,7 @@ la scrittura di exploit il più semplice possibile.
 \newpage
 \section{Forme di mitigazione}
 
-Nella versione 4.1, GCC ha introdotto \textbf{Stack-Smashing Funzione Protector (SSP)},
+Nella versione 4.1, GCC ha introdotto \textbf{Stack-Smashing Protector (SSP)},
 che implementa i canarini derivati da StackGuard.
 
 \subsection{Stack-Smashing Protector}
@@ -149,7 +149,7 @@ in modo da evitare la corruzione dei puntatori.
 \subsection{I canarini}
 
 I canarini consistono in un valore difficile da inserire o falsificare e sono scritti
-in un indirizzo prima della sezione di a pila da proteggere.
+in un indirizzo prima della sezione della pila da proteggere.
 Di conseguenza, una scrittura sequenziale dovrebbe sovrascrivere questo valore per
 arrivare alla regione protetta.
 
@@ -193,4 +193,4 @@ nel kernel così
 che nessuna parte dello spazio degli indirizzi del processo è sia scrivibile che
 eseguibile.
 Questa politica è chiamata W xor X (W$\bigoplus$X) ed è supportato dall'uso di un
-bit No eXecute (NX) attivo diverse CPU.
+bit No eXecute (NX) attivo in diverse CPU.
