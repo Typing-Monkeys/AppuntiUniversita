@@ -169,12 +169,72 @@ operazioni con i signed):
     \caption{Tabella raffigurante le operazioni che effettuano wraparound su signed.}
 \end{figure}
 
+\newpage
+
 \subsection{Esempi}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=12cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/esempi.png}
-\end{figure}
+\textbf{\textit{Esempio}}
+
+\begin{lstlisting}[language=C,  basicstyle=\scriptsize]
+void getComment(size_t len, char *str) {
+    size_t size;
+    size = len - 2;
+    char *comment = (char *)malloc(size + 1);
+    memcpy(comment, src, size);
+    return;
+}
+
+int main(int argc, char *argv[]) {
+    getComment(1, "Comment ");
+    return 0;
+}\end{lstlisting}
+
+Cosa succede se \verb|len| ha dimensione 1? \verb|size| diventa il massimo
+numero rappresentabile (perché \verb|1 - 2| dà questo risultato ed è unsigned.
+Sarebbe \(2^{64} - 1\)). A quel punto la \verb|malloc(size + 1)| diventerà uguale a
+0. Avere \verb|malloc = 0| porta ad un \textbf{comportamento indefinito}. Le
+conseguenze di questo vento dipendono dal compilatore.\\
+
+\textbf{\textit{Esempio}}
+
+\begin{lstlisting}[language=C,  basicstyle=\scriptsize]
+void initialize_array(int size) {
+    if (size < MAX_ARRAY_SIZE) {
+        array = malloc(size);
+        /* initialize array */
+    } else {
+        /* handle error */
+    }
+}\end{lstlisting}
+
+Esempio di un \textbf{errore di conversione}. La \verb|malloc| prende un
+\verb|size_t| unsigned come argomento ma in questo caso gli viene passato un
+\verb|size| intero. Posso subito passare dei valori particolari negativi che
+causeranno problemi.\\
+
+\textbf{\textit{Esempio}}
+
+\begin{lstlisting}[language=C,  basicstyle=\scriptsize]
+int main(int argc, char *argv[]) {
+    unsigned short int total;
+    total = strlen(argv[1]) + strlen(argv[2]) + 1;
+    char *buff = (char *)malloc(total);
+    strcpy(buff, argv[1]);
+    strcpy(buff, argv[2]);
+    /* ... */
+}\end{lstlisting}
+
+Errori di \textbf{troncamento}. Si vogliono copiare due stringhe passate come
+parametro (\verb|argv[1]| e \verb|argv[2]| alle linee 5 e 6) dentro un buffer unico.
+Una volta copiate vengono concatenate. \verb|total| memorizza la lunghezza delle
+due stringhe; alla linea 3 viene aggiunto 1 per il carattere di terminazione.
+Alla linea 4 faccio la \verb|malloc| di \verb|total|. Supponiamo che il primo
+parametro \verb|argv[1]| sia di 65500 chars e \verb|argv[2]| sia di 536 chars.
+\verb|total| viene calcolato dalla line 3 come 65537 (\(65500 + 536 + 1\)). Un
+\verb|UINT_MAX| però è al massimo di 65535, quindi \verb|total| non ci può rientrare.
+Viene allocata una stringa di 1 solo char. Tutto ciò che viene passato da
+tastiera (ad eccezione del primo char) è buffer overflow. Il buffer è lungo 1 e
+ci copio dentro 65537 caratteri.
 
 \section{Vulnerabilità degli Interi}
 
