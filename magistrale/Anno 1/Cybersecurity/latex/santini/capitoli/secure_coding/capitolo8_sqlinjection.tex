@@ -108,13 +108,13 @@ Prendiamo in esame il seguente codice \verb|C#|:
     ...
 \end{lstlisting}
 
-Se l'utente \verb|wiley| imposta il valore dell'attributo \verb|ItemName.Text|
-a \verb|name' OR 'a'='a'|, la query risulterà essere:
+Se l'utente \verb|wiley| imposta il valore dell'attributo\\
+\verb|ItemName.Text| a \verb|name' OR 'a'='a'|, la query risulterà essere:
 
 \begin{lstlisting}[language=SQL]
     SELECT * FROM items
-    WHERE owner = 'wiley'
-        AND itemname = 'name' OR 'a'='a';
+    WHERE (owner = 'wiley' AND itemname = 'name')
+        OR 'a'='a';
 \end{lstlisting}
 
 Che il database interpreterà come:
@@ -301,9 +301,9 @@ al database.
     $mysqli->query($query);
 \end{lstlisting}
 
-Questa funzione antepone il carattere \verb|\\| (backslash) ai seguenti caratteri,
+Questa funzione antepone il carattere \verb|\| (backslash) ai seguenti caratteri,
 effettuando quindi operazioni di escaping: \verb|\\x00|, \verb|\\n|, \verb|\\r|,
-\verb|\\|, \verb|'|, \verb|"| e \verb|\\x1a| (EOF).
+\verb|\\|, \verb|\'|, \verb|\"| e \verb|\\x1a| (EOF).
 
 \subsection{Altre Difese Aggiuntive}
 

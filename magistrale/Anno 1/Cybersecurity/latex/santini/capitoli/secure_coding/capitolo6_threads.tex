@@ -85,14 +85,14 @@ I registri possono essere
 trattati come due metà differenti, indipendentemente dalla dimensione.
 Come il compilatore
 compila e come il processore si organizza è trasparente al programmatore.
-Supponiamo che l'assegnamento venga effettuato in due parti da 32 bit.
-Il thread 2 scrive 300, cioè $256+44$. Prima setta la parte bassa,
+Supponiamo che l'assegnamento venga effettuato in due parti da 8 bit.
+Il thread 2 scrive 300, cioè $255+45$. Prima setta la parte bassa,
 cioè la parte meno
-significativa, a $44$; quella più significativa ad $1$.
+significativa, a $45$; quella più significativa ad $255$.
 $300$ infatti non ci sta in 8 bit.
 Nel mentre però arriva il thread 1 che setta solo la parte bassa, quella meno \
 significativa a $100$.
-Alla fine la variabile \verb|x| conterrà il valore $100+256=356$.
+Alla fine la variabile \verb|x| conterrà il valore $100+255=355$.
 
 \section{Race Condition su File}
 
