@@ -110,7 +110,7 @@ le credenziali per la successiva:
 \begin{enumerate}
       \item All’autenticazione si ottiene \verb|authK| e \verb|authTicket|.
             Il primo per autenticarsi e rendere
-            confidenziale la trasmissione con il TGS, il secondo per ottenere
+            riservata la trasmissione con il TGS, il secondo per ottenere
             il servizio del TGS;
       \item Nell’autorizzazione da parte del TGS, si ottiene \verb|servK| e
             \verb|servTicket|, da presentare per il
@@ -220,7 +220,8 @@ Validità:
 \begin{itemize}
       \item di \verb|authK| (ossia di \verb|Ta|) in ore, diciamo \(L_a\)
       \item di \verb|servK| (ossia di \verb|Ts|) in minuti, diciamo \(L_s\)
-      \item di un autenticatore (ossia di \verb|T1|, \verb|T2| e \verb|T3|) in sec.
+      \item di un autenticatore (ossia di \verb|T1|, \verb|T2| e \verb|T3|) in
+            secondi.
 \end{itemize}
 
 TGS può generare \verb|servK| solo qualora sia \(Ts + L_s \le Ta + L_a\),

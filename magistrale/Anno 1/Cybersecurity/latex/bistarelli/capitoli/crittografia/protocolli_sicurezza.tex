@@ -31,8 +31,8 @@ permettono di individuare l'intruder:
     \item Creare messaggi fasulli da componenti già note;
 \end{itemize}
 
-% TODO Cambiare nomenclatura robe con aspetto matematico
-\section{Autenticazione di utenti remoti con Needham-Schr\"{o}der (1978)}
+\section[Autenticazione di utenti remoti con Needham-Schr\"{o}der
+(1978)]{Autenticazione di utenti remoti\\ con Needham-Schr\"{o}der (1978)}
 
 Sono stati definiti vari protocolli a riguardo. L'obiettivo è quello di
 garantire l'autenticazione
@@ -127,7 +127,7 @@ Ive è uno dei partecipanti al protocollo:
 \end{enumerate}
 Tutti i partecipanti, nel momento in cui ricevono dei messaggi, devono
 verificare che gli invii
-corrispondano a quanto specificato nel protocollo.Se così non fosse, tutta
+corrispondano a quanto specificato nel protocollo. Se così non fosse, tutta
 l'esecuzione cadrebbe e
 verrebbe riavviata da zero.
 
@@ -159,7 +159,7 @@ ma continua ad essere utilizzata.
 Sappiamo che Alice ha condiviso con Ive il nonce \(N_a\) da lei generata, ma
 questa in realtà è stata
 inoltrata anche a Bob. Bob, nel caso in cui avesse delle intenzioni
-malevole, potrebbe utilizzare Na
+malevole, potrebbe utilizzare \(Na\)
 ai danni di Alice: se Alice vedesse arrivare un messaggio contenente \(N_a\)
 e \(N_b\), infatti, penserebbe
 che questo sia stato inviato da Ive. Bob però, conoscendo l'importanza di
@@ -190,7 +190,7 @@ con Bob (\(B\)).
 
 \begin{enumerate}
     \item A invia un messaggio pubblico a B;
-    \item B invia ad A una nonce \(N_b\) ad A per verificare che stia
+    \item B invia ad A una nonce \(N_b\) per verificare che stia
           effettivamente comunicando con lei. Anche questo messaggio è
           pubblico;
     \item A riceve \(N_b\) e la inoltra di risposta a Bob, ma criptata con

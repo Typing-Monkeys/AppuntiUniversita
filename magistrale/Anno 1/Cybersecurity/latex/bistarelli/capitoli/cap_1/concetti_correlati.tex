@@ -23,7 +23,7 @@ sbagliati e di conseguenza rende più difficile gli attacchi interni.
 
 Una minaccia (\textbf{threat}) è una potenziale violazione della sicurezza.
 In realtà non è necessario che avvenga concretamente una violazione per essere
-considerata una minaccia basta il solo fatto che ci sia la possibilità necessita che
+considerata una minaccia basta il solo fatto che ci sia la possibilità che
 il sistema debba essere protetto.
 Le azioni che causano una minaccia sono chiamati \textbf{attacchi}. Coloro che
 mettono in pratica queste azioni, o permettono che esse siano eseguite, sono
@@ -31,51 +31,51 @@ invece chiamati \textbf{attaccanti}.
 Le \textit{minacce} possono essere classificate in:
 
 \begin{itemize}
-    \item \textit{Disclosure}: accesso non autorizzato alle informazioni
-          (violazione della confidenzialità);
-    \item \textit{Deception}: accettazione di dati falsi
-          (violazione dell’integrità e dell’autenticazione);
-    \item \textit{Disruption}: corrisponde al DoS
-          (violazione della disponibilità);
-    \item \textit{Usurpation}: controllo non autorizzato di un sistema o parte
-          di esso.
+      \item \textit{Disclosure}: accesso non autorizzato alle informazioni
+            (violazione della riservatezza);
+      \item \textit{Deception}: accettazione di dati falsi
+            (violazione dell’integrità e dell’autenticazione);
+      \item \textit{Disruption}: corrisponde al DoS
+            (violazione della disponibilità);
+      \item \textit{Usurpation}: controllo non autorizzato di un sistema o parte
+            di esso.
 \end{itemize}
 
 Tra gli \textit{attacchi} più diffusi troviamo:
 
 \begin{itemize}
-    \item \textbf{Snooping}: È una minaccia di tipo \textit{Disclosure}.
-          Consiste nell’ascolto o nella lettura passiva (intercettazione) di
-          informazioni. Si parla di \textit{Wiretapping} passivo se l’oggetto
-          di ascolto è la rete stessa. La riservatezza si occupa di evitare
-          che questa minaccia possa essere applicata;
-    \item \textbf{Modification}: Consiste nella modifica non autorizzata delle
-          informazioni. Copre tre classi di minacce. L’obiettivo potrebbe essere
-          una \textit{Deception} se l’intenzione è fare in modo che i dati siano
-          accettati in modo alterato. Potrebbe essere una \textit{Disruption}
-          ed una \textit{Usurpation} se la modifica dei dati consente l’esecuzione
-          di azioni non legittime. Il \textit{Wiretapping} attivo se i dati che
-          transitano nella rete sono soggetti ad una modifica non autorizzata.
-          Un esempio di attacco è il “\textbf{man-in-the-middle}”, nel quale un
-          intruso legge i messaggi dal mittente e li invia modificati al
-          destinatario senza farsi notare. L’integrità si occupa di evitare che
-          questa minaccia possa essere applicata;
-    \item \textbf{Masquerading o Spoofing}: Si tratta di un furto di identità.
-          È un attacco di tipo \textit{Deception} e \textit{Usurpation}.
-          Si basa sul far credere ad una vittima che l’entità con cui sta
-          comunicando è un’altra. L’integrità si occupa di evitare che questa
-          minaccia possa essere applicata;
-    \item \textbf{Ripudio dell’origine}: Si tratta di una forma di \textit{Deception}
-          che consiste nel negare l’origine (invio o creazione) di un determinato
-          elemento (ad esempio di un messaggio). L’integrità si occupa di questo
-          attacco;
-    \item \textbf{Ripudio della ricezione}: Si tratta di una forma di \textit{Deception}
-          che consiste nel negare di aver ricevuto un determinato elemento.
-          L’integrità si occupa di questo attacco;
-    \item \textbf{Denial of Service}: Consiste in una negazione a lungo termine
-          di un servizio. È una forma di \textit{Usurpation}, sebbene possa
-          rientrare anche nella \textit{Disruption}. L’attaccante non permette
-          ad un server di fornire un servizio.
+      \item \textbf{Snooping}: È una minaccia di tipo \textit{Disclosure}.
+            Consiste nell’ascolto o nella lettura passiva (intercettazione) di
+            informazioni. Si parla di \textit{Wiretapping} passivo se l’oggetto
+            di ascolto è la rete stessa. La riservatezza si occupa di evitare
+            che questa minaccia possa essere applicata;
+      \item \textbf{Modification}: Consiste nella modifica non autorizzata delle
+            informazioni. Copre tre classi di minacce. L’obiettivo potrebbe essere
+            una \textit{Deception} se l’intenzione è fare in modo che i dati siano
+            accettati in modo alterato. Potrebbe essere una \textit{Disruption}
+            ed una \textit{Usurpation} se la modifica dei dati consente l’esecuzione
+            di azioni non legittime. Il \textit{Wiretapping} attivo se i dati che
+            transitano nella rete sono soggetti ad una modifica non autorizzata.
+            Un esempio di attacco è il “\textbf{man-in-the-middle}”, nel quale un
+            intruso legge i messaggi dal mittente e li invia modificati al
+            destinatario senza farsi notare. L’integrità si occupa di evitare che
+            questa minaccia possa essere applicata;
+      \item \textbf{Masquerading o Spoofing}: Si tratta di un furto di identità.
+            È un attacco di tipo \textit{Deception} e \textit{Usurpation}.
+            Si basa sul far credere ad una vittima che l’entità con cui sta
+            comunicando è un’altra. L’integrità si occupa di evitare che questa
+            minaccia possa essere applicata;
+      \item \textbf{Ripudio dell’origine}: Si tratta di una forma di \textit{Deception}
+            che consiste nel negare l’origine (invio o creazione) di un determinato
+            elemento (ad esempio di un messaggio). L’integrità si occupa di questo
+            attacco;
+      \item \textbf{Ripudio della ricezione}: Si tratta di una forma di \textit{Deception}
+            che consiste nel negare di aver ricevuto un determinato elemento.
+            L’integrità si occupa di questo attacco;
+      \item \textbf{Denial of Service}: Consiste in una negazione a lungo termine
+            di un servizio. È una forma di \textit{Usurpation}, sebbene possa
+            rientrare anche nella \textit{Disruption}. L’attaccante non permette
+            ad un server di fornire un servizio.
 \end{itemize}
 
 \subsection{Policy e Meccanismi}
@@ -91,12 +91,12 @@ ed i loro effetti, si stabiliscono quali contromisure adottare.
 L’affidabilità di un meccanismo di sicurezza richiede diverse assunzioni:
 
 \begin{enumerate}
-    \item Ogni meccanismo è stato ideato per implementare una o più richieste
-          di una politica di sicurezza;
-    \item L’unione di tutti i meccanismi copre tutti gli aspetti della policy
-          di sicurezza;
-    \item Il meccanismo è stato implementato correttamente;
-    \item Il meccanismo è installato e amministrato correttamente.
+      \item Ogni meccanismo è stato ideato per implementare una o più richieste
+            di una politica di sicurezza;
+      \item L’unione di tutti i meccanismi copre tutti gli aspetti della policy
+            di sicurezza;
+      \item Il meccanismo è stato implementato correttamente;
+      \item Il meccanismo è installato e amministrato correttamente.
 \end{enumerate}
 
 Un meccanismo di sicurezza tipico è dato dalla verifica dell’identità prima di
@@ -104,18 +104,18 @@ cambiare una password.
 Esistono meccanismi di:
 
 \begin{itemize}
-    \item \textit{Prevenzione}: prevengono attacchi derivati dalla violazione delle
-          politiche di sicurezza;
-    \item \textit{Individuazione}: individuano attacchi di violazione alle
-          politiche di sicurezza;
-    \item \textit{Ripristino}: rappresentano le azioni da eseguire a fronte di
-          un attacco.
-          Le possibili alternative sono:
-          \begin{itemize}
-              \item il blocco dell’attacco e la riparazione dei danni causati.
-              \item non si agisce sull'attacco ma si immagazzinano informazioni
-                    sull'attaccante;
-              \item ritorsione (retaliation) eseguendo un attacco verso
-                    l’attaccante.
-          \end{itemize}
+      \item \textit{Prevenzione}: prevengono attacchi derivati dalla violazione delle
+            politiche di sicurezza;
+      \item \textit{Individuazione}: individuano attacchi di violazione alle
+            politiche di sicurezza;
+      \item \textit{Ripristino}: rappresentano le azioni da eseguire a fronte di
+            un attacco.
+            Le possibili alternative sono:
+            \begin{itemize}
+                  \item il blocco dell’attacco e la riparazione dei danni causati.
+                  \item non si agisce sull'attacco ma si immagazzinano informazioni
+                        sull'attaccante;
+                  \item ritorsione (retaliation) eseguendo un attacco verso
+                        l’attaccante.
+            \end{itemize}
 \end{itemize}
