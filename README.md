@@ -38,6 +38,12 @@ Un grazie speciale va anche a queste persone che ci hanno aiutato fornedo il lor
   - Chiarimenti e aiuti sulla parte di configurazione del servizio HTCondor
 - [@CristianCosci](https://github.com/CristianCosci):
   - Revisione e aggiornamento degli appunti di HPC 
+- [@Luchinzzz](https://github.com/Luchinzzz)
+  - Appunti di Computability and Complexity
+  - Appunti di Cybersecurity
+- [@F-a-b-r-i-z-i-o](https://github.com/F-a-b-r-i-z-i-o)
+  - Appunti di Cybersecurity
+  - Appunti di Computability and Complexity
 
 ## Contribuire
 

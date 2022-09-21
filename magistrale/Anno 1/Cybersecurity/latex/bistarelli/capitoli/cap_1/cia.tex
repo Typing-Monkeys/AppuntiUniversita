@@ -1,0 +1,90 @@
+\section{C.I.A.}
+
+Quando si parla di protezione e sicurezza dei dati informatici,
+esistono \textbf{tre principi fondamentali} su cui focalizzare l'attenzione,
+in nome di una corretta gestione: vale a
+dire \textbf{Confidentiality} (\textit{Riservatezza}),
+\textbf{Integrity} (\textit{Integrità}) e
+\textbf{Availability} (\textit{Disponibilità})
+(detta anche “\textit{Triade C.I.A.}").
+Tali principi devono essere ricercati in ogni soluzione di sicurezza, tenendo
+conto anche delle implicazioni introdotte dalle vulnerabilità e dai rischi.
+Per questo motivo vengono detti “componenti base”:
+
+\paragraph{Riservatezza dei Dati:}
+
+Una strategia volta alla privacy informatica deve in prima battuta offrire
+riservatezza, ovvero garantire che i dati e le risorse siano preservati dal
+possibile utilizzo o accesso da parte di soggetti non autorizzati.
+Ciò deve valere per tutte le fasi di vita del dato.
+Le cause di violazione della riservatezza possono essere imputabili ad un attacco
+malevolo oppure ad un errore umano. Le modalità di attacco possono essere molteplici:
+si va per esempio dalla sottrazione di password all’intercettazione di dati su
+una rete. Meccanismi per garantire la riservatezza possono essere:
+
+\begin{itemize}
+    \item controllare l'accesso ai dati cifrandoli:
+          solo chi ha la chiave riesce ad accedervi;
+    \item meccanismi dipendenti dal sistema (sono a più basso livello).
+\end{itemize}
+
+Se viene usato un certo meccanismo, significa che si sono fatte delle assunzioni
+di affidabilità, quindi si presuppone che esso sia funzionante e perciò posso fidarmi.
+Si potrebbe argomentare, in realtà, che la riservatezza debba anche affrontare,
+non solo la necessità di voler nascondere il contenuto di un documento da occhi
+indesiderati, ma anche la sua esistenza. Se consideriamo, ad esempio, l’analisi
+di un sistema di comunicazione, potremmo certamente non essere in grado di leggere
+i messaggi da due utenti, ma allo stesso tempo potremmo derivare informazioni
+importanti in base alla frequenza di scambio di messaggi.
+Pensiamo, ad esempio, alla frequenza di messaggi scambiati da un Server bancario
+rispetto a quella di un semplice utente.
+La definizione di riservatezza dovrebbe essere in grado quindi di coprire un
+altro aspetto, chiamato \textit{Unlinkability}: due o più oggetti di interesse
+(messaggi, azioni, eventi, utenti) non sono correlabili se un attaccante non è
+in grado di distinguere la loro relazione.
+Non di meno, la definizione di riservatezza dovrebbe includere anche la
+possibilità che un utente non voglia poter essere riconosciuto. Vogliamo cioè
+l'\textit{Anonimato}: un utente è Anonimo se non può essere identificato in
+un insieme di soggetti anonimi.
+
+\paragraph{Integrità:}
+intesa come capacità di mantenere la veridicità dei dati e delle risorse e
+garantire che non siano in alcun modo modificati o cancellati, se non ad opera
+di soggetti autorizzati. Consiste quindi nella prevenzione verso modifiche
+improprie o non autorizzate dei dati, al fine di garantire una fiducia sugli stessi.
+Per assicurare l’integrità è necessario mettere in atto policy di autenticazione
+chiare e monitorare costantemente l’effettivo accesso ed utilizzo delle risorse,
+con strumenti in grado di creare log di controllo. Le violazioni all’integrità
+dei dati possono avvenire a diversi livelli.
+Ad essa è spesso affiancata l'autenticazione: infatti, oltre a concentrarsi sui
+cambiamenti del contenuto, occorre salvaguardarsi anche dalle modifiche che
+possono cambiare l’origine dei dati. Si può quindi spesso effettuare un attacco
+sia di autenticazione che di integrità: per esempio, quando in un messaggio viene
+cambiato il mittente.
+I possibili meccanismi per garantire l'integrità sono:
+
+\begin{itemize}
+    \item la \textbf{prevenzione}: che consiste nel vietare le modifiche a
+          chiunque o ad utenti
+          specificatamente non autorizzati (ciò è però difficile da ottenere);
+    \item la \textbf{scoperta}: cioè accorgersi che ci sono state modifiche
+          nell'origine o nel contenuto dei dati
+          e reagire in modo opportuno.
+\end{itemize}
+
+\paragraph{Disponibilità:}
+si riferisce alla possibilità, per i soggetti autorizzati, di poter accedere
+alle risorse di cui hanno bisogno per un tempo stabilito ed in modo ininterrotto.
+Rendere un servizio disponibile significa anche garantire che le risorse
+infrastrutturali siano pronte per la corretta erogazione di quanto richiesto.
+Devono quindi essere messi in atto meccanismi in grado di mantenere i livelli di
+servizio definiti.
+È più difficile effettuare un attacco alla disponibilità della risorsa piuttosto
+che alla sua affidabilità (reliability). Va anche detto che la disponibilità è
+più facile da garantire rispetto all'affidabilità.
+I possibili attacchi in questo campo sono per esempio:
+
+\begin{itemize}
+    \item la manipolazione dell'utilizzo di dati e risorse;
+    \item Denial of Service (DoS).
+\end{itemize}

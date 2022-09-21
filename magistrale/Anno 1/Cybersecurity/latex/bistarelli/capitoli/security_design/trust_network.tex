@@ -1,0 +1,41 @@
+\section{Trust Network Brainstorming}
+
+Ogni sistema di sicurezza dipende dalla fiducia, in una forma o nell'altra,
+degli utenti del sistema. In
+generale esistono diverse forme di fiducia per affrontare diversi tipi di problemi
+e mitigare il rischio
+in determinate condizioni. Quale forma di fiducia applicare in una determinata
+circostanza è generalmente dettata dalla politica aziendale.
+Le \textbf{trust network} (reti di fiducia) consistono in ramificazioni di
+connessioni interpersonali costituite principalmente da forti legami,
+all'interno dei quali le persone mettono a rischio risorse e imprese di
+valore, conseguenti, a lungo termine, a rischio di illeciti, errori o fallimenti
+altrui.
+Le relazioni di fiducia consentono agli utenti di un dominio di accedere alle
+risorse di un altro dominio. I trust funzionano facendo sì che un dominio si
+affidi all'autorità dell'altro dominio per
+l'autenticazione dei suoi account utente.
+La scelta che deve affrontare l'amministratore della sicurezza consiste nel
+dare maggiore importanza all'autonomia o alla sicurezza del sistema:
+in entrambi i casi, l'altro aspetto verrà necessariamente sacrificato.
+
+Le proprietà del trust sono:
+
+\begin{itemize}
+    \item grafo in cui i nodi sono gli utenti mentre gli archi indicano la
+          relazione di fiducia;
+    \item peso associato ad ogni arco (\verb|0 = mistrust|, \verb|1 = max trust|);
+    \item soggettività: l'utente può avere opinioni differenti rispetto agli altri;
+    \item asimmetria: la fiducia che detiene un utente verso un altro non
+          deve essere
+          necessariamente speculare;
+    \item indipendenza dal contesto.
+\end{itemize}
+
+\paragraph{Semirings}
+viene utilizzata come struttura generica per il calcolo della
+fiducia nelle reti fiduciarie (cioè pesate). I \textit{semirings} “bipolari”
+permettono di considerare insieme fiducia e sfiducia e di avere
+così una composizione sicura delle reti trust
+(avviene una fusione critica ogni volta che due comunità basate sulla fiducia
+devono essere amalgamate).

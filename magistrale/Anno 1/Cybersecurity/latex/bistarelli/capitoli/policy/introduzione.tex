@@ -1,0 +1,112 @@
+La Policy sulla Sicurezza Informatica è quel documento nel quale sono
+contenute tutte le
+disposizioni, comportamenti e misure organizzative richieste ai dipendenti
+e/o collaboratori
+aziendali per contrastare i rischi informatici. Si va a identificare tutte
+quelle regole che possono
+essere stabilite su un Server così che le workstation collegate vengano
+"controllate" nella stessa
+maniera e per fare in modo che su di esse siano presenti le stesse
+caratteristiche.
+L'obiettivo è quello di garantire i tre goal della Sicurezza:
+riservatezza, integrità e disponibilità.
+Il compito della policy è quello di stabilire cosa è permesso e cosa non
+lo è, cioè distinguere cosa è
+reputato sicuro (e quindi autorizzato) da cosa invece può portare ad una
+violazione del sistema. Il
+sistema si muove da uno stato ad un altro. Ciò che deve fare la policy è
+fare in modo che questo
+non assuma mai in stati non sicuri. Un sistema si dice “sicuro” quando ciò
+non accade mai.
+Quando un sistema permette ad un utente o ad un processo di entrare in uno
+stato non autorizzato
+si dice che si è verificato un “security breach”.
+Sia X un set di entità e I un informazione:
+\begin{itemize}
+      \item I ha riservatezza con rispetto a X se nessun membro di X può
+            ottenere alcuna
+            informazione su I;
+      \item I ha integrità con rispetto a X se tutti i membri di X si fidano
+            di I. Le nozioni di “fiducia” e
+            “integrità” sono collegate. Se un sistema ha integrità, dobbiamo
+            fidarci del fatto che il suo
+            comportamento è corretto. Se I è una risorsa, la sua integrità implica
+            che essa funzioni
+            come dovrebbe (assurance);
+      \item I ha disponibilità con rispetto a X se tutti i membri di X hanno
+            accesso ad I.
+\end{itemize}
+
+
+\paragraph{Confidentiality Policy.}
+
+Il suo scopo è garantire che tutto lo staff comprenda i requisiti
+dell'organizzazione in relazione alla
+divulgazione di dati personali e informazioni riservate.
+Riguardo al flusso delle informazioni è possibile possedere diversi
+diritti. Si può, infatti:
+\begin{itemize}
+      \item Trasferire i diritti di accesso;
+      \item Trasferire le informazioni senza però trasferire i diritti;
+      \item Avere diritto di accesso alle informazioni solo per un certo
+            periodo di tempo.
+\end{itemize}
+
+Il modello della policy spesso dipende dalla fiducia.
+
+\paragraph{Integrity Policy.}
+
+Definisce come l'informazione può essere modificata o alterata.
+Specifica:
+\begin{itemize}
+      \item Chi può effettivamente compiere queste operazioni;
+      \item Sotto quali condizioni i dati possono essere alterati;
+      \item Eventuali limiti sulle modifiche dei dati.
+\end{itemize}
+
+Un mezzo per ottenere l'integrità è la separazione dei compiti.
+Si deve fare in modo che tutte le operazioni compiute (transazioni) mantengano il sistema in uno
+stato “consistente”.
+
+\paragraph{Availability.}
+
+Tipi di disponibilità:
+\begin{itemize}
+      \item Tradizionale: x ha o no l'accesso;
+      \item Quality of Service: viene promesso un certo livello di accesso
+            che però non è garantito (ad esempio, un livello
+            specifico di larghezza di banda).
+\end{itemize}
+
+\paragraph{La policy e i suoi meccanismi: }
+La policy descrive ciò che è permesso e cosa no, i meccanismi,
+invece, controllano come questa viene implementata. Chiaramente gli utenti devono verificarsi
+della policy, ma anche dei meccanismi utilizzati.
+Le policy prese in considerazione per il controllo sugli accessi sono:
+\begin{itemize}
+      \item Discretionary Access Control (DAC): il proprietario determina i
+            diritti di accesso. Solitamente sono identity-based access control
+            (IBAC), ovvero il proprietario indica anche quali altri utenti
+            possono avere l'accesso;
+      \item Mandatory Access Control (MAC): policy più restrittive. Stabiliscono
+            a priori quali sono i comportamenti da evitare e quelli permessi.
+            Ciò non viene specificato da chi crea la risorse, ma anche dalle
+            regole generali che vengono messe in atto, per esempio quelle
+            aziendali;
+      \item Originator Controlled Access Control (ORCON): policy dove colui che
+            assegna i diritti è il creatore. I possessori dei file non detengono
+            diritti e non possono cederli a loro volta;
+      \item Role Based Access Control (RBAC): usate in ambito commerciale per la
+            gestione delle risorse a livello amministrativo e aziendale. Quando
+            si definisce una policy si devono sempre tenere presenti:
+            \begin{itemize}
+                  \item Gli utenti;
+                  \item I ruoli che essi ricoprono: utente, utente segreto,
+                        sistemista, utente negligente..
+                  \item Le operazioni che possono essere compiute o no: leggere,
+                        scrivere, “downgrade”, cambio password...
+                  \item Le modalità con cui vietare o consentire determinate
+                        operazioni: obbligo, permesso, divieto,
+                        discrezionalità..
+            \end{itemize}
+\end{itemize}
