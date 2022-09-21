@@ -12,12 +12,15 @@ I database delle organizzazioni tendono a concentrare le informazioni sensibili 
     
     \item Informazioni sanitarie e cartelle cliniche 
 \end{itemize}
+
 Per molte aziende e altre organizzazioni è importante poter fornire a clienti, partner e dipendenti l'accesso a queste informazioni. Tuttavia, tali informazioni possono essere oggetto di minacce interne ed esterne di uso improprio o di modifiche non autorizzate. Di conseguenza, la sicurezza specifica per i database è una componente sempre più importante di una strategia di sicurezza organizzativa complessiva. 
 
 \singlespacing
 
 Le seguenti sono le ragioni per le quali la sicurezza dei database non ha tenuto il passo con la crescente dipendenza dai database:
+
 \begin{enumerate}
+
     \item Esiste un drammatico squilibrio tra la complessità dei moderni sistemi di gestione dei database (DBMS) e le tecniche di sicurezza utilizzate per proteggere questi sistemi critici. Un DBMS è un software molto complesso e di grandi dimensioni, che offre molte opzioni, tutte da comprendere bene e da proteggere per evitare violazioni dei dati. Sebbene le tecniche di sicurezza siano progredite, la crescente complessità dei DBMS con molte nuove funzionalità e servizi, ha portato a una serie di nuove vulnerabilità e al potenziale uso improprio.
     
     \item I database dispongono di un sofisticato protocollo di interazione chiamato Structured Query Language (SQL), che è di gran lunga SQL (Structured Query Language), che è molto più complesso, ad esempio, del protocollo HTTP (Hypertext Transfer Protocol) utilizzato per interagire con un servizio Web. Una sicurezza efficace dei database richiede una strategia basata sulla piena comprensione delle vulnerabilità di sicurezza dell'SQL.
@@ -40,17 +43,15 @@ Un database del personale comprende un file del personale, come appena descritto
     \includegraphics[width=14cm, keepaspectratio]{Bistarelli/img/cap_5/figura5.1.png}
 \end{figure}
 
-
 Un linguaggio di interrogazione fornisce un'interfaccia uniforme al database per utenti e applicazioni.
-La Figura 5.1 mostra un diagramma a blocchi semplificato dell'architettura di un DBMS. I progettisti e gli amministratori di database utilizzano un linguaggio di definizione dei dati (DDL) per definire la struttura logica del database e le proprietà procedurali, che sono rappresentate da una serie di descrizioni del database.
-che sono rappresentate da una serie di tabelle di descrizione del database. Un linguaggio di manipolazione dei dati (DML) fornisce un potente insieme di strumenti per gli sviluppatori di applicazioni. I linguaggi di interrogazione sono
-linguaggi dichiarativi progettati per supportare gli utenti finali. Il sistema di gestione del database utilizza le tabelle di descrizione del database per gestire il database fisico.
+La Figura 5.1 mostra un diagramma a blocchi semplificato dell'architettura di un DBMS. I progettisti e gli amministratori di database utilizzano un linguaggio di definizione dei dati (DDL) per definire la struttura logica del database e le proprietà procedurali, che sono rappresentate da una serie di descrizioni del database. Un linguaggio di manipolazione dei dati (DML) fornisce un potente insieme di strumenti per gli sviluppatori di applicazioni. I linguaggi di interrogazione sono linguaggi dichiarativi progettati per supportare gli utenti finali. Il sistema di gestione del database utilizza le tabelle di descrizione del database per gestire il database fisico.
 L'interfaccia al database avviene attraverso un modulo di gestione dei file e un modulo di gestione delle transazioni.
 e un modulo di gestione delle transazioni. Oltre alla tabella di descrizione del database, altre due tabelle supportano il DBMS.
 
 \singlespacing
 
 Il DBMS utilizza tabelle di autorizzazione per garantire che l'utente abbia il permesso di eseguire la query. La tabella di accesso concorrente previene i conflitti quando vengono eseguiti comandi simultanei in conflitto. I sistemi di database forniscono un accesso efficiente a grandi volumi di dati e sono vitali per il funzionamento di molte organizzazioni. 
+
 \section{Sql Injection Attacks}
 L'attacco SQL injection (SQLi) è una delle minacce alla sicurezza della rete più diffuse e pericolose delle minacce alla sicurezza della rete. 
 
@@ -67,12 +68,14 @@ Considerate i seguenti rapporti:
     
     \item Il Trustwave 2016 Global Security Report [TRUS16] elenca gli attacchi SQLi come una delle due principali tecniche di intrusione. Il rapporto rileva che SQLi può rappresentare una minaccia significativa per i dati sensibili, come le informazioni di identificazione personale (PII) e i dati delle carte di credito, e può essere difficile prevenire e relativamente facile sfruttare questi attacchi.
 \end{enumerate}
+
 In termini generali, un attacco SQLi è progettato per sfruttare la natura delle pagine delle applicazioni Web.
 pagine web. A differenza delle pagine web statiche degli anni passati, la maggior parte dei siti web attuali hanno componenti e contenuti dinamici. Molte di queste pagine richiedono informazioni, come informazioni, come la posizione, le informazioni sull'identità personale e i dati della carta di credito. 
 
 \singlespacing
 
 Questo contenuto dinamico viene solitamente trasferito da e verso database back-end che contengono volumi di informazioni, dai dati dei titolari di carta di credito al tipo di scarpe da corsa più acquistato. La pagina web di un server applicativo esegue query SQL ai database per inviare e ricevere informazioni fondamentali per rendere positiva l'esperienza dell'utente. In un ambiente di questo tipo, un attacco SQLi è progettato per inviare comandi SQL dannosi al server di database. L'obiettivo più comune dell'attacco è l'estrazione in blocco dei dati. Gli aggressori possono scaricare tabelle di database con centinaia di migliaia di record di clienti. A seconda dell'ambiente, l'iniezione SQL può essere sfruttata anche per modificare o eliminare dati, eseguire comandi arbitrari del sistema operativo o lanciare attacchi denial-of-service (DoS). 
+
 \subsection{Un tipico attacco SQLi}
 SQLi è un attacco che sfrutta una vulnerabilità di sicurezza che si verifica nel livello di database di un'applicazione (come le query). Utilizzando l'iniezione SQL, l'aggressore può estrarre o manipolare i dati dell'applicazione web.
 L'attacco è attuabile quando l'input dell'utente viene filtrato in modo errato per i caratteri di escape letterali di stringa incorporati nelle istruzioni SQL oppure l'input dell'utente non è fortemente tipizzato e quindi viene eseguito inaspettatamente.
@@ -100,8 +103,10 @@ La Figura 5.5, tratta da, è un tipico esempio di attacco SQLi. I passi sono i s
     
     \item  Il server Web invia i dati della carta di credito all'hacker.
 \end{enumerate}
+
 \newpage
 \subsection{Vie e tipi di attacco SQLi}
+
 Possiamo caratterizzare gli attacchi SQLi in termini di vie di attacco e di tipo di attacco.
 
 \singlespacing
@@ -156,7 +161,9 @@ I tipi di attacco inferenziale includono i seguenti:
     L'iniezione SQL cieca consente agli aggressori di dedurre i dati presenti in un sistema di database anche quando il sistema è sufficientemente sicuro da non mostrare alcuna informazione errata all'aggressore. L'attaccante pone al server domande di tipo vero/falso. Se l'affermazione iniettata è vera, il sito continua a funzionare normalmente. Se l'affermazione risulta falsa, anche se non viene visualizzato alcun messaggio di errore descrittivo, la pagina differisce in modo significativo da quella normalmente funzionante.
 \end{itemize}
 In un attacco \textbf{out-of-band}, i dati vengono recuperati utilizzando un canale diverso (ad esempio, un'e-mail con i risultati della query). un'e-mail con i risultati della query e inviata al tester). Questo può essere Questo può essere utilizzato quando ci sono limitazioni nel recupero delle informazioni, ma la connettività in uscita dal dal server del database è debole.
+
 \subsection{Contromisure per attacchi SQLi}
+
 Poiché gli attacchi SQLi sono così diffusi, dannosi e variegati sia per modalità di attacco che per tipologia, una singola contromisura è insufficiente. È piuttosto necessario un insieme integrato di tecniche. Molti attacchi SQLi hanno successo perché gli sviluppatori hanno utilizzato pratiche di codifica poco sicure. Pertanto, la codifica difensiva è un modo efficace per ridurre drasticamente la minaccia di SQLi. 
 
 \singlespacing
@@ -178,6 +185,7 @@ Esempi di codifica difensiva sono i seguenti:
     
     Questo approccio utilizza l'incapsulamento delle database per fornire un modo sicuro e affidabile di accedere ai database. Questo cambia il processo di creazione delle query da un processo sregolato che utilizza la concatenazione di stringhe a uno sistematico che utilizza un tipo di processo sistematico che utilizza un'API con controllo di tipo. All'interno dell'API, gli sviluppatori di codice, come il filtraggio dell'input e il controllo rigoroso del tipo di input dell'utente.
 \end{itemize}
+
 Sono stati sviluppati diversi metodi di rilevamento, tra cui i seguenti:
 \begin{itemize}
     \item \textbf{Basato sulla firma:} Questa tecnica tenta di corrispondere a specifici schemi di attacco.
@@ -205,8 +213,10 @@ I DBMS commerciali e open-source forniscono un controllo di accesso discrezional
     
     \item \textbf{Amministrazione decentralizzata:} Oltre a concedere e revocare i diritti di accesso a una tabella, il proprietario della tabella può concedere e revocare i diritti di autorizzazione ad altri utenti, consentendo loro di concedere e revocare i diritti di accesso alla tabella.
 \end{itemize}
+
 Come ogni sistema di controllo degli accessi, un sistema di controllo degli accessi ai database distingue diversi diritti di accesso, tra cui creazione, inserimento, cancellazione, aggiornamento, lettura e scrittura. I diritti di accesso possono riguardare l'intero database, singole tabelle o righe o colonne selezionate all'interno di una tabella.
 o colonne all'interno di una tabella. 
+
 \subsection{Autorizzazioni a cascata}
 L'opzione di concessione consente di far passare un diritto di accesso a cascata attraverso un certo numero di utenti. 
 Consideriamo un diritto di accesso specifico e illustriamo il fenomeno della cascata nella Figura 5.6. La figura indica che Ann concede il diritto di accesso a Bob al tempo $t = 10$ e a Chris al tempo $t = 20$. Supponiamo che l'opzione di concessione sia sempre utilizzata. Pertanto, Bob è in grado di concedere il diritto di accesso a David al tempo $t = 30$. Chris concede in modo ridondante il diritto di accesso a David al tempo $t = 50$. Nel frattempo, David concede il diritto a Ellen, che a sua volta lo concede a Jim e successivamente David concede il diritto a Frank. Così come la concessione dei privilegi avviene a cascata da un utente all'altro utilizzando l'opzione grant, anche la revoca dei privilegi avviene a cascata. 
@@ -214,7 +224,6 @@ Consideriamo un diritto di accesso specifico e illustriamo il fenomeno della cas
 \singlespacing
 
 Così, se Ann revoca il diritto di accesso a Bob e Chris, il diritto di accesso viene revocato anche a David, Ellen, Jim e Frank. Una complicazione sorge quando un utente riceve lo stesso diritto di accesso più volte, come accade nel caso di David. Supponiamo che Bob revochi il privilegio a David. David ha ancora il diritto di accesso perché gli è stato concesso da Chris a $t = 50$. Tuttavia, David ha concesso il diritto di accesso a un altro utente. Tuttavia, David ha concesso il diritto di accesso a Ellen dopo aver ricevuto il diritto, con opzione di concessione, da Bob ma prima di riceverlo da Chris. La maggior parte delle implementazioni prevede che in questa circostanza il diritto di accesso a Ellen e quindi a Jim venga revocato quando Bob revoca il diritto di accesso a David. Questo perché a $t = 40$, quando David ha concesso il diritto di accesso a Ellen, David aveva solo l'opzione di concessione da parte di Bob. La revoca del diritto da parte di Bob provoca la revoca di tutte le successive concessioni a cascata riconducibili esclusivamente a Bob tramite David. Poiché David ha concesso il diritto di accesso a Frank dopo che a David era stato concesso il diritto di accesso con opzione di concessione da Chris, il diritto di accesso a Frank rimane. Questi effetti sono mostrati nella parte inferiore della Figura 5.6.
-
 
 \begin{figure}[H]
 	\centering
@@ -225,6 +234,7 @@ Così, se Ann revoca il diritto di accesso a Bob e Chris, il diritto di accesso 
 \begin{center}
     \textbf{Per generalizzare} la convenzione seguita dalla maggior parte delle implementazioni è la seguente. Quando l'utente A revoca un diritto d'accesso, viene revocato anche qualsiasi diritto d'accesso a cascata, a meno che a meno che quel diritto di accesso non esisterebbe anche se la concessione originale da parte di A non fosse mai avvenuta.
 \end{center}
+
 \subsection{Controllo dell'accesso basato sui ruoli}
 Uno schema di controllo degli accessi basato sui ruoli (RBAC) si adatta naturalmente al controllo degli accessi ai database. A differenza di un file system associato a una o poche applicazioni, un sistema di database supporta spesso decine di applicazioni. In un ambiente di questo tipo, un singolo un singolo utente può utilizzare una serie di applicazioni per eseguire una varietà di compiti, ognuno dei quali richiede un proprio insieme di privilegi. Sarebbe una pratica amministrativa scorretta concedere semplicemente di concedere agli utenti tutti i diritti di accesso di cui hanno bisogno per tutte le attività che svolgono. RBAC fornisce un mezzo per alleggerire il carico amministrativo e migliorare la sicurezza.
 
@@ -267,10 +277,13 @@ Un buon esempio dell'uso dei ruoli nella sicurezza dei database è la struttura 
 SQL Server supporta tre tipi di ruoli: 
 
 \begin{enumerate}
+
     \item Ruoli del server
     \item Ruoli del database 
     \item Ruoli definiti dall'utente.
+    
 \end{enumerate}
+
 I primi due tipi di ruoli sono definiti ruoli fissi (vedere Tabella 5.2); sono preconfigurati per un sistema con diritti di accesso specifici. diritti di accesso specifici. L'amministratore o l'utente non possono aggiungere, eliminare o modificare i ruoli fissi; è possibile solo aggiungere e rimuovere utenti come è possibile solo aggiungere e rimuovere utenti come membri di un ruolo fisso. I ruoli fissi del server sono definiti a livello di server ed esistono indipendentemente da qualsiasi database di utenti. database degli utenti. Sono progettati per facilitare il compito amministrativo.
 
 \begin{figure}[H]
@@ -288,11 +301,13 @@ Esistono due tipi di ruoli definiti dall'utente: Standard e Applicazione.
 \singlespacing
 
 \paragraph{Per un ruolo standard} un utente autorizzato può assegnare altri utenti al ruolo.
+
 \paragraph{Un ruolo applicativo} è associato a un'applicazione piuttosto che a un gruppo di utenti e richiede una password. Il ruolo viene attivato quando un'applicazione esegue il codice appropriato. Un utente che ha accesso all'applicazione può usare il ruolo di applicazione per accedere al database. Spesso le applicazioni di database applicano la propria sicurezza in base alla logica dell'applicazione. 
 
 \singlespacing
 
 Ad esempio, è possibile utilizzare un ruolo dell'applicazione con la propria password per consentire a un determinato utente di ottenere e modificare i dati solo in determinate ore. solo in determinati orari. In questo modo, è possibile realizzare una gestione della sicurezza più complessa all'interno della logica dell'applicazione.
+
 \section{Interferenze}
 L'inferenza, in relazione alla sicurezza dei database, è il processo di esecuzione di interrogazioni autorizzate e di deduzione di informazioni non autorizzate dalle risposte legittime ricevute.
 
@@ -302,7 +317,6 @@ L'inferenza, in relazione alla sicurezza dei database, è il processo di esecuzi
 	\centering
     \includegraphics[width=14cm, keepaspectratio]{Bistarelli/img/cap_5/figura5.7.png}
 \end{figure}
-
 
 Il problema dell'inferenza si presenta quando la combinazione di un certo numero di dati è più sensibile dei singoli elementi, oppure quando una combinazione di dati può essere utilizzata per dedurre dati di maggiore sensibilità. La Figura 5.7 illustra il processo. L'attaccante può utilizzare sia i dati non sensibili sia i metadati. 
 
@@ -348,6 +362,7 @@ La crittografia dei database presenta due svantaggi:
     \item \textbf{Inflessibilità}
     
     Quando una parte o la totalità del database è crittografata, diventa più difficile eseguire la ricerca dei record. La crittografia può essere applicata all'intero database, a livello di record (crittografia di record record selezionati), a livello di attributi (crittografia di colonne selezionate) o a livello di singoli campi.
+    
 \end{enumerate}
 Sono stati adottati diversi approcci alla crittografia dei database. In questa sezione, esaminiamo un approccio rappresentativo per un database multiutente. Un DBMS è un complesso insieme di hardware e software. Richiede una grande
 capacità di memorizzazione e richiede personale qualificato per la manutenzione, la protezione dai disastri, l'aggiornamento e la sicurezza.
@@ -439,6 +454,7 @@ Pertanto, la sicurezza dei data center è una priorità assoluta per qualsiasi a
 \singlespacing
 
 Alcune delle minacce più importanti da considerare sono le seguenti:
+
 \begin{itemize}
     \item Negazione del servizio
     
@@ -458,7 +474,7 @@ Alcune delle minacce più importanti da considerare sono le seguenti:
     \includegraphics[width=14cm, keepaspectratio]{Bistarelli/img/cap_5/figura5.12.png}
 \end{figure}
 
-La Figura 5.12 mette in evidenza gli aspetti importanti della sicurezza dei data center, rappresentati come un modello a quattro livelli. La sicurezza del sito si riferisce principalmente alla sicurezza fisica dell'intero sito, compreso l'edificio che ospita il data center. La sicurezza fisica del data center stesso comprende barriere all'ingresso, come ad esempio una all'ingresso, come ad esempio un mantra (uno spazio di controllo dell'accesso a due porte per una sola persona) e tecniche di autenticazione per ottenere l'accesso fisico. La sicurezza della rete è estremamente importante in una struttura in cui un insieme così ampio di risorse è concentrato in un unico luogo e accessibile da connessioni di rete esterne. In genere, un centro dati di grandi dimensioni impiega tutte le tecniche di sicurezza della rete tecniche di sicurezza di rete discusse in questo testo.
+La Figura 5.12 mette in evidenza gli aspetti importanti della sicurezza dei data center, rappresentati come un modello a quattro livelli. La sicurezza del sito si riferisce principalmente alla sicurezza fisica dell'intero sito, compreso l'edificio che ospita il data center. La sicurezza fisica del data center stesso comprende barriere all'ingresso, come ad esempio una all'ingresso, come ad esempio un mantra (uno spazio di controllo dell'accesso a due porte per una sola persona) e tecniche di autenticazione per ottenere l'accesso fisico. La sicurezza della rete è estremamente importante in una struttura in cui un insieme così ampio di risorse è concentrato in un unico luogo e accessibile da connessioni di rete esterne. 
 \subsection{TIA-492}
 Lo standard TIA (Telecommunications Industry Association) TIA-492 (Telecommunications Infrastructure Standard for Data Centers) specifica i requisiti minimi per le infrastrutture di telecomunicazione dei data center. 
 

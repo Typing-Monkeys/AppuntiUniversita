@@ -1,20 +1,23 @@
 \newpage
 \chapter{Capitolo3}
 \section{Principi dell'autenticazione digitale}
-L'autenticazione dell'utente è la base per la maggior parte dei controlli di accesso e per la responsabilità dell'utente.
 L'autenticazione dell'utente comprende due funzioni.
 
 \begin{enumerate}
     \centering
     \item L'utente si identifica al sistema presentando una credenziale, come l'ID utente.
+    
     \item Il sistema verifica l'utente attraverso lo scambio di informazioni di autenticazione.
 \end{enumerate}
 
 \paragraph{Esempio.} L'utente Alice Toklas potrebbe avere l'identificatore utente ABTOKLAS. Queste informazioni devono essere memorizzate su qualsiasi server o sistema di computer che Alice desidera utilizzare, e potrebbero essere note agli amministratori di sistema e ad altri utenti. Una tipica informazione di autenticazione associata a questo ID utente è una password, che è tenuta segreta (nota solo ad Alice e al sistema). Se nessuno è in grado di ottenere o indovinare la password di Alice, allora la combinazione di ID utente e password di Alice permette agli amministratori di impostare i permessi di accesso di Alice e di controllare la sua attività. Poiché l'ID di Alice non è segreto, gli utenti del sistema possono inviarle e-mail, ma poiché la sua password è segreta, nessuno può fingere di essere Alice.
 
 \begin{itemize}
+
     \item \textbf{L'identificazione} è il mezzo con cui un utente fornisce un'identità dichiarata al sistema.
-    \item \textbf{l'autenticazione} dell'utente è il mezzo per stabilire la validità della dichiarazione.
+    
+    \item \textbf{L'autenticazione} dell'utente è il mezzo per stabilire la validità della dichiarazione.
+    
 \end{itemize}
 
 \paragraph{NIST SP 800-63-3 (Digital Authentication Guideline, ottobre 2016).}
@@ -25,14 +28,17 @@ Definisce l'autenticazione digitale degli utenti come il processo per stabilire 
 \paragraph{NIST SP 800-63-3} 
 Definisce un modello generale per l'autenticazione dell'utente che coinvolge una serie di entità e procedure.
 \\
-
 Il requisito iniziale per eseguire l'autenticazione dell'utente è che l'utente deve essere registrato nel sistema. La seguente è una tipica sequenza per la registrazione. 
 
 \begin{itemize}
     \item \textbf{Un richiedente} si rivolge a un'autorità di registrazione (RA) per diventare un abbonato di un fornitore di servizi di credenziali (CSP).
+    
      \item \textbf{La RA} è un'entità fidata che stabilisce e garantisce l'identità di un richiedente a un CSP
-     \item \textbf{Il CSP} poi si impegna in uno scambio con l'abbonato. A seconda dei dettagli del sistema di autenticazione globale, il CSP rilascia una sorta di credenziale elettronica al abbonato.
+     
+     \item \textbf{Il CSP} poi si impegna in uno scambio con l'abbonato. A seconda dei dettagli del sistema di autenticazione globale, il CSP rilascia una sorta di credenziale elettronica all'abbonato.
+     
      \item \textbf{La credenziale} è una struttura di dati che lega autorevolmente un'identità e attributi aggiuntivi a un token posseduto da un abbonato, e può essere verificata quando viene presentata al verificatore in una transazione di autenticazione.
+     
      \item \textbf{Il token} potrebbe essere una chiave di crittografia o una password criptata che identifica l'abbonato. Il token può essere emesso dal CSP, generato direttamente dall'abbonato o fornito da una terza parte.
 \end{itemize}
 
@@ -52,7 +58,7 @@ Una volta che un utente è registrato come abbonato, l'effettivo processo di aut
 
 \newpage
 \subsection{Mezzi di Autenticazione}
-Ci sono quattro mezzi generali per autenticare l'identità di un utente, che possono essere usati da soli o in combinazione:
+Ci sono quattro mezzi generali per autenticare l'identità di un utente, che possono essere usati da soli o con una combinazione di esse:
 \begin{enumerate}
     \item \textbf{Qualcosa che l'individuo conosce}
     
@@ -70,12 +76,14 @@ Ci sono quattro mezzi generali per autenticare l'identità di un utente, che pos
     
     Come il riconoscimento tramite il modello di voce, le caratteristiche della scrittura a mano e il ritmo di battitura.
 \end{enumerate}
-Tutti questi metodi, correttamente implementati e utilizzati, possono fornire un'autenticazione l'autenticazione dell'utente. Tuttavia, ogni metodo ha dei problemi. Un avversario può essere in grado di indovinare o rubare una password. Allo stesso modo, un avversario può essere in grado di falsificare o rubare un token. Un utente può dimenticare una password o perdere un token. 
+
+Tutti questi metodi, correttamente implementati e utilizzati, possono fornire l'autenticazione dell'utente. Tuttavia, ogni metodo ha dei problemi. Un avversario può essere in grado di indovinare o rubare una password. Allo stesso modo, un avversario può essere in grado di falsificare o rubare un token. Un utente può dimenticare una password o perdere un token. 
+\\
 \paragraph{L'autenticazione a più fattori} si riferisce all'uso di più di uno dei mezzi di autenticazione nella lista precedente. La forza dei sistemi di autenticazione è ampiamente determinata dal numero di fattori incorporati dal sistema. Le implementazioni che usano due fattori sono considerate più forti di quelle che usano un solo fattore. I sistemi che incorporano tre fattori sono più forti di quelli che ne incorporano solo due, e così via.
 
 \newpage
 \subsection{Valutazione dei rischi per l'autenticazione degli utenti}
-Ci sono tre concetti separati che vogliamo mettere in relazione l'uno con l'altro: livello di sicurezza, impatto potenziale e aree di rischio.
+Ci sono tre concetti separati che vogliamo mettere in relazione l'uno con l'altro: livello di sicurezza, il potenziale d'impatto e le aree di rischio.
 
 \begin{itemize}
     \item \textbf{Livello di sicurezza}
@@ -84,7 +92,7 @@ Un livello di sicurezza descrive il grado di certezza di un'organizzazione che u
 
     \item \textbf{Il grado di fiducia nel processo di controllo} utilizzato per stabilire l'identità dell'individuo a cui la credenziale è stata rilasciata.
     
-    \item \textbf{Il grado di fiducia che l'individuo} che utilizza la credenziale sia l'individuo a cui la credenziale è stata rilasciata.
+    \item \textbf{Il grado di fiducia dell'individuo} che utilizza la credenziale sia l'individuo a cui la credenziale è stata rilasciata.
 \end{itemize}
 \paragraph{SP 800-63-3 riconosce quattro livelli di sicurezza:}
 \begin{enumerate}
@@ -94,9 +102,9 @@ Un esempio in cui questo livello è appropriato è un consumatore che si registr
     
     \item \textbf{Livello:} una certa fiducia nella validità dell'identità asserita.
 
-Le credenziali di livello 2 sono appropriate per un'ampia gamma di affari con il pubblico dove le organizzazioni che richiedono un'affermazione iniziale dell'identità (i cui dettagli sono verificati indipendentemente prima di qualsiasi azione). A questo livello, deve essere usato un qualche tipo di protocollo qualche tipo di protocollo di autenticazione sicura deve essere usato, insieme a uno dei mezzi di autenticazione riassunti in precedenza e discussi nelle sezioni successive.
+Le credenziali di livello 2 sono appropriate per un'ampia gamma di affari con il pubblico dove le organizzazioni che richiedono un'affermazione iniziale dell'identità (i cui dettagli sono verificati indipendentemente prima di qualsiasi azione). A questo livello, deve essere usato un qualche tipo di protocollo di autenticazione sicura, insieme a uno dei mezzi di autenticazione riassunti in precedenza e discussi nelle sezioni successive.
 
-    \item \textbf{Livello:} Alta fiducia nella validità dell'identità asserita
+    \item \textbf{Livello:} Alta fiducia nella validità dell'identità asserita.
 Questo livello è appropriato per permettere ai clienti o agli impiegati di accedere a servizi limitati di alto valore ma non al valore più alto.
 
 
@@ -111,56 +119,58 @@ Un concetto strettamente legato a quello di livello di sicurezza è \textbf{il p
 \end{center}
 
 \begin{itemize}
+
     \item \textbf{Low} Un errore di autenticazione potrebbe avere un effetto negativo limitato sulle operazioni organizzative, sulle risorse organizzative o sugli individui. Più specificamente, possiamo dire che l'errore potrebbe:
     
     \begin{itemize}
-        \item Causare una degradazione della capacità capacità di missione in misura e durata tali che l'organizzazione sia in grado di eseguire le sue funzioni primarie, ma l'efficacia delle funzioni è notevolmente ridotta
         
         \item Provocare un danno minore ai beni dell'organizzazione
         
-        \item Provocare una perdita finanziaria minore perdita finanziaria per l'organizzazione o gli individui
+        \item Provocare una perdita finanziaria minore per l'organizzazione o gli individui
         
         \item Risultare in un danno minore agli individui.
     \end{itemize}
     
-    \item \textbf{Moderate} Un errore di autenticazione potrebbe avere un serio effetto negativo effetto. Più specificamente, l'errore potrebbe:
+    \item \textbf{Moderate} Un errore di autenticazione potrebbe avere un serio effetto negativo. Più specificamente, l'errore potrebbe:
     
     \begin{itemize}
-        \item Causare una degradazione significativa nella capacità della missione in una misura e durata tale che l'organizzazione è in grado di eseguire le sue funzioni primarie, ma l'efficacia delle funzioni è significativamente.
-        
         \item Provocare un danno significativo ai beni dell'organizzazione
         
-        \item Provocare comporti una perdita finanziaria significativa
+        \item Provocare una perdita finanziaria significativa
         
-        \item Comporti un danno significativo alle persone che non che non implichi la perdita di vite umane o lesioni gravi in pericolo di vita.
+        \item Provocare un danno significativo alle persone che implichi la perdita di vite umane o lesioni gravi in pericolo di vita.
     \end{itemize}
+    
     \item \textbf{High}
     Un errore di autenticazione potrebbe avere un effetto negativo grave o catastrofico. L'errore potrebbe:
+    
     \begin{itemize}
-        \item Causare una grave degradazione o perdita della capacità della missione in misura e durata tali che l'organizzazione non sia in grado di eseguire una o più delle sue funzioni primarie
         
-        \item Causare un grave danno ai beni dell'organizzazione
+        \item Causare un grave danno ai beni dell'organizzazione.
         
-        \item Causare una grave perdita finanziaria all'organizzazione o agli individui
+        \item Causare una grave perdita finanziaria all'organizzazione o agli individui.
         
         \item Causare un danno grave o catastrofico agli individui che comporta la perdita della vita o lesioni gravi che mettono in pericolo la vita.
     \end{itemize}
 
 \end{itemize}
+La tabella 3.2 mostra una possibile mappatura per vari rischi a cui un'organizzazione può essere esposta. 
+Questa tabella suggerisce una tecnica per fare la valutazione dei rischi. Per un dato sistema informativo o asset di servizio di un'organizzazione, l'organizzazione deve determinare il livello di impatto se si verifica un errore di autenticazione, usando le categorie di impatto, o aree di rischio, che sono preoccupanti. 
 
-La mappatura tra l'impatto potenziale e il livello appropriato di garanzia che è soddisfacente per affrontare l'impatto potenziale dipende dal contesto. La tabella 3.2 mostra una possibile mappatura per vari rischi a cui un'organizzazione può essere esposta. Questa tabella suggerisce una tecnica per fare la valutazione dei rischi. Per un dato sistema informativo o asset di servizio di un'organizzazione, l'organizzazione deve determinare il livello di impatto se si verifica un errore di autenticazione, usando le categorie di impatto, o aree di rischio, che sono preoccupanti. Per esempio, considerate il potenziale di perdita finanziaria se c'è un errore di autenticazione che risulta in un accesso non autorizzato a un database. A seconda della natura del del database, l'impatto potrebbe essere:
+\singlespacing
+
+Per esempio, considerate il potenziale di perdita finanziaria se c'è un errore di autenticazione che risulta in un accesso non autorizzato a un database. A seconda della natura del del database, l'impatto potrebbe essere:
 
 \begin{center}
     \textbf{Area di Rischio}
 \end{center}
 
 \begin{itemize}
-    \item \textbf{Low} Nel peggiore dei casi, una perdita finanziaria insignificante o irrilevante perdita per qualsiasi parte, o nel peggiore dei casi, un'organizzazione insignificante o irrilevante responsabilità.
+    \item \textbf{Low} Nel peggiore dei casi, una perdita finanziaria insignificante per un'irrilevante responsabilità dell'organizzazione.
     
-    \item \textbf{Moderate} Nel peggiore dei casi, una grave perdita finanziaria irrecuperabile per qualsiasi parte, o una grave responsabilità dell'organizzazione.
-
+    \item \textbf{Moderate} Nel peggiore dei casi, una grave perdita finanziaria irrecuperabile per qualsiasi parte, per una grave responsabilità dell'organizzazione.
     
-    \item \textbf{High} Grave o catastrofica perdita finanziaria irrecuperabile per qualsiasi parte; o grave o catastrofica responsabilità dell'organizzazione.
+    \item \textbf{High} Grave o catastrofica perdita finanziaria irrecuperabile per qualsiasi parte per grave una catastrofica responsabilità dell'organizzazione.
 \end{itemize}
 \newpage
 \section{Autenticazione basata su password}
@@ -190,16 +200,18 @@ L'attaccante ottiene il file delle password di sistema e confronta gli hash dell
             \item \textbf{Contromisure} 
             
             Includono controlli per prevenire l'accesso non autorizzato al file delle password, misure di rilevamento delle intrusioni per identificare una compromissione, e una rapida riemissione delle password se il file delle password viene compromesso.
+            
         \end{itemize}
 
 \item \textbf{Attacco all'account specifico}
 
-L'attaccante prende di mira un account specifico e presenta password indovinate finché non viene scoperta la password corretta.
+L'attaccante prende di mira un account specifico e presenta password mirate finché non viene scoperta la password corretta.
 
     \begin{itemize}
         \item \textbf{Contromisure} 
         
         è un meccanismo di blocco dell'account, che blocca l'accesso all'account dopo un certo numero di tentativi di accesso falliti. La pratica tipica è non più di di cinque tentativi di accesso.
+        
     \end{itemize}
 
 \item \textbf{Attacco con password popolare}
@@ -210,6 +222,7 @@ Una variante dell'attacco precedente consiste nell'utilizzare una password popol
         \item \textbf{Contromisure} 
         
         Includono politiche per inibire la selezione da parte degli utenti di password comuni e la scansione degli indirizzi IP delle richieste di autenticazione e dei cookie del client per i modelli di invio.
+        
     \end{itemize}
 
 \item\textbf{Indovinare la password contro un singolo utente}
@@ -220,25 +233,29 @@ L'attaccante tenta di ottenere la conoscenza del titolare dell'account e delle p
         \item \textbf{Contromisure}
         
         Includono la formazione e l'applicazione di politiche sulle password che rendono le password difficili da indovinare.
+        
     \end{itemize} 
 
 \item\textbf{Dirottamento della stazione di lavoro}
+
 L'attaccante aspetta fino a quando una stazione di lavoro loggata non è sorvegliata.
 
 \begin{itemize}
     \item\textbf{Contromisure}
     
     è la registrazione automatica della workstation dopo un periodo di inattività. Gli schemi di rilevamento delle intrusioni possono essere usati per rilevare i cambiamenti nel comportamento dell'utente.
+    
 \end{itemize}
 
 \item \textbf{Sfruttare gli errori dell'utente}
 
-Se il sistema assegna una password, allora l'utente è più probabile che la scriva perché è difficile da ricordare. Questa situazione crea il potenziale per un avversario di leggere la password scritta. Un utente può condividere intenzionalmente una password, per permettere ad un collega di condividere i file, per esempio. Inoltre, gli aggressori hanno spesso successo nell'ottenere le password utilizzando tattiche di ingegneria sociale tattiche di ingegneria sociale che ingannano l'utente o un account manager a rivelare una password. Molti sistemi informatici sono forniti con password preconfigurate per gli amministratori di sistema. A meno che queste password preconfigurate non vengano cambiate, sono facilmente indovinate.
+Se il sistema assegna una password, allora l'utente è più probabile che la scriva perché è difficile da ricordare. Questa situazione crea il potenziale per un avversario di leggere la password scritta. Un utente può condividere intenzionalmente una password, per permettere ad un collega di condividere i file, per esempio. Inoltre, gli aggressori hanno spesso successo nell'ottenere le password utilizzando tattiche di ingegneria sociale che ingannano l'utente o un account manager a rivelare una password. Molti sistemi informatici sono forniti con password preconfigurate per gli amministratori di sistema. A meno che queste password preconfigurate non vengano cambiate, sono facilmente indovinate.
 
 \begin{itemize}
     \item \textbf{Contromisure}
     
      la formazione degli utenti, il rilevamento delle intrusioni e password più semplici combinate con un altro meccanismo di autenticazione.
+     
 \end{itemize}
 
 \item\textbf{Sfruttare l'uso di password multiple}
@@ -249,14 +266,17 @@ Gli attacchi possono anche diventare molto più efficaci o dannosi se diversi di
     \item \textbf{Contromisure} 
     
     includono una politica che proibisce la stessa o password simili su particolari dispositivi di rete.
+    
 \end{itemize}
 \newpage
 \item \textbf{Monitoraggio elettronico}
 
 Se una password viene comunicata attraverso una rete per accedere ad un sistema remoto, è vulnerabile alle intercettazioni. La semplice crittografia non risolve questo problema, perché la password criptata è, in effetti, la password e può essere osservata e riutilizzata da un avversario.
+
 \end{itemize}
 \subsection{Uso di password con hash}
-Una tecnica di sicurezza delle password molto diffusa è l'uso di password con hash e di un valore di sale. Questo schema è presente in quasi tutte le varianti di UNIX e in numerosi altri sistemi operativi. Si utilizza la seguente procedura (vedi Figura 3.3). Per caricare una nuova password nel sistema, l'utente sceglie o gli viene assegnata una password. Questa password viene combinata con un valore di sale a lunghezza fissa. Nelle vecchie implementazioni, questo valore è legato al momento in cui la password è stata assegnata all'utente. 
+
+Una tecnica di sicurezza delle password molto diffusa è l'uso di password con hash e di un valore di sale. Questo schema è presente in quasi tutte le varianti di UNIX e in numerosi altri sistemi operativi. Si utilizza la seguente procedura (vedi Figura 3.3). Per caricare una nuova password nel sistema, l'utente sceglie o gli viene assegnata una password. Questa password viene combinata con un valore di "sale" a lunghezza fissa. Nelle vecchie implementazioni, questo valore è legato al momento in cui la password è stata assegnata all'utente. 
 \\
 Le implementazioni più recenti utilizzano un numero pseudorandom o casuale. La password e il sale servono come input a un algoritmo di hashing per produrre un codice hash di lunghezza fissa.
 \\
@@ -286,15 +306,20 @@ Per capire il secondo punto, considerate il modo in cui funzionerebbe un attacco
 	\centering
     \includegraphics[width=14cm, keepaspectratio]{Bistarelli/img/cap_3/foto3.3.png}
 \end{figure}
+
 \newpage
 \subsection{Cracking delle password scelte dall'utente}
+
 \paragraph{Approccio Tradizionale}
-L'approccio tradizionale all'indovinare le password, è quello di sviluppare un grande dizionario di possibili password e di provare ognuna di queste con il file delle password. Questo significa che ogni password deve essere sottoposta a un hash usando ogni valore di sale disponibile e poi confrontata con i valori di hash memorizzati. Se non viene trovata alcuna corrispondenza, il programma di cracking prova variazioni su tutte le parole del suo dizionario di password probabili. Tali variazioni includono l'ortografia a ritroso delle parole, numeri aggiuntivi o caratteri speciali, o sequenze di caratteri. Un'alternativa è quella di barattare lo spazio con il tempo precompilando i potenziali valori di hash. In questo approccio l'attaccante genera un grande dizionario di possibili password. Per ogni password, l'attaccante genera i valori di hash associati ad ogni possibile valore di sale. Il risultato è una mastodontica tabella di valori di hash nota come tabella arcobaleno.
+L'approccio tradizionale all'indovinare le password, è quello di sviluppare un grande dizionario di possibili password e di provare ognuna di queste con il file delle password. Questo significa che ogni password deve essere sottoposta a un hash usando ogni valore di sale disponibile e poi confrontata con i valori di hash memorizzati. Se non viene trovata alcuna corrispondenza, il programma di cracking prova variazioni su tutte le parole del suo dizionario di password probabili. Tali variazioni includono l'ortografia a ritroso delle parole, numeri aggiuntivi o caratteri speciali, o sequenze di caratteri. Un'alternativa è quella di barattare lo spazio con il tempo precompilando i potenziali valori di hash. In questo approccio l'attaccante genera un grande dizionario di possibili password. Per ogni password, l'attaccante genera i valori di hash associati ad ogni possibile valore di "sale". Il risultato è una mastodontica tabella di valori di hash nota come tabella arcobaleno.
 \\
 \paragraph{Approccio Moderno}
-Purtroppo, questo tipo di vulnerabilità non è diminuita negli ultimi 25 anni o giù di lì. Gli utenti stanno facendo un lavoro migliore nel selezionare le password e le organizzazioni e le organizzazioni stanno facendo un lavoro migliore nel costringere gli utenti a scegliere password più forti, un concetto noto come politica delle password complesse. Tuttavia, le tecniche di cracking delle password sono migliorate per tenere il passo. I miglioramenti sono di due tipi. In primo luogo, la capacità di elaborazione disponibile per il cracking delle password è aumentata drammaticamente. Ora utilizzati sempre più per il calcolo, i processori grafici permettono ai programmi di cracking delle password di lavorare migliaia di volte più velocemente di quanto non facessero solo un dieci anni fa su PC di prezzo simile che usavano solo CPU tradizionali. Un PC che esegue una singola GPU AMD Radeon HD7970, per esempio, può provare in media una 8,2 * 109 combinazioni di password ogni secondo, a seconda dell'algoritmo utilizzato.
+Purtroppo, questo tipo di vulnerabilità non è diminuita negli ultimi 25 anni o giù di lì. Gli utenti stanno facendo un lavoro migliore nel selezionare le password e le organizzazioni stanno facendo un lavoro migliore nel costringere gli utenti a scegliere password più forti, un concetto noto come politica delle password complesse. Tuttavia, le tecniche di cracking delle password sono migliorate per tenere il passo. I miglioramenti sono di due tipi. In primo luogo, la capacità di elaborazione disponibile per il cracking delle password è aumentata drammaticamente. Ora utilizzati sempre più per il calcolo, i processori grafici permettono ai programmi di cracking delle password di lavorare migliaia di volte più velocemente di quanto non facessero solo un dieci anni fa su PC di prezzo simile che usavano solo CPU tradizionali. Un PC che esegue una singola GPU AMD Radeon HD7970, per esempio, può provare in media una 8,2 * 109 combinazioni di password ogni secondo, a seconda dell'algoritmo utilizzato.
+
 \singlespacing
-La seconda area di miglioramento nel cracking delle password è l'uso di algoritmi sofisticati per generare potenziali password. I migliori risultati sono stati raggiunti studiando esempi di parole in uso. Per sviluppare tecniche che siano più efficienti ed efficaci dei semplici dizionario e degli attacchi brute-force, ricercatori e hacker hanno studiato la struttura struttura delle password. Per fare questo, gli analisti hanno bisogno di un grande pool di password di parole reali da studiare, cosa che ora hanno. La prima grande svolta è avvenuta alla fine del 2009, quando un attacco SQL injection contro il servizio di giochi online RockYou.com ha esposto 32 milioni di password in chiaro usate dai suoi membri per accedere ai loro account. Da da allora, numerosi set di file di password trapelate sono diventati disponibili per l'analisi.
+
+La seconda area di miglioramento nel cracking delle password è l'uso di algoritmi sofisticati per generare potenziali password. I migliori risultati sono stati raggiunti studiando esempi di parole in uso. Per sviluppare tecniche che siano più efficienti ed efficaci dei semplici dizionario e degli attacchi bruteforce, ricercatori e hacker hanno studiato la struttura delle password. Per fare questo, gli analisti hanno bisogno di un grande pool di password di parole reali da studiare, cosa che ora hanno. La prima grande svolta è avvenuta alla fine del 2009, quando un attacco SQL injection contro il servizio di giochi online RockYou.com ha esposto 32 milioni di password in chiaro usate dai suoi membri per accedere ai loro account. Da da allora, numerosi set di file di password trapelate sono diventati disponibili per l'analisi.
+
 \newpage
 \subsection{Controllo dell'accesso ai file di password}
 Un modo per contrastare un attacco con password è negare all'avversario l'accesso al file delle password. Se la porzione di password hash del file è accessibile solo da un utente privilegiato, allora l'avversario non può leggerla senza conoscere già la password di un utente privilegiato. Spesso, le password hash sono tenute in un file separato dagli ID utente, indicato come un file di password ombra.
@@ -319,31 +344,40 @@ A volte, c'è un backup del file delle password su un disco di riparazione disco
 \end{itemize}
 \singlespacing
 Quindi, una politica di protezione delle password deve integrare le misure di controllo dell'accesso con tecniche per forzare gli utenti a scegliere password difficili da indovinare.
+
 \newpage
 \subsection{Strategie selezione password}
-Quando non sono costretti, molti utenti scelgono una password troppo corta o troppo facile da indovinare. All'altro estremo, se agli utenti vengono assegnate password che consistono di otto caratteri stampabili scelti a caso, il cracking della password è effettivamente impossibile. Ma sarebbe quasi altrettanto impossibile per la maggior parte degli utenti ricordare le loro password. Il nostro obiettivo, quindi, è quello di eliminare le password indovinabili mentre permettendo all'utente di scegliere una password che sia memorizzabile. Quattro tecniche di base sono in uso:
+Quando non sono costretti, molti utenti scelgono una password troppo corta o troppo facile da indovinare. All'altro estremo, se agli utenti vengono assegnate password che consistono di otto caratteri stampabili scelti a caso, il cracking della password è effettivamente impossibile. Il nostro obiettivo, quindi, è quello di eliminare le password indovinabili mentre permettendo all'utente di scegliere una password che sia memorizzabile. Quattro tecniche di base sono in uso:
+
 \begin{enumerate}
     \item Educazione dell'utente
     \item Password generate dal computer
     \item Controllo reattivo delle password
     \item Politica delle password complesse
 \end{enumerate}
+
 \singlespacing
-Gli utenti possono essere informati dell'importanza di usare password difficili da indovinare e possono essere fornire delle linee guida per la selezione di password forti. Questa strategia di educazione degli utenti è improbabile che abbia successo nella maggior parte delle installazioni, in particolare dove c'è una grande una vasta popolazione di utenti o molto turnover. Molti utenti semplicemente ignoreranno le linee guida. Altri possono non essere buoni giudici di ciò che è una password forte. Per esempio, molti utenti (erroneamente) credono che invertire una parola o scrivere in maiuscolo l'ultima lettera renda una password indovinabile
+Gli utenti possono essere informati dell'importanza di usare password difficili da indovinare e possono fornire delle linee guida per la selezione di password forti. Questa strategia di educazione degli utenti è improbabile che abbia successo nella maggior parte delle installazioni, in particolare dove c'è una grande una vasta popolazione di utenti o molto turnover. Molti utenti semplicemente ignoreranno le linee guida. Altri possono non essere buoni giudici di ciò che è una password forte. Per esempio, molti utenti (erroneamente) credono che invertire una parola o scrivere in maiuscolo l'ultima lettera renda una password indovinabile.
+
 \newpage
 \section{Autenticazione Basata sui token}
 Gli oggetti che un utente possiede ai fini dell'autenticazione sono chiamati token.
+
 \subsection{Memory Cards}
 Le \textbf{Memory Cards} possono immagazzinare ma non elaborare dati.
 \singlespacing
 La più comune di queste carte è la carta bancaria con una banda magnetica sul retro. Una banda magnetica può memorizzare solo un semplice codice di sicurezza, che può essere letto (e sfortunatamente riprogrammato) da un economico lettore di carte. Ci sono anche schede di memoria che includono una memoria elettronica interna. Le carte di memoria possono essere usate da sole per
 \begin{itemize}
     \item l'accesso fisico, come ad esempio in una stanza d'albergo.
+    
     \item Per autenticazione, un utente fornisce sia la scheda di memoria che una qualche forma di password o numero di identificazione personale (PIN).
     
-    Un'applicazione tipica è uno sportello automatico automatico (ATM). La scheda di memoria, se combinata con un PIN o una password, fornisce una sicurezza significativamente maggiore di una password da sola. Un avversario deve ottenere il possesso fisico possesso fisico della carta (o essere in grado di duplicarla) e in più deve ottenere la conoscenza del PIN. 
+    Un'applicazione tipica è uno sportello automatico (ATM). La scheda di memoria, se combinata con un PIN o una password, fornisce una sicurezza significativamente maggiore di una password da sola. Un avversario deve ottenere il possesso fisico della carta (o essere in grado di duplicarla) e in più deve ottenere la conoscenza del PIN. 
+    
     \singlespacing
+    
     Tra i potenziali inconvenienti NIST SP 800-12 (An Introduction to Computer Sicurezza: The NIST Handbook, ottobre 1995) nota quanto segue:
+    
     \begin{itemize}
         \item \textbf{Richiede un lettore speciale}
         
@@ -356,11 +390,15 @@ La più comune di queste carte è la carta bancaria con una banda magnetica sul 
         \item \textbf{Insoddisfazione dell'utente}
         
         Anche se gli utenti possono non avere difficoltà ad accettare l'uso di una scheda di memoria per l'accesso al bancomat, il suo uso per l'accesso al computer può essere considerato scomodo.
+        
     \end{itemize}
 \end{itemize}
+
 \newpage
 \subsection{Smart Cards}
+
 Un'ampia varietà di dispositivi si qualificano come token intelligenti. Questi possono essere classificati lungo quattro dimensioni che non si escludono a vicenda:
+
 \begin{itemize}
     \item \textbf{Caratteristiche fisiche} 
     
@@ -414,11 +452,15 @@ Un'ampia varietà di dispositivi si qualificano come token intelligenti. Questi 
         \end{enumerate}
     \end{itemize}
 \end{itemize}
+
 \newpage
 \subsection{Elettronic Identity Cards}
 Un'applicazione di crescente importanza è l'uso di una smart card come carta d'identità nazionale per i cittadini. Una carta d'identità elettronica nazionale (eID) può servire agli stessi scopi di altre carte d'identità nazionali, e carte simili come la patente di guida, per l'accesso ai servizi governativi e commerciali. Inoltre, una carta eID può fornire una prova di identità più forte ed essere usata in una più ampia varietà di applicazioni. In effetti, una carta eID è una smart card che è stata verificata dal governo nazionale come valida e autentica.
+
 \singlespacing
+
 L'identity cards conterrà:
+
 \begin{itemize}
     \item Dati personali 
     
@@ -448,10 +490,11 @@ Le funzioni dell'identiry cards sono:
     
     \item \textbf{eSign}
     
-    Questa funzione opzionale memorizza una chiave privata e un certificato che verifica la chiave; è usata per generare una firma digitale. Un centro di fiducia del settore privato emette il certificato.
+    Questa funzione opzionale memorizza una chiave privata e un certificato che verifica la chiave, è usata per generare una firma digitale. Un centro di fiducia del settore privato emette il certificato.
+    
 \end{itemize}
 \section{Autenticazione Biometrica}
-Un sistema di autenticazione biometrica tenta di autenticare un individuo sulla base di le sue caratteristiche fisiche uniche. Queste includono:
+Un sistema di autenticazione biometrica tenta di autenticare un individuo sulla base delle sue caratteristiche fisiche uniche. Queste includono:
 \begin{itemize}
     \item \textbf{Caratteristiche statiche}
     
@@ -461,14 +504,17 @@ Un sistema di autenticazione biometrica tenta di autenticare un individuo sulla 
     
     come l'impronta vocale e la firma.
 \end{itemize}
+
 In sostanza, la biometria si basa sul riconoscimento dei modelli. Rispetto alle password e ai token, l'autenticazione è tecnicamente più complessa e costosa. Sebbene sia usata in un numero di applicazioni specifiche, la biometria deve ancora maturare come strumento standard per l'autenticazione degli utenti ai sistemi informatici.
+
 \subsection{Caratteristiche fisiche utilizzate nelle applicazioni biometriche}
+
 Un certo numero di diversi tipi di caratteristiche fisiche sono in uso o in fase di studio per l'autenticazione dell'utente. Le più comuni sono le seguenti:
 
 \begin{itemize}
     \item \textbf{Caratteristiche facciali}
     
-    Le caratteristiche facciali sono il mezzo più comune per l'identificazione da uomo a uomo; quindi è naturale considerarle per l'identificazione tramite computer. L'approccio più comune è quello di definire le caratteristiche basate sulla posizione relativa e la forma delle caratteristiche facciali chiave, come occhi, sopracciglia, naso, labbra e forma del mento.
+    Le caratteristiche facciali sono il mezzo più comune per l'identificazione da uomo a uomo, quindi è naturale considerarle per l'identificazione tramite computer. L'approccio più comune è quello di definire le caratteristiche basate sulla posizione relativa e la forma delle caratteristiche facciali chiave, come occhi, sopracciglia, naso, labbra e forma del mento.
     
     \item \textbf{Impronte digitali}
     
@@ -493,11 +539,15 @@ Un certo numero di diversi tipi di caratteristiche fisiche sono in uso o in fase
     \item \textbf{La voce}
     
     Mentre lo stile della firma di un individuo riflette non solo gli unici attributi fisici dello scrittore ma anche l'abitudine alla scrittura che si è sviluppata, i modelli di voce sono più strettamente legati alle caratteristiche fisiche e anatomiche del parlante. Ciononostante, c'è ancora una variazione da campione a campione nel tempo dallo stesso parlante, complicando il compito di riconoscimento biometrico.
+    
 \end{itemize}
+
 \newpage
 \subsection{Funzionamento di un sistema di autenticazione biometrica}
-Ogni individuo che deve essere incluso nel database degli utenti autorizzati deve prima essere iscritto al sistema. Questo è analogo all'assegnazione di una password a un utente. Per un sistema biometrico, l'utente presenta al sistema un nome e, tipicamente, un qualche tipo di password o PIN. Allo stesso tempo, il sistema rileva alcune caratteristiche biometriche di questo utente (ad esempio, l'impronta digitale del dito indice destro). Il sistema digitalizza l'input e poi estrae un insieme di caratteristiche che possono essere memorizzate come un numero o un insieme di numeri che rappresentano questa caratteristica biometrica unica; questo insieme di numeri viene chiamato template dell'utente. L'utente è ora iscritto al sistema, che mantiene per l'utente un nome (ID), forse un PIN o una password, e il valore biometrico.
+Ogni individuo che deve essere incluso nel database degli utenti autorizzati deve prima essere iscritto al sistema. Questo è analogo all'assegnazione di una password a un utente. Per un sistema biometrico, l'utente presenta al sistema un nome e, tipicamente, un qualche tipo di password o PIN. Allo stesso tempo, il sistema rileva alcune caratteristiche biometriche di questo utente (ad esempio, l'impronta digitale del dito indice destro). Il sistema digitalizza l'input e poi estrae un insieme di caratteristiche che possono essere memorizzate come un numero o un insieme di numeri che rappresentano questa caratteristica biometrica unica. Questo insieme di numeri viene chiamato template dell'utente. L'utente è ora iscritto al sistema, che mantiene per l'utente un nome (ID), forse un PIN o una password, e il valore biometrico.
+
 \singlespacing
+
 A seconda dell'applicazione, l'autenticazione dell'utente su un sistema biometrico comporta la verifica o l'identificazione.
 \begin{itemize}
     \item \textbf{Verifica}
@@ -507,6 +557,7 @@ A seconda dell'applicazione, l'autenticazione dell'utente su un sistema biometri
     \item \textbf{Identificazione}
     
     l'individuo usa il sensore biometrico ma non presenta informazioni aggiuntive. Il sistema quindi confronta il modello presentato con l'insieme dei modelli memorizzati. Se c'è una corrispondenza, l'utente viene identificato. Altrimenti, l'utente viene rifiutato.
+    
 \end{itemize}
 
 \begin{figure}[H]
@@ -518,8 +569,11 @@ A seconda dell'applicazione, l'autenticazione dell'utente su un sistema biometri
 	\centering
     \includegraphics[width=14cm, keepaspectratio]{Bistarelli/img/cap_3/figura3.10.png}
 \end{figure}
+
 \subsection{Precisione Biometrica}
+
 In qualsiasi schema biometrico, alcune caratteristiche fisiche dell'individuo sono mappate in una rappresentazione digitale. Per ogni individuo, una singola rappresentazione digitale, o template, è memorizzata nel computer. Quando l'utente deve essere autenticato, il sistema confronta il modello memorizzato con il modello presentato. Data la complessità delle caratteristiche fisiche, non ci si può aspettare che ci sia una corrispondenza esatta tra i due modelli. Piuttosto, il sistema usa un algoritmo per generare un punteggio (tipicamente un singolo numero) che quantifica la somiglianza tra l'input e il modello memorizzato. Per procedere con la discussione, definiamo i seguenti termini.
+
 \begin{itemize}
     \item Il tasso di falsa corrispondenza
     
@@ -533,20 +587,24 @@ In qualsiasi schema biometrico, alcune caratteristiche fisiche dell'individuo so
 	\centering
     \includegraphics[width=14cm, keepaspectratio]{Bistarelli/img/cap_3/figura3.11.png}
 \end{figure}
-\singlespacing
-\paragraph{Esempio} nel caso di un'impronta digitale, i risultati possono variare a causa del rumore del sensore, dei cambiamenti nell'impronta dovuti al gonfiore o alla secchezza, del posizionamento del dito e così via. In media, qualsiasi altro individuo dovrebbe avere un punteggio di corrispondenza molto più basso, ma ancora una volta mostrerà una funzione di densità di probabilità a campana. La difficoltà è che la gamma di punteggi di corrispondenza prodotti da due individui, uno autentico e uno impostore, rispetto a un dato modello di riferimento, è probabile che si sovrappongano. Nella figura 3.10, un valore di soglia è selezionato in modo che se il valore presentato s >= t si assume una corrispondenza, e per s < t, si assume una mancata corrispondenza. La parte ombreggiata a destra di t indica una gamma di valori per cui è possibile una falsa corrispondenza, e la parte ombreggiata a sinistra indica una gamma di valori per cui è possibile una falsa non corrispondenza. Una falsa corrispondenza comporta l'accettazione di un utente che non dovrebbe essere accettato, e una falsa mancata corrispondenza provoca il rifiuto di un utente valido. L'area di ogni parte ombreggiata rappresenta la probabilità di una falsa corrispondenza o non corrispondenza, rispettivamente. Spostando la soglia, a sinistra o a destra, le probabilità possono essere alterate, ma si noti che una diminuzione del tasso di falsi riscontri si traduce in un aumento del tasso di falsi non riscontri, e viceversa.
-\section{Autenticazione Remota dell'utente}
-La forma più semplice di autenticazione dell'utente è l'autenticazione locale, in cui un utente tenta di accedere a un sistema che è presente localmente, come un PC da ufficio stand-alone o un bancomat. Il caso più complesso è quello dell'autenticazione remota dell'utente, che avviene su Internet, una rete o un collegamento di comunicazione. L'autenticazione remota dell'utente solleva ulteriori minacce alla sicurezza, come un intercettatore in grado di catturare una password, o un avversario che riproduce una sequenza di autenticazione che è stata osservata.
 \newpage
 \subsection{Protocollo delle password}
-In questo esempio, un utente trasmette prima la sua identità a all'host remoto. L'host genera un numero casuale r, spesso chiamato nonce, restituisce questo nonce all'utente.
+In questo esempio, un utente trasmette prima la sua identità all'host remoto. L'host genera un numero casuale r, spesso chiamato nonce, restituisce questo nonce all'utente.
+
 \singlespacing
+
 Inoltre, l'host specifica due funzioni, h() e f(), da utilizzare nella risposta. Questa trasmissione dall'host all'utente è la sfida. La risposta dell'utente è la quantità f(r', h(P')), dove r' = r e P' è la password dell'utente.
+
 \singlespacing
+
 La funzione h è una funzione hash, quindi la risposta consiste nella funzione hash della password dell'utente combinata con il numero casuale utilizzando la funzione.
+
 \singlespacing
+
 L'host memorizza la funzione hash della password di ogni utente registrato, rappresentata come h(P(U)) per l'utente U. Quando arriva la risposta, l'host confronta f(r', h(P')) con la f(r, h(P(U)) calcolata.) Se le quantità corrispondono, l'utente è autenticato. Questo schema difende da diverse forme di attacco. L'host memorizza non la password ma un codice hash della password. Questo protegge la password dagli intrusi nel sistema host. Inoltre, nemmeno l'hash della password viene trasmesso direttamente, ma piuttosto una funzione in cui l'hash della password è uno degli argomenti. Così, per una funzione f adatta, l'hash della password non può essere catturato durante la trasmissione.
+
 \singlespacing
+
 Infine, l'uso di un numero casuale tenta di difendere da un attacco di replay, in cui un avversario cattura la trasmissione dell'utente e tenta di accedere a un sistema ritrasmettendo i messaggi.
 \begin{figure}[H]
 	\centering
@@ -555,8 +613,12 @@ Infine, l'uso di un numero casuale tenta di difendere da un attacco di replay, i
 \subsection{Protocollo di Token}
 Come prima, un utente trasmette prima la sua identità all'host remoto. L'host restituisce un numero casuale e gli identificatori delle funzioni f() e h() da utilizzare nella risposta. Alla fine dell'utente, il token fornisce un codice di accesso W'. Il token memorizza un codice statico statico o genera un codice casuale una tantum. Per un codice casuale una tantum, il token deve essere sincronizzato. Per un codice casuale una tantum, il token deve essere sincronizzato in qualche modo con l'host. In entrambi i casi, l'utente attiva il codice inserendo una password P'. Questa password è condivisa solo tra l'utente e il token e non coinvolge l'host remoto. Il token risponde all'host con la quantità f(r', h(W')). Per un codice di accesso statico, l host memorizza il valore hashed h(W(U)); per un passcode dinamico, l'host genera un passcode una tantum (sincronizzato con quello generato dal token) e prende il suo hash. L'autenticazione procede poi nello stesso modo del protocollo della password.
 \subsection{Protocollo biometrico statico}
-Come prima cosa, l'utente trasmette un ID all'host, che risponde con un numero casuale r e, in questo caso, l'identificatore di una crittografia E(). Sul lato utente c'è un sistema client che controlla un dispositivo biometrico. Il sistema genera un template biometrico BT' dal biometrico dell'utente B' e restituisce il testo cifrato E(r', D', BT'), dove D' identifica questo particolare dispositivo biometrico. L'host decifra il messaggio in arrivo per recuperare i tre parametri trasmessi e li confronta con i valori memorizzati localmente.
+Come prima cosa, l'utente trasmette un ID all'host, che risponde con un numero casuale r, in questo caso, l'identificatore di una crittografia E(). Sul lato utente c'è un sistema client che controlla un dispositivo biometrico. Il sistema genera un template biometrico BT' dal biometrico dell'utente B' e restituisce il testo cifrato E(r', D', BT'), dove D' identifica questo particolare dispositivo biometrico. L'host decifra il messaggio in arrivo per recuperare i tre parametri trasmessi e li confronta con i valori memorizzati localmente.
+
 \singlespacing
+
 Per una corrispondenza, l'host deve trovare r' = r. Inoltre, il punteggio di corrispondenza tra BT' e il modello memorizzato deve superare una soglia predefinita. Infine, l'host fornisce una semplice autenticazione del dispositivo di cattura biometrica confrontando l'ID del dispositivo in entrata con un elenco di dispositivi registrati nel database dell'host.
+
 \subsection{Protocollo Biometrico Dinamico}
-La principale differenza rispetto al caso di una biometria stabile è che l'host fornisce una sequenza casuale fornisce una sequenza casuale e un numero casuale come sfida. La sfida è una sequenza di numeri, caratteri o parole. L'utente umano all'estremità del client deve quindi vocalizzare (verifica con altoparlante), digitare (verifica dinamica della tastiera) o scrivere (verifica a mano) o scrivere (verifica della scrittura) la sequenza per generare un segnale biometrico BS'(x'). Il lato client cripta il segnale biometrico e il numero casuale. All'indirizzo lato host, il messaggio in arrivo viene decifrato. Il numero casuale in arrivo r' deve essere una corrispondenza esatta con il numero casuale che è stato originariamente utilizzato come sfida (r). Inoltre, l'host genera un confronto basato sul segnale biometrico in entrata biometrico BS'(x'), il template memorizzato BT(U) per questo utente e il segnale originale x. Se il valore di confronto supera una soglia predefinita, l'utente viene autenticato.
+
+La principale differenza rispetto al caso di una biometria stabile è che l'host fornisce una sequenza casuale e un numero casuale come sfida. La sfida è una sequenza di numeri, caratteri o parole. L'utente umano all'estremità del client deve quindi vocalizzare (verifica con altoparlante), digitare (verifica dinamica della tastiera) o scrivere (verifica a mano) o scrivere (verifica della scrittura) la sequenza per generare un segnale biometrico BS'(x'). Il lato client cripta il segnale biometrico e il numero casuale. All'indirizzo lato host, il messaggio in arrivo viene decifrato. Il numero casuale in arrivo r' deve essere una corrispondenza esatta con il numero casuale che è stato originariamente utilizzato come sfida (r). Inoltre, l'host genera un confronto basato sul segnale biometrico in entrata biometrico BS'(x'), il template memorizzato BT(U) per questo utente e il segnale originale x. Se il valore di confronto supera una soglia predefinita, l'utente viene autenticato.

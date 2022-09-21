@@ -3,7 +3,7 @@
 \section{Principi di controllo dell'accesso}
 Due definizioni di controllo dell'accesso sono utili per capire la sua portata.
 \begin{enumerate}
-    \item \textbf{NISTIR 7298} (Glossario dei termini chiave della sicurezza delle informazioni, maggio 2013), definisce il controllo dell'accesso come il processo di concessione o rifiuto di richieste specifiche a:
+    \item \textbf{NISTIR 7298} (Glossario dei termini chiave della sicurezza delle informazioni, maggio 2013), definisce \textbf{il controllo dell'accesso} come il processo di concessione o rifiuto di richieste specifiche a:
     
     \begin{itemize}
         \item  Ottenere e utilizzare le informazioni e i relativi servizi di elaborazione delle informazioni
@@ -11,9 +11,9 @@ Due definizioni di controllo dell'accesso sono utili per capire la sua portata.
         \item  Entrare in specifiche strutture fisiche.
     \end{itemize}
     
-    \item \textbf{RFC 4949}, Internet Security Glossary, definisce il controllo dell'accesso come un processo con cui l'uso delle risorse del sistema è regolato secondo una politica di sicurezza è permesso solo alle entità autorizzate (utenti, programmi, processi o altri sistemi) secondo tale politica.
+    \item \textbf{RFC 4949}, Internet Security Glossary, definisce \textbf{il controllo dell'accesso} come un processo con cui l'uso delle risorse del sistema è regolato secondo una politica di sicurezza è permesso solo alle entità autorizzate (utenti, programmi, processi o altri sistemi) secondo tale politica.
     
-Possiamo considerare il controllo degli accessi come un elemento centrale della sicurezza informatica. Gli obiettivi principali della sicurezza informatica sono di impedire agli utenti non autorizzati di accesso alle risorse, impedire agli utenti legittimi di accedere alle risorse in modo non in modo non autorizzato, e permettere agli utenti legittimi di accedere alle risorse in modo autorizzato.
+Possiamo considerare il controllo degli accessi come un elemento centrale della sicurezza informatica. Gli obiettivi principali della sicurezza informatica sono di impedire agli utenti non autorizzati di accesso alle risorse, impedire agli utenti legittimi di accedere alle risorse in modo non autorizzato, e permettere agli utenti legittimi di accedere alle risorse in modo autorizzato.
 
 \begin{figure}[H]
 	\centering
@@ -54,12 +54,11 @@ Le politiche di controllo dell'accesso sono generalmente raggruppate nelle segue
 \begin{itemize}
     \item \textbf{Controllo dell'accesso discrezionale (DAC)}
     
-    Controlla l'accesso in base all'identità del richiedente e su regole di accesso (autorizzazioni) che stabiliscono cosa i richiedenti sono (o non sono)autorizzati a fare. Questa politica è definita discrezionale perché un'entità può avere diritti di accesso che permettono all'entità, di sua spontanea volontà, di un'altra entità di accedere a qualche risorsa.
+    Controlla l'accesso in base all'identità del richiedente e su regole di accesso (autorizzazioni) che stabiliscono cosa i richiedenti sono (o non sono) autorizzati a fare. Questa politica è definita discrezionale perché un'entità può avere diritti di accesso che permettono all'entità, di sua spontanea volontà, di un'altra entità di accedere a qualche risorsa.
     
     \item \textbf{Controllo di accesso obbligatorio (MAC)}
     
-    
-    Controlla l'accesso basandosi sul confronto delle etichette di sicurezza (che indicano quanto sono sensibili o critiche le risorse del sistema) con le autorizzazioni di sicurezza (che indicano le entità del sistema). con le autorizzazioni di sicurezza (che indicano che le entità del sistema sono autorizzate ad accedere a certe risorse). risorse). Questa politica è definita obbligatoria perché un'entità che ha l'autorizzazione di accedere a una risorsa non può, solo per sua volontà, permettere a un'altra entità di accedere a quella risorsa.
+    Controlla l'accesso basandosi sul confronto delle etichette di sicurezza (che indicano quanto sono sensibili o critiche le risorse del sistema). con le autorizzazioni di sicurezza (che indicano che le entità del sistema sono autorizzate ad accedere a certe risorse). Questa politica è definita obbligatoria perché un'entità che ha l'autorizzazione di accedere a una risorsa non può, solo per sua volontà, permettere a un'altra entità di accedere a quella risorsa.
     
     \item \textbf{Controllo di accesso basato sui ruoli (RBAC)}
     
@@ -74,25 +73,33 @@ Queste quattro politiche non si escludono a vicenda. Un meccanismo di controllo 
 \newpage
 \subsection{Soggetti oggetti e diritti d'accesso}
 Gli elementi di base del controllo d'accesso sono: soggetto, oggetto e diritto d'accesso.
+
 \singlespacing
+
 Un soggetto è un'entità capace di accedere agli oggetti. In generale, il concetto di soggetto equivale a quello di processo. Qualsiasi utente o applicazione ottiene effettivamente l'accesso a un oggetto per mezzo di un processo che rappresenta quell'utente o applicazione. Il processo assume gli attributi dell'utente, come i diritti di accesso.
+
 \singlespacing
+
 Un soggetto è tipicamente ritenuto responsabile delle azioni che ha iniziato, e un audit trail può essere usato per registrare l'associazione di un soggetto con azioni rilevanti per la sicurezza eseguite su un oggetto dal soggetto.
 I sistemi di controllo dell'accesso di base definiscono tipicamente tre classi di soggetti, con diritti di accesso diversi per ogni classe:
 \begin{itemize}
+
     \item \textbf{Propietario:} può essere il creatore di una risorsa, come un file. Per le risorse di sistema, la proprietà può appartenere ad un amministratore di sistema. Per le risorse del progetto, l'amministratore o il un amministratore di progetto o un leader può essere assegnato la proprietà.
     
     \item \textbf{Gruppo:} In aggiunta ai privilegi assegnati ad un proprietario, ad un gruppo nominato di utenti possono anche essere concessi diritti di accesso, in modo tale che l'appartenenza al gruppo sufficiente per esercitare questi diritti di accesso. Nella maggior parte degli schemi, un utente può appartenere a più gruppi.
     
     \item \textbf{Mondo:} Il minimo di accesso è concesso agli utenti che sono in grado di accedere al sistema ma non sono inclusi nelle categorie proprietario e gruppo per questa risorsa.
+    
 \end{itemize}
 Un oggetto è una risorsa il cui accesso è controllato. In generale, un oggetto è un'entità usata per contenere e/o ricevere informazioni.
+
 \singlespacing
+
 Il numero e i tipi di oggetti da proteggere con un sistema di controllo degli accessi dipende dall'ambiente in cui opera il controllo degli accessi e dal compromesso tra sicurezza da un lato e complessità, carico di lavoro e facilità d'uso dall'altro.
+
 \singlespacing
-Un diritto di accesso descrive il modo in cui un soggetto può accedere a un oggetto.
-\singlespacing
-I diritti di accesso potrebbero includere quanto segue:
+
+Un diritto di accesso descrive il modo in cui un soggetto può accedere a un oggetto. I diritti di accesso potrebbero includere quanto segue:
 \begin{itemize}
     \item \textbf{Leggere:} L'utente può visualizzare le informazioni in una risorsa di sistema (ad esempio, un file, record selezionati record in un file, campi selezionati all'interno di un record, o qualche combinazione). Lettura l'accesso include la possibilità di copiare o stampare.
     
@@ -111,6 +118,7 @@ Come si è detto in precedenza, uno schema di controllo di accesso discrezionale
 \begin{center}
     \textbf{Una dimensione della matrice consiste in soggetti identificati che possono tentare l'accesso alle risorse.}
 \end{center}
+
 Tipicamente, questa lista consisterà di singoli utenti o gruppi di utenti anche se l'accesso potrebbe essere controllato per terminali, apparecchiature di rete, host, o applicazioni invece di o in aggiunta agli utenti. L'altra dimensione elenca gli oggetti a cui si può accedere. Al massimo livello di dettaglio, gli oggetti possono essere singoli dati campi di dati. Raggruppamenti più aggregati, come record, file o anche l'intero database, possono anche essere oggetti nella matrice. Ogni voce nella matrice indica i diritti di accesso di un particolare soggetto per un particolare oggetto.
 
 \begin{figure}[H]
@@ -134,7 +142,7 @@ La decomposizione per righe produce i capability ticket (vedi Figura 4.2c).
 
 \singlespacing
 
-Un capability è un ticket di capacità specifica gli oggetti e le operazioni autorizzate per un particolare utente. Ogni utente ha un certo numero di ticket e può essere autorizzato a prestarli o darli ad altri. Poiché i ticket possono essere dispersi nel sistema, presentano un problema di sicurezza maggiore rispetto alle liste di controllo degli accessi. L'integrità del ticket deve essere protetta e garantita (di solito dal sistema operativo). In particolare, il ticket deve essere non falsificabile. Un modo per ottenere ciò è quello di avere il sistema operativo che tiene tutti i ticket per conto degli utenti. Questi biglietti dovrebbero essere tenuti in una regione di memoria inaccessibile agli utenti. Un'altra alternativa è includere un token non falsificabile nella capacità. Questo potrebbe essere una grande password casuale, o un codice crittografico di autenticazione del messaggio. Questo valore è verificato dalla risorsa ogni volta che viene richiesto l'accesso. Questa forma di capability ticket è appropriata per Questa forma di capability ticket è appropriata per l'uso in un ambiente distribuito, quando la sicurezza del suo contenuto non può essere garantita. Gli aspetti convenienti e scomodi dei capability ticket sono l'opposto di quelli delle ACL. È facile determinare l'insieme dei diritti di accesso che un dato utente ha, ma è più difficile determinare l'elenco degli utenti con diritti di accesso specifici per una risorsa specifica.
+Un capability è un ticket di capacità specifica gli oggetti e le operazioni autorizzate per un particolare utente. Ogni utente ha un certo numero di ticket e può essere autorizzato a prestarli o darli ad altri. Poiché i ticket possono essere dispersi nel sistema, presentano un problema di sicurezza maggiore rispetto alle liste di controllo degli accessi. L'integrità del ticket deve essere protetta e garantita (di solito dal sistema operativo). In particolare, il ticket deve essere non falsificabile. Un modo per ottenere ciò è quello di avere il sistema operativo che tiene tutti i ticket per conto degli utenti. Questi biglietti dovrebbero essere tenuti in una regione di memoria inaccessibile agli utenti. Un'altra alternativa è includere un token non falsificabile nella capacità. Questo potrebbe essere una grande password casuale, o un codice crittografico di autenticazione del messaggio. Questo valore è verificato dalla risorsa ogni volta che viene richiesto l'accesso. ù
 
 \singlespacing
 
@@ -144,6 +152,7 @@ Una tabella di autorizzazione contiene una riga per un diritto di accesso di un 
 	\centering
     \includegraphics[width=14cm, keepaspectratio]{Bistarelli/img/cap_4/tabella4.2.png}
 \end{figure}
+
 \newpage
 \subsection{Un modello di controllo d'accesso}
 Questa sezione introduce un modello generale per DAC sviluppato da Lampson, Graham, e Denning. Il modello presuppone un insieme di soggetti, un insieme di oggetti e un insieme di regole che governano l'accesso dei soggetti agli oggetti. Definiamo lo stato di protezione di un sistema come l'insieme di informazioni, in un dato momento, che specifica i diritti di accesso per ogni soggetto rispetto a ogni oggetto.
@@ -155,6 +164,7 @@ Noi Possiamo identificare tre requisiti: rappresentare lo stato di protezione, f
 \singlespacing
 
 Per rappresentare lo stato di protezione, estendiamo l'universo di oggetti nella matrice di controllo degli accessi per includere quanto segue:
+
 \begin{itemize}
     \item \textbf{Processi:} I diritti di accesso includono la capacità di cancellare un processo, fermare (bloccare) e svegliare un processo.
 
@@ -164,7 +174,8 @@ Per rappresentare lo stato di protezione, estendiamo l'universo di oggetti nella
     
     \item \textbf{Soggetti:} I diritti di accesso rispetto ad un soggetto hanno a che fare con la capacità di concedere o cancellare i diritti di accesso di quel soggetto ad altri oggetti, come spiegato successivamente.
 \end{itemize}
-La figura 4.3 è un esempio. Per una matrice di controllo di accesso A, ogni voce A[S, X] contiene stringhe, chiamate attributi di accesso, che specificano i diritti di accesso del soggetto S all per l'oggetto X. Per esempio, nella figura 4.3, S1 può leggere il file F1, perché 'read' appare in A[S1, F1]. Da un punto di vista logico o funzionale, un modulo di controllo degli accessi separato è associato ad ogni tipo di oggetto (vedi figura 4.4). Il modulo valuta ogni Il modulo valuta ogni richiesta di un soggetto di accedere a un oggetto per determinare se il diritto di accesso esiste. Un tentativo di accesso innesca i seguenti passi:
+
+La figura 4.3 è un esempio. Per una matrice di controllo di accesso A, ogni voce A[S, X] contiene stringhe, chiamate attributi di accesso, che specificano i diritti di accesso del soggetto S all per l'oggetto X. Per esempio, nella figura 4.3, S1 può leggere il file F1, perché 'read' appare in A[S1, F1]. Da un punto di vista logico o funzionale, un modulo di controllo degli accessi separato è associato ad ogni tipo di oggetto (vedi figura 4.4). Il modulo valuta ogni richiesta di un soggetto di accedere a un oggetto per determinare se il diritto di accesso esiste. Un tentativo di accesso innesca i seguenti passi:
 \begin{enumerate}
     \item Un soggetto S0 emette una richiesta di tipo a per l'oggetto X.
     
@@ -229,17 +240,27 @@ L'insieme di regole nella Tabella 4.3 è un esempio dell'insieme di regole che p
 	\centering
     \includegraphics[width=14cm, keepaspectratio]{Bistarelli/img/cap_4/tabella4.3.png}
 \end{figure}
+
 \section{Esempio: Controllo di accesso ai file Unix}
 Tutti i tipi di file UNIX sono amministrati dal sistema operativo per mezzo di inode.
+
 \singlespacing
+
 \textbf{Un inode} (nodo indice) è una struttura di controllo che contiene le informazioni chiave necessarie al sistema operativo per un particolare file. Diversi nomi di file possono essere associati ad un singolo inode, ma un inode attivo è associato esattamente ad un file, e ogni file è controllato esattamente da un inode. Gli attributi del file così come i suoi permessi e altre informazioni di controllo sono memorizzati nell'inode. Sul disco, c'è una tabella di inode, o lista di inode, che contiene gli inode di tutti i file nel file sistema. Quando un file viene aperto, il suo inode viene portato nella memoria principale e memorizzato in una tabella di inode residente in memoria.
+
 \singlespacing
+
 Le directory sono strutturate in un albero gerarchico. Ogni directory può contenere file e/o altre directory. Una directory che si trova all'interno di un'altra directory viene una sottodirectory. Una directory è semplicemente un file che contiene una lista di nomi di file più puntatori agli inode associati. Così, associato ad ogni directory c'è il proprio inode.
+
 \subsection{Controllo di accesso ai file UNIX tradizionale}
 La maggior parte dei sistemi UNIX dipende, o almeno si basa, sullo schema di controllo dell'accesso ai file introdotto con le prime versioni di UNIX. Ad ogni utente UNIX viene assegnato un unico numero di identificazione utente (ID utente). Un utente è anche membro di un gruppo primario, e possibilmente di un certo numero di altri gruppi, ciascuno identificato da un ID di gruppo. Quando un file viene creato, è designato come di proprietà di un particolare utente e contrassegnato dall'ID di quell'utente \textbf{ID DI QUELL'UTENTE}.
+
 \singlespacing
+
 Appartiene anche a un gruppo specifico, che inizialmente è o il gruppo primario del suo creatore, o il gruppo della sua directory madre se questa ha il permesso SetGID impostato. Associato ad ogni file c'è un insieme di 12 bit di protezione. L'ID del proprietario, l'ID del gruppo e i bit di protezione fanno parte dell'inode del file.
+
 \singlespacing
+
 Nove dei bit di protezione specificano i permessi di lettura, scrittura ed esecuzione per il proprietario del file, gli altri membri del gruppo a cui questo file appartiene e tutti gli altri utenti. Questi formano una gerarchia di proprietario, gruppo e tutti gli altri, con l'insieme di permessi più alto che viene usato. La figura 4.5a mostra un esempio in cui il proprietario del file ha accesso in lettura e scrittura; tutti gli altri membri del gruppo del file hanno accesso in lettura; e gli utenti esterni al gruppo non hanno diritti di accesso al file. Quando sono applicati ad una directory, i bit di lettura e scrittura garantiscono il diritto di elencare e creare/rinominare/cancellare file nella directory. Il bit di esecuzione garantisce il diritto di scendere nella directory o di cercare un nome di file.
 
 \begin{figure}[H]
@@ -276,6 +297,7 @@ Avremmo bisogno di almeno due gruppi di utenti, e l'utente B dovrebbe appartener
 \singlespacing
 
 Un modo per superare questo problema è usare le liste di controllo degli accessi, che sono fornite nella maggior parte dei moderni sistemi UNIX. Un ultimo punto da notare è che il tradizionale schema di controllo di accesso ai file UNIX implementa una semplice struttura di dominio di protezione. Un dominio è associato con l'utente, e cambiare il dominio corrisponde a cambiare temporaneamente l'ID dell'utente.
+
 \newpage
 \subsection{Liste di controllo d'accesso in UNIX}
 Molti moderni sistemi operativi UNIX e basati su UNIX supportano le liste di controllo degli accessi, inclusi FreeBSD, OpenBSD, Linux e Solaris. In questa sezione, descriviamo FreeBSD, ma altre implementazioni hanno essenzialmente le stesse caratteristiche e la stessa interfaccia. La caratteristica è indicata come lista di controllo di accesso estesa, mentre il tradizionale approccio UNIX UNIX tradizionale è indicato come lista di controllo dell'accesso minima.
@@ -297,6 +319,7 @@ Questi permessi rappresentano i permessi massimi che possono essere assegnati a 
     
 Ognuno con un campo di autorizzazione a 3 bit. I permessi elencati per un utente o un gruppo gruppo sono confrontati con il campo della maschera. Qualsiasi permesso per l'utente o il gruppo gruppo che non è presente nel campo della maschera non è permesso.
 \end{enumerate}
+
 Quando un processo richiede l'accesso ad un oggetto del file system, vengono eseguiti due passi.
 
 \begin{enumerate}
@@ -308,6 +331,7 @@ Il sito ACL vengono esaminate nel seguente ordine: proprietario, utenti nominati
 
 Un processo può essere membro di più di un gruppo; quindi più di una voce di gruppo può corrispondere. Se una di queste voci di gruppo corrispondenti gruppo corrispondente contiene i permessi richiesti, ne viene scelto uno che contiene i permessi richiesti (il risultato è lo stesso indipendentemente dalla voce scelta). Se nessuna delle delle voci di gruppo corrispondenti contiene i permessi richiesti, l'accesso sarà negato indipendentemente dalla voce scelta.
 \end{enumerate}
+
 \newpage
 \section{Controllo d'accesso basato sul ruolo}
 
@@ -375,7 +399,8 @@ Figura 4.8b, senza la gerarchia dei ruoli e i vincoli, contiene i quattro tipi d
     
 \end{itemize}
 
-Le linee con le frecce nella figura 4.8b indicano relazioni, o mappature, con una freccia singola che ne indica una e una doppia che ne indica molte. Quindi, c'è una relazione molti-a-molti tra utenti e ruoli: Un utente può avere più ruoli, e più utenti possono essere assegnati a un singolo ruolo. Allo stesso modo, c'è una relazione molti a molti tra ruoli e permessi. Una sessione è usata per definire una relazione temporanea uno-a-molti tra un utente e uno o più ruoli a cui l'utente è stato assegnato. L'utente stabilisce una sessione con solo i ruoli necessari per un particolare compito; questo è un esempio del concetto di minimo privilegio. Le relazioni molti-a-molti tra utenti e ruoli e tra ruoli e permessi forniscono una flessibilità e granularità di assegnazione che non si trova negli schemi DAC convenzionali. Senza questa flessibilità e granularità, c'è un rischio maggiore che ad un utente possa essere concesso più accesso alle risorse di quanto sia necessario a causa del controllo limitato sui tipi di accesso che possono essere permessi. 
+Le linee con le frecce nella figura 4.8b indicano relazioni, o mappature, con una freccia singola che ne indica una e una doppia che ne indica molte. Quindi, c'è una relazione molti-a-molti tra utenti e ruoli: Un utente può avere più ruoli, e più utenti possono essere assegnati a un singolo ruolo. Allo stesso modo, c'è una relazione molti a molti tra ruoli e permessi. Una sessione è usata per definire una relazione temporanea uno-a-molti tra un utente e uno o più ruoli a cui l'utente è stato assegnato. L'utente stabilisce una sessione con solo i ruoli necessari per un particolare compito, questo è un esempio del concetto di minimo privilegio. Le relazioni molti-a-molti tra utenti e ruoli e tra ruoli e permessi forniscono una flessibilità e granularità di assegnazione che non si trova negli schemi DAC convenzionali. Senza questa flessibilità e granularità, c'è un rischio maggiore che ad un utente possa essere concesso più accesso alle risorse di quanto sia necessario a causa del controllo limitato sui tipi di accesso che possono essere permessi. 
+
 \newpage
 \begin{center}
     \textbf{Gerarchie di ruolo-RBAC1}
@@ -387,7 +412,7 @@ Le gerarchie di ruolo forniscono un mezzo per riflettere la struttura gerarchica
     \textbf{Vincoli-RBAC2}
 \end{center}
 
-I vincoli forniscono un mezzo per adattare RBAC alle specifiche delle politiche amministrative e di sicurezza in un'organizzazione. Un vincolo è una relazione definita tra i ruoli o una condizione relativa ai ruoli. Esistono i seguenti tipi di vincoli: ruoli mutuamente esclusivi, cardinalità e ruoli prerequisiti. I ruoli mutuamente esclusivi sono ruoli tali che un utente può essere assegnato ad un solo ruolo nell'insieme. Questa limitazione potrebbe essere statica, o potrebbe essere dinamica, nel senso che ad un utente potrebbe essere assegnato solo uno dei ruoli nell'insieme per una sessione. Il vincolo reciprocamente esclusivo supporta una separazione di doveri e capacità all'interno un'organizzazione. Questa separazione può essere rafforzata o migliorata dall'uso di assegnazioni di permessi reciprocamente esclusivi. Con questo vincolo aggiuntivo, un insieme di ruoli mutuamente esclusivi ha le seguenti proprietà:
+I vincoli forniscono un mezzo per adattare RBAC alle specifiche delle politiche amministrative e di sicurezza in un'organizzazione. Un vincolo è una relazione definita tra i ruoli o una condizione relativa ai ruoli. I ruoli mutuamente esclusivi sono ruoli tali che un utente può essere assegnato ad un solo ruolo nell'insieme. Questa limitazione potrebbe essere statica, o potrebbe essere dinamica, nel senso che ad un utente potrebbe essere assegnato solo uno dei ruoli nell'insieme per una sessione. Il vincolo reciprocamente esclusivo supporta una separazione di doveri e capacità all'interno un'organizzazione. Questa separazione può essere rafforzata o migliorata dall'uso di assegnazioni di permessi reciprocamente esclusivi. Con questo vincolo aggiuntivo, un insieme di ruoli mutuamente esclusivi ha le seguenti proprietà:
 
 \begin{center}
     Un utente può essere assegnato ad un solo ruolo nell'insieme (sia durante una sessione staticamente).
@@ -413,17 +438,27 @@ Un sistema potrebbe essere in grado di specificare un ruolo prerequisito, che im
 \singlespacing
 
 Un prerequisito può essere usato per strutturare l'implementazione del concetto di minimo privilegio. In una gerarchia, potrebbe essere richiesto che un utente possa essere assegnato ad un ruolo (superiore) solo se gli è già stato assegnato un ruolo immediatamente inferiore. Per esempio, nella figura 4.9 un utente assegnato a un ruolo di Project Lead deve essere assegnato anche a ai ruoli subordinati Production Engineer e Quality Engineer. Quindi, se l'utente non ha bisogno di tutti i permessi del ruolo Project Lead per un dato compito, l'utente può invocare una sessione usando solo il ruolo subordinato richiesto. Si noti l'uso di prerequisiti legati al concetto di gerarchia richiede il modello RBAC 3.
+
 \section{Controllo degli accessi basato su attributi}
 Uno sviluppo relativamente recente nella tecnologia di controllo dell'accesso è il modello di controllo dell'accesso basato sugli attributi (ABAC). Un modello ABAC può definire autorizzazioni che esprimono condizioni su proprietà sia della risorsa che del soggetto. Per esempio, consideriamo una configurazione in cui ogni risorsa ha un attributo che identifica il soggetto che ha creato la risorsa. Quindi, una singola regola di accesso può specificare il privilegio del proprietario per tutti i creatori di ogni risorsa. La forza dell'approccio ABAC è la sua flessibilità e potenza espressiva. Sottolinea che il principale ostacolo alla sua adozione in sistemi reali è stata la preoccupazione per l'impatto della valutazione dei predicati su entrambe le proprietà della risorsa e dell'utente per ogni accesso.
+
 \singlespacing
+
 Tuttavia, per applicazioni come i servizi Web cooperanti e il cloud computing questo aumento del costo delle prestazioni è meno evidente perché c'è già un costo di prestazione relativamente alto per ogni accesso. Così, i servizi Web sono stati tecnologie innovative per l'implementazione di modelli ABAC, specialmente attraverso l'introduzione dell'eXtensible Access Control Markup Language (XAMCL) e c'è un notevole interesse nell'applicare il modello ABAC ai servizi cloud.
+
 \singlespacing
+
 Ci sono tre elementi chiave in un modello ABAC: gli attributi, che sono definiti per le entità in una configurazione; un modello di policy, che definisce le politiche ABAC; e il modello di architettura, che si applica alle politiche che impongono il controllo degli accessi.
+
 \newpage
+
 \subsection{Attributi}
-Gli attributi sono caratteristiche che definiscono aspetti specifici del soggetto, dell'oggetto, delle condizioni ambientali e/o delle operazioni richieste che sono predefinite e preassegnate da un'autorità. Gli attributi contengono informazioni che indicano la classe di informa un nome e un valore (ad esempio, Class = HospitalRecordsAccess, Name = PatientInformationAccess, Value = MFBusinessHoursOnly).
+Gli attributi sono caratteristiche che definiscono aspetti specifici del soggetto, dell'oggetto, delle condizioni ambientali e/o delle operazioni richieste che sono predefinite e preassegnate da un'autorità. Gli attributi contengono informazioni che indicano la classe di informa un nome e un valore.
+
 \singlespacing
+
 I seguenti sono i tre tipi di attributi nel modello ABAC:
+
 \begin{itemize}
     \item \textbf{Attributi soggetto}
     
@@ -431,7 +466,7 @@ Un soggetto è un'entità attiva (ad esempio, un utente, un'applicazione, un pro
 
     \item \textbf{Attributi dell'oggetto}
     
-Un oggetto, chiamato anche risorsa, è un oggetto passivo (nel contesto della richiesta data) un'entità legata al sistema informativo (ad esempio, dispositivi, file, record, tabelle, processi, programmi, reti, domini) che contengono o ricevere informazioni. Come per i soggetti, gli oggetti hanno attributi che possono essere per prendere decisioni di controllo dell'accesso.
+Un oggetto, chiamato anche risorsa, è un oggetto passivo (nel contesto della richiesta data) un'entità legata al sistema informativo (ad esempio, dispositivi, file, record, tabelle, processi, programmi, reti, domini) che contengono o ricevere informazioni. 
 
     \item \textbf{Attributi ambientali}
     
@@ -441,6 +476,7 @@ Questi attributi sono stati finora largamente ignorati nella maggior parte delle
 \singlespacing
 
 Tutte le soluzioni ABAC contengono queste capacità di base per valutare gli attributi e applicare regole o relazioni tra questi attributi. I sistemi ABAC sono in grado di applicare i concetti DAC, RBAC e concetti MAC. ABAC consente un controllo dell'accesso a grana fine, che permette un numero numero di input discreti in una decisione di controllo dell'accesso, fornendo un più grande insieme di possibili combinazioni di quelle variabili per riflettere un insieme più ampio e definitivo di possibili regole, politiche o restrizioni di accesso. Così, ABAC permette un numero illimitato numero illimitato di attributi da combinare per soddisfare qualsiasi regola di controllo dell'accesso. Inoltre, i sistemi ABAC possono essere implementati per soddisfare una vasta gamma di requisiti da dalle liste di controllo degli accessi di base a modelli di policy avanzati ed espressivi che sfruttano appieno la flessibilità dell'ABAC.
+
 \newpage
 \subsection{Architettura locìgica ABAC}
 \begin{figure}[H]
@@ -476,13 +512,14 @@ Rispetto a un modello DAC che usa liste di controllo degli accessi (ACL). Questa
 
 \singlespacing
 
-L'aggiunta di un utente ad una ACL. In ABAC, la radice della fiducia deriva da molte fonti di cui il proprietario dell'oggetto non ha controllo, come le Subject Attribute Authorities, sviluppatori di policy e emittenti di credenziali. Di conseguenza, SP 800-162 raccomandava che un organismo di governance aziendale sia formato per gestire tutte le identità, le credenziali, di gestione delle identità, delle credenziali e degli accessi e che ogni organizzazione sub-ordinata mantenga un organismo simile per garantire la coerenza nella gestione l'implementazione e il cambiamento di paradigma associati all'implementazione di ABAC a livello aziendale.
+L'aggiunta di un utente ad una ACL. In ABAC, la radice della fiducia deriva da molte fonti di cui il proprietario dell'oggetto non ha controllo, sviluppatori di policy e emittenti di credenziali. Di conseguenza, SP 800-162 raccomandava che un organismo di governance aziendale sia formato per gestire tutte le identità, le credenziali, di gestione delle identità, delle credenziali e degli accessi e che ogni organizzazione sub-ordinata mantenga un organismo simile per garantire la coerenza nella gestione l'implementazione e il cambiamento di paradigma associati all'implementazione di ABAC a livello aziendale.
 
 \singlespacing
 
 Inoltre, si raccomanda che un'impresa sviluppi un modello di fiducia che può essere usato per illustrare le relazioni di fiducia e aiutare a determinare la proprietà e la responsabilità delle informazioni e dei servizi, le esigenze di ulteriori politiche e di governance e i requisiti per soluzioni tecniche per convalidare o applicare le relazioni di fiducia. Il modello di fiducia di modello di fiducia può essere usato per influenzare le organizzazioni a condividere le loro informazioni con chiare aspettative su come queste informazioni saranno usate e protette e per essere in grado di fidarsi delle informazioni e delle asserzioni di attributi e autorizzazioni provenienti da altre organizzazioni.
 
 \subsection{Politiche ABAC}
+
 Una politica è un insieme di regole e relazioni che governano il comportamento consentito all'interno di un'organizzazione. Basato sui privilegi dei soggetti e su come le risorse o gli oggetti devono essere protetti in quali condizioni ambientali. A loro volta, i privilegi rappresentano il comportamento autorizzato di un soggetto; sono definiti da un'autorità e incorporati in una politica. Altri termini comunemente usati al posto di privilegi sono autorizzazioni e diritti. La politica è tipicamente scritta dal punto di vista dell'oggetto da proteggere e dei privilegi disponibili ai soggetti. Ora definiamo un modello di policy ABAC. Sono utilizzate le seguenti convenzioni
 
 
@@ -553,6 +590,7 @@ Al contrario, il modello ABAC tratta gli attributi aggiuntivi in modo efficiente
 \end{figure}
 
 Con il modello ABAC, è anche facile aggiungere attributi ambientali. Supponiamo che che vogliamo aggiungere una nuova regola di policy che è espressa in parole come segue: Gli utenti regolari sono autorizzati a vedere le nuove release nei periodi promozionali. Questo sarebbe difficile da esprimere in un modello RBAC. In un modello ABAC, abbiamo solo bisogno di aggiungere una regola congiuntiva (AND) che controlla per vedere se l'attributo ambientale la data di oggi cade in un periodo promozionale.
+
 \newpage
 \section{Gestione dell'entità, delle credenziali e dell'accesso}
 L'ICAM è un approccio completo alla gestione e all'implementazione delle identità digitali identità digitali (e gli attributi associati), le credenziali e il controllo degli accessi. ICAM è stato sviluppato dal governo degli Stati Uniti, ma è applicabile non solo alle agenzie governative, ma può anche essere distribuito da imprese che cercano un approccio unificato al controllo degli accessi. ICAM è progettato per:
@@ -623,7 +661,9 @@ un processo che tipicamente consiste nella prova dell'identità e nell'acquisizi
 \newpage
 \subsection{Gestione degli accessi}
 Il componente di gestione degli accessi si occupa della gestione e del controllo delle modalità di accesso alle risorse da parte delle entità. Copre sia l'accesso logico che fisiologico e può essere interno ad un sistema o un elemento esterno. Lo scopo della gestione degli accessi è quello di garantire che venga fatta la corretta verifica dell'identità quando un individuo tenta di accedere a edifici, sistemi informatici o dati sensibili alla sicurezza. La funzione di controllo degli accessi fa uso delle credenziali presentate da chi richiede l'accesso e l'identità digitale del richiedente.
+
 \singlespacing
+
 Sono necessari tre elementi di supporto per una struttura di controllo degli accessi a livello aziendale:
 \begin{itemize}
     \item \textbf{Gestione delle risorse}
@@ -638,20 +678,27 @@ Questo elemento si occupa di stabilire e mantenere di diritti o attributi di pri
 
 Questo elemento governa ciò che è permesso e non permesso in una transazione di accesso. Cioè, dati l'identità e gli attributi del richiedente, gli attributi della risorsa o dell'oggetto e le condizioni ambientali, una politica specifica quali azioni questo utente può eseguire su questo oggetto.
 \end{itemize}
+
 \newpage
 \subsection{Federazione delle identità}
+
 La federazione di identità affronta due questioni:
+
 \begin{enumerate}
     \item Come vi fidate delle identità di individui di organizzazioni esterne che hanno bisogno di accesso ai vostri sistemi?
     
     \item Come garantisci le identità degli individui della tua organizzazione quando hanno hanno bisogno di collaborare con organizzazioni esterne?
 \end{enumerate}
 La federazione delle identità è un termine usato per descrivere la tecnologia, gli standard, le politiche e processi che permettono a un'organizzazione di fidarsi di identità digitali, attributi di identità e credenziali create ed emesse da un'altra organizzazione.
+
 \section{Strutte di fiducia}
-I concetti interconnessi di fiducia, identità e attributi sono diventati preoccupazioni fondamentali delle imprese Internet, dei fornitori di servizi di rete e delle grandi imprese. Queste preoccupazioni possono essere viste chiaramente nell'ambiente del commercio elettronico. Per l'efficienza, la privacy e la semplicità legale, le parti delle transazioni generalmente applicano il principio del need-to-know: cosa si deve sapere di qualcuno per trattare con lui? La risposta varia da caso a caso, e include attributi come il numero di registrazione professionale o di licenza, l'organizzazione e il dipartimento, l'ID del personale, il nulla osta di sicurezza, il numero di riferimento del cliente, il numero di carta di credito, l'identificatore unico della salute, le allergie, il gruppo sanguigno, il numero di previdenza sociale, l'indirizzo, lo stato di cittadino, il nickname dei social network, lo pseudonimo e così via. Gli attributi di un individuo che devono essere conosciuti e verificati per permettere una transazione dipendono dal contesto. Per esempio, un'impresa può bisogno di fornire accesso alle risorse per clienti, utenti, fornitori e partner. A seconda del contesto, l'accesso sarà determinato non solo dall'identità, ma dagli attributi del richiedente e della risorsa.
+
+I concetti interconnessi di fiducia, identità e attributi sono diventati preoccupazioni fondamentali delle imprese Internet, dei fornitori di servizi di rete e delle grandi imprese. Queste preoccupazioni possono essere viste chiaramente nell'ambiente del commercio elettronico. Per l'efficienza, la privacy e la semplicità legale, le parti delle transazioni generalmente applicano il principio del need-to-know: cosa si deve sapere di qualcuno per trattare con lui? La risposta varia da caso a caso, e include attributi come il numero di registrazione professionale o di licenza, l'organizzazione e il dipartimento, l'ID del personale, il nulla osta di sicurezza, il numero di riferimento del cliente, il numero di carta di credito, l'identificatore unico della salute, le allergie, il gruppo sanguigno, il numero di previdenza sociale, l'indirizzo, lo stato di cittadino, il nickname dei social network, lo pseudonimo e così via. Gli attributi di un individuo che devono essere conosciuti e verificati per permettere una transazione dipendono dal contesto.
+
 \newpage
 \subsection{Approccio tradizionale allo scambio di identità}
 Le transazioni online o in rete che coinvolgono parti di diverse organizzazioni, o tra un'organizzazione e un utente individuale come un cliente online, richiedono generalmente la condivisione di informazioni di identità. Queste informazioni possono includere una serie di attributi associati oltre a un semplice nome o identificatore numerico. Sia la parte che divulga le informazioni che quella che le riceve devono avere un livello di fiducia sulle questioni di sicurezza e di privacy relative a tali informazioni. La figura 4.13a mostra la tecnica tradizionale per lo scambio di informazioni sull'identità. Questo comporta che gli utenti sviluppino accordi con un fornitore di servizi di identità per procurarsi identità e credenziali digitali, e accordi con le parti che forniscono servizi e applicazioni per gli utenti finali e che sono disposti a fare affidamento sull'identità e sulle informazioni sull'identità e le credenziali generate dal fornitore di servizi d'identità. L'accordo della Figura 4.13a deve soddisfare una serie di requisiti. La parte fidata richiede che l'utente sia stato autenticato con un certo grado di sicurezza, che gli attributi imputati all'utente dal fornitore di servizi d'identità siano accurati, e che il fornitore di servizi d'identità sia autorevole per quegli attributi. Il fornitore di servizi d'identità richiede l'assicurazione di avere informazioni accurate sull'utente e che, se condivide le informazioni, la parte che si affida le userà in accordo con i termini e le condizioni contrattuali e la legge. L'utente richiede l'assicurazione che al fornitore di servizi d'identità e alla parte fidata possano essere affidate informazioni sensibili e che si attengano alle preferenze dell'utente e rispettino la sua privacy. Soprattutto, tutte le parti vogliono sapere se le pratiche descritte dalle altre parti sono effettivamente quelle attuate dalle parti, e quanto sono affidabili quelle parti.
+
 \subsection{Approccio di fiducia per l'identità aperta}
 
 \begin{figure}[H]
@@ -661,6 +708,7 @@ Le transazioni online o in rete che coinvolgono parti di diverse organizzazioni,
 
 
 Senza qualche standard e quadro universale, la disposizione della Figura 4.13a deve essere replicata in molteplici contesti. Un approccio di gran lunga preferibile è quello di sviluppare un approccio aperto e standardizzato per lo scambio di identità e attributi affidabili. Nel resto di questa sezione, esaminiamo un tale approccio che sta guadagnando sempre più consenso. Sfortunatamente, questo argomento è gravato da numerosi acronimi, quindi è meglio iniziare con una definizione del più importante di questi:
+
 \begin{itemize}
     \item \textbf{OpenId}
     
@@ -688,19 +736,29 @@ Senza qualche standard e quadro universale, la disposizione della Figura 4.13a d
 
     
 \end{itemize}
+
 I gestori del sistema devono potersi fidare del fatto che gli attributi associati a un soggetto o un oggetto siano autorevoli e vengano scambiati in modo sicuro. Un approccio per fornire tale fiducia all'interno di un'organizzazione è il modello ICAM, in particolare i componenti ICAM (vedi figura 4.12). Combinato con una funzionalità di federazione di identità che è condivisa con altre organizzazioni, gli attributi possono essere scambiati in modo degno di fiducia, supportando un controllo di accesso sicuro. Nei sistemi d'identità digitale, una struttura di fiducia funziona come un programma di certificazione. Permette ad una parte che accetta una credenziale di identità digitale (chiamata parte fidata) di fidarsi delle politiche di identità, sicurezza e privacy della parte che emette la credenziale (chiamato fornitore di servizi di identità) e viceversa.
+
 \singlespacing
+
 Più formalmente, OIX definisce un quadro di fiducia come un insieme di impegni verificabili da ciascuna delle varie parti di una transazione verso le loro controparti.
+
 \singlespacing
+
 Questi impegni includono:
+
 \begin{enumerate}
     \item Controlli (compresi gli obblighi normativi e contrattuali) per aiutare a garantire che gli impegni siano
     
     \item Rimedi per il mancato rispetto di tali impegni.
 \end{enumerate}
+
 Un quadro di fiducia è sviluppato da una comunità i cui membri hanno obiettivi e prospettive simili. Esso definisce i diritti e le responsabilità dei partecipanti di quella comunità; specifica le politiche e gli standard specifici della comunità e definisce i processi e le processi e procedure specifiche della comunità che forniscono garanzie. Possono esistere diversi quadri di fiducia, e i gruppi di partecipanti possono personalizzare le strutture di fiducia per soddisfare le loro particolari esigenze. La figura 4.13b mostra gli elementi coinvolti nell'OITF.
+
 \singlespacing
+
 All'interno di una data organizzazione o agenzia, i seguenti ruoli sono parte del quadro generale:
+
 \begin{itemize}
     \item \textbf{Relying parties (RPs):} Chiamati anche fornitori di servizi, sono entità che forniscono servizi a specifici utenti. Le RP devono avere fiducia nelle identità e/o negli attributi dei loro utenti, e devono fare affidamento sulle varie credenziali presentate per dimostrare tali attributi e identità.
 
@@ -710,6 +768,7 @@ All'interno di una data organizzazione o agenzia, i seguenti ruoli sono parte de
 
     \item \textbf{Fornitori di identità (IDP):} Queste sono entità in grado di autenticare le credenziali degli utenti e di garantire i nomi (o pseudonimi o handle) dei soggetti, e che sono attrezzati attraverso l'AXN o qualche altro sistema compatibile di Identità e (IDAM) compatibile per creare identità digitali che possono essere utilizzate per indicizzare gli attributi degli utenti.
 \end{itemize}
+
 Ci sono anche i seguenti importanti elementi di supporto come parte di un AXN:
 \begin{itemize}
     \item \textbf{Valutatori:} I valutatori valutano i fornitori di servizi di identità e gli RP e certificano che sono in grado di seguire il progetto del fornitore OITF.
@@ -720,14 +779,18 @@ Ci sono anche i seguenti importanti elementi di supporto come parte di un AXN:
     
     \item \textbf{Fornitori di strutture di fiducia:} Un fornitore di strutture di fiducia è un'organizzazione che traduce i requisiti dei politici in un proprio progetto per una struttura di fiducia quadro di fiducia che poi procede a costruire, facendolo in un modo che è coerente con i requisiti minimi stabiliti nella specifica OITF.
 \end{itemize}
+
 In quasi tutti i casi, ci sarà un'organizzazione candidata ragionevolmente ovvia ad assumere questo ruolo, per ogni settore industriale o grande organizzazione che decide che è appropriato interoperare con un AXN.
 
 \singlespacing
 
 Le linee solide con le frecce nella Figura 4.13b indicano gli accordi con il fornitore del quadro fiduciario per l'implementazione dei requisiti tecnici, operativi e legali. Le linee tratteggiate indicano altri accordi potenzialmente interessati da questi requisiti. In termini generali, il modello illustrato nella Figura 4.13b funzionerebbe nel modo seguente. Le persone responsabili all'interno delle organizzazioni partecipanti determinano i requisiti tecnici, operativi e legali per gli scambi di informazioni sull'identità che ricadono sotto la loro autorità. Quindi selezionano i fornitori dell'OITF per implementare questi requisiti. Questi fornitori dell'OITF traducono i requisiti in un progetto per un quadro di fiducia che può includere ulteriori condizioni del fornitore dell'OITF. Il fornitore dell'OITF esamina i fornitori di servizi d'identità e gli RP e stipula con loro dei contratti per seguire i requisiti del suo quadro di fiducia quando conduce scambi di informazioni sull'identità. I contratti contengono disposizioni relative ai risolutori di controversie e ai revisori per l'interpretazione e l'applicazione del contratto.
+
 \newpage
 \section{Caso di studio: Sistema RBAC per una banca}
+
 La Dresdner Bank ha implementato un sistema RBAC che serve come utile esempio pratico.
+
 \paragraph{Esempio pratico} La banca usa una varietà di applicazioni informatiche. Molte di queste sono state inizialmente sviluppate per un ambiente mainframe; alcune di queste vecchie applicazioni sono ora supportate su una rete client-server, mentre altre rimangono su mainframe. Ci sono anche applicazioni più recenti su server. Prima del 1990, un semplice sistema DAC era usato su ogni server e mainframe. Gli amministratori mantenevano un file di controllo dell'accesso locale su ogni host e definivano i diritti di accesso per ogni dipendente su ogni applicazione su ogni host. Questo sistema era ingombrante, dispendioso in termini di tempo e soggetto a errori. Per migliorare il sistema, la banca ha introdotto uno schema RBAC, che è a livello di sistema e in cui la determinazione dei diritti di accesso è compartimentata in tre diverse unità amministrative per una maggiore sicurezza. I ruoli all'interno dell'organizzazione sono definiti da una combinazione di posizione ufficiale e funzione lavorativa. La tabella 4.5a fornisce degli esempi. Questo differisce un po' dal concetto di ruolo nello standard NIST, in cui un ruolo è definito da una funzione lavorativa. In una certa misura, la differenza è una questione di terminologia. In ogni caso, la strutturazione dei ruoli della banca porta a un mezzo naturale per sviluppare una gerarchia di eredità basata sulla posizione ufficiale. All'interno della banca, c'è un rigido ordine parziale delle posizioni ufficiali all'interno di ogni organizzazione, che riflette una gerarchia di responsabilità e potere. Per esempio, le posizioni di capo divisione, direttore di gruppo e impiegato sono in ordine decrescente. Quando la posizione ufficiale è combinata con la funzione lavorativa, c'è un conseguente un ordinamento dei diritti di accesso, come indicato nella tabella 4.5b. Così, l'analista finanziario/Group Manager (ruolo B) ha più diritti di accesso rispetto al ruolo analista finanziario/commesso (ruolo A). La tabella indica che il ruolo B ha altrettanti o più diritti di accesso del ruolo A in tre applicazioni e ha diritti di accesso a una quarta applicazione. D'altra parte, non c'è una relazione gerarchica tra office banking/Group Manager e l'analista finanziario/commesso perché lavorano in aree funzionali diverse. Possiamo definire una gerarchia di ruoli in cui un ruolo è superiore ad un altro se la sua posizione è superiore e le loro funzioni sono identiche. La gerarchia dei ruoli permette di risparmiare sulle definizioni dei diritti di accesso, come suggerito nella tabella 4.5c.
 
 \singlespacing

@@ -6,7 +6,7 @@ MIME è un'estensione del vecchio RFC 822 (Standard For The Format Of ARPA Inter
 
 \singlespacing
 
-MIME fornisce una serie di nuovi campi di intestazione che definiscono le informazioni sul corpo del messaggio, tra cui la il corpo del messaggio, compreso il formato del corpo stesso e qualsiasi codifica che codifica per facilitare il trasferimento. Soprattutto, MIME definisce una serie di formati di contenuto, che standardizzano le rappresentazioni formati di contenuto, che standardizzano le rappresentazioni per il supporto della posta elettronica multimediale. Gli esempi includono testo, immagini, audio e video.
+MIME fornisce una serie di nuovi campi di intestazione che definiscono le informazioni sul corpo del messaggio, tra cui la il corpo del messaggio, compreso il formato del corpo stesso. Soprattutto, MIME definisce una serie di formati di contenuto, che standardizzano le rappresentazioni formati di contenuto, che standardizzano le rappresentazioni per il supporto della posta elettronica multimediale. Gli esempi includono testo, immagini, audio e video.
 
 \subsection{S/MIME}
 S/MIME è una funzionalità complessa, definita in una serie di documenti. 
@@ -64,18 +64,21 @@ La funzionalità S/MIME è integrata nella maggior parte dei moderni software di
     
     \item \textbf{Dati firmati e imbustati:} Le entità solo firmate e solo crittografate possono essere nidificate, quindi i dati crittografati possono essere firmati e i dati firmati o con firma in chiaro possono essere crittografati.
 \end{itemize}
-\paragraph{Dati firmati e firmati in chiaro} Gli algoritmi preferiti per la firma dei messaggi S/MIME utilizzano una firma RSA o un algoritmo di firma digitale (DSA) di un hash del messaggio SHA-256. Il processo funziona come segue. Si prende il messaggio che si vuole inviare e lo si mappa in un codice a lunghezza fissa di 256 bit, utilizzando SHA-256. Il digest del messaggio a 256 bit è, a tutti gli effetti, unico per questo messaggio. un altro messaggio e ottenere lo stesso digest. Quindi, S/MIME cripta il digest utilizzando RSA e la chiave privata RSA del mittente. Il risultato è la firma digitale, che viene allegata al messaggio. Ora, chiunque riceva il messaggio può ricalcolare il digest del messaggio e decifrare la firma usando RSA e la chiave pubblica RSA del mittente. Se il digest del messaggio nella firma corrisponde al digest del messaggio calcolato, la firma è valida. Poiché questa operazione comporta solo la crittografia e la decrittografia di un blocco di 256 bit, richiede poco tempo. Il DSA può essere utilizzato come algoritmo di firma al posto dell'RSA. La firma è una stringa binaria, e l'invio in questa forma attraverso il sistema di posta elettronica Internet potrebbe comportare un'alterazione involontaria del contenuto, perché alcuni software di posta elettronica tenteranno di interpretare il messaggio. Per proteggere i dati, la firma da sola o la firma più il messaggio vengono mappati in caratteri ASCII stampabili utilizzando uno schema noto come mappatura radix-64 o base64. Radix-64 mappa ogni gruppo di ingresso di tre ottetti di dati binari in quattro caratteri ASCII. di dati binari in quattro caratteri ASCII (vedi Appendice G).
+
+\paragraph{Dati firmati e firmati in chiaro} Gli algoritmi preferiti per la firma dei messaggi S/MIME utilizzano una firma RSA o un algoritmo di firma digitale (DSA) di un hash del messaggio SHA-256. Il processo funziona come segue. Si prende il messaggio che si vuole inviare e lo si mappa in un codice a lunghezza fissa di 256 bit, utilizzando SHA-256. Il digest del messaggio a 256 bit è, a tutti gli effetti, unico per questo messaggio. Quindi, S/MIME cripta il digest utilizzando RSA e la chiave privata RSA del mittente. Il risultato è la firma digitale, che viene allegata al messaggio. Ora, chiunque riceva il messaggio può ricalcolare il digest del messaggio e decifrare la firma usando RSA e la chiave pubblica RSA del mittente. Se il digest del messaggio nella firma corrisponde al digest del messaggio calcolato, la firma è valida. Poiché questa operazione comporta solo la crittografia e la decrittografia di un blocco di 256 bit, richiede poco tempo. Il DSA può essere utilizzato come algoritmo di firma al posto dell'RSA. La firma è una stringa binaria, e l'invio in questa forma attraverso il sistema di posta elettronica Internet potrebbe comportare un'alterazione involontaria del contenuto, perché alcuni software di posta elettronica tenteranno di interpretare il messaggio. Per proteggere i dati, la firma da sola o la firma più il messaggio vengono mappati in caratteri ASCII stampabili utilizzando uno schema noto come mappatura radix-64 o base64. Radix-64 mappa ogni gruppo di ingresso di tre ottetti di dati binari in quattro caratteri ASCII. di dati binari in quattro caratteri ASCII (vedi Appendice G).
 
 \singlespacing
 
 \paragraph{Dati criptati} Gli algoritmi predefiniti utilizzati per la crittografia dei messaggi S/MIME sono
-AES e RSA. Per iniziare, S/MIME genera una chiave segreta pseudorandom; questa viene utilizzata per crittografare il messaggio utilizzando AES o un altro schema di crittografia convenzionale, come 3DES. In qualsiasi applicazione di crittografia convenzionale, è necessario affrontare il problema della distribuzione della chiave. In S/MIME, ogni chiave convenzionale viene utilizzata una sola volta. Cioè, viene generata una nuova chiave pseudorandom per ogni nuova crittografia del messaggio. Questa chiave di sessione è legata al messaggio e trasmessa con esso. La chiave segreta viene utilizzata come input per l'algoritmo di crittografia a chiave pubblica RSA, che cripta la chiave con la chiave pubblica RSA del destinatario. Sul lato ricevente, S/MIME utilizza la chiave privata RSA del destinatario per recuperare la chiave segreta. e poi utilizza la chiave segreta e AES per recuperare il messaggio in chiaro. Se si utilizza solo la crittografia, si usa il radix-64 per convertire il testo cifrato in formato ASCII.
+AES e RSA. Per iniziare, S/MIME genera una chiave segreta pseudorandom. In qualsiasi applicazione di crittografia convenzionale, è necessario affrontare il problema della distribuzione della chiave. In S/MIME, ogni chiave convenzionale viene utilizzata una sola volta. Cioè, viene generata una nuova chiave pseudorandom per ogni nuova crittografia del messaggio. Questa chiave di sessione è legata al messaggio e trasmessa con esso. La chiave segreta viene utilizzata come input per l'algoritmo di crittografia a chiave pubblica RSA, che cripta la chiave con la chiave pubblica RSA del destinatario. Sul lato ricevente, S/MIME utilizza la chiave privata RSA del destinatario per recuperare la chiave segreta. e poi utilizza la chiave segreta e AES per recuperare il messaggio in chiaro. Se si utilizza solo la crittografia, si usa il radix-64 per convertire il testo cifrato in formato ASCII.
 
 \singlespacing
 
 \paragraph{Certificati a chiave pubblica} Come si può notare da quanto discusso finora, S/MIME contiene un insieme intelligente, efficiente e interconnesso di funzioni e formati per fornire un efficace servizio di crittografia e firma. Per completare il sistema, è necessario affrontare un'ultima area, quella della gestione delle chiavi pubbliche. Lo strumento di base che consente un uso diffuso di S/MIME è il certificato a chiave pubblica. S/MIME utilizza certificati conformi allo standard internazionale X.509v3.
+
 \section{Domainkeys che identifica la posta}
 DomainKeys Identified Mail (DKIM) è una specifica per la firma crittografica dei messaggi di posta elettronica, che consente a un dominio firmatario di rivendicare la responsabilità di un messaggio nel flusso di posta. I destinatari dei messaggi (o gli agenti che agiscono per loro conto) possono verificare la firma interrogando direttamente il dominio del firmatario per recuperare la chiave pubblica appropriata, confermando così che il messaggio è stato attestato da una parte in possesso della chiave privata del dominio firmatario. 
+
 \subsection{Architettura della posta elettronica}
 Per comprendere il funzionamento di DKIM, è utile avere una conoscenza di base dell'architettura di posta Internet, attualmente definita nella RFC 5598 (Internet Mail Architecture). Al suo livello più elementare, l'architettura della posta Internet consiste in un mondo di utenti sotto forma di \textbf{Message User Agents (MUA)} e di un mondo di trasferimento, sotto forma di \textbf{Message Handling Service (MUA)}. \textbf{Message Handling Service (MHS)}, che è composto da \textbf{Message Transfer Agents (MTA)}. L'MHS accetta un messaggio da un utente e lo consegna a uno o più altri utenti, creando un ambiente di scambio virtuale MUA-to-MUA. Questa architettura prevede tre tipi di interoperabilità. Uno è quello diretto tra utenti: i messaggi devono essere formattati dal MUA per conto dell'autore del messaggio, in modo che il messaggio possa essere visualizzato dal MUA di destinazione al destinatario del messaggio. Esistono anche requisiti di interoperabilità tra il MUA e il MHS, in primo luogo quando un messaggio viene inviato da un MUA al MHS e successivamente quando viene consegnato dal MHS al MUA di destinazione. L'interoperabilità è necessaria tra i componenti dell'MTA lungo il percorso di trasferimento attraverso l'MHS.
 
@@ -131,8 +134,10 @@ La motivazione del DKIM si basa sul seguente ragionamento:
     \includegraphics[width=14cm, keepaspectratio]{Bistarelli/img/cap_22/figura22.3.png}
 \end{figure}
 
-La Figura 22.3 mostra un semplice esempio del funzionamento di DKIM. Si parte da un messaggio generato da un utente e trasmesso nell'MHS a un MSA che si trova nel dominio amministrativo dell'utente. Un messaggio di posta elettronica viene generato da un programma client di posta elettronica. Il contenuto del messaggio, più le intestazioni RFC 5322 selezionate, è firmato dal provider di posta elettronica dal provider di posta elettronica utilizzando la chiave privata del provider. Il firmatario è associato a un dominio, che può essere una rete locale aziendale, un ISP o una struttura di posta elettronica pubblica come gmail. come Gmail. Il messaggio firmato passa poi in Internet attraverso una sequenza di MTA. di MTA. A destinazione, l'MDA recupera la chiave pubblica per la firma in arrivo e verifica la firma prima di in entrata e verifica la firma prima di passare il messaggio al client di posta elettronica di destinazione. e-mail di destinazione. L'algoritmo di firma predefinito è RSA con SHA-256. È possibile utilizzare anche RSA con SHA-1 può anche essere utilizzato.
+La Figura 22.3 mostra un semplice esempio del funzionamento di DKIM. Si parte da un messaggio generato da un utente e trasmesso nell'MHS a un MSA che si trova nel dominio amministrativo dell'utente. Un messaggio di posta elettronica viene generato da un programma client di posta elettronica. Il contenuto del messaggio, più le intestazioni RFC 5322 selezionate, è firmato dal provider di posta elettronica dal provider di posta elettronica utilizzando la chiave privata del provider. Il firmatario è associato a un dominio, che può essere una rete locale aziendale, un ISP o una struttura di posta elettronica pubblica come Gmail. Il messaggio firmato passa poi in Internet attraverso una sequenza di MTA. A destinazione, l'MDA recupera la chiave pubblica per la firma in arrivo e verifica la firma prima di in entrata e verifica la firma prima di passare il messaggio al client di posta elettronica di destinazione. e-mail di destinazione. L'algoritmo di firma predefinito è RSA con SHA-256. È possibile utilizzare anche RSA con SHA-1 può anche essere utilizzato.
+
 \section{Secure Sockets Layer (SSL) e Transport Layer Security (TLS)}
+
 Uno dei servizi di sicurezza più utilizzati è il Secure Sockets Layer (SSL) e il successivo standard Internet RFC 4346 (The Transport Layer Security (TLS) Protocol Version 1.1, 2006). TLS ha ampiamente soppiantato le precedenti implementazioni di SSL. TLS è un servizio di uso generale implementato come una serie di protocolli che si basano su TCP. A questo livello, ci sono due scelte di implementazione. Per ottenere la massima generalità, TLS potrebbe essere fornito come parte della suite di protocolli sottostante e quindi essere trasparente alle applicazioni. In alternativa, TLS può essere incorporato in pacchetti specifici. Ad esempio, la maggior parte dei browser è dotata di SSL e la maggior parte dei server Web ha implementato il protocollo.
 \subsection{Architettura TLS}
 
@@ -154,6 +159,7 @@ Questi protocolli specifici di TLS sono utilizzati nella gestione degli scambi T
     \item \textbf{Sessione:} Una sessione TLS è un'associazione tra un client e un server. Le sessioni sono create dal protocollo Handshake. 
     
     Le sessioni definiscono un insieme di parametri di sicurezza parametri di sicurezza, che possono essere condivisi tra più connessioni. Le sessioni sono utilizzate per evitare la costosa negoziazione di nuovi parametri di sicurezza per ogni connessione.
+    
 \end{itemize}
 Tra qualsiasi coppia di parti (applicazioni come HTTP su client e server), possono esistere più connessioni sicure. In teoria, possono esistere anche più sessioni simultanee tra le parti, ma questa caratteristica non viene utilizzata nella pratica.
 \subsection{Protocollo TLS}
@@ -208,7 +214,7 @@ La Figura 22.6 mostra lo scambio iniziale necessario per stabilire una connessio
 \paragraph{La fase 1} serve ad avviare una connessione logica e a stabilire le capacità di sicurezza che vi saranno associate. Lo scambio è avviato dal client, che invia un messaggio client\_hello con i seguenti parametri:
 
 \begin{itemize}
-    \item -Versione: La versione TLS più alta compresa dal client.
+    \item Versione: La versione TLS più alta compresa dal client.
     
     \item Casuale: Una struttura casuale generata dal client, composta da un timestamp a 32 bit e da 28 byte generati da un generatore di numeri casuali sicuri.
     
@@ -329,6 +335,7 @@ La sicurezza a livello IP comprende tre aree funzionali:
     
     \item Gestione delle chiavi
 \end{enumerate}
+
 Il meccanismo di autenticazione assicura che un messaggio ricevuto sia stato trasmesso dalla parte identificata come sorgente nell'intestazione del pacchetto. Inoltre, questo meccanismo assicura che il pacchetto non sia stato alterato durante il transito. La funzione di confidenzialità consente ai nodi comunicanti di crittografare i messaggi per impedire l'intercettazione da parte di terzi. La funzione di gestione delle chiavi si occupa lo scambio sicuro di chiavi. La versione attuale di IPsec, nota come IPsecv3, comprende l'autenticazione e la riservatezza. La gestione delle chiavi è fornita dallo standard Internet Key Exchange, IKEv2.
 
 \newpage
@@ -384,9 +391,9 @@ router autorizzato.
     \item Un aggiornamento di routing non viene falsificato.
 \end{itemize}
 Senza queste misure di sicurezza, un avversario può interrompere le comunicazioni o deviare il traffico. I protocolli di routing, come l'Open Shortest Path First (OSPF), devono essere eseguiti in base a essere eseguiti sulla base di associazioni di sicurezza tra router definite da IPsec.
+
 \subsection{Il campo di applicazione di IPsec}
-IPsec fornisce due funzioni principali: una funzione combinata di autenticazione/crittografia
-chiamata Encapsulating Security Payload (ESP) e una funzione di scambio di chiavi. Per le reti private virtuali, in genere si desiderano sia l'autenticazione che la crittografia, perché è importante 
+IPsec fornisce due funzioni principali: una funzione combinata di autenticazione/crittografia chiamata Encapsulating Security Payload (ESP) e una funzione di scambio di chiavi. Per le reti private virtuali, in genere si desiderano sia l'autenticazione che la crittografia, perché è importante 
 
 \begin{enumerate}
     \item Assicurare che gli utenti non autorizzati non penetrino nella rete privata virtuale
@@ -394,8 +401,9 @@ chiamata Encapsulating Security Payload (ESP) e una funzione di scambio di chiav
     \item Assicurare che gli intercettatori su Internet non possano leggere i messaggi inviati attraverso la rete privata virtuale
 \end{enumerate}
 Esiste anche una funzione di sola autenticazione, implementata mediante un'intestazione di autenticazione (AH). Poiché l'autenticazione dei messaggi è fornita da ESP, l'uso di AH è deprecato. È incluso in IPsecv3 per compatibilità con il passato, ma non dovrebbe essere utilizzato in nuove applicazioni. In questo capitolo non si parlerà di AH. La funzione di scambio di chiavi consente lo scambio manuale delle chiavi e uno schema automatizzato. 
+
 \subsection{Security Associations}
-Un concetto chiave che compare in entrambi i meccanismi di autenticazione e riservatezza per IP è l'associazione di sicurezza (SA). Un'associazione è una relazione unidirezionale tra un mittente e un destinatario che offre servizi di sicurezza al traffico trasportato su di essa. Se è necessaria una relazione tra pari, per uno scambio sicuro bidirezionale, sono necessarie due associazioni di sicurezza. di sicurezza. I servizi di sicurezza sono garantiti da una SA per l'uso di ESP.
+Un concetto chiave che compare in entrambi i meccanismi di autenticazione e riservatezza per IP è l'associazione di sicurezza (SA). Un'associazione è una relazione unidirezionale tra un mittente e un destinatario che offre servizi di sicurezza al traffico trasportato su di essa. Se è necessaria una relazione tra pari, per uno scambio sicuro bidirezionale, sono necessarie due associazioni di sicurezza. I servizi di sicurezza sono garantiti da una SA per l'uso di ESP.
 
 \singlespacing
 
@@ -429,7 +437,7 @@ Un'implementazione di IPsec include un database di associazioni di sicurezza che
 \end{itemize}
 Il meccanismo di gestione delle chiavi utilizzato per la distribuzione delle chiavi è collegato ai meccanismi di
 meccanismi di autenticazione e privacy solo attraverso i parametri di sicurezza. Pertanto, l'autenticazione e la privacy sono state specificate indipendentemente da qualsiasi meccanismo di gestione delle chiavi.
-Incapsulamento del carico utile di sicurezza
+
 \subsection{L'Encapsulating Security Payload}
 Fornisce servizi di riservatezza, tra cui la riservatezza del contenuto dei messaggi e la riservatezza limitata del flusso di traffico. Come caratteristica opzionale, ESP può anche fornire un servizio di autenticazione. 
 
@@ -454,10 +462,11 @@ La Figura 22.8 mostra il formato di un pacchetto ESP. Esso contiene i seguenti c
     
     \item \textbf{Valore di controllo dell'integrità (variabile):} Un campo di lunghezza variabile (deve essere un numero integrale di parole a 32 bit) che contiene il valore di controllo dell'integrità calcolato su il pacchetto ESP meno il campo Dati di autenticazione.
 \end{itemize}
+
 \subsection{Transport and Tunnel Modes}
 L'ESP supporta due modalità di utilizzo: quella di trasporto e quella di tunnel. Iniziamo questa sezione con una breve panoramica.
 
-\paragraph{Modalità di trasporto} La modalità di trasporto fornisce protezione principalmente ai protocolli di livello superiore. In altre parole, la protezione in modalità trasporto si estende al carico utile di un pacchetto IP. Tra gli esempi vi sono i segmenti TCP o UDP, che operano entrambi direttamente sopra l'IP nello stack di protocolli dell'host. In genere, la modalità di trasporto viene utilizzata per la comunicazione end-to-end tra due host (ad esempio, un client e un server o due workstation). Quando un host esegue ESP su IPv4, il payload è costituito dai dati che normalmente seguono l'intestazione IP. Per IPv6, il payload è costituito dai dati che normalmente seguono l'intestazione IP e le eventuali intestazioni di estensione IPv6 presenti, con l'eventuale eccezione dell'intestazione delle opzioni di destinazione di destinazione, che può essere inclusa nella protezione. ESP in modalità di trasporto cripta e, facoltativamente, autentica il payload IP, ma non l'intestazione IP. ma non l'intestazione IP.
+\paragraph{Modalità di trasporto} La modalità di trasporto fornisce protezione principalmente ai protocolli di livello superiore. In altre parole, la protezione in modalità trasporto si estende al carico utile di un pacchetto IP. Tra gli esempi vi sono i segmenti TCP o UDP, che operano entrambi direttamente sopra l'IP nello stack di protocolli dell'host. In genere, la modalità di trasporto viene utilizzata per la comunicazione end-to-end tra due host (ad esempio, un client e un server o due workstation). Quando un host esegue ESP su IPv4, il payload è costituito dai dati che normalmente seguono l'intestazione IP. Per IPv6, il payload è costituito dai dati che normalmente seguono l'intestazione IP e le eventuali intestazioni di estensione IPv6 presenti, con l'eventuale eccezione dell'intestazione delle opzioni di destinazione di destinazione, che può essere inclusa nella protezione. ESP in modalità di trasporto cripta e, facoltativamente, autentica il payload IP, ma non l'intestazione IP. 
 
 \singlespacing
 
@@ -474,5 +483,5 @@ Poiché il pacchetto originale è incapsulato, il nuovo pacchetto più grande pu
 
 \singlespacing
 
-L'host A su una rete genera un pacchetto IP con l'indirizzo di destinazione dell'host B su un'altra rete, simile a quello mostrato nella Figura 9.3. Questo pacchetto viene instradato dall'host di origine verso un firewall o un router sicuro a un firewall o a un router sicuro al confine della rete di A. Il firewall filtra tutti i pacchetti IP con l'indirizzo di destinazione dell'host B. Il firewall filtra tutti i in uscita per determinare la necessità di un'elaborazione IPsec. Se questo pacchetto da A a B richiede IPsec, il firewall esegue l'elaborazione IPsec e incapsula il pacchetto con un'intestazione IP esterna. pacchetto con un'intestazione IP esterna. L'indirizzo IP di origine di questo pacchetto IP esterno è questo firewall, mentre l'indirizzo di destinazione può essere un firewall che delimita la rete locale di B. rete locale di B. Il pacchetto viene ora instradato verso il firewall di B, con router intermedi che esaminano solo l'intestazione IP esterna. esaminano solo l'intestazione IP esterna. Al firewall di B, l'intestazione IP esterna viene eliminata e il pacchetto interno viene e il pacchetto interno viene consegnato a B. L'ESP in modalità tunnel cripta e, facoltativamente, autentica l'intero pacchetto IP interno, compresa l'intestazione IP interna. IP interno, compresa l'intestazione IP interna.
+L'host A su una rete genera un pacchetto IP con l'indirizzo di destinazione dell'host B su un'altra rete, simile a quello mostrato nella Figura 9.3. Questo pacchetto viene instradato dall'host di origine verso un firewall o un router sicuro a un firewall o a un router sicuro al confine della rete di A. Il firewall filtra tutti i pacchetti IP con l'indirizzo di destinazione dell'host B. Il firewall filtra tutti i in uscita per determinare la necessità di un'elaborazione IPsec. Se questo pacchetto da A a B richiede IPsec, il firewall esegue l'elaborazione IPsec e incapsula il pacchetto con un'intestazione IP esterna. pacchetto con un'intestazione IP esterna. L'indirizzo IP di origine di questo pacchetto IP esterno è questo firewall, mentre l'indirizzo di destinazione può essere un firewall che delimita la rete locale di B. rete locale di B. Il pacchetto viene ora instradato verso il firewall di B, con router intermedi che esaminano solo l'intestazione IP esterna. esaminano solo l'intestazione IP esterna. Al firewall di B, l'intestazione IP esterna viene eliminata e il pacchetto interno viene e il pacchetto interno viene consegnato a B. L'ESP in modalità tunnel cripta e, facoltativamente, autentica l'intero pacchetto IP interno, compresa l'intestazione IP interna.
 

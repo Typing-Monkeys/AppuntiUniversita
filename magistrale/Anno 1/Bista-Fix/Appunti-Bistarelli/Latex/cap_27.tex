@@ -14,6 +14,7 @@ A tal fine, i ricercatori di sicurezza hanno cercato di sviluppare modelli forma
 \singlespacing
 
 Inizialmente, la ricerca in questo settore è stata finanziata dal Dipartimento della Difesa degli Stati Uniti e sono stati fatti notevoli progressi nello sviluppo di modelli e nella loro applicazione a sistemi prototipo. Quel finanziamento è notevolmente diminuito così come i tentativi di costruire modelli formali di sistemi complessi. Il modello di sicurezza informatica più influente il modello Bell-LaPadula (BLP).
+
 \subsection{Descrizione Generale}
 Il modello BLP è stato sviluppato negli anni '70 come modello formale per il controllo degli accessi. Il modello modello si basava sul concetto di controllo dell'accesso. Nel modello, ad ogni soggetto e ad ogni oggetto viene assegnata una classe di sicurezza. Nella formulazione più semplice formulazione, le classi di sicurezza formano una rigida gerarchia e sono chiamate livelli di sicurezza.
 
@@ -25,7 +26,7 @@ Un esempio è lo schema di classificazione militare degli Stati Uniti:
     \textbf{top secret $>$ secret $>$ confidential $>$ restricted $>$ unclassified}
 \end{center}
 
-È possibile anche aggiungere un insieme di compartimenti, o categorie, ad ogni livello di sicurezza, così che un soggetto deve essere assegnato sia al livello appropriato che al compartimento per accedere ad un oggetto. Questo concetto è ugualmente applicabile in altre aree, dove le informazioni possono essere organizzate in livelli lordi e compartimenti, e agli utenti possono essere concesse autorizzazioni per accedere a certi compartimenti di dati. Per esempio, il livello più alto di sicurezza potrebbe essere per i documenti ed i dati strategici di pianificazione aziendale, accessibili solo ai funzionari aziendali e al loro staff; poi potrebbero venire i dati finanziari e dei dati sensibili del personale, accessibili solo dal personale amministrativo, ai funzionari aziendali, e così via.
+È possibile anche aggiungere un insieme di compartimenti, o categorie, ad ogni livello di sicurezza, così che un soggetto deve essere assegnato sia al livello appropriato che al compartimento per accedere ad un oggetto. Questo concetto è ugualmente applicabile in altre aree, dove le informazioni possono essere organizzate in livelli vuoti e scompartimenti pieni, e agli utenti possono essere concesse autorizzazioni per accedere a certi compartimenti di dati. Per esempio, il livello più alto di sicurezza potrebbe essere per i documenti ed i dati strategici di pianificazione aziendale, accessibili solo ai funzionari aziendali e al loro staff.
 
 \singlespacing
 
@@ -42,6 +43,7 @@ Questo suggerisce uno schema di classificazione:
     \item Un oggetto deve avere una classificazione di sicurezza di un determinato livello.
     
 \end{itemize}
+
 Le classi di sicurezza controllano il modo con cui un soggetto può accedere ad un oggetto. Il modello ha definito quattro modalità di accesso.
 
 \singlespacing
@@ -101,7 +103,7 @@ Il modello si basa sul concetto di uno stato attuale del sistema. Lo stato è de
     
     \item \textbf{Funzione di livello F:}
     
-    Questa funzione assegna un livello di sicurezza ad ogni soggetto e oggetto. Consiste di tre mappature: fo(Oj) è il livello di classificazione dell'oggetto Oj; fs(Si) che è il nulla osta di sicurezza del soggetto Si; fc(Si) è il livello di sicurezza attuale del soggetto Si. Il nulla osta di sicurezza di un soggetto è il massimo livello di sicurezza del soggetto. Il soggetto può operare a questo livello o a un livello inferiore. Così, un utente può accedere al sistema ad un livello inferiore al nulla osta di sicurezza dell'utente. Questo è particolarmente utile in un sistema di controllo dell'accesso basato sui ruoli.
+    Questa funzione assegna un livello di sicurezza ad ogni soggetto e oggetto. Consiste di tre mappature: fo(Oj) è il livello di classificazione dell'oggetto Oj e fs(Si) che è il nulla osta di sicurezza del soggetto Si. fc(Si) è il livello di sicurezza attuale del soggetto Si. Il nulla osta di sicurezza di un soggetto è il massimo livello di sicurezza del soggetto. Il soggetto può operare a questo livello o a un livello inferiore. Così, un utente può accedere al sistema ad un livello inferiore al nulla osta di sicurezza dell'utente. Questo è particolarmente utile in un sistema di controllo dell'accesso basato sui ruoli.
     
     \item \textbf{Gerarchia H:}
     
@@ -132,6 +134,7 @@ In sostanza, un sistema sicuro è caratterizzato da quanto segue:
     \item Un sistema sicuro rimane sicuro finché qualsiasi cambiamento di stato non viola le tre proprietà.
 \end{enumerate}
 Questi tre punti possono essere espressi come teoremi usando il modello formale. Inoltre, dato un progetto o un'implementazione attuale, è teoricamente possibile dimostrare che il sistema è sicuro provando che ogni azione che influisce sullo stato del sistema soddisfa le tre proprietà. In pratica, per un sistema complesso, tale prova non è mai stata completamente sviluppata. Tuttavia, come menzionato prima, la dichiarazione formale dichiarazione formale dei requisiti può portare ad una progettazione e implementazione più sicura.
+
 \newpage
 \subsection{Operazioni Astratte}
 Il modello BLP include un insieme di regole basate su operazioni astratte che cambiano lo stato del sistema. Le regole sono le seguenti:
@@ -169,7 +172,9 @@ Il modello BLP include un insieme di regole basate su operazioni astratte che ca
     
     Stacca da H un oggetto e tutti gli altri oggetti sotto di esso nella gerarchia. Questo rende il gruppo di oggetti inattivo. Questa operazione può anche modificare l'attuale set di accesso b perché tutti gli accessi all'oggetto vengono rilasciati.
 \end{enumerate}
-Le regole 1 e 2 alterano l'accesso corrente. Le regole 3 e 4 alterano le funzioni di livello. Le regole 5 e 6 alterano il permesso di accesso e le regole 7 e 8 alterano la gerarchia. Ogni regola è governata dall'applicazione delle tre proprietà. Per esempio, per ottenere l'accesso per una lettura, dobbiamo avere fc(Si) $>=$ fo(Oj) e Ax $\in$ M\[Si, Oj\].
+
+Le regole 1 e 2 alterano l'accesso corrente. Le regole 3 e 4 alterano le funzioni di livello. Le regole 5 e 6 alterano il permesso di accesso e le regole 7 e 8 alterano la gerarchia. Ogni regola è governata dall'applicazione delle tre proprietà. Per esempio, per ottenere l'accesso per una lettura, dobbiamo avere $fc(Si) >= fo(Oj)$ e $Ax \in M[Si, Oj]$.
+
 \subsection{Esempio di utilizzo Bella-Pabula}
 Questo esempio illustra il funzionamento del modello BLP ed evidenzia anche un problema pratico problema pratico che deve essere affrontato. Assumiamo un sistema di controllo degli accessi basato sui ruoli. 
 
@@ -274,7 +279,9 @@ La corrispondenza è la seguente:
     \item \textbf{H:} Struttura gerarchica del segmento.
 
 \end{itemize}
+
 Con queste strutture di dati, Multics può imporre il controllo di accesso discrezionale e obbligatorio. Quando un processo tenta un accesso ad un segmento, deve avere il permesso di accesso desiderato come specificato dalla lista di controllo degli accessi. Inoltre, la sua autorizzazione di sicurezza viene confrontata con la classificazione di sicurezza del segmento a cui accedere per determinare se la regola di sicurezza semplice e la regola di sicurezza sono soddisfatte.
+
 \subsection{Limitazioni modello BLP}
 Mentre il modello BLP potrebbe, in teoria, porre le basi per un calcolo sicuro all'interno di un ambiente di amministrazione singola, ci sono alcune importanti limitazioni alla sua usabilità e difficoltà di implementazione.
 
@@ -287,11 +294,13 @@ Mentre il modello BLP potrebbe, in teoria, porre le basi per un calcolo sicuro a
     
     In presenza di canali nascosti. In presenza di risorse condivise, la proprietà * può diventare inapplicabile. Questo è un problema specialmente nella presen contenuto attivo che è prevalente nell'attuale elaborazione di testi e in altri formati di documenti. Un documento maligno potrebbe contenere un soggetto che quando eseguito trasmette documenti classificati usando canali segreti a risorse condivise. In essenza, il modello BLP si rompe efficacemente quando i dati eseguibili (non fidati) a bassa classificazione dati eseguibili a bassa classificazione possono essere eseguiti da un soggetto ad alta autorizzazione (fidato).
 \end{enumerate}
+
 \newpage
 \section{Altri modelli per la sicurezza informatica}
 È importante notare che i modelli descritti in questo capitolo si concentrano sulla riservatezza o sull'integrità, con l'eccezione del Chinese Wall Model. L'incompatibilità delle preoccupazioni di riservatezza e integrità è riconosciuta come una grande limitazione all'usabilità di MLS in generale, e a MLS focalizzati sulla riservatezza in particolare.
 
 \subsection{Modello di integrità Biba}
+
 Il modello BLP si occupa della riservatezza ed è preoccupato della divulgazione non autorizzata delle informazioni. Il modello Biba si occupa dell'integrità e si occupa della modifica non autorizzata dei dati. Il modello Biba è destinato a trattare il caso in cui ci sono dati che devono essere visibili agli utenti a più o a tutti i livelli di sicurezza, ma devono essere modificati solo in modi controllati da agenti autorizzati.
 
 \singlespacing
@@ -318,13 +327,14 @@ Il modello considera le seguenti modalità di accesso:
 I primi tre modi sono analoghi ai modi di accesso BLP. Il modo invoke è nuovo. Biba propone poi una serie di politiche alternative che possono essere imposte a questo modello. La più rilevante è la politica di integrità rigorosa, basata sulle seguenti regole:
 
 \begin{itemize}
-    \item \textbf{Integrità semplice:} Un soggetto può modificare un oggetto solo se il livello di integrità del soggetto domina il livello di integrità dell'oggetto: I(S) >= I(O).
+    \item \textbf{Integrità semplice:} Un soggetto può modificare un oggetto solo se il livello di integrità del soggetto domina il livello di integrità dell'oggetto: $I(S) >= I(O)$.
     
-    \item \textbf{Confinamento dell'integrità:} Un soggetto può leggere un oggetto solo se il livello di integrità del soggetto è dominato dal livello di integrità dell'oggetto: I(S) <= I(O).
+    \item \textbf{Confinamento dell'integrità:} Un soggetto può leggere un oggetto solo se il livello di integrità del soggetto è dominato dal livello di integrità dell'oggetto: $I(S) <= I(O)$.
     
-    \item \textbf{Proprietà di invocazione:} Un soggetto può invocare un altro soggetto solo se il livello di integrità livello di integrità del primo soggetto domina il livello di integrità del secondo soggetto: I(S1) >= I(S2).
+    \item \textbf{Proprietà di invocazione:} Un soggetto può invocare un altro soggetto solo se il livello di integrità livello di integrità del primo soggetto domina il livello di integrità del secondo soggetto: $I(S1) >= I(S2)$.
 
 \end{itemize}
+
 Le prime due regole sono analoghe a quelle del modello BLP ma riguardano dell'integrità e invertono il significato di lettura e scrittura. La semplice regola di integrità è la restrizione logica di scrittura che impedisce la contaminazione dei dati ad alta integrità.
 Un processo a bassa integrità può leggere dati a bassa integrità ma gli viene impedito di contaminare un file ad alta integrità con quei dati grazie alla semplice regola di integrità. Se solo questa regola è in vigore, un processo ad alta integrità potrebbe plausibilmente copiare dati a bassa integrità in un file ad alta integrità in un file ad alta integrità. Normalmente, ci si aspetterebbe che un processo ad alta integrità non contamini un file ad alta integrità, ma un errore nel codice del processo o un cavallo di Troia potrebbe risultare in tale contaminazione; da qui la necessità della regola di confinamento dell'integrità.
 
@@ -396,10 +406,9 @@ Le regole sono le seguenti:
     \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/figura27.5.png}
 \end{figure}
 
-
 \newpage
 \subsection{Modello Muraglia Cinese}
-Il Chinese Wall Model (CWM) ha un approccio abbastanza diverso per specificare integrità e riservatezza rispetto a qualsiasi approccio che abbiamo esaminato finora. Il modello è stato sviluppato per applicazioni commerciali in cui possono sorgere conflitti di interesse. Il modello fa uso di concetti di accesso sia discrezionali che obbligatori. L'idea principale dietro il CWM è un concetto che è comune nelle professioni e nelle professioni legali, che è quello di usare una cosiddetta muraglia cinese per prevenire un conflitto di interessi. Un esempio dal mondo finanziario è quello di un analista di mercato che lavora per un'istituzione finanziaria che fornisce servizi aziendali. Un analista non può essere autorizzato a fornire consigli a una società quando l'analista ha informazioni riservate (conoscenza privilegiata) sui piani o lo stato di un concorrente. Tuttavia l'analista è libero di consigliare più società che non sono in concorrenza tra loro e di attingere alle informazioni di mercato che sono aperte al pubblico. 
+Il Chinese Wall Model (CWM) ha un approccio abbastanza diverso per specificare integrità e riservatezza rispetto a qualsiasi approccio che abbiamo esaminato finora. Il modello è stato sviluppato per applicazioni commerciali in cui possono sorgere conflitti di interesse. Il modello fa uso di concetti di accesso sia discrezionali che obbligatori. L'idea principale dietro il CWM è un concetto che è comune nelle professioni legali, che è quello di usare una cosiddetta muraglia cinese per prevenire un conflitto di interessi. Un esempio dal mondo finanziario è quello di un analista di mercato che lavora per un'istituzione finanziaria che fornisce servizi aziendali. Un analista non può essere autorizzato a fornire consigli a una società quando l'analista ha informazioni riservate (conoscenza privilegiata) sui piani o lo stato di un concorrente. Tuttavia l'analista è libero di consigliare più società che non sono in concorrenza tra loro e di attingere alle informazioni di mercato che sono aperte al pubblico. 
 
 \singlespacing
 
@@ -432,6 +441,7 @@ Per far rispettare la politica della muraglia cinese, sono necessarie due regole
 \begin{center}
     La prima regola è la \textbf{semplice regola di sicurezza}
 \end{center}
+
 Regola di sicurezza semplice:
 \begin{itemize}
     \item O si trova nello stesso DS di un oggetto a cui S ha già avuto accesso
@@ -442,7 +452,6 @@ Regola di sicurezza semplice:
 	\centering
     \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/figura27.6.png}
 \end{figure}
-
 
 John ha fatto la sua prima richiesta di lettura a qualsiasi oggetto in questo set per un oggetto nella Banca A DS. Poiché John non ha precedentemente avuto accesso ad un oggetto in nessun altro DS in CI 1, l'accesso accesso è concesso. Inoltre, il sistema deve ricordare che l'accesso è stato concesso in modo che ogni successiva richiesta di accesso a un oggetto nella Banca B DS sarà negata. Qualsiasi richiesta di accesso ad altri oggetti nella Banca A DS è concessa. In un momento successivo, John richiede l'accesso ad un oggetto nella Banca A DS. Poiché non c'è conflitto, questo accesso viene concesso, ma viene creato un muro che proibisce il successivo accesso all'Oil B DS, come mostrato nella Figura 27.6b. Allo stesso modo, la Figura 27.6c riflette la storia di accesso alternativo di Jane. Nel nostro esempio, John ha accesso a Oil A DS e Bank A DS; Jane ha accesso a Oil B DS e Bank A DS. Se John è autorizzato a leggere dall'Oil A DS e scrivere nel Bank A DS, John può trasferire informazioni sull'olio A nel Bank A DS; ciò è indicato dal cambiamento del valore del primo oggetto sotto il Bank A DS a g. I dati possono poi essere letti da Jane. Così, Jane avrebbe accesso alle informazioni sia sul petrolio A che sul petrolio B, creando un conflitto di interessi.
 
@@ -467,6 +476,7 @@ La regola proprietà è abbastanza restrittiva. Tuttavia, in molti casi, un uten
 \singlespacing
 
 Per facilitare in qualche modo la restrizione di scrittura, il modello include il concetto di dati sanificati. In sostanza, i dati sanificati sono dati che possono essere derivati dai dati aziendali ma che non possono essere usati per scoprire l'identità della società. Qualsiasi DS che consiste esclusivamente di dati sanificati non ha bisogno di essere protetto da un muro; quindi, le due regole CWM non si non si applicano a tali DS.
+
 \newpage
 \section{Il concetto di sitemi fidati}
 \subsection{Applicazione sicurezza multilivello}
@@ -491,6 +501,7 @@ In questa sezione, esaminiamo due applicazioni in cui sono stati applicati i con
 \end{enumerate}
 \newpage
 \subsection{Sicurezza multilivello per il controllo dell'accesso basato sui ruoli}
+
 Mostra come un sistema di controllo degli accessi basato su regole (RBAC) può essere usato per implementare le regole di sicurezza multilivello BLP. Ricordiamo che la specifica ANSI standard RBAC ANSI includeva il concetto di funzioni amministrative, che forniscono la capacità di creare, cancellare e mantenere elementi e relazioni RBAC. È utile quindi assegnare ruoli amministrativi speciali a queste funzioni. Con questo in mente, La Tabella 27.2 riassume i componenti di un RBAC.
 
 \singlespacing
@@ -516,6 +527,7 @@ La seguente specifica formale indica come un sistema RBAC può essere usato per 
     
 
 \end{itemize}
+
 Le definizioni e i vincoli precedenti applicano il modello BLP. Un ruolo può includere permessi di accesso per più oggetti. Il livello r del ruolo indica la più alta classificazione di sicurezza per gli oggetti assegnati al ruolo. Così, la semplice proprietà di sicurezza (nessuna lettura) richiede che un utente possa essere assegnato a un ruolo solo se l'autorizzazione dell'utente è almeno pari al livello r del ruolo. Allo stesso modo, il livello w del ruolo indica la classificazione di sicurezza più bassa dei suoi oggetti. La proprietà sicurezza (no write down) richiede che un utente sia assegnato a un ruolo solo se il suo non è superiore al livello w del ruolo.
 
 \begin{figure}[H]
@@ -525,6 +537,7 @@ Le definizioni e i vincoli precedenti applicano il modello BLP. Un ruolo può in
 
 
 \subsection{Sicurezza dei database e sicurezza multilivello}
+
 L'aggiunta della sicurezza multilivello a un sistema di database aumenta la complessità della funzione di controllo dell'accesso e del design del database stesso. Una questione chiave è la granularità della classificazione. I seguenti sono possibili metodi per imporre la sicurezza multilivello su un database relazionale, in termini di granularità di classificazione (vedi Figura 27.9):
 \begin{itemize}
     \item \textbf{Intero database:} Questo semplice approccio è facilmente realizzabile su una piattaforma MLS. Un intero database, come un database finanziario o personale, potrebbe essere classificato come confidenziale o riservato e mantenuto su un server con altri file.
@@ -535,7 +548,9 @@ L'aggiunta della sicurezza multilivello a un sistema di database aumenta la comp
         \item Restricted (R)
     \end{itemize}
 \end{itemize}
+
 La tabella Employee contiene informazioni sensibili sullo stipendio ed è classificata ristretta, mentre la tabella tabella Department è illimitata. Questo livello di granularità è relativamente facile da implementare e applicare.
+
 \begin{itemize}
     \item \textbf{Colonne individuali (attributi):} Un amministratore della sicurezza può scegliere di determinare la classificazione sulla base degli attributi, in modo che le colonne selezionate sono classificate. Nell'esempio della Figura 27.9b, l'amministratore determina che le informazioni sullo stipendio e l'identità dei responsabili di reparto sono informazioni riservate.
     
@@ -543,6 +558,7 @@ La tabella Employee contiene informazioni sensibili sullo stipendio ed è classi
     
     \item \textbf{Elementi individuali:} Lo schema più difficile da implementare e gestire è uno in cui i singoli elementi possono essere classificati selettivamente. Nell'esame Figura 27.9d, le informazioni sullo stipendio e l'identità del manager del eparto contabilità sono limitate
 \end{itemize}
+
 La granularità dello schema di classificazione influisce sul modo in cui il controllo dell'accesso viene applicato. In particolare, gli sforzi per prevenire l'inferenza dipendono dalla granularità della classificazione.
 
 \begin{figure}[H]
@@ -569,12 +585,15 @@ Per ottenere queste caratteristiche, TC fornisce tre servizi di base: avvio aute
 
 \newpage
 \subsection{Servizio di avvio autenticato}
+
 Il servizio di avvio autenticato è responsabile dell'avvio dell'intero sistema operativo in fasi e assicurando che ogni porzione del sistema operativo, quando viene caricata, sia una versione che è approvato per l'uso. Tipicamente, l'avvio di un sistema operativo inizia con un piccolo pezzo di codice nella ROM. Questo pezzo porta altro codice dal blocco di avvio sul disco rigido e trasferisce l'esecuzione a quel codice. Questo processo continua con blocchi sempre più grandi del codice del sistema operativo fino a quando l'intera procedura di avvio del sistema operativo è completa e il sistema operativo residente è avviato. Ad ogni stadio, l'hardware del TC controlla che il software valido sia stato portato dentro. Questo può essere fatto verificando una firma digitale associata al software.
 
 \singlespacing
 
 Il TPM tiene un registro a prova di manomissione del processo di caricamento, usando una funzione di hash crittografica per rilevare qualsiasi manomissione del registro. Quando il processo è completato, il registro a prova di manomissione contiene un record che stabilisce esattamente quale versione del sistema operativo e i suoi vari moduli sono in esecuzione. È ora possibile espandere il confine di fiducia per includere ulteriore hardware e applicazioni e software di utilità. Il sistema abilitato TC mantiene una lista approvata di componenti hardware e software approvati. Per configurare un pezzo di hardware o caricare un software, il sistema controlla se il componente è nella lista approvata, se è firmato digitalmente (dove applicabile), e se il suo numero di serie non è stato revocato. Il risultato è una configurazione di hardware, software di sistema e applicazioni che è in uno stato ben definito con componenti approvati.
+
 \subsection{Servizio di certificazione}
+
 Una volta che una configurazione è raggiunta e registrata dal TPM, il TPM può certificare la configurazione ad altre parti. Il TPM può produrre un certificato digitale firmando una descrizione formattata delle informazioni di configurazione usando la chiave privata del TPM. Così, un altro utente, sia un utente locale che un sistema remoto, può avere fiducia che una configurazione inalterata è in uso perché:
 
 \begin{enumerate}
@@ -591,6 +610,7 @@ Il TPM firma un blocco di dati che consiste nelle informazioni di configurazione
 \singlespacing
 
 Lo schema TC prevede un approccio gerarchico alla certificazione. Il TPM certifica la configurazione hardware/OS. Poi il sistema operativo può certificare la presenza e la configurazione dei programmi applicativi. Se un utente si fida del TPM e si fida della versione certificata del sistema operativo, allora l'utente può avere fiducia nella configurazione dell'applicazione.
+
 \subsection{Servizio di crittografia}
 Il servizio di crittografia permette la crittografia dei dati in modo tale che i dati possano essere decifrati solo da una certa macchina, e solo se questa macchina è in una certa configurazione. Ci sono diversi aspetti di questo servizio.
 
@@ -601,6 +621,7 @@ In primo luogo, il TPM mantiene una chiave segreta principale unica per questa m
 \singlespacing
 
 Questo schema può essere esteso verso l'alto, come si fa con la certificazione. Così, è possibile fornire una chiave di crittografia ad un'applicazione in modo che l'applicazione possa criptare i dati, e la decriptazione possa essere fatta solo dalla versione desiderata dell'applicazione desiderata che gira sulla versione desiderata del sistema operativo desiderato. Questi dati crittografati possono essere memorizzati localmente, recuperabili solo dall'applicazione che li ha memorizzati, o trasmessi a un'applicazione peer su una macchina remota. L'applicazione peer dovrebbe essere nella stessa configurazione per decifrare i dati.
+
 \newpage
 \subsection{Funzioni TPM}
 Per dare un'idea del funzionamento di un sistema TC/TPM, guardiamo la funzione di memorizzazione protetta. Il TPM genera e memorizza un certo numero di chiavi crittografia in una gerarchia di fiducia. Alla radice della gerarchia c'è una chiave radice di memorizzazione generata dal TPM e accessibile solo per l'uso del TPM. Da questa chiave, altre chiavi possono essere generate e protette dalla crittografia con chiavi più vicine alla radice della gerarchia.
@@ -610,6 +631,7 @@ Una caratteristica importante delle Trusted Platforms è che un oggetto protetto
 \singlespacing
 
 La figura 27.12 fornisce un esempio di questa protezione. In questo caso, c'è un file criptato sulla memoria locale a cui un'applicazione utente desidera accedere. I seguenti passi da compiere:
+
 \begin{enumerate}
     \item La chiave simmetrica che è stata usata per criptare il file è memorizzata con il file. La chiave stessa è criptata con un'altra chiave a cui il TPM ha accesso. La chiave protetta è presentata al TPM con una richiesta di rivelare la chiave all'applicazione.
     
@@ -626,13 +648,6 @@ La crittografia di un file procede in modo analogo. In quest'ultimo caso, un pro
     \includegraphics[width=10cm, keepaspectratio]{Bistarelli/img/cap_27/figura27.12.png}
 \end{figure}
 
-\section{Criteri comuni per la valutazione della sicurezza informatica}
-
-Il lavoro svolto dalla National Security Agency e da altre agenzie governative statunitensi per sviluppare requisiti e criteri di valutazione per i sistemi affidabili ha portato alla pubblicazione del Trusted Computer System Evaluation Criteria (TCSEC), informalmente noto come Orange Book, nei primi anni '80. Questo si concentrava principalmente per proteggere la riservatezza delle informazioni. Successivamente, altri paesi hanno iniziato a lavorare per sviluppare criteri basati sul TCSEC che fossero più flessibili e adattabili alla natura in evoluzione dell'informatica. Il processo di fusione, estensione e consolidamento di questi vari sforzi alla fine è sfociato nello sviluppo dei Criteri Comuni alla fine degli anni '90. I Common Criteria (CC) per l'Information Technology e la valutazione della sicurezza sono standard ISO per specificare i requisiti di sicurezza e definire i criteri di valutazione.
-
-\singlespacing
-
-Lo scopo di questi standard è quello di fornire una maggiore fiducia nella sicurezza dei prodotti IT come risultato di azioni formali prese durante il processo di sviluppo, valutazione e funzionamento di questi prodotti. Nella fase di sviluppo, il CC definisce insiemi di requisiti IT di validità nota che possono essere usati per stabilire i i requisiti di sicurezza di futuri prodotti e sistemi. Poi il CC dettagli come un prodotto specifico può essere valutato rispetto a questi requisiti noti, per fornire la conferma che esso li soddisfi davvero, con un adeguato livello di fiducia. Infine, quando è in funzione, l'ambiente IT in evoluzione può rivelare nuove vulnerabilità o preoccupazioni. Il CC dettaglia un processo per rispondere a tali cambiamenti, e possibilmente per rivalutare il prodotto. A seguito di una valutazione positiva, un particolare prodotto può essere elencato come certificato CC o convalidato dall'appropriata agenzia nazionale, come il NIST/NSA negli Stati Uniti. Tale agenzia pubblica elenchi dei prodotti valutati, che sono usati dagli acquirenti del governo e dell'industria che hanno bisogno di usare tali prodotti.
 \newpage
 \subsection{Requisiti}
 Il CC definisce un insieme comune di potenziali requisiti di sicurezza da usare nella valutazione. Il termine obiettivo della valutazione (TOE) si riferisce a quella parte del prodotto o sistema che è soggetto alla valutazione. I requisiti rientrano in due categorie:
@@ -645,10 +660,13 @@ Il CC definisce un insieme comune di potenziali requisiti di sicurezza da usare 
     
     La base per ottenere la fiducia che le misure di sicurezza dichiarate misure di sicurezza dichiarate siano efficaci e implementate correttamente. I documenti CC stabiliscono un insieme di componenti di garanzia che forniscono un modo standard di esprimere i requisiti di garanzia per un TOE.
 \end{enumerate}
+
 Sia i requisiti funzionali che quelli di garanzia sono organizzati in classi:
+
 \begin{center}
     \textbf{Una classe è una collezione di requisiti che condividono un obiettivo o un intento comune.}
 \end{center}
+
 Le tabelle 27.3 e 27.4 definiscono brevemente le classi per i requisiti funzionali e di garanzia. Ciascuna di queste classi contiene un certo numero di famiglie. I requisiti all'interno di ogni famiglia condividono obiettivi di sicurezza, ma differiscono per enfasi o rigore. Per esempio, la classe di audit contiene sei famiglie che si occupano di vari aspetti dell'auditing (ad es, generazione di dati di audit, analisi di audit e memorizzazione di eventi di audit). Ogni famiglia, a sua volta, contiene uno o più componenti. Un componente descrive un insieme specifico di requisiti di sicurezza requisiti di sicurezza ed è il più piccolo insieme selezionabile di requisiti di sicurezza da includere nelle strutture definite nel CC.
 
 \begin{figure}[H]
@@ -670,8 +688,6 @@ Il CC definisce anche due tipi di documenti che possono essere generati usando i
     Un PP è inteso essere riutilizzabile e definire requisiti che sono noti per essere utili ed efficaci nel soddisfare gli obiettivi identificati. Il concetto di PP è stato sviluppato per supportare la definizione di standard funzionali e come aiuto alla formulazione di specifiche di approvvigionamento. Il PP riflette la sicurezza dell'utente esigenze degli utenti.
     
     \item \textbf{Obiettivi di sicuressa(ST):} Contengono gli obiettivi e i requisiti di sicurezza IT di uno specifico TOE identificato e definisce le misure funzionali e di garanzia offerte da quel TOE per soddisfare i requisiti dichiarati. 
-    
-   La ST può dichiarare la conformità a uno o più PP e costituisce la base per una valutazione. La ST è fornito da un fornitore o sviluppatore. La figura 27.13 illustra la relazione tra i requisiti da un lato e i profili e gli obiettivi dall'altro. Per un PP, un utente può selezionare un numero di componenti per definire i requisiti del prodotto desiderato. L'utente può anche fare riferimento a pacchetti predefiniti che assemblano una serie di requisiti comunemente raggruppati insieme all'interno di un documento sui requisiti del prodotto. Allo stesso modo, un venditore o un progettista può selezionare una serie di componenti e pacchetti per definire un ST. La figura 27.14 mostra ciò a cui ci si riferisce nei documenti CC come paradigma dei requisiti funzionali di sicurezza. In sostanza, questa illustrazione si basa sul concetto di monitor di riferimento, ma fa uso della terminologia e della filosofia di progettazione del CC.
 \end{itemize}
 \newpage
 \subsection{Esempio di protezione di un profilo}
@@ -687,16 +703,19 @@ Questo PP descrive i requisiti di sicurezza IT per una smart card da usare in co
     
     \item \textbf{Collegamento di più operazioni:} Un attaccante può osservare usi multipli di risorse o servizi e, collegando queste osservazioni, dedurre informazioni che possono rivelare dati sulla funzione di sicurezza.
 
-
 \end{itemize}
+
 Dopo un elenco di minacce, il PP passa alla descrizione degli obiettivi di sicurezza. Questi riflettono l'intento dichiarato di contrastare le minacce identificate e/o conformarsi a qualsiasi politiche di sicurezza organizzativa identificate. Sono elencati diciannove obiettivi, tra cui i seguenti:
+
 \begin{itemize}
     \item \textbf{Audit:} Il sistema deve fornire i mezzi per registrare determinati eventi rilevanti per la sicurezza eventi rilevanti per la sicurezza, in modo da assistere un amministratore nell'individuazione potenziali attacchi o configurazioni errate delle caratteristiche di sicurezza del sistema che lo lascerebbero suscettibile di attacco.
     
     \item \textbf{Inserimento dei guasti:} Il sistema deve essere resistente a sondaggi ripetuti attraverso inserimento di dati errati.
     
     \item \textbf{Perdita di informazioni:} Il sistema deve fornire i mezzi per controllare e limitare la perdita di informazioni nel sistema in modo che nessuna informazione utile sia rivelata attraverso le linee di alimentazione, terra, clock, reset o I/O.
+    
 \end{itemize}
+
 I requisiti di sicurezza sono forniti per contrastare minacce specifiche e per supportare politiche specifiche sotto specifiche ipotesi. Il PP elenca requisiti specifici in tre aree generali: requisiti funzionali di sicurezza del TOE, requisiti di sicurezza del TOE, e requisiti di sicurezza per l'ambiente IT.
 
 \singlespacing
@@ -723,6 +742,7 @@ Il PP definisce 24 requisiti di garanzia della sicurezza dalle classi disponibil
     \item che la guida per l'utente, compresi i manuali del prodotto relativi all'installazione, alla manutenzione e all'uso, siano di una qualità specifica, la manutenzione e l'uso, siano di una specifica qualità e adeguatezza
 \end{itemize}
 Il PP elenca anche i requisiti di sicurezza dell'ambiente IT. Questi coprono i seguenti argomenti:
+
 \begin{itemize}
     \item Distribuzione delle chiavi crittografiche
     
@@ -730,12 +750,14 @@ Il PP elenca anche i requisiti di sicurezza dell'ambiente IT. Questi coprono i s
     
     \item Ruoli di sicurezza
 \end{itemize}
-La sezione finale del PP (escluse le appendici) è una lunga motivazione per tutte delle selezioni e delle definizioni nel PP. Il PP è uno sforzo a livello industriale progettato per essere realistico nella sua capacità di essere soddisfatto da una varietà di prodotti con una varietà di meccanismi interni meccanismi interni e approcci di implementazione.
+
 \newpage
 \section{Assicurazione e valutazione}
 La garanzia può essere definita come una misura di fiducia che le caratteristiche di sicurezza e l'architettura di un sistema informativo (IS) mediano e applicano accuratamente la politica di sicurezza. Se si fa affidamento sulle caratteristiche di sicurezza di un IS per proteggere informazioni classificate o sensibili e limitare l'accesso degli utenti, le caratteristiche devono essere testate per assicurare che la politica di sicurezza sia applicata. Come per qualsiasi altro aspetto della sicurezza informatica, le risorse dedicate alla garanzia devono essere sottoposte a una sorta di analisi costi-benefici per determinare quale quantità di sforzo sia ragionevole per il livello di garanzia desiderato.
+
 \subsection{Destinatari}
 Il design delle misure di garanzia dipende in parte dal pubblico a cui queste misure. Cioè, nello sviluppare un grado di fiducia nelle misure di sicurezza, dobbiamo specificare quali individui o gruppi possiedono quel grado di fiducia. Il documento del CC sull'assicurazione elenca i seguenti destinatari:
+
 \begin{itemize}
     \item \textbf{Consumatori:} Selezionano le caratteristiche e le funzioni di sicurezza per un sistema e determinano i livelli richiesti di garanzia di sicurezza.
     
@@ -743,9 +765,12 @@ Il design delle misure di garanzia dipende in parte dal pubblico a cui queste mi
     
     \item \textbf{Valutatori:} Usano i requisiti di garanzia come una dichiarazione obbligatoria di criteri di valutazione quando valutano le caratteristiche e i controlli di sicurezza.
 \end{itemize}
+
 I valutatori possono essere nella stessa organizzazione dei consumatori o un team di valutazione di terze parti.
+
 \newpage
 \subsection{Ambito di garanzia}
+
 La garanzia si occupa delle caratteristiche di sicurezza dei prodotti IT, come computer, database, sistemi operativi e sistemi completi. La garanzia si applica a i seguenti aspetti di un sistema:
 \begin{itemize}
     \item \textbf{Requisiti:} Questa categoria si riferisce ai requisiti di sicurezza di un prodotto
@@ -758,11 +783,13 @@ La garanzia si occupa delle caratteristiche di sicurezza dei prodotti IT, come c
 
     \item \textbf{Funzionamento del sistema:} Include l'uso ordinario più la manutenzione
 \end{itemize}
+
 In ogni area, si possono adottare diversi approcci per fornire garanzie. 
 
 \singlespacing
 
 I possibili approcci:
+
 \begin{itemize}
     \item Analisi e controllo dei processi e delle procedure
     
@@ -784,7 +811,10 @@ I possibili approcci:
     
     \item Penetration Testing
 \end{itemize}
-Siccome viene fornita una visione un po' diversa degli elementi di garanzia. Questa relazione è basata sull'esperienza con le valutazioni di Orange Book, ma è rilevante per gli attuali sforzi di sviluppo di prodotti affidabili. L'autore vede la garanzia come comprendente i seguenti requisiti:
+
+Siccome viene fornita una visione un po' diversa degli elementi di garanzia. Questa relazione è basata sull'esperienza con le valutazioni di Orange Book, ma è rilevante per gli attuali sforzi di sviluppo di prodotti affidabili. 
+L'autore vede la garanzia come comprendente i seguenti requisiti:
+
 \begin{itemize}
     \item \textbf{Architettura del sistema} 
     
@@ -819,6 +849,7 @@ Siccome viene fornita una visione un po' diversa degli elementi di garanzia. Que
     I requisiti sono inclusi per la configurazione controllo, audit, gestione e contabilità
 \end{itemize}
 Così, vediamo che la garanzia si occupa della progettazione, dell'implementazione e del funzionamento delle risorse protette e delle loro funzioni e procedure di sicurezza. È importante notare che la garanzia è un processo, non un risultato. Cioè, la garanzia deve essere un'attività attività continua, che include test, verifiche e revisioni.
+
 \newpage
 \subsection{Processo di valutazione}
 Lo scopo della valutazione di un prodotto IT, un TOE, rispetto a uno standard informatico affidabile è quello di garantire che le caratteristiche di sicurezza nel TOE funzionino correttamente ed efficacemente, e non mostrino vulnerabilità sfruttabili. Il processo di valutazione viene eseguito sia in parallelamente o dopo lo sviluppo del TOE, a seconda del livello di garanzia richiesto.
@@ -843,7 +874,9 @@ La valutazione coinvolge una serie di parti:
 
     \item \textbf{Certificatore:} L'agenzia governativa che controlla il processo di valutazione e in seguito certifica che un prodotto e successivamente certifica che un prodotto è stato valutato con successo. I certificatori generalmente un registro dei prodotti valutati, che può essere consultato dai clienti.
 \end{itemize}
+
 Il processo di valutazione ha tre grandi fasi:
+
 \begin{enumerate}
     \item \textbf{Preparazione:} Coinvolge il contatto iniziale tra lo sponsor e gli sviluppatori di un prodotto e i valutatori che lo valuteranno. Confermerà che lo sponsor e gli sviluppatori sono adeguatamente preparati a condurre la valutazione e includerà una revisione dell'obiettivo di sicurezza e possibilmente altre consegne di valutazione.
     
