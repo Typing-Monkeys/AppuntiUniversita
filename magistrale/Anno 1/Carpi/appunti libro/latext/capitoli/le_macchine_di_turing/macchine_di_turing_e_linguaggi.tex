@@ -1,0 +1,113 @@
+\subsection{Macchine di Turing e Linguaggi}
+
+Vediamo adesso come una MdT $M$ gestisce la questione di identificare un linguaggio
+$L$ in un alfabeto $A$. Ovviamente $M$ avrà lo stesso alfabeto $A$ di $L$, e quindi
+sarà $M = (Q, A, \delta, q_0)$ per opportuni $Q$ e $\delta$. Possiamo immaginare per
+$M$ due possibili strategie per distinguere gli elementi di $L$.
+
+\begin{enumerate}
+    \item $M$ fissa preventivamente, a prescindere da $L$, due stringhe di output
+          tra loro distinte, da intendersi una volta per tutte come "$SI$" e "$NO$".
+          Si chiede poi a $M$, per ogni input $w \in A^*$, di:
+          \begin{itemize}
+              \item convergere su $SI$ se $w \in L$,
+              \item convergere su $NO$ se $w \notin L$.
+          \end{itemize}
+          Si dice allora che $M$ \textit{decide} $L$.
+    \item Alternativamente si ammette che, per ogni $w \in A^*$, $M$ converge su
+          $w$ se e solo se $w \in L$; dunque
+          \begin{itemize}
+              \item $M \downarrow w \ se \ w \in L$,
+              \item $M \uparrow w \ se \ w \notin L$.
+          \end{itemize}
+          Si dice allora che $M$ \textit{accetta} $L$.
+\end{enumerate}
+
+Notiamo che le due strategie non sono tra loro equivalenti e che in realtà solo la
+prima è adeguata a distinguere effettivamente gli elementi di $L$ da quelli fuori di
+$L$. Infatti, se $M$ si limita ad accettare $L$, $M$ sa riconoscere gli elementi
+di $L$, perché converge su di essi; ma non sa escludere gli elementi fuori di $L$,
+per i quali segue l'evoluzione della corrispondente computazione, prende atto che
+essa non si conclude né dopo 10, né dopo 100, né dopo $10^n$ passi, ma non può su
+questa base prevedere che essa prosegua indefinitamente (come in realtà accade), o
+non si arresti proprio al passo $10^n + 1$, o poco dopo.
+
+Quando $M$ accetta un linguaggio $L$ e dunque $L$ si compone delle parole
+$w \in A^*$ per cui $M \downarrow w$, diremo comunque che (almeno) $L$ è
+riconosciuto da $M$.\\
+
+Diciamo poi:
+
+\paragraph{Definizione.}
+Un linguaggio $L$ è \textit{decidibile} secondo Turing
+(o, più semplicemente, \textit{decidibile}) se esiste una macchina di Turing $M$ che
+decide $L$, \textit{indecidibile} (secondo Turing) altrimenti.
+
+\paragraph{Definizione.}
+Un linguaggio $L$ è detto \textit{semidecidibile} secondo Turing
+(o, più semplicemente, \textit{semidecidibile}) se esiste una macchina di Turing
+$M$ che accetta $L$.\\
+
+Nei prossimi capitoli studieremo formalmente le relazioni tra decidibilità e
+semidecidibilita. Non è difficile convincersi, comunque, che se un linguaggio è
+decidibile allora è anche semidecidibile. È facile, infatti, trasformare una MdT
+$M$ che risponde "$SI$" alle stringhe che appartengono al linguaggio e
+"$NO$" alle stringhe che non appartengono al linguaggio in una macchina di Turing
+$M$ che converge quando $M$ dichiara "$SI$" e diverge quando $M$ dice "$NO$".
+Nel seguito saranno proposti molti esempi di linguaggi decidibili e semidecidibili.
+Per il momento ci accontentiamo di un caso molto semplice.
+
+\paragraph{Esempio.}
+Sia $A = \{1\}$. Sappiamo che i numeri naturali $0,1,2,3,4, \ldots$ si possono
+rappresentare, in verità in modo assai rozzo, come parole su $A 1,11,111, 1111,$ e
+cosi via: dunque ogni naturale $N$ diventa una stringa di 1 di lunghezza $N+1$.
+Sia $L$ l'insieme dei pari. Vogliamo provare che $L$ e decidibile e quindi
+costruire una MdT $M$ su $\{1\}$ che lo decide. Identifichiamo anzitutto le risposte
+$SI$ e $NO$ rispettivamente con i numeri 1 e 0, e dunque con le codifiche 11 e 1.
+Informalmente $M$ conta la parità di un dato input $N$ e risponde 1 o 11 di
+conseguenza. Per ottenere questo obiettivo ci servono quattro stati
+$q_0, q_1, q_2, q_3$ e una funzione di transizione $\delta$ con le seguenti istruzioni
+
+\begin{alignLetter}
+    & \left(q_0, \star\right) \rightarrow\left(q_3, 1,+1\right),\left(q_1, \star\right) \rightarrow\left(q_2, 1,+1\right),   \\
+    & \left(q_0, 1\right) \rightarrow\left(q_1, \star,+1\right),\left(q_1, 1\right) \rightarrow\left(q_0, \star,+1\right),   \\
+    & \left(q_2, \star\right) \rightarrow\left(q_3, 1,+1\right).                                                           &
+\end{alignLetter}
+
+Vediamo allora come $M$ verifica che 4, cioè 11111, è pari. Anzitutto $M$ usa le
+istruzioni in (b) per cancellare ogni 1 e giungere finalmente a $\star$ nello stato
+$q_1$, secondo la computazione che adesso mostriamo:
+
+$$
+    \begin{aligned}
+         & \left(\lambda, q_0, 1,1111\right) \vdash_M\left(\lambda, q_1, 1,111\right) \vdash_M\left(\lambda, q_0, 1,11\right) \vdash_M\left(\lambda, q_1, 1,1\right) \vdash_M \\
+         & \vdash_M\left(\lambda, q_0, 1, \lambda\right) \vdash_M\left(\lambda, q_1, \star, \lambda\right) ;
+    \end{aligned}
+$$
+
+a questo punto (a), (c) intervengono e implicano
+
+$$
+    \left(\lambda, q_1, \star, \lambda\right) \vdash_M\left(1, q_2, \star, \lambda\right) \vdash_M\left(11, q_3, \star, \lambda\right),
+$$
+
+dopo di che, in assenza di istruzioni su $q_3, M$ si arresta con l'output atteso 11,
+cioè $SI$.\\
+
+Consideriamo ora la computazione di $M$ sull'input 3, cioè 1111. Stavolta (b)
+implica
+
+$$
+    \begin{aligned}
+         & \left(\lambda, q_0, 1,111\right) \vdash_M\left(\lambda, q_1, 1,11\right) \vdash_M\left(\lambda, q_0, 1,1\right) \vdash_M\left(\lambda, q_1, 1,\lambda\right) \\
+         & \vdash_M\left(\lambda, q_0, \star, \lambda\right)
+    \end{aligned}
+$$
+
+cui (a) aggiunge
+
+\[
+    (\lambda, q_0, \star, \lambda) \vdash_M (1, q_3, \star, \lambda)
+\]
+
+dopo di che si arresta con l'output 1, cioè $NO$.

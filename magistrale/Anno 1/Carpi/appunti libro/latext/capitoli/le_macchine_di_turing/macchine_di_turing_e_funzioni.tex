@@ -1,0 +1,90 @@
+\subsection{Macchine di Turing e Funzioni}
+
+In questo paragrafo discutiamo come le Macchine di Turing possano calcolare le
+funzioni sulle stringhe di un certo alfabeto $A$.
+
+\paragraph{Definizione.}
+Sia $f$ una funzione con dominio e immagine in $A*$. Si dice che una
+MdT $M = (Q, A, \delta, q_0)$ \textit{calcola o computa}$f$ se e solo se, $\forall w \in A*$,
+
+\begin{enumerate}
+    \item se $w$ è nel dominio di $f$, allora $M \downarrow w$ con output $f(w)$;
+    \item se invece $f(w)$ non è definita, allora $M \uparrow w$.
+\end{enumerate}
+
+\paragraph{Definizione.}
+La funzione $f$ è detta \textit{calcolabile secondo Turing} o
+\textit{computabile secondo Turing} se esiste una macchina di Turing $M$ che la
+calcola; \textit{non calcolabile},
+o \textit{non computabile secondo Turing} altrimenti.\\
+
+Le precedenti definizioni si estendono facilmente al caso in cui il dominio o
+l'immagine di $f$ si compongono di coppie, o terne, o $n$-uple di parole invece che
+direttamente di stringhe. Basterà convenire di rappresentare una coppia $(w_1, w_2)$
+di parole su $A$ come una stringa $w_1* w_2$ in cui $w_2$ succede a $w_1$, separata
+da un simbolo bianco, e procedere analogamente per terne, o sequenze più complicate.
+Si noti poi che tra le funzioni computabili secondo Turing sono ammessi anche
+esempi parziali, definiti solo su porzioni di $A*$, e non sulla sua totalità.
+Questa scelta non deve sorprendere né scandalizzare. Si osservi che molte operazioni
+comuni ed elementari, come la divisione tra i naturali, non sempre si possono
+eseguire; per esempio non c'è verso di calcolare 5 : 2. Nel caso specifico, si può
+cercare di rimediare ammettendo un eventuale resto minore del divisore. Così, per
+5 : 2, si ottiene quoziente approssimato 2 e resto 1
+
+\[
+    5 = 2 \cdot 2 + 1
+\]
+
+Pur tuttavia, certe divisioni, quelle con divisore O come 5 : 0, restano ancora
+impossibili. La divisione è, quindi, una funzione solo parziale.
+
+\paragraph{Esempio.}
+Presentiamo una MdT $M$ che computa la funzione totale di addizione tra i naturali.
+Come già in precedenza, lavoriamo sull'alfabeto $A = \{1\}$. Assumiamo che $M$
+abbia quattro stati $q_0, q_1, q_2, q_3$ e le istruzioni
+
+$$
+    \begin{gathered}
+        \left(q_0, \star\right) \rightarrow\left(q_1, 1,+1\right),\left(q_0, 1\right) \rightarrow\left(q_0, 1,+1\right),\left(q_1, \star\right) \rightarrow\left(q_2, \star,-1\right), \\
+        \left(q_1, 1\right) \rightarrow\left(q_1, 1,+1\right),\left(q_2, 1\right) \rightarrow\left(q_3, \star,-1\right),\left(q_3, 1\right) \rightarrow\left(q_3, \star, 1\right) .
+    \end{gathered}
+$$
+
+Mostriamo come, per esempio, $M$ verifichi che $2+3$ fa 5, cioè produca l'output
+111111 quando il suo input è la coppia $(2,3)$, cioè $111 \star 1111$.
+Infatti le istruzioni relative a $q_0$ fanno ricopiare a $M$ la prima sequenza di
+1 senza cambiare stato
+
+$$
+    \left(\lambda, q_0, 1,11 \star 1111\right) \vdash_M^*\left(111, q_0, \star, 1111\right),
+$$
+
+poi le fanno aggiungere un ulteriore 1 e passare ad esaminare la seconda sequenza
+di 1 nello stato $q_1$
+
+$$
+    \left(111, q_0, \star, 1111\right) \vdash_M\left(1111, q_1, 1,111\right) .
+$$
+
+L'istruzione su $\left(q_1, 1\right)$ ha ancora l'effetto di riprodurre inalterata
+questa seconda sequenza
+
+$$
+    \left(1111, q_1, 1,111\right) \vdash_M^{\star}\left(11111111, q_1, \star, \lambda\right) ;
+$$
+
+a questo punto $M$ cancella gli ultimi due 1, passa allo stato $q_3$ e si ferma
+producendo l'output desiderato 111111
+
+$$
+    \begin{aligned}
+         & \left(11111111, q_1, \star, \lambda\right) \vdash_M\left(1111111, q_2, 1, \lambda\right) \vdash_M     \\
+         & \vdash_M\left(111111, q_3, 1, \lambda\right) \vdash_M\left(111111 \star, q_3, \star, \lambda\right) .
+    \end{aligned}
+$$
+
+Finalmente notiamo che ogni MdT $M$ con alfabeto $A$ computa una funzione,
+eventualmente parziale, da $A^*$ a $(A \cup\{*\})^*$, e più in generale
+dall'insieme delle sequenze finite di stringhe di $A^*$ e $\star$ all'insieme
+stesso: la funzione associa ad ogni stringa (o sequenza di stringhe) l'output della
+eventuale computazione convergente di $M$ su di essa.

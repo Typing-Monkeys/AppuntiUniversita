@@ -2,8 +2,17 @@
 \usepackage{amsfonts}
 \usepackage{mathtools}
 \usepackage{amssymb}
+
 \setlength{\parindent}{0pt}
 \begin{document}
+
+\newenvironment{alignLetter}{
+    \setcounter{equation}{0}
+    \renewcommand\theequation{\alph{equation}}
+    \flalign
+}{
+    \endalign
+}
 
 %%TODO: aggiuntere una prima pagina fatta bene !!
 

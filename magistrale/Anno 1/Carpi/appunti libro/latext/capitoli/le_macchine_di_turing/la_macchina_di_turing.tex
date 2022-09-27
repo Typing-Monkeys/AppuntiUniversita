@@ -226,4 +226,84 @@ Il lettore potrà scrivere per esercizio, se ha voglia e pazienza,
 tutti i dettagli della definizione di $\vdash_M$.
 Se poi per una data $C$ non esiste alcuna configurazione $C$ tale che
 $C \vdash_M C'$,
-allora scriveremo $C \nvdash_M$.
+allora scriveremo $C \nvdash_M$.\\
+
+Sia \(\vdash^*_M\) la chiusura riflessiva e transitiva di \(\vdash_M\); vale dire,
+per \(C, C'\) configurazioni, \(C \vdash^*_M C'\) significa che esistono un
+naturale $n$ e configurazioni $C_0, C_1, \ldots$ $C_n$, tali che
+$C = C_0 \vdash_M C_1 \vdash_M \ldots \vdash_M C_n = C^{\prime}$.
+Chiamiamo poi \textit{computazione} di una MdT $M$ su un input $w$ una sequenza
+(eventualmente infinita) di configurazioni
+
+\[
+    C_0 \vdash_M C_1 \vdash_M \ldots \vdash_M C_i \vdash_M \ldots
+\]
+
+tale che $C_0$ è una configurazione iniziale su $w$. Chiaramente
+$M \downarrow w$ se questa computazione è finita
+
+\[
+    C_0 \vdash_M C_1 \vdash_M \ldots \vdash_M C_n
+\]
+
+e inoltre $C_n \nvdash_M$; $C_n$ è la configurazione finale di $M$ su $w$.
+Altrimenti, se $M \uparrow w$, la computazione non ha mai fine.
+
+\paragraph{Esempio.}
+Si consideri l'alfabeto $A = \{\star, 1\}$ composto dal solo 1 e dal simbolo
+bianco $\star$. Definiamo una MdT $M$ che, presa come input una successione di
+1 consecutivi, restituisce come output tale successione aumentata di un elemento.
+In dettaglio $M$ dispone di due stati interni, lo stato iniziale $q_0$ e uno stato
+di "arresto" $q_1$, e la funzione di transizione $\delta$ è composta dalle
+istruzioni
+
+\[
+    \left(q_0, 1\right) \rightarrow\left(q_0, 1,+1\right), \quad\left(q_0, \star\right) \rightarrow\left(q_1, 1,+1\right) .
+\]
+
+Secondo le convenzioni stabilite, alla partenza $M$ ha lo stato $q_0$ e la testina
+indica il primo simbolo a sinistra dell'input.
+Fintanto che la testina trova celle segnate con 1, allora, in virtù della prima
+regola di transizione, $M$ scrive 1 sulla cella osservata
+(cioè il simbolo letto viene lasciato inalterato) e la testina si sposta a
+destra di una cella, mantenendo lo stato $q_0$.
+Quando la testina arriva ad una cella vuota, $M$ passa alla seconda regola di
+transizione, in virtù della quale la macchina segna con 1 la cella osservata,
+sposta la testina a destra (la scelta della direzione di spostamento è in questo
+caso ininfluente) e assume lo stato $q_1$, per il quale non è definita nessuna
+regola di transizione e, quindi, la macchina si arresta.
+
+\paragraph{Esempio.}
+Consideriamo adesso una MdT che ha lo stesso alfabeto $A = {1, \star}$
+dell'esempio precedente, ancora due stati $q_0, q_1$, ma una sola istruzione
+$(q_0, \star) \rightarrow (q_0, \star, +1)$. Ammettiamo che la macchina abbia
+come input il nastro bianco, e dunque si trovi a leggere $\star$ nello
+stato $q_0$ al momento in cui la computazione si avvia. È facile verificare che
+la macchina scivola verso destra continuando a ristampare $\star$ su ogni nuova
+cella considerata e a rimanere nello stato $q_0$. Quindi la computazione diverge.\\
+
+In conclusione, la macchina di Turing costituisce un soddisfacente modello di
+calcolo, e comunque corrisponde al decalogo fissato nel Capitolo 1. Infatti si ha
+quanto segue.
+
+\begin{itemize}
+    \item La funzione di transizione di una MdT costituisce un insieme finito di
+          istruzioni.
+    \item La MdT così descritta è anche l'agente di calcolo che esegue le istruzioni
+          di cui al punto 1).
+    \item La MdT può utilizzare il nastro per memorizzare i risultati intermedi.
+    \item La MdT opera in modo discreto.
+    \item La MdT opera in modo deterministico, con istruzioni univocamente
+          specificate.
+    \item Non esiste nessuna limitazione sulla lunghezza delle stringhe di ingresso,
+          in quanto si assume che il nastro è illimitato.
+    \item Il nastro della MdT costituisce, appunto, una memoria di capacità non
+          limitata.
+    \item Le operazioni che la MdT può eseguire sono molto semplici, quindi di
+          complessità finita.
+    \item Non esiste nessun limite al numero delle istruzioni eseguite durante una
+          computazione: infatti, le istruzioni sono di numero finito, ma è ammessa la
+          possibilità di usare più volte la stessa istruzione.
+    \item Esiste la possibilità di computazioni infinite, come l'esempio precedente
+          ci mostra.
+\end{itemize}
