@@ -1,0 +1,103 @@
+\subsection{Macchine di Turing a più nastri}
+
+La descrizione informale della macchina di Turing data nel paragrafo 2 in termini di
+nastro, celle e testina è assai elementare, essenziale e schematica, certamente
+passibile di adattamenti, modifiche e migliorie. Per esempio, tra le varianti
+ammissibili, possiamo considerare l'eventualità di disporre di più nastri di lavoro.
+Ma il meccanismo che ne deriva, anche se apparentemente più duttile e potente della
+semplice MdT, mantiene in realtà le medesime capacità computazionali: i linguaggi
+decisi o accettati restano esattamente gli stessi, così come le funzioni calcolate.
+Vediamo perché.\\
+Consideriamo allora una macchina di Turing M a più nastri (si veda la figura
+sottostante) immaginata come composta da:
+
+\begin{itemize}
+    \item una unità di controllo a stati finiti,
+    \item un nastro $N_0$ di input-output di lunghezza infinita con relativa testina,
+    \item $m$ nastri ausiliari $N_1, \ldots, N_m$ di lunghezza infinita ($m \ge 0$),
+          ciascuno dotato di propria testina
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/le_macchine_di_turing/imgs/mdt_piu_nastri.png}
+    \caption{Schema di una Macchina di Turing a più nastri}
+\end{figure}
+
+Ogni nastro è suddiviso in celle, e ogni cella è in grado di memorizzare un simbolo
+di un certo alfabeto $A = {a_0, a_1, \ldots, a_n}$, o il simbolo bianco $*$. Il
+nastro di input-output $N_0$ contiene l'input iniziale e l'eventuale output finale di
+ogni computazione; ma, durante il lavoro, anche gli altri nastri $N_1, \ldots, N_m$
+possono
+essere coinvolti e adoperati. Ogni nastro è scandito dalla sua testina, secondo le
+convenzioni usuali per MdT semplici. L'unità di controllo, oltre a contenere il
+programma secondo cui la computazione deve essere eseguita, controlla lo stato della
+macchina. All'inizio della computazione, l'input è scritto su $N_0$ e la testina ne
+indica il simbolo più a sinistra; gli altri nastri sono vuoti e la testina ne esamina
+una cella arbitraria; la macchina $M$ è nello stato $q_0$. Ogni successiva mossa di $M$
+è determinata da
+
+\begin{itemize}
+    \item il suo stato,
+    \item i simboli indicati dalle testine sui vari nastri $N_0, N_1, \ldots, N_m$,
+\end{itemize}
+
+e consiste in
+
+\begin{itemize}
+    \item aggiornare lo stato,
+    \item riscrivere i simboli esaminati su ogni nastro,
+    \item spostare in ogni nastro la testina di un passo verso destra o verso
+          sinistra.
+\end{itemize}
+
+Come già detto, si conviene che l'eventuale output della computazione sia la stringa
+scritta in $N_0$ se e quando $M$ si arresta.\\
+Tutte le definizioni già date per la MdT
+semplice possono essere adattate al nuovo modello, ovviamente con le opportune
+modifiche. In particolare, le regole di transizione di una macchina $M$ a $m$ nastri
+ausiliari sono fatalmente più elaborate, perché devono tenere conto non solo dello
+stato di $M$ e del simbolo indicato su $N_0$, ma anche dei simboli considerati sui
+nastri ausiliari $N_1, \ldots, N_m$; la transizione sarà caratterizzata, come detto,
+dalla scelta di un nuovo stato e dalle istruzioni di scrittura e spostamento per
+ciascun nastro, sia di $N_0$ che di $N_1, \ldots, N_m$. Una regola di transizione
+sarà allora della forma
+
+$$
+    \delta\left(q, b_0, b_1, \ldots, b_m\right)=\left(q^{\prime}, b^{\prime}_0, x_0, b_1^{\prime}, x_1, \ldots, b_m^{\prime}, x_m\right)
+$$
+
+dove:
+
+\begin{itemize}
+    \item $q, q^{\prime}$ rappresentano gli stati di $M$ rispettivamente prima e dopo
+          la transizione.
+    \item per ogni i $\in\{0,1, \ldots, m\}, b_i \in A \cup\{*\}$ è il
+          simbolo indicato dalla testina sul nastro $N_i, b^{\prime}_i \in A \cup\{*\}$ il simbolo che
+          lo sostituisce, $x_i \in\{-1,+1\}$ lo spostamento che la testina deve compiere.
+
+\end{itemize}
+
+II modello che si ottiene sembra più potente ed espressivo delle semplici MdT.
+
+\paragraph{Esempio.} Vediamo in particolare come una MdT con un nastro ausiliario
+$N_1$ sappia controllare, per ogni parola $w=a_{j_1} \ldots a_{j_k}$ su $A$, se
+$w=w^{\text {rev }}$ e cioè se
+$$
+    a_{j_1} a_{j_2} \ldots a_{j_k}=a_{j_k} a_{j_{k-1}} \ldots a_{j_1};
+$$
+sappia cioè decidere il linguaggio
+$$
+    \left\{\left(w, w^{r e v}\right) \mid w \in A^*, w=w^{r e v}\right\} .
+$$
+La computazione di $M$ su un generico $w$ avviene come segue: $M$ inizia il suo
+lavoro muovendo simultaneamente la testina di $N_0$ e quella del nastro ausiliario
+$N_1$ verso destra, una cella per volta, finchè la testina di $N_0$ non incontra
+$*$, cioè termina di leggere $w$. Durante questo movimento, $M$
+copia su $N_1$ i simboli letti; quindi $M$ scorre all'indietro $N_1$ e individua il
+primo simbolo non bianco. Finalmente, $M$ legge simultaneamente il nastro $N_0$ da
+destra a sinistra e $N_1$ da sinistra a destra e controlla che i simboli esaminati
+coincidano uno a uno. A seconda dell'esito della verifica scrive $SI$ o $NO$ su $N_0$.\\
+
+Nonostante le apparenze, le capacità computazionali di una MdT a più nastri sono le
+stesse di quelle a un solo nastro, come adesso proviamo.
