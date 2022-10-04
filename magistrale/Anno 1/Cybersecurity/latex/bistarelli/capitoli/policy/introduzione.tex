@@ -110,3 +110,47 @@ Le policy prese in considerazione per il controllo sugli accessi sono:
                         discrezionalità..
             \end{itemize}
 \end{itemize}
+
+\paragraph{Matrice di Controllo degli Accessi: }
+Questa matrice è principalmente utilizzato negli schemi di controllo degli accessi discrezionali (DAC), ovvero quegli schemi in cui un'entità può ricevere diritti di accesso che le permettono, di sua spontanea volontà, di consentire ad un'altra entità di accedere a qualche risorsa. Un approccio al DAC (ad esempio da parte di un sistema operativo o da un sistema di gestione di database) è quello di una \textbf{Matrice di Accesso} (concetto inizialmente formulato da Lampson).\\
+Una tipica implementazione di questo schema consiste nell'avere:
+\begin{itemize}
+    \item in una dimensione della matrice \textbf{i soggetti identificati} che possono tentare l'accesso ai dati e alle risorse,
+    \item e nell'altra dimensione \textbf{gli oggetti} a cui si può accedere (al massimo livello di dettaglio, gli oggetti possono essere singoli campi di dati).
+\end{itemize}
+Raggruppamenti più aggregati, come record, file o anche l'intero intero database, possono
+anche essere oggetti nella matrice.\\
+\textbf{Ogni voce nella matrice indica i diritti di accesso (permessi) di un particolare soggetto per un particolare oggetto.}\\
+Alcuni esempi di permessi che possono essere presenti nelle voci della matrice sono:
+\begin{itemize}
+    \item Lettura
+    \item Scrittura
+    \item Esecuzione
+    \item Cancellazione
+    \item Creazione
+    \item Ricerche
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/policy/imgs/matrix_access_control.png}
+    \caption{Esempio di Matrice di Controllo degli Accessi.}
+\end{figure}
+
+\noindent Nel caso in cui volessi avere accesso ad un file che non c’è, ci sarebbe il file safe default di sistema, il default deve essere sempre safe. \\
+Esistono anche altri metodi per mappare gli accessi (\textbf{più efficienti rispetto alle matrici}), come le \textbf{Access Control List e le Capability List}. Rispetto alle Access Control Matrix sono meno costose perché non contengono coppie riga/colonna vuote e di conseguenza inutili. Sono utilizzate in genere per mappare appunto l’Access Control Matrix.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm, keepaspectratio]{capitoli/policy/imgs/matrix_access_control2.png}
+    \caption{ Access Control List e Capability List.}
+\end{figure}
+\noindent Solitamente può accadere che, quando la matrice di accesso è sparsa, viene implementata tramite decomposizione in uno dei due modi.\\
+\begin{itemize}
+    \item La matrice può essere decomposta per colonne, ottenendo liste di controllo degli accessi (ACL). Per ogni oggetto, una ACL elenca gli utenti e i loro diritti di accesso consentiti. L'ACL può contenere una voce di default, o pubblica. Questo permette agli utenti che non sono esplicitamente elencati come aventi diritti speciali di avere un insieme predefinito di diritti. L'insieme predefinito di diritti dovrebbe sempre seguire la regola del minimo privilegio o dell'accesso in sola lettura, a seconda del caso. Gli elementi della lista possono includere sia utenti individuali che gruppi di utenti. Quando si vuole determinare quali soggetti hanno quali diritti di accesso a una particolare risorsa, le ACL sono convenienti, perché ogni ACL fornisce le informazioni per una data risorsa. Tuttavia, questa struttura di dati non è conveniente per determinare i diritti di accesso disponibili per un utente specifico.
+    \item La decomposizione per righe produce i capability ticket. Un capability specifica gli oggetti e le operazioni autorizzate per un particolare utente. Ogni utente ha un certo numero di ticket e può essere autorizzato a prestarli o darli ad altri. Poiché i ticket possono essere dispersi nel sistema, essi presentano un maggiore problema di sicurezza rispetto alle liste di controllo degli accessi. L'integrità del biglietto deve essere protetta e garantita (di solito dal sistema operativo). In particolare, il biglietto deve essere non falsificabile. Questi biglietti dovrebbero essere tenuti in una regione di memoria inaccessibile agli utenti.  Gli aspetti convenienti e scomodi dei biglietti di capacità sono l'opposto di quelli delle ACL:
+    \begin{itemize}
+        \item è facile determinare l'insieme dei diritti di accesso che un dato utente ha,
+        \item ma è più difficile determinare l'elenco degli utenti con diritti di accesso specifici per una risorsa specifica. 
+    \end{itemize}
+\end{itemize}
