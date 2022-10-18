@@ -1,0 +1,81 @@
+
+\subsection{Macchine di Turing non deterministiche}
+
+In questa sezione mostreremo un'altra possibile estensione
+delle MdT, quella delle così dette macchine di Turing "\textit{non deterministiche}"; ne
+discuteremo brevemente utilità e motivazione, ma dimostreremo che anche questa
+generalizzazione equivale in definitiva al modello delle macchine di Turing
+tradizionali. In una comune $\operatorname{MdT} M=\left(Q, A, \delta, q_0\right)$,
+per ogni stato $q \in Q$ e per ogni simbolo $a \in A \cup\{\star\}$, c'è al più
+un'istruzione da eseguire a proposito di $(q, a)$. In altre parole, $\delta$ è una
+"funzione":
+\begin{itemize}
+    \item associa a $(q, a)$ un'unica terna $\left(q^{\prime}, a^{\prime},
+              x\right)$ con $q^{\prime} \in Q, a^{\prime} \in A \cup\{\star\}, x=\pm 1$,
+    \item oppure esclude $(q, a)$ dal suo dominio (nel qual caso $M$ si ferma non appena incontra $(q,
+              a))$.
+\end{itemize}
+
+Del resto, queste convenzioni sono stabilite per simulare in modo adeguato il
+comportamento tipico di un impiegato diligente che, se non ha istruzioni, si ferma;
+se ne ha una sola, la esegue; se ne ha più d'una, resta nel dubbio e non si prende
+responsabilità. Ma a un impiegato diligente e fortunato si può anche concedere la
+facoltà di scegliere, confidando che la buona sorte gli ispiri l'opzione migliore.
+Corrispondentemente a una MdT non deterministica si concederà, per certe - o per
+tutte - le coppie $(q, a)$, la possibilità di scegliere tra più possibili terne
+$\left(q, a^{\prime}, x\right)$, tra loro concorrenziali. In altre parole, si
+ritirerà a $\delta$ la qualifica di funzione da coppie in $Q \times(A \cup\{\star\})$
+a terne in $Q \times((A \cup\{\star\}) \times\{-1,+1\}$, e la si ridurrà al rango di
+una semplice relazione tra coppie e terne, quindi a un insieme di 5 -uple in
+$$
+    Q \times(A \cup\{\star\}) \times Q \times((A \cup\{\star\}) \times\{-1,+1\} .
+$$
+Si porrà in conclusione
+
+\paragraph{Definizione.} Una macchina di Turing \textit{non deterministica} $M$ è una 4 -upla
+$(Q, A, \delta, q_0)$ come nella definizione delle MdT tradizionali,
+dove però $\delta$ è una relazione in
+
+$$
+    Q \times(A \cup\{\star\}) \times Q \times((A \cup\{\star\}) \times\{-1,+1\} .
+$$
+
+In effetti le MdT tradizionali si chiamano talora "\textit{deterministiche}", a sottolineare
+l'univocità delle loro istruzioni. Va però osservato che le MdT deterministiche
+rientrano tra quelle non deterministiche: hanno maggiore rigidità e meno libertà
+rispetto alle altre - al più una istruzione da eseguire per una data coppia $(q,
+    a)-$, ma non ne contraddicono la definizione. In ragione della molteplicità di
+istruzioni, una MdT non deterministica $M$ può svolgere più possibili computazioni e
+produrre diversi possibili output per lo stesso input $w$. Diremo che $M$ converge su
+$w$ se almeno una di queste computazioni ha fine, e dedurremo che $M$ diverge su $w$
+se tutte queste computazioni divergono.
+
+\paragraph{Esempio.} Sia $M$ la MdT non deterministica
+che ha due stati $q_0, q_1$, l'alfabeto $\{1\}$ e due sole istruzioni
+$$
+    \left(q_0, \star\right) \rightarrow\left(q_1, 1,+1\right), \quad\left(q_0, \star\right) \rightarrow\left(q_0, \star,+1\right),
+$$
+tutte relative a $\left(q_0, \star\right)$. Ammettiamo che $M$ inizi la computazione
+dal nastro bianco e quindi si trovi a considerare al primo passo proprio la coppia
+$(q, \star)$. Se $M$ esegue la prima istruzione, $M$ entra nello stato $q_1$ e subito
+dopo si arresta. Se invece $M$ sceglie la seconda istruzione, $M$ ricopia $\star$, va
+a destra e resta nello stato $q$, cioè si ritrova nella situazione di partenza, una
+cella più a destra. Se $M$ continua a eseguire indefinitamente la seconda istruzione
+su $(q_0, \star), M$ diverge. Comunque $M$ converge sul nastro bianco
+perché almeno una delle sue computazioni sul nastro bianco ha fine.\\
+
+È evidente che questa capacità di computazioni plurime dà a una MdT non
+deterministica $M$ maggiori potenzialità, almeno apparenti: dove una MdT
+deterministica ha un'unica via da seguire, $M$ ha più alternative e quindi la
+possibilità di concludere più rapidamente scegliendo la strada migliore. Così, $M$
+accetta un linguaggio $L$ se e solo se gli elementi di $L$ coincidono con gli input
+di $M$ su cui almeno una computazione di $M$ converge. Tuttavia, alla resa dei conti,
+questi presunti vantaggi non aumentano realmente il potere computazionale delle
+macchine, nel senso del seguente
+
+\paragraph{Teorema 2.11.1} \textit{Per ogni MdT non deterministica $M$, c'è una MdT deterministica
+    $M^{\prime}$ che accetta lo stesso insieme di $L$.}\\
+
+\textit{Dimostrazione}. (Ci limitiamo a cenni informali). Per ogni input $w, M^{\prime}$ segue
+contemporaneamente tutte le computazioni di $M$ su $w$, e si arresta non appena una
+di queste si arresta; continua a osservare il comportamento di $M$ altrimenti.

@@ -101,3 +101,83 @@ coincidano uno a uno. A seconda dell'esito della verifica scrive $SI$ o $NO$ su 
 
 Nonostante le apparenze, le capacità computazionali di una MdT a più nastri sono le
 stesse di quelle a un solo nastro, come adesso proviamo.
+
+\paragraph{Teorema 2.10.1} \textit{Per ogni $MdT \ M = (Q, A, \delta, q_0)$ a $m$
+    nastri ausiliari, esiste una $MdT \ M^{\prime} = (Q^{\prime}, A^{\prime}, \delta^{\prime},
+        q_0)$ con $A \supseteq A^{\prime}$ tale che:}
+\textit{\begin{itemize}
+        \item per ogni linguaggio $L$ su $A$, $L$ è accettato o deciso da $M$
+              se e solo se lo è da $M^{\prime}$
+        \item per ogni funzione $f$ su stringhe in $A^{\star}$, $f$ è calcolata
+              da $M$ se e solo se lo è da $M^{\prime}$
+    \end{itemize}
+}
+
+\textit{Dimostrazione}.
+Dobbiamo simulare il comportamento di $M$ con una MdT "tradizionale" $M^{\prime}$,
+nel senso che, per ogni $w \in A^{\star}$,
+
+\begin{enumerate}
+    \item se $M \downarrow w$, allora $M^{\prime} \downarrow w$ e $M, M^{\prime}$
+          hanno lo stesso output su $w$;
+    \item se $M \uparrow w$, allora $M^{\prime} \uparrow w$.
+\end{enumerate}
+
+Suddividiamo allora l'unico nastro di $M^{\prime}$ in $2 m+2$ tracce consecutive
+$$
+    N_0^{\prime}, N_1^{\prime}, \ldots, N_m^{\prime}, N_0^{\prime \prime}, N_1^{\prime \prime}, \ldots, N_m^{\prime \prime} \text {. }
+$$
+Un nuovo simbolo $\Delta$ nell'alfabeto serve a separarle, segnalando inizio e fine
+di ognuna; un ulteriore simbolo $\nabla$ delimita a sinistra e a destra la sequenza
+delle tracce. Per ogni $i=0,1, \ldots, m$, le tracce $N_i^{\prime}, N_i^{\prime
+    \prime}$ corrispondono al nastro $N_i$ di $M$, in particolare
+
+\begin{itemize}
+    \item $N_i^{\prime}$ ne ricopia il contenuto significativo (cioè non vuoto),
+    \item $N_i^{\prime \prime}$ provvede a indicare la posizione della testina di
+          $N_i$.
+\end{itemize}
+
+A quest'ultimo proposito, ammettiamo che $A^{\prime}$ includa due ulteriori simboli
+$+,-$ e conveniamo che la cella di $N_i^{\prime \prime}$ corrispondente a quella
+indicata dalla testina di $N_i$ contenga $+$, le altre $-$. Per esempio, se
+$N_i^{\prime}$ contiene la stringa $a_0 a_1 a_0 a_2$ e la testina indica $a_1,
+    N_i^{\prime}$ presenta $a_0 a_1 a_0 a_2$ e $N_i^{\prime \prime}-+--$. Naturalmente il
+numero delle celle nella traccia $N_i^{\prime}$ è lo stesso che in $N_i^{\prime
+    \prime}$, ma questo comune valore può variare durante la computazione in ragione dei
+movimenti di $M$ su $N$ : i delimitatori $\triangle, \nabla$ possono però spostarsi e
+segnalare con chiarezza i confini. All'inizio della computazione su un dato input
+$w$, il nastro di $M^{\prime}$ si presenta allora nel seguente modo:
+
+\begin{itemize}
+    \item $N_0^{\prime}$ contiene $w, N_0^{\prime \prime}$ ha + nella prima cella, -
+          nelle altre;
+    \item  per $i=1, \ldots, m, N_i^{\prime}$ è bianca, cioè contiene $\star,
+              N_i^{\prime \prime}$ ha $+$ nella prima cella e $-$ in tutte le altre.
+\end{itemize}
+
+A questo punto $M^{\prime}$ può iniziare la simulazione delle macchine $M$. Ad ogni
+regola di transizione di $M$
+$$
+    \delta\left(q, b_0, b_1, \ldots, b_m\right)=\left(q^{\prime}, b_0^{\prime}, x_0, b_1^{\prime}, x_1, . ., b_m^{\prime}, x_m\right)
+$$
+$M^{\prime}$ fa corrispondere le istruzioni adeguate a svolgere il seguente lavoro:
+
+\begin{itemize}
+    \item $M^{\prime}$ entra nello stato $q^{\prime}$;
+    \item per ogni $i=1, \ldots, m, M^{\prime}$ sostituisce $b_i$ con $b_i^{\prime}$
+          su $N_i^{\prime}$, e registra lo spostamento $x_i$ su $N_i^{\prime \prime}$ con
+          l'uso appropriato $\mathrm{di}+\mathrm{e}-$.
+\end{itemize}
+
+Quando $M$ converge, $M^{\prime}$ opera una opportuna pulizia del nastro lasciando
+solo il contenuto di $N_0^{\prime}$. Ovviamente questa descrizione del comportamento
+di $M^{\prime}$ è forzatamente imprecisa. Le operazioni sopra descritte
+necessiterebbero di una implementazione in termini di quintuple secondo quanto
+richiesto da una MdT tradizionale. Ma, con un minimo di pazienza, il discorso può
+essere precisato. In conclusione $M^{\prime}$ simula adeguatamente il comportamento di $M$, e
+corrisponde alle richieste dell'enunciato del teorema.\\
+
+Viceversa, ogni MdT tradizionale può essere facilmente intesa come MdT a più nastri
+(che in realtà non ha bisogno di ricorrere ai nastri ausiliari). Dunque i due
+modelli, con o senza nastri ausiliari, si rivelano equivalenti.
