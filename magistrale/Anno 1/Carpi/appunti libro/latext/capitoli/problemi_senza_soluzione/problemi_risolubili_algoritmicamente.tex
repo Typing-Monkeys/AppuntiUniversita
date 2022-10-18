@@ -1,0 +1,65 @@
+\section{Problemi risolubili algoritmicamente}
+
+Il paragrafo è dedicato a presentare e discutere alcuni esempi di
+funzioni calcolabili secondo Turing. Per cominciare non è difficile vedere che le
+familiari operazioni dell'aritmetica, come l'addizione, la moltiplicazione, la
+divisione - intesa come la coppia di funzioni parziali quoziente e resto - sono tutte
+calcolabili. Ecco un caso più sofisticato e astratto di funzione calcolabile.
+
+\paragraph{Esempio.}
+Sia $f$ la funzione da $\mathbb{N}$ a $\mathbb{N}$ definita come segue: per ogni $x
+    \in \mathbb{N}$.
+$$
+    f(x)= \begin{cases}1 & \text { se } \phi_z(x) \downarrow, \\ \uparrow & \text { altrimenti. }\end{cases}
+$$
+Dimostriamo che $f$ è una funzione calcolabile. Usiamo la Tesi di Church-Turing
+proponendo un algoritmo che la calcola a un alto livello di astrazione e deducendo
+che c'è una MdT che la computa. L'algoritmo procede cosi. Dato un input $x$, si
+decodifica $x$ per ottenere la MdT $M_x$ che calcola $\phi_x$. A questo punto si
+manda in esecuzione $M_x$ sull'input $x$. Se e quando l'esecuzione termina, si
+converge sull'output convenuto 1 . Altrimenti la divergenza di $M_x$ induce la
+divergenza dell'algoritmo che calcola $f$.\\
+Ci sono poi casi sorprendenti e "anomali"
+di funzioni che si dimostrano calcolabili senza che si riesca a determinare con
+precisione una MdT, o anche un algoritmo, che le computi. Eccone un esempio.
+
+\paragraph{Esempio.}
+Consideriamo la funzione totale $g: \mathbb{N} \rightarrow \mathbb{N}$ tale che, per ogni $x \in
+    \mathbb{N}$,
+$$
+    g(x)= \begin{cases}1 & \text { se nell'espansione decimale di } \pi \\ & \text { esistono almeno } x \text { 5 consecutivi, } \\ 0 & \text { altrimenti }\end{cases}
+$$
+La funzione $g$ è calcolabile perché esiste infatti un algoritmo che genera
+l'espansione decimale di $\pi$. Allora per $g$ ci sono due casi possibili. Ammettiamo
+dapprima che l'espansione decimale di $\pi$ riesca a includere un numero
+arbitrariamente grande di occorrenze successive di '5': allora $g$ coincide con la
+funzione costante 1, che è chiaramente calcolabile. Altrimenti c'e un massimo numero
+$k$ di '5' consecutivi nello sviluppo decimale di $\pi$, e quindi, per ogni $x \in
+    \mathbb{N}$,
+$$
+    g(x)= \begin{cases}1 & \text { se } x \leq k \\ 0 & \text { altrimenti. }\end{cases}
+$$
+Anche questa seconda opzione è calcolabile. Pertanto $g$ corrisponde ad una delle due
+possibilità elencate, e in ogni caso $g$ è calcolabile. D'altra parte siccome lo
+sviluppo decimale di $\pi$ è infinito aperiodico, non è dato sapere direttamente da
+una sua lettura parziale se vale il primo o il secondo caso per $g$ e, semmai, quale
+è $k$ nel secondo caso, nè si conoscono attualmente altre strategie per chiarire la
+questione. In conclusione, suppiamo che $g$ ha un algoritmo di calcolo, ma non
+sappiamo quale è questo algoritmo.\\
+
+Esistono poi funzioni di cui non è ancora noto se
+siano calcolabili o non calcolabili.
+
+\paragraph{Esempio.} Consideriamo la funzione totale $g^{\prime}: \mathbb{N} \rightarrow
+    \mathbb{N}$ definita come segue: per ogni $x \in \mathbb{N}$,
+$$
+    g^{\prime}(x)= \begin{cases}1 & \text { se nell'espansione decimale di } \pi \\ & \text { esistono esattamente } x \text { 5 consecutivi, } \\ 0 & \text { altrimenti. }\end{cases}
+$$
+Chi potesse leggere per esteso lo sviluppo decimale di $\pi$ potrebbe anche calcolare
+$g^{\prime}$, esaminandovi le occorrenze di 5; ma purtroppo lo sviluppo di $\pi$ è infinito e
+sfugge ai nostri occhi. Potrebbero tuttavia esistere altre strategie più mirate per
+risolvere il problema. Ma ad oggi non è ancora noto alcun algoritmo convincente.
+Quindi, per quanto ne sappiamo, $g$ può essere calcolabile, ma può anche non esserlo.
+
+Esempi di funzioni non calcolabili in alcun modo saranno presentati nei prossimi
+paragrafi.
