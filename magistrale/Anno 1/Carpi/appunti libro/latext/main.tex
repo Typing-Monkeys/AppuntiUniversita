@@ -1,4 +1,5 @@
 \documentclass[a4paper]{book}
+\usepackage{hyperref}
 \usepackage{amsfonts}
 \usepackage{mathtools}
 \usepackage{amssymb}
@@ -6,6 +7,8 @@
 
 \setlength{\parindent}{0pt}
 \begin{document}
+
+\tableofcontents
 
 \newenvironment{alignLetter}{
     \setcounter{equation}{0}
@@ -16,7 +19,10 @@
 }
 
 %%TODO: aggiuntere una prima pagina fatta bene !!
-
+%%TODO: sostituire \section con \chapter per sistemare
+%%      la strana numerazione
+%%TODO: il comando \tableofcontents genera in alto a sinistra
+%%      nelle pagine con indice pari la scritta CONTENTS
 \include{capitoli/introduzione/main.tex}
 \include{capitoli/le_macchine_di_turing/main.tex}
 
