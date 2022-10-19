@@ -1,9 +1,5 @@
 ![logo](./.github/imgs/monekpazzaNCULO.png)
 
-Sofferenze e Appunti presi durante il corso di Informatica Triennale e Magistrale ✍️
-
- > _Anno Domini: 1308_
- 
 ## Appunti
 
 In questa cartella troverai tutte le nostre fatiche fatte negli annli dell'Università (Triennale e Magistrale).<br>
