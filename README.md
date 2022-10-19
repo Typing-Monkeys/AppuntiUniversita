@@ -1,18 +1,4 @@
-```
-               █████╗ ██████╗ ██████╗ ██╗   ██╗███╗   ██╗████████╗██╗                            
-              ██╔══██╗██╔══██╗██╔══██╗██║   ██║████╗  ██║╚══██╔══╝██║                            
-              ███████║██████╔╝██████╔╝██║   ██║██╔██╗ ██║   ██║   ██║                            
-              ██╔══██║██╔═══╝ ██╔═══╝ ██║   ██║██║╚██╗██║   ██║   ██║                            
-              ██║  ██║██║     ██║     ╚██████╔╝██║ ╚████║   ██║   ██║                            
-              ╚═╝  ╚═╝╚═╝     ╚═╝      ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝                            
-
-                      ██╗   ██╗███╗   ██╗██╗██╗   ██╗███████╗██████╗ ███████╗██╗████████╗ █████╗ 
-                      ██║   ██║████╗  ██║██║██║   ██║██╔════╝██╔══██╗██╔════╝██║╚══██╔══╝██╔══██╗
-                      ██║   ██║██╔██╗ ██║██║██║   ██║█████╗  ██████╔╝███████╗██║   ██║   ███████║
-                      ██║   ██║██║╚██╗██║██║╚██╗ ██╔╝██╔══╝  ██╔══██╗╚════██║██║   ██║   ██╔══██║
-                      ╚██████╔╝██║ ╚████║██║ ╚████╔╝ ███████╗██║  ██║███████║██║   ██║   ██║  ██║
-                       ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝   ╚═╝   ╚═╝  ╚═╝
-```
+![logo](./.github/imgs/monekpazzaNCULO.png)
 
 Sofferenze e Appunti presi durante il corso di Informatica Triennale e Magistrale ✍️
 
@@ -44,6 +30,8 @@ Un grazie speciale va anche a queste persone che ci hanno aiutato fornedo il lor
 - [@F-a-b-r-i-z-i-o](https://github.com/F-a-b-r-i-z-i-o)
   - Appunti di Cybersecurity
   - Appunti di Computability and Complexity
+- [giulia.rt](https://instagram.com/giulia.rt?igshid=YmMyMTA2M2Y=)
+  - Logo per la repo
 
 ## Contribuire
 
