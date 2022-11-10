@@ -88,7 +88,7 @@ L'algoritmo consiste in:
 \begin{enumerate}
     \item assegna il valore alla variabile;
     \item si controlla la consistenza;
-    \item finché tutte le variabili sono etichettate.
+    \item ripeti 1 e 2 finché tutte le variabili sono etichettate.
 \end{enumerate}
 
 \begin{figure}[H]
@@ -132,7 +132,7 @@ In termini di grandezza dell'albero di ricerca il numero di foglie è pari a $d^
 \end{figure}
 
 \subsection{Miglioramenti dell'efficienza del backtracking}
-Per impostazione predefinita, SELECT-UNASSIGNED-VARIABLE seleziona semplicemente la successiva variabile non assegnata nell'ordine dato dalla lista VARIABLES[csp]. Questo ordinamento di variabili statiche raramente si traduce nella ricerca più efficiente. Ad esempio, dopo le assegnazioni per WA = rosso e NT = verde, c'è un solo valore possibile per SA, quindi ha senso assegnare SA = blue next piuttosto che assegnare Q. Infatti, dopo l'assegnazione di SA, le scelte per Q, NSW e V sono tutte forzate.
+Per impostazione predefinita, SELECT-UNASSIGNED-VARIABLE seleziona semplicemente la successiva variabile non assegnata nell'ordine dato dalla lista VARIABLES[csp]. Questo ordinamento di variabili statiche raramente si traduce nella ricerca più efficiente. Ad esempio, dopo le assegnazioni per WA = rosso e NT = verde, c'è un solo valore possibile per SA, quindi ha senso assegnare SA = blue dopo piuttosto che assegnare Q. Infatti, dopo l'assegnazione di SA, le scelte per Q, NSW e V sono tutte forzate.
 \paragraph{Variabile più vincolata} In questo caso si va a scegliere fra le variabili disponibili per l'assegnamento quella più vincolata in base ad alcune caratteristiche:
 \begin{itemize}
     \item si sceglie la variabile con il \textbf{minor numero di valori legali} (minimum remaining values -MRV). È stata anche chiamata la "variabile più vincolata" o euristica "fail-first", quest'ultima perché seleziona una variabile che ha maggiori probabilità di causare un errore presto, potando così l'albero di ricerca.
@@ -169,7 +169,7 @@ Un modo per fare un uso migliore dei vincoli durante la ricerca è chiamato \tex
 \end{figure}
 
 Ci sono due punti importanti da notare su questo esempio. Innanzitutto, si noti che dopo aver assegnato WA = rosso e Q = verde, i domini di NT e SA
-sono ridotti ad un unico valore; abbiamo eliminato del tutto la ramificazione su queste variabili di propagare le informazioni da WA e Q. L'euristica MRV, che è un partner ovvio per il controllo in avanti, selezionerebbe automaticamente SA e NT successivamente.
+sono ridotti ad un unico valore; abbiamo eliminato del tutto la ramificazione su queste variabili grazie alla propagazione delle informazioni da WA e Q. L'euristica MRV, che è un partner ovvio per il controllo in avanti, selezionerebbe automaticamente SA e NT successivamente.
 
 \subsection{Constraint propagation}
 Sebbene il forward checking rilevi molte incoerenze, non le rileva tutte. Per esempio, consideriamo la terza riga della Figura \ref{fig:forward_checking}. Essa mostra che quando WA è rosso e Q è verde, sia NT che SA sono costretti a essere blu ma questo non è possibile perchè sono due zone vicine. Il forward checking non rileva questo come un'incoerenza, perché non guarda abbastanza avanti. La propagazione del vincolo (constraint propagation) è il termine generale per propagare le implicazioni di un vincolo su una variabile su altre variabili; in questo caso dobbiamo propagare da WA e Q su NT e SA, e quindi sul vincolo tra NT e SA per rilevare l'incoerenza. 
@@ -261,7 +261,7 @@ Un semiring <A,+,$\times$,0,1> è una struttura costituita dai seguenti simboli:
     \item \textbf{A}: l'insieme degli elementi che mi rappresentano i costi, quindi il dominio dei costi, esso può essere l'insieme dei reali oppure un intervallo specifico [0,1]
     \item \textbf{+}: operatore di proiezione, usato per fare la scelta fra le soluzioni trovate dalla combinazione, può essere il minimo o massimo. Possiamo definire alcune proprietà:
     \begin{itemize}
-        \item \textbf{idempotente}: se faccio a+a dove +=minimo il risultato è sempre a, quando un operatore è idempotente è possibile definire un ordinamento ovvero 
+        \item \textbf{idempotente}: se faccio a+a dove l'operatore + è il minimo il risultato è sempre a, quando un operatore è idempotente è possibile definire un ordinamento ovvero 
         \[ a \leq b \text{ b è meglio di a } \iff a+b=b\]
     \end{itemize}
     \item \textbf{$\times$}: operatore di combinazione, utilizzato per combinare i vincoli, può essere somma,moltiplicazione etc... dipende dal problema. Possiamo definire alcune proprietà:
@@ -284,7 +284,7 @@ Esistono diversi tipi di semiring:
 
 \subsection{Local consistency}
 Cerchiamo ora di vedere se è possibile applicare una tecnica di constraint propagation come arc consistency ai problemi SCSP in modo da rendere più efficiente la ricerca della soluzione. 
-\subparagraph{Teorema dell'estensività} Se tolgo dei vincoli da un problema SCSP, la soluzione migliore perchè si moltiplica di meno (meno calcoli da fare),se li aggiungo la soluzione peggiora. Togliere vincoli vuol dire \textbf{rilassare} il problema.
+\subparagraph{Teorema dell'estensività} Se tolgo dei vincoli da un problema SCSP, la soluzione migliora perchè si moltiplica di meno (meno calcoli da fare),se li aggiungo la soluzione peggiora. Togliere vincoli vuol dire \textbf{rilassare} il problema.
 \\
 Se l'operatore x è idempotente allora possiamo applicare arc consistency, un esempio di operatore idempotente è il minimo se facciamo
 \[1\times1= 2 \text{ dove $\times$ = somma}\]
@@ -353,7 +353,7 @@ Quindi gli insiemi admissible sono quelli senza conflitti e gli argomenti si dif
     \includegraphics[width=13cm, keepaspectratio]{img/es_insieme_ammissibile.png}
     \caption{Esempio insieme ammissibile.}\label{fig:es_insieme_ammissibile}
 \end{figure}
-Non è necessario che sia lo stesso argomento a difendersi da altri attacchi, ad esempio in questo caso ,supponendo che non ci sia a, b è attaccato da c ma  se prendo d lui oltre che difendere se stesso da c (poichè attaccato) difende anche b. Guardando la definizione di difesa, un argomento a è difeso da un argomento b, $(b,a) \in R$, nel momento in cui esiste un argomento c tale che c attacca b, $(c,b) \in R$. Il sottoinsieme \{b,d\} non viene scelto poichè d è attaccato da c ma a si difende a sua volta contrattaccando, mentre b è attaccato sia da a che c, nel primo caso nessuno lo difende nel secondo d difende b perchè attacca c.
+Non è necessario che sia lo stesso argomento a difendersi da altri attacchi, ad esempio in questo caso ,supponendo che non ci sia a, b è attaccato da c ma  se prendo d lui oltre che difendere se stesso da c (poichè attaccato) difende anche b. Guardando la definizione di difesa, un argomento a è difeso da un argomento b, $(b,a) \in R$, nel momento in cui esiste un argomento c tale che c attacca b, $(c,b) \in R$. Il sottoinsieme \{b,d\} non viene scelto poichè d è attaccato da c ma  si difende a sua volta contrattaccando, mentre b è attaccato sia da a che c, nel primo caso nessuno lo difende nel secondo d difende b perchè attacca c.
 
 \paragraph{Insieme Completo (tutti difesi).} Dato un AF, F=(A,R). Un insieme $S \subseteq A$ è \textbf{completo} in F, se 
 \begin{itemize}
@@ -396,7 +396,7 @@ Sceglie tra gli argomenti che sono nella complete, gli argomenti che compaiono i
     \caption{Esempio preferred.}\label{fig:es_insieme_preferred}
 \end{figure}
 
-Al contrario di grounded dove si andava a scegliere l'insieme con l'elemento in comune con gli altri insieme, in questo caso si va a scegliere tra gli insiemi ammissibili quelli che sono più grandi. Da notare che si sceglie tra gli insiemi ammissibili ma si può dimostrare che si può scegliere da quelli complete.
+Al contrario di grounded dove si andava a scegliere l'insieme con l'elemento in comune con gli altri insieme, in questo caso si va a scegliere tra gli insiemi ammissibili quelli che sono più grandi a livello di inclusione insiemistica. Da notare che si sceglie tra gli insiemi ammissibili ma si può dimostrare che si può scegliere da quelli complete.
 
 \paragraph{Stable.} Dato un AF, F= (A,R). Un insieme $S\subseteq A$ è \textbf{stabile} in F, se
 \begin{itemize}
@@ -417,7 +417,91 @@ La complessità è descritta da due valori:
     \item \textbf{Cred}: (credulous) rappresenta il costo associato all'operazione di controllo sulle semantiche, si controlla se un determinato insieme contiene un argomento passato;
     \item \textbf{Skept}: (scettico) controlla se un argomento è incluso in tutte le estensioni.
 \end{itemize}
-Manca seconda parte
+
+\subsection{Weighted AF}
+Come abbiamo visto anche per i SCSP dove avevamo un costo applicato ai valori dei domini di una variabile, un weighted AF è costituito da archi pesati (attacchi pesati). Supponiamo di avere due argomentazione che si attaccano a vicenda:
+\begin{itemize}
+    \item A= la BBC dice che ci sarà il sole a Londra;
+    \item B= la CNN dice che piove a Londra;
+\end{itemize}
+Queste due argomentazioni sono in contraddizione tra di loro ma non hanno lo stesso peso. Una possibile ragione per la quale  A è preferito a B è perchè la BBC è ritenuta più affidabile della CNN.
+\subsubsection{Weighted Semirings WAAF}
+Un AF basato sui semiring è una quadrupla $<A,R,W,S>$ dove 
+\begin{itemize}
+    \item S è un semiring <S,+,$\times$,$\perp $,$\top $>;
+    \item A è un insieme di argomenti;
+    \item R  l'insieme delle relazioni binarie, attacchi;
+    \item W:A$\times$A$\xrightarrow{}S$ è una funzione binaria.
+\end{itemize}
+Dato a,b$\in$ A, $\forall(a,b)\in R$, W(a,b)=s vuol dire che a attacca b con un peso s$\in$S. Quello che andremo a studiare noi sono gli AF che hanno un peso assegnato all'arco e non al nodo.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14cm, keepaspectratio]{img/af_wighted.png}
+    \caption{Esempio Af pesato.}\label{fig:es_AF_pesato}
+\end{figure}
+
+\subsubsection{W-defence $D_w$} 
+Dato un WAAF, WF=$<A,R,W,S>$, B$\subseteq$ A w-difende b $\in$ A se e solo so, dato a$\in$ A e R(a,b), allora W(a, $B \cup \{b\} \geq_s W(B,a)$; B difende b se e solo difende b da qualsiasi a che lo attacca R(a,b).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14cm, keepaspectratio]{img/w_difesa.png}
+    \caption{Esempio w-defence.}\label{fig:w_difesa}
+\end{figure}
+Dato un WAAF si dice che un insieme di argomenti è difeso se gli attacchi che partono da questo insieme verso degli attaccanti sono più forti (hanno un maggiore peso totale) rispetto agli attacchi ricevuti. Si parla di insieme di argomenti perché si va ad aggregare il peso degli attacchi. Ovvero supponendo che un argomento a attacca degli argomenti b e c con un peso di 2 e 3 rispettivamente, b e c possono coalizzarsi in modo da difendersi dall'attacco ricevuto singolarmente, l'insieme dei difensori deve coprire un peso che "mette insieme" il peso 2 e 3.   Questo vuol dire che bisogna scegliere un'operazione per il semiring in modo da calcolare chi vince tra gli attaccanti e i difensori. 
+\paragraph{Martinez}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14cm, keepaspectratio]{img/d1_martinez.png}
+    \caption{Esempio approccio Martinez.}\label{fig:d1_martinez}
+\end{figure}
+In questo Esempio possiamo vedere che ci sono degli argomenti (c,b,e,d) che sono inseriti in un insieme (coalizione) in modo da difendersi dagli attacchi degli argomenti a e f. Vediamo che a attacca b con un attacco pari a 7, la coazione per difendersi da questo attacco deve rispondere con un attacco maggiore o uguale di questo. La coalizione attacca b con due attacchi di peso pari a 2 e 6 verso a, se avessimo fatto la somma dei pesi allora b sarebbe stato difeso ma in questo caso si va a prendere il \textbf{massimo} tra i due valori (semiring Martinez) ovvero 6. Ciò significa che b non è difeso dall'attacco di a perché la coalizione risponde con un attacco pari a 6<7.  Mentre d ed e sono difesi dall'attacco di f perché esso attacca con un valore massimo pari a 5 e la coalizione contrattacca con un valore sempre di 5. In questo tipo di approccio si va a prendere il massimo sia in attacco che in difesa.
+
+\paragraph{Coste-Marquis}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14cm, keepaspectratio]{img/d2_coste_marquis.png}
+    \caption{Esempio approccio Coste-Marquis.}\label{fig:coste_marquis}
+\end{figure}
+Con il metodo di Coste-Marquis si deve aggregare non l'attacco ma solo la difesa, infatti in questo caso b è difeso dalla coalizione perché risponde con un attacco pari a 6+2=8>7. Anche d ed e sono difesi perchè sono attaccati con un valore pari a 5 e rispondono con un attacco pari a 7. In sostanza si prende il massimo per l'attacco e si fa la somma in caso di difesa. 
+
+\paragraph{Santini e Bistarelli}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14cm, keepaspectratio]{img/d_w_santini_bistarelli.png}
+    \caption{Esempio approccio Santini e Bistarelli.}\label{fig:d_w_santini_bistarelli}
+\end{figure}
+Mentre nella proposta di Santini e Bistarelli si va ad aggregare sia l'attacco che la difesa, ciò vuol dire che b è difeso ma d ed e no. Quest'ultimi ricevono un attacco da parte di f pari a 5+3=8 e rispondo con un attacco pari a 5+2=7 che non è sufficiente per vincere.
+
+\paragraph{Confronto risultati}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=13cm, keepaspectratio]{img/riassunto_d_waaf.png}
+    \caption{Riassunto approcci D.}\label{fig:riassunto_d_waaf}
+\end{figure}
+Per riassumere un insieme è ammissibile se riesce a difendersi da tutti gli attacchi ricevuti, applicando i diversi metodi solo per Coste-Marquis questo insieme è ammissibile perchè la somma degli attacchi da parte della difesa verso un argomento attaccante è maggiore del valore massimo tra gli attacchi di quest'ultimo.
+
+\paragraph{Semantiche in un WAAF}
+Siccome la nozione di admissible è usata nella nozione di difesa dobbiamo adattare la semantica vista in precedenza a questo di framework. Essa terrà conto anche dei pesi applicati sugli archi, di seguito riporto la definizione di \textbf{w-conflict-free} ed \textbf{w-admissible}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14cm, keepaspectratio]{img/w_semantiche.png}
+    \caption{Definizione semantiche in un WAAF.}\label{fig:w_semantiche}
+\end{figure}
+
+\paragraph{Esempio w-conflict-free ed admissible.}
+Ansiamo ora a vedere un esempio delle semantiche applicate a un AF con i pesi. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=11cm, keepaspectratio]{img/es_w_semantics.png}
+    \caption{Esempio semantiche in WAAF.}\label{fig:es_w_semantics}
+\end{figure}
+Vediamo quale è l'insieme S conflict-free, sicuramente non (b,c), (c,d) e (b,d) visto che si attaccano:
+\[S=\{ \emptyset,\{b\},\{c\},\{d\}\}\]
+In questo caso si va a considerare anche il peso dell'attacco quindi l'insieme \{b,c\} è più w-conflict-free \{c,d\} perchè c attacca b con un peso di 1 mentre c e d si attaccano a vicenda con un peso di 100. Quindi b e c vanno più d'accordo rispetto a c e d, possiamo quindi decidere di mettere insieme b e c nonostante una leggera disputa interna in modo da avere una coalizione più forte in difesa contro gli attacchi dall'esterno. 
+\subparagraph{Rilassamenti ortogonali.} Questi rilassamenti sono strettamente correlati e influenzano l'un l'altro: permettere un piccolo conflitto può portare ad avere più argomentazioni in un'estensione, e di conseguenza si ha una difesa più forte o più debole. Un esempio reale potrebbe essere in campo politico, partiti con piccole divergenze interne si uniscono in modo da raggiungere una percentuale sufficiente di voti per governare.
+
+
 \subsection{Labelling-Based Semantics}
 \subsubsection{Reinstatement Labelling}
 Finora abbiamo visto delle estensioni in cui gli argomenti venivano accettati (validi, quelli che si trovavano all'interno delle estensioni) o rigettati. Con le labelling semantics manteniamo queste due sfumature e ne aggiungo un'altra ovvero gli argomenti vengono suddivisi in:
@@ -533,7 +617,7 @@ I principi sono simili a quello precedente:
 \end{itemize}
 
 \subsubsection{Graded defense}
-In questo caso andiamo a ricercare delle partizioni degli argomenti con $d_n^{m}(X)$, il quale è un insieme di argomenti che non hanno almeno m attaccanti che non sono contro attaccati da almeno n argomenti in X. Questo vuol dire che un argomento $a\in d_n^{m}(X)$ se non ci sono almeno m attaccanti che sono difesi da almeno n argomenti.
+In questo caso andiamo a ricercare delle partizioni degli argomenti con $d_n^{m}(X)$, il quale è un insieme di argomenti che non hanno almeno m attaccanti che non sono contrattaccati da almeno n argomenti in X. Questo vuol dire che un argomento $a\in d_n^{m}(X)$ se non ci sono almeno m attaccanti che sono difesi da almeno n argomenti.
 \begin{figure}[H]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{img/es_graded_defense.png}
