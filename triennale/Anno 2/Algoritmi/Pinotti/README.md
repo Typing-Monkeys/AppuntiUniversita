@@ -1,4 +1,4 @@
-# Pinotti's Bizzarre Spooping
+# Pinotti's Bizzarre Spoofing
 
 Sofferenze e appunti di Algoritmi :toilet:
 
@@ -734,7 +734,6 @@ function tree_predecessor(x) {
 ```
 
 ## Inserzione 
-<!-- No HOMO = segreto antiomosessualità -->
 
 Per inserire un nodo basta muoversi lungo i cammini rispettando le proprietà degli alberi binari fin quando non si raggiunge una foglia, a quel punto basta controllare se è maggiore o minore della foglia e aggiungerlo di conseguenza.
 
@@ -1278,7 +1277,7 @@ function relax(u: "vertice corrente", v: "vertice adiacente a u", w(u, v): "peso
 <!--
 <details>
     <summary>SPOILER</summary>
-    Romani Gay
+    Romani Monello
 </details>
 -->
 

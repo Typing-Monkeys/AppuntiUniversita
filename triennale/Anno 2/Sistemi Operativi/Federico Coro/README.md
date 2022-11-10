@@ -1,3 +1,3 @@
-# Coro's Sex Adventures
+# Coro's Adventures
 
 Esercizi ed Esercitazioni di FC

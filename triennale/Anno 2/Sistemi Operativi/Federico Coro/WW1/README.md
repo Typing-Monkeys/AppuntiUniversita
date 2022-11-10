@@ -1,5 +1,5 @@
 # coros-1encounter
-Primi compitini a casa di Sistemo Operativi e Laboratorio :heart:
+Primi compitini a casa di Sistemi Operativi e Laboratorio :heart:
 
 ```
 ASSIGNMENT 1:

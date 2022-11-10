@@ -1,4 +1,4 @@
-# Cazzi d'Uso
+# Casi d'Uso
 
 I casi d'uso possono essere rappresentati tramite UML (Use Case Diagram, diagrammi comportamentali) oppure tramite Testo.
 
