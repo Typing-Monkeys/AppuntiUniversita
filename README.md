@@ -21,6 +21,7 @@ Un grazie speciale va anche a queste persone che ci hanno aiutato fornedo il lor
 - [@CristianCosci](https://github.com/CristianCosci):
   - Revisione e aggiornamento degli appunti di HPC 
 - [@Luchinzzz](https://github.com/Luchinzzz)
+  - Appunti di Computability and Complexity
   - Appunti di Knowledge Representation and Automated Reasoning
   - Appunti di Simulazione
   - Appunti di Information Security Auditing, Certification e Digital Forencics
