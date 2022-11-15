@@ -38,7 +38,7 @@ sarà necessario utilizzare la programmazione dinamica.
 
 | Funzione        | Costo                         |
 | --------------- | ----------------------------- |
-| `Compute-Opt`   | esponenziale (forse $O(2^n)$) |
+| `Compute-Opt`   | esponenziale (forse $O(2^n)$ ) |
 | `M-Compute-Opt` | $O(n)$                        |
 | `Find-Solution` | $O(n)$                        |
 
