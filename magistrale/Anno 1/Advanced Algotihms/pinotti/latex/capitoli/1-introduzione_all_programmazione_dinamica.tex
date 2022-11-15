@@ -1,0 +1,26 @@
+\chapter{Introduzione alla Programmazione Dinamica}
+
+Dopo aver visto tecniche di design degli algoritmi quali Greedy e Divide et
+Impera, è importante introdurre una tecnica più potente ma anche più complessa
+da applicare: la Programmazione Dinamica (Dynamic Programming).\\
+
+Prima di analizzarla in modo approfondito, spiegheremo a grandi linee il suo
+funzionamento. L'idea di base si fonda sulla tecnica Divide et Impera ed è
+essenzialmente l'opposto di una strategia Greedy, in sostanza si esplora
+implicitamente tutto lo spazio delle soluzioni e si decompone in una serie di
+sotto-problemi, grazie ai quali si costruiscono soluzioni corrette per
+sotto-problemi sempre più grandi finché non si raggiunge il problema di
+partenza.\\
+\- Una tecnica di programmazione dinamica è quella della memoization che è utile
+per risolvere una moltitudine di problemi e per applicare la programmazione
+dinamica è necessario creare un sotto-set di problemi che soddisfano le seguenti
+proprietà:
+
+\begin{enumerate}
+    \item Esistono solo un numero polinomiale di sotto-problemi
+    \item La soluzione al
+          problema originale può essere calcolata facilmente dalla soluzione dei
+          sotto-problemi
+    \item C'è un ordinamento naturale dei sotto-problemi dal più piccolo
+          al più grande, insieme a una ricorsione facilmente calcolabile
+\end{enumerate}
