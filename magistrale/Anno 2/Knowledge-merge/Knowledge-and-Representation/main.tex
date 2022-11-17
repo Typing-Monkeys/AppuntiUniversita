@@ -1,0 +1,142 @@
+\documentclass[a4paper,12pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{listings}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{cancel}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue
+}
+
+% niente doppio spazio dopo il punto
+\frenchspacing
+
+% intestazione
+\pagestyle{headings}
+\thispagestyle{headings}
+\linespread{1.6}
+% imposta i margini della pagina
+\textwidth 480.0 pt
+\textheight 710.0 pt
+\hoffset -20pt
+\voffset -60pt
+
+\renewcommand{\lstlistlistingname}{Elenco dei codici}
+\renewcommand{\lstlistingname}{Codice}
+
+\lstset{
+  basicstyle=\footnotesize,
+  numberstyle=\footnotesize,
+  stepnumber=2,
+  numbersep=5pt,
+  backgroundcolor=\color{white},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  tabsize=4,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  escapeinside={\%*}{*)},
+  mathescape=true,
+  morekeywords={
+    begin,
+    end,
+    if,
+    then,
+    else,
+    to,
+    endif,
+    Procedure,
+    while,
+    do,
+    return,
+    true,
+    false,
+    set,
+    for,
+    repeat,
+    until
+    foreach},
+}
+
+% linea sopra
+\usepackage{fancyhdr}
+\usepackage{color,soul}
+\usepackage{xcolor}
+\usepackage{verbatim} 
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \hbox{}
+  \vspace*{\fill}
+  \vspace{\fill}
+  \thispagestyle{empty}
+  \newpage
+  \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[L,R]{\scshape\thepage}
+\fancyhead[L]{\scshape\footnotesize\nouppercase{\rightmark}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\headheight}{4pt}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0em}
+
+\newenvironment{proof}[1][Dim: ]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+  \ifdim\lastskip<1.5em \hskip-\lastskip
+  \hskip1.5em plus0em minus0.5em \fi \nobreak
+  \vrule height0.75em width0.5em depth0.25em\fi
+}
+
+\newcommand{\eps}{\begin{Large}$\varepsilon$\end{Large}}
+\newcommand{\epss}{\begin{Large}$\varepsilon$ \end{Large}}
+\newcommand{\properties}[1]{\textit{\textbf{Proprietà: }} #1 \vspace{5pt}}
+\newcommand{\proposition}[1]{\textit{\textbf{Proposizione: }} #1 \vspace{5pt}}
+\newcommand{\lemma}[1]{\textit{\textbf{Lemma: }} #1 \vspace{5pt}}
+\newcommand{\oss}[1]{\textit{\textbf{Osservazione: }} #1 \vspace{5pt}}
+\newcommand{\theorem}[1]{\textit{\textbf{Teorema: }} #1 \vspace{5pt}}
+\newcommand{\definition}[1]{\textit{\textbf{Def: }} #1 \vspace{5pt}}
+\newcommand{\fe}{$\llcorner$}
+\newcommand{\fd}{\begin{flushright}$\blacksquare$\end{flushright}}
+\newcommand{\example}[1]{\textbf{\underline{Esempio:}}  #1}
+
+\newcommand{\tab}{\hspace*{0.3cm}}
+
+\begin{document}
+    \input{frontmatter}
+    
+    \tableofcontents
+    \input{Cap1}
+    \input{Cap2}
+    \input{Cap3}
+    \input{Cap4}
+    \input{Cap5}
+    \input{Cap6}
+    \input{Cap7}
+    \input{Cap8}
+    \input{Cap9}
+ 
+\end{document}
+
