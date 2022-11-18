@@ -8,6 +8,14 @@
     - [Notazioni](#notazioni)
     - [Goal ⚽](#goal)
     - [Funzionamento](#funzionamento)
+  - [Least Squares Problem: Multi-way Choice 🛣️](#least-squares-problem-multi-way-choice)
+    - [Linear Least Square](#linear-least-square)
+      - [Il Problema](#il-problema)
+      - [Goal ⚽](#goal-1)
+    - [Segmented Least Square](#segmented-least-square)
+      - [Costi](#costi-1)
+      - [Goal ⚽](#goal-2)
+      - [Funzionamento](#funzionamento-1)
 
 ## Introduzione alla Programmazione Dinamica
 
@@ -175,7 +183,7 @@ La parte che trova il valore ottimo ha costo $O(n^2)$.
 In spazio l'algoritmo ha costo $O(n^2)$ ma può essere ridotto a $O(n)$
 
 
-#### Goal
+#### Goal ⚽
 
 Formalmente, il problema è espresso come segue:
 
