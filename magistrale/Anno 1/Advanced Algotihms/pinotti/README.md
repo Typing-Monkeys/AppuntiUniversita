@@ -138,9 +138,7 @@ La formulazione del problema è la seguente:
 > dato un insieme $P$ composto di $n$ punti sul piano denotati con $(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)$; e supponiamo che $x_1 < x_2 < \ldots < x_n$ (sono strettamente crescenti). Data una linea $L$ definita dall'equazione $y = ax + b$, definiamo l'_errore_ di $L$ in funzione di $P$ come la somma delle distanze al quadrato della linea rispetto ai punti in $P$.
 >
 >Formalmente:
->$$
->    Error(L, P) = \sum_{i=1}^{n} (y_i - ax_i - b)^2
->$$
+> $$Error(L, P) = \sum_{i=1}^{n} (y_i - ax_i - b)^2$$
 
 
 ![linear least](./latex/capitoli/imgs/linear_least.png)
@@ -171,7 +169,7 @@ che passano per ogni punto).
 
 #### Costi
 
-La parte che computa gli errori ha costo in tempo $O(n^3)$ (si può portare a $O(n^2)$).
+La parte che computa gli errori ha costo in tempo $O(n^3)$ (si può portare a $O(n^2)$ ).
 La parte che trova il valore ottimo ha costo $O(n^2)$.
 
 In spazio l'algoritmo ha costo $O(n^2)$ ma può essere ridotto a $O(n)$
@@ -207,8 +205,8 @@ $$
     OPT(n) = e_{i,n} + C + OPT(i - 1)
 $$
 
-Questa formula è data dalla soluzione ottima dell'ultima partizione ($e_{i,n} + C$) a cui viene aggiunta la soluzione ottima
-di tutte le partizioni precedenti ($OPT(i -1)$).
+Questa formula è data dalla soluzione ottima dell'ultima partizione ( $e_{i,n} + C$ ) a cui viene aggiunta la soluzione ottima
+di tutte le partizioni precedenti ( $OPT(i -1)$ ).
 Per i sotto-problemi possiamo scrivere la soluzione al problema in forma ricorsiva utilizzando la formula appena espressa che prenderà
 la forma:
 
