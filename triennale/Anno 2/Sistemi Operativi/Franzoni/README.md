@@ -1,6 +1,6 @@
-# CancerSurvivor
+# Franzoni
 
-Appunti per superare il cancro della Franzoni :floppy_disk:
+Appunti per superare il corso della Franzoni :floppy_disk:
 
 # Indice
 
@@ -500,7 +500,6 @@ Proprietà del link:
 * un **link** può essere **associato** con **più processi**
 * ogni coppia di processi può **condividere più di un link** di comunicazione
 * i **link** possono essere **unidirezionali** o **bidirezionali**
-<!-- unidirexionales omosexualidad -->
 
 Operazioni:
 
@@ -756,7 +755,7 @@ Il dispatcher si occupa del **cambio di contesto** tra un processo e un altro. Q
 
 ## Algoritmi di Scheduling
 
-### FCFS <!-- Frocio Coro Frocio Santini -->
+### FCFS 
 
 **First Cum First Served** :sweat_drops:
 

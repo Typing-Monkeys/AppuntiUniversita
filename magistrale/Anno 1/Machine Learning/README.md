@@ -2,7 +2,7 @@
 
 ![intro](./imgs/intro.jpg)
 
->A.I means: Artificial Ignorance
+>A.I. means: Artificial Ignorance
 
 ## Indice
 

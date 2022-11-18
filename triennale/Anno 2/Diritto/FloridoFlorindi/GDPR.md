@@ -108,7 +108,7 @@ Data Protection Impact Assesment
 
 
 <!-- 
-La leggenda di F.C. che è stato sigillato, tramite una PDP8 injection eseguita da SessoNavarra, in una macchina virtuale con un loop infinito di CIR, narra che al 3 BSA Indiretto F.C. ritornerà e diffonderà l'omosessualità nel mondo.
+La leggenda di F.C. che è stato sigillato, tramite una PDP8 injection eseguita da Navarra, in una macchina virtuale con un loop infinito di CIR, narra che al 3 BSA Indiretto F.C. ritornerà e diffonderà il caos nel mondo.
 
 "Ricevuto F.C." F.C. sulla fine del mondo 
 
