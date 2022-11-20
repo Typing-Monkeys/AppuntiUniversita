@@ -1,0 +1,274 @@
+\section{Il Problema dell'Arresto}
+
+Esistono funzioni che le macchine di Turing non riescono a calcolare, e
+linguaggi che non riescono ad accettare, oppure accettano e non riescono a
+decidere. Ne abbiamo già accennato alla fine del paragrafo 3.2.  %% TODO: ricontrollare
+Così, se accogliamo la tesi di Church-Turing, queste funzioni e questi
+linguaggi non ammettono alcun algoritmo e capaci di trattarli.\\
+Il prototipo di queste situazioni è il seguente:
+
+\paragraph{Problema dell'Arresto.} Determinare un algoritmo per stabilire, per
+ogni scelta di una MdT $M$ e di un input $y \in \mathbb{N}$, se  $M  \downarrow
+    y$ o no.\\
+
+Allora, se prestiamo fede alla tesi di Church-Turing secondo cui
+tutto quello che è algoritmicamente risolubile può essere trattato con successo
+da MdT, il Problema dell'Arresto ci chiede una MdT che, ricevuti in input $x, y
+    \in N$ (e in particolare, tramite $x$,  la MdT $M_x$ ), risponda
+
+\begin{itemize}
+    \item \textit{SÌ} se $M \downarrow y$.
+    \item \textit{NO} se $M \uparrow y$.
+\end{itemize}
+
+decida cioè l'insieme
+
+\[
+    K^{\prime} = \{(x, y) \in \mathbb{N}^2 \ : \ M \downarrow y\}.
+\]
+
+Notiamo che la macchina cercata non può essere quella universale $\mathcal{U}$
+Infatti $\mathcal{U}$, dati  $x,  y$, simula la computazione di $M_x$ su $y$, ma
+non può
+prevederne l'esito e, se $M_x$ diverge su $y$, è condannata a divergere su $(x,
+    y)$,
+a proseguire cioè indefinitamente la sua computazione senza potersi accorgere a
+nessun passo dell'assenza di una conclusione. Invece la MdT cercata converge per
+ogni scelta di $x, y$ e anzi calcola la seguente funzione totale $h^{\prime}$ da
+$\mathbb{N}^2$ a $\mathbb{N}$: per $x, y \in N$,
+
+\[
+    h^{\prime}(x, y)= \begin{cases}1 & \text { se } \phi_x(y) \downarrow, \\ 0 & \text { se } \phi_x(y) \uparrow .\end{cases}
+\]
+
+Ebbene questa macchina non esiste. Anzi, vale un risultato per certi versi più
+negativo.
+
+\paragraph{Teorema 3.4.1} \textit{La funzione $h$ tale che, per ogni input $x \in
+        \mathbb{N}$,}
+
+\[
+    h(x)= \begin{cases}1 & \text { se } \phi_x(x) \downarrow, \\ 0 & \text { se } \phi_x(x) \uparrow\end{cases}
+\]
+
+\textit{non è calcolabile da nessuna MdT.}\\
+
+\textit{Dimostrazione}. Supponiamo per assurdo il
+contrario, che esista cioè una MdT con questa capacità. Consideriamo la seguente
+funzione $k$ per $x \in \mathbb{N}$,
+
+\[
+    k(x)= \begin{cases}\uparrow & \text { se } h(x)=1, \\ 0 & \text { se } h(x)=0 .\end{cases}
+\]
+
+Dalla calcolabilità della funzione $h$ segue facilmente quella di $k$. Dunque
+c'è una MdT che calcola $k$; sia $j \in \mathbb{N}$ il suo codice; in altre
+parole sia $\phi_j=k$. Ma allora abbiamo
+
+\[
+    \phi_j(j) \downarrow \Longleftrightarrow k(j)=0 \Longleftrightarrow h(j)=0 \Longleftrightarrow \phi_j(j) \uparrow,
+\]
+
+il che costituisce una evidente contraddizione. Quindi $h$ non è calcolabile.\\
+
+Il
+metodo usato per trovare una contraddizione nella prova del precedente teorema è
+un esempio della tecnica della diagonalizzazione già introdotta nel paragrafo
+3.1; dall'elenco
+
+\[
+    \phi_0, \phi_1, \phi_2, \ldots
+\]
+
+delle funzioni calcolabili e dall'apparentemente innocua equivalenza, valida per
+ogni naturale $x$,
+
+\[
+    k(x) \downarrow \text { se e solo se } \phi_x(x) \uparrow
+\]
+
+si deduce, per $k=\phi_j$ e per $x=j$, la contraddizione
+
+\[
+    \phi_j(j) \downarrow \text { se e solo se } \phi_j(j) \uparrow
+\]
+
+e dunque si conclude che $k$ non può essere calcolabile.
+
+\paragraph{Corollario 3.4.2}
+\textit{L'insieme $K=\left\{x \in \mathbb{N}: M_x \downarrow x\right\}$ non è
+    decidibile.}\\
+
+\textit{Dimostrazione}. La funzione $h$ del teorema 3.4.1 non è altro che la
+funzione caratteristica di $K$.
+
+\paragraph{Corollario 3.4.3} \textit{La funzione $h^{\prime}$ tale
+    che, per ogni scelta di $x, y \in \mathbb{N}$,}
+
+\[
+    h^{\prime}(x, y)= \begin{cases}1 & \text { se } \phi_x(y) \downarrow, \\ 0 & \text { se } \phi_x(y) \uparrow\end{cases}
+\]
+
+\textit{non è calcolabile da nessuna $M d T$.}\\
+
+\textit{Dimostrazione}. Altrimenti si vede
+facilmente che anche $h$ è calcolabile; infatti $h(x)=h^{\prime}(x, x)$ per ogni
+$x \in \mathbb{N}$
+
+\paragraph*{Corollario 3.4.4} \textit{L'insieme $K^{\prime}=\left\{(x, y) \in
+        \mathbb{N}^2: M_x \downarrow y\right\}$ non è decidibile.}\\
+
+\textit{Dimostrazione}. Basta
+notare che $h^{\prime}=f_{K^{\prime}}$.\\
+
+La prova di questi corollari illustra il
+metodo della riduzione introdotto sempre nel paragrafo 3.1: per esempio
+l'incapacità di calcolare $h^{\prime}$ è dedotta dall'analogo risultato per $h$.
+Diagonalizzazione e riduzione costituiscono entrambe utili strumenti teorici per
+dimostrare l'indecidibilità di linguaggi e l'incomputabilità di funzioni.
+
+La soluzione negativa del problema dell'arresto ha delle importanti conseguenze
+anche nell'ambito della teoria della programmazione. In particolare, essa indica
+chiaramente che non è possibile costruire un perfetto sistema di "debugging",
+che sia in grado di stabilire se un programma termini o meno sull'input dato.
+Notiamo poi che, sebbene il problema dell'arresto, nella sua piena generalità,
+sia stato dimostrato indecidibile, è tuttavia possibile ottenere risultati
+positivi in casi parziali. Per esempio abbiamo già affermato nel capitolo
+precedente la calcolabilità della funzione $f$ che a ogni terna $(x, y, z)$ di
+naturali associa
+
+\[
+    f(x, y, z)= \begin{cases}1 & \text { se } M_x \text { sull'input } y \text { termina in } z \text { passi, } \\ 0 & \text { altrimenti. }\end{cases}
+\]
+
+In questo caso, infatti, si limita con $z$ il numero di passi di computazione di
+$M_x$, e questa specificazione consente il calcolo effettivo dell'immagine di
+$f$ in ogni situazione.\\ Il problema dell' arresto non è l'unico esempio
+indecidibile in Informatica Teorica. Altre questioni condividono la sua assenza
+di soluzioni algoritmiche. Citiamo qui il caso del \textit{Problema dell'equivalenza tra
+    $MdT$} che adesso enunciamo.
+
+\paragraph{Problema dell'Equivalenza tra Macchine di Turing.} Determinare un algoritmo per
+decidere, per ogni scelta di due naturali $x, y$ (e delle corrispondenti MdT
+$M_x$ e $M_y$ ), se $M_x$ e $M_y$ calcolano o no la stessa funzione, cioè se
+$\phi_x=\phi_y$ o no.\\
+
+In altre parole, sulla base della tesi di Church-Turing,
+si domanda se $E=\{(x, y) \in$ $\left.\mathbb{N}^2: \phi_x=\phi_y\right\}$ è o
+no decidibile. Si intende con $\phi_x=\phi_y$ che $\phi_x$ e $\phi_y$ hanno lo
+stesso dominio e agiscono allo stesso modo sui suoi elementi. Ma si prova che il
+problema non è decidibile secondo Turing e dunque, per la tesi di Church-Turing,
+non è risolubile da nessun modello di calcolo. Un caso particolarmente critico
+in questo ambito più "generale" è quello dei linguaggi di programmazione cui
+dedicheremo il Capitolo 6. Qui la soluzione negativa del problema
+dell'equivalenza implica che non sarà mai possibile decidere se due generici
+programmi calcolano la stessa funzione o, in altri termini, se hanno la stessa
+semantica. Ciò preclude la speranza di trovare un algoritmo per l'analisi e la
+verifica di correttezza automatica dei programmi: le tecniche di testing
+rimangono così le uniche strategie per scoprire errori in un dato programma. La
+nostra dimostrazione dell'indecidibilità del problema dell'equivalenza per MdT
+procede in tre passi.
+
+\begin{enumerate}
+    \item Dapprima mostriamo che non è possibile decidere se una funzione
+          calcolabile è totale (cioè converge su tutti gli input) o meno.
+    \item Proviamo poi che non è possibile riconoscere quali funzioni
+          calcolabili coincidono con l'identità $i d$ di $\mathbb{N}$, cioè con
+          la funzione di $\mathbb{N}$ in $\mathbb{N}$ che lascia fisso ogni
+          naturale.
+    \item Dimostreremo infine l'indecidibilità dell'equivalenza tra MdT.
+\end{enumerate}
+
+Si noti che anche i passi a), b) costituiscono per proprio conto risultati di indecidibilità.
+Procediamo con la prova di a). Usiamo un argomento di \textit{diagonalizzazione}:
+
+\paragraph{Teorema 3.4.5} \textit{L'insieme}
+
+\[
+    T=\left\{x \in \mathbb{N}: \phi_x \text { è totale (cioè } \phi_x \text { converge su ogni input) }\right\}
+\]
+
+\textit{non è decidibile.}\\
+
+\textit{Dimostrazione}. Ammettiamo per assurdo che $T$ sia decidibile.
+Allora siamo capaci di riconoscere effettivamente nell'enumerazione $\phi_0,
+    \phi_1, \phi_2, \ldots$ di tutte le funzioni calcolabili quelle che sono anche
+totali. C'è dunque una funzione totale e calcolabile $f$ tale che, per ogni $x
+    \in \mathbb{N}$,
+\[
+    f(x)= \text{indice della } x \text{-ma funzione \textit{totale} nell'enumerazione}.
+\]
+
+Così ogni funzione calcolabile totale è della forma $\phi_{f(x)}$ per un unico
+naturale $x$. Poniamo adesso
+
+\[
+    g(x)=\phi_{f(x)}(x)+1, \text { per ogni } x \in \mathbb{N} .
+\]
+
+Allora, per ogni $x$, $g$ calcola l'output $\phi_{f(x)}$ di $M_{f(x)}$ su $x$ e
+poi gli aggiunge 1. Ovviamente $g$ è calcolabile totale. Così esiste un unico
+$x_0 \in \mathbb{N}$ tale che $g=\phi_{f\left(x_0\right)}$. Ma allora
+
+\[
+    \phi_{f\left(x_0\right)}\left(x_0\right)+1=g\left(x_0\right)=\phi_{f\left(x_0\right)}\left(x_0\right),
+\]
+
+e questo è assurdo. Segue che $T$ è indecidibile.\\
+
+Passiamo alla prova di b).
+Usiamo qui una tecnica di \textit{riduzione} ad a).
+
+\paragraph{Teorema 3.4.6} \textit{L'insieme} $I=\left\{x
+    \in \mathbb{N}: \phi_x=i d\right\}$ \textit{non è decidibile.}\\
+
+\textit{Dimostrazione}. Mostriamo
+che, se $I$ è decidibile, anche l'insieme $T$ del precedente teorema lo è; così
+possiamo concludere che $I$ non è decidibile. Consideriamo la funzione parziale
+$f$ da $\mathbb{N}^2$ a $\mathbb{N}$ tale che, per ogni scelta di $x, y$
+naturali,
+
+\[
+    f(x, y)= \begin{cases}y & \text { se } \phi_x(y) \downarrow, \\ \uparrow & \text { altrimenti. }\end{cases}
+\]
+
+Non è difficile vedere che $f$ è calcolabile. Supponiamo di fissare il primo
+argomento $x$ della funzione $f$. Otteniamo allora per ogni $x$ una funzione
+calcolabile $g_x$ da $\mathbb{N}$ a $\mathbb{N}$ così definita: per ogni $y$,
+
+\[
+    g_x(y)= \begin{cases}y & \text { se } \phi_x(y) \downarrow \\ \uparrow & \text { altrimenti. }\end{cases}
+\]
+
+Tutte le funzioni $g_x$ sono calcolabili e quindi compaiono nell'enumerazione
+delle funzioni calcolabili. Così c'è una funzione calcolabile $r$ da
+$\mathbb{N}$ a $\mathbb{N}$ tale che, per ogni $x \in \mathbb{N}$,
+
+\[
+    \phi_{r(x)}=g_x .
+\]
+
+Osserviamo poi che, per ogni $x$,
+
+\[
+    g_x = id \text{ se e solo se } \phi_x \text{ è totale.}
+\]
+
+Segue che, per ogni $x, x \in T$ se e solo se $\phi_x$ è totale, cioè se e solo
+se $\phi_{r(x)}=i d$ e in conclusione se e solo se $r(x) \in I$. Così un
+algoritmo che decide $I$ ne produce uno che decide $T$: basta che, per ogni $x
+    \in \mathbb{N}$, prima si calcoli $r(x)$ e poi si applichi a $r(x)$ l'algoritmo
+di $I$; se esso ci dice $r(x) \in I$, deduciamo $x \in T$, e viceversa.
+
+\paragraph{Teorema 3.4.7} \textit{L'insieme} $E=\left\{(x, y) \in \mathbb{N}^2:
+    \phi_x=\phi_y\right\}$ \textit{non è decidibile.}\\
+
+\textit{Dimostrazione}. Di nuovo usiamo una tecnica di riduzione, stavolta
+riferita a b). Osserviamo che la funzione $i d$ è certamente calcolabile e
+dunque $i d=\phi_j$ per qualche $j$. Ma allora, per ogni $x$,
+
+\[
+    x \in I \text { se e solo se }(x, j) \in E .
+\]
+
+Quindi $E$ non è decidibile perché non lo è neppure $I$.
