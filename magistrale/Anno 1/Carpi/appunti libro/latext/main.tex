@@ -4,6 +4,8 @@
 \usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{float}
+\usepackage{amsthm}
+
 
 \setlength{\parindent}{0pt}
 \begin{document}
@@ -18,7 +20,11 @@
     \endalign
 }
 
+%% cambio nome al comando proof
+\renewcommand*{\proofname}{Dimostrazione}
+
 %%TODO: aggiuntere una prima pagina fatta bene !!
+%%TODO: sostituire le dimostrazioni con il comando apposta proof !!
 
 \include{capitoli/introduzione/main.tex}
 \include{capitoli/le_macchine_di_turing/main.tex}

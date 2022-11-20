@@ -1,0 +1,24 @@
+\section{Un'altra funzione non calcolabile}
+
+Negli scorsi paragrafi
+abbiamo presentato casi di funzioni che non sono calcolabile e di linguaggi che
+non sono decidibili secondo la definizione di Turing. In genere, questi esempi
+sono stati relativamente tecnici e poco naturali, scarsamente legati ai
+familiari contesti numerici. Nei prossimi due paragrafi, introduciamo due esempi
+più semplici ed accessibili, l'uno di una funzione che non è calcolabile,
+l'altro di un insieme che non è decidibile. Cominciamo con il caso della
+funzione. Va detto che non è affatto facile immaginare funzioni non calcolabili;
+infatti le funzioni che ci vengono in mente sono per lo più calcolabili (e
+proprio in quanto tali si affacciano alla nostra percezione). Nel 1962,
+comunque, il matematico ungherese Tibor Rado riuscì a ideare un esempio
+relativamente semplice ed anche simpatico (per quanto può essere simpatica una
+funzione di Matematica). La funzione in questione viene chiamata $\Sigma$ di
+Rado, va dall'insieme $\mathbb{N}$ dei naturali a $\mathbb{N}$ stesso ed è
+definita nel modo che segue. Sia dato un numero naturale $n$. Dobbiamo costruire
+$\Sigma(n)$. Costruiamo allora tutte le macchine di Turing $M=\left(Q, A,
+    \delta, q_o\right)$ dove $A$ è un alfabeto con un solo simbolo $A=\{1\}, Q$ si
+compone di $n+1$ stati $q_0, q_1, \ldots, q_n$ e, inoltre, (i) $\delta$ non ha
+istruzioni sulle coppie $\left(q_n, \star\right),\left(q_n, 1\right)$ relative
+allo stato $q_n$, (ii) $M$ converge sul nastro bianco. Tra tutte queste MdT
+organizziamo il seguente gioco (che ebbe da Rado il nome inglese di "busy beaver
+competition", in italiano "gioco del castoro laborioso"):

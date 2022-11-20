@@ -3,18 +3,180 @@
 Nel Capitolo 2 abbiamo introdotto non solo linguaggi
 decidibili, ma anche semidecidibili. Ricordiamo la definizione di entrambi
 questi concetti (assumendo semmai per semplicità di trattare linguaggi $L
-    \subseteq \mathbb{N}$ ). Allora si ha: - $L$ è decidibile se e solo se c'è una
-MdT che sa decidere, per ogni $x \in \mathbb{N}$, se $x \in L$ o no (e dunque,
-in senso lato, se e solo se c'è un algoritmo che sa svolgere questo compito), -
-$L$ è semidecidibile se e solo se c'è una MdT che lo accetta e cioè converge su
-tutti e soli gli elementi di $L$. Cerchiamo di cogliere meglio il senso di
-questa seconda nozione e mostriamo: Teorema 3.5.1 Sia $L \subseteq \mathbb{N}$.
-Allora sono equivalenti le proposizioni (a) Lè semidecidibile, (b) L è il
-dominio di una funzione calcolabile, (c) $L$ è vuoto o c'è una funzione totale
-calcolabile $f d a \mathbb{N}$ a $\mathbb{N}$ tale che $L e ̀$ l'immagine di $f$
-(e dunque gli elementi di $L$ sono enumerati effettivamente come $f(0), f(1),
-    f(2)$ e cosi via).
+    \subseteq \mathbb{N}$ ). Allora si ha:
 
-Dimostrazione. L'equivalenza tra (a) e (b) è diretta conseguenza della
-definizione. Se $M=M_x$ è la MdT che accetta $L, L$ è il dominio di $\phi_x$, e
-viceversa. Passiamo allora a confrontare (a) e (c).
+\begin{itemize}
+    \item $L$ è decidibile se e solo se c'è una MdT che sa decidere, per ogni
+          $x \in \mathbb{N}$, se $x \in L$ o no (e dunque, in senso lato, se e
+          solo se c'è un algoritmo che sa svolgere questo compito),
+    \item $L$ è semidecidibile se e solo se c'è una MdT che lo accetta e cioè
+          converge su tutti e soli gli elementi di $L$.
+\end{itemize}
+
+Cerchiamo di cogliere meglio il senso di
+questa seconda nozione e mostriamo:
+
+\paragraph{Teorema 3.5.1} \textit{Sia $L \subseteq \mathbb{N}$.
+    Allora sono equivalenti le proposizioni}
+
+\begin{itemize}
+    \item[(a)] \textit{L è semidecidibile,}
+    \item[(b)] \textit{L è il dominio di una funzione calcolabile,}
+    \item[(c)] \textit{$L$ è vuoto o c'è una funzione totale calcolabile $f$ da $\mathbb{N}$ a
+            $\mathbb{N}$ tale che $L$ è l'immagine di $f$ (e dunque gli elementi
+            di $L$ sono enumerati effettivamente come $f(0), f(1), f(2)$ e cosi
+            via).}
+\end{itemize}
+
+\textit{Dimostrazione}. L'equivalenza tra (a) e (b) è diretta conseguenza della
+definizione. Se $M=M_x$ è la MdT che accetta $L$, $L$ è il dominio di $\phi_x$, e
+viceversa.\\ Passiamo allora a confrontare (a) e (c).
+(a) $\Rightarrow$ (c). Supponiamo dapprima $L$ semidecidibile e fissiamo una MdT
+$M$ che converge su tutti e soli gli elementi di $L$. Enumeriamo $L$ seguendo le
+computazioni di $M$ sui naturali $0,1,2, \ldots, m, \ldots$: non appena ci si
+accorge che la computazione di $M$ su uno di questi elementi $m$ ha termine, si
+aggiunge $m$ all'elenco di $L$. C'è però un'ovvia obiezione che si può sollevare
+per questo procedimento, e cioè come controllare contemporaneamente il lavoro di
+$M$ sugli infiniti input $m$, tanto più che ogni computazione richiede i suoi
+passi $0,1,2, \ldots, n, \ldots$ e talora, nei casi di divergenza, infiniti
+passi. Per esempio, se $M$ diverge su 0 come facciamo ad avviare la computazione
+su $1,2, \ldots$ e verificarne l'esito? La situazione richiama però le
+difficoltà già affrontate nel Capitolo 2 per costruire una biiezione tra coppie
+$(m, n)$ di naturali e naturali, e risolte tramite la sequenza
+$(0,0),(0,1),(1,0)$ e così via. Proprio con l'uso della stessa idea si riesce a
+gestire il nuovo ambito: si segue il passo 0 di $M$ su 0, poi il passo 1 su 0,
+il passo 0 su 1, e via dicendo. In questo modo, se $L \neq \emptyset$, si
+generano i suoi elementi
+
+\[
+    l_0, l_1, l_2, \ldots, l_j, \ldots
+\]
+
+(se $L=\emptyset$, $L$ già soddisfa (c)). La lista così ottenuta è finita per $L$
+finito ma, ammettendovi ripetizioni, possiamo supporla infinitamente lunga, cioè
+con $j$ che varia tra tutti i naturali. Poniamo adesso, per ogni $j \in
+    \mathbb{N}$,
+\[
+    f(j)=l_j .
+\]
+
+Allora $f$ è una funzione totale calcolabile, e la sua immagine coincide proprio
+con $L$.\\
+
+(c) $\Rightarrow$ (a). Supponiamo viceversa che ci sia una funzione $f$
+con queste proprietà. Costruiamo una MdT $M$ che converge su
+tutti e soli gli elementi $x$ di $L$ procedendo come segue. Per ogni $x \in
+    \mathbb{N}$, $M$ computa finché necessario $f(0), f(1)$, $f(2), \ldots$ e per
+ognuno controlla contestualmente se coincide o no con $x$. Se la verifica è
+positiva, $M$ si arresta, se no prosegue il suo lavoro. Grazie a $M$, $L$ è
+semidecidibile. Lo stesso accade, ovviamente, se $L=\emptyset$: in tal caso $L$
+è accettato da ogni MdT che diverge sempre (il lettore può provare a definirne
+una).\\
+In conclusione, $L$ (se non vuoto), è semidecidibile se e solo se c'è un
+programma (e dunque una $\mathrm{MdT}$ ) che enumera effettivamente i suoi
+elementi. Abbiamo così un'ulteriore conferma del seguente fatto, già osservato
+nel Capitolo 2.
+
+\paragraph{Osservazione.} Se $L$ è decidibile, allora $L$ è semidecidibile.
+Infatti una MdT che sa riconoscere gli elementi di $L$ e scartare gli altri si
+adatta facilmente a elencare gli elementi di $L$ (se ve ne sono).\\
+
+Non sembra invece chiaro il contrario, se cioè un insieme semidecidibile non
+vuoto sia anche decidibile. Ammettiamo infatti di avere un algoritmo che produce
+successivamente tutti gli elementi di $L$. Ogni suo output è ovviamente in $L$.
+Tuttavia non c'è verso di riconoscere per suo tramite gli elementi $x$ fuori di
+$L$: chi osserva gli elementi prodotti dall'algoritmo, prende atto che, dopo
+10, o $10^2$, o $10^n$ passi, $x$ non è ancora presente tra essi, ma non può
+dedurre che $x$ non comparirà nei passi successivi.\\
+Visto che ci siamo, notiamo anche:
+
+\paragraph{Osservazione.} $L$ è decidibile se e solo se
+$\mathbb{N}-L$ lo è. Infatti, per ogni $x \in \mathbb{N}, x \in \mathbb{N}-L$ se
+e solo se $x \notin L$. Così una MdT che decide $L$ si può facilmente adattare a
+decidere $\mathbb{N}-L$ (e viceversa): basta scambiare le risposte finali, dire
+$N O$ (a $x \in \mathbb{N}-L$ ?) quando si diceva $S \dot{I}$ (a $x \in L$ ?), e
+viceversa.\\
+
+Di nuovo, non sembra affatto chiaro che altrettanto valga per la
+semidecidibilità. Infatti, se $L$ è semidecidibile e dunque sappiamo riconoscere
+gli elementi di $L$ come quelli su cui un'opportuna MdT $M$ converge, non è
+detto che sappiamo riconoscere per tal via anche gli altri, quetli su cui $M$
+diverge. In effetti si ha:
+
+\paragraph{Teorema (Post) 3.5.2} \textit{Sia $L \subseteq \mathbb{N}$.
+    Allora $L$ è decidibile se e solo se tanto $L$ quanto $\mathbb{N}-L$ sono
+    semidecidibili.}\\
+
+\textit{Dimostrazione}. Sappiamo già che, se $L$ è decidibile, allora $L$ è
+semidecidibile. Del resto, se $L$ è decidibile, anche $\mathbb{N}-L$ lo è,
+quindi $\mathbb{N}-L$ è semidecidibile. Viceversa, assumiamo $L$, $\mathbb{N}-L$
+semidecidibili. Ci sono due MdT $M(L)$ e $M(\mathbb{N}-L)$ che
+accettano $L$, $\mathbb{N}-L$ rispettivamente. Per ogni $x \in \mathbb{N}$,
+seguiamo le computazioni di $M(L)$ e $M(\mathbb{N}-L)$ su $x$. Una e una sola
+delle due converge, perché $x$ è in uno e uno solo degli insiemi $L$,
+$\mathbb{N}-L$. Se converge $M(L)$, si dichiara $x \in L ;$ se converge
+$M(\mathbb{N}-L)$, si conclude $x \in \mathbb{N}-L$.
+
+Il precedente paragrafo ci ha fornito vari esempi di insiemi decidibili, e tra
+questi
+
+\[
+    K=\left\{x \in \mathbb{N}: M_x \downarrow x\right\} .
+\]
+
+D'altra parte si ha:
+
+\paragraph{Teorema 3.5.3} $\mathrm{K}$ \textit{è semidecidibile. In particolare
+    ci sono linguaggi semidecidibili e non decidibili.}\\
+
+\textit{Dimostrazione}. Ecco la descrizione informale di una MdT $M$ che accetta
+$K$: per ogni $x \in \mathbb{N}$, $M$ costruisce $M_x$ e ne segue la computazione
+su $x$; se e quando $M_x$ converge, anche $M$ converge. Altrimenti, $M$ diverge
+insieme a $M_x$.
+
+\paragraph{Corollario 3.5.4} $\mathbb{N}-K$ \textit{non è semidecidibile (e dunque esistono
+    linguaggi non semidecidibili).}
+
+\begin{proof}
+    Altrimenti dal teorema di Post segue che $K$ è decidibile.
+\end{proof}
+
+Il lettore potrà controllare per esercizio
+l'eventuale semidecidibilità degli altri insiemi indecidibili incontrati nel
+precedente paragrafo
+
+\[
+    T=\left\{x \in \mathbb{N}: \phi_x \text { è totale }\right\}, I=\left\{x \in \mathbb{N}: \phi_x=i d\right\}
+\]
+
+e dei loro complementari $\mathbb{N}-T$, $\mathbb{N}-I$; potrà anche allargare
+l'esame in $\mathbb{N}^2$ a
+
+\[
+    K^{\prime}=\left\{(x, y) \in \mathbb{N}^2: M_x \downarrow y\right\}, E=\left\{(x, y) \in \mathbb{N}^2: \phi_x=\phi_y\right\} .
+\]
+
+Noi dedichiamo invece la parte finale del paragrafo a un'appendice del problema
+dell'arresto. Abbiamo stabilito che la questione di decidere, per ogni MdT $M$ e
+per ogni input $x$, se $M \downarrow x$ o no è priva di algoritmi di soluzione.
+Si può pensare che, se si fissa $M$ e ci si limita a controllare per quali $x$ $M
+    \downarrow x$ e per quali no, la situazione si semplifichi e ammette risposta
+positiva. Certe volte è davvero così. Per esempio, se $M$ è una MdT senza
+istruzione, allora $M$ converge su ogni input e quindi
+
+\[
+    \{x \in \mathbb{N}: M \downarrow x\}
+\]
+
+coincide con $\mathbb{N}$ ed è ovviamente decidibile. Ma talora la situazione
+resta così complicata come in generale. Infatti si ha:
+
+\paragraph{Corollario 3.5.5} \textit{Ci sono
+    $M d T M$ tali che $\{x \in \mathbb{N}: M \downarrow x\}$ è indecidibile.}
+
+\begin{proof}
+    Basta sfruttare la semidecidibilità di $K$ e prendere una MdT che
+    accetta $K$. Allora $\{x \in \mathbb{N}: M \downarrow x\}=K$ è indecidibile. Lo
+    stesso ragionamento si applica, ovviamente, a ogni linguaggio semidecidibile e
+    indecidibile.
+\end{proof}
