@@ -309,7 +309,7 @@ grande possibile.
 Come per tutti gli algoritmi dinamici dobbiamo cercare dei sotto-problemi e possiamo utilizzare la stessa intuizione avuto per il problema dello scheduling (scelta binaria). Facendo tutti i calcoli di dovere otteniamo la seguente ricorsione:
 
 > se $w < w_i$ allora $OPT(i, w) = OPT(i-1,w)$ altrimenti
-> OPT(i, w) = max(OPT(i-1, w), w_i + OPT(i-1, w-w_i))
+> $OPT(i, w) = max(OPT(i-1, w), w_i + OPT(i-1, w-w_i))$
 
 Nella prima parte analizziamo il caso in cui l'elemento che vogliamo aggiungere va
 a superare il peso massimo residuo $w$, dunque viene scartato. Nella seconda parte
@@ -362,6 +362,6 @@ Questa implementazione funziona anche per il problema più generale del Knapsack
 ci basterà solo cambiare la parte di ricorsione scrivendola come segue:
 
 > se $w < w_i$ allora $OPT(i, w) = OPT(i-1,w)$ altrimenti
-> OPT(i, w) = max(OPT(i-1, w), v_i + OPT(i-1, w-w_i))
+> $OPT(i, w) = max(OPT(i-1, w), v_i + OPT(i-1, w-w_i))$
 
 La complessità temporale è sempre $O(nW)$.
