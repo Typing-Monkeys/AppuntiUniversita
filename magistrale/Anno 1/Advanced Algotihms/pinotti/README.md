@@ -399,9 +399,9 @@ $i,j \in \{1,2,\ldots,n\}$, che soddisfa le seguenti condizioni:
 4. **Non crossing condition**: se $(i, j)$ e $(k,l)$ sono due coppie in $S$ allora **non** può avvenire che $i < k < j < l$.
 
 ![esempio](./latex/capitoli/imgs/rna_esempio2.png)
-
-La figura (a) rappresenta un esempio di Sharp Turn, mentre la figura (b) mostra una
-Crossing Condition dove il filo blu non dovrebbe esistere.
+<br>
+_La figura (a) rappresenta un esempio di Sharp Turn, mentre la figura (b) mostra una
+Crossing Condition dove il filo blu non dovrebbe esistere._
 
 ### Goal ⚽
 
@@ -431,6 +431,7 @@ Il primo si risolve con $OPT(t-1)$ ma il secondo, dato che non inizia con indice
 nella lista dei nostri sottoproblemi. A causa di ciò risulta necessario aggiungere una variabile.
 
 ![rna funzionamento](./latex/capitoli/imgs/rna_funzionamento.png)
+<br>
 _Esempio di utilizzo di una sola variabile (a) o con due (b)_
 
 <!-- in latex \paragraph{Dynamic Programming over Intervals}-->
@@ -452,8 +453,10 @@ Possiamo esprimere formalmente la ricorsione come segue:
 > dove il massimo è calcolato su $t$ tale che $b_t$ e $b_j$ siano una coppia di basi consentita
 >
 
-![calcolo](./latex/capitoli/imgs/rna_calcolo.png)
-_Iterazioni dell'algoritmo su un campione del problema in questione $ACCGGUAGU$_
+![calcolo](./latex/capitoli/imgs/rna_calcolo.png) 
+
+
+_Iterazioni dell'algoritmo su un campione del problema in questione_ $ACCGGUAGU$
 
 Possiamo infine formalizzare il tutto con il seguente pseudocodice:
 
