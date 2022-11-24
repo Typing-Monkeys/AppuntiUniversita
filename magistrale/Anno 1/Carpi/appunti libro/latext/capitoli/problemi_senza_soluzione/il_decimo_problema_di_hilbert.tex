@@ -1,0 +1,110 @@
+\section{Il Decimo Problema di Hilbert}
+
+Adesso proponiamo l'esempio di un classico problema di Matematica che non ha
+algoritmo di soluzione perchè non è decidibile secondo Turing. Ci riferiamo al Decimo
+Problema di Hilbert, già trattato proprio all'inizio del libro. Ricordiamone
+l'enunciato.
+
+\paragraph{Decimo Problema di Hilbert (1900).}
+Determinare un algoritmo per decidere, per ogni intero positivo $k$ e per ogni
+polinomio $p\left(x_1, \ldots, x_k\right)$ con coefficienti interi e $k$
+indeterminate $x_1, \ldots, x_k$, se $p\left(x_1, \ldots, x_k\right)$ ha o no radici
+intere (se cioè esistono o no interi $z_1, \ldots, z_k$ tali che $p\left(z_1, \ldots,
+    z_k\right)=0$).\\
+
+Si noti che il problema non pone limitazioni nè sul numero delle indeterminate nè sul
+grado complessivo del polinomio. Nel 1970, Yuri Matijasevic, coronando il lavoro di
+Julia Robinson, Martin Davis e altri negli anni precedenti, dimostrò che un algoritmo
+così generale non può esistere. Discutiamo brevemente la prova di Matijasevic.\\
+Anzitutto si osservi che è sufficiente mostrare che non esiste alcun algoritmo per
+decidere, per intero positivo $k$ e per ogni polinomio $p\left(x_1, \ldots,
+    x_k\right)$ a coefficienti interi, se $p\left(x_1, \ldots, x_k\right)$ ha o no radici
+\textbf{naturali} (e cioè intere non negative). Infatti un classico teorema di Lagrange
+assicura che un numero intero $z$ è $\geq 0$ se e solo se si può esprimere in
+$\mathbb{Z}$ come somma di quattro quadrati (ad esempio, $4=2^2+0^2+0^2+0^2,
+    7=2^2+1^2+1^2+1^2$, e così via). Di conseguenza, un eventuale algoritmo di decisione
+per le radice intere ne fornisce uno per $\mathbb{N}$: infatti un arbitrario
+polinomio $p\left(x_1, \ldots, x_k\right)$ ammette radici naturali se e solo se il
+polinomio
+
+\[
+    p\left(x_{1,1}^2+x_{1,2}^2+x_{1,3}^2+x_{1,4}^2, \ldots, x_{k, 1}^2+x_{k, 2}^2+x_{k, 3}^2+x_{k, 4}^2\right)
+\]
+
+(in cui ogni vecchia indeterminata $x_i(1 \leq i \leq k)$ è sostituita dalla sua
+espressione come somma dei quadrati di 4 nuove indeterminate $x_{i, 1}^2+x_{i,
+    2}^2+x_{i, 3}^2+x_{i, 4}^2$, dunque si hanno $4 k$ indeterminate e, ancora,
+coefficienti interi) ha radici intere. A questo punto diciamo che un insieme $S$ di
+naturali è \textit{Diofanteo} se e solo se esistono un naturale $k$ ed un polinomio $p\left(x,
+    x_1, \ldots, x_k\right)$ a coefficienti interi in $k+1$ indeterminate $x, x_1,
+    \ldots, x_k$ tali che $S$ coincide con l'insieme di quei naturali $n$ per cui
+$p\left(n, x_1, \ldots, x_k\right)$ ha radici naturali. L'aggettivo Diofanteo è un
+tributo a Diofanto, matematico alessandrino dell'antichità che si interessò della
+soluzione dei polinomi a coefficienti interi.\\
+Il risultato chiave della ricerca di
+Matijasevic è la seguente, sorprendente caratterizzazione dei sottoinsiemi Diofantei
+di $\mathbb{N}$.
+
+\paragraph{Lemma (Matijasevic) 3.7.1} \textit{$S \subseteq \mathbb{N}$ è Diofanteo
+    se e solo se è semidecidibile.}\\
+
+Ovviamente, pensiamo qui $S$ come un insieme finito di
+stringhe su un qualche alfabeto per i naturali, ad esempio su $\{0,1, \ldots, 9\}$.
+Il risultato precedente è la chiave fondamentale di tutta la dimostrazione di
+Matijasevic. La difficoltà degli argomenti usati ci impediscono di darne resoconto
+qui.
+Accettiamolo dunque per buono, e consideriamo l'insieme semidecidibile ma non
+decidibile $K \subseteq \mathbb{N}$ incontrato nella trattazione del problema
+dell'arresto per le MdT. Per il lemma, $K$ è Diofanteo, dunque esiste un polinomio
+
+\[
+    p_K\left(x, x_1, \ldots, x_k\right)
+\]
+
+a coefficienti interi tale che $K$ coincide con l'insieme di quei naturali $n$ per i
+quali $p_K\left(n, x_1, \ldots, x_k\right)$ ammette radici naturali; il polinomio
+$p_K\left(x, x_1, \ldots, x_k\right)$ può essere effettivamente calcolato conoscendo
+$K$. A questo punto, se esiste un algoritmo per stabilire se un polinomio a
+coefficienti interi ammette o non radici naturali, si può facilmente derivarne un
+algoritmo di decisione per $K$ : per ogni $n$ naturale, si costruisce il polinomio
+$p_K\left(n, x_1, \ldots, x_k\right)$ nelle indeterminate $x_1, \ldots, x_k$ e si
+controlla se $p_K\left(n, x_1, \ldots, x_k\right)$ ha o no radici naturali. Ma allora
+$K$ è decidibile, e questo è assurdo.\\
+In conclusione si ha:
+
+\paragraph{Teorema (Matjiasevic, 1970) 3.7.2} \textit{Non esiste alcun algoritmo per
+    risolvere il Decimo Problema di Hilbert.}\\
+
+Come già accennato, il risultato negativo di Matijasevic si applica a polinomi di
+grado e numero di indeterminate arbitrari. Ove si pongano limitazioni sul grado dei
+polinomi oppure sul numero delle loro indeterminate, un algoritmo per la esistenza di
+radici intere può ben essere trovato. Ad esempio, possiamo attingere dai nostri
+ricordi di Matematica elementare e rammentare che, se poniamo $k=1$ e quindi ci
+restringiamo ad una sola indeterminata $x_1$, allora c'è un semplice algoritmo per
+gestire soddisfacentemente la situazione. Accenniamolo brevemente.\\
+Sia dunque
+
+\[
+    p\left(x_1\right)=a_0+a_1 x_1+\ldots+a_m x_1^m
+\]
+
+il nostro polinomio a coefficienti interi nell'unica indeterminata $x_1$. Se $a_0=0$,
+allora $p\left(x_1\right)$ ha la radice 0. Se invece $p\left(x_1\right)=a_0 \neq 0$,
+allora $p\left(x_1\right)$ non può avere radici. Assumiamo allora $a_0 \neq 0,
+    p\left(x_1\right)$ di grado $m \geq 1$ (e dunque $a_m \neq 0$). Se $z \in
+    \mathbb{Z}$ è radice di $p\left(x_1\right)$, si ha
+
+\[
+    a_0=-z \cdot\left(a_1+\ldots+a_m z^{m-1}\right),
+\]
+
+da cui segue che $z$ divide $a_0$. Perciò le eventuali radici intere di
+$p\left(x_1\right)$ si trovano tra i divisori del suo termine noto $a_0$ (che sono al
+più un numero finito). Allora un algoritmo in questo caso particolare è il seguente:
+determinare i divisori di $a_0$ e poi controllare se tra di essi si trova o no
+una radice di $p\left(x_1\right)$. Per polinomi a 2 indeterminate, c'è ancora un
+algoritmo abbastanza generale, mentre il problema per 3 indeterminate è ancora
+aperto. Algoritmi parziali di soluzione del Decimo Problema di Hilbert si hanno anche
+ove si limiti il grado del polinomio (ma non il numero delle indeterminate), almeno
+per grado 1 o 2 . Per polinomi di grado 3, il problema è ancora aperto; per polinomi
+di grado 4 o maggiore, la soluzione, invece, è negativa come nel caso generale.

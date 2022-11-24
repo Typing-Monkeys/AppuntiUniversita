@@ -14,11 +14,181 @@ comunque, il matematico ungherese Tibor Rado riuscì a ideare un esempio
 relativamente semplice ed anche simpatico (per quanto può essere simpatica una
 funzione di Matematica). La funzione in questione viene chiamata $\Sigma$ di
 Rado, va dall'insieme $\mathbb{N}$ dei naturali a $\mathbb{N}$ stesso ed è
-definita nel modo che segue. Sia dato un numero naturale $n$. Dobbiamo costruire
+definita nel modo che segue.\\
+Sia dato un numero naturale $n$. Dobbiamo costruire
 $\Sigma(n)$. Costruiamo allora tutte le macchine di Turing $M=\left(Q, A,
     \delta, q_o\right)$ dove $A$ è un alfabeto con un solo simbolo $A=\{1\}, Q$ si
-compone di $n+1$ stati $q_0, q_1, \ldots, q_n$ e, inoltre, (i) $\delta$ non ha
-istruzioni sulle coppie $\left(q_n, \star\right),\left(q_n, 1\right)$ relative
-allo stato $q_n$, (ii) $M$ converge sul nastro bianco. Tra tutte queste MdT
-organizziamo il seguente gioco (che ebbe da Rado il nome inglese di "busy beaver
-competition", in italiano "gioco del castoro laborioso"):
+compone di $n+1$ stati $q_0, q_1, \ldots, q_n$ e, inoltre,
+
+\begin{enumerate}
+    \item[(i)]$\delta$ non ha istruzioni sulle coppie $\left(q_n,
+        \star\right),\left(q_n, 1\right)$ relative allo stato $q_n$,
+    \item[(ii)] $M$ converge sul nastro bianco.
+\end{enumerate}
+
+Tra tutte queste MdT
+organizziamo il seguente gioco (che ebbe da Rado il nome inglese di "\textit{busy beaver
+    competition}", in italiano "\textit{gioco del castoro laborioso}"):
+ogni MdT ottiene per punteggio il numero di 1 che riesce a scrivere sull'output della
+sua computazione (convergente!) sul nastro bianco. $\Sigma(n)$ è il punteggio
+vincente in questo torneo.\\
+Notiamo che almeno la macchina vuota (quella priva di
+istruzioni) è ammessa a giocare per $\Sigma(n)$ perchè soddisfa ovviamente le due
+condizioni $(i)$ e $(i i)$; tra l'altro, essendo priva di istruzioni, si arresta
+ancor prima di partire, non riesce a stampare nessun 1 e quindi ottiene punteggio 0.
+Così il gioco di $\Sigma(n)$ trova almeno un concorrente. D'altra parte, perchè ci
+sia un punteggio vincente e quindi $\Sigma(n)$ sia correttamente definita, è bene
+escludere che i concorrenti siano troppi, cioè infiniti (in tal caso potrebbe anche
+non esserci un risultato massimo). Ma, per questo, basta osservare che tutte le
+macchine di Turing sull'alfabeto $\{1\}$ con $n+1$ stati sono complessivamente un
+numero finito, e dunque anche quelle che rispettano (i) e (ii) e sono di conseguenza
+ammesse a giocare rientrano nell'ambito finito.\\
+Vediamo adesso alcuni possibili valori di $\Sigma$.
+\paragraph{Esempio.}
+\begin{enumerate}
+    \item È facile vedere che $\Sigma(0)=0$. Infatti, per $n=0$, le macchine ammesse
+          a giocare hanno un solo stato $q_0$ e nessuna istruzione che lo riguardi,
+          dunque si arrestano immediatamente su qualunque input, in particolare su
+          quello bianco. In altre parole, l'unica MdT concorrente è quella priva di
+          istruzioni ed ottiene punteggio 0.
+    \item È relativamente semplice anche controllare che $\Sigma(1)=1$. Infatti
+          stavolta le $\operatorname{MdT} M$ concorrenti hanno due stati $q_0$ e
+          $q_1$ e mancano di istruzioni per $q_1$. Se però la funzione di transizione
+          $\delta$ di $M$ ha un'istruzione del tipo $\delta\left(q_0,
+              \star\right)=\left(q_0, \ldots, \ldots\right)$ (e quindi resta nello stato
+          $q_0$ quando legge il simbolo bianco nello stato $q_0$), allora $M$,
+          indipendentemente da quanto le viene ordinato di scrivere e da dove le
+          viene comandato di spostarsi, finisce per divergere sul nastro bianco, e
+          dunque è squalificata dal gioco. Ad esempio, se l'istruzione di $\delta$ è
+          $\delta\left(q_0, \star\right)=\left(q_0, 1,+1\right), M$ finisce per
+          spostarsi indefinitamente verso destra stampando 1 su ogni quadro
+          incontrato, e comunque diverge. Lo stesso capita se altra è l'istruzione su
+          che cosa scrivere o dove spostarsi, ma si mantiene l'ordine di rimanere
+          nello stato $q_0$. Dunque, tra le MdT $M$ partecipanti al gioco soltanto
+          due comportamenti sono ammessi: o $\delta$ non ha istruzioni su $\left(q_0,
+              \star\right)$ (nel qual caso $M$ converge subito con punteggio 0 ), oppure
+          $\delta$ ha un'istruzione $\delta\left(q_0, \star\right)=\left(q_1, \ldots,
+              \ldots\right)$, e allora $M$ prima la esegue, stampando $\star$ o
+          1 sul nastro, poi entra nello stato $q_1$ e, non avendo
+          disposizioni che lo riguardano, si arresta, con punteggio 0 o 1
+          rispettivamente. In conclusione, $\Sigma(1)=1$, come detto.
+    \item Tuttavia, già il calcolo di $\Sigma(2)$ comincia a complicarsi. In effetti
+          si riesce a verificare che $\Sigma(2)=4$, ma si devono affrontare e
+          superare seri ostacoli computazionali. Il motivo è semplice. Proviamo
+          infatti a contare le MdT $M$ a 3 stati $q_0, q_1, q_2$ che sono prive di
+          istruzioni relative a $q_2$ e, in questo senso, sono potenziali concorrenti
+          al gioco di $\Sigma(2)$. Esse corrispondono alle funzioni di transizione
+          $\delta$ che vanno da coppie ordinate con $q_0$ e $q_1$ (ma non $q_2$ )
+          come prima componente e $\star$ o $1$ come seconda e giungono a terne che
+          hanno $q_0, q_1$ o $q_2$ come prima componente, ancora $\star$ o 1 come
+          seconda e, finalmente, $\pm 1$ come terza. Restano in questo modo coinvolte
+          $2 \times 2=4$ coppie e $3 \times 2 \times 2=12$ terne. Le funzioni totali
+          che vanno dalle prime alle seconde sono allora $12^4=20.736$ (e ad esse
+          andrebbero aggiunte le altre funzioni parziali, quelle il cui dominio
+          accoglie solo alcune delle coppie sopra elencate): tante sono,
+          indicativamente, le potenziali partecipanti al gioco di $\Sigma(2)$ e per
+          ognuna di esse va esaminato il comportamento sul nastro bianco per
+          computare $\Sigma(2)$. La loro analisi produce comunque il risultato
+          $\Sigma(2)=4$.
+    \item Anche i valori di $\Sigma$ per $n = 3$ e $n = 4$ sono conosciuti, ma il loro calrcolo è formidabile.
+          $\Sigma(3)=6$ fu provato da
+          Lin e Rado nel 1965 , ma richiede l'esame di oltre 16 milioni di MdT (al
+          posto delle $20.736$ di $\Sigma(2)$ ). È, invece, un teorema di Brady del
+          1983 il fatto che $\Sigma(4)=13$ : stavolta le potenziali concorrenti da
+          analizzare sono altre 25 miliardi e stabilirne il punteggio non è affatto
+          facile; pur tuttavia, una accurata classificazione dei loro comportamenti
+          (cui si conferiscono nomi fantasiosi, come alberi di Natale, o draghi che
+          si mangiano la coda) e un largo ricorso all'ausilio dei calcolatori
+          permette la conclusione $\Sigma(4)=13$.
+    \item Ma, per $n \geq 5$, i valori di
+          $\Sigma$ non sono ancora noti. Calcoli di Marxen e Buntrock del 2002
+          permettono al massimo di stabilire che $\Sigma(5) \geq 4.098$ e che
+          $\Sigma(6)$ supera addirittura $1,29 \cdot 10^{865}$.
+\end{enumerate}
+
+Del resto, non c'è da stupirsi di tutte queste complicazioni. Infatti, come
+Rado osservò sin dal 1962, $\Sigma$ non è calcolabile, anzi supera
+asintoticamente qualunque funzione calcolabile. Ad esempio, provate a
+considerare le funzioni $f(n)=2^n$, oppure $2^{2^n}$, o ancora
+$2^{2^{2^n}}$, e così via. Un attimo di riflessione assicura che queste
+funzioni sono tutte calcolabili, ma crescenti rapidissimamente. Eppure il
+Teorema di Rado (che adesso dimostreremo) assicura che, da un certo $n$ in
+poi, $\Sigma$ le supera definitivamente. Non c'è allora da stupirsi che
+$\Sigma$ finisca fuori da ogni ragionevole controllo umano. Per dimostrare
+il Teorema di Rado ci serve prima premettere la semplice osservazione che
+anche $\Sigma$ è una funzione crescente, nel senso che, per ogni naturale
+$n$,
+
+\[
+    \Sigma(n) \leq \Sigma(n+1) .
+\]
+
+Infatti tutte le MdT $M$ a $n+1$ stati ammesse a giocare per $\Sigma(n)$
+possono essere facilmente adattate per partecipare al torneo di
+$\Sigma(n+1)$ : basta aggiungere loro un nuovo stato $q_{n+1}$ senza
+istruzioni che lo riguardino. In tal modo $M$ resta sostanzialmente la
+stessa e quindi converge ancora sull'input bianco, producendo lo stesso
+output di prima; non ha istruzioni sul nuovo stato $q_{n+1}$ (anzi, non ne
+ha neppure per $\left.q_n\right)$, quindi gioca anche per $\Sigma(n+1)$
+ottenendo lo stesso punteggio che per $\Sigma(n)$. D'altra parte, il torneo
+di $\Sigma(n+1)$ ammette anche altre partecipanti assolutamente nuove, che
+possono raggiungere anche risultati superiori. Quindi $\Sigma(n) \leq
+    \Sigma(n+1)$, come detto.\\
+Possiamo adesso provare:
+
+\paragraph{Teorema (Rado) 3.6.1}
+\textit{$\Sigma$ non è calcolabile. Anzi, per ogni funzione calcolabile
+    $f \text{ da } \mathbb{N} \text{ a } \mathbb{N}$, esiste un naturale $k(f)$ tale che, per ogni
+    $k>k(f)$, $\Sigma(k)>f(k)$.}
+
+\begin{proof}
+    Rappresentiamo per semplicità i naturali $n$
+    sull'alfabeto $\{1\}$, come stringhe di 1: quindi $0,1,2,3, \ldots$ diventano
+    rispettivamente $1,11,111,1111$, e così via. In genere ogni $n$ viene espresso da una
+    stringa di $n+1$ caratteri uguali a 1. Osserviamo poi che, se $f$ è calcolabile,
+    anche la funzione $g$ che ad ogni naturale $n$ associa il valore massimo tra $f(2
+        n+1)$ e $f(2 n+2)$ è chiaramente calcolabile. C'è dunque una MdT $M(g)$ su $\{1\}$
+    che la computa. Supponiamo che $M(g)$ ammetta $n(g)$ stati. Consideriamo adesso un
+    qualunque numero naturale $n$. Possiamo costruire una MdT $M_n$ che, a partire
+    dall'input bianco, prima vi stampa $n$ e poi simula $M(g)$, computando quindi in
+    conclusione $g(n)$. Le istruzioni per $M_n$ sono relativamente semplici da
+    organizzare. Anzitutto dobbiamo consentirle di scrivere $n$, dunque $n+1$ cifre
+    consecutive tutte uguali a 1 (dopo di che la macchina deve tornare al simbolo 1 più a
+    sinistra per poter simulare $M(g)$). Dobbiamo conseguentemente prevedere per $M_n$
+    $n+1$ stati $q_0, \ldots, q_n$ in aggiunta a quelli di $M(g)$ e, per quanto riguarda
+    la sua funzione di transizione $\delta_n$, l'istruzione $\delta_n\left(q_i,
+        \star\right)=\left(q_{i+1}, 1,-1\right)$ per ogni $i<n$: si ottiene così che $M_n$
+    si muova verso sinistra e scriva esattamente $n$ cifre uguali a 1. Aggiungiamo le
+    ulteriori istruzioni
+
+    \[
+        \delta_n\left(q_n, \star\right)=\left(q_n, 1,+1\right), \ \delta_n\left(q_n, 1\right)=(q, 1,-1)
+    \]
+
+    dove $q$ è lo stato di partenza di $M(g)$ : il loro effetto è di far stampare
+    l'ultimo 1 a sinistra dei precedenti, e poi di portare $M$ su questo 1 nel primo
+    stato di $M(g)$. A questo punto aggiungiamo a $M_n$ tutte le istruzioni di $M(g)$ nei
+    relativi $n(g)$ stati, avendo cura di distinguere questi stati da quelli già
+    adoperati per scrivere $n$. In questo modo $M_n$ viene ad ammettere complessivamente
+    $n(g)+n+1$ stati e a convergere sull'input bianco con output $g(n)$, come richiesto.
+    Comunque, se vogliamo coinvolgerla nel gioco del castoro laborioso, dobbiamo
+    accrescerla di un ulteriore stato, ovviamente privo di istruzioni, e quindi prevedere
+    in totale $n(g)+$ $n+2$ stati per $M_n$; in questo modo, $M_n$ concorre al torneo di
+    $\Sigma(n(g)+n+1)$ con punteggio $g(n)+1$ (il numero degli 1 nella sequenza che
+    rappresenta $g(n)$ ). Così $g(n)<g(n)+1 \leq \Sigma(n(g)+n+1)$. A questo punto è
+    facile concludere: per $n \geq n(g)$, si ha infatti
+
+    \[
+        \begin{gathered}
+            f(2 n+1) \leq g(n)<\Sigma(n(g)+n+1) \leq \Sigma(2 n+1), \\
+            f(2 n+2) \leq g(n)<\Sigma(n(g)+n+1) \leq \Sigma(2 n+2)
+        \end{gathered}
+    \]
+
+    (in ciascun caso, la prima diseguaglianza segue dalla definizione di $g$, la seconda
+    è stata appena provata, l'ultima dipende dal fatto che $\Sigma$ è crescente). La tesi
+    è quindi dimostrata: se vogliamo essere scrupolosi e riferirci precisamente
+    all'enunciato del teorema, fissiamo $k(f)=2 n(g)$ e, per $k>k(f)$,
+    distinguiamo i due casi in cui $k$ è dispari oppure pari (dunque $k=2 n+1$ oppure
+    $k=2 n+2$ con $n \geq n(g)$ ) per concludere comunque $\Sigma(k)>f(k)$.
+\end{proof}
