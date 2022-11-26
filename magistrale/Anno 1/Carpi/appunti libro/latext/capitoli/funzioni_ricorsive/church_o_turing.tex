@@ -1,0 +1,59 @@
+\section{Church o Turing ?}
+
+L'approccio alla calcolabilità tramite le funzioni ricorsive pare chiaramente
+diverso da quello mediante le macchine di Turing. Il primo è assai più astratto,
+l'altro più concreto, ed anzi dichiaratamente ispirato dal tentativo di simulare
+il comportamento della mente umana. In questo ambito, anzi, il secondo approccio
+risulta più convincente, se è vero, come è vero, che scienziati importanti come
+Gödel, assai dubbiosi a proposito della Tesi di Church, si dichiaravano invece
+assolutamente persuasi dalla calcolabilità secondo Turing, proprio per questa
+sua maggiore concretezza. Possiamo allora chiederci a chi credere, se a Church
+oppure a Turing, dunque quale modello di computabilità preferire. In realtà la
+scelta è tutto men che drammatica, perchè è possibile dimostrare che
+$\mathrm{i}$ due approcci, pur così differenti in natura, sono tuttavia tra loro
+equivalenti e dunque ugualmente accettabili (o rifiutabili). Conseguentemente le
+due tesi, quella sulle macchine di Turing e quella di Church, sono coincidenti,
+tanto che le abbiamo già implicitamente congiunte nel Capitolo 2 quando abbiamo
+parlato tranquillamente di \textit{Tesi di Church-Turing}.\\
+Non va poi trascurato che
+proprio questa equivalenza, e dunque la coincidenza concentrica di punti di
+vista tanto diversi verso lo stesso obiettivo, è argomento che corrobora e
+sostiene ulteriormente i due approcci alla calcolabilità, tanto quello di Turing
+che quello di Church. Ma passiamo alla enunciazione e alla dimostrazione del
+teorema di equivalenza.
+
+\paragraph{Teorema 4.4.1} \textit{Sia $f$ una funzione parziale $k$-aria (dai naturali ai naturali).
+    Allora f è calcolabile (nel senso di Turing) se e solo se f è parziale
+    ricorsiva.}\\
+
+In particolare, quando $f$ è totale, si può dedurre che $f$ è calcolabile
+(secondo Turing) se e solo se è ricorsiva. Si può poi dedurre facilmente:
+
+\paragraph{Corollario 4.4.2} \textit{Sia $L \subseteq \mathbb{N}^{k}$. Allora $L$ è
+    decidibile (secondo Turing) se e solo se $L$ è ricorsivo.}\\
+
+Basta infatti osservare che un insieme $L$ di $k$-uple di naturali è decidibile
+(secondo Turing) se e solo se la sua funzione caratteristica è calcolabile
+(secondo Turing). Passiamo ora alla dimostrazione del teorema: ne daremo solo i
+cenni principali, evitando di disperderci in troppi dettagli.
+
+\begin{proof}
+    Assumiamo dapprima $f$ parziale ricorsiva e verifichiamo che $f$
+    è calcolabile secondo Turing. Ricordiamo che le funzioni ricorsive sono quelle
+    che si ottengono dalle funzioni iniziali applicando un numero finito di volte
+    $\mathrm{i}$ procedimenti di composizione, recursione e minimalizzazione. Ci
+    basta allora dimostrare quanto segue:
+
+    \begin{enumerate}
+        \item[(i)] le funzioni iniziali sono calcolabili
+            con MdT,
+        \item[(ii)] funzioni che si ottengono per composizione, oppure per recursione,
+            oppure per minimalizzazione da funzioni che sono calcolabili con MdT sono a loro
+            volta calcolabili con MdT.
+    \end{enumerate}
+
+    Le relative verifiche sono più noiose che difficili. Del resto, $(i)$ è già
+    stato trattato nel Capitolo 2 almeno a livello di esercizi e quando abbiamo
+    introdotto composizione, recursione e minimalizzazione, abbiamo anche accennato
+    ad algoritmi
+\end{proof}
