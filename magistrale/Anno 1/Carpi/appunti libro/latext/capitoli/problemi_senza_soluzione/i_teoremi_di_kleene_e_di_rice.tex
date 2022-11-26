@@ -121,5 +121,68 @@ $$
     rispettivamente il primo indice per cui $\phi_i \in F$, cloè $i \in S$, il primo
     indice per cui $\phi_j \notin F$, cioè $j \notin S$. Siccome $S$ è decidibile,
     possiamo calcolare esplicitamente $i$ e $j$, ricorrendo a una MdT $M$
+    che decide $S$. Basta che facciamo operare $M$ su $0$, poi su $1$, e così via
+    finché necessario. Se $M$ stabilisce che $0$ è in $S$, si pone $i=0$,
+    altrimenti si deduce $j=0$; dopo di che si passa a $1$. Se si è ottenuto
+    $i=0$, e $M$ dichiara che $1 \notin S$, si pone $j=1$; altrimenti per $i=0$
+    e $1 \in S$, si passa a 2, certi di incontrare prima o poi nella sequenza
+    dei naturali il nostro $j$. Analogamente si procede per $j=0$. Di
+    conseguenza la funzione $g$ tale che, per ogni $x \in \mathbb{N}$,
 
+    \[
+        g(x)= \begin{cases}i & \text { se } x \notin S \\ j & \text { se } x \in S\end{cases}
+    \]
+
+    risulta calcolabile, e anche ovviamente totale. Inoltre si ha, per ogni $x \in
+        \mathbb{N}$, che
+
+    \[
+        g(x) \in S \text { se e solo se } x \notin S,
+    \]
+
+    cioè
+
+    \[
+        \phi_{g(x)} \in F \text { se e solo se } \phi_x \notin F \text {. }
+    \]
+
+    Ma, siccome $g$ è totale calcolabile, il teorema di Kleene ci fornisce un
+    naturale $e$ tale che $\phi_{g(e)}=\phi_e$, e questo conduce alla contraddizione
+
+    \[
+        \phi_e \in F \text { se e solo se } \phi_e \notin F \text {. }
+    \]
+
+    Dunque $S$ non può essere decidibile.
 \end{proof}
+
+Il teorema di Rice conferma
+l'indecidibilità di certi linguaggi già incontrati in questo capitolo.
+
+\paragraph{Esempio.}
+L'insieme $T=\left\{x \in \mathbb{N}: \varphi_x\right.$ è totale $\}$
+corrisponde alla famiglia $F$ delle funzioni calcolabili totali, che non è vuota
+ma neppure esaurisce la classe delle funzioni calcolabili. Così il teorema di
+Rice si applica e garantisce che $T=\left\{x \in \mathbb{N}: \varphi_x \in
+    F\right\}$ non è decidibile.\\
+Lo stesso si può affermare di $E=\left\{x \in
+    \mathbb{N}: \varphi_x=i d\right\}$, per il quale $F$ si riduce alla sola
+funzione identità.\\
+
+Le conseguenze del Teorema di Rice in termini di teoria della programmazione
+sono particolarmente significative. Infatti, in tale contesto, si deve ammettere
+l'impossibilità di provare esplicitamente specifiche proprietà, come la
+costanza, la crescenza, la monotonia, e così via, delle funzioni calcolate da
+programmi. Infatti la classe delle funzioni che verificano una di queste
+proprietà corrisponde alle ipotesi del teorema di Rice.\\
+In particolare,
+un'interessante applicazione, già discussa precedentemente, riguarda
+l'impossibilità di decidere la correttezza di un programma. Infatti la questione
+si traduce nel considerare l'insieme:
+
+\[
+    S=\left\{x \in \mathbb{N}: \phi_x=f\right\}
+\]
+
+dove $f$ è la \textit{specifica} del programma e le varie $\phi_x$ rappresentano le
+implementazioni di $f$. Dal teorema di Rice segue che $S$ è indecidibile.
