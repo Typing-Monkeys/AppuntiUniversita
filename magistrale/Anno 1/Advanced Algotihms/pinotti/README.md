@@ -556,3 +556,73 @@ con array di 10 GB 😲. Questo problema può essere risolto utilizzando un appr
 _divide et impera_ che va a rendere lineare il costo dello spazio ( $O(n + m)$ ).
 
 #### Funzionamento 
+
+Come prima cosa definiamo un algoritmo Space Efficient Alignment che ci permette di trovare
+la soluzione ottima utilizzando il minor spazio possibile.
+Per farlo notiamo che la funzione $OPT$ dipende solamente da una colonna precedente
+di quella che si sta analizzando, dunque basterà caricarsi in memoria una matrice $mx2$
+riducendo così il costo spaziale ad $m$.
+Tuttavia utilizzando questo metodo non e possibile ricurvare l'alignment effettivo 
+perché non ci bastano le informazioni.
+
+Lo pseudo-codice dell'algoritmo appena definito è il seguente:
+
+```javascript
+function Space-Efficient-Alignment(X,Y) {
+    var B = Matrix(m, 2)
+    Initialize B[i, 0]= iδ for each i // (just as in column 0 of A)
+    
+    for (j in 1...n) {
+        B[0, 1]= jδ (since this corresponds to entry A[0, j])
+        
+        for (i in 1...m) {
+            B[i, 1]= min[αxiyj + B[i − 1, 0],δ + B[i − 1, 1], δ + B[i, 0]]
+
+        }
+        
+        Move column 1 of B to column 0 to make room for next iteration:
+        Update B[i, 0]= B[i, 1] for each i
+    }
+}
+```
+
+Possiamo quindi utilizzare un approccio _divide et impera_ che incorpora 2 tecniche 
+diverse di programmazione dinamica per sfruttare questo approccio appena definito e riuscire
+a trovare anche l'alignment in spazio lineare.
+Definiamo quindi due funzioni:
+
+- $f(i, j)$ : è la funzione definita per l'algoritmo di Sequence Alignment di base (analoga a $OPT(i,j)$ )
+- $g(i, j)$ : è l'analogo al contrario di $f$ ed è definito dalla seguente funzione ricorsiva: 
+per $i < m$ e $j < n$ : $g(i,j) = min[a_{x+1y+1} + g(i+1, j+1), \delta + g(i, j+1), \delta + g(i+1, j)]$ 
+
+Possiamo notare che la ricorsione $f$ procede a ritroso partendo dal fondo mentre la ricorsione $g$ 
+procede in avanti partendo dall'inizio.
+Possiamo sfruttare questo fatto per provare ad utilizzare lo Space Efficiente Sequence Alignment Algorithm
+combinato ad un approccio _divide et impera_ e un array di supporto $P$ per riuscire a calcolare
+il Sequence Alignment in spazio lineare, aumentando solo di una costatane la complessità temporale.
+
+Possiamo riassumere il tutto con il seguente pseudo-codice:
+
+```javascript
+function Divide-and-Conquer-Alignment(X,Y) {
+    var m = length(X)
+    var n = length(Y)
+
+    if (m <= 2 or n <= 2) {
+        Compute optimal alignment using Alignment(X,Y)
+    }
+    
+    Space-Efficient-Alignment(X, Y[1 : n/2])
+    Backward-Space-Efficient-Alignment(X, Y[n/2 + 1 : n])
+
+    Let q be the index minimizing f(q, n/2) + g(q, n/2)
+    Add (q, n/2) to global list P
+
+    Divide-and-Conquer-Alignment(X[1 : q],Y[1 : n/2])
+    Divide-and-Conquer-Alignment(X[q + 1 : n],Y[n/2 + 1 : n])
+    
+    return P
+}
+```
+
+![seq align recurrence](latex/capitoli/imgs/seq_align_recurrence.png)
