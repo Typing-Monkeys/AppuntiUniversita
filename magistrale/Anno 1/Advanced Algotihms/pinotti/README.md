@@ -525,7 +525,7 @@ In base alle condizioni espresse in precedenza la funzione $OPT(m,n)$ assumerà 
 Utilizzando dunque gli stessi argomenti per per i sotto problemi per l'allineamento di costo minimo tra $X$ e $Y$ otteniamo la definizione generale di $OPT(i,j)$:
 
 > L'allineamento di costo minimo soddisfa la seguente ricorsione per $i \geq 1$ e $j \geq 1$:
-> $$ OPT(i,j) = min[a_(x_i y_j) + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)] $$
+> $$OPT(i,j) = min[a_{(x_i y_j)} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)]$$
 
 Dunque così abbiamo ottenuto la nostra funzione di ricorsione e possiamo procedere alla scrittura dello pseudo codice.
 
