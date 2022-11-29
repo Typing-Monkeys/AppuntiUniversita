@@ -547,4 +547,12 @@ function alignment(X,Y) {
 
 Il running time è di $O(mn)$
 
+### Sequence Alignment in Spazio Lineare
 
+Come abbiamo appena visto l'algoritmo ha sia costo spaziale che temporale uguale a $O(mn)$ e se 
+come input consideriamo le parole della lingua inglese non risulta essere un grande problema, ma 
+se consideriamo genomi con 10 miliardi di caratteri potrebbe risultare difficile poter lavorare 
+con array di 10 GB 😲. Questo problema può essere risolto utilizzando un approccio 
+_divede et impera_ che va a rendere lineare il costo dello spazio ( $O(n + m)$ ).
+
+#### Funzionamento 
