@@ -490,16 +490,16 @@ quindi è necessario fornire una definizione di **similarità**.
 Come prima definizione di similarità possiamo dire che minore sarà il numero di caratteri che non corrispondono, maggiore sarà la similarità tra le parole.
 Questa problematica è anche un tema centrale della biologia molecolare, e proprio grazie ad un biologo abbiamo una definizione rigorosa e soddisfacente di similarità.
 Prima di dare una definizione similarità dovremo però darne una di **allineamento**:
-> Supponiamo di avere due stringhe $X$ e $Y$, che consistono rispettivamente della sequenza di simboli $x_1 X_2 \ldots x_m$ e $y_1 y_2 \ldots y_n$, e 
+> Supponiamo di avere due stringhe $X$ e $Y$, che consistono rispettivamente della sequenza di simboli $x_1 x_2 \ldots x_m$ e $y_1 y_2 \ldots y_n$, e 
 > consideriamo gli insiemi $\{1,2,\ldots ,m\}$ e $\{1,2,\ldots ,n\}$ che rappresentano le varie posizioni nelle stringhe $X$ e $Y$, ora si considera un
 > **Matching** di queste due parole(un matching è stato definito nella parte precedente e si tratta di un insieme di coppie ordinate con la proprietà che ogni oggetto si trova al più in una sola coppia).
-> Diciamo ora che un matching $M$ di questi due insiemi è un allineamento se gli elementi di varie coppie non si incrociano: se $(i,j),(i^',j^')\in M$
-> e $i<i^'$, allora $j<j^'$.
+> Diciamo ora che un matching $M$ di questi due insiemi è un allineamento se gli elementi di varie coppie non si incrociano: se $(i,j),(i^{\prime},j^{\prime}) \in M$
+> e $i < i^{\prime}$, allora $j < j^{\prime}$.
 
 Ora la nostra definizione di similarità si baserà sul trovare il miglior allineamento, seguendo i seguenti criteri:
 - C'è un parametro $\delta>0$ che definisce la **gap penalty** , ovvero ogni volta che un simbolo di una parola non corrisponde ad un simbolo dell'altra.
 - Per ogni coppia di lettere $p,q$ del nostro alfabeto, se c'è un accoppiamento errato si paga il corrispondente **mismatch cost** $a_(p,q)$.
-- Il costo di M è la somma del suo gap e mismatch cost, e l'obiettivo sarà quello di minimizzarlo.
+- Il costo di $M$ è la somma del suo gap e mismatch cost, e l'obiettivo sarà quello di minimizzarlo.
 
 ### Creazione dell'algoritmo
 Ora affronteremo il problema di calcolarci questo costo minimo, e l'allineamento ottimale che lo fornisce date le coppie $X$ e $Y$.
@@ -510,12 +510,12 @@ Dato l'allineamento ottimale $M$ allora:
 
 Tuttavia questa semplice distinzione non è sufficiente, quindi supponiamo di aggiungere anche il seguente fatto elementare:
 
-> Sia $M$ un qualsiasi allineamto di $X$ e $Y$. se $(m,n) \notin M$, allora o l'$m-esima$ posizione di $X$ o l'$n-esima$ posizione di $Y$ non è in un mathcing di $M$.
+> Sia $M$ un qualsiasi allineamto di $X$ e $Y$. se $(m,n) \notin M$, allora o l' $m-esima$ posizione di $X$ o l' $n-esima$ posizione di $Y$ non è in un mathcing di $M$.
 
 Dire questo equivale a riscrivere le due condizioni sopra come tre, dunque in un allineamento ottimo $M$ almeno una deve essere vera:
 - $(m,n) \in M$ 
-- l'$m-esima$ posizione di $X$ non è nel matching
-- l'$n-esima$ posizione di $Y$ non è nel matching
+- l' $m-esima$ posizione di $X$ non è nel matching
+- l' $n-esima$ posizione di $Y$ non è nel matching
 
 Ora definiamo la funzione di costo minimo $OPT(i,j)$ come costo dell'alignmet tra $x_1 x_2 \ldots x_i$ e $y_1 y_2 \ldots y_j$.
 In base alle condizioni espresse in precedenza la funzione $OPT(m,n)$ assumerà il costo relativo più $OPT(m-1,n-1)$, in particolare (i tre casi citati sopra):
@@ -525,9 +525,7 @@ In base alle condizioni espresse in precedenza la funzione $OPT(m,n)$ assumerà 
 Utilizzando dunque gli stessi argomenti per per i sotto problemi per l'allineamento di costo minimo tra $X$ e $Y$ otteniamo la definizione generale di $OPT(i,j)$:
 
 > L'allineamento di costo minimo soddisfa la seguente ricorsione per $i \geq 1$ e $j \geq 1$:
-> $$
->   OPT(i,j) = min[a_(x_i y_j) + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)]
-> $$
+> $$ OPT(i,j) = min[a_(x_i y_j) + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)] $$
 
 Dunque così abbiamo ottenuto la nostra funzione di ricorsione e possiamo procedere alla scrittura dello pseudo codice.
 
@@ -536,13 +534,17 @@ function alignment(X,Y) {
     Array A[0 . . . m,0... n]
     Initialize A[i, 0]= iδ for each i
     Initialize A[0, j]= jδ for each j
-    For j = 1, . . . , n
-        For i = 1, . . . , m
-            Use the recurrence (6.16) to compute A[i, j]
-        Endfor
-    Endfor
-    Return A[m, n]
+
+    for (j in 1...n) {
+      for (i in 1...m) {
+        Use the recurrence (6.16) to compute A[i, j]
+      }
+    }
+
+   return A[m, n]
 }
 ```
 
 Il running time è di $O(mn)$
+
+
