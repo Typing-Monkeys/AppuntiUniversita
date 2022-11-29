@@ -1,4 +1,4 @@
-\chapter{RNA Secondary Structure \normalfont{\emoji{dna}}}
+\section{RNA Secondary Structure \normalfont{\emoji{dna}}}
 
 La ricerca della struttura secondaria dell'RNA è un problema a 2 variabili
 risolvibile tramite il paradigma della programmazione dinamica. Come sappiamo il
@@ -15,11 +15,11 @@ segue il seguente schema:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=8cm, keepaspectratio]{capitoli/imgs/rna_esempio1.png}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/dynamic_programming/imgs/rna_esempio1.png}
     \caption{Esempio di una struttura secondari di RNA} %%TODO: ricontrollare !!
 \end{figure}
 
-\section{Il Problema}
+\subsection{Il Problema}
 
 In questo problema si vuole trovare la struttura secondaria dell'RNA che abbia
 energia libera maggiore (il maggior numero di coppie di basi possibili). Per
@@ -43,22 +43,22 @@ condizioni:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm, keepaspectratio]{capitoli/imgs/rna_esempio2.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/dynamic_programming/imgs/rna_esempio2.png}
     \caption{La figura \textit{(a)} rappresenta un esempio di \textit{Sharp
             Turn}, mentre la figura \textit{(b)} mostra una
         \textit{Crossing Condition} dove il filo blu non dovrebbe esistere.}
 \end{figure}
 
-\section{\goal}
+\subsection{\goal}
 
 Il goal di questo problema è di massimizzare la quantità di coppie che si possono
 formare all'interno della struttura secondaria di una data sequenza di RNA.
 
-\section{Costi}
+\subsection{Costi}
 
 L'algoritmo complessivo ha costo $O(n^3)$.
 
-\section{Funzionamento}
+\subsection{Funzionamento}
 
 \paragraph{First Attempt.}
 Come primo tentativo potremmo basarci sul seguente sotto-problema: affermiamo che
@@ -83,7 +83,7 @@ causa di ciò risulta necessario aggiungere una variabile.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm, keepaspectratio]{capitoli/imgs/rna_funzionamento.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/dynamic_programming/imgs/rna_funzionamento.png}
     \caption{Esempio di
         utilizzo di una sola variabile \textit{(a)} o con due \textit{(b)}.}
 \end{figure}
@@ -115,7 +115,7 @@ ricorsione come segue:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, keepaspectratio]{capitoli/imgs/rna_calcolo.png}
+    \includegraphics[width=\textwidth, keepaspectratio]{capitoli/dynamic_programming/imgs/rna_calcolo.png}
     \caption{Iterazioni dell'algoritmo su un campione del problema in questione $ACCGGUAGU$}
 \end{figure}
 \newpage

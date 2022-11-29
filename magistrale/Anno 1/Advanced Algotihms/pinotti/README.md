@@ -62,7 +62,7 @@ Per discutere il problema dell'Interval Scheduling, utilizzeremo la seguente not
 - $\mathcal{O}_j$: rappresenta la soluzione ottima al problema calcolato sull'insieme $\{1, \ldots, j\}$
 - $OPT(j)$: rappresenta il valore della soluzione ottima $\mathcal{O}_j$
 
-![weighted problem](./latex/capitoli/imgs/weighted_problem.png)
+![weighted problem](./latex/capitoli/dynamic_programming/imgs/weighted_problem.png)
 
 ### Goal ⚽
 
@@ -100,7 +100,7 @@ function Compute-Opt(j){
 
 Costruendo l'albero della ricorsione dell'algoritmo si nota che la complessità temporale è esponenziale! 😲
 
-![opt albero](./latex/capitoli/imgs/opt_albero.png)
+![opt albero](./latex/capitoli/dynamic_programming/imgs/opt_albero.png)
 
 Una soluzione è quella di utilizzare la tecnica della **Memoization** che evita di ricalcolare $OPT$ per gli indici già calcolati precedentemente, rendendo così il costo temporale uguale ad $O(n)$ 🧑‍🦼.
 
@@ -149,7 +149,7 @@ La formulazione del problema è la seguente:
 > $$Error(L, P) = \sum_{i=1}^{n} (y_i - ax_i - b)^2$$
 
 
-![linear least](./latex/capitoli/imgs/linear_least.png)
+![linear least](./latex/capitoli/dynamic_programming/imgs/linear_least.png)
 
 #### Goal 
 
@@ -167,7 +167,7 @@ $$
 Le formule appena citate sono utilizzabili solo se i punti di $P$ hanno un andamento
 che è abbastanza lineare ma falliscono in altre circostanze.
 
-![segmented linear least](./latex/capitoli/imgs/segmente_linear_least.png) 
+![segmented linear least](./latex/capitoli/dynamic_programming/imgs/segmente_linear_least.png) 
 
 Come è evidente (_lapalissiano 💎_) dalla figura non è possibile trovare una linea
 che approssimi in maniera soddisfacente i punti, dunque per risolvere il problema
@@ -347,7 +347,7 @@ diversi che devono essere risolti per ottenere la soluzione ottima. Questo fatto
 si riflette in come viene popolato l'array di memoization dei valori di $OPT$
 che verranno salvati in un array bidimensionale.
 
-![knapsack table](latex/capitoli/imgs/knapsac_table.png)
+![knapsack table](latex/capitoli/dynamic_programming/imgs/knapsac_table.png)
 
 > Il costo in tempo di questa implementazione è di $O(nW)$.
 
@@ -381,7 +381,7 @@ $$
     A - U \ \ \ \text{ e } \ \ \ C - G \ \ \ \text{ (l'ordine non conta)}
 $$
 
-![crocifisso](./latex/capitoli/imgs/rna_esempio1.png)
+![crocifisso](./latex/capitoli/dynamic_programming/imgs/rna_esempio1.png)
 
 ### Il Problema
 
@@ -398,7 +398,7 @@ $i,j \in \{1,2,\ldots,n\}$, che soddisfa le seguenti condizioni:
 3. $S$ è un _matching_: nessuna base compare in più di una coppia.
 4. **Non crossing condition**: se $(i, j)$ e $(k,l)$ sono due coppie in $S$ allora **non** può avvenire che $i < k < j < l$.
 
-![esempio](./latex/capitoli/imgs/rna_esempio2.png)
+![esempio](./latex/capitoli/dynamic_programming/imgs/rna_esempio2.png)
 <br>
 _La figura (a) rappresenta un esempio di Sharp Turn, mentre la figura (b) mostra una
 Crossing Condition dove il filo blu non dovrebbe esistere._
@@ -430,7 +430,7 @@ $b_{t+1} \ldots b_{j-1}$.
 Il primo si risolve con $OPT(t-1)$ ma il secondo, dato che non inizia con indice $1$, non è
 nella lista dei nostri sotto-problemi. A causa di ciò risulta necessario aggiungere una variabile.
 
-![rna funzionamento](./latex/capitoli/imgs/rna_funzionamento.png)
+![rna funzionamento](./latex/capitoli/dynamic_programming/imgs/rna_funzionamento.png)
 <br>
 _Esempio di utilizzo di una sola variabile (a) o con due (b)_
 
@@ -453,7 +453,7 @@ Possiamo esprimere formalmente la ricorsione come segue:
 > dove il massimo è calcolato su $t$ tale che $b_t$ e $b_j$ siano una coppia di basi consentita
 >
 
-![calcolo](./latex/capitoli/imgs/rna_calcolo.png) 
+![calcolo](./latex/capitoli/dynamic_programming/imgs/rna_calcolo.png) 
 
 
 _Iterazioni dell'algoritmo su un campione del problema in questione_ $ACCGGUAGU$
@@ -626,4 +626,4 @@ function Divide-and-Conquer-Alignment(X,Y) {
 }
 ```
 
-![seq align recurrence](latex/capitoli/imgs/seq_align_recurrence.png)
+![seq align recurrence](latex/capitoli/dynamic_programming/imgs/seq_align_recurrence.png)

@@ -9,6 +9,7 @@
 \usepackage{hyperref}
 \usepackage{wrapfig}
 \usepackage{fancyhdr}
+% \usepackage{tcolorbox}
 
 % forza le footnote a stare il più in basso possibile
 \usepackage[bottom]{footmisc}
@@ -102,6 +103,17 @@
 
 %% -----
 
+% box around text
+\newenvironment{boxed}
+    {\begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }
 
 % Resetta la numerazione dei chapter quando
 % una nuova part viene creata
@@ -152,11 +164,12 @@
 
 \include{quote/main.tex}
 
-\include{capitoli/1-introduzione_all_programmazione_dinamica.tex}
-\include{capitoli/2-weighted_interval_scheduling.tex}
-\include{capitoli/3-least_squares_problem_multiway_choice.tex}
-\include{capitoli/4-subset_sum_e_knapsack_problem.tex}
-\include{capitoli/5-rna_secondary_structure.tex}
-
+% \include{capitoli/dynamic_programming/1-introduzione_all_programmazione_dinamica.tex}
+% \include{capitoli/dynamic_programming/2-weighted_interval_scheduling.tex}
+% \include{capitoli/dynamic_programming/3-least_squares_problem_multiway_choice.tex}
+% \include{capitoli/dynamic_programming/4-subset_sum_e_knapsack_problem.tex}
+% \include{capitoli/dynamic_programming/5-rna_secondary_structure.tex}
+% \include{capitoli/dynamic_programming/6-sequence_alignment.tex}
+\include{capitoli/dynamic_programming/main.tex}
 
 \end{document}

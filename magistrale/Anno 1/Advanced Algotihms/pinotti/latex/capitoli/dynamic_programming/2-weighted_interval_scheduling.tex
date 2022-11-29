@@ -1,4 +1,4 @@
-\chapter{Weighted Interval Scheduling\normalfont{\emoji{man-lifting-weights}}}
+\section{Weighted Interval Scheduling\normalfont{\emoji{man-lifting-weights}}}
 
 Questo algoritmo cerca di ottenere un insieme di intervalli non sovrapposti
 (\textit{overlapping}) che è il più grande possibile. Per la versione senza pesi
@@ -6,7 +6,7 @@ Questo algoritmo cerca di ottenere un insieme di intervalli non sovrapposti
 soluzione ottima, tuttavia nella versione pesata ($weight \neq 1$) sarà
 necessario utilizzare la programmazione dinamica.
 
-\section{Costi}
+\subsection{Costi}
 
 %% TODO: migliorare sta tabella
 \begin{center}
@@ -18,7 +18,7 @@ necessario utilizzare la programmazione dinamica.
     \end{tabular}
 \end{center}
 
-\section{Notazioni}
+\subsection{Notazioni}
 
 Per discutere il problema dell'Interval Scheduling, utilizzeremo la seguente
 notazione:
@@ -38,18 +38,18 @@ notazione:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=12cm, keepaspectratio]{capitoli/imgs/weighted_problem.png}
+    \includegraphics[width=12cm, keepaspectratio]{capitoli/dynamic_programming/imgs/weighted_problem.png}
     \caption{Istanza di un problema.}
 \end{figure}
 
-\section{\goal}
+\subsection{\goal}
 
 L'obiettivo del nostro problema attuale è quello di trovare un sottoinsieme $S
     \subseteq \{1, \ldots, n\}$ di intervalli mutualmente compatibili che vanno a
 massimizzare la somma dei pesi degli intervalli selezionati $\sum_{i \in S}
     v_i$.
 
-\section{Funzionamento}
+\subsection{Funzionamento}
 
 Come prima cosa definiamo il metodo per calcolare $OPT(j)$. Il problema è
 una \textit{scelta binaria} che va a decidere se l'intervallo di indice $j$
@@ -88,7 +88,7 @@ temporale è esponenziale \emoji{astonished} !
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=12cm, keepaspectratio]{capitoli/imgs/opt_albero.png}
+    \includegraphics[width=12cm, keepaspectratio]{capitoli/dynamic_programming/imgs/opt_albero.png}
     \caption{Sviluppo dell'albero di ricorsione per la risoluzione di un problema.}
 \end{figure}
 

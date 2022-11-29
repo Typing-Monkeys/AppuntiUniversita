@@ -1,6 +1,6 @@
-\chapter{Subset Sum \& Knapsack Problem \normalfont{\emoji{money-bag}}}
+\section{Subset Sum \& Knapsack Problem \normalfont{\emoji{money-bag}}}
 
-\section{Il Problema}
+\subsection{Il Problema}
 
 Il problema delle Subset Sum è formalmente definito come segue:\\
 
@@ -22,7 +22,7 @@ decrescente e prenderli, tuttavia questo approccio fallisce per determinati casi
 opzione sarà quella di provare con la programmazione dinamica \emoji{person-in-manual-wheelchair}.
 \newpage
 
-\section{\goal}
+\subsection{\goal}
 
 Possiamo riassumere il goal di questi problemi come segue:\\
 
@@ -32,7 +32,7 @@ limite $W$. L'obbiettivo è quello di selezionare un sottoinsieme $S$ degli ogge
 tale che $\sum_{i \in S}w_i \leq W$ e che questa sommatoria abbia valore più
 grande possibile.
 
-\section{Costi}
+\subsection{Costi}
 
 \begin{center}
     \begin{tabular}{|c|c|}
@@ -43,7 +43,7 @@ grande possibile.
     \end{tabular}
 \end{center}
 
-\section{Funzionamento}
+\subsection{Funzionamento}
 
 Come per tutti gli algoritmi dinamici dobbiamo cercare dei sotto-problemi e
 possiamo utilizzare la stessa intuizione avuto per il problema dello scheduling
@@ -94,7 +94,7 @@ che verranno salvati in un array bidimensionale.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm, keepaspectratio]{capitoli/imgs/knapsac_table.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/dynamic_programming/imgs/knapsac_table.png}
     \caption{Esempio di come viene popolato l'array $M$ per il problema del Knapsack.}
 \end{figure}
 

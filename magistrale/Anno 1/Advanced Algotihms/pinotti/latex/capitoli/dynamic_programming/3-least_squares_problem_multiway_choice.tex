@@ -1,4 +1,4 @@
-\chapter{Least Squares Problem: Multi-way Choice \normalfont{\emoji{motorway}}}
+\section{Least Squares Problem: Multi-way Choice \normalfont{\emoji{motorway}}}
 
 Nel capitolo precedente l'algoritmo richiedeva una ricorsione basata su scelte
 binarie, in questo capitolo invece introdurremo un algoritmo che richiede ad
@@ -6,9 +6,9 @@ ogni step un numero di scelte polinomiali (\textit{multi-way choice}). Vedremo
 come la programmazione dinamica si presta molto bene a risolvere questi
 problemi.
 
-\section{Linear Least Square}
+\subsection{Linear Least Square}
 
-\subsection{Il Problema}
+\subsubsection{Il Problema}
 
 La formulazione del problema è la seguente:
 
@@ -24,12 +24,12 @@ punti in $P$. Formalmente:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=6cm, keepaspectratio]{capitoli/imgs/linear_least.png}
+    \includegraphics[width=6cm, keepaspectratio]{capitoli/dynamic_programming/imgs/linear_least.png}
     \caption{Esempio di una tipica istanza e soluzione del problema
         \textit{Linear Least}}
 \end{figure}
 
-\subsection{\goal}
+\subsubsection{\goal}
 
 È intuibile che il goal dell'algoritmo è quello di cercare la linea con errore
 minimo, che può essere facilmente trovata utilizzando l'analisi matematica.
@@ -39,14 +39,14 @@ La linea di errore minimo è $y = ax + b$ dove:
     a = \frac{n \sum_{i} x_i y_i - (\sum_{i} x_i) (\sum_{i} y_i)}{n \sum_{i} x_i^2 - (\sum_{i} x_i)^2} \ \ \  \ \ b = \frac{\sum_{i} y_i - a \sum_{i} x_i}{n}
 \]
 
-\section{Segmented Least Square}
+\subsection{Segmented Least Square}
 
 Le formule appena citate sono utilizzabili solo se i punti di $P$ hanno un
 andamento che è abbastanza lineare ma falliscono in altre circostanze.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=8cm, keepaspectratio]{capitoli/imgs/segmente_linear_least.png}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/dynamic_programming/imgs/segmente_linear_least.png}
     \caption{Esempio di funzione non risolvibile con Linear Least Square}
 \end{figure}
 
@@ -57,7 +57,7 @@ condizione che sia solo una la linea. Questo però implica dover riformulare il
 goal che altrimenti risulterebbe banale (si fanno $n$ linee che passano per ogni
 punto).
 
-\subsection{Costi}
+\subsubsection{Costi}
 
 La parte che computa gli errori ha costo in tempo $O(n^3)$ (si può portare a
 $O(n^2)$).
@@ -65,7 +65,7 @@ La parte che trova il valore ottimo ha costo $O(n^2)$.\\
 
 In spazio l'algoritmo ha costo $O(n^2)$ ma può essere ridotto a $O(n)$
 
-\subsection{\goal}
+\subsubsection{\goal}
 
 Formalmente, il problema è espresso come segue:
 
@@ -92,7 +92,7 @@ termini:
 Il goal del Segmented Least Square Problem è quindi quello di trovare la
 partizione di \textbf{penalità minima}.
 
-\subsection{Funzionamento}
+\subsubsection{Funzionamento}
 
 Per come è fatta la programmazione dinamica noi vogliamo suddividere il problema
 in sotto-problemi e per farlo partiamo dall'osservazione che l'ultimo punto
