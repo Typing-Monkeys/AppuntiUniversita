@@ -320,7 +320,7 @@ $$
     OPT(i, w) = \max_{S} \sum_{j \in S} w_j
 $$
 
-Possiamo formalizzare il tutto con il seguente pseudocodice:
+Possiamo formalizzare il tutto con il seguente pseudo-codice:
 
 ```javascript
 function Subset-Sum(n, W) {
@@ -342,7 +342,7 @@ function Subset-Sum(n, W) {
 }
 ```
 
-La particolarità di questo algoritmo è che avremmo 2 insiemi di sottoproblemi
+La particolarità di questo algoritmo è che avremmo 2 insiemi di sotto problemi
 diversi che devono essere risolti per ottenere la soluzione ottima. Questo fatto
 si riflette in come viene popolato l'array di memoization dei valori di $OPT$
 che verranno salvati in un array bidimensionale.
@@ -415,7 +415,7 @@ L'algoritmo complessivo ha costo $O(n^3)$.
 ### Funzionamento
 
 <!-- in latex \paragraph{First Attempt}-->
-Come primo tentativo potremmo basarci sul seguente sottoproblema: affermiamo che
+Come primo tentativo potremmo basarci sul seguente sotto-problema: affermiamo che
 $OPT(j)$ è il massimo numero di coppie di basi sulla struttura secondaria $b_1 b_2 \ldots b_j$, per
 la Non Sharp Turn Condition sappiamo che $OPT(j) = 0$ per $j \leq 5$ e sappiamo anche
 che $OPT(n)$ è la soluzione che vogliamo trovare. Il problema ora sta nell'esprimere
@@ -425,10 +425,10 @@ $OPT(j)$ ricorsivamente. Possiamo parzialmente farlo sfruttando le seguenti scel
 - $j$ si accoppia con $t$ per qualche $t \leq j - 4$
 
 Per il primo caso basta cercare la soluzione per $OPT(j - 1)$, nel secondo caso
-invece se teniamo conto della Non Crossing Condition, possiamo isolare due nuovi sottoproblemi: uno sulle basi $b_1 b_2 \ldots b_{t-1}$ e l'altro sulle basi 
+invece se teniamo conto della Non Crossing Condition, possiamo isolare due nuovi sotto-problemi: uno sulle basi $b_1 b_2 \ldots b_{t-1}$ e l'altro sulle basi 
 $b_{t+1} \ldots b_{j-1}$.
 Il primo si risolve con $OPT(t-1)$ ma il secondo, dato che non inizia con indice $1$, non è
-nella lista dei nostri sottoproblemi. A causa di ciò risulta necessario aggiungere una variabile.
+nella lista dei nostri sotto-problemi. A causa di ciò risulta necessario aggiungere una variabile.
 
 ![rna funzionamento](./latex/capitoli/imgs/rna_funzionamento.png)
 <br>
@@ -444,7 +444,7 @@ sopra:
 - $j$ si accoppia con $t$ per qualche $t \leq j - 4$
 
 Nel primo caso avremmo che $OPT(i,j) = OPT(i, j-1)$, nel secondo caso possiamo
-ricorrere su due sottoproblemi $OPT(i, t-1)$ e $OPT(t+1, j-1)$ affinchè venga rispettata
+ricorrere su due sotto-problemi $OPT(i, t-1)$ e $OPT(t+1, j-1)$ affinché venga rispettata
 la non crossing condition.
 Possiamo esprimere formalmente la ricorsione come segue:
 
@@ -458,7 +458,7 @@ Possiamo esprimere formalmente la ricorsione come segue:
 
 _Iterazioni dell'algoritmo su un campione del problema in questione_ $ACCGGUAGU$
 
-Possiamo infine formalizzare il tutto con il seguente pseudocodice:
+Possiamo infine formalizzare il tutto con il seguente pseudo-codice:
 
 ```javascript
 Initialize OPT(i, j) = 0 whenever i ≥ j − 4
@@ -473,7 +473,7 @@ for (k in 5 ... n − 1) {
 return OPT(1, n)
 ```
 
-Ci sono $O(n^2)$ sottoproblemi da risolvere e ognuno richiede tempo $O(n)$, quindi
+Ci sono $O(n^2)$ sotto-problemi da risolvere e ognuno richiede tempo $O(n)$, quindi
 il running time complessivo è di $O(n^3)$.
 
 
@@ -482,7 +482,7 @@ il running time complessivo è di $O(n^3)$.
 Il problema del Sequence Alignment consiste nel riuscire a comparare delle stringhe, come per esempio quando si effettua
 un typo in un motore di ricerca e quello ci fornisce l'alternativa corretta.
 Una prima idea potrebbe essere quella di **allineare** le due parole lettera per lettera, riempendo gli eventuali spazi bianchi, e 
-vedento di quanto le due differiscono. Tuttavia ci sono varie possibilità con cui due parole di lunghezza diversa possono essere confrontate,
+vedendo di quanto le due differiscono. Tuttavia ci sono varie possibilità con cui due parole di lunghezza diversa possono essere confrontate,
 quindi è necessario fornire una definizione di **similarità**.
 
 ### Il Problema
@@ -505,12 +505,12 @@ Ora la nostra definizione di similarità si baserà sul trovare il miglior allin
 Ora affronteremo il problema di calcolarci questo costo minimo, e l'allineamento ottimale che lo fornisce date le coppie $X$ e $Y$.
 Come al solito proveremo con un approccio di programmazione dinamica, e per realizzare l'algoritmo individuiamo come per altri algoritmi già visti una scelta binaria.
 Dato l'allineamento ottimale $M$ allora:
-- $(m,n) \in M$ (quidni gli ultimi due simboli delle 2 strighe sono in un matching)
-- $(m,n) \notin M$ (gli ultimi simoboli delle due strighe non sono in un matching)
+- $(m,n) \in M$ (quindi gli ultimi due simboli delle 2 stringhe sono in un matching)
+- $(m,n) \notin M$ (gli ultimi simboli delle due stringhe non sono in un matching)
 
 Tuttavia questa semplice distinzione non è sufficiente, quindi supponiamo di aggiungere anche il seguente fatto elementare:
 
-> Sia $M$ un qualsiasi allineamto di $X$ e $Y$. se $(m,n) \notin M$, allora o l' $m-esima$ posizione di $X$ o l' $n-esima$ posizione di $Y$ non è in un mathcing di $M$.
+> Sia $M$ un qualsiasi allineamento di $X$ e $Y$. se $(m,n) \notin M$, allora o l' $m-esima$ posizione di $X$ o l' $n-esima$ posizione di $Y$ non è in un matching di $M$.
 
 Dire questo equivale a riscrivere le due condizioni sopra come tre, dunque in un allineamento ottimo $M$ almeno una deve essere vera:
 - $(m,n) \in M$ 
@@ -553,6 +553,6 @@ Come abbiamo appena visto l'algoritmo ha sia costo spaziale che temporale uguale
 come input consideriamo le parole della lingua inglese non risulta essere un grande problema, ma 
 se consideriamo genomi con 10 miliardi di caratteri potrebbe risultare difficile poter lavorare 
 con array di 10 GB 😲. Questo problema può essere risolto utilizzando un approccio 
-_divede et impera_ che va a rendere lineare il costo dello spazio ( $O(n + m)$ ).
+_divide et impera_ che va a rendere lineare il costo dello spazio ( $O(n + m)$ ).
 
 #### Funzionamento 
