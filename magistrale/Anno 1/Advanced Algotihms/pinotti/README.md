@@ -531,7 +531,8 @@ Dunque così abbiamo ottenuto la nostra funzione di ricorsione e possiamo proced
 
 ```javascript
 function alignment(X,Y) {
-    Array A[0 . . . m,0... n]
+    var A = Matrix(m, n)
+    
     Initialize A[i, 0]= iδ for each i
     Initialize A[0, j]= jδ for each j
 
