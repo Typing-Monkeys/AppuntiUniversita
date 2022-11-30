@@ -627,3 +627,115 @@ function Divide-and-Conquer-Alignment(X,Y) {
 ```
 
 ![seq align recurrence](latex/capitoli/dynamic_programming/imgs/seq_align_recurrence.png)
+
+## Optimal Binary Search Trees 🌲
+
+In questo capitolo andremo a cercare un approccio di programmazione dinamica per ottimizzare la ricerca in un
+Binary Search Tree. <!-- per latex fare conmando per scrivere Bin Serch Tree 🌲-->
+Per rifrenscare la memoria faremo un breve ripasso sui concetti chiave dei Bin S tree.
+
+TODO mettere foto pag 3
+
+Un Bin Search Tree $T$ è una struttura dati che salva gli elementi secondo la seguente proprietà: considerando che 
+in ogni nodo viene salvata una chiava (un intero), la chiave di un nodo $u$ è più grande di ogni chiave
+del suo sotto-albero sinistro e più piccola di ogni chiave del suo sotto-albero destro.
+
+Inoltre, diamo le seguenti definizioni:
+
+- **livello**: il livello di un nodo $u$ è il numero di archi che si trovano tra la radice e $u$ stesso (il livello della radice è 0). Si denota con $level_T(u)$ .
+- **profondità**: è il livello massimo dell'albero. 
+- **costo di ricerca**: il costo di ricerca per un nodo $u$ è proporzionale a $1 + level_T(u)$ .
+- **bilanciato**: un albero è bilanciato se ha profondità uguale a $O(log n)$ .
+
+L'essere bilanciato è una proprietà buona se ogni nodo viene cercato con la stessa probabilità, ma dato che
+non è sempre così, possiamo cercare degli algoritmi che vanno ad ottimizzare i casi in cui le probabilità siano 
+differenti.
+
+Per cominciare a pensare ad un approccio di ottimizzazione possiamo provare a tenere in considerazione il costo medio di
+ricerca di un nodo ( $avgcost(T)$ ) rispetto alla probabilità che esso venga ricercato ( $ freq(k)$ ) e al suo costo di ricerca ( $cost(k)$ ).
+
+$$
+    avgcost(T) = \sum_{i=1}^{n} freq(k_i) * cost(k_i)
+$$
+
+### Il Problema
+
+Più formalmente definiamo il problema come segue:
+
+> Dato in input:
+> - un insieme $S$ di $n$ interi
+> - un array $W$ dove $W[i] (1 \leq i \leq n)$ contiene un peso intero positivo
+>
+> vogliamo trovare un Bin Ser Tree $T$ su $S$ che ha costo medio _minimo_.
+>
+> $$avgcost(T) = \sum_{i=1}^{n} W[i] * cost_T(i)$$ 
+>
+> dove $cost_T(i) = 1 + level_T(i)$ , ovvero il numero di nodi a cui si accede per trovare
+> la chiave $i$ in $T$ .
+
+Questa definizione può essere generalizzata spostando il nodo di partenza dalla radice ad un nodo 
+qualsiasi come segue:
+
+> Dato in input:
+> - un insieme $S$ di $n$ interi
+> - un array $W$ dove $W[i] (1 \leq i \leq n)$ contiene un peso intero positivo
+> - due interi $a, b$ che soddisfano $(1 \leq a \leq b \leq n)$
+>
+> vogliamo trovare un Bin Ser Tree $T$ su $\{a, a+1, \ldots, b\}$ che ha costo medio _minimo_.
+>
+> $$avgcost(T) = \sum_{i=a}^{b} W[i] * cost_T(i)$$ 
+>
+> dove $cost_T(i) = 1 + level_T(i)$ , ovvero il numero di nodi a cui si accede per trovare
+> la chiave $i$ in $T$ .
+
+### Funzionamento
+
+Per spiegare la costruzione di questo algoritmo andremo a dividerlo in 3 passi:
+
+1. Identificare tutti i possibili step iniziali
+2. In base allo step iniziale, trovare la soluzione ottima
+3. Trovare quale step iniziale porta alla miglior soluzione possibile
+
+**Step 1: **
+In questo step cercheremo la radice dell'albero che una volta trovata ci andrà a dividere i due sotto-alberi.
+Formalmente, supponiamo di definire $r$ come chiave della radice, allora il sotto-albero sinistro $T_1$ deve essere
+definito su $S_1 = \{a, \ldots, r -1\}$ e il sotto-albero destro $T_2$ deve essere definito su $S_2 = \{r + 1, \ldots, b\}$ .
+
+immagine pagina 10
+
+**Step 2:**
+Scelta $r$ come radice, dobbiamo ora cercare i migliori sotto-alberi $T_1$ e $T_2$ per minimzzare il costo medio
+di $T$. Per farlo scomponiamo la definizione data in precedenza di $avgcost(T)$ affinchè possa avanzare ricorsivamente
+all'interno dei due sotto-alberi. Otteniamo quindi la seguente funzione:
+
+$$
+    avgcost(T) = (\sum_{i=a}^b W[i]) + avgcost(T_1) + avgcost(T_2)
+$$
+
+Intuitivamente dobbiamo minimizzare $avgcost(T_1)$ e $avgcost(T_2)$ .
+
+La definizione appena data non è implementativamente corretta, quindi definiamo una versione più chiara ed utilizzabile:
+
+> Definiamo $optavg(a,b)$ come:
+> - $0$ se $a > b$
+> - il Binary Search Tree di costo medio minore su $\{a, a+1, \ldots, b\}$ , altrimenti
+>
+> Il costo medio ottimo è definito da $optavg(a, b | r)$ che è uguale a:
+> $$(\sum_{i=a}^b W[i]) + optavg(a, r-1) + optavg(r+1, b)$$ 
+
+**Step 3:**
+Questa è la soluzione ottima per una data radice $r$ e visto che noi dobbiamo cercarla per tutte le possibili
+combinazioni di $r$, possiamo riscrivere $optavg$ come segue:
+
+$$
+    optavg(a, b) = \min_{r=a}^b optavg(a, b | r) = (\sum_{i=a}^b W[i]) +  \min_{r=a}^b \{optavg(a, r-1) + optavg(r+1, b)\}
+$$
+
+Questa è la struttura ricorsiva del problema.
+
+**Riassumendo** dato un array $W$ di $n$ interi il Bin Ser Tree ottimo è dato dalla seguente ricorsione:
+
+DA INSERIRE FORMULA PAGINA 19
+
+Il costo temporale per calcolare $optavg(1,n)$ è uguale a $O(n^3)$, questo ovviamente ci restituisce solamente
+il costo, per poterci costruire l'albero possiamo recuperare le informaioni in $O(n)$.
