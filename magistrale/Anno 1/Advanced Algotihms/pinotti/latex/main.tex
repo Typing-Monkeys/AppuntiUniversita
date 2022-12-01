@@ -1,6 +1,7 @@
 \documentclass[a4paper,12 pt]{report}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+% \usepackage{amsmath}
 \usepackage{lmodern}
 \usepackage{listings}
 \usepackage{graphicx}
@@ -13,7 +14,7 @@
 
 % forza le footnote a stare il più in basso possibile
 \usepackage[bottom]{footmisc}
-
+\usepackage{enumitem}
 
 %% STILE LISTINGS
 
@@ -106,7 +107,7 @@
 % box around text
 \newenvironment{boxed}
     {\begin{center}
-    \begin{tabular}{|p{0.9\textwidth}|}
+    \begin{tabular}{|p{\textwidth}|}
     \hline\\
     }
     { 
