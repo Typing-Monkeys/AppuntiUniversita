@@ -55,5 +55,107 @@ cenni principali, evitando di disperderci in troppi dettagli.
     Le relative verifiche sono più noiose che difficili. Del resto, $(i)$ è già
     stato trattato nel Capitolo 2 almeno a livello di esercizi e quando abbiamo
     introdotto composizione, recursione e minimalizzazione, abbiamo anche accennato
-    ad algoritmi
+    ad algoritmi capaci di calcolare le funzioni corrispondentemente ottenute. Tutti questi
+    procedimenti si possono adattare con un minimo di pazienza al contesto e al
+    linguaggio delle MdT.\\
+
+    Passiamo allora a controllare l'implicazione inversa: abbiamo una funzione
+    parziale $k$-aria $f$ che è calcolabile secondo Turing e vogliamo mostrare
+    che $f$ è parziale ricorsiva. Sia $M$ una MdT che computa $f$. Siano poi
+    $q_0, \ldots, q_n$ gli stati di $M$. Possiamo assumere che $M$ si arresti se
+    e solo se $M$ entra nello stato $q_n$: se questo non è il caso, ci basta
+    aggiungere a $M$ un nuovo stato (senza istruzioni che lo riguardino) e alla
+    funzione di transizione di $M$ le istruzioni che conducano ogni
+    configurazione di arresto di $M$ al nuovo stato. Definiamo a questo punto
+    quattro funzioni totali $(k+1)$-arie
+
+    $$
+        q_M, \ \ i_M, \ \ s_M, \ \ d_M
+    $$
+
+    tali che, per ogni scelta di $\vec{x} \in \mathbb{N}^k$ e $t \in
+        \mathbb{N}$,
+    $$
+        q_M(\vec{x}, t), \ i_M(\vec{x}, t), \ s_M(\vec{x}, t), \ d_M(\vec{x}, t)
+    $$
+
+    codificano rispettivamente
+
+    \begin{itemize}
+        \item lo stato di $M$,
+        \item che cosa è scritto sulla cella esaminata da $M$,
+        \item che cosa è scritto sul nastro a sinistra della cella esaminata da $M$,
+        \item che cosa è scritto sul nastro a destra della cella esaminata da $M$
+    \end{itemize}
+
+    al passo $t$ della computazione di $M$ sull'input
+    corrispondente a $\vec{x}$. Ad esempio, $q_M(\vec{x}, t)$ è rappresentato
+    dall'indice 0, o $1, \ldots$, o $n$ dello stato corrispondente;
+    $i_M(\vec{x}, t)$ è una cifra di un qualche alfabeto dei naturali (ad
+    esempio, 0, o $1, \ldots$, o 9 se adoperiamo la rappresentazione decimale)
+    oppure un ulteriore numero (10, se vogliamo) per denotare il carattere
+    bianco $\star$; $s_M$ e $d_M$ richiedono invece una definizione più accurata,
+    che utilizza in modo opportuno le consuete tecniche di codifica ed in
+    particolare il teorema di decomposizione in fattori primi: ne omettiamo qui
+    i dettagli. Osserviamo poi che, se per un certo input $\vec{x}$  $M$ converge
+    in $T$ passi, allora per ogni naturale $t>T$ si conviene
+    $$
+        \begin{aligned}
+            q_M(\vec{x}, t) & =q_M(\vec{x}, T), \ i_M(\vec{x}, t)=i_M(\vec{x}, T), \\
+            d_M(\vec{x}, t) & =d_M(\vec{x}, T), \ s_M(\vec{x}, t)=s_M(\vec{x}, T)
+        \end{aligned}
+    $$
+    si cristallizza cioè la situazione al momento dell'arresto di $M$. In questo
+    modo si ottiene che le nostre quattro funzioni diventino totali. A questo
+    punto si prova che $q_M, i_M, x_M, d_M$ sono ricorsive. Ad esempio si
+    osserva che, per ogni $\vec{x} \in \mathbb{N}^k$,
+    $$
+        q_M(\vec{x}, 0)=0,
+    $$
+    perché al passo iniziale $M$ è nello stato $q_0$, e
+    $$
+        i_M(\vec{x}, 0)
+    $$
+
+    è la prima cifra della prima componente $x_1$ di $\vec{x}$ (quella più a
+    sinistra quando inizia la computazione), mentre, per ogni naturale $t$,
+    $$
+        q_M(\vec{x}, t+1), i_M(\vec{x}, t+1)
+    $$
+    si desumono in modo effettivo dalle istruzioni della funzione di transizione di
+    $M$ sulla coppia
+    $$
+        \left(q_M(\vec{x}, t), i_M(\vec{x}, t)\right)
+    $$
+    ed inoltre da $s_M(\vec{x}, t)$ e $d_M(\vec{x}, t)$. Analogamente per
+    $s_M(\vec{x}, t+1), d_M(\vec{x}, t+1)$. In questo modo, con qualche maggior
+    attenzione per i dettagli, si mostra che le nostre quattro funzioni sono
+    ricorsive. A questo punto si nota che, per ogni $\vec{x} \in \mathbb{N}^k$,
+
+    \begin{itemize}
+        \item $\vec{x}$ è nel dominio di $f$ se e solo se $M$ converge su $\vec{x}$, e quindi
+              se e solo se, per qualche naturale $t, M$ entra nello stato $q_n$ al passo $t$
+              della computazione su $\vec{x}$, ovvero $q_M(\vec{x}, t)=n$;
+        \item in tal caso,
+              $f(\vec{x})$ si ottiene da $i_M(\vec{x}, t), s_M(\vec{x}, t)$ e $d_M(\vec{x},
+                  t)$ dove $t$ è il minimo naturale per cui $q_M(\vec{x}, t)=n$.
+    \end{itemize}
+
+
+    Si intravede in questa definizione il meccanismo di minimalizzazione applicato a
+    funzioni ricorsive (quali $q_M, i_M, s_M$ e $d_M$ ). Se ne deduce che $f$ è, a
+    sua volta, parziale ricorsiva, proprio come volevamo dimostrare.
+
 \end{proof}
+
+Il teorema ci aiuta a caratterizzare in termini di funzioni ricorsive anche la
+semidecidibilità. Infatti con riferimento al teorema 3.5.1 possiamo considerare
+linguaggi $L \subseteq \mathbb{N}$ tali che $L=\emptyset$ oppure $L$ è immagine
+di qualche funzione totale ricorsiva 1aria $f$. Chiamiamo ricorsivamente
+enumerabile un tale linguaggio $L$ e deduciamo banalmente:
+
+\paragraph{Corollario 4.4.3} \textit{$L \subseteq \mathbb{N}$ è ricorsivamente enumerabile se
+    e solo se è semidecidibile.}\\
+
+I linguaggi ricorsivamente enumerabili si riconoscono allora anche come i domini
+delle funzioni parziali ricorsive 1-arie (sempre per il teorema 3.5.1).
