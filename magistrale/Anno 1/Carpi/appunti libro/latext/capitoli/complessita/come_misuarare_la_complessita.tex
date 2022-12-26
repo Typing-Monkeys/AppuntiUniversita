@@ -1,0 +1,65 @@
+\section{Come misurare la complessità}
+
+Cominciamo col valutare la efficienza di un algoritmo (dunque di una macchina di Turing),
+intendendo misurare poi la complessità di un problema in riferimento ai
+migliori algoritmi che lo affrontano. La nostra trattazione sarà ancora
+vagamente informale, non specificando in dettaglio né il criterio di misura
+dell'efficienza, né la natura delle procedure seguite. Sono dati l'alfabeto $A$
+e, per un problema di decisione, un linguaggio $S \subseteq A^{\star}$.
+Consideriamo un algoritmo per $S$. Per valutare adeguatamente la sua efficienza,
+
+\begin{itemize}
+    \item non basta riferirsi ad un \textbf{singolo particolare} input $w \in A^{\star}$ e al
+          costo da lui richiesto all'algoritmo;
+    \item ci serve invece un quadro complessivo
+          della situazione, che misuri quanto soddisfacente (o insoddisfacente) sia la
+          computazione \textbf{al variare} di $w$, in ragione della complicazione dell'input $w$.
+\end{itemize}
+
+
+La misura della complessità di $w$ può essere ben rappresentata dalla sua
+lunghezza $l(w)$, cioè dal numero di simboli successivi di $w$, inteso come
+parola su $A$. Possiamo allora considerare una funzione $f$ da $\mathbb{N}$ in
+$\mathbb{N}$ (eventualmente parziale) che, per ogni naturale $n$, considera
+tutti gli input di lunghezza $\leq n$ (che sono comunque un numero finito, visto
+che l'alfabeto $A$ è finito), segue le corrispondenti computazioni del
+programma, almeno quelle che hanno buon esito, e va a determinare il loro
+massimo costo. Questo è $f(n)$. Notiamo che niente esclude di riferirsi ad altre
+misure di efficienza, per esempio al costo medio (anziché massimo) delle
+computazioni su input di lunghezza $\leq n$. Manteniamo però qui la scelta di
+riferirci al costo massimo.\\
+Ci interessano dunque funzioni $f$ di $\mathbb{N}$
+in $\mathbb{N}$, eventualmente parziali (cioè non sempre definite), tali
+comunque da soddisfare le proprietà che andiamo ad introdurre.
+
+\begin{enumerate}[label=(\roman*)]
+    \item È ragionevole
+          anzitutto attendersi che l'algoritmo da valutare abbia buon esito almeno una
+          volta: se $w$ è il corrispondente input e $N$ la sua lunghezza, $f$ è definita
+          per ogni $n \geq N$, infatti $w$ concorre a stabilire il massimo costo su input
+          di qualsiasi lunghezza $n \geq N$. Dunque
+
+          \begin{center}
+              $f$ è definita per ogni $n \geq N$ per un opportuno $N$.
+          \end{center}
+
+    \item Ovviamente, più grande è $n$, più numerosi sono gli input
+          da confrontare per calcolare $f(n)$, e dunque più grande è $f(n)$. In termini
+          rigorosi,
+
+          \begin{center}
+              $f$ è crescente: per $n \leq n^{\prime}$ nel dominio di $f, f(n) \leq
+                  f\left(n^{\prime}\right)$.
+          \end{center}
+
+    \item Specifichiamo meglio quanto detto in (i). In
+          realtà è ragionevole attendersi che l'algoritmo abbia buon esito su input sempre
+          più lunghi, e che il costo massimo cresca effettivamente senza limitazioni
+          all'aumentare della lunghezza $n$. In termini rigorosi
+          $$
+              f \text { non è limitata, } \lim _{n \rightarrow+\infty} f(n)=+\infty \text {. }
+          $$
+\end{enumerate}
+
+Dunque consideriamo funzioni da $\mathbb{N}$ a $\mathbb{N}$ che soddisfano le
+condizioni (i), (ii), (iii). Ci sono esempi familiari al riguardo.
