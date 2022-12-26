@@ -1,0 +1,122 @@
+\section{Un esempio}
+
+Concludiamo questo capitolo discutendo il tema della lunghezza dell'input
+e del costo di una computazione nel contesto familiare dei numeri naturali.
+Cominciamo parlando della lunghezza.\\
+Sappiamo tutti che un numero naturale viene comunemente scritto, in base 10,
+elencando a partire da destra la cifra delle unità, quella delle decine, quella
+delle centinaia, quella delle migliaia, e così via. Un numero da $0$ a $9$
+(cioè fino a $10$ escluso) richiede una sola cifra, uno tra $10$ e $100 = 10^2$
+(escluso) necessita di due cifre, uno tra $100$ e $1000 = 10^3$ (escluso) di 3,
+e così via di seguito. Dunque la lunghezza di un numero intero (positivo) $N$ si
+riferisce al suo logaritmo in base 10 o meglio alla sua parte intera, che infatti
+vale
+
+\begin{itemize}
+    \item 0 per numeri fino a 10 escluso,
+    \item 1 per numeri da 10 fino a $10^2$ escluso,
+    \item 2 per numeri da $10^2$ a $10^3$ escluso.
+\end{itemize}
+
+e così via. Il valore preciso della lunghezza di $N$ in base 10 è, infatti
+
+$$
+    \lfloor \log_{10} N \rfloor + 1
+$$
+
+(dove $\lfloor\ldots\rfloor$ denota la parte intera).\\
+Naturalmente, il
+riferimento alla base 10 non è l'unico possibile, e si potrebbe preferire
+un'altra base, per esempio 2, e rappresentare così i naturali solo con le cifre
+0 e 1 , così che
+$$
+    0,1,2,3,4,5,6,7,8,9,10,11,12, \ldots
+$$
+diventano
+$$
+    0,1,10,11,100,101,110,111,1000,1001,1010,1011,1100, \ldots
+$$
+La lunghezza aumenta, ma la regola che la calcola rimane formalmente la stessa,
+riferita ovviamente alla base 2. In effetti, non è difficile convincersi, anche
+con pochi semplici esempi, che la lunghezza di $N$ in base 2 è
+$$
+    \left\lfloor\log _2 N\right\rfloor+1
+$$
+(e dunque è strettamente collegato a $\log _2 N$ ). Ricordiamo poi la formula
+che lega i logaritmi di $N$ in base 10 e 2 :
+$$
+    \log _{10} N=\log _{10} 2 \cdot \log _2 N .
+$$
+Così anche le lunghezze pur diverse di $N$ nelle basi 10, 2 crescono "quasi
+proporzionalmente" tramite la costante $\log _{10} 2$. Analoghe considerazioni
+possono farsi a proposito di altre possibili basi $3,4,5$, e così via. Notiamo
+anche che $N=10^{\log _{10} N}=2^{\log _2 N}$ è esponenziale rispetto alla sua
+lunghezza. Così un algoritmo che richiede costo $N$ (o vicino a $N$ ) su $N$ è
+da ritenersi poco efficiente: constatazione che sarà bene ricordare in futuro.
+In genere, la base cui si fa più spesso riferimento è 2. Le cifre 0,1 che vi
+ricorrono si chiamano bit. Così 1001 (cioè 9 in base 10 ) si compone di 4 bit (e
+la sua lunghezza in base 2 è 4). Abbiamo così trattato il tema della lunghezza
+degli input. Adesso dobbiamo considerare il costo delle computazioni sui
+naturali. Anticipando il tema del prossimo capitolo, ammettiamo di misurare la
+complessità di una computazione tramite il numero complessivo di passi da essa
+svolto prima di concludere. Ovviamente è da chiarire che cosa si intende per
+passo di computazione nel nostro ambito, quando si trattano naturali $N$ in
+notazione binaria e si svolgono le varie operazioni di somma, prodotto e così
+via. In genere si conviene che ogni singola operazione sui bit degli input $N$
+coinvolti corrisponde ad un passo di computazione. Per esempio si assume che
+l'addizione
+$$
+    \begin{array}{r}
+        1001 \ + \\
+        11110 =  \\
+        \hline
+        100111 \ \ \
+    \end{array}
+$$
+
+(ovvero $9+30=39$ in base 10 ) richiede 5 passi per svolgere i calcoli sulle
+varie colonne. In questa ottica, si può notare che sommare due numeri di $k$
+bits richiede al più $k$ passi, ed è dunque al più lineare nella lunghezza $k$,
+mentre la moltiplicazione degli stessi numeri si può svolgere in $k^2$ passi
+(dunque al più in costo al più quadratico in $k$ ). Lo stesso vale per la
+divisione (intendendo come divisione il calcolo di quoziente e resto, come in
+genere si conviene tra i naturali). Illustriamo allora la situazione riferendoci
+come esempio al calcolo del massimo comun divisore tramite l'algoritmo di
+Euclide delle divisioni successive. Vogliamo mostrare che secondo i parametri
+appena introdotti, questo procedimento ha costo al più quadratico rispetto alla
+lunghezza dell'input (come già anticipato a livello intuitivo nell'introduzione
+di questo capitolo). Consideriamo dunque due naturali $a, b$. Possiamo supporre
+$a>b>0$ per semplicità. I due primi passi dell'algoritmo di Euclide
+corrispondono alle divisioni
+$$
+    \begin{gathered}
+        a=b \cdot q_0+r_0 \operatorname{con} r_0<b, q_0 \geq 1, \\
+        b=r_0 \cdot q_1+r_1 \operatorname{con} r_1<r_0, q_1 \geq 1 .
+    \end{gathered}
+$$
+Ne deduciamo
+$$
+    a=\left(r_0 \cdot q_1+r_1\right) q_0+r_0=r_0\left(q_1 \cdot q_0+1\right)+r_1 \cdot q_0>r_0+r_1>2 r_1 .
+$$
+Così due applicazioni dell'algoritmo determinano un resto $r_1<\frac{1}{2} a$.
+Non è difficile ripetere l'osservazione e notare che $r_1>2 r_3$, dunque $a>2
+    r_1>2^2 r_3$; in generale, dopo $t$ iterazioni si deduce
+$$
+    a>2^t \cdot r_{2 t-1}
+$$
+(dove $r_{2 t-1}$ è il resto ottenuto al passo $2 t-1$ ). Sia $s$ il passo
+finale (quello che produce $r_s=0$ e dunque dichiara $r_{s-1}=(a, b)$ ).
+Supponiamo per semplicità che $s$ sia pari, dunque $s=2 T$, per $T$ numero
+naturale, e deduciamo
+$$
+    a>2^T r_{2 T-1} .
+$$
+Siccome $r_{s-1}>0, \frac{a}{2^T} \geq 1$, cioè $a \geq 2^T$ e $T \leq \log _2
+    a$, da cui $s-1 \leq 2 \log _2 a$. Così le varie divisioni successive da
+svolgere sono $O\left(\log _2 a\right)$. Inoltre i calcoli sui bit dei vari
+numeri coinvolti in ciascuna divisione si svolgono certamente in tempo
+$O\left(\log _2^2 a\right)$ perché riguardano interi al più lunghi quanto $a$, e
+anzi possono ridursi a $O\left(\log _2 a\right)$ con qualche accorgimento.
+Dunque il numero di passi dell'algoritmo euclideo è $O\left(\log _2^2 a\right)$,
+dunque al più polinomiale (e anzi quadratico) nella lunghezza dell'input $a$ (e
+conseguentemente anche in quella di $b$, visto che $b \leq a$ ).
