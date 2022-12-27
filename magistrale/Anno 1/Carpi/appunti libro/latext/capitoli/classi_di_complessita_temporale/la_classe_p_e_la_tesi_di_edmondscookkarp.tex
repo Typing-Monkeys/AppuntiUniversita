@@ -1,0 +1,212 @@
+\section{La classe \textit{P} e la Tesi di Edmonds-Cook-Karp}
+
+Lavoriamo con un alfabeto finito $A$ e con $S \subseteq A^{\star}$. Ricordiamo
+che una macchina di Turing $M$ su $A$ decide $S$ se $M$ converge su tutti gli
+input $w \in A^{\star}$ e,
+
+\begin{itemize}
+    \item se $w \in S$, risponde "SI" (produce cioè un output convenzionalmente
+          identificato con "SI"),
+    \item se $w \notin S$, risponde "NO" (allo stesso modo).
+\end{itemize}
+
+
+Si dice invece che $M$ accetta $S$ se, per ogni $w \in A^{\star}$,
+
+\begin{itemize}
+    \item se $w \in S, M$ converge su $w$,
+    \item se $w \notin S, M$ diverge su $w$.
+\end{itemize}
+
+
+È da ribadire che, in generale, le due nozioni, decidere e accettare, non
+coincidono. L'alternativa convergere/divergere non può sostituire le risposte
+sì/no. Infatti non è possibile a priori realizzare che una macchina di Turing
+diverge; un osservatore esterno vede sviluppare la computazione per $1,10,10^2,
+    10^3, \ldots, 10^n, \ldots$ passi, ma non può prevedere se $M$ convergerà al
+passo successivo oppure continuerà a lavorare all'infinito.\\
+Ciò premesso,
+vediamo come sia possibile misurare la complessità di una macchina di Turing $M$
+su un alfabeto finito $A$, privilegiando il parametro tempo. Facciamo quindi
+riferimento al numero dei passi delle computazioni convergenti di $M$.
+Specificamente definiamo una funzione $c_M$ (complessità temporale di $M$ ) come
+segue: per ogni $n \in \mathbb{N}, c_M$ è definita su $n$ se e solo se esiste
+almeno un input di lunghezza $\leq n$ su cui $M$ converge e, in tal caso,
+$c_M(n)$ è il massimo numero di passi di una tale computazione di $M$. Notiamo
+che, siccome $A$ è finito, c'è al più un numero finito di parole su $A$ di
+lunghezza $\leq n$. Quindi c'è un numero finito di computazioni convergenti su
+tali input e dunque, tra esse, ce n'è una di lunghezza massima. In conclusione
+$q_M$ è ben definita. Possiamo anche ragionevolmente ammettere che una tale
+funzione $c_M($ da $\mathbb{N}$ a $\mathbb{N})$ soddisfi (i), (ii), (iii).
+Escludere (i) significa infatti supporre che $M$ non converga mai, su nessun
+input: situazione ammissibile, ma di nessun interesse pratico.
+(ii) è condizione facile da accettare. Quanto a (iii), contraddirla significa
+ammettere che $M$, quando converge, lo fa in un numero prefissato di passi, a
+prescindere dalla lunghezza dell'input che le viene proposto. Di nuovo, si
+tratta di situazione possibile, ma certamente non interessante dal punto di
+vista pratico. Così possiamo assumere (i), (ii), (iii) per $c_M$. Si tratta ora
+di decidere, in riferimento all'analisi finale del paragrafo precedente, quali
+condizioni su $c_M$ possono certificare che $M$ è efficiente rispetto al tempo
+(cioè rapida) nelle sue computazioni. C'è una proposta a questo proposito,
+avanzata a metà degli anni sessanta da Edmonds, anticipata comunque da von
+Neumann, Rabin e Cobham, e poi ribadita da Cook e Karp, la quale afferma, a
+livello di slogan, che
+$$
+    \text { rapido }=\text { polinomiale } \text {. }
+$$
+In termini rigorosi, poniamo la seguente \paragraph{Definizione.} $P$ è la
+classe dei problemi $S$ su alfabeti finiti $A$ per i quali c'è una macchina di
+Turing $M$ su $A$ che accetta $S$ e ha complessità $c_M=O\left(n^k\right)$ per
+qualche intero positivo $k$.\\
+
+Dunque la $\operatorname{MdT} M$, di fronte ad un input $w \in A^{\star}$ di
+lunghezza $n$,
+
+\begin{itemize}
+    \item se $w \in S$, converge su $w$ in al più $c \cdot n^k$ passi (dove $c$
+          è una costante reale positiva prefissata);
+    \item se $w \notin S$, diverge su $w$.
+\end{itemize}
+
+Conviene aprire una breve parentesi a proposito della definizione ora data.
+Abbiamo infatti tenuto a sottolineare in precedenza la differenza tra decidere e
+accettare $S$. In generale, questa distinzione va ben tenuta presente. Ma, nel
+caso particolare ora in esame, sappiamo che la MdT $M$ sull'input $w$, se
+converge, lo fa entro $c \cdot n^k$ passi, dove $n$ è la lunghezza di $w$. Così
+possiamo dedurre che, se non c'è stata convergenza entro il passo $c \cdot n^k,
+    M$ certamente divergerà. Dunque è possibile controllare anche la divergenza e,
+nella situazione che viene a crearsi,
+
+\begin{center}
+    rispondere \textit{SI/NO}
+\end{center}
+
+equivale perfettamente a
+
+\begin{center}
+    \textit{convergere/divergere}.
+\end{center}
+
+Ciò premesso, possiamo enunciare con maggior precisione la
+
+\paragraph{Tesi di Edmonds-Cook-Karp.} Sia $S$ un insieme di parole su un
+alfabeto finito A. Allora $S$ ha un algoritmo rapido di decisione se e solo se
+$S \in P$.\\
+
+Si stabilisce dunque che un problema è computabile quando la sua soluzione
+richiede tempo al più polinomiale nella lunghezza dell'input. La parola tesi è
+da intendersi qui come nel caso di Church-Turing, descritto nella prima parte.
+Non è un teorema, o un assioma; è solo una ipotesi di lavoro con qualche base
+sperimentale, eventualmente da discutere (ne parleremo tra qualche riga), da
+accettare finché l'evidenza la sostiene, da rivedere, correggere, adeguare
+altrimenti.
+
+\paragraph{Commenti sulla Tesi di Edmonds-Cook-Karp.}
+
+\begin{itemize}
+    \item La tesi di Edmonds-Cook-Karp si riferisce non tanto agli algoritmi
+          quanto ai problemi. Individua i problemi "rapidamente" risolubili come
+          quelli che ammettono un algoritmo (cioè una macchina di Turing) che li
+          decide (equivalentemente, li accetta) in tempo al più polinomiale nella
+          lunghezza dell'input.
+    \item Dunque la tesi esclude che un problema i cui algoritmi lavorano tutti in
+          tempo almeno esponenziale $2^n$ possa ritenersi di rapida soluzione:
+          affermazione che pare facilmente condivisibile se si ricorda quanto rapidamente
+          crescono le potenze $2^n$ di 2 all'aumentare dell'esponente $n$.
+    \item Viceversa la tesi afferma che, se c'è un algoritmo che decide (o accetta)
+          un problema in tempo al più polinomiale $O\left(n^k\right)$, allora il problema
+          ha rapida soluzione. Questa seconda osservazione appare assai più discutibile,
+          per almeno due motivi.
+          \begin{enumerate}
+              \item Quanto rapido è un algoritmo che lavora in tempo $n^{10^6}, n^{10^9}$,
+                    oppure $n^{5 \cdot 10^{17}}$ rispetto alla lunghezza dell'input? (Ricordiamo
+                    che $5 \cdot 10^{17}$ secondi è il tempo stimato dall'inizio dell'universo
+                    ad oggi secondo la teoria del Big Bang).
+              \item Non va dimenticato il ruolo della costante $c$ nella definizione di $O$.
+                    Se $c$ è enormemente grande, per esempio $5 \cdot 10^{17}$, anche per $k$
+                    piccolo, quanto rapido può ritenersi un algoritmo che lavora in tempo $c \cdot
+                        n^k$ rispetto alla lunghezza $n$ dell'input?
+          \end{enumerate}
+          Sotto questo punto di vista, possono esserci ragionevoli riserve all'adozione
+          della tesi di Edmonds-Cook-Karp. D'altra parte, da un punto di vista teorico,
+
+          \begin{itemize}
+              \item possiamo ad esempio ammettere che algoritmi che lavorano in tempo al
+                    più lineare $O(n)$, o al più quadratico $O\left(n^2\right)$ nella lunghezza
+                    dell"input siano "rapidi";
+              \item una volta concordato che algoritmi che impiegano tempo $O\left(n^k\right)$
+                    (per un qualche intero positivo $k$ ) sono rapidi, quale motivo può indurci ad
+                    escludere come "lenti" quelli che richiedono tempo $O\left(n^{k+1}\right)$ ?
+          \end{itemize}
+\end{itemize}
+
+Così la tesi di Edmonds-Cook-Karp è comunemente accettata, pur con i dubbi sopra riferiti.\\
+Vediamo adesso alcuni esempi, più o meno difficili e famosi, di problemi che stanno in $P$ ( e sono dunque da ritenersi di "rapida" soluzione).
+
+\paragraph{Esempi.}
+\begin{enumerate}
+    \item Grafi 2-colorabili $(2 C O L)$.\\
+          Ricordiamo che un grafo è̀ una struttura $G=(V, E)$ dove $V$ è un
+          insieme non vuoto ed $E$ è una relazione binaria su $A$ irriflessiva e
+          simmetrica (in altre parole, nessun $v \in V$ è in relazione con se
+          stesso e dunque soddisfa $(v, v) \in$ $E$; se poi $v, w \in V$ e $(v,
+              w) \in E$, allora anche $(w, v) \in E)$.\\
+          Possiamo dunque pensare gli elementi $v$ di $V$ come possibili tappe
+          da raggiungere, e le coppie $(v, w) \in E$ come strade dirette che li
+          congiungono. In effetti,
+          i punti di $V$ si chiamano vertici e le coppie di $E$ lati. Nessun
+          lato può unire un vertice a se stesso per la irriflessività, ma ogni
+          lato è a doppio senso (per la simmetria). La sequenza di vertici $v_0,
+              v_1, \ldots, v_{n-1}$ viene detta cammino di lunghezza $n$ se, per
+          ogni $i<n,\left(v_i, v_{i+1}\right) \in E$ e $\left(v_i,
+              v_{i+1}\right) \neq\left(v_j, v_{j+1}\right)$ per $i<j<n$.\\
+          Una \textit{2-colorazione} di un grafo $G=(V, E)$ è una funzione $c$ da $V$ a
+          $\{1,2\}$ tale che, per ogni scelta di $v, w \in V$ con $(v, w) \in E, c(v) \neq
+              c(w)$.\\
+          Possiamo pensare 1, 2 come 2 possibili colori con cui dipingere i vertici di
+          $V$; $c$ è, appunto, questa colorazione e deve soddisfare la condizione che
+          estremi distinti dello stesso lato hanno colori diversi. Se una tale $c$ esiste,
+          il grafo $G$ si dice 2-colorabile.\\
+          Ci interessa il seguente problema di decisione, chiamato $2 C O L$
+          (2-colorabilità dei grafi):
+
+          \begin{itemize}
+              \item INPUT: un grafo finito $G=(V, E)$;
+              \item OUTPUT: SÌ/NO, a seconda che $G$ sia o no 2-colorabile.
+          \end{itemize}
+
+          $2 C O L \in P$. Un possibile algoritmo a questo proposito è il seguente.
+          Prendiamo un vertice $v_0 \in V$, e coloriamolo in qualche modo, per esempio
+          fissiamo $c\left(v_0\right)=1$ : la scelta non è restrittiva perché, se una
+          2-colorazione $c$ di $G$ funziona, anche quella che si ottiene da $c$ permutando
+          i colori di tutti i vertici è ancora valida. Sia dunque $c\left(v_0\right)=1$. A
+          questo punto, tutti i vertici $v_1$ collegati a $v_0$ da qualche lato dovranno
+          essere colorati in modo diverso $c\left(v_1\right)=2 ; \mathrm{i}$ vertici $v_2$
+          collegati ai vari $v_1$ dovranno a loro volta soddisfare $c\left(v_2\right)=1$,
+          e così via. Ovviamente questo è impossibile se, per esempio, vale già
+          $\left(\imath_0, v_2\right) \in E \mathrm{e}$ dunque $v_2$ deve già avere colore
+          2 :
+
+          \begin{center}
+              \begin{tikzpicture}[main/.style = {draw}]
+                  \node[main] at (2, 4) (1) {$v_0$};
+                  \node[main] at (0, 0) (2) {$v_1$};
+                  \node[main] at (4, 0) (3) {$v_2$};
+
+                  \draw (1) -- (2);
+                  \draw (1) -- (3);
+                  \draw (2) -- (3);
+              \end{tikzpicture}
+          \end{center}
+          in questo caso, $c$ non può essere trovato. Altrimenti si continua il
+          procedimento. Si crea così una sorta di effetto domino al termine del quale
+          tutti i vertici collegati a $v_0$ da una sequenza finita di lati successivi
+          derivano dalla condizione iniziale $c\left(v_0\right)=1$ una colorazione
+          obbligatoria. Se tale colorazione $c$ non è complessivamente possibile, possiamo
+          rispondere $\mathrm{NO}$ al quesito della 2-colorabilità di $(V, E)$.
+          Altrimenti, se la scelta $c\left(v_0\right)=1$ si concilia con tutti i vertici
+          in qualche modo connessi a $v_0$, andiamo a considerare i punti $v$ non ancora
+          coinvolti, perché non collegati a $w_0$ da nessuna sequenza di lati. La loro
+          colorazione è ancora libera, e possiamo applicare da capo il procedimento. Dopo
+          un numero finito di applicazioni positive arriviamo alla conclusione SI.
+\end{enumerate}
