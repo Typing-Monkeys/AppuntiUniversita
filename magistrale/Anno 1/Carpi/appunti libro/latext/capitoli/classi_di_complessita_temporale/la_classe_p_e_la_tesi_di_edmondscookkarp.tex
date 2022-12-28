@@ -184,7 +184,7 @@ Vediamo adesso alcuni esempi, più o meno difficili e famosi, di problemi che st
           essere colorati in modo diverso $c\left(v_1\right)=2 ; \mathrm{i}$ vertici $v_2$
           collegati ai vari $v_1$ dovranno a loro volta soddisfare $c\left(v_2\right)=1$,
           e così via. Ovviamente questo è impossibile se, per esempio, vale già
-          $\left(\imath_0, v_2\right) \in E \mathrm{e}$ dunque $v_2$ deve già avere colore
+          $\left(v_0, v_2\right) \in E$ e dunque $v_2$ deve già avere colore
           2 :
 
           \begin{center}
@@ -206,7 +206,398 @@ Vediamo adesso alcuni esempi, più o meno difficili e famosi, di problemi che st
           rispondere $\mathrm{NO}$ al quesito della 2-colorabilità di $(V, E)$.
           Altrimenti, se la scelta $c\left(v_0\right)=1$ si concilia con tutti i vertici
           in qualche modo connessi a $v_0$, andiamo a considerare i punti $v$ non ancora
-          coinvolti, perché non collegati a $w_0$ da nessuna sequenza di lati. La loro
+          coinvolti, perché non collegati a $v_0$ da nessuna sequenza di lati. La loro
           colorazione è ancora libera, e possiamo applicare da capo il procedimento. Dopo
-          un numero finito di applicazioni positive arriviamo alla conclusione SI.
+          un numero finito di applicazioni positive arriviamo alla conclusione SI.\\
+          È facile convincersi che il procedimento non è molto più lungo della semplice visita dei singoli vertici del grafo, e dunque si può svolgere in tempo polinomiale rispetto al numero $|V|$ degli elementi di $V$.
+          Così $2 C O L \in P$. Semmai ci si può chiedere che cosa succede
+          quando le ambizioni pittoriche crescono e i colori a disposizione
+          diventano più di 2 . Ma di questo avremo modo di riparlare più avanti.
+    \item 2-Soddisfacibilità $(2 S A T)$.\\
+          Ammettiamo stavolta di avere un alfabeto potenzialmente infinito
+          $$
+              p_0, p_1, p_2, \ldots
+          $$
+          e di poterne scrivere le lettere anche in maiuscolo
+          $$
+              P_0, P_1, P_2, \ldots
+          $$
+          Se vogliamo preservare al nostro alfabeto il carattere finito, possiamo
+          convenire di limitarci a 3 soli simboli $p, P$, | e scrivere lettere minuscole e
+          maiuscole come
+          $$
+              p, p|, p\|, p\||, \ldots, P, P|, P\|, P\||, \ldots
+          $$
+          Formiamo parole con 2 lettere
+          $$
+              p_0 P_1, p_0 P_2, P_1 P_3, p_4 P_0, P_4 P_5, \ldots
+          $$
+          con l'obbligo di evitare ripetizioni di lettere nella stessa parola: dunque
+          parole come $p_0 p_0, p_0 P_0, P_0 p_0, P_0 P_0$ sono tutte vietate. Chiamiamo
+          "clausole" le parole così ottenute. Ovviamente, si possono costruire clausole
+          anche più lunghe come $p_0 P_1 p_4 P_7$, se mai la cosa ci interessa. Resta
+          comunque valida la regola di evitare ripetizioni nella stessa clausola. Adesso
+          formiamo insiemi finiti di clausole di 2 lettere, come
+          $$
+              \left\{p_0 P_1, p_0 p_2, P_1 p_3, p_4 P_0, P_4 P_5\right\} .
+          $$
+          Ci domandiamo se c'è una clausola (eventualmente lunga più di 2 lettere) che le
+          interseca tutte (nel senso che condivide con ciascuna di esse almeno una lettera
+          minuscola oppure maiuscola). Nel caso specifico $p_0 P_1 p_4 P_5$ funziona
+          poiché ha in comune $p_0$ con $p_0 P_1$ e $p_0 p_2, P_1$ con $P_1 p_3, p_4$ con
+          $p_4 P_0$ e, finalmente, $P_5$ con $P_4 P_5$. Il problema che ci interessa
+          generalizza l'esempio appena svolto; si chiama \textit{2-soddisfacibilità}
+          (soddisfacibilità per clausole di due lettere) e si indica $2 S A T$. È una
+          questione di logica elementare. $2 S A T$ (2-soddisfacibilità) ha
+
+          \begin{itemize}
+              \item INPUT: un insieme finito di clausole a 2 lettere;
+              \item OUTPUT: SI/NO, a seconda che esista una clausola (anche a più lettere) che
+                    interseca ciascuna delle clausole assegnate.
+          \end{itemize}
+
+          Nuovamente si vede che $2 S A T \in P$. Per dimostrarlo si può
+          procedere come nel caso della 2-colorabilità. Abbiamo un insieme
+          finito di clausole a due lettere, e dobbiamo formare una parola $w$
+          che interseca ognuna di queste clausole. Cominciamo con l'azzardare
+          che $w$ includa $p_0$ (come $p_0 P_1$ e $p_0 p_2$ nell'esempio
+          precedente), ma, per quelle che invece contengono $P_0$ (come $p_4
+              P_0$ ), impone l'inserimento di $p_4$ in $w$. Di nuovo le clausole con
+          $p_4$ risultano così intersecate, quelle con $P_4$ - come $P_4 P_5$ -
+          obbligano $P_5$ in $w$, e così via. Se in questo modo si riesce a
+          formare una parola $w$ che interseca ciascuna clausola allora
+          l'algoritmo risponde SI, se no si prova a inserire $P_0$ in $w$. Si
+          conclude come nel caso di $2 C O L$ che questo algoritmo (innescando
+          una sorta di effetto domino) decide $2 S A T$ in un tempo che è
+          funzione al più polinomiale nella lunghezza dell'input
+          (indipendentemente da come rappresentiamo l'input: tramite le lettere
+          $p_0, p_1, \ldots, o$, in modo più prolisso, mediante $p$, $P,
+              \mid)$.\\
+
+          $2 S A T$ e il conseguente gioco di parole che si intersecano,
+          nasconde in realtà una questione di logica elementare: la
+          soddisfacibilità, appunto. Proviamo infatti a pensare alle lettere
+          minuscole come ad affermazioni del tipo "oggi piove" e alle
+          corrispondenti maiuscole come alle loro negazioni "oggi non piove".
+          Intendiamo poi informalmente ogni clausola come la disgiunzione delle
+          affermazioni corrispondenti alle sue lettere. Per esempio se $p_0$ sta
+          per "oggi piove" e $p_1$ per "domani nevica", $p_0 P_1$ è "oggi piove
+          o domani non nevica". Si capisce poi perché si escludono ripetizioni
+          come $p_0 p_0$ ("oggi piove oppure oggi piove") o banalità come $p_0
+              P_0$ ("oggi piove oppure oggi non piove"). Finalmente pensiamo un
+          insieme di clausole come la congiunzione delle clausole che lo
+          compongono. Così, se $p_0$ sta per "oggi piove", $p_1$ per "domenica
+          nevica" e $p_2$ per "lunedì grandina",
+          $$
+              \left\{p_0 P_1, p_0 p_2, \ldots\right\}
+          $$
+          significa "oggi piove o domani non nevica" e "oggi piove o lunedì
+          grandina" e così via. In questa ottica, se vogliamo riferirci a $p_0,
+              p_1, p_2, p_3, \ldots$ come a proposizioni e a $P_0, P_1, P_2, P_3,
+              \ldots$ come alle loro negazioni, una clausola come $p_0 P_1 p_4 P_5$
+          può intendersi come la scelta di una assegnazione di verità a $p_0,
+              p_1, p_4, p_5$ (ed eventualmente anche a $p_2, p_3, p_6, \ldots$ ).
+          $p_0 P_1 p_4 P_5$ dice infatti di accettare $p_0, p_4$ come vere e
+          $p_1, p_5$ come false (e dunque $P_1, P_5$ come vere). Consideriamo
+          allora il precedente insieme $\left\{p_0 P_1, p_0 p_2, P_1 p_3, p_4
+              P_0, P_4 P_5\right\}$ di clausole a due lettere, intersecato da $p_0
+              P_1 p_4 P_5$ in ogni sua parola; in riferimento alla valutazione
+          appena descritta, possiamo equivalentemente dire che, in ogni clausola
+          $p_0 P_1, p_0 p_2, P_1 p_3, p_4 P_0, P_4 P_5$ dell'insieme
+          considerato, compare una lettera (cioè una proposizione affermata o
+          negata) che viene ritenuta vera da $p_0 P_1 p_4 P_5$, così che la
+          clausola stessa - l'alternativa delle due singole proposizioni che la
+          compongono - risulta conseguentemente vera. Fissare la clausola $p_0
+              P_1 p_4 P_5$ equivale dunque a fissare una funzione $v$ dalle varie
+          $p_n(n \in \mathbb{N})$ in $\{0,1\}$ (dove 0 sta per falso, 1 per
+          vero): $v$ si chiama \textit{valutazione}. Nel caso specifico dell'esempio ora considerato, si ha
+          $$
+              v\left(p_0\right)=v\left(p_4\right)=1, v\left(p_1\right)=v\left(p_5\right)=0
+          $$
+          mentre $v\left(p_n\right)$ è libera per gli altri indici $n$. Notiamo
+          che la $v$ così definita scopre dentro ogni clausola a 2 lettere
+          dell'insieme considerato una lettera cui dà valore 1
+          $v\left(p_0\right)=v\left(p_4\right)=v\left(P_1\right)=v\left(P_5\right)=1$,
+          come già osservato. $2 S A T$ si può allora interpretare come il
+          seguente problema:
+
+          \begin{itemize}
+              \item INPUT: un insieme finito di clausole a 2 lettere;
+              \item OUTPUT: Sİ/NO, a seconda che ci sia qualche valutazione $v$
+                    che dà valore 1 a qualche lettera in ognuna delle clausole
+                    dell'insieme (e in questo senso lo "soddisfa").
+          \end{itemize}
+
+          Come già visto, $2 S A T \in P$. Questo risultato si può anche usare
+          per confermare la conclusione dell'Esempio 1, cioè $2 C O L \in P$.
+          Infatti $2 C O L$ si riduce a $2 S A T$ come segue. Ad ogni grafo
+          finito $G$, si associa un insieme finito di clausole a 2 lettere
+          $I(G)$ tale che
+
+          \begin{enumerate}[label=(\roman*)]
+              \item la costruzione di $I(G)$ da $G$ è "rapida",
+              \item $G \in 2 C O L$ se e solo se $I(G) \in 2 S A T$.
+          \end{enumerate}
+
+          Se questo è possibile, per verificare che un dato grafo $G$ è
+          2-colorabile, basta
+          \begin{itemize}
+              \item prima formare "rapidamente" $I(G)$,
+              \item poi verificare "rapidamente" se $I(G)$ è soddisfacibile
+                    (come è possibile perché $2 S A T \in P$ ).
+          \end{itemize}
+
+          Si decide conseguentemente se $G$ è 2-colorabile.\\
+          Vediamo allora come
+          si procede per la costruzione di $I(G)$. Sia dato $G=$ $(V, E)$ dove
+          fissiamo per semplicità $V=\left\{v_0, \ldots, v_{n-1}\right\}$. Le
+          clausole di $I(G)$ richiedono $2 n$ lettere minuscole
+          $$
+              p_{i 1}, p_{i 2}(i<n),
+          $$
+          due per ogni vertice $v_i$ di $V$, accompagnate dalle corrispondenti
+          maiuscole
+          $$
+              P_{i 1}, P_{i 2}(i<n) .
+          $$
+          $I(G)$ si decompone delle seguenti clausole
+
+          \begin{itemize}
+              \item per $i<n, p_{i 1} p_{i 2}$,
+              \item per $i<j<n$ e $\left(v_i, v_j\right) \in E, P_{i 1}
+                        P_{j 1}$ e $P_{i 2} P_{j 2}$.
+          \end{itemize}
+
+          Così il numero complessivo delle clausole di $I(G)$ è $|V|+2|E|$, e
+          cioè la somma tra il numero dei vertici e il doppio del numero dei
+          lati di $G$. Quindi la costruzione di $I(G)$ può farsi in modo univoco
+          e preciso (come anche si dice, deterministico) e, soprattutto,
+          polinomiale nella lunghezza di $G$. Vale quindi (i). Proviamo adesso
+          (ii).\\
+          Supponiamo dapprima $G$ 2-colorabile. Sia $c$ una 2-colorazione
+          di $G$. Costruiamo una parola $w$ che, per ogni $i<n$, include
+
+          \begin{itemize}
+              \item $p_{i 1}, P_{i 2}$ se $c\left(v_i\right)=1$,
+              \item $P_{i 1}, p_{i 2}$ se $c\left(v_i\right)=2$.
+          \end{itemize}
+
+          Così $w$ ha lunghezza $2 n$. Inoltre, per ogni $i<n, w$ interseca
+          certamente la clausola $p_{i 1} p_{i 2}$; se poi $i<j<n$ e $\left(v_i,
+              v_j\right) \in E$, si ha $c\left(v_i\right) \neq c\left(v_j\right)$,
+          dunque $w$ include $P_{i 1}$ e $P_{j 2}$ oppure $P_{i 2}, P_{j 1}$, e
+          comunque interseca sia $P_{i 1} P_{j 1}$ che $P_{i 2} P_{j 2}$. Così
+          $I(G)$ è soddisfacibile.\\
+          Viceversa, ammettiamo $I(G)$ soddisfacibile.
+          Sia $w$ una parola che interseca tutte le clausole di $I(G)$. Così,
+          per ogni $i<n, w$ contiene $p_{i 1}$ oppure $p_{i 2}$; per $i<j<n$ con
+          $\left(v_i, v_j\right) \in E, w$ contiene $P_{i 1}$ o $P_{j 1}$, e poi
+          $P_{i 2}$ o $P_{j 2}$. Definiamo una funzione $c$ di $V$ in $\{1,2\}$
+          ponendo, per ogni $i<n$,
+          $$
+              c\left(v_i\right)=1 \text { se } p_{i 1} \text { è in } w, c\left(v_i\right)=2 \text { altrimenti. }
+          $$
+          Mostriamo che $c$ è una 2-colorazione di $G$. Siano $i<j<n$ tali che
+          $\left(v_i, v_j\right) \in$ $E$. Supponiamo per assurdo
+          $c\left(v_i\right)=c\left(v_j\right)$. Se il colore comune di $v_i,
+              v_j$ in $c$ è 1 , allora $p_{i 1}, p_{j 1}$ sono in $w$, che dunque
+          esclude tanto $P_{i 1}$ quanto $P_{j 1}$, e non interseca la clausola
+          $P_{i 1} P_{j 1}$. Sia allora $c\left(v_i\right)=c\left(v_j\right)=2$,
+          così $p_{i 1}, p_{j 1}$ non compaiono in $w$, che quindi include $p_{i
+                      2}$ e $p_{j 2}$, e conseguentemente esclude $P_{i 2}, P_{j 2}$. Dunque
+          $w$ non riesce a intersecare $P_{i 1} P_{j 2}$. Così deve essere
+          $c\left(v_i\right) \neq$ $c\left(v_j\right) \mathrm{e}$, tramite $c,
+              G$ 2-colorabile.\\
+          L'esempio mostra come problemi di natura e origine
+          diversa possano talora collegarsi in modo tale che algoritmi
+          soddisfacenti per l'uno riescano ad applicarsi anche all'altro.
+          Approfondiremo nel seguito, anche al di fuori di $P$, il tema di
+          queste riduzioni.
+    \item \textit{Equazioni lineari a coefficienti interi}\\
+          Non sempre un'equazione a coefficienti interi ha soluzioni intere.
+          Abbiamo avuto già modo di discuterne parlando del Decimo Problema di
+          Hilbert, nel corso della prima parte. Anche se ci restringiamo a
+          equazioni lineari (cioè di primo grado) in 2 incognite $x, y$ troviamo
+          situazioni disparate. Per esempio
+          $$
+              2 x+4 y=1
+          $$
+          non ha soluzioni intere perché 1 è dispari e, per ogni scelta di $X,
+              Y$ interi, $2 X+4 Y$ è pari. Invece
+          $$
+              2 x+3 y=1
+          $$
+          ha la soluzione intera $X=-1, Y=1$. Il problema che ci interessa
+          (quello delle equazioni lineari a coefficienti interi) ammette appunto
+          \begin{itemize}
+              \item INPUT: un'equazione $a x+b y=c$ con $a, b, c \in \mathbb{Z},
+                        a, b$ non entrambi nulli e richiede
+              \item OUTPUT: SÌ/NO a seconda che ci siano o no interi $X, Y$ che
+                    la soddisfano $(a X+b Y=c)$.
+          \end{itemize}
+
+          Un minimo di dimestichezza con l'algebra ci mostra che $a x+b y=c$ ha
+          soluzioni intere se e solo se il massimo comun divisore $(a, b)$ di
+          $a, b$ divide $c$. Infatti, se ci sono $X, Y \in \mathbb{Z}$ per cui
+          $a X+b Y=c,(a, b)$, che è divisore di $a$ e $b$, tramite $X, Y$ divide
+          anche $a X+b Y$, cioè $c$.\\
+          Viceversa, l'identità di Bézout assicura
+          che ci sono due interi $X, Y$ per cui
+          $$
+              a X+b Y=(a, b)
+          $$
+          e la proprietà si trasmette ovviamente ad ogni multiplo $c$ di $(a,
+              b)$. Anche in vista di successive applicazioni nei prossimi paragrafi,
+          ricordiamo in maggior dettaglio la prova dell'identità di Bézout.
+          Tutto nuovamente si basa sull'algoritmo euclideo delle divisioni
+          successive per la ricerca del massimo comun divisore $(a, b)$ di $a,
+              b:$ per $a \geq b>0$, si divide $a$ per $b, b$ per l'eventuale resto
+          non nullo $r_0$, e così via finché non si trova un resto nullo $r_s$;
+          l'ultimo resto non nullo $r_{s-1}$ è $(a, b)$.\\
+          Se la procedura si
+          ferma subito, cioè $(a, b)=b, b$ si scrive $a \cdot 0+b \cdot 1$,
+          dunque si pone $X=0, Y=1$. Altrimenti, si procede per induzione sul
+          numero $s$ dei passi necessari per determinare $(a, b)$. Ammettiamo
+          così di aver ottenuto la decomposizione di $\left(b, r_0\right)$ (il
+          cui calcolo richiede un passo in meno rispetto ad $(a, b))$ e di aver
+          provato $\left(b, r_0\right)=b X^{\prime}+r_0 Y^{\prime}$ per
+          $X^{\prime}, Y^{\prime}$ interi opportuni; ricordiamo $a-b q_0=r_0$
+          per qualche $q_0$ e deduciamo
+
+          $$(a, b)=\left(b, r_0\right)=b
+              X^{\prime}+r_0 Y^{\prime}=b X^{\prime}+\left(a-b q_0\right)
+              Y^{\prime}=a Y^{\prime}+b\left(X^{\prime}-q_0 Y^{\prime}\right)
+          $$
+
+          , così $X=Y^{\prime}$ e $Y=X^{\prime}-q_0 Y^{\prime}$ soddisfano quanto
+          l'identità di Bézout richiede. Anzi si noti che $X, Y$ così
+          determinati hanno lunghezza polinomialmente limitata da quella dei
+          coefficienti $a, b, c$. Infatti, la proprietà è ovvia quando $X=0,
+              Y=1$, e si preserva ad ogni passo induttivo; così ci basta ricordare
+          che $X, Y$ sono calcolati entro $S$ passi dove $S \leq \log _2 N$.\\
+
+          Torniamo adesso al nostro problema di esistenza di soluzioni intere
+          per $a x+$ $b y=c$. È facile tracciare un programma che lo risolve:
+          dati $a, b, c$,
+
+          \begin{itemize}
+              \item calcoliamo $(a, b)$ (per esempio tramite l'algoritmo
+                    euclideo delle divisioni successive),
+              \item controlliamo poi se $(a, b)$ divide o no $c$.
+          \end{itemize}
+
+          L'esistenza di soluzioni intere corrisponde infatti ad una risposta
+          positiva all'ultima verifica.\\
+          Questa procedura pone il problema in
+          $P$. Infatti i tempi di lavoro sono più o meno quelli dell'algoritmo
+          di Euclide, visto che la divisione finale di $c$ per $(a, b)$ e il
+          calcolo del relativo resto non incidono significativamente, e sappiamo
+          dal Capitolo 5 che il procedimento di Euclide impiega tempo al più
+          polinomiale, anzi quadratico, rispetto alla lunghezza degli input $a,
+              b$.
+    \item \textit{PRIMI}\\
+          L'ultimo esempio che vogliamo citare riguarda un
+          problema famoso e datato, che risale ai tempi di Euclide, e dunque a 2
+          millenni or sono, e anche più.\\
+          È dato:
+
+          \begin{itemize}
+              \item INPUT: un intero $N>1$; mentre
+              \item OUTPUT: consiste nel
+                    \begin{enumerate}[label=(\alph*)]
+                        \item rispondere $SI/NO$ secondo che $N$ sia primo, o composto;
+                              o addirittura
+                        \item decomporre $N$ nei suoi fattori primi.
+                    \end{enumerate}
+
+          \end{itemize}
+
+          Ricordiamo che $N$ è primo se non ha divisori naturali diversi da 1 e
+          da $N$ e che ogni intero maggiore di 1 si decompone in modo unico nel
+          prodotto di fattori primi. Come si vede, la questione è duplice.
+          Infatti, per $N$ composto, a) si accontenta di saperlo, b) pretende
+          invece di conoscere $i$ divisori non banali di $N$. a) è poi un
+          problema di decisione, b), invece, un problema di computazione.
+          Come detto, la questione è classica, eppure ancora attuale, visto
+          che molti protocolli crittografici (usati per esempio per garantire
+          transazioni sicure in rete), si basano sulle attuali conoscenze e
+          ignoranze su algoritmi di primalità e fattorizzazione. Pur tuttavia,
+          metodi molto semplici riescono a soddisfare l'una e l'altra questione.
+          Vediamone uno.\\
+          Dato $N$, si divide $N$ per ogni numero $q$ tale che $1<q<N$. Se la divisione
+          non è mai precisa (cioè non dà mai resto 0 ), si può dedurre che $N$ è primo;
+          altrimenti, se $N=q \cdot q^{\prime}$ per qualche $q$ con $1<q<N$ e per un
+          opportuno corrispondente $q^\prime$, ancora soddisfacente $1<q^\prime<N$, allora si può
+          dichiarare $N$ composto e si hanno informazioni sulla sua decomposizione
+          (anche se, per ottenere tutti i fattori primi di $N$, bisognerà applicare la
+          procedura a $q, q^\prime$ e poi ulteriormente, finché necessario).\\
+          Tutto questo era noto già ai tempi di Euclide e degli antichi greci.
+          Perché dunque l'algoritmo non ci basta? La risposta è che esso richiede $N-2$
+          divisioni, quindi un numero di passi almeno esponenziale rispetto al logaritmo
+          di $N$ e quindi, in definitiva, rispetto alla lunghezza di $N$.\\
+          È vero che la procedura si può accelerare; per esempio è sufficiente
+          applicarla ai valori $q$ con $2<q<\sqrt{N}$ (Esercizio. Perché?).
+          Tuttavia queste semplificazioni non bastano ad evitare il carattere
+          esponenziale: infatti $\sqrt{N}=N^{\frac{1}{2}}=2^{\frac{1}{2} \log _2 N}$ è
+          ancora esponenziale rispetto a $\log _2 N$.\\
+          In effetti, solo nell'agosto del 2002 tre informatici indiani
+          (Agrawal, Kayal, Saxena) hanno determinato un algoritmo che risolve
+          il problema di primalità lavorando in tempo al più polinomiale nella lunghezza
+          di $N$ (circa $O\left(\log _2^{11} N\right)$, a meno di fattori di minor
+          significato). La procedura di Agrawal, Kayal, Saxena, già denotata $A K S$
+          dalle iniziali dei suoi autori, è relativamente complicata, richiede
+          conoscenze di algebra astratta e di combinatorica e trascende certamente gli
+          obiettivi di queste note. Comunque colloca finalmente il problema della
+          primalità in $P$ (concludendo in questo modo un itinerario di ricerca durato
+          oltre 2 millenni).\\
+          Terminiamo l'esempio con due commenti:
+
+          \begin{itemize}
+              \item AKS, pur ottimo in teoria, non è ancora gran che utilizzato
+                    nella pratica. Computazioni di grado 11 nella lunghezza dell'input
+                    risultano proibitive
+                    nelle applicazioni. Si continuano a preferire, per la primalità, procedure di carattere probabilistico, passibili di errori nelle loro risposte " $N$ primo" o " $N$ composto", pur tuttavia rapide nella pratica e abbastanza affidabili (capaci cioè di minimizzare l'eventualità di sbaglio). Ne parleremo tra poco. L'osservazione comunque mostra quanto la teoria e la pratica possono essere distanti anche per $P$.
+              \item AKS, pur risolvendo egregiamente in teoria il problema della primalità,
+                    non dà sviluppi significativi per l'altra questione, quella della
+                    decomposizione in fattori primi. In quest'ultimo ambito, procedure
+                    al più polinomiali sono ancora sconosciute (a meno che certi
+                    sviluppi della fisica quantistica non permettano di rivedere in
+                    modo sostanziale i concetti di calcolatore e computazione: ne
+                    accenneremo alla fine di questo libro).
+          \end{itemize}
 \end{enumerate}
+
+In riferimento all'ultimo esempio (quello dei primi e dei composti) possiamo
+anche fare la seguente banale osservazione. Per come abbiamo impostato il
+problema, ci aspettiamo la risposta
+
+\begin{itemize}
+    \item SÌ, se il dato input $N$ è primo,
+    \item NO, se $N$ è composto.
+\end{itemize}
+
+L'accento positivo è sulla primalità. Ammettiamo adesso di invertire la domanda,
+e chiedere " $N$ è composto o no?". La risposta adesso sarà
+
+\begin{itemize}
+    \item Sì, se $N$ è composto,
+    \item $N O$, se $N$ è primo.
+\end{itemize}
+
+Non c'è da immaginare, però, che il cambio della domanda possa mutare i tempi
+di lavoro, rallentarli, o accelerarli. Infatti, i procedimenti per la primalità
+funzionano ancora, si tratta solo di invertire la conclusione: se si è
+risposto $SI/NO$ alla domanda se " $N$ è primo", si
+dice $NO/SI$ se la domanda diventa " $N$ è composto". Tutto questo
+è assolutamente ovvio. Così, in generale, possiamo anche porre, se vogliamo,
+la seguente definizione.
+
+\paragraph{Definizione.} coP è la classe dei problemi $S$ su alfabeti $A$ tali
+che $A^{\star}-S$ (il complemento di $S$ ) è in $P$.\\
+
+D'altra parte, per $w \in A^{\star}, w \in A^{\star}-S$ se e solo se
+$w \notin S$. Così $A^{\star}-S$ ha risposta SÌ/NO esattamente quando
+$S$ ha risposta NO/SI. Dunque, banalmente, $c o P=P$.\\
+
+Nel seguito, per $S \subseteq A^{\star}$, denoteremo spesso $S^c$ il
+complementare $A^{\star}-S$ di $S$.
