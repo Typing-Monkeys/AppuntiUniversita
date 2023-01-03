@@ -1,0 +1,241 @@
+\section{Tipi di Autenticazione}
+
+L'\textbf{autenticazione} è il processo attraverso il quale viene verificata
+l'identità di un utente che vuole
+accedere ad un computer o ad una una rete. È il sistema che verifica,
+effettivamente, che un
+individuo è chi sostiene di essere. Stabilisce l'identità di una parte ad un'altra.
+Le parti possono essere utenti o computer:
+
+\begin{itemize}
+      \item \textbf{computer-computer} (stampa in rete, delega,…)
+      \item \textbf{utente-utente} (protocolli di sicurezza, …)
+      \item \textbf{computer-utente} (autenticare un server web,…)
+      \item \textbf{utente-computer} (per accedere a un sistema…)
+\end{itemize}
+
+In realtà sono spesso richieste varie combinazioni di queste.
+L'autenticazione è una proprietà primaria, viene richiesta da un corretto
+controllo d'accesso.
+Garantire l'autenticazione significa fare in modo che un sistema sia in grado di
+associare con
+certezza un'identità ad una persona.\\
+
+Esistono vari tipi di autenticazione:
+
+\begin{itemize}
+      \item \textbf{Locale}: funziona anche offline ed è la singola macchina
+            che autentica l'utente (desktop systems);
+      \item \textbf{Diretta}: l'autenticazione avviene su una macchina diversa
+            da quella dove è avvenuto il
+            collegamento; sul server digitando le proprie credenziali
+            (per aprire file, fare login..);
+      \item \textbf{Indiretta}: l'autenticazione non sulla macchina ma su un server
+            di logging remoto (Windows
+            domain, radius, kerberos, nis). Un esempio è l'autenticazione che
+            facciamo in laboratorio. L'utente richiede al server l'accesso ad una
+            risorsa; il server invia la richiesta di accesso al
+            programma gestore degli accessi, il quale ritorna l'esito
+            dell'autenticazione al server. Quest'ultimo
+            infine rigira l'esito all'utente iniziale;
+      \item \textbf{Offline}: controllo con chiave pubblica e privata.
+            Grazie al certificato associato alla chiave
+            pubblica, siamo ricondotti al destinatario (PKI…).
+\end{itemize}
+
+\subsection{Autenticazione utente-computer}
+
+L’autenticazione tra un computer ed un utente solitamente avviene tramite
+l’utilizzo di \textbf{certificati} (come nel caso bancario); quella tra l’utente
+ed un computer avviene sulla base di qualcosa che l’utente:
+
+\begin{itemize}
+      \item \textit{Conosce}: informazioni quali password, PIN, ecc.
+      \item \textit{Possiede}: cose fisiche o elettroniche che solo l’utente ha,
+            come chiavi convenzionali, carte magnetiche o smart, ecc.
+      \item \textit{È}: caratteristiche biometriche quali
+            impronte digitali, l’iride, tono di voce, ecc
+\end{itemize}
+
+\subsection{Autenticazione su conoscenza}
+
+Questo metodo si basa sulla conoscenza di una coppia di elementi, \textbf{userID}
+e \textbf{password}, che forniscono una prova dell’identità.
+Esiste un database locale dove si ricerca la coppia di informazioni:
+se viene trovata una corrispondenza, l’utente viene riconosciuto.
+Questo metodo è \textit{antico} ma \textit{estremamente diffuso} per via della sua
+economicità e \textit{semplicità} di gestione ed implementazione.
+Risulta però essere debole e poco resistente una volta scoperta una password,
+in quanto la vulnerabilità agli attacchi sarà molto alta.
+
+\subsection{Gestione delle password}
+
+L’utente fornisce userID e password; questi vengono ricercati nel database e se
+sono presenti è consentito l’accesso.
+Questo sistema però presenta alcune debolezze. In primo luogo, nel database
+userID e password sono in chiaro: poteva capitare che queste informazioni
+venissero utilizzate per entrare illecitamente. Poteva anche presentarsi il
+rischio che il database stesso venisse rubato, è vero che il file era protetto,
+ma il suo contenuto era in chiaro, per cui non vi era alcuna protezione qualora
+qualcuno se ne impossessasse. Per questo motivo dal 1960 dal MIT sono state
+adottate delle strategie per migliorare tale implementazione. Le password,
+infatti, non venivano più ricercate nel database ma venivano memorizzate in
+chiaro su un file di sistema in RAM, protetto da politica di sicurezza.
+In un secondo momento il file veniva letto dal database e veniva effettuato
+il controllo.
+Dal 1967, ad opera di Cambridge, è stata introdotta la criptazione delle password
+al momento del loro inserimento tramite una specifica funzione, per cui venivano
+memorizzati solo gli hash e non le password stesse.
+Il vantaggio stava nel fatto che le informazioni nel database non fossero più in
+chiaro e non vi era più la necessità di utilizzare il file memorizzato in RAM.
+Allo stesso tempo però il file degli hash poteva essere aperto in lettura da
+chiunque e per due password uguali si aveva il medesimo hash.
+Il problema delle password uguali viene risolto con l’aggiunta del \textit{sale}
+(\textbf{salt}), ossia una sequenza di bit generata dal sistema. La password,
+quindi, risulta diversa dalla sua omonima grazie a questa informazione casuale
+in più.
+Nel file viene memorizzato non solo la password, ma anche il sale corrispondente.
+Questo viene posizionato in una directory nascosta (\textbf{shadow}), in nessun
+modo accessibile da alcun utente ad eccezione di root.
+Per quanto riguarda l’autenticazione, l’utente inserisce la password che conosce:
+dal file delle password viene preso il sale dalla riga che corrisponde all’userID
+e si codificano le due informazioni, \(salt + password\). Se il risultato è
+uguale alla riga memorizzata nel database, allora l’utente può entrare.
+Anche questo file viene aperto in lettura da tutti.
+Tale problema verrà risolto solo nel 1987.
+
+\subsubsection{Vulnerabilità delle password}
+Di seguito un elenco delle vulnerabilità più comuni a cui sono soggette le
+password:
+
+\begin{itemize}
+      \item \textbf{Guessing}: indovinate. Mai usare le singole parole;
+      \item \textbf{Snooping}: sbirciate mentre vengono inserite.
+            Per questo vengono sostituite dagli asterischi
+            (Shoulder surfing);
+      \item \textbf{Sniffing}: intercettate durante la trasmissione in rete
+            (Keystroke sniffing);
+      \item \textbf{Spoofing}\footnote{Ricordarsi che il termine corretto è
+                  \textit{Spoofing} e non \textit{Spooping}, qui lo SCAT non è bene
+                  accetto \emoji{poop}}: acquisite da terze parti che impersonano
+            l’interfaccia di login (Trojan login);
+
+\end{itemize}
+
+\subsubsection{Come difendersi ?}
+
+Ecco alcune contromisure utili per difendersi e prevenire i principali attacchi
+alle password:
+
+\begin{itemize}
+      \item \textit{Guessing attack}:
+            utilizzare un \textbf{Audit-log} ed introdurre un
+            \textbf{limite massimo} per il numero di sbagli;
+      \item \textit{Social engineering}: il cambio password è abilitato solo in
+            specifiche circostanze.
+            Può anche esserci una policy dedicata;
+      \item \textit{Shoulder surfing}: si utilizza la tecnica del
+            \textbf{Password Blinding}: vedo gli asterischi al posto della
+            password oppure nessun carattere;
+      \item \textit{Keystroke sniffing}; utilizzo tecniche di
+            \textbf{Memory Protection};
+      \item \textit{Trojan login}: chiave speciale per fare login;
+      \item \textit{Offline dictionary attack}: utilizzo uno
+            \textbf{Shadow Password} per evitare che
+            il file delle password venga rubato.
+\end{itemize}
+
+\subsection{Autenticazione su possesso}
+
+In questo caso il \textbf{possesso} di un \textbf{token} fornisce la prova per
+il riconoscimento.
+Chi possiede un oggetto come una carta magnetica, una smart card o smart token,
+è autorizzato a compiere determinate azioni. Tale tipo di autenticazione
+solitamente non è nominale, ma può essere accompagnata dal riconoscimento
+dell’user. Rubando il token, infatti, non si fa altro che impersonare l’utente.
+Ogni token memorizza una chiave che deve essere inserita per sbloccarlo.
+Nel caso del bancomat, per esempio, viene richiesto un PIN per utilizzare la carta.
+Il vantaggio di questo strumento è che è molto complesso estrarre
+un’informazione dal token.
+
+\paragraph{Tipi di Token: }
+
+\begin{itemize}
+      \item Carte magnetiche, ormai obsolete;
+      \item Smart card per memorizzare una password robusta:
+            \begin{itemize}
+                  \item Memory card: ha una memoria ma non ha capacità computazionali.
+                        È impossibile
+                        controllare o codificare il PIN, ma essendo trasmesso in chiaro può
+                        essere soggetto
+                        a sniffing;
+                  \item Microprocessor card: sono più evoluti. Ha una memoria e
+                        un microprocessore, ma
+                        può esserci un controllo o la codifica del PIN;
+            \end{itemize}
+      \item Smart token:
+            \begin{itemize}
+                  \item Protetto da PIN;
+                  \item  Microprocessor card + tastierino e display
+                  \item  Vero e proprio computer;
+                  \item  Svantaggi: costoso e fragile
+                  \item  Funzionamento: Hanno una Chiave segreta (seme o seed)
+                        memorizzata dalla fabbrica,
+                        condivisa col server. Preleva le informazioni esterne,
+                        per esempio il PIN inserito oppure
+                        l'ora, per generare una one-time password.
+                        La Password compare poi sul display e viene
+                        rinnovata ogni 30-90 secondi.
+                        La Sincronizzazione col server avviene grazie al seme ed un
+                        algoritmo comune;
+            \end{itemize}
+\end{itemize}
+
+\section{Autenticazione su caratteristiche}
+
+Il possesso da parte dell’utente di alcune caratteristiche univoche fornisce
+prova della sua identità.
+Le caratteristiche possono essere:
+
+\begin{itemize}
+      \item \textbf{Fisiche}: impronte digitali, forma della mano, impronta
+            della retina o del viso, ecc.
+      \item \textbf{Comportamentali}:
+            firma in riferimento alle sue caratteristiche quali pressione
+            della penna o inclinazione delle lettere, timbro della voce,
+            velocità nella scrittura, ecc.
+\end{itemize}
+
+Lo schema di funzionamento di tale tecnica, prevede una fase iniziale di
+\textbf{campionamento} in cui vengono eseguite più misurazioni sulla
+caratteristica d’interesse, in modo da stabilire un margine d’errore e viene
+definito un modello (\textbf{template}).
+Durante la fase di \textbf{autenticazione}, viene confrontata la caratteristica
+appena misurata rispetto al template: c’è successo se i due valori corrispondono
+a meno di una \textit{tolleranza}, che va definita attentamente.
+Se è troppo alta consento l'accesso ad altri utenti, se è troppo bassa potrei
+non consentire l'accesso neanche all'utente a cui magari appartiene la
+caratteristica misurata.
+Ottenere una perfetta uguaglianza è tecnicamente un’operazione impossibile.
+Il problema fondamentale di questa tecnica sta nell’identificare il giusto
+template da associare all’individuo in analisi.
+Va fatto notare che l’autenticazione biometrica è sempre probabilistica,
+ovvero dipende da come è settato il parametro soglia: se la soglia
+è \textbf{molto bassa} risulterà difficile che l’intruso si autentichi al posto
+dell’utente,
+ma il numero di falsi negativi sarà alto; se invece la soglia
+è \textbf{molto alta}, non avrò mai falsi negativi in quanto l'utente reale
+verrà sempre autenticato ma potrebbero esserci falsi positivi da parte di un
+attaccante.
+
+\paragraph{Osservazioni:}
+è necessario scegliere un tipo di autenticazione
+biometrica adatta alla circostanza. Occorre che il sistema non sia troppo
+invasivo, poiché ciò potrebbe non essere accettato dall'utente.
+Inoltre, non possono essere utilizzate informazioni che metterebbero a
+repentaglio la sua privacy. Per esempio, l’autenticazione tramite retina non
+viene quasi mai impiegata in quanto da essa si potrebbe rinvenire alla presenza
+di alcune malattie. L'impronta digitale rimane il meccanismo più usato,
+anche se è il meno pratico ed efficace.
+
+%% No esempio

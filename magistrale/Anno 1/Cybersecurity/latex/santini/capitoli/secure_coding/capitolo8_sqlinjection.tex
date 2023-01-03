@@ -1,0 +1,359 @@
+\chapter{SQL Injection}
+
+SQL injection è una tecnica di \textit{code injection}, usata per attaccare
+applicazioni di gestione
+dati, con la quale vengono inserite delle stringhe di codice SQL malevole
+all'interno di campi
+di input in modo che queste ultime vengano poi eseguite
+(ad esempio per fare inviare il contenuto del database all'attaccante).
+Sfrutta quindi le vulnerabilità di sicurezza del codice
+di un'applicazione. Un classico esempio è un'applicazione che si interfaccia
+con un database
+e che prende in input dati provenienti da una form web.
+SQL Injection è comune con PHP e ASP (ormai abbandonato) a causa della
+prevalenza di
+vecchie interfacce funzionali.
+Per quanto sia estremamente semplice evitare questo tipo di problemi,
+molte applicazioni
+commerciali (e non) sono soggette a questa vulnerabilità
+(che può portare ad accessi non
+autorizzati e alla distruzione di database aziendali) dovuta all'eccessiva
+fiducia negli input
+degli utenti.\\
+
+Potenziali vulnerabilità ad SQL injection si verificano quando:
+
+\begin{itemize}
+    \item I dati entrano in un programma da una fonte non attendibile.
+    \item I dati in input sono utilizzati per costruire
+          dinamicamente una query SQL.
+\end{itemize}
+
+Le principali conseguenze di un attacco SQL Injection sono:
+
+\begin{itemize}
+    \item \textbf{Riservatezza} (confidentiality):
+          Poiché i database SQL contengono generalmente dati
+          sensibili, la perdita di riservatezza è un problema frequente con le
+          vulnerabilità SQL
+          Injection;
+    \item \textbf{Autenticazione} (authentication): Se si usano comandi SQL
+          obsoleti e non sicuri per controllare i
+          nomi utente e le password, può essere possibile connettersi ad un sistema
+          come un
+          altro utente senza alcuna conoscenza della password;
+    \item \textbf{Autorizzazione} (authorization): Se le informazioni di
+          autorizzazione sono conservate
+          in un database SQL, può essere possibile modificare queste informazioni
+          attraverso
+          lo sfruttamento di una vulnerabilità SQL Injection;
+    \item \textbf{Integrità} (integrity): Così come è possibile leggere
+          informazioni sensibili, è anche
+          possibile apportare modifiche o addirittura cancellare queste informazioni
+          con un
+          attacco SQL Injection
+\end{itemize}
+
+In sostanza, l'attacco viene effettuato inserendo un metacarattere all'interno
+dei dati in input, per poi
+posizionare i comandi SQL nel piano di controllo che prima non esisteva in quel
+piano.
+Questo difetto dipende dal fatto che l'SQL non fa una reale distinzione tra il
+piano di controllo
+e quello dei dati.
+
+\section{Esempi}
+
+\subsection{Esempio 1}
+
+Prendiamo in esame il seguente codice SQL:
+
+\begin{lstlisting}[language=Sql]
+    SELECT id, firstname, lastname
+    FROM authors
+    WHERE firstname = $input1 AND lastname = $input2
+\end{lstlisting}
+
+Assumiamo che il valore delle due variabili \verb|\$input1| \verb|\$input2|
+sia:
+
+\begin{lstlisting}[language=PHP]
+    $input1 = "evil'ex"
+    $input2 = "Newman"
+\end{lstlisting}
+
+La query quindi risulterà essere la seguente:
+
+\begin{lstlisting}[language=Sql]
+    SELECT id, firstname, lastname
+    FROM authors
+    WHERE firstname = 'evil'ex' AND lastname = 'Newman'
+\end{lstlisting}
+
+Avremo quindi un errore, in quanto il database tenterà di eseguire \verb|evil|
+come un comando SQL (\verb|Incorrect syntax near il'|).
+
+\subsection{Esempio 2}
+
+Prendiamo in esame il seguente codice \verb|C#|:
+
+\begin{lstlisting}[language=C++]
+    string userName = ctx.getAuthenticatedUserName();
+    string query = 
+        "SELECT * FROM items WHERE owner = '" + userName + 
+        "' AND itemname = '" + ItemName.Text + "'";
+    sda = new SqlDataAdapter(query, conn);
+    DataTable dt = new DataTable();
+    sda.Fill(dt);
+    ...
+\end{lstlisting}
+
+Se l'utente \verb|wiley| imposta il valore dell'attributo\\
+\verb|ItemName.Text| a \verb|name' OR 'a'='a'|, la query risulterà essere:
+
+\begin{lstlisting}[language=SQL]
+    SELECT * FROM items
+    WHERE (owner = 'wiley' AND itemname = 'name')
+        OR 'a'='a';
+\end{lstlisting}
+
+Che il database interpreterà come:
+
+\begin{lstlisting}[language=SQL]
+    SELECT * FROM items;
+\end{lstlisting}
+
+\subsection{Esempio 3}
+
+Facciamo sempre riferimento al codice dell'esempio precedente.
+Mettiamo che l'utente \verb|hacker| inserisca come input la stringa:
+
+\begin{lstlisting}[language=SQL]
+    "name'); DELETE FROM items; --"
+\end{lstlisting}
+
+La query risulterà essere:
+
+\begin{lstlisting}[language=SQL]
+    SELECT * FROM items
+    WHERE owner = 'hacker'
+        AND itemname = 'name';
+
+    DELETE FROM items;
+    --'
+\end{lstlisting}
+
+Siamo quindi riusciti ad eliminare l'intera tabella !\\
+Questo accade perché molti database (incluso Microsoft SQL Server 2000)
+permettono l'esecuzione consecutiva di più query separata da un \verb|;|.
+Per esempio, questo non funzionerebbe in Oracle DB in quanto non permette questo
+comportamento.
+
+\section{Mitigation}
+
+In generale quando si ha a che fare con un database e con query che richiedono dati
+provenienti dall'esterno è sempre consigliato adottare strategie di mitigazione.
+Un approccio tradizionale per prevenire gli attacchi SQL injection è quello di
+gestirli come un
+problema di validazione degli input e poi:
+
+\begin{itemize}
+    \item o accettare solo i caratteri di una \textbf{whitelist} di valori sicuri.
+          Tutto il resto è quindi negato;
+    \item o identificare e rendere sicuri (\textit{escaping}) una serie di valori
+          presenti all'interno di una \textbf{blacklist} di elementi
+          potenzialmente dannosi. Quindi è
+          tutto consentito tranne ciò che è specificato nella blacklist.
+          Questa però va
+          costantemente aggiornata.
+\end{itemize}
+
+Successivamente andremo ad elencare alcune delle tecniche di difesa più efficaci
+contro SQL Injection.
+
+\subsection{Dichiarazioni Preparate}
+
+Tutti i linguaggi garantiscono la possibilità di “preparare” dei comandi.
+L'uso di dichiarazioni preparate con vincoli variabili, anche dette
+\textit{query parametrizzate}, è il
+modo corretto con cui tutti gli sviluppatori dovrebbero prima essere istruiti su
+come scrivere
+le query del database.
+Le query parametrizzate costringono lo sviluppatore a definire prima tutto il
+codice SQL, per
+poi passare ogni parametro alla query in secondo momento.
+Le istruzioni preparate assicurano che un aggressore non sia in grado di
+modificare l'intento
+di una query, anche se vengono passati come input dei comandi SQL.\\
+
+Alcuni esempi pratici:
+
+\begin{itemize}
+    \item \textbf{Java EE}:
+          utilizzare  \verb|PreparedStatement()| con le bind variables;
+    \item \textbf{.NET}:
+          utilizzare query parametrizzate come \verb|SqlCommand()| o \verb|OleDbCommand()|
+          con le bind variables;
+    \item \textbf{PHP}: usare i \verb|PDO| con query parametrizzate fortemente tipizzate
+          (\textit{strongly typed parameterized queries}) come \verb|bindParam()|
+    \item \textbf{Hibernate}: usare \verb|createQuery()|
+          con le bind variables (vengono chiamate \textit{named parameters}
+          in Hibernate)
+    \item \textbf{SQLite}: sfruttare \verb|sqlite3_prepare()|
+          pre creare degli statement object.
+\end{itemize}
+
+\paragraph{Un esempio di codice Java:} \
+
+\begin{lstlisting}[language=Java]
+    // This should REALLY be validated too
+    String custname = request.getParameter("customerName");
+    String query = "
+      SELECT account_balance 
+      FROM user_data WHERE
+      user_name = ? 
+    ";
+
+    // qui viene effettuato il binding e reso sicuro l'input
+    PreparedStatement pstmt = connection.prepareStatement( query );
+    pstmt.setString( 1, custname);
+
+    ResultSet results = pstmt.executeQuery( );
+\end{lstlisting}
+
+\subsection{Procedura Memorizzata}
+
+Il codice SQL per una \textbf{stored procedure} viene definito e memorizzato nel
+database stesso e
+poi richiamato dall'applicazione. Vanno sempre passati i parametri.
+
+\begin{lstlisting}[language=Java, caption=Esempio di codice Java che
+    sfrutta una \textit{stored procedure}]
+    String custname = request.getParameter("customerName");
+    try {
+        CallableStatement cs = connection.prepareCall(
+            "{callsp_getAccountBalance(?)}"
+            );
+        cs.setString(1, custname);
+        ResultSet results = cs.executeQuery();
+        // result set handling
+    } catch (SQLException se) {
+        // logging and error handling
+    }
+\end{lstlisting}
+
+\subsection{Whitelist Input Validation}
+
+I valori dei parametri devono essere mappati con i nomi di tabelle o di colonne
+validi (o comunque previsti) per assicurarsi che l'input dell'utente non
+convalidato non finisca nella
+query. Devono effettivamente esistere nel database.
+
+\begin{lstlisting}[language=Java, caption=Esempio di codic Java che effettua 
+    input validation tramite whitelist.]
+    String tableName;
+    switch(PARAM):
+        case "Value1": tableName = "fooTable";
+            break;
+        case "Value2": tableName = "barTable";
+            break;
+        ...
+        default: 
+            throw new InputValidationException("
+            unexpected value provided for table name
+            ");
+\end{lstlisting}
+
+\subsection{Escaping degli Input}
+
+Questa tecnica dovrebbe essere usata solo come ultima risorsa,
+quando nessuna delle
+precedenti è fattibile. Può essere combinata però con le altre tecniche.
+La Whitelist Input Validation è probabilmente la scelta migliore
+in quanto questa
+metodologia è fragile rispetto ad altre difese e non possiamo garantire che
+impedirà tutte le
+SQL injection in ogni situazione.
+Ogni DBMS supporta uno o più caratteri di escape per determinati tipi di query.
+Se si esegue
+l'escape di tutti gli input forniti dall'utente utilizzando lo schema di escape
+appropriato per il
+database che si sta utilizzando, il DBMS non confonderà quell'input con il codice
+SQL scritto
+dallo sviluppatore, evitando così eventuali vulnerabilità di SQL injection.\\
+
+In PHP generalmente si utilizza la funzione \verb|mysqli_real_escape_string()|
+per fare escaping dei parametri da utilizzare nella query prima di mandarla
+al database.
+
+\begin{lstlisting}[language=Php]
+    $mysqli = new mysqli(
+        'hostname', 
+        'db_username', 'db_password', 
+        'db_name'
+        );
+    $query = sprintf(
+        "SELECT * 
+        FROM `Users` 
+        WHERE UserName='%s' AND Password='%s'", 
+        $mysqli->real_escape_string($username), 
+        $mysqli->real_escape_string($password));
+    $mysqli->query($query);
+\end{lstlisting}
+
+Questa funzione antepone il carattere \verb|\| (backslash) ai seguenti caratteri,
+effettuando quindi operazioni di escaping: \verb|\\x00|, \verb|\\n|, \verb|\\r|,
+\verb|\\|, \verb|\'|, \verb|\"| e \verb|\\x1a| (EOF).
+
+\subsection{Altre Difese Aggiuntive}
+
+Oltre ad adottare una delle quattro difese primarie (quelle elencate in precedenza),
+è raccomandato anche di adottare tutte
+queste tecniche per assicurare una difesa migliore.
+
+\paragraph{Least Privilege.}
+Per ridurre i potenziali danni di un attacco SQL injection, è necessario ridurre
+al minimo i
+privilegi assegnati ad ogni account. Non assegnate diritti di accesso di tipo DBA
+o admin agli
+account dell'applicazione. È meglio partire da zero per determinare quali diritti
+di accesso
+richiedono gli account piuttosto che cercare di capire quali diritti di accesso
+si devono togliere.
+In breve:
+
+\begin{itemize}
+    \item Assicuratevi che agli account che necessitano solo di un accesso in
+          lettura sia
+          concesso solo l'accesso in lettura alle tabelle a cui hanno bisogno di accedere;
+    \item Se un account ha bisogno di accedere solo ad alcune porzioni di una
+          tabella,
+          considerare la possibilità di creare una vista che limiti l'accesso a quella
+          porzione di
+          dati e di assegnare invece l'accesso dell'account alla vista, piuttosto che
+          alla tabella sottostante;
+    \item Raramente, se non mai, concedere l'accesso totale agli account del
+          database.
+\end{itemize}
+
+\paragraph{Multiple DB users.}
+Diversi DB users possono essere utilizzati per diverse applicazioni web.
+In questo modo, il progettista dell'applicazione può avere una buona granularità
+nel controllo degli accessi e dunque,
+ogni utente del DB avrà l'accesso selezionato solo a ciò di cui ha bisogno, e
+l'accesso in scrittura a seconda delle necessità. Un esempio è la pagina di login
+di un sito. Questa avrà sicuramente bisogno dei diritti di accesso in lettura alla
+tabella contenente gli username e le password, ma NON dovrà poter scriverci in
+nessun modo (non richiede quindi diritti di scrittura su questa tabella).
+
+\paragraph{Views.}
+È possibile utilizzare le viste SQL per aumentare ulteriormente la granularità
+dell'accesso, limitando l'accesso in lettura a specifici campi di una tabella o
+ai join di tabelle.
+
+\paragraph{Input validation.}
+Oltre ad essere una difesa primaria quando non è possibile nient'altro,
+la validazione degli
+input può anche essere una difesa secondaria utilizzata per rilevare gli input
+non autorizzati
+prima che questi vengano passati alla query SQL.

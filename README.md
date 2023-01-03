@@ -1,23 +1,5 @@
-```
-               █████╗ ██████╗ ██████╗ ██╗   ██╗███╗   ██╗████████╗██╗                            
-              ██╔══██╗██╔══██╗██╔══██╗██║   ██║████╗  ██║╚══██╔══╝██║                            
-              ███████║██████╔╝██████╔╝██║   ██║██╔██╗ ██║   ██║   ██║                            
-              ██╔══██║██╔═══╝ ██╔═══╝ ██║   ██║██║╚██╗██║   ██║   ██║                            
-              ██║  ██║██║     ██║     ╚██████╔╝██║ ╚████║   ██║   ██║                            
-              ╚═╝  ╚═╝╚═╝     ╚═╝      ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝                            
+![logo](./.github/imgs/monekpazzaNCULO.png)
 
-                      ██╗   ██╗███╗   ██╗██╗██╗   ██╗███████╗██████╗ ███████╗██╗████████╗ █████╗ 
-                      ██║   ██║████╗  ██║██║██║   ██║██╔════╝██╔══██╗██╔════╝██║╚══██╔══╝██╔══██╗
-                      ██║   ██║██╔██╗ ██║██║██║   ██║█████╗  ██████╔╝███████╗██║   ██║   ███████║
-                      ██║   ██║██║╚██╗██║██║╚██╗ ██╔╝██╔══╝  ██╔══██╗╚════██║██║   ██║   ██╔══██║
-                      ╚██████╔╝██║ ╚████║██║ ╚████╔╝ ███████╗██║  ██║███████║██║   ██║   ██║  ██║
-                       ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝   ╚═╝   ╚═╝  ╚═╝
-```
-
-Sofferenze e Appunti presi durante il corso di Informatica Triennale e Magistrale ✍️
-
- > _Anno Domini: 1308_
- 
 ## Appunti
 
 In questa cartella troverai tutte le nostre fatiche fatte negli annli dell'Università (Triennale e Magistrale).<br>
@@ -38,6 +20,17 @@ Un grazie speciale va anche a queste persone che ci hanno aiutato fornedo il lor
   - Chiarimenti e aiuti sulla parte di configurazione del servizio HTCondor
 - [@CristianCosci](https://github.com/CristianCosci):
   - Revisione e aggiornamento degli appunti di HPC 
+- [@Luchinzzz](https://github.com/Luchinzzz)
+  - Appunti di Computability and Complexity
+  - Appunti di Knowledge Representation and Automated Reasoning
+  - Appunti di Simulazione
+  - Appunti di Information Security Auditing, Certification e Digital Forencics
+  - Appunti di Cybersecurity
+- [@F-a-b-r-i-z-i-o](https://github.com/F-a-b-r-i-z-i-o)
+  - Appunti di Cybersecurity
+  - Appunti di Computability and Complexity
+- [giulia.rt](https://instagram.com/giulia.rt?igshid=YmMyMTA2M2Y=)
+  - Logo per la repo
 
 ## Contribuire
 

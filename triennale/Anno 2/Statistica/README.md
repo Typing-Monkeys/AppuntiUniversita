@@ -1,4 +1,4 @@
-# Appunti di Statistica - Mr. GlitchMan
+# Appunti di Statistica
 
 Qui puoi trovare una raccolta di esercizi con commenti utili a superare l'esame di **Probabilità e Statistica**.
 

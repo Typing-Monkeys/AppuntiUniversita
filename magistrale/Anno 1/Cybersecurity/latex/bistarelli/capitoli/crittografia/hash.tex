@@ -1,0 +1,31 @@
+\section{Funzioni Hash}
+
+Una funzione di hash è una funzione matematica che permette di ridurre una
+qualunque stringa di
+testo (indipendentemente dalla sua lunghezza) in una nuova stringa avente
+precise caratteristiche
+tra cui un numero di caratteri predefinito. A partire da un input X, in
+altre parole, sarà possibile
+generare un input Y che avrà delle caratteristiche ben definite.
+A prescindere dal tipo di funzione di hashing tutte hanno dei punti in comune:
+
+\begin{itemize}
+    \item \textbf{Costanza}: a parità di input la stessa funzione di hash
+          restituirà sempre la stessa stringa
+          alfanumerica; ad ogni input, in altre parole, corrisponde sempre e
+          inevitabilmente lo stesso
+          output;
+    \item \textbf{Irreversibilità}: mentre è sempre possibile riprodurre
+          l'output conoscendo l'input originario
+          col quale l'output è stato generato non è però possibile fare
+          il percorso inverso, non si può
+          quindi a partire da una stringa alfanumerica risalire al contenuto
+          iniziale dell'input;
+    \item \textbf{Determinismo}: indipendentemente da quanto sia lungo l'input,
+          la funzione di hash restituirà
+          sempre una stringa alfanumerica di un numero determinato di caratteri;
+    \item \textbf{Effetto} valanga: non importa quanto l'input sia lungo e
+          complesso, è sufficiente una
+          variazione infinitesimale dell'input per generare un output
+          completamente differente;
+\end{itemize}
