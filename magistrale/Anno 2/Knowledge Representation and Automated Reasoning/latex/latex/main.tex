@@ -28,7 +28,7 @@
 \usepackage{hyperref}
 \usepackage{tikz}
 \usepackage{multirow}
-\usepackage{todonotes}
+% \usepackage{todonotes}
 \usepackage{placeins}
 
 \usepackage{graphicx}  
@@ -69,7 +69,7 @@
 %\renewcommand{\chaptername}{Capitolo}
 %\renewcommand{\appendixname}{Appendice}
 %\renewcommand{\abstractname}{Abstract}
-%\renewcommand{\footnotesize}{\scriptsize}
+% \renewcommand{\footnotesize}{\scriptsize}
 %\renewcommand{\today}{\ifcase\month\or
 %  Gennaio\or Febbraio\or Marzo\or Aprile\or Maggio\or Giugno\or
 %  Luglio\or Agosto\or Settembre\or Ottobre\or Novembre\or Dicembre\fi
@@ -119,14 +119,13 @@
 
 
 \begin{document}
-    \input{frontmatter}
+
+    \input{latex/frontmatter.tex}
     
+    \tableofcontents
+
+    \input{capitolo2}
     \newpage
-  	\tableofcontents
-  	\input{capitolo2}
-  	
- 	\newpage
     \bibliographystyle{plainnat}
-    
     
 \end{document}
