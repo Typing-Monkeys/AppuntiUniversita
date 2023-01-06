@@ -288,7 +288,7 @@ Sebbene il forward checking rilevi molte incoerenze, non le rileva tutte. Per es
 \textbf{La consistenza locale} è la condizione che si verifica quando ogni nodo di una rete soddisfa tutti i vincoli che lo coinvolgono. Quest'ultima nei CSP consente di \textbf{ridurre lo spazio di ricerca} di un algoritmo eliminando dal dominio delle variabili i valori che non rispettano i vincoli, cioè che non hanno \textbf{supporto}; può essere definita in rapporto alla consistenza di nodo, arco o cammino.
 \begin{itemize}
     \item \textbf{Consistenza di Nodo:} Consiste nella verifica dei valori del dominio di un nodo rispetto ai vincoli del nodo stesso. Ad esempio, se il dominio del nodo $x_1$ è pari a 1,2,3 e il vincolo unario di $x_1$ è $x_1 > 1$, la consistenza di nodo consente di ridurre il dominio di $x_1$ a $2,3$ riducendo il processo di ricerca dell'algoritmo.
-    \item \textbf{Consistenza di Arco:} Consiste nella verifica dei valori di un dominio di un nodo rispetto ai vincoli binari con un altro nodo. Ad esempio, dati due nodi $x_1$ e $x_2$ con rispettivi domini 1,2,3 e 1,4,5,9, il vincolo $x_2 = x_{1}^2$ consente di ridurre il dominio del nodo x2 a 1,4,9 poiché non sussiste alcun nesso tra il valore 5 dell'insieme dominio di $x_2$ e qualsiasi altro elementi dell'insieme dominio di $x_1$.
+    \item \textbf{Consistenza di Arco:} Consiste nella verifica dei valori di un dominio di un nodo rispetto ai vincoli binari con un altro nodo. Ad esempio, dati due nodi $x_1$ e $x_2$ con rispettivi domini $1,2,3$ e $1,4,5,9$, il vincolo $x_2 = x_{1}^2$ consente di ridurre il dominio del nodo $x_2$ a 1,4,9 poiché non sussiste alcun nesso tra il valore 5 dell'insieme dominio di $x_2$ e qualsiasi altro elemento dell'insieme dominio di $x_1$.
     \item \textbf{Consistenza di Cammino:} Consiste nella verifica dei valori di un nodo rispetto ai vincoli n-ari con altri n nodi. La consistenza di cammino è un estensione della consistenza di arco ed è detta anche k-consistenza. Si distingue dalla consistenza di arco che, invece, è dedicata ai vincoli binari tra due nodi.
 \end{itemize}
 
@@ -301,14 +301,14 @@ In questo caso tutti i vincoli sono unari, le variabili sono rappresentate da de
 \end{figure}
 
 \subsection{Domain Consistency}
-L'idea di arc consistency fornisce un metodo veloce di propagazione dei vincoli sostanzialmente più forte del forward checking. Una variabile è consistente al dominio (domain consistent) se nessun valore del dominio del nodo è è dichiarato impossibile da uno qualsiasi dei vincoli. L'idea è di "potare" il più possibile prima di selezionare un valore per le variabili. La domain consistency è stata definita solo per i vincoli che coinvolgono una sola variabile. Quando i vincoli sono binari, possiamo usare gli archi per indicare che un vincolo vale tra una coppia di variabili:
+L'idea di arc consistency fornisce un metodo veloce di propagazione dei vincoli sostanzialmente più forte del forward checking. Una variabile è consistente al dominio (domain consistent) se nessun valore del dominio del nodo è dichiarato impossibile da uno qualsiasi dei vincoli. L'idea è di "potare" il più possibile prima di selezionare un valore per le variabili. La domain consistency è stata definita solo per i vincoli che coinvolgono una sola variabile. Quando i vincoli sono binari, possiamo usare gli archi per indicare che un vincolo vale tra una coppia di variabili:
 \begin{itemize}
     \item \textbf{un nodo} per ogni variabile
     \item \textbf{un arco} per ogni vincolo
 \end{itemize}
 
 \subsection{Arc Consistency}
-Quando tutti i vincoli sono binari si parla di arc consistency. Un arco (u,c) è consistente se per ogni valore x del dominio dom(u) esiste un valore y nel dom(v) tale che un assegnamento $u=x$ e $v=y$ soddisfa tutti i vincoli binari che coinvolgono sia u che v.
+Quando tutti i vincoli sono binari si parla di arc consistency. Un arco $(u,v)$ è consistente se per ogni valore $x$ del dominio $dom(u)$ esiste un valore $y$ nel $dom(v)$ tale che un assegnamento $u=x$ e $v=y$ soddisfa tutti i vincoli binari che coinvolgono sia $u$ che $v$.
 \subsubsection{Punto fisso e supporto}
 Tutto il processo di consistenza locale viene applicato fin quando non si riesce a trovare un punto fisso, cioè fino a quando il dominio delle variabili resta invariato.
 \vspace{0.5cm}
@@ -377,7 +377,7 @@ In sostanza si sceglie un ordine fra i nodi, prendiamo ad esempio y come primo e
 La complessità temporale è $O(d^3$ * $n^2)$ e quella spaziale è $O(n^2$).
 
 \subsubsection{Algoritmo AC-3}
-AC-3 è un miglioramento di AC-2, alcuni di essi possono essere già essere nella coda Q. Se è così allora non dovrebbero essere inseriti di nuovo.
+AC-3 è un miglioramento di AC-2, alcuni di essi possono già essere nella coda Q. Se è così allora non dovrebbero essere inseriti di nuovo.
 \begin{figure}[H]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{img/Cap3/ac-3.png}
