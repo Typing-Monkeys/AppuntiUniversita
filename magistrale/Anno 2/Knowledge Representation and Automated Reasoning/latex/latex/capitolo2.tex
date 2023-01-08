@@ -1,11 +1,11 @@
-\chapter{Costraint Satisfaction Problems} \label{ch:Costraint Satisfaction
+\chapter{Constraint Satisfaction Problems} \label{ch:Costraint Satisfaction
     Problems}
-\section{Costraint Satisfaction Problems}
+\section{Constraint Satisfaction Problems}
 Un vincolo è semplicemente una relazione logica tra diverse incognite (o
 variabili), ognuna delle quali assume un valore in un dato dominio. Un vincolo
 quindi restringe i possibili valori che le variabili possono assumere e ne
 rappresenta alcune informazioni parziali sulle variabili di interesse.
-\\Formalmente, \textbf{un costraint satisfaction problem (o CSP)} è definito da:
+\\Formalmente, \textbf{un constraint satisfaction problem (o CSP)} è definito da:
 \begin{itemize}
     \item Un insieme di variabili $X_1, X_2, ... , X_n$ ;
     \item Una funzione che mappa ogni variabile a un dominio finito;
@@ -32,7 +32,7 @@ Per comprendere meglio un problema di soddisfacimento di vincoli è opportuno
 evidenziare i concetti di stato e di assegnamento:
 \begin{itemize}
     \item \textbf{Stato:} Rappresenta ogni combinazione di valori assunti dalle
-          variabili $\{x1,..., xn\}$.
+          variabili $\{x_1, \ldots, x_n\}$.
     \item \textbf{Assegnamento:} Rappresenta la soluzione del problema, cioè
           assegnare dei valori a tutte le variabili (assegnamento completo) in modo
           tale da soddisfare tutti i vincoli del problema (”assegnamento
@@ -77,8 +77,8 @@ NSW , V , SA e T. Il dominio di ciascuna variabile è l'insieme $\{rosso, verde,
     blu\}$. I vincoli richiedono che le regioni vicine abbiano colori distinti; ad
 esempio, le combinazioni consentite per WA e NT sono le coppie
 \begin{center}
-    $\{(rosso, verde), (rosso, blu), (verde, rosso), (verde, blu), (blu, rosso),
-        (blu, verde)\}$
+    $\{(rosso, verde), (rosso, blu), (verde, rosso),$\\
+    $(verde, blu), (blu, rosso),(blu, verde)\}$
 \end{center}
 Ci sono molte soluzioni possibili, come \{W A = rosso, AN D = verde, A = rosso,
 N SW = verde, V = rosso, SA = blu, T = rosso\}. \\È utile visualizzare un CSP
@@ -87,12 +87,12 @@ problema e gli archi corrispondono a vincoli
 \begin{figure}[htp]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{img/Cap1/map-coloring1.png}
-    \caption{Map-Colouring}
+    \caption{Map-Coloring}
 \end{figure}
 \begin{figure}[htp]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{img/Cap1/map-coloring2.png}
-    \caption{Soluzione Map-Colouring}
+    \caption{Soluzione Map-Coloring}
 \end{figure}
 
 \noindent In un CSP binario ogni vincolo è in relazione con due variabili. Il
@@ -106,7 +106,7 @@ Le variabili \textbf{discrete} possono avere domini:
 \begin{itemize}
     \item \textbf{Finiti:} grandezza dell'assegnamento completo $d \rightarrow
               O(d^n)$;
-    \item \textbf{Infinti:}
+    \item \textbf{Infiniti:}
           \begin{itemize}
               \item hanno bisogno di un linguaggio di vincoli
               \item i vincoli lineari sono risolvibili, i non lineari sono
@@ -134,7 +134,7 @@ polinomiale dai metodi LP.
 Inoltre i vincoli possono essere espressi in maniera:
 \begin{itemize}
     \item \textbf{Implicita:} non viene direttamente indicata la relazione fra
-          gli elementi del dominio che sono permessi. Un esempio può essere x<y, dove
+          gli elementi del dominio che sono permessi. Un esempio può essere $x<y$, dove
           non si elencano tutti i possibili assegnamenti delle variabili che non
           violano quel vincolo ma si possono calcolare;
     \item \textbf{Esplicita:} si elencano tutti i valori ammessi per le
@@ -148,7 +148,7 @@ quel vincolo.
     \item \textbf{Commutatività:} Si considera l'assegnamento di una singola
           variabile per volta.
     \item \textbf{Monotonicità:} Appena un vincolo viene violato posso
-          interrompere la ricerca perchè sono sicuro che non esisterà soluzione.
+          interrompere la ricerca perché sono sicuro che non esisterà soluzione.
     \item \textbf{L'ordine} con il quale seleziono le variabili e assegno i
           valori è molto importante, abbiamo bisogno di euristiche intelligenti.
     \item \textbf{Indipendenza:} quando le variabili non hanno vincoli tra di
@@ -192,15 +192,15 @@ da soddisfare tutti i vincoli. I vari metodi per fare questo sono:
           poi fare backtracking.
     \item \textbf{Check and Instantiate: }Assegno uno alla volta i valori alle
           variabili verificando di non violare i vincoli presenti.
-    \item \textbf{Backtraking:} Assegno uno alla volta i valori alle variabili
-          finchè non violo un vincolo; appena lo violo, torno indietro
+    \item \textbf{Backtracking:} Assegno uno alla volta i valori alle variabili
+          finché non violo un vincolo; appena lo violo, torno indietro
           nell'assegnamento. Si estende quindi una soluzione parziale verso una
           soluzione completa.
 \end{enumerate}
 
 
-\subsection{Backtraking nel dettaglio}
-Supponiamo di avere un problema CSP con 4 variabili (A,B,C,D), supponiamo che i
+\subsection{Backtracking nel dettaglio}
+Supponiamo di avere un problema CSP con 4 variabili $(A,B,C,D)$, supponiamo che i
 vincoli siano
 \begin{center}
     $A = D, B \neq D, A + C < 4$
@@ -209,7 +209,7 @@ L'algoritmo consiste in:
 \begin{enumerate}
     \item Assegna il valore alla variabile;
     \item Si controlla la consistenza;
-    \item Finchè tutte le variabili sono etichettate;
+    \item Finché tutte le variabili sono etichettate;
 \end{enumerate}
 \begin{figure}[htp]
     \centering
@@ -300,12 +300,12 @@ guardando alcuni dei vincoli all'inizio della ricerca, o anche prima dell'inizio
 della ricerca, possiamo drasticamente ridurre lo spazio di ricerca.
 \subsection{Forward Checking}
 \textbf{Forward Checking: }  Prima di assegnare una variabile controlla che
-questo assegnamento mi renda possibile futuri assegnamenti ad altri nodi, poichè
+questo assegnamento mi renda possibile futuri assegnamenti ad altri nodi, poiché
 se dopo l'assegnamento un dominio per una variabile diventasse vuoto, non si
 avrebbe soluzione e quindi l'assegnamento non andrebbe nemmeno provato.
 \\\textbf{Euristica utilizzata: }  Elimina i valori dal dominio quando viene
 fatto un assegnamento ad una variabile, \textbf{se un dominio diventa vuoto,
-    interrompi la ricerca poichè la soluzione non esiste con gli assegnamenti
+    interrompi la ricerca poiché la soluzione non esiste con gli assegnamenti
     fatti}. Questo metodo offre spesso una soluzione senza avere backtrack.
 \begin{figure}[htp]
     \centering
@@ -314,7 +314,7 @@ fatto un assegnamento ad una variabile, \textbf{se un dominio diventa vuoto,
 \begin{figure}[htp]
     \centering
     \includegraphics[width=11cm, keepaspectratio]{img/Cap2/f2.png}
-    \caption{Forward checking applicata a Map-colouring problem.}
+    \caption{Forward checking applicata a Map-coloring problem.}
 \end{figure}
 \newpage
 In questo caso assegnare blu a V rende possibili zero colori per SA, quindi
@@ -323,7 +323,7 @@ questo tipo di assegnamento non pu`o andare bene.
 Sebbene il forward checking rilevi molte incoerenze, non le rileva tutte. Per
 esempio, consideriamo la terza riga della Figura 2.5. Essa mostra che quando WA
 è rosso e Q è verde, sia NT che SA sono costretti a essere blu ma questo non è
-possibile perchè sono due zone vicine. Il forward checking non rileva questo
+possibile perché sono due zone vicine. Il forward checking non rileva questo
 come un'incoerenza, perché non guarda abbastanza avanti. La propagazione del
 vincolo (constraint propagation) è il termine generale per propagare le
 implicazioni di un vincolo su una variabile su altre variabili; in questo caso
@@ -342,18 +342,18 @@ nodo, arco o cammino.
 \begin{itemize}
     \item \textbf{Consistenza di Nodo:} Consiste nella verifica dei valori del
           dominio di un nodo rispetto ai vincoli del nodo stesso. Ad esempio, se il
-          dominio del nodo $x_1$ è pari a 1,2,3 e il vincolo unario di $x_1$ è $x_1 >
-              1$, la consistenza di nodo consente di ridurre il dominio di x1 a 2,3
+          dominio del nodo $x_1$ è pari a $1,2,3$ e il vincolo unario di $x_1$ è $x_1 >
+              1$, la consistenza di nodo consente di ridurre il dominio di $x_1$ a $2,3$
           riducendo il processo di ricerca dell'algoritmo.
     \item \textbf{Consistenza di Arco:} Consiste nella verifica dei valori di un
           dominio di un nodo rispetto ai vincoli binari con un altro nodo. Ad esempio,
-          dati due nodi $x_1$ e $x_2$ con rispettivi domini 1,2,3 e 1,4,5,9, il
-          vincolo $x_2 = x_{1}^2$ consente di ridurre il dominio del nodo x2 a 1,4,9
-          poichè non sussiste alcun nesso tra il valore 5 dell'insieme dominio di
+          dati due nodi $x_1$ e $x_2$ con rispettivi domini $1,2,3$ e $1,4,5,9$, il
+          vincolo $x_2 = x_{1}^2$ consente di ridurre il dominio del nodo $x_2$ a $1,4,9$
+          poiché non sussiste alcun nesso tra il valore 5 dell'insieme dominio di
           $x_2$ e qualsiasi altro elementi dell'insieme dominio di $x_1$.
     \item \textbf{Consistenza di Cammino:} Consiste nella verifica dei valori di
           un nodo rispetto ai vincoli n-ari con altri n nodi. La consistenza di
-          cammino è un estenzione della consistenza di arco ed è detta anche
+          cammino è un estensione della consistenza di arco ed è detta anche
           k-consistenza. Si distingue dalla consistenza di arco che, invece, è
           dedicata ai vincoli binari tra due nodi.
 \end{itemize}
@@ -385,10 +385,10 @@ coppia di variabili:
 \end{itemize}
 
 \subsection{Arc Consistency}
-Quando tutti i vincoli sono binari si parla di arc consistency. Un arco (u,c) è
-consistente se per ogni valore x del dominio dom(u) esiste un valore y nel
-dom(v) tale che un assegnamento $u=x$ e $v=y$ soddisfa tutti i vincoli binari
-che coinvolgono sia u che v.
+Quando tutti i vincoli sono binari si parla di arc consistency. Un arco $(u,v)$ è
+consistente se per ogni valore $x$ del dominio $dom(u)$ esiste un valore $y$ nel
+$dom(v)$ tale che un assegnamento $u=x$ e $v=y$ soddisfa tutti i vincoli binari
+che coinvolgono sia $u$ che $v$.
 \subsubsection{Punto fisso e supporto}
 Tutto il processo di consistenza locale viene applicato fin quando non si riesce
 a trovare un punto fisso, cioè fino a quando il dominio delle variabili resta
@@ -414,7 +414,7 @@ vincolo viene soddisfatto.
 L'operazione che ho fatto si chiama Local Consistency, ma dato che ho utilizzato
 il vincolo binario si chiama Arc Consistency.
 
-\noindent \textbf{Conclusione:} In questo caso sono stato molto fortunato perchè
+\noindent \textbf{Conclusione:} In questo caso sono stato molto fortunato perché
 ho rimasto 1 solo valore possibile per ogni variabile. Quindi la soluzione è
 unica e sarà:
 \begin{center}
@@ -427,7 +427,7 @@ ricerca si sarebbe di molto diminuito (avrei controllano meno assegnamenti)
 
 \subsubsection{\textbf{Vantaggio rispetto a fare solo Backtracking senza prima
         applicare local consistency}} Se faccio backtrack il dominio degli stati che
-vado ad esplorare è esponenziale perchè ad X dovrei moltiplicare tutti i
+vado ad esplorare è esponenziale perché ad X dovrei moltiplicare tutti i
 possibili valori di Y, a cui dovrei moltiplicare tutti i possibili valori di Z
 che moltiplico per tutti i valori possibili per T. All'inizio quindi in quel
 problema si avevano $3^4 = 81$ possibili assegnamenti, mentre se applico prima
@@ -436,9 +436,9 @@ variabili che coinvolgo (in questo caso lo spazio di ricerca mi si riduce ad 1).
 
 \subsection{Algoritmi per Consistenza Locale}
 \subsubsection{Procedura Revise}
-Per fare diventare un arco (u,v) consistente si cancellano tutti i valori x dal
-dom(u) che sono incosistenti con tutti i valori in dom(v). \\Restituisce true se
-è stata fatta una modifica al dominio di u.
+Per fare diventare un arco $(u,v)$ consistente si cancellano tutti i valori $x$ dal
+$dom(u)$ che sono inconsistenti con tutti i valori in $dom(v)$. \\Restituisce true se
+è stata fatta una modifica al dominio di $u$.
 \begin{figure}[htp]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{img/Cap3/revise.png}
@@ -446,8 +446,8 @@ dom(u) che sono incosistenti con tutti i valori in dom(v). \\Restituisce true se
 \end{figure}
 
 \subsubsection{Algoritmo AC-1}
-Un singolo passo dell'agoritmo REVISE non è sufficiente. L'algoritmo base per
-arc consistecy è AC-1, il quale esegue l'algoritmo REVISE finchè il dominio
+Un singolo passo dell'algoritmo REVISE non è sufficiente. L'algoritmo base per
+arc consistency è AC-1, il quale esegue l'algoritmo REVISE finché il dominio
 delle variabili cambia. In questo si ripete la procedura REVISE ogni volta che
 viene modificato un valore in un dominio.
 \begin{figure}[htp]
@@ -461,14 +461,14 @@ sono influenzati dal cambiamento.\\
 \textbf{L'inefficienza} sta nel fatto che se anche una singola chiamata alla
 procedura di REVISE su una particolare iterazione risultasse vera, tutti gli
 archi verrebbero scansionati nuovamente nella successiva iterazione. Questo però
-non è sempre necessario, perchè la modifica del dominio di una variabile
+non è sempre necessario, perché la modifica del dominio di una variabile
 influenza solamente le variabili che sono collegate a X da un vincolo e non le
 restanti.\\
 La complessità temporale è $O(d^3$ * $n$ * $e)$ e quella spaziale è $O(e$ * $n$
 * $d)$.
 
 \subsubsection{Algoritmo AC-2}
-AC-2 è un algoritmo che può fare arc consistecy in un solo passo attraverso i
+AC-2 è un algoritmo che può fare arc consistency in un solo passo attraverso i
 nodi. Il risultato è ottenuto passando per i nodi in un ordine numerico:
 \begin{itemize}
     \item Allegare ad un nodo tutti i valori che non sono in conflitto con i
@@ -477,22 +477,22 @@ nodi. Il risultato è ottenuto passando per i nodi in un ordine numerico:
           valore non ha un'assegnazione corrispondente per lo stesso arco, eliminalo;
     \item Ogni volta che qualsiasi valore è cancellato da un arco, guarda ai
           suoi vicini a sua volta, e controlla se un loro valore può essere eliminato.
-          Se può essere eliminato, si continua il processo iterativamente finchè non
+          Se può essere eliminato, si continua il processo iterativamente finché non
           ci sono più cambiamenti che possono essere fatti. Poi si prosegue con gli
           altri archi.
 \end{itemize}
 In sostanza si sceglie un ordine fra i nodi, prendiamo ad esempio y come primo e
-controlliamo tutti i vincoli fra y e k se c'è qualche valore di dom(y) che va in
-conflitto allora si elimina. Stessa cosa si per l'arco (x,y) se si fa qualche
+controlliamo tutti i vincoli fra $y$ e $k$ se c'è qualche valore di $dom(y)$ che va in
+conflitto allora si elimina. Stessa cosa si per l'arco $(x,y)$ se si fa qualche
 modifica si rimette in coda l'arco in modo da controllare se ci sono altre
-modifiche da fare. Se un valore b del nodo i è rimosso allora si aggiunge tutti
-(k,i) alla coda Q, per il controllo degli archi.
+modifiche da fare. Se un valore $b$ del nodo $i$ è rimosso allora si aggiunge tutti
+$(k,i)$ alla coda Q, per il controllo degli archi.
 \begin{figure}[htp]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{img/Cap3/ac-2.png}
     \caption{Algoritmo AC-2}
 \end{figure}
-\\La complessità temporale è $O(d^3$ * $n^2)$ e quella spaziale è $O(n^2$).
+\\La complessità temporale è $O(d^3 * n^2)$ e quella spaziale è $O(n^2$).
 
 \subsubsection{Algoritmo AC-3}
 AC-3 è un miglioramento di AC-2, alcuni di essi possono essere già essere nella
@@ -503,7 +503,7 @@ coda Q. Se è così allora non dovrebbero essere inseriti di nuovo.
     \caption{Algoritmo AC-3}
 \end{figure}
 In sostanza si prende un arco dalla coda Q, si fa la REVISE, se faccio una
-modifica allora si aggiunge alla coda Q tutti gli archi (u,k) che non sono stati
+modifica allora si aggiunge alla coda Q tutti gli archi $(u,k)$ che non sono stati
 già controllati ovvero $u \neq k$ e $u \neq m$.\\
 La complessità temporale è $O(d^2$ * $n^2)$ e quella spaziale è $O(n^2$).
 
@@ -518,7 +518,7 @@ di X può essere buttato via se non ha supporto in y.
     \centering
     \includegraphics[width=9cm, keepaspectratio]{img/Cap3/riassunto1.png}
 \end{figure}
-\\Ad esempio, 1 ha supporto in X perchè in Y c'è 2 e 3. Se un elemento non ha
+\\Ad esempio, 1 ha supporto in X perché in Y c'è 2 e 3. Se un elemento non ha
 supporto lo posso escludere dai valori assegnabili alla variabile. Un problema
 si dice arc-consistente se ho buttato via tutti gli elementi che NON hanno
 supporto.
@@ -530,7 +530,7 @@ supporto.
     \centering
     \includegraphics[width=9cm, keepaspectratio]{img/Cap3/riassunto2.png}
 \end{figure}
-\\No, perchè il 2 andrebbe eliminato da Z. Se riesco a buttare via tutti gli
+\\No, perché il 2 andrebbe eliminato da Z. Se riesco a buttare via tutti gli
 elementi che non hanno supporto allora il problema diventa arc-consistente.
 
 \subsection{Soluzione di un CSP}
@@ -679,11 +679,13 @@ soluzione esso si può fermare alla prima soluzione che trova oppure, se
 richiesto, le cerca tutte quante. Nel caso di SCSP siamo costretti a trovare
 tutte le possibili soluzioni in modo da scegliere la migliore. Normalmente si
 utilizzano due operazioni per trovare la soluzione ottimale in un SCSP:
+
+%% TODO: ricontrollare, forse gli operatori sono INVERTITI !
 \begin{itemize}
     \item \textbf{Operatore di Combinazione(+):} dove metto insieme tutti gli
           assegnamenti, combinando i vincoli, quindi si calcola anche il costo totale
           ad esempio con l'operazione di somma;
-    \item \textbf{Operatore di Proiezione (×):} operazione di scelta della
+    \item \textbf{Operatore di Proiezione ($\times$):} operazione di scelta della
           soluzione migliore data dalla combinazione in base al minimo o al massimo
           del costo.
 \end{itemize}
@@ -701,11 +703,11 @@ Un semiring è una quintupla:
           soluzioni trovate dalla combinazione, può essere il minimo o massimo.
           Possiamo definire alcune proprietà:
           \begin{itemize}
-              \item \textbf{idempotente:} se faccio a+a dove l'operatore + è il
+              \item \textbf{idempotente:} se faccio $a+a$ dove l'operatore $+$ è il
                     minimo il risultato è sempre a, quindi quando un operatore è
                     idempotente è possibile definire un ordinamento ovvero
                     \begin{center}
-                        $a <= b$ dove b è meglio di a $\Leftarrow \Rightarrow$
+                        $a \leq b$ dove b è meglio di a $\Leftarrow \Rightarrow$
                         $a + b = b$
                     \end{center}
           \end{itemize}
@@ -729,17 +731,17 @@ proiezione che potrebbe essere minimo o massimo o or.
 \begin{itemize}
     \item \textbf{Probabilistico:} $< R^+ , min, +, +\infty, 0>$ si massimizza
           la probabilità
-    \item \textbf{Weighted:} $<[0, 1] max,x,0,1>$ massimo il costo dato dalla
+    \item \textbf{Weighted:} $<[0, 1], max, \times,0,1>$ massimo il costo dato dalla
           combinazione, dove si fa il prodotto;
     \item \textbf{Fuzzy:} $<[0,1],max,min,0,1>;$
-    \item \textbf{Classical:} $<{false,true},$ $\lor$ (OR), $\land$(AND)$,
+    \item \textbf{Classical:} $<\{false,true\}, \lor(\text{OR}), \land(\text{AND}),
               false, true>$
 \end{itemize}
 
 \subsection{Esempi pratici SCSP: Domanda esame}
-Il vincolo in mezzo è binario, se a è compreso tra x ed y.
+Il vincolo in mezzo è binario, se $a$ è compreso tra $x$ ed $y$.
 \begin{center}
-    $x <= a <= y$
+    $x \leq a \leq y$
 \end{center}
 A può assumere sia il valore di
 \begin{enumerate}
@@ -758,12 +760,12 @@ domandiamo: Quanto vale l'assegnamento X $=$ a?
 \begin{enumerate}
     \item Dato che l'operazione x di combinazione è la moltiplicazione faccio:
           \begin{enumerate}
-              \item 0.9*0.8*0.9 = 0.648
-              \item 0.9*0.2*0.5 = 0.09
-              \item 0.9*0.2*0.5 = 0.09
+              \item $0.9*0.8*0.9 = 0.648$
+              \item $0.9*0.2*0.5 = 0.09$
+              \item $0.9*0.2*0.5 = 0.09$
           \end{enumerate}
-          Per poter inserire 0.648 in x = a dovrei dividere per 0.8 i 3 valori
-          su c2 e 0.9 i tre valori su c3 (secondo me).
+          Per poter inserire 0.648 in $x = a$ dovrei dividere per 0.8 i 3 valori
+          su $c_2$ e 0.9 i tre valori su $c_3$ (secondo me).
     \item Dato che l'operazione + di proiezione in questo caso è Max prendo il
           massimo di tutti gli elementi trovati e quella sarà la soluzione di
           quando ad X assegno a. Facendo lo stesso ragionamento si calcolano
@@ -779,7 +781,7 @@ domandiamo: Quanto vale l'assegnamento X $=$ a?
 \newpage
 \subsubsection{L'aggiunta di vincoli è monotona: peggiora la soluzione}
 Questo significa che più aggiungo vincoli e più la soluzione peggiora, più tolgo
-vincoli più la soluzione mi migliora. Questo perchè più vincoliamo il problema e
+vincoli più la soluzione mi migliora. Questo perché più vincoliamo il problema e
 meno possibilità abbiamo, meno lo vincoliamo e più sono le possibilità. Questo
 accade nel caso dei vincoli Crisp, nel caso dei vincoli con peso otterremo
 \textbf{migliori o peggiori} soluzioni.
@@ -805,7 +807,7 @@ a quella variabile in maniera tale da fare in modo che questo valore si avvicini
 il più possibile a quello della soluzione finale.
 
 \textbf{Teorema dell'estensività} Se tolgo dei vincoli da un problema SCSP, la
-soluzione migliora perchè si moltiplica di meno (meno calcoli da fare),se li
+soluzione migliora perché si moltiplica di meno (meno calcoli da fare),se li
 aggiungo la soluzione peggiora. Togliere vincoli vuol dire rilassare il
 problema. Se l'operatore x è idempotente allora possiamo applicare arc
 consistency, un esempio di operatore idempotente è il minimo se facciamo
@@ -832,10 +834,10 @@ passaggi:
     \item \textbf{Combinazione:} Prendo tutte le possibili tuple, gli assegno un
           valore e poi in base all'operatore di combinazione (che in questo caso
           è min) faccio la proiezione. \\Quindi parto cosi: Il minimo se $x_2$ è
-          rosso e $x_3$ è blu è 0, perchè è il minimo tra 0 e 0.5. \\Il minimo
-          se $x_2$ è rosso e $x_3$ è giallo è 0, perchè è il minimo tra 0 e 0.2.
+          rosso e $x_3$ è blu è 0, perché è il minimo tra 0 e 0.5. \\Il minimo
+          se $x_2$ è rosso e $x_3$ è giallo è 0, perché è il minimo tra 0 e 0.2.
           \\Continuo cosi per tutte le tuple. \\Non ho considerato le coppie di
-          colore uguale perchè c'era scritto $pairwise-different$.
+          colore uguale perché c'era scritto $pairwise-different$.
     \item \textbf{Proiezione:} Tra tutti i risultati che genera la combinazione
           faccio la proiezione sulla variabile in questione, in questo caso $x_3$.
           Adesso: quanto valore ha $x_3$ quando ha valore rosso? Devo fare il massimo
@@ -855,17 +857,17 @@ ricerca, per trovare la soluzione.
     \centering
     \includegraphics[width=15cm, keepaspectratio]{img/Cap5/ffuzzy2.png}
 \end{figure}
-Consideriamo il vincolo unario c1 sulla variabile X ed il vincolo binario $c_2$
+Consideriamo il vincolo unario $c_1$ sulla variabile X ed il vincolo binario $c_2$
 sulle variabili X ed Y. Faccio $c_1$ $(x)$ $c_2$ proiettato $x(a)$:
 \begin{enumerate}
     \item Combinazione (Min): $c_1$ combinato $c_2$ ($c_3$ non lo prendo in
-          considerazione perchè faccio $(x$):
+          considerazione perché faccio $(x$):
           \begin{itemize}
               \item Quando vale $< a, a >?$ Faccio 0.9 min 0.8 $=$ 0.8
               \item Quando vale $< a, b >?$ Faccio 0.9 min 0.2 $=$ 0.2
               \item Quando vale $< a, c >?$ Faccio 0.9 min 0.2 $=$ 0.2
           \end{itemize}
-          Facendo questo ho combinato i vincoli c1 e c2 . Per sapere poi quanto
+          Facendo questo ho combinato i vincoli $c_1$ e $c_2$ . Per sapere poi quanto
           vale $c_1$ $(x)$ $c_2$ devo andare a proiettare su X.
     \item Proiezione (Max): Prendo il massimo tra 0.8, 0.2, 0.2. In conclusione,
           al posto di 0.9 su (a) posso scriverci 0.8.
@@ -875,8 +877,8 @@ $x=a$, $y=b$? \\devo fare il minimo tra 0.9, 0.2 e 0.5 che sarebbe 0.2. \\(Non
 applico la proiezione quindi non uso il massimo). \\Altra domanda: Applichiamo
 local consistency per X $=$ a. \\Devo fare min(0.9, 0.8, 0.9) $=$ 0.8. \\Devo
 fare min(0.9, 0.2, 0.5) $=$ 0.2. \\Devo fare min(0.9, 0.2, 0.5) $=$ 0.2. Se vado
-a proiettare fa 0.8 perchè prendo il massimo. Se io vado a calcolare la
-soluzione adesso vado a calcolare la soluzione di '' quanto vale x$=$a y$=$b''?
+a proiettare fa 0.8 perché prendo il massimo. Se io vado a calcolare la
+soluzione adesso vado a calcolare la soluzione di "quanto vale $x=a$ $y=b$"?
 \\min tra 0.8, 0.2 e 0.2 = 0.2 che è come prima, la soluzione non è cambiata.
 \textbf{Ho migliorato il bound ma non ho modificato la soluzione, è una cosa buona.}
 \\Nell' esempio successivo (prossima sezione, sarebbe quello probabilistico) la
@@ -893,13 +895,13 @@ Proiezione sia per quelli di Combinazione.\\
     \item Idempotenza su \textbf{Combinazione}: Dipende strettamente dal
           semiring utilizzato:
           \begin{itemize}
-              \item \textbf{Fuzzy:} Idempotente, perchè il minimo tra a ed a è
+              \item \textbf{Fuzzy:} Idempotente, perché il minimo tra a ed a è
                     sempre a (il minimo tra due valori uguali da sempre lo stesso
                     valore).
-              \item \textbf{Probabilistic:} Non idempotente, perchè a $*$ a non
+              \item \textbf{Probabilistic:} Non idempotente, perché a $*$ a non
                     fa esattamente a (ad esempio 0.1 $*$ 0.1 $=$ 0.01, la
                     moltiplicazione infatti non ha la proprietà di idempotenza).
-              \item \textbf{Weighted:} Non idempotente, perchè a $+$ a non fa
+              \item \textbf{Weighted:} Non idempotente, perché a $+$ a non fa
                     esattamente a.
               \item \textbf{Classic:} Idempotente, infatti a and a $=$ a
           \end{itemize}
@@ -907,7 +909,7 @@ Proiezione sia per quelli di Combinazione.\\
           idempotenti e questo segue dalla definizione stessa di c-semiring (definisco
           l'ordinamento quando effettuo la proiezione).
 \end{itemize}
-La distinzione tra operatore idempotente e non idempotente è importante perchè
+La distinzione tra operatore idempotente e non idempotente è importante perché
 gli algoritmi di consistenza locale solo nel caso in cui la combinazione fosse
 idempotente \textbf{mantengono le soluzioni del problema}. Qualora facessi
 arc-consistency su semiring che non ammettono operazioni idempotenti la
@@ -925,43 +927,39 @@ accettata.
 \textbf{Domanda:} Quanto vale l'assegnamento x $=$ a, y $=$ b su questo
 problema? \\devo moltiplicare 0.9, che sarebbe x$=$a, per $<$ x $=$ a, y $=$ b
 $>$ che sarebbe 0.2 per y $=$ b che sarebbe 0.5. Il risultato è 0.09. \\Domanda:
-Quanto vale c1 c2 proiettato x (su a)? devo fare la combinazione:
+Quanto vale $c_1$ $c_2$ proiettato x (su a)? devo fare la combinazione:
 \begin{itemize}
     \item 0.9 $*$ 0.8 $=$ 0.72
     \item 0.9 $*$ 0.2 $=$ 0.18
     \item 0.9 $*$ 0.2 $=$ 0.18
 \end{itemize}
 Poi prendo il Massimo (proiezione) che sarebbe 0.72 e questo valore mi va al
-posto di 0.9. Il problema però è che ho cambiato la soluzione finale, perchè la
+posto di 0.9. Il problema però è che ho cambiato la soluzione finale, perché la
 proiezione mi ritorna proprio il 0.72 che è un valore errato data la non
-idempotenza della moltiplicazione (è proprio una soluzione sbagliata).
+idempotenza della moltiplicazione (è proprio una soluzione sbagliata).\\
 
-\vspace{0.8cm}
+L'operazione di local consistency nei CSP Crisp quindi classici è
+importante perché mantiene la soluzione del problema riducendo gli elementi del
+dominio e non modificando le soluzioni.\\
 
-\noindent L'operazione di local consistency nei CSP Crisp quindi classici è
-importante perchè mantiene la soluzione del problema riducendo gli elementi del
-dominio e non modificando le soluzioni.
-
-\vspace{0.5cm}
-
-\noindent Nel caso Soft invece, la soluzione non viene modificata solamente se
+Nel caso Soft invece, la soluzione non viene modificata solamente se
 l'operazione di combinazione è idempotente. Nel caso in cui non lo fosse si
 andrebbero a modificare le soluzioni stesse del problema, e quest'ultime non
-sarebbero accettabili perchè sbagliate.
+sarebbero accettabili perché sbagliate.
 
-\subsection{Altro esempio con vincolo c3}
+\subsection{Altro esempio con vincolo \texorpdfstring{$c_3$}{c3}}
 \begin{figure}[htp]
     \centering
     \includegraphics[width=16cm, keepaspectratio]{img/Cap5/FUZZY2.png}
 \end{figure}
-I nuovi valori per il vincolo c3 sono ottenuti analizzando prima y $=$ a e
+I nuovi valori per il vincolo $c_3$ sono ottenuti analizzando prima y $=$ a e
 quindi poi si analizza (a, a) e poi x $=$ a. Poi y $=$ b e quindi poi (b, b) e
 poi x $=$ b. Utilizzando la combinazione e poi la proiezione i valori tornano
 quelli.
 \subsection{Semiring con operazioni non idempotenti}
 \subsubsection{Divisione}
 Vogliamo ottimizzare i CSP Soft anche se la loro operazione di combinazione non
-è idempontente.
+è idempotente.
 \begin{figure}[htp]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap5/DIvisione.png}
@@ -1011,7 +1009,7 @@ idempotenti si può fare arc-consistency grazie all'operatore di Divisione
 ($\div$).
 
 \subsubsection{\textbf{Importante}} In questo caso abbiamo utilizzato la
-divisione perchè era l'operazione inversa della moltiplicazione (che è
+divisione perché era l'operazione inversa della moltiplicazione (che è
 l'operatore di combinazione utilizzato nei CSP probabilistici). Se però
 l'operazione di combinazione fosse stata la Somma (e quindi CSP Weighted)
 l'operazione $\div$ sarebbe stata la sottrazione.
@@ -1026,7 +1024,7 @@ punto di vista logico. \\Argumentation Framework. Un argumentation framework
 (AF) è una coppia (A,R) dove
 \begin{itemize}
     \item A è un set di argomentazioni
-    \item R $\subseteq$ A × A è una relazione rappresentante gli "attacchi"
+    \item R $\subseteq$ A $\times$ A è una relazione rappresentante gli "attacchi"
           ("sconfitte")
 \end{itemize}
 \begin{center}
@@ -1049,7 +1047,7 @@ possono dipendere anche da chi ha detto quella frase.
 Ci possono essere anche casi in cui è noto chi dice l'argomento e altri in cui
 non lo è. Per quest'ultima vogliamo selezionare gli argomenti che sono più
 validi rispetto agli altri, ad esempio in Figura 6.2 il 4 e il 2 sembrano buoni
-argomenti perchè attaccano gli altri e contrattaccano nel caso siano attaccati.
+argomenti perché attaccano gli altri e contrattaccano nel caso siano attaccati.
 Lo scopo è di definire dei criteri per trovare gli argomenti più forti, validi
 (che stanno "in piedi da soli"), in modo da selezione i conflitti che riescono a
 sopportare gli attacchi dall'esterno.
@@ -1078,15 +1076,15 @@ elementi).
     \caption{Esempio insieme conflict-free.}
 \end{figure}
 \\In questo caso andiamo a scegliere come coppie gli argomenti che non sono in
-conflitto (quindi che non si attaccano) fra di loro, ({a,c},{a,d} ma non {a,b}),
-e anche i singoli argomenti tranne e poichè esso si contraddice da solo visto
+conflitto (quindi che non si attaccano) fra di loro, ($\{a,c\},\{a,d\}$ ma non $\{a,b\}$),
+e anche i singoli argomenti tranne e poiché esso si contraddice da solo visto
 che ha un cappio.
 
 \subsubsection{\textbf{Importante}} \textbf{Per il calcolo:} Inizio con inserire
 \textbf{l'insieme vuoto}, poi i \textbf{singoli} argomenti che non si
 auto-attaccano, poi \textbf{le coppie, terne, quadruple...}
 
-\subsection{Insiemi Ammisibili}
+\subsection{Insiemi Ammissibili}
 Dato un Augmentation Framework F = (A, R), l'insieme S $\subseteq$ A è
 ammissibile se:
 \begin{itemize}
@@ -1101,20 +1099,20 @@ ammissibile se:
 \begin{figure}[htp]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap6/ammissibile.png}
-    \caption{Esempio insieme Ammisibile.}
+    \caption{Esempio insieme Ammissibile.}
 \end{figure}
 Non è necessario che sia lo stesso argomento a difendersi da altri attacchi, ad
 esempio in questo caso, supponendo che non ci sia a, b è attaccato da c ma se
-prendo d lui oltre che difendere se stesso da c (poichè attaccato) difende anche
+prendo d lui oltre che difendere se stesso da c (poiché attaccato) difende anche
 b. Guardando la definizione di difesa, un argomento a è difeso da un argomento
 b, (b, a) $\in$ R, nel momento in cui esiste un argomento c tale che c attacca
-b, (c, b) $\in$ R. Il sottoinsieme \{b,d\} non viene scelto poichè d è attaccato
+b, (c, b) $\in$ R. Il sottoinsieme \{b,d\} non viene scelto poiché d è attaccato
 da c ma a si difende a sua volta contrattaccando, mentre b è attaccato sia da a
-che c, nel primo caso nessuno lo difende nel secondo d difende b perchè attacca
+che c, nel primo caso nessuno lo difende nel secondo d difende b perché attacca
 c.
 \begin{itemize}
-    \item insieme V vuoto è \textbf{ammissibile}? Si, nessuno lo attacca.
-    \item insieme V vuoto è \textbf{Conflict Free}? Si.
+    \item l'insieme $\emptyset$ (vuoto) è \textbf{ammissibile}? Si, nessuno lo attacca.
+    \item l'insieme $\emptyset$ (vuoto) è \textbf{Conflict Free}? Si.
 \end{itemize}
 
 \subsection{Insiemi Completi (Tutti Difesi)}
@@ -1132,10 +1130,10 @@ se:
     \caption{Esempio insieme Completo.}
 \end{figure}
 Quindi un insieme complete contiene tutti gli insiemi ammissibili e anche tutti
-gli argomenti che sono difesi. \\Insieme V uoto è \textbf{Completo}? Va messo
+gli argomenti che sono difesi. \\L'insieme $\emptyset$ (vuoto) è \textbf{Completo}? Va messo
 soltanto quando tutti gli argomenti sono attaccati e quindi quando \textbf{non}
 c'è un qualche argomento che è sempre difeso. \\Infatti sopra non va messo
-perchè a è sempre difeso. a è sempre difeso da tutti perchè non è attaccato da
+perché a è sempre difeso. a è sempre difeso da tutti perché non è attaccato da
 nessuno, quindi nel calcolo dei difensori va sempre messo dentro.
 \begin{enumerate}
     \item \{a, c\} è \textbf{completo?} Si!
@@ -1153,13 +1151,13 @@ nessuno, quindi nel calcolo dei difensori va sempre messo dentro.
               \item a chi difende? attacca b quindi difenderebbe tutti quelli
                     attaccati da b, ma b non attacca nessuno quindi a difende solo se
                     stesso.
-              \item d chi difende? se stesso, perchè viene attaccato da c ma si
+              \item d chi difende? se stesso, perché viene attaccato da c ma si
                     difende da solo con un contrattacco.
           \end{itemize}
           L'insieme dei difensori è \{a, d\} che sta dentro S quindi anche
           questo è completo. \\\{a\} è \textbf{completo?} Può stare da solo
-          perchè non viene attaccato da nessuno, quindi è \textbf{come se
-              venisse difeso da tutti quanti}, e lui non difende nessuno, poichè b
+          perché non viene attaccato da nessuno, quindi è \textbf{come se
+              venisse difeso da tutti quanti}, e lui non difende nessuno, poiché b
           non attacca nessuno. \\Quindi se un argomento non attaccato da nessuno
           ne attacca un altro che a sua volta non attacca nessuno allora
           quell'elemento è complete e può stare da solo. \\\{c\} è
@@ -1175,7 +1173,7 @@ nessuno, quindi nel calcolo dei difensori va sempre messo dentro.
           difendo, complete vuol dire che dentro ci sono tutti quelli difesi.
 \end{enumerate}
 \
-\subsection{Estenzioni Grounded (minimale)}
+\subsection{Estensioni Grounded (minimale)}
 F = (A, R), l'insieme S $\subseteq$ A è grounded se:
 \begin{itemize}
     \item S è \textbf{completo};
@@ -1192,9 +1190,9 @@ L'insieme grounded è sempre \textbf{UNICO}, cioè composto da un solo elemento.
     \caption{Esempio Grounded}
 \end{figure}
 \\a, c è \textbf{grounded}? i suoi sottoinsiemi singoli sono a e c, questi sono
-completi? \\no, perchè a lo è ma non c quindi non è grounded. \\a, d è
+completi? \\no, perché a lo è ma non c quindi non è grounded. \\a, d è
 \textbf{grounded}? i suoi sottoinsiemi singoli sono a e d, questi sono completi?
-\\no, perchè a lo è ma non d quindi non è grounded. \\a è \textbf{grounded}? Si,
+\\no, perché a lo è ma non d quindi non è grounded. \\a è \textbf{grounded}? Si,
 i suoi sottoinsiemi singoli sono a ed è completo.
 
 \vspace{0.8cm}
@@ -1203,7 +1201,7 @@ i suoi sottoinsiemi singoli sono a ed è completo.
 insiemi completi, infatti sopra se intersechiamo quei 3 insiemi completi l'unica
 cosa che viene fuori era a che infatti è l'unico insieme grounded.
 
-\subsection{Estenzioni Preferred (massimale)}
+\subsection{Estensioni Preferred (massimale)}
 Dato un Augmentation Framework F = (A, R), l'insieme S $\subseteq$ A è preferred
 se:
 \begin{itemize}
@@ -1224,7 +1222,7 @@ altri insieme, in questo caso si va a scegliere tra gli insiemi ammissibili
 quelli che sono più grandi. Da notare che si sceglie tra gli insiemi ammissibili
 ma si può dimostrare che si può scegliere da quelli complete.
 
-\subsection{Estenzioni Stable}
+\subsection{Estensioni Stable}
 Dato un AF, F=(A,R). Un insieme S $\subseteq$ A è stabile in F, se
 \begin{itemize}
     \item S è \textbf{conflict-free} in F
@@ -1241,7 +1239,7 @@ tutti gli altri, ovvero che tutti gli elementi che stanno fuori dall'insieme
 esaminato sono attaccati.\\
 In questo caso si sceglie l'insieme i quali elementi attaccano tutti gli
 elementi fuori dall'insieme conflict-free, ad esempio \{a,c\} non si prende
-perchè a attacca b e c attacca d e b ma nessuno dei due attacca e. Mentre
+perché a attacca b e c attacca d e b ma nessuno dei due attacca e. Mentre
 nell'insieme \{a,d\} a attacca b e d attacca sia c che e. Esiste anche una
 semantica semi-stabile la quale nel caso cui esista un insieme stabile allora
 essa coincide con quest'ultimo ma quando non c'è la stabile allora sceglie tra
@@ -1251,13 +1249,13 @@ grande possibile e di attaccare tutti gli insiemi fuori.
 
 \vspace{0.5cm}
 
-\noindent a, c \textbf{non è stabile} perchè è si ammissibile (b che sta fuori è
+\noindent a, c \textbf{non è stabile} perché è si ammissibile (b che sta fuori è
 attaccato e ok), d sta fuori ed è attaccato, ma e non lo attacca ne a ne c
-quindi questo insieme non può essere stabile. \\a, d \textbf{è stabile} perchè a
+quindi questo insieme non può essere stabile. \\a, d \textbf{è stabile} perché a
 attacca b e d attacca c, e quindi tutti gli elementi fuori dall'insieme sono
-attaccati. \\La semantica stabile è la più forte di tutte le estenzioni, perchè
+attaccati. \\La semantica stabile è la più forte di tutte le Estensioni, perché
 sono le posizioni più forti in un dialogo, sono la scelta migliore quando
-utilizzo AF come decision making. Il problema delle estenzioni stabili è che non
+utilizzo AF come decision making. Il problema delle Estensioni stabili è che non
 sempre esistono.
 
 \section{Soft Argumentation Framework (Weighted AF)}
@@ -1285,11 +1283,11 @@ dove:
 booleana (a attacca b). Adesso invece quando a attacca b gli viene associato un
 valore (comunque appartenente al semiring). \\\textbf{Cambia la nozione di
     difesa:} Nell'esempio sopra, nel caso in cui fossimo negli AF tradizionali C si
-difenderebbe dall'attacco di D (perchè ricordiamo era una funzione booleana). In
+difenderebbe dall'attacco di D (perché ricordiamo era una funzione booleana). In
 questo caso però, essendo che d attacca c con 9 e c risponde con 8, c non potrà
-difendersi dall'attacco, poichè la difesa non è sufficiente a contrastare
+difendersi dall'attacco, poiché la difesa non è sufficiente a contrastare
 quest'ultimo. Questa nozione dipende strettamente dal semiring utilizzato,
-poichè per ogni semiring (i cui tipi sono gli stessi introdotti precedentemente)
+poiché per ogni semiring (i cui tipi sono gli stessi introdotti precedentemente)
 si avranno relazioni diverse.
 \subsection{w-difesa (Dw)}
 Dato un Soft Argumentation Framework $(A_{rgs} , R, W, S)$, un sottoinsieme di
@@ -1310,7 +1308,7 @@ attacchi che arrivano a b cioè da tutti gli R(a, b). \\$>=_S$ è da intendere
               sommati con l'operatore di combinazione del semiring. Per sapere quindi
               quanto vale l'attacco di a verso l'insieme B $\cup$ \{b\} nel caso di
               Semiring Weighted ad esempio devo fare la somma di tutti gli attacchi
-              (proprio perchè l'operatore di combinazione è la somma).
+              (proprio perché l'operatore di combinazione è la somma).
         \item W (B, a) sarebbe "con quanto l'insieme B attacca a, cioè tutti gli
               attacchi dall'interno di B all'esterno". Anche questo dipende
               strettamente dal semiring, nel Weighted vanno tutti sommati.
@@ -1443,15 +1441,15 @@ W, S)$, a, b, c $\in$ $A_{rgs}$ , B $\subseteq$ $A_{rgs}$ , allora b è
         \includegraphics[width=12cm, keepaspectratio]{img/Cap6/ortogonal.png}
     \end{figure}
     \noindent In questo esempio notiamo che (d, c) non stanno bene insieme,
-    perchè si attaccato 100. (b, c) sono abbastanza compatibili, perchè la
+    perché si attaccato 100. (b, c) sono abbastanza compatibili, perché la
     relazione di attacco è presente ma con peso molto basso. Abbiamo poi che b
     non è ammissibile (non riesce a difendersi da c), c è ammissibile, d è
     ammissibile e nessuna coppia di argomenti è ammissibile. Questo però non è
-    una cosa positiva, perchè si vorrebbero cercare delle coalizioni superiori
+    una cosa positiva, perché si vorrebbero cercare delle coalizioni superiori
     al singleton. Se però riuscissi ad accettare un po' di conflitti interni
     potrei comunque creare una coalizione. Infatti notiamo che potremmo mettere
     insieme (b, c) dato che la relazione di attacco è si presente ma con peso
-    molto basso. Introduciamo quindi l'Alpha-hamma consistenza.\\
+    molto basso. Introduciamo quindi l'Alpha-gamma consistenza.\\
     Questi rilassamenti sono strettamente correlati e influenzano l'un l'altro:
     permettere un piccolo conflitto può portare ad avere più argomentazioni in
     un'estensione, e di conseguenza si ha una difesa più forte o più debole. Un
@@ -1475,13 +1473,13 @@ W, S)$, a, b, c $\in$ $A_{rgs}$ , B $\subseteq$ $A_{rgs}$ , allora b è
     fosse 2 riuscirei a sopportare l'attacco tramite il rilassamento dei
     conflitti interni. Guardiamo l'ammissibilità dell'insieme: a attacca
     l'insieme B con 5 e B è difeso da 1 ed 1. In realtà l'argomento d andrebbe
-    escluso dall'insieme perchè porta un attacco con peso molto alto all'insieme
+    escluso dall'insieme perché porta un attacco con peso molto alto all'insieme
     stesso. Se però devo per forza costruire un organo di 4 elementi devo
     accettare sia i conflitti interni sia l'attacco verso d (potrei anche
     portare dentro a).
 
     \subsubsection{Unità di sopportazione $\gamma$}
-    \textbf{N.B} secondo Bistarelli l'insieme B non è ammissibile, perchè
+    \textbf{N.B} secondo Bistarelli l'insieme B non è ammissibile, perché
     l'attacco di 5 non è difeso dalla somma delle difese 1+1=2. Facendo il
     calcolo: (attacco-difesa) 5-2=3 si calcola l'unità di \textbf{sopportazione}
 $\gamma$ che in questo caso è 3. \\Quindi:
@@ -1491,11 +1489,11 @@ $\gamma$ che in questo caso è 3. \\Quindi:
         \item $\gamma$ Peso del \textbf{conflitto esterno} (in questo caso 3 (5
               - 2))
     \end{itemize}
-    L'insieme dell'esempio sopra è $2^3$ \textbf{admissible} perchè $\alpha$ = 2
-    e $\gamma$ = 3. Inoltre B è anche stabile, perchè tutti gli elementi esterni
+    L'insieme dell'esempio sopra è $2^3$ \textbf{admissible} perché $\alpha$ = 2
+    e $\gamma$ = 3. Inoltre B è anche stabile, perché tutti gli elementi esterni
     (in questo caso solo a) sono attaccati. Nel caso in cui portassimo d fuori
     si avrebbe un valore più basso di $\gamma$ ma B non sarebbe stato stabile,
-    perchè nessuno attaccava d (a rimaneva comunque fuori). \\
+    perché nessuno attaccava d (a rimaneva comunque fuori). \\
     La semantica Alpha Gamma può essere descritta come:
     \begin{center}
         $W (a, B \cup \{b\}) \div W (B, a)) >=_s \gamma$
@@ -1527,8 +1525,8 @@ bottom, top)$ e $\alpha, \gamma \in$ A:
         \includegraphics[width=15cm, keepaspectratio]{img/Cap6/alpha-gamma2.png}
     \end{figure}
     \textbf{Le uniche cose spiegate dal prof nella figura sopra sono:}
-    \\Se un estenzione è $ \alpha_1$ ammissibile e $\alpha_1 >=_s \alpha_2$
-    allora quell'estenzione è anche $\alpha_2$ ammissibile. Stessa cosa per
+    \\Se un estensione è $ \alpha_1$ ammissibile e $\alpha_1 >=_s \alpha_2$
+    allora quell'estensione è anche $\alpha_2$ ammissibile. Stessa cosa per
 $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     sarà anche $4^5$ ammissibile (ecco spiegata la domanda della sezione sopra).
 
@@ -1539,22 +1537,22 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
         E $\in$ gr(F) if f E $\in$ co(F) e \textbf{non esiste} E' $\in$ co(f)
         tale per cui E' \textbf{non è contenuto} in E.
     \end{center}
-    Un estenzione E è grounded se e solo se è una complete e nessun altra
-    estenzione dentro le complete è più piccola di lei (quindi è la più piccola
+    Un estensione E è grounded se e solo se è una complete e nessun altra
+    estensione dentro le complete è più piccola di lei (quindi è la più piccola
     delle complete).
     \begin{figure}[htp]
         \centering
         \includegraphics[width=12cm, keepaspectratio]{img/Cap6/w-grounded.png}
     \end{figure}
     \\\textbf{Calcolo delle complete se non ci fossero i pesi:} L'insieme
-    complete era (a, d, c) perchè a difendeva sia d che c insieme.
+    complete era (a, d, c) perché a difendeva sia d che c insieme.
     \\\textbf{Calcolo delle complete con pesi (usiamo Bistarelli):} Le complete
-    in questo caso sono a perchè non viene attaccata da nessuno e più tutte
+    in questo caso sono a perché non viene attaccata da nessuno e più tutte
     quelle difese da a cioè d e c. \textbf{Non le difende tutte e due insieme}
-    perchè il costo 1 non è sufficiente e difenderle tutte e due, deve per forza
+    perché il costo 1 non è sufficiente e difenderle tutte e due, deve per forza
     farlo uno alla volta (cosi ha detto il bista). Quindi le complete sono (a,
     d) e (a, c). Applicando la definizione di Grounded all'esempio otteniamo che
-    l'insieme è sempre lo stesso delle complete, ma questo è un problema, perchè
+    l'insieme è sempre lo stesso delle complete, ma questo è un problema, perché
     le grounded hanno la proprietà di essere \textbf{uniche}. \\\textbf{Tutto
         quello sopra è per dimostrare che la definizione di Grounded con pesi negli
         AF va cambiata a}:\\
@@ -1570,7 +1568,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     \end{figure}
     L'insieme degli ammissibili in questo caso era: (a), (a, c), (a, d) quindi
     l'intersezione viene a che è appunto l'unica grounded (e non è attaccata da
-    nessuno). \\Negli Weighted AF la definizione di Grounded va cambiata perchè
+    nessuno). \\Negli Weighted AF la definizione di Grounded va cambiata perché
     altrimenti si perderebbe la proprietà di essere \textbf{uniche}.
     \section{Argomento Scetticamente/Credulosamente accettato}
     Trattiamo adesso un problema decisionale (quindi chiedere se un argomento è
@@ -1588,8 +1586,8 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
               che lo sono, la risposta sarà NO, mentre nel caso in cui comparisse in
               almeno una coppia (o anche da solo) la risposta sarebbe SI.
         \item \textbf{Skept} (In tutti gli insiemi): Se un elemento è
-              \textbf{sempre} dentro un estenzione. In questo caso l'output sarà NO
-              perchè non c'è un elemento che è comune a tutti gli insiemi. É possibile
+              \textbf{sempre} dentro un estensione. In questo caso l'output sarà NO
+              perché non c'è un elemento che è comune a tutti gli insiemi. É possibile
               selezionare l'elemento, quindi magari per il valore 4 da NO, ma per il
               valore 3 da SI.
     \end{itemize}
@@ -1609,17 +1607,17 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     \section{Semantiche basate su Estensione (ripetizione)}
     \begin{itemize}
         \item \textbf{Conflict Free}: Argomenti che non si attaccano.
-        \item \textbf{Ammissible}: Richiede la nozione di difesa, cioè un
+        \item \textbf{Admissible}: Richiede la nozione di difesa, cioè un
               contrattacco che un argomento fa ad un altro argomento che è attaccato.
         \item \textbf{Complete}: Deve essere admissible, se un argomento è
-              difeso questo è per forza dentro l'estenzione. Nell'esempio sopra a era
+              difeso questo è per forza dentro l'estensione. Nell'esempio sopra a era
               l'unico argomento che era sempre difeso (non veniva attaccato da
               nessuno) quindi l'insieme complete sono tutti gli argomenti che hanno
               dentro a.
         \item \textbf{Prefered}: Si ottiene per inclusione insiemistica, cerco
               le admissible più grandi. tra \{a\},\{c\},\{d\},\{a, c\},\{a, d\} dato
               che voglio la più grande, la singola {a} non potrà essere prefered,
-              perchè si trova dentro \{a, c\},\{a, d\} che sono più grandi.
+              perché si trova dentro \{a, c\},\{a, d\} che sono più grandi.
         \item \textbf{Grounded}: Set più piccolo tra tutte le complete.
         \item \textbf{Stable}: Seleziono un insieme di argomenti che è conflict
               free e che attacca tutti gli altri
@@ -1643,7 +1641,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     Qualsiasi assegnamento di colori è un labeling (posso colorare tutti i nodi
     di verde e apposto), però chiaramente non rispetterà le semantiche che
     adesso introdurremo. Le semantiche basate su labeling corrispondono
-    esattamente alle semantiche basate su estenzioni, ed infatti possiamo
+    esattamente alle semantiche basate su Estensioni, ed infatti possiamo
     calcolare le stesse cose.
 
     \subsection{Conflict-Free Labeling Based}
@@ -1658,10 +1656,10 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
         \caption{Esempio di Conflict-Free Labeling.}
     \end{figure}
     \begin{itemize}
-        \item $a$ è verde perchè non ha nessun altro argomento verde che lo
+        \item $a$ è verde perché non ha nessun altro argomento verde che lo
               attacca.
         \item $c$ è verde per lo stesso motivo
-        \item $b$ e $d$ sono rossi perchè c'è almeno un argomento verde che li
+        \item $b$ e $d$ sono rossi perché c'è almeno un argomento verde che li
               attacca.
         \item $e$ è attaccato da un argomento rosso, ma le regole non
               specificano il colore in questo caso, quindi l'argomento resta fuori sia
@@ -1686,7 +1684,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
         \caption{No conflict free label}
     \end{figure}
     \begin{center}
-        \textbf{No! perchè a è rosso ma non ha un argomento verde che lo attacca.}
+        \textbf{No! perché a è rosso ma non ha un argomento verde che lo attacca.}
     \end{center}
     \newpage
     \subsection{Labeling Admissible}
@@ -1705,14 +1703,14 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/LA.png}
         \caption{Esempio Labeling Admissible}
     \end{figure}
-    \\Questo labeling è admissible, ad esempio c è accettato perchè d che lo
+    \\Questo labeling è admissible, ad esempio c è accettato perché d che lo
     attacca è sconfitto, cioè OUT.
     \begin{figure}[htp]
         \centering
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/LA2.png}
         \caption{Esempio2 Labeling Admissible}
     \end{figure}
-    Questo esempio è comunque admissible, perchè non ho obblighi sull'argomento
+    Questo esempio è comunque admissible, perché non ho obblighi sull'argomento
     a, posso etichettarlo di Verde e la regola sarebbe soddisfatta, ma non
     avendo attaccanti posso etichettarlo sia giallo che verde e non violo
     nessuna regola.
@@ -1735,7 +1733,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/LC.png}
         \caption{Esempio Labeling NON COMPLETE}
     \end{figure}
-    \\No, perchè l'argomento a è etichettato di giallo, ma la prima regola mi
+    \\No, perché l'argomento a è etichettato di giallo, ma la prima regola mi
     dice che un argomento è etichettato di verde quando tutti i suoi attaccanti
     sono etichettati di rosso, ma ho un se e solo se, devo leggerlo anche dalla
     parte opposta, ovvero:
@@ -1778,8 +1776,8 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     \end{figure}
     Di queste:
     \begin{enumerate}
-        \item \textbf{Grounded} perchè solo l'argomento $a$ è IN. L'argomento
-              $a$ dovrà essere in qualsiasi estenzione IN, proprio perchè non essendo
+        \item \textbf{Grounded} perché solo l'argomento $a$ è IN. L'argomento
+              $a$ dovrà essere in qualsiasi estensione IN, proprio perché non essendo
               attaccato la regola dice che deve per forza essere IN.
         \item \textbf{Prefered} questa è sicuramente Admissible.
         \item \textbf{Prefered}: $a$, $d$ è massima rispetto l'inclusione.
@@ -1809,7 +1807,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     \begin{enumerate}
         \item Categorizer
         \item Graded Defense: $a_1 \in d^1_{1} (X_1)$
-        \item Shapley Value
+        \item Shapely Value
     \end{enumerate}
     \section{Ordinamento quantitativo}
     \subsection{Categorizer}
@@ -1838,14 +1836,14 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     \noindent \textbf{Spiegazione: } Si parte sempre dagli iniziatori del grafo,
     cioè gli argomenti non attaccati.
     \begin{itemize}
-        \item $b:$ Ha valore 1 perchè la frase: ”non ha attaccanti” si traduce
+        \item $b:$ Ha valore 1 perché la frase: ”non ha attaccanti” si traduce
               in $R^-_1(x) = 0$ quindi va nella prima opzione della funzione, si
               arresta subito e torna 1.
-        \item $c:$ Non vale la prima opzione perchè è attaccato da b, quindi
+        \item $c:$ Non vale la prima opzione perché è attaccato da b, quindi
               seconda opzione e calcolo 1 + la sommatoria dei valori dei suoi
               attaccanti cioè 1 solamente b. Quindi verrebbe $\frac{1}{1+1}$ = 0.5
     \end{itemize}
-    In questo caso Cat(b)=1 perchè non ha attaccanti e Cat(c)=0.5 perchè è
+    In questo caso Cat(b)=1 perché non ha attaccanti e Cat(c)=0.5 perché è
     attaccato da b con punteggio 1. Mentre Cat(a)=0.38, Cat(d) =0.65 e Cat(e) =
     0.53.
 
@@ -1937,7 +1935,7 @@ $d^1_3?$
     \end{figure}
     \noindent \textbf{Ci domandiamo:} è vero che a $\in$ $d^1_2$ (X1)? \\Cioè è
     vero che a non è attaccato da almeno un argomento che non sia a sua volta
-    attaccato da almeno due argomenti? \\NO, perchè a è attaccato da almeno 1
+    attaccato da almeno due argomenti? \\NO, perché a è attaccato da almeno 1
     argomento, vero, ma questo argomento è attaccato da un solo argomento, che
     sarebbe d per c e a stesso per b. Il controllo sarebbe risultato vero che
     entrambi gli attaccanti venivano contrattaccati da almeno 2 argomenti.
@@ -1948,7 +1946,7 @@ $d^1_3?$
     vero che b non è attaccato da un singolo argomento che a sua volta non sia
     contrattaccato da almeno due argomenti?
 
-    \subsubsection{\textbf{Importante}} Si, perchè b è attaccato da almeno un
+    \subsubsection{\textbf{Importante}} Si, perché b è attaccato da almeno un
     argomento (e) che è a sua volta attaccato da almeno 2 argomenti, f e g.
 
     \vspace{0.3cm}
@@ -1974,16 +1972,16 @@ $d^1_3?$
     e un maggior numero di difensori per essere un argomento migliore, quindi a
     ha lo stesso numero di attaccanti di b che sarebbe 2, il numero di difensori
     invece è pari a massimo 1 per a, mentre per b troviamo un contrattacco di 2
-    argomenti, quindi proprio perchè b ha più difensori di a, lo preferisco.
+    argomenti, quindi proprio perché b ha più difensori di a, lo preferisco.
     quindi:
     \begin{center}
         $b >^{pref}$ $a$
     \end{center}
-    \section{Ordinamento Quantitativo: Shapley Value}
+    \section{Ordinamento Quantitativo: Shapely Value}
     Negli AF va interpretato come "il valore che un argomento apporta dentro una
-    certa estenzione".
+    certa estensione".
     \subsection{Assegnamento dei valori agli argomenti}
-    Devo calcolare lo Shapley value per ogni argomento data una certa semantica.
+    Devo calcolare lo Shapely value per ogni argomento data una certa semantica.
     \\
     Si utilizzano due funzioni, per gli IN e per gli OUT:
     \begin{figure}[htp]
@@ -1994,7 +1992,7 @@ $d^1_3?$
     \begin{itemize}
         \item La funzione verde assegna agli argomenti il valore 1 se sono
               argomenti IN che sono accettati da qualche semantica $\sigma$, oppure 0.
-              Se calcolo il valore per l'insieme a, c questo darà 1 perchè l'insieme è
+              Se calcolo il valore per l'insieme a, c questo darà 1 perché l'insieme è
               IN.
         \item La funzione rossa invece di guardare gli argomenti che sono IN e
               dargli punteggio 1, guarda quelli OUT e gli da punteggio 1 in maniera
@@ -2013,10 +2011,10 @@ gli OUT e quindi possiamo generare un ordinamento.
 \textbf{Il primo punto si traduce in:}
 \\L'argomento a è \textbf{migliore} dell' argomento b se e soltanto se:
 \begin{itemize}
-    \item Lo shapley value di a rispetto agli argomenti IN è maggiore dello
-          shapley value di b sempre rispetto agli argomenti IN.
+    \item Lo Shapely value di a rispetto agli argomenti IN è maggiore dello
+          Shapely value di b sempre rispetto agli argomenti IN.
     \item Oppure se il valore è uguale (quindi non mi basta andare a controllare
-          solamente gli IN), a deve avere anche uno shapley value per gli OUT minore
+          solamente gli IN), a deve avere anche uno Shapely value per gli OUT minore
           di quello di b.
 \end{itemize}
 \begin{center}
@@ -2024,7 +2022,7 @@ gli OUT e quindi possiamo generare un ordinamento.
 \end{center}
 Scegliere prima a o b è indifferente se e soltanto se:
 \begin{itemize}
-    \item Lo shapley value per gli IN di a è esattamente uguale allo shapley
+    \item Lo Shapely value per gli IN di a è esattamente uguale allo Shapely
           value per gli IN di b e stessa cosa per il valore di OUT.
 \end{itemize}
 \chapter{Domande} \label{Domande}
@@ -2046,7 +2044,7 @@ Scegliere prima a o b è indifferente se e soltanto se:
     \item Cosa è un Soft Argumentation Framework? Come cambia la nozione di
           difesa e attacco?
     \item Ti mostro un esempio, dimmi quali sono gli insiemi Conflict Free
-    \item Disegna un AF a caso, dimmi quali sono le estenzioni conflict-free,
+    \item Disegna un AF a caso, dimmi quali sono le Estensioni conflict-free,
           quelle admissible e tutte le altre.
     \item Inserisci un peso sugli archi nell'AF che hai disegnato e ricalcolami
           tutte le semantiche
