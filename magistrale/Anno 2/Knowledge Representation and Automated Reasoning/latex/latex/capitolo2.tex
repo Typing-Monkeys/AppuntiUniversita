@@ -375,7 +375,7 @@ nodo.
 \subsection{Domain Consistency}
 L'idea di arc consistency fornisce un metodo veloce di propagazione dei vincoli
 sostanzialmente più forte del forward checking. Una variabile è consistente al
-dominio (domain consistent) se nessun valore del dominio del nodo è è dichiarato
+dominio (domain consistent) se nessun valore del dominio del nodo è dichiarato
 impossibile da uno qualsiasi dei vincoli. L'idea è di "potare" il più possibile
 prima di selezionare un valore per le variabili. La domain consistency è stata
 definita solo per i vincoli che coinvolgono una sola variabile. Quando i vincoli
@@ -414,9 +414,9 @@ vincolo viene soddisfatto.
     il dominio di X
 \end{center}
 L'operazione che ho fatto si chiama Local Consistency, ma dato che ho utilizzato
-il vincolo binario si chiama Arc Consistency.
+il vincolo binario si chiama Arc Consistency.\\
 
-\noindent \textbf{Conclusione:} In questo caso sono stato molto fortunato perché
+\textbf{Conclusione:} In questo caso sono stato molto fortunato perché
 ho rimasto 1 solo valore possibile per ogni variabile. Quindi la soluzione è
 unica e sarà:
 \begin{center}
@@ -424,8 +424,7 @@ unica e sarà:
 \end{center}
 Se fossi stato meno fortunato comunque avrei ridotto gli elementi del dominio e
 quindi quando sarei andato a fare la ricerca con backtrack comunque lo spazio di
-ricerca si sarebbe di molto diminuito (avrei controllano meno assegnamenti)
-\vspace{0.3cm}
+ricerca si sarebbe di molto diminuito (avrei controllano meno assegnamenti).\\
 
 \subsubsection{\textbf{Vantaggio rispetto a fare solo Backtracking senza prima
         applicare local consistency}} Se faccio backtrack il dominio degli stati che
@@ -466,9 +465,10 @@ archi verrebbero scansionati nuovamente nella successiva iterazione. Questo per�
 non è sempre necessario, perché la modifica del dominio di una variabile
 influenza solamente le variabili che sono collegate a X da un vincolo e non le
 restanti.\\
-La complessità temporale è $O(d^3$ * $n$ * $e)$ e quella spaziale è $O(e$ * $n$
-* $d)$.
+La complessità temporale è $O(e \cdot n \cdot d^3)$ e quella spaziale è $O(e \cdot n \cdot d)$.
+% TODO: valutare se cambiare i costi con O(end^2)
 
+% TODO: questa parte si capisce un po poco 🤔
 \subsubsection{Algoritmo AC-2}
 AC-2 è un algoritmo che può fare arc consistency in un solo passo attraverso i
 nodi. Il risultato è ottenuto passando per i nodi in un ordine numerico:
@@ -494,10 +494,11 @@ $(k,i)$ alla coda Q, per il controllo degli archi.
     \includegraphics[width=13cm, keepaspectratio]{img/Cap3/ac-2.png}
     \caption{Algoritmo AC-2}
 \end{figure}
-\\La complessità temporale è $O(d^3 * n^2)$ e quella spaziale è $O(n^2$).
+\\La complessità temporale è $O(n^2 \cdot d^3)$ e quella spaziale è $O(n^2$).
 
 \subsubsection{Algoritmo AC-3}
-AC-3 è un miglioramento di AC-2, alcuni di essi possono essere già essere nella
+% TODO: questa parte non si capisce bene
+AC-3 è un miglioramento di AC-2, alcuni di essi possono essere già nella
 coda Q. Se è così allora non dovrebbero essere inseriti di nuovo.
 \begin{figure}[htp]
     \centering
@@ -507,7 +508,7 @@ coda Q. Se è così allora non dovrebbero essere inseriti di nuovo.
 In sostanza si prende un arco dalla coda Q, si fa la REVISE, se faccio una
 modifica allora si aggiunge alla coda Q tutti gli archi $(u,k)$ che non sono stati
 già controllati ovvero $u \neq k$ e $u \neq m$.\\
-La complessità temporale è $O(d^2$ * $n^2)$ e quella spaziale è $O(n^2$).
+La complessità temporale è $O(n^2 \cdot d^2)$ e quella spaziale è $O(n^2$).
 
 \section{Riassunto del prof}
 \subsection{Arc-consistency}
