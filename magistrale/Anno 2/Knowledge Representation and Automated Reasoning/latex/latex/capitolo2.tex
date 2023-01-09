@@ -246,6 +246,7 @@ La strategia di ricerca è la \textbf{DFS (Depth First Search):}
 In termini di grandezza dell'albero di ricerca il numero di foglie è pari a
 $d^n$, dove n è il numero di variabili e $d = max|D_i|$.
 
+% TODO: queste immagini vengono mostrate a cazzo su una pagina a parte 🤔
 \begin{figure}[htp]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap2/dfs.png}
@@ -256,6 +257,7 @@ $d^n$, dove n è il numero di variabili e $d = max|D_i|$.
     \includegraphics[width=12cm, keepaspectratio]{img/Cap2/dfs2.png}
     \caption{Esempio backtracking.}
 \end{figure}
+
 \subsubsection{Miglioramenti dell'efficienza del backtracking}
 Per impostazione predefinita, SELECT-UNASSIGNED-VARIABLE seleziona semplicemente
 la successiva variabile non assegnata nell'ordine dato dalla lista
@@ -295,13 +297,13 @@ caratteristiche:
 
 \section{Propagazione delle informazioni attraverso vincoli}
 Finora il nostro algoritmo di ricerca considera i vincoli su una variabile solo
-nel momento in cui il variabile viene scelta da SELECT-UNASSIGNED-VARIABLE. Ma
+nel momento in cui la variabile viene scelta da SELECT-UNASSIGNED-VARIABLE. Ma
 guardando alcuni dei vincoli all'inizio della ricerca, o anche prima dell'inizio
 della ricerca, possiamo drasticamente ridurre lo spazio di ricerca.
 \subsection{Forward Checking}
 \textbf{Forward Checking: }  Prima di assegnare una variabile controlla che
 questo assegnamento mi renda possibile futuri assegnamenti ad altri nodi, poiché
-se dopo l'assegnamento un dominio per una variabile diventasse vuoto, non si
+se dopo l'assegnamento, un dominio per una variabile diventasse vuoto, non si
 avrebbe soluzione e quindi l'assegnamento non andrebbe nemmeno provato.
 \\\textbf{Euristica utilizzata: }  Elimina i valori dal dominio quando viene
 fatto un assegnamento ad una variabile, \textbf{se un dominio diventa vuoto,
@@ -318,7 +320,7 @@ fatto un assegnamento ad una variabile, \textbf{se un dominio diventa vuoto,
 \end{figure}
 \newpage
 In questo caso assegnare blu a V rende possibili zero colori per SA, quindi
-questo tipo di assegnamento non pu`o andare bene.
+questo tipo di assegnamento non può andare bene.
 \subsection{Constraint propagation}
 Sebbene il forward checking rilevi molte incoerenze, non le rileva tutte. Per
 esempio, consideriamo la terza riga della Figura 2.5. Essa mostra che quando WA
