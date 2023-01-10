@@ -607,7 +607,8 @@ Un Soft constraint satisfaction Problem (SCSP) è una coppia $<C, con>$ dove:
           base a se può assumere o no un certo valore).
     \item \textbf{Un Vincolo Soft} è una funzione che associa ad ogni
           assegnamento di variabile un valore parzialmente o totalmente ordinato
-          da un insieme di pesi A. \\Formalmente è una coppia C $\rightarrow$
+          da un insieme di pesi $A$.
+          \\Formalmente è una funzione definita da C $\rightarrow$
           $<con, def>$ dove:
 
           \begin{itemize}
@@ -647,7 +648,7 @@ ottimale.
     \caption{Esempio di SCSP su grafo.}
 \end{figure}
 \\Partiamo riprendendo la definizione di un CSP, esso è definito come
-P=\{V,D,C,PC,con,def,a\} i quali indicano:
+$P=\{V,D,C,PC,con,def,a\}$ i quali indicano:
 \begin{itemize}
     \item V $=$ insieme delle variabili;
     \item D $=$ insieme dei domini associati alle variabili;
@@ -659,7 +660,7 @@ P=\{V,D,C,PC,con,def,a\} i quali indicano:
           vincoli con gli operatori $<,>,=$. \\Sostanzialmente esso indica i
           tipi di vincoli che posso usare se lavoro su un dominio specifico.
           Inoltre indicano se il vincolo è implicito (tutti i colori diversi) o
-          esplicito (valgono le coppie $<r,g,b>$, $<g,r,b>$, . . . ).
+          esplicito (valgono le coppie $<r,g,b>, <g,r,b>, \ldots$).
     \item con $=$ funzione che definisce quali variabili sono coinvolte in quale
           vincolo, essa dato un vincolo restituisce le variabili che sono connesse a
           questo;
@@ -667,12 +668,12 @@ P=\{V,D,C,PC,con,def,a\} i quali indicano:
           per una specifica variabile. In un SCSP questa funzione oltre a dire i
           valori possibili per una variabile deve indicare anche il costo associato a
           quei valori, nell'esempio in Figura 4.1 se passiamo in input alla funzione
-          def la variabile x1 essa ci ritornerà come valori possibile il colore giallo
+          def la variabile $x_1$ essa ci ritornerà come valori possibile il colore giallo
           con costo 5. Questa è la differenza con la funzione def di un problema CSP.
     \item a $=$ sottoinsieme di V contenente tutte le variabili interessate
           nella soluzione del SCSP, ad esempio nel caso del grafo abbiamo che le
           variabili che ci interessano per la soluzione ottimale sono solo $x_1$ e
-          $x_3$ , non tutte quante.
+          $x_3$, non tutte quante.
 \end{itemize}
 Nell'esempio in Figura 4.1 i vincoli binari sono hard, perché la soluzione
 richiede per forza che i nodi collegati abbiamo colori diversi sennò si violano
@@ -696,13 +697,13 @@ utilizzano due operazioni per trovare la soluzione ottimale in un SCSP:
 \section{Semiring}
 Un semiring è una quintupla:
 \begin{center}
-    $<A, +, x, 0, 1>$
+    $<A, +, \times, 0, 1>$
 \end{center}
 \begin{itemize}
     \item \textbf{A:} l'insieme degli elementi che mi rappresentano i costi
           (dominio dei costi). Esso può essere l'insieme dei reali oppure un
-          intervallo specifico $[0,1]$
-    \item \textbf{+:} operatore di proiezione, usato per fare la scelta fra le
+          intervallo specifico (ad esempio $[0,1]$)
+    \item \textbf{$+$:} operatore di proiezione, usato per fare la scelta fra le
           soluzioni trovate dalla combinazione, può essere il minimo o massimo.
           Possiamo definire alcune proprietà:
           \begin{itemize}
@@ -710,11 +711,11 @@ Un semiring è una quintupla:
                     minimo il risultato è sempre a, quindi quando un operatore è
                     idempotente è possibile definire un ordinamento ovvero
                     \begin{center}
-                        $a \leq b$ dove b è meglio di a $\Leftarrow \Rightarrow$
+                        $a \leq b$ dove b è meglio di a $\Longleftrightarrow$
                         $a + b = b$
                     \end{center}
           \end{itemize}
-    \item \textbf{x:} operatore di combinazione, utilizzato per combinare i
+    \item \textbf{$\times$:} operatore di combinazione, utilizzato per combinare i
           vincoli, può essere somma,moltiplicazione etc... dipende dal problema.
           Possiamo definire alcune proprietà:
           \begin{itemize}
@@ -729,14 +730,14 @@ Un semiring è una quintupla:
 \end{itemize}
 Tutti questi che abbiamo visto sono simboli quindi quando si utilizza
 l'operatore $+$ non ci si riferisce alla somma ma ad un operatore per la
-proiezione che potrebbe essere minimo o massimo o or.
+proiezione che potrebbe essere $min, max, \text{OR}, \ldots$
 \subsection{Tipi di Semiring}
 \begin{itemize}
-    \item \textbf{Probabilistico:} $< R^+ , min, +, +\infty, 0>$ si massimizza
+    \item \textbf{Probabilistico:} $<R^+, \min, +, +\infty, 0>$ si massimizza
           la probabilità
-    \item \textbf{Weighted:} $<[0, 1], max, \times,0,1>$ massimo il costo dato dalla
+    \item \textbf{Weighted:} $<[0, 1], \max, \times, 0, 1>$ si massimizza il costo dato dalla
           combinazione, dove si fa il prodotto;
-    \item \textbf{Fuzzy:} $<[0,1],max,min,0,1>;$
+    \item \textbf{Fuzzy:} $<[0,1], \max, \min, 0, 1>$
     \item \textbf{Classical:} $<\{false,true\}, \lor(\text{OR}), \land(\text{AND}),
               false, true>$
 \end{itemize}
@@ -761,15 +762,16 @@ l'operazione di proiezione è il Massimo; quella di combinazione è la
 \textbf{moltiplicazione}; il minimo valore è 0; il massimo valore è 1. \\Ci
 domandiamo: Quanto vale l'assegnamento X $=$ a?
 \begin{enumerate}
-    \item Dato che l'operazione x di combinazione è la moltiplicazione faccio:
+    \item Dato che l'operazione $\times$ di combinazione è la moltiplicazione faccio:
           \begin{enumerate}
               \item $0.9*0.8*0.9 = 0.648$
               \item $0.9*0.2*0.5 = 0.09$
               \item $0.9*0.2*0.5 = 0.09$
           \end{enumerate}
+          %% TODO: sta frase boh
           Per poter inserire 0.648 in $x = a$ dovrei dividere per 0.8 i 3 valori
           su $c_2$ e 0.9 i tre valori su $c_3$ (secondo me).
-    \item Dato che l'operazione + di proiezione in questo caso è Max prendo il
+    \item Dato che l'operazione $+$ di proiezione in questo caso è $\max$ prendo il
           massimo di tutti gli elementi trovati e quella sarà la soluzione di
           quando ad X assegno a. Facendo lo stesso ragionamento si calcolano
           tutte le restanti soluzioni.
@@ -782,20 +784,23 @@ domandiamo: Quanto vale l'assegnamento X $=$ a?
 \end{figure}
 
 \newpage
-\subsubsection{L'aggiunta di vincoli è monotona: peggiora la soluzione}
+\paragraph{Teorema dell'Estensività: }
+\begin{center}
+    \textit{L'aggiunta di vincoli è monotona, peggiora la soluzione}
+\end{center}
 Questo significa che più aggiungo vincoli e più la soluzione peggiora, più tolgo
 vincoli più la soluzione mi migliora. Questo perché più vincoliamo il problema e
-meno possibilità abbiamo, meno lo vincoliamo e più sono le possibilità. Questo
-accade nel caso dei vincoli Crisp, nel caso dei vincoli con peso otterremo
-\textbf{migliori o peggiori} soluzioni.
-\subsubsection{Esempio di aggiunta e quindi peggioro}
-\begin{figure}[htp]
+meno possibilità abbiamo, meno lo vincoliamo e più sono le possibilità.
+
+\subsubsection{Esempio di aggiunta vincolo (quindi peggioro)}
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=12.5cm, keepaspectratio]{img/Cap4/worst2.png}
 \end{figure}
 
-\subsubsection{Esempio di rimozione e quindi miglioro}
-\begin{figure}[htp]
+\subsubsection{Esempio di rimozione vincolo (quindi miglioro)}
+\begin{figure}[H]
     \centering
     \includegraphics[width=12.5cm, keepaspectratio]{img/Cap4/better2.png}
 \end{figure}
@@ -809,19 +814,34 @@ dal dominio, ma significa ridurre (ottimizzare) il valore del semiring associato
 a quella variabile in maniera tale da fare in modo che questo valore si avvicini
 il più possibile a quello della soluzione finale.
 
-\textbf{Teorema dell'estensività} Se tolgo dei vincoli da un problema SCSP, la
-soluzione migliora perché si moltiplica di meno (meno calcoli da fare),se li
-aggiungo la soluzione peggiora. Togliere vincoli vuol dire rilassare il
-problema. Se l'operatore x è idempotente allora possiamo applicare arc
-consistency, un esempio di operatore idempotente è il minimo se facciamo
 \begin{center}
-    $1 \times 1 = 2$ dove $×\times = somma$
+    \textit{Posso applicare Arc Consistency in un SCSP \textbf{solo} se l'operatore $\times$ è
+        \textbf{idempotente}.}
+\end{center}
+
+Per esempio, non potremmo applicare Arc Consistency se come operatore $\times$
+utilizzassimo la somma, ma potremmo farlo se usassimo $\min$.
+
+\begin{center}
+    $1 \times 1 = 2$ se $\times = somma$
 \end{center}
 \begin{center}
     $1 \times 1 = 1$ se $\times = minimo$
 \end{center}
+
+% \textbf{Teorema dell'estensività} Se tolgo dei vincoli da un problema SCSP, la
+% soluzione migliora perché si moltiplica di meno (meno calcoli da fare),se li
+% aggiungo la soluzione peggiora. Togliere vincoli vuol dire rilassare il
+% problema. Se l'operatore x è idempotente allora possiamo applicare arc
+% consistency, un esempio di operatore idempotente è il minimo se facciamo
+% \begin{center}
+%     $1 \times 1 = 2$ dove $×\times = somma$
+% \end{center}
+% \begin{center}
+%     $1 \times 1 = 1$ se $\times = minimo$
+% \end{center}
 \subsubsection{Esempio con CSP Soft:}
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=14cm, keepaspectratio]{img/Cap5/Local.png}
 \end{figure}
@@ -846,11 +866,11 @@ passaggi:
           Adesso: quanto valore ha $x_3$ quando ha valore rosso? Devo fare il massimo
           tra 0 e 0 che è 0 e tutto rimane invariato perché $x_3$ sul rosso ha
           comunque 0. Per $x_3$ $=$ blu il massimo è 0.2. Per $x_3$ $=$ giallo il
-          massimo è comunque 0.2. L'unica modifica da apportare quindi è al blu di x3
+          massimo è comunque 0.2. L'unica modifica da apportare quindi è al blu di $x_3$
           che al posto di 0.5 ha valore 0.2.
 \end{enumerate}
 Nel caso \textbf{Crisp CSP} i valori vengono eliminati completamente dal
-dominio. Nel caso \textbf{Soft CSP} ottimizzo il valore di semiring associato a
+dominio. Nel caso \textbf{Soft CSP} ottimizzo il valore del semiring associato a
 quell'assegnamento. Una volta ottimizzati tutti i valori si utilizzano tecniche
 di \textbf{Branch And Bound}, che può essere applicato o all'inizio o durante la
 ricerca, per trovare la soluzione.
