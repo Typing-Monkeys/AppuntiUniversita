@@ -910,7 +910,7 @@ accettarla, è proprio sbagliata.
 \section{Idempotenza degli operatori}
 Un operatore si dice idempotente se facendo:
 \begin{center}
-    a $operazione$ a mi restituisce sempre a.
+    $a$ $operazione$ $a$ mi restituisce sempre $a$.
 \end{center}
 L'idempotenza si può analizzare sia per gli operatori che si usano per la
 Proiezione sia per quelli di Combinazione.\\
@@ -918,15 +918,15 @@ Proiezione sia per quelli di Combinazione.\\
     \item Idempotenza su \textbf{Combinazione}: Dipende strettamente dal
           semiring utilizzato:
           \begin{itemize}
-              \item \textbf{Fuzzy:} Idempotente, perché il minimo tra a ed a è
-                    sempre a (il minimo tra due valori uguali da sempre lo stesso
+              \item \textbf{Fuzzy:} Idempotente, perché il $minimo$ tra $a$ ed $a$ è
+                    sempre $a$ (il minimo tra due valori uguali da sempre lo stesso
                     valore).
-              \item \textbf{Probabilistic:} Non idempotente, perché a $*$ a non
-                    fa esattamente a (ad esempio 0.1 $*$ 0.1 $=$ 0.01, la
+              \item \textbf{Probabilistic:} Non idempotente, perché $a * a$ non
+                    fa esattamente $a$ (ad esempio $0.1 * 0.1 = 0.01$, la
                     moltiplicazione infatti non ha la proprietà di idempotenza).
-              \item \textbf{Weighted:} Non idempotente, perché a $+$ a non fa
-                    esattamente a.
-              \item \textbf{Classic:} Idempotente, infatti a and a $=$ a
+              \item \textbf{Weighted:} Non idempotente, perché  $a + a$ non fa
+                    esattamente $a$.
+              \item \textbf{Classic:} Idempotente, infatti $a \text{ AND } a = a$
           \end{itemize}
     \item Idempotenza su \textbf{Proiezione:} Tutti gli operatori sono
           idempotenti e questo segue dalla definizione stessa di c-semiring (definisco
@@ -947,10 +947,10 @@ accettata.
     \includegraphics[width=14cm, keepaspectratio]{img/Cap5/probabilistc2.png}
 \end{figure}
 \\
-\textbf{Domanda:} Quanto vale l'assegnamento x $=$ a, y $=$ b su questo
-problema? \\devo moltiplicare 0.9, che sarebbe x$=$a, per $<$ x $=$ a, y $=$ b
-$>$ che sarebbe 0.2 per y $=$ b che sarebbe 0.5. Il risultato è 0.09. \\Domanda:
-Quanto vale $c_1$ $c_2$ proiettato x (su a)? devo fare la combinazione:
+\textbf{Domanda:} Quanto vale l'assegnamento $x = a$, $y = b$ su questo
+problema? \\devo moltiplicare 0.9, che sarebbe $x=a$, per $<x = a, y = b>$ che
+sarebbe 0.2 per $y = b$ che sarebbe 0.5. Il risultato è 0.09. \\Domanda: Quanto
+vale $c_1$ $c_2$ proiettato $x$ (su $a$)? devo fare la combinazione:
 \begin{itemize}
     \item 0.9 $*$ 0.8 $=$ 0.72
     \item 0.9 $*$ 0.2 $=$ 0.18
@@ -975,9 +975,9 @@ sarebbero accettabili perché sbagliate.
     \centering
     \includegraphics[width=16cm, keepaspectratio]{img/Cap5/FUZZY2.png}
 \end{figure}
-I nuovi valori per il vincolo $c_3$ sono ottenuti analizzando prima y $=$ a e
-quindi poi si analizza (a, a) e poi x $=$ a. Poi y $=$ b e quindi poi (b, b) e
-poi x $=$ b. Utilizzando la combinazione e poi la proiezione i valori tornano
+I nuovi valori per il vincolo $c_3$ sono ottenuti analizzando prima $y = a$ e
+quindi poi si analizza $<a, a>$ e poi $x = a$. Poi $y = b$ e quindi poi $<b, b>$ e
+poi $x = b$. Utilizzando la combinazione e poi la proiezione i valori tornano
 quelli.
 \subsection{Semiring con operazioni non idempotenti}
 \subsubsection{Divisione}
@@ -988,20 +988,21 @@ Vogliamo ottimizzare i CSP Soft anche se la loro operazione di combinazione non
     \includegraphics[width=12cm, keepaspectratio]{img/Cap5/DIvisione.png}
 \end{figure}
 \\L'operatore che utilizzeremo è l'opposto dell'operatore di combinazione ed è
-chiamato Diviso: $\div$. Analizziamo la riga del Fuzzy:
+chiamato "\textit{Diviso}": $\div$. Analizziamo la riga del Fuzzy:
 \begin{itemize}
     \item Prima versione: L'operazione inversa del minimo, indicata con
-          l'operatore $\div$ è max. Supponiamo che l'elemento x sia tale che b $*$ x
-          $=$ a, la domanda è: Quanto fa a $\div$ b? Fa quell'elemento x tale che il
-          minimo tra b ed x è minore uguale di a. Devo quindi in qualche modo andarmi
-          a trovare gli inversi degli operatori visti prima.
-    \item  Seconda versione: Quando fa a $\div$ b? (si legge a Diviso b). Fa il
-          numero più grande x tale che il minimo tra b ed x è più piccolo di a
+          l'operatore $\div$ è max. Supponiamo che l'elemento $x$ sia tale che
+          $b * x = a$, la domanda è: Quanto fa $a \div b$? Fa quell'elemento $x$
+          tale che il minimo tra $b$ ed $x$ è minore uguale di $a$. Devo quindi in
+          qualche modo andarmi a trovare gli inversi degli operatori visti
+          prima.
+    \item  Seconda versione: Quando fa $a \div b$? (si legge "\textit{$a$ Diviso $b$}"). Fa il
+          numero più grande $x$ tale che il minimo tra $b$ ed $x$ è più piccolo di $a$
 \end{itemize}
-Analizziamo la riga del \textbf{Weighted:} \\Quanto fa a $\div$ b? Fa il più
-piccolo (min) elemento x tale per cui b $+$ x fa a. Questo però lo possiamo fare
-solo se a è maggiore di b (altrimenti si prenderebbero in considerazioni valori
-non consoni tipo negativi) e se b è maggiore uguale di a si da come risultato 0.
+Analizziamo la riga del \textbf{Weighted:} \\Quanto fa $a \div b$? Fa il più
+piccolo (min) elemento $x$ tale per cui $b + x$ fa $a$. Questo però lo possiamo fare
+solo se $a$ è maggiore di $b$ (altrimenti si prenderebbero in considerazioni valori
+non consoni tipo negativi) e se $b$ è maggiore uguale di $a$ si da come risultato 0.
 \\\textbf{Esempio probabilistico:}
 \begin{figure}[htp]
     \centering
@@ -1031,7 +1032,7 @@ interessati, la soluzione rimane invariata, quindi anche su semiring non
 idempotenti si può fare arc-consistency grazie all'operatore di Divisione
 ($\div$).
 
-\subsubsection{\textbf{Importante}} In questo caso abbiamo utilizzato la
+\paragraph{Importante:} in questo caso abbiamo utilizzato la
 divisione perché era l'operazione inversa della moltiplicazione (che è
 l'operatore di combinazione utilizzato nei CSP probabilistici). Se però
 l'operazione di combinazione fosse stata la Somma (e quindi CSP Weighted)
