@@ -732,14 +732,16 @@ Tutti questi che abbiamo visto sono simboli quindi quando si utilizza
 l'operatore $+$ non ci si riferisce alla somma ma ad un operatore per la
 proiezione che potrebbe essere $min, max, \text{OR}, \ldots$
 \subsection{Tipi di Semiring}
+%% mannaggia a quel porco del signore, erano al contrario !!
+%% guadare https://www.dmi.unipg.it/~bista/didattica/CSP/soft-csps.pdf [pagina 19]
 \begin{itemize}
-    \item \textbf{Probabilistico:} $<R^+, \min, +, +\infty, 0>$ si massimizza
-          la probabilità
-    \item \textbf{Weighted:} $<[0, 1], \max, \times, 0, 1>$ si massimizza il costo dato dalla
-          combinazione, dove si fa il prodotto;
-    \item \textbf{Fuzzy:} $<[0,1], \max, \min, 0, 1>$
-    \item \textbf{Classical:} $<\{false,true\}, \lor(\text{OR}), \land(\text{AND}),
-              false, true>$
+    \item \textbf{Probabilistic:} $<[0, 1], \max, \times, 0, 1>$ si massimizza
+          la probabilità,
+    \item \textbf{Weighted:} $<R^+, \min, +, +\infty, 0>$ si minimizza la somma
+          dei costi,
+    \item \textbf{Fuzzy:} $<[0,1], \max, \min, 0, 1>$,
+    \item \textbf{Classical:} $<\{false,true\}, \lor(\text{OR}),
+              \land(\text{AND}), false, true>$.
 \end{itemize}
 
 \subsection{Esempi pratici SCSP: Domanda esame}
@@ -980,12 +982,12 @@ quindi poi si analizza $<a, a>$ e poi $x = a$. Poi $y = b$ e quindi poi $<b, b>$
 poi $x = b$. Utilizzando la combinazione e poi la proiezione i valori tornano
 quelli.
 \subsection{Semiring con operazioni non idempotenti}
-\subsubsection{Divisione}
+% \subsubsection{Divisione}
 Vogliamo ottimizzare i CSP Soft anche se la loro operazione di combinazione non
 è idempotente.
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=12cm, keepaspectratio]{img/Cap5/DIvisione.png}
+    \includegraphics[width=10cm, keepaspectratio]{img/Cap5/divisione.png}
 \end{figure}
 \\L'operatore che utilizzeremo è l'opposto dell'operatore di combinazione ed è
 chiamato "\textit{Diviso}": $\div$. Analizziamo la riga del Fuzzy:
@@ -999,14 +1001,17 @@ chiamato "\textit{Diviso}": $\div$. Analizziamo la riga del Fuzzy:
     \item  Seconda versione: Quando fa $a \div b$? (si legge "\textit{$a$ Diviso $b$}"). Fa il
           numero più grande $x$ tale che il minimo tra $b$ ed $x$ è più piccolo di $a$
 \end{itemize}
-Analizziamo la riga del \textbf{Weighted:} \\Quanto fa $a \div b$? Fa il più
+Analizziamo la riga del \textbf{Weighted:}\\
+Quanto fa $a \div b$? Fa il più
 piccolo (min) elemento $x$ tale per cui $b + x$ fa $a$. Questo però lo possiamo fare
 solo se $a$ è maggiore di $b$ (altrimenti si prenderebbero in considerazioni valori
-non consoni tipo negativi) e se $b$ è maggiore uguale di $a$ si da come risultato 0.
-\\\textbf{Esempio probabilistico:}
-\begin{figure}[htp]
+non consoni tipo negativi) e se $b$ è maggiore uguale di $a$ si da come risultato 0.\\
+
+\textbf{Esempio probabilistico:}
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=14cm, keepaspectratio]{img/Cap5/Probabilistic2.png}
+    \includegraphics[width=14cm, keepaspectratio]{img/Cap5/probabilisticmeglio.png}
     % PROBLEMA FOTO
 \end{figure}
 
@@ -1029,14 +1034,14 @@ Come faccio ad ottimizzare il CSP in maniera tale da mantenere le soluzioni?
 Ora divido per 0.8 tutti i valori nel vincolo $c_2$ cosi da ottenere i valori in
 figura. Dato che ho ottimizzato il valore di (a) e cambiato i valori
 interessati, la soluzione rimane invariata, quindi anche su semiring non
-idempotenti si può fare arc-consistency grazie all'operatore di Divisione
+idempotenti si può fare arc-consistency grazie all'operatore di \textit{"Divisione"}
 ($\div$).
 
 \paragraph{Importante:} in questo caso abbiamo utilizzato la
-divisione perché era l'operazione inversa della moltiplicazione (che è
+\textit{divisione} perché era l'operazione inversa della \textit{moltiplicazione} (che è
 l'operatore di combinazione utilizzato nei CSP probabilistici). Se però
-l'operazione di combinazione fosse stata la Somma (e quindi CSP Weighted)
-l'operazione $\div$ sarebbe stata la sottrazione.
+l'operazione di combinazione fosse stata la \textit{somma} (e quindi CSP Weighted)
+l'operazione $\div$ sarebbe stata la \textit{sottrazione}.
 
 
 \chapter{Argumentation Framework} \label{ch:Argumentation Framework}
