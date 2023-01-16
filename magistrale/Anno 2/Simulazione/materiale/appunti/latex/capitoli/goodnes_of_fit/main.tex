@@ -28,6 +28,7 @@ Calcoli da effettuare:
           \end{itemize}
     \item Calcolare:
           \begin{enumerate}
+              \item n = $sum(frequenze)$
               \item $f(i) = f_i / n$: non serve %TODO: sbarrare
               \item $p(i)$: dipende dalla distribuzione, vedere AGGIUNGERE REF
               \item $F_i = n * p(i)$: numero di intervalli unitari teorici con
@@ -62,11 +63,18 @@ Calcoli da effettuare:
           \end{itemize}
     \item Aggiungere \textit{Colonna $x_1$} (intervallo più piccolo)
     \item Aggiungere \textit{Colonna $x_2$} (intervallo più grande)
-
+          \item  Aggiungere media tra \textit{$x_2$} \textit{$x_1$}
     \item Calcolare:
           \begin{enumerate}
+              \item frequenza pesata = $media_{intervalli} * f_i$
+              \item $n$ = $sum(frequenze)$
+              \item media = $sum(frequenze pesate)/n$
+              \item differenza medie = $(media_{intervalli} - media)^2$
+              \item frenquenza pesata 2 = $differenza medie * f_i$
+              \item frequenza relativa = $f_i * n$
+              \item capire la distribuzione se non è data. %TODO: aggiungere ref.
               \item $f(i) = f_i / n$: non serve %TODO: sbarrare
-              \item $p(i)$: dipende dalla distribuzione, vedere AGGIUNGERE REF
+              \item $p(i)$ = $calcolare secondo la distribuzione$ %TODO: aggiustare
               \item $F_i = n * p(i)$: numero di intervalli unitari teorici con
                     $i$ arrivi
               \item $G_i = \frac{(f_i - F_i)^2}{F_i}$
