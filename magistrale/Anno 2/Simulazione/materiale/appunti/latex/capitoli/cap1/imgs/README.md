@@ -1,0 +1,1 @@
+In questa cartella ci vanno le immagini 🍨
