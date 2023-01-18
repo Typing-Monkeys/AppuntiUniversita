@@ -1,31 +1,75 @@
-\chapter{Distribuzioni e Densità}
-%TODO: controllare che siano corrette !!!
+\chapter{Distribuzioni}
 
-\section{Geometrica}
-???
+\section{Stimare la Distribuzione}\label{stimare-distribuzione}
 
-\section{Esponenziale}
+Per stimare una distribuzione avendo solo i dati iniziali del problema effettua
+le seguenti operazioni:
 
+\begin{enumerate}
+      \item $n = \sum{f_i}$: assicurati di aver calcolato la somma totale delle
+            osservazioni
+      \item Calcola la \textbf{Media}: \begin{enumerate}
+                  \item Aggiungi \textit{Colonna Totale}: $\text{categoria}_i * f_i$
+                  \item Calcola la media effettiva con: $media = \frac{\sum
+                                    totale}{n}$
+            \end{enumerate}
+      \item Calcola la \textbf{Varianza $\sigma^2$}: \begin{enumerate}
+                  \item Aggiungi \textit{Colonna ris}: $(\text{categoria}_i -
+                              \text{media})^2 * f_i$
+                  \item Calcola la varianza effettiva con: $\sigma^2 = \frac{\sum
+                                    \text{ris}}{n -1}$
+            \end{enumerate}
+      \item Calcola la \textbf{Deviazione Standard $\sigma$}: \begin{enumerate}
+                  \item $\sigma = \sqrt{\sigma^2}$
+            \end{enumerate}
+      \item Calcola $V = \frac{\sigma}{\text{media}}$
+\end{enumerate}
+
+Una volta completati tutti i calcoli controlla se il coefficiente $V$ è vicino
+ad 1 e:
 \begin{itemize}
-    \item Distribuzione: $1 - e^{-\lambda t}$
-    \item Densità: $\lambda * e^{-\lambda t}$
-    \item $p(i)$: =(EXP(-Valori/$Media$)) / $Media$ %TODO: sistemare
+      \item \textbf{se lo è} allora utilizza l'\textbf{Esponenziale},
+      \item \textbf{se non lo è} è \textbf{Poissoniana} ma per avere una verifica,
+            controlla che la media e la varianza siano uguali.
 \end{itemize}
 
-\section{Poissoniana}
-
+\paragraph{Note:}\ \\
+Si può avere una prima idea del tipo di distribuzione anche
+osservando le frequenze per categoria:
 \begin{itemize}
-    \item Distribuzione: $\frac{(\lambda t)^n * e^{-\lambda t}}{n!}$
-    \item Densità: $\frac{(\lambda t)^n * e^{-\lambda t}}{n!}$
+      \item Se le frequenze hanno valori alti per le prime categorie e poi
+            decrescono, probabilmente è esponenziale negativa.
+      \item Se le frequenze hanno valori bassi per le prime categorie e poi
+            crescono, probabilmente è esponenziale\dots
+      \item Se le frequenze hanno valori alti nelle categorie centrali e bassi
+            verso le categorie agli estremi, probabilmente è Poissoniana
+      \item Nel caso in cui sia geometrica solitamente viene esplicitato.
 \end{itemize}
 
-\section{Stimare i Parametri}
+\section{Calcolare la Probabilità di una Distribuzione} \label{pi}
 
-\subsection{Media \texorpdfstring{$x$}{x}}
+\subsection{Esponenziale}
 
-\begin{itemize}
-    \item Totale: $\text{Valori(categorie)} * f_i$
-    \item Media effettiva $x$: $SOMMA(Totale) / n$ %TODO: riscrivere in modo matematico capibile
-\end{itemize}
+\subsubsection{Positiva}
 
-\subsection{Varianza \texorpdfstring{$\sigma^2$}{sigma quadro}}
+\[
+      p(i) = \frac{e^{\frac{- \text{categoria}_i}{\text{media}}}}{\text{media}}
+\]
+
+\subsubsection{Negativa}
+
+\[
+      p(i) = 1 - e^{\frac{- \text{categoria}_i}{\text{media}}}
+\]
+
+\subsection{Poisson}
+
+\[
+      p(i) = \frac{e^{- \text{media} * \text{media}^{\text{categoria}_i}}}{\text{categoria}_i !}
+\]
+
+\subsection{Geometrica}
+
+\[
+      p(i) = \rho * (1 - \rho)^{\text{categoria}_i}
+\]
