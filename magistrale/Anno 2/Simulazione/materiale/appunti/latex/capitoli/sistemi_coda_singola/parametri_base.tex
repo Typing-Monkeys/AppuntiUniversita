@@ -1,0 +1,88 @@
+\section{Come Riconoscere un Modello di Coda}
+Un modello di coda secondo la notazione di Kendall è così rappresentato:
+\begin{center}
+    $A/b/c/n/p/z$
+\end{center}
+
+dove:
+
+\begin{itemize}
+    \item $A$: indica la distribuzione del tempo di inter-arrivo
+    \item $b$: indica la distribuzione del tempo di servizio $T_s$
+    \item $c$: indica il numero di serventi
+    \item $n$: indica la dimensione della coda
+    \item $p$: indica la dimensione della popolazione
+    \item $Z$: indica la disciplina di servizio
+\end{itemize}
+Tale notazione si semplifica in $A/b/c$ nel caso in cui la dimensione della
+popolazione e della coda sono infinite e la disciplina di servizio segue la
+logica FIFO ($n = p = \infty$ e $Z = \text{FIFO}$).\\
+Per quanto riguarda i possibili valori di $A$, $b$ e $c$:
+
+\begin{itemize}
+    \item $A$ e $b$: può assumere i valori D (distribuzione deterministica o
+          costante), M (distribuzione esponenziale negativa), G (distribuzione
+          generale), $H_h$ (distribuzione iperesponenziale), $E_k$ (l'Erlangiana
+          a k stadi)
+    \item $c$: 1 o m, dove 1 indica un singolo servente e m indica che ci sono
+          serventi multipli. Non importa inizialmente specificare quanto è m, ma
+          per le formule successive il valore va sostituito con il numero esatto
+          di serventi.
+\end{itemize}
+
+\subsection*{Consigli}
+Solitamente negli esercizi è sottinteso che la dimensione della popolazione e
+della coda sono infinite (non lo sono soltanto nel caso in cui viene specificato
+diversamente), lo stesso vale per la gestione del servizio che è sempre FIFO
+(salvo casi estremi che devono essere specificati).\\
+Per quanto riguarda le distribuzioni degli interarrivi e del servizio: essi sono
+sempre specificati e nei soli casi in cui non viene esplicitato il tipo di
+distribuzione (che ovviamente può essere diverso per interarrivo e servizio) si
+considera la distribuzione generale G.\\
+Nei pochi casi in cui la distribuzione è deterministica è sempre specificato, ad
+esempio viene detto che il tempo è costante.
+
+\section{Parametri Fondamentali}
+
+\begin{itemize}
+    \item $\Delta$: Tempo di Inter-arrivo (il tempo che intercorre tra un arrivo
+          e il successivo)
+    \item $w$: Numero di utenti in coda
+    \item $t_w$: Tempo di Attesa in Coda
+    \item $s$: Numero di Utenti in Servizio
+    \item $t_s$: Tempo di Servizio
+    \item $q$: Numero di Utenti nel Sistema
+    \item $t_q$: Tempo di Risposta
+\end{itemize}
+
+\paragraph{N.B.}
+\begin{itemize}
+    \item Tutti i \textbf{Tempi} vanno espressi in \textbf{minuti},
+    \item tutti i valori precedenti sono \textbf{interi} e \textbf{maggiori o
+              uguali} a 0,
+    \item $0 \leq s \leq c$.
+    \item \textbf{stare bene a tenti a se la chiede in ore o minuti :pig:}
+\end{itemize}
+
+\section{Come Calcolare i Parametri Base} \label{parametri-base}
+
+\begin{itemize}
+    \item \textit{Tempo Medio di Servizio} $T_s = \frac{1}{\mu}$
+    \item \textit{Tempo medio di Inter-arrivi} $\mu = \frac{1}{T_s}$
+    \item \textit{Tasso medio di Arrivi} $\lambda = \Delta^{-1}$
+    \item \textit{Intensità del Traffico} $\rho = \frac{\lambda}{\mu}$
+\end{itemize}
+
+\section{Condizione di Stazionarietà}
+
+$$
+    \rho \le 1
+$$
+
+Controllare bene (\textit{STARE BENE A TENTI}) che la condizione di
+Stazionarietà sia verificata altrimenti l'esercizio non si può continuare.
+
+\section{Formule}
+
+
+\section{Capire come gestire la variazione della distribuzione e del suo modello di coda}
