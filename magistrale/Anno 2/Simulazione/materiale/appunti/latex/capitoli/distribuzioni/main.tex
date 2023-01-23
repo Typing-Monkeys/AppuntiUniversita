@@ -52,7 +52,12 @@ osservando le frequenze per categoria:
 
 \section{Calcolare la Probabilità di una Distribuzione} \label{pi}
 
+\paragraph{N.B.} \textit{nel caso di Intervalli,} $\text{categoria}_i$ \textit{va sostituito con}
+$\text{intervallo}_i$
+
 \subsection{Esponenziale}
+
+\textit{Numero di Parametri:} 1
 
 \subsubsection{Senza Intervalli}
 
@@ -63,10 +68,12 @@ osservando le frequenze per categoria:
 \subsubsection{Con Intervalli}
 
 \[
-      p(i) = 1 - e^{\frac{- \text{categoria}_i}{\text{media}}}
+      p(i) = 1 - e^{\frac{- \text{intervallo}_i}{\text{media}}}
 \]
 
 \subsection{Poisson}
+
+\textit{Numero di Parametri:} 1
 
 \[
       p(i) = \frac{e^{- \text{media}} * \text{media}^{\text{categoria}_i}}{\text{categoria}_i !}
@@ -74,6 +81,12 @@ osservando le frequenze per categoria:
 
 \subsection{Geometrica}
 
+\textit{Numero di Parametri:} 1
+
 \[
       p(i) = \rho * (1 - \rho)^{\text{categoria}_i}
 \]
+
+\subsection{Normale}
+
+\textit{Numero di Parametri:} 2

@@ -30,7 +30,7 @@ Per quanto riguarda i possibili valori di $A$, $b$ e $c$:
           di serventi.
 \end{itemize}
 
-\subsection*{Consigli}
+\subsection{Consigli}
 Solitamente negli esercizi è sottinteso che la dimensione della popolazione e
 della coda sono infinite (non lo sono soltanto nel caso in cui viene specificato
 diversamente), lo stesso vale per la gestione del servizio che è sempre FIFO
@@ -71,6 +71,41 @@ esempio viene detto che il tempo è costante.
     \item \textit{Tempo medio di Inter-arrivi} $\mu = \frac{1}{T_s}$
     \item \textit{Tasso medio di Arrivi} $\lambda = \Delta^{-1}$
     \item \textit{Intensità del Traffico} $\rho = \frac{\lambda}{\mu}$
+\end{itemize}
+
+\subsection{Domande} %%TODO: ricontrollare, n forse sono gli utenti
+
+\begin{itemize}
+    \item \textit{Qual è la distribuzione di probabilità del numero di arrivi?}
+          \vspace{0.3cm}
+          \\Nel caso in cui abbiamo i \textbf{tempi di inter-arrivo
+              Esponenziali} allora avremo i \textbf{tempi di arrivo} con
+          distribuzione di \textbf{Poisson}:
+          \begin{itemize}
+              \item La \textbf{densità di probabilità} del numero di
+                    \textbf{arrivi} si calcola con:
+                    $$P_d = \frac{e^{-\lambda} \lambda^n}{n!}$$
+              \item Se si ha un \textbf{blocco del sistema} per un \textbf{tempo
+                        $t$}, la \textbf{probabilità che ci siano $n$ utenti} è:
+                    $$P_d = \frac{e^{-t\lambda} \left ( t\lambda \right
+                            )^n}{n!}$$
+          \end{itemize}
+
+    \item \textit{Qual è la distribuzione di probabilità dei tempi di
+              Inter-Arrivo?}
+          \vspace{0.3cm}
+          \\Nel caso in cui abbiamo i \textbf{tempi di arrivo} con distribuzione
+          di \textbf{Poisson} allora i \textbf{tempi di inter-arrivo} saranno
+          \textbf{esponenziali}:
+          \begin{itemize}
+              \item La \textbf{densità di probabilità} dei tempi di inter-arrivo
+                    si calcola con $$f(n) = \lambda e^{-\lambda n}$$
+              \item Se si ha un \textbf{blocco del sistema} per un \textbf{tempo
+                        $t$}, la \textbf{probabilità che ci siano $n$ utenti} è:
+                    $$f(n) = t\lambda e^{-t\lambda n}$$
+              \item La \textbf{funzione di distribuzione} è: $$F(n) = 1 -
+                        e^{-\lambda n}$$
+          \end{itemize}
 \end{itemize}
 
 \section{Condizione di Stazionarietà}
