@@ -1,5 +1,5 @@
 
-\section{M/M/1}
+\section{M/M/1} \label{mm1}
 
 Sistema aperto denotato da un singolo servente:
 
@@ -92,7 +92,78 @@ Sistema aperto con infiniti servienti:
 
 \section{M/M/1/K (dimensione coda finita)}
 
+Sistema $M/M/1$ dove sono ammessi al più $K$ utenti (coda finita):
+
+\begin{itemize}
+    \item Distribuzione del Tempo di Inter-arrivo vedi \ref{mm1}
+    \item Tempo di Servizio vedi \ref{mm1}
+\end{itemize}
+
+\paragraph{Esempio:}
+Il processo di arrivo è Poissoniano di parametro λ, ma un utente che arrivando
+trova il sistema completo, cioè con K utenti già presenti, non viene accettato e
+viene perso. Il sistema M/M/1/K è un sistema con perdita. Nel caso particolare
+in cui K=1, al più un utente è ammesso nel sistema e di conseguenza non si forma
+mai coda. La distribuzione del tempo di servizio è esponenziale di parametro µ,
+vi è un singolo servente, e la disciplina di coda è FIFO.
+
+\subsection{Parametri}
+
+\begin{itemize}
+    \item Per quelli base vedere \ref{parametri-base} e \ref{mm1}
+    \item Probabilità di avere k utenti nel sistema:
+          $$\pi_k = \frac{1-\rho}{1-\rho^{K+1}} \rho^K \ \ \ \ \text{con } \  \ 0 \leq k \leq K$$
+          $$\pi_k = 0 \ \ \ \ \text{con} \ \ k > K$$
+          dove $\rho = \frac{\lambda}{\mu}$\\
+
+          Nel caso particolare di $K = 1$ lo spazio è formato da 2 soli stati e si ricava:
+          $$\pi_0 = \frac{\mu}{\lambda + \mu}$$
+          $$\pi_1 = \frac{\lambda}{\lambda + \mu}$$
+    \item Utilizzazione CPU: $U = 1 - \pi_0 = \rho$
+    \item Frequenza media del completamento delle richieste (throughput): $$X = \mu (1-\pi_0) = \mu U = \frac{U}{E(T_s)}$$
+    \item Il tempo che ciascun utente impiega per la prossima richiesta: $R + \frac{1}{\lambda}$ secondi
+    \item Frequenza media di generazione richieste: $$\frac{M}{R + \frac{1}{\lambda}}$$
+    \item In stato stazionario, le frequenze di generazione e il tempo di completamento delle richieste devono essere uguali:
+          $$X = \mu (1-\pi_0) = \frac{M}{R + \frac{1}{\lambda}}$$
+          $$R = \frac{M}{\mu (1-\pi_0)} - \frac{1}{\lambda} = \frac{M}{X} - \frac{1}{\lambda} = \frac{\text{Numero Clienti}}{\text{Throughput Medio}}$$
+\end{itemize}
+
 \section{M/M/1//M (dimensione popolazione finita)}
+
+Sistema $M/M/1$ dove la popolazione è finita di dimensione $M > 0$:
+
+\begin{itemize}
+    \item Distribuzione del Tempo di Inter-arrivo vedi \ref{mm1}
+    \item Tempo di Servizio vedi \ref{mm1}
+\end{itemize}
+
+
+\paragraph{Esempio:}
+Consideriamo il sistema $M/M/1$ assumendo che gli utenti provengano da una
+popolazione finita, di dimensione $M>0$. Ogni utente si trova ad ogni istante o
+all'interno del sistema (in coda o in servizio) o all'esterno. Assumiamo che
+ogni utente, una volta che ha lasciato il sistema dopo essere stato servito, si
+ripresenti al sistema stesso dopo un tempo esponenziale di parametro λ. Inoltre
+assumiamo che ogni utente sia indipendente dagli altri. Questo comporta che, se
+vi sono k utenti nel sistema ($0 \leq k \leq M$) ed $M-k$ all'esterno, il processo di
+arrivo totale è dato dalla composizione di $M-k$ processi di Poisson indipendenti,
+ognuno di parametro $\lambda$. Per la proprietà di composizione dei processi di Poisson,
+anche il processo totale di arrivo al sistema è ancora un processo di Poisson di
+parametro dipendente dallo stato $\lambda(k) = (M-k) \lambda, \  (0 \leq k \leq M)$.
+
+\subsection{Parametri}
+
+\begin{itemize}
+    \item Per quelli base vedere \ref{parametri-base} e \ref{mm1}
+    \item La condizione di stazionarietà è certamente verificata, poiché il processo è finito e irriducibile e la distribuzione
+          stazionaria del numero di utenti nel sistema, dalle formule:
+          $$\pi_k = \pi_0 \rho^k \frac{M!}{(M-k)!} \ \ \ \ \text{con } \  \ 0 \leq k \leq M$$
+          con
+          $$\pi_0 = \left [ \sum_{k=0}^{M} \rho^k \frac{M!}{(M-k)!} \right ]^{-1} \ \ \ \ \text{dove } \ \ \rho = \frac{\lambda}{\mu}$$
+
+          $$\pi_k = 0 \ \ \ \ \text{con} \ \ k > M$$
+\end{itemize}
+
 
 \section{M/G/1} \label{mg1}
 
