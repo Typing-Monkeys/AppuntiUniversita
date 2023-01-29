@@ -17,19 +17,6 @@ Operazioni da effettuare:
                   \item \textit{Colonna 1}: $categorie$
                   \item \textit{Colonna 2}: $f_i$
             \end{itemize}
-      \item Raggruppare le categorie se $\exists \ categoria < 5$:
-            \begin{itemize}
-                  \item Parti dall'ultimo a salire (dal basso verso l'alto delle
-                        categorie)
-                  \item Raggruppale tutte nell'ultima categoria che le faccia
-                        diventare maggiori di 5 sommando le frequenze.
-                  \item \textit{Esempio}:
-                        \begin{figure}[H]
-                              \centering
-                              \includegraphics[width=6cm, keepaspectratio]{capitoli/goodnes_of_fit/imgs/vesceragay.png}
-                              \includegraphics[width=5.5cm, keepaspectratio]{capitoli/goodnes_of_fit/imgs/POSTAMOLTOGAY.png}
-                        \end{figure}
-            \end{itemize}
       \item Calcolare:
             \begin{enumerate}
                   \item n = $\sum(f_i)$
@@ -39,6 +26,7 @@ Operazioni da effettuare:
                   \item $p(i)$: dipende dalla distribuzione (vedi \ref{pi})
                   \item $F_i = n * p(i)$: numero di intervalli unitari teorici
                         con $i$ arrivi
+                  \item Raggruppare $f_i$ e $F_i$ se $\exists \ categoria < 5$ (vedi \ref{raggruppare})
                   \item $G_i = \frac{(f_i - F_i)^2}{F_i}$
                   \item $V = \sum G_i$: sommare tutti i valori di $G$
                   \item $df = \text{Numero Categorie} - 1 - \text{Numero
@@ -80,25 +68,12 @@ Calcoli da effettuare:
                   \item $p(i) = p(x_2) - p(x_1)$ = calcolare secondo la distribuzione (vedi \ref{pi})
                   \item $F_i = n * p(i)$: numero di intervalli unitari teorici
                         con $i$ arrivi
+                  \item Raggruppare $f_i$ e $F_i$ se $\exists \ categoria < 5$ (vedi \ref{raggruppare})
                   \item $G_i = \frac{(f_i - F_i)^2}{F_i}$
                   \item $V = \sum G_i$: sommare tutti i valori di $G$
                   \item $df = \text{Numero Categorie} - 1 - \text{Numero
                                     Parametri Distribuzione}$
             \end{enumerate}
-            %TODO: agli intervalli succede qualcosa ??
-      \item Raggruppare le categorie se $\exists \ categoria < 5$:
-            \begin{itemize}
-                  \item Parti dall'ultimo a salire (dal basso verso l'alto delle
-                        categorie)
-                  \item Raggruppale tutte nell'ultima categoria che le faccia
-                        diventare maggiori di 5 sommando le frequenze.
-                  \item \textit{Esempio}:
-                        \begin{figure}[H]
-                              \centering
-                              \includegraphics[width=6cm, keepaspectratio]{capitoli/goodnes_of_fit/imgs/vesceragay.png}
-                              \includegraphics[width=5.5cm, keepaspectratio]{capitoli/goodnes_of_fit/imgs/POSTAMOLTOGAY.png}
-                        \end{figure}
-            \end{itemize}
 \end{enumerate}
 
 Una volta terminati i calcoli devi guardare la riga nella tabella del $\chi^2$
