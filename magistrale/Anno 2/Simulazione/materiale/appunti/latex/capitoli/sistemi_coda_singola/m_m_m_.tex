@@ -100,11 +100,11 @@ Sistema $M/M/1$ dove sono ammessi al più $K$ utenti (coda finita):
 \end{itemize}
 
 \paragraph{Esempio:}
-Il processo di arrivo è Poissoniano di parametro λ, ma un utente che arrivando
-trova il sistema completo, cioè con K utenti già presenti, non viene accettato e
-viene perso. Il sistema M/M/1/K è un sistema con perdita. Nel caso particolare
-in cui K=1, al più un utente è ammesso nel sistema e di conseguenza non si forma
-mai coda. La distribuzione del tempo di servizio è esponenziale di parametro µ,
+Il processo di arrivo è Poissoniano di parametro $\lambda$, ma un utente che arrivando
+trova il sistema completo, cioè con $K$ utenti già presenti, non viene accettato e
+viene perso. Il sistema $M/M/1/K$ è un sistema con perdita. Nel caso particolare
+in cui $K=1$, al più un utente è ammesso nel sistema e di conseguenza non si forma
+mai coda. La distribuzione del tempo di servizio è esponenziale di parametro $\mu$,
 vi è un singolo servente, e la disciplina di coda è FIFO.
 
 \subsection{Parametri}
@@ -143,9 +143,9 @@ Consideriamo il sistema $M/M/1$ assumendo che gli utenti provengano da una
 popolazione finita, di dimensione $M>0$. Ogni utente si trova ad ogni istante o
 all'interno del sistema (in coda o in servizio) o all'esterno. Assumiamo che
 ogni utente, una volta che ha lasciato il sistema dopo essere stato servito, si
-ripresenti al sistema stesso dopo un tempo esponenziale di parametro λ. Inoltre
+ripresenti al sistema stesso dopo un tempo esponenziale di parametro $\lambda$. Inoltre
 assumiamo che ogni utente sia indipendente dagli altri. Questo comporta che, se
-vi sono k utenti nel sistema ($0 \leq k \leq M$) ed $M-k$ all'esterno, il processo di
+vi sono $k$ utenti nel sistema ($0 \leq k \leq M$) ed $M-k$ all'esterno, il processo di
 arrivo totale è dato dalla composizione di $M-k$ processi di Poisson indipendenti,
 ognuno di parametro $\lambda$. Per la proprietà di composizione dei processi di Poisson,
 anche il processo totale di arrivo al sistema è ancora un processo di Poisson di
