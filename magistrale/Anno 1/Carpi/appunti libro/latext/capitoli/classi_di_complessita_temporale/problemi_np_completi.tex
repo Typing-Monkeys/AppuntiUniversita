@@ -1,0 +1,65 @@
+\section{Problemi NP-completi}
+
+Iniziamo con una
+\paragraph{Definizione.} Siano $S, S^{\prime}$ due problemi su alfabeti $A,
+    A^{\prime}$ rispettivamente. Diciamo che $S^{\prime}$ si \textit{riduce in tempo
+    polinomiale} a $S$ e scriviamo $S^{\prime} \leq_p S$ se e solo se c'è una funzione $f$
+da $A^{\prime \star}$ in $A^{\star}$ che si computa in tempo al più
+polinomiale rispetto alla lunghezza dell'input e soddisfa, per ogni $w \in
+    A^{\prime \star}$,
+$$
+    w \in S^{\prime} \text { se e solo se } f(w) \in S \text {. }
+$$
+
+\paragraph{Esempi.}
+\begin{enumerate}
+    \item Nel precedente paragrafo 1, esempio 2, abbiamo visto che $2 C O L
+              \leq_p 2 S A T$ tramite la funzione $G \mapsto I(G)$.
+    \item $I S, V C, C L I Q U E$ sono l'uno riducibile all'altro tramite
+          $\leq_p$ (si ricordi quanto osservato nel paragrafo 8.2, esempio 4).
+\end{enumerate}
+
+Adesso diciamo:
+
+\paragraph{Definizione.} Un problema $S$ è
+\begin{itemize}
+    \item $N P$-\textit{arduo} se, per ogni $S^{\prime} \in N P, S^{\prime}
+              \leq_p S$,
+    \item $N P$-\textit{completo} se è $N P$-\textit{arduo} e sta in $P$.
+\end{itemize}
+
+È semplice osservare
+
+\paragraph{Proposizione 8.5.1} \textit{Sia S un problema NP-completo. Allora $S
+        \in P$ se esolo se $P=N P$.}
+
+\begin{proof}
+    È chiaro che, se $P=N P$, allora $S \in P$.\\
+    Viceversa, supponiamo $S \in P$, così $S$ ha un algoritmo deterministico di
+    decisione che lo accetta in tempo al più polinomiale rispetto alla lunghezza
+    dell'input. Per ogni $S^{\prime} \in N P$, dobbiamo trovare un analogo
+    algoritmo per $S^{\prime}$. D'altra parte $S^{\prime} \leq_p S$, cioè esiste una
+    procedura deterministica $f$ che traduce in tempo polinomiale parole
+    dell'alfabeto $A^{\prime}$ di $S^{\prime}$ in parole dell'alfabeto $A$ di
+    $S$ in modo tale che le parole di $S^{\prime}$ corrispondono esattamente a
+    quelle di $S$. L'algoritmo cercato per $S^{\prime}$ si ottiene allora
+    combinando quest'ultima procedura e l'algoritmo per $S$ : per $w \in
+        A^{\prime \star}$, si computa $f(w)$ e si controlla se $f(w) \in S$ o no.
+    Corrispondentemente si deduce che $w \in S^{\prime}$ o no.
+\end{proof}
+
+Così un problema $N P$-completo $S$ può rappresentare adeguatamente rutta la
+classe $N P$ a proposito della questione $P=N P$. Ovviamente, se $S \notin  P$,
+allora $P \neq N P$. Ma, sorprendentemente, se $S \in P$, allora $P=N P$. Per
+usare un famoso riferimento letterario, vale tra i problemi $N P$-completi il
+classico patto dei moschettieri di Dumas: "uno per tutti, e tutti per uno".\\
+Va però mostrato che problemi NP-completi esistono davvero. Eccone allora un
+esempio (assai artificiale e tecnico, ma comunque sufficiente a confermare che
+la nozione ha senso).
+
+\paragraph{Proposizione 8.5.2} \textit{Ci sono problemi NP-completi.}
+
+\begin{proof}
+    Consideriamo il seguente problema $\mathcal{U}$. Gli input di $\mathcal{U}$
+    sono terne costituite da
+\end{proof}
