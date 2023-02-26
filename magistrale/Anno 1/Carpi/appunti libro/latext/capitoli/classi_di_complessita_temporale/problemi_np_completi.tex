@@ -62,4 +62,38 @@ la nozione ha senso).
 \begin{proof}
     Consideriamo il seguente problema $\mathcal{U}$. Gli input di $\mathcal{U}$
     sono terne costituite da
+
+    \begin{itemize}
+        \item una MdT $M$ su $\{0,1\}$,
+        \item una parola $w \in\{0,1\}$,
+        \item due interi positivi $l, t$
+    \end{itemize}
+    (tutti proposti come parole di un opportuno alfabeto, per esempio come
+    numeri naturali): l'output è $SI$ o $NO$ secondo che esista una parola $y
+        \in\{0,1\}$ tale che $l(y) \leq l$ e $M$ converge sull'input $(w, y)$ in al
+    più $t$ passi.\\
+    La definizione stessa di $N P$ assicura che $\mathcal{U} \in N P$. Resta
+    allora da provare che $\mathcal{U}$ è $N P$-arduo. Sia $S^{\prime} \in N P$.
+    Senza perdita di generalità possiamo supporre che l'alfabeto di $S^{\prime}$
+    sia $\{0,1\}$. Dunque esistono una MdT deterministica $M_S$ su $\{0,1\}$ e
+    polinomi $q_S, t_S$ tali che, per ogni $w \in\{0,1\}^{\star}$,
+    $$
+        w \in S
+    $$
+    se e solo se
+    \begin{center}
+        esiste $y \in\{0,1\}^* \text { tale che } l(y) \leq q_S(l(w))$\\
+        e $M_S$ accetta $(w, y)$ in al più $t_S(l(w)+l(y))$ passi.
+    \end{center}
+
+    Poniamo allora, per $w \in\{0,1\}^*$,
+    $$
+        f(w)=\left(M_S, w, t_S\left(l(w)+q_S(l(w))\right), q_S(w)\right)
+    $$
+    È facile controllare che $f$ riduce $S$ ad $\mathcal{U}$, come richiesto. In
+    conclusione, $\mathcal{U}$ è NP-completo.
+
 \end{proof}
+
+Quindi ci sono problemi $N P$-completi. Il prossimo paragrafo ce ne darà esempi
+meno artefatti e più "concreti".

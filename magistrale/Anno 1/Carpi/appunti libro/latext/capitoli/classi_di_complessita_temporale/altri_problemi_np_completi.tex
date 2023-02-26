@@ -1,0 +1,95 @@
+\section{Altri problemi NP-completi}
+
+Come già detto, $S A T$ è storicamente il primo esempio naturale di problema $N
+    P$ completo, ma non è certamente l'unico, anzi, in un certo senso, è il
+capostipite di una lunga progenie di esempi. Già nel 1972, dunque un anno dopo
+il teorema di Cook-Levin, Karp propose una lista di 21 problemi $N P$-completi
+$S$. La strategia usata per riconoscerli tali è meccanica e ripetitiva. Va
+infatti provato anzitutto che $S \in N P$, poi che $S$ è $N P$-arduo.
+Relativamente al secondo punto basta mostrare che $S A T \leq_p S$ (oppure che
+qualche altro problema di cui è nota la $N P$ completezza si riduce
+polinomialmente a $S$ ). Tramite $S A T$, o comunque tramite l'altro esempio di
+riferimento, si prova allora che tutto $N P$ si riduce in $\leq p$ a $S$;
+infatti $\leq_p$ gode della proprietà transitiva: se un dato $S$ soddisfa
+$S^{\prime} \leq_p S A T$ e inoltre $S A T \leq_p S$, allora $S^{\prime} \leq_p
+    S$. Dunque $S$ è $N P$-arduo (e $N P$-completo). In questo modo, Karp procedette
+per i suoi 21 problemi. Ma la costruzione dei problemi $N P$-completi non si
+esaurì certamente con la lista di Karp e col 1972. Negli anni successivi, nuovi
+esempi sono stati scoperti, distribuiti in svariati ambiti di studi e ricerca:
+in Informatica, in Matematica, in Biologia, in Chimica, in Enigmistica.\\
+
+Qui mostriamo che tutti gli esempi di problemi in $N P$ dati nel paragrafo $6.2$, cioè $3 S A T, 3 C O L, I S, V C$ (o CLIQUE), KNAPSACK, equazioni quadratiche a coefficienti interi, sono $N P$-completi. Nei casi che più ci interessano in futuro (come $3 S A T, 3 C O L, I S$ ), diamo una dimostrazione dettagliata di questa asserzione. Negli altri ci limitiamo a sintetizzare le informazioni essenziali e a fornire possibili riferimenti bibliografici per chi è interessato ad approfondire.
+
+\paragraph{Teorema 8.7.1} \textit{$3 S A T$ è $N P$-completo.}
+
+\begin{proof}
+    Sappiamo che $3 S A T \in N P$, ci basta mostrare che $3 S A T$ è $N P$
+    arduo, e anzi, come già spiegato, che $S A T \leq_p 3 S A T$. Cerchiamo dunque
+    un algoritmo deterministico che lavora in tempo al più polinomiale e traduce
+    ogni insieme finito $I$ di clausole in un insieme finito $I(3)$ di clausole
+    con 3 lettere tale che
+    $$
+        I(3) \in 3 S A T \text { se e solo se } I \in S A T \text {. }
+    $$
+    In dettaglio, ad ogni clausola $k$ di $I$ associamo un insieme $I_k$ di
+    clausole con 3 lettere (eventualmente nuove) nel modo che segue.\\
+    Se $k$ consta di un'unica lettera $p_0\left(\text{o } P_0\right)$, prendiamo
+    due nuove lettere minuscole $q_0, q_1$ e formiamo
+    $$
+        I_k=\left\{p_0 q_0 q_1, p_0 q_0 Q_1, p_0 Q_0 q_1, p_0 Q_0 Q_1\right\} .
+    $$
+    Notiamo che una valutazione $v$ soddisfa $I_k$ se e solo se $v$ soddisfa
+    $k$, cioè $p_0$ (infatti in nessun caso $v$ può soddisfare
+    contemporaneamente $q_0 q_1, q_0 Q_1, Q_0 q_1, Q_0 Q_1$ ). Se $k=p_0 p_1$
+    consta di due lettere, prendiamo una nuova lettera minuscola $q$ non usata
+    precedentemente e formiamo
+    $$
+        I_k=\left\{p_0 p_1 q, p_0, p_1 Q\right\}
+    $$
+    Di nuovo, è facile notare che una valutazione $v$ soddisfa $I_k$ se e solo
+    se $v$ soddisfa $k$, cioè $p_0$ o $p_1$.\\
+    Se $k$ ha 3 lettere, si pone $I_k=\{k\}$.\\
+    Finalmente assumiamo che $k$ consti di $h \geq 4$ lettere,
+    $$
+        k=p_0 p_1 \cdots p_{h-1}
+    $$
+    Prendiamo $h-3$ nuove lettere
+    $$
+        q_0, \ldots, q_{h-4}
+    $$
+    e formiamo
+    $$
+        I_k=\left\{p_0 p_1 q_0, p_2 Q_0 q_1, p_3 Q_1 q_2, \ldots, p_{h-3} Q_{h-5} q_{h-4}, p_{h-2} p_{h-1} Q_{h-4}\right\} .
+    $$
+    Supponiamo che $v$ sia una valutazione che soddisfa $I_k$ e mostriamo che
+    $v$ soddisfa anche $k$. Altrimenti
+    $v\left(p_0\right)=v\left(p_1\right)=\cdots=v\left(p_{h-1}\right)=0$. Da
+    $v\left(p_0\right)=v\left(p_1\right)=0$
+
+    deduciamo $v\left(q_0\right)=1$ perché $p_0 p_1 q_0 \in I_k ;$ così $v\left(Q_0\right)=0$ e deve essere $v\left(q_1\right)=$ 1 perché $p_2 Q_0 q_1 \in I_k$. Ripetendo il procedimento si deduce $v\left(q_{h-4}\right)=1$ e quindi $v\left(Q_{h-4}\right)=0$. Ma anche $v\left(p_{h-2}\right)=v\left(p_{h-1}\right)=0$, e questo è impossibile perché $p_{h-2} p_{h-1} Q_{h-4} \in I_k$.\\
+    Viceversa, sia $v$ una valutazione che soddisfa $k$, mostriamo che c'è qualche valutazione $v_k$ che estende $v$ e soddisfa $I_k$. Per ipotesi esiste $j<h$ tale che $v\left(p_j\right)=1$. Sia $j$ il minimo indice con questa proprietà. Se $j=0$ o $j=1$, l'estensione $v_k$ di $v$ per cui
+    $$
+        v_k\left(q_i\right)=0 \text { per ogni } i \leq h-4
+    $$
+    soddisfa $I_k$, infatti assegna il valore 1 a $p_0$ o a $p_1$ nella prima clausola e a $Q_i$ nelle clausole successive. Allo stesso modo, se $j=h-2$ o $j=h-1$,
+    $$
+        v_k\left(q_i\right)=1 \text { per ogni } i \leq h-4
+    $$
+    funziona. Altrimenti $2 \leq j<h-3$, e ci basta assumere
+    $$
+        v_k\left(q_i\right)=1 \text { se } i<j-2, v_k\left(q_i\right)=0 \text { altrimenti. }
+    $$
+    Notiamo che la traduzione $k \mapsto I_k$ è deterministica e polinomiale rispetto alla lunghezza di $k$.\\
+    Sia ora $I(3)=\bigcup_{k \in I} I_k$. La procedura che definisce $I(3)$ da $I$ è deterministica e polinomiale rispetto a $|I|$ e alla lunghezza delle clausole in $I$. Inoltre ogni clausola in $I(3)$ ha esattamente 3 lettere.\\
+    Sia $I(3) \in 3 S A T$ e sia $v$ una valutazione che soddisfa $I(3)$, dunque $I_k$ per ogni clausola $k$ di $I$. Allora $v$ soddisfa ogni $k$ e complessivamente $I$. Ne segue $I \in$ $S A T$.\\
+    Viceversa, sia $I \in S A T$ e sia $v$ una valutazione che soddisfa $I$, quindi ogni clausola $k$ in $I$. Così, per ogni $k$, c'è una valutazione $v_k$ che soddisfa $I_k$ ed estende $v$ sulle lettere di $k$. Per clausole di $\leq 3$ lettere, anzi, $v_k=v$. In ogni caso, la precedente costruzione mostra che le varie $v_k$ sono definite su lettere distinte (le nuove lettere $q_i$ e $Q_i$ coinvolte per la corrispondente $k$ ) e non interferiscono tra loro. Pertanto possiamo cucirle assieme per costruire una valutazione $v$ (definita sulle lettere di $I$ e poi sulle nuove variabili $q_i, Q_i$ al variare di $k$ ) tale che $v^{\prime}$ estende $v$ e soddisfa complessivamente $I(3)$. Dunque $I(3) \in S A T$.
+\end{proof}
+
+\paragraph*{Teorema 8.7.2} \textit{$IS$ è $NP$-completo.}
+\begin{proof}
+    Ci basta provare che $I S$ è $N P$-arduo, infatti già sappiamo che $I S \in N P$. Siccome $3 S A T$ è $N P$-completo, è poi sufficiente mostrare $3 S A T \leq_p$ IS. In particolare proponiamo un algoritmo deterministico che traduce insiemi finiti $I$ di $m_I$ clausole di 3 lettere in grafi finiti $G_I=\left(V_I, E_I\right)$ in modo tale che
+    $$
+        I \in 3 S A T \text { se e solo se }\left(G_I, m_I\right) \in I S
+    $$
+    l'algoritmo opera poi in tempo al più polinomiale nella lunghezza di $I$. In dettaglio $G_I$ è così definito:
+\end{proof}
