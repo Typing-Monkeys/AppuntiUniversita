@@ -80,16 +80,18 @@ esempio, le combinazioni consentite per WA e NT sono le coppie
     $\{(rosso, verde), (rosso, blu), (verde, rosso),$\\
     $(verde, blu), (blu, rosso),(blu, verde)\}$
 \end{center}
-Ci sono molte soluzioni possibili, come \{W A = rosso, AN D = verde, A = rosso,
-N SW = verde, V = rosso, SA = blu, T = rosso\}. \\È utile visualizzare un CSP
-come grafico di vincoli. I nodi del grafico corrispondono a variabili del
-problema e gli archi corrispondono a vincoli
-\begin{figure}[htp]
+Ci sono molte soluzioni possibili, come \{WA = rosso, NT = verde, Q = rosso, SA
+= blue, NSW = verde, V = rosso, T = verde\}.\\
+È utile visualizzare un CSP come grafico di
+vincoli. I nodi del grafico corrispondono a variabili del problema e gli archi
+corrispondono a vincoli
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{img/Cap1/map-coloring1.png}
     \caption{Map-Coloring}
 \end{figure}
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{img/Cap1/map-coloring2.png}
     \caption{Soluzione Map-Coloring}
@@ -99,8 +101,6 @@ problema e gli archi corrispondono a vincoli
 tipo più semplice di CSP coinvolge variabili che sono discrete e hanno domini
 finiti, i problemi di colorazione della mappa sono di questo tipo.
 
-\subsection{Tipi di CSP}
-I CSP si suddividono in base ai tipi delle variabili e dei vincoli:
 \subsection{Tipi di Variabili}
 Le variabili \textbf{discrete} possono avere domini:
 \begin{itemize}
@@ -143,7 +143,7 @@ Inoltre i vincoli possono essere espressi in maniera:
 Nell'esempio precedente si avranno tutte le coppie di valori ammessi in base a
 quel vincolo.
 
-\subsection{Caratteristiche e Proprietà CSP}
+\subsection{Proprietà CSP}
 \begin{enumerate}
     \item \textbf{Commutatività:} Si considera l'assegnamento di una singola
           variabile per volta.
@@ -157,8 +157,9 @@ quel vincolo.
           che possono essere risolti in modo indipendente.
     \item É applicabile un controllo per \textbf{consistenza:} Invece di fare un
           controllo di consistenza alla fine, lo faccio ad ogni passo.
-    \item Possono essere un caso speciale di un problema di ricerca.
+    \item Possono essere visti come un problema di ricerca.
 \end{enumerate}
+
 \subsection{Standard search formulation}
 Gli stati sono definiti dal valore assegnato finora:
 \begin{itemize}
@@ -190,8 +191,6 @@ da soddisfare tutti i vincoli. I vari metodi per fare questo sono:
           effettuano dei cambiamenti sugli assegnamenti errati (ricerca locale).
           Un altro miglioramento consiste nel fare il test sugli assegnamenti e
           poi fare backtracking.
-    \item \textbf{Check and Instantiate: }Assegno uno alla volta i valori alle
-          variabili verificando di non violare i vincoli presenti.
     \item \textbf{Backtracking:} Assegno uno alla volta i valori alle variabili
           finché non violo un vincolo; appena lo violo, torno indietro
           nell'assegnamento. Si estende quindi una soluzione parziale verso una
@@ -211,11 +210,13 @@ L'algoritmo consiste in:
     \item Si controlla la consistenza;
     \item Finché tutte le variabili sono etichettate;
 \end{enumerate}
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{img/Cap2/back1.png}
     \caption{Esempio backtracking}
 \end{figure}
+
 Se tutte le variabili non sono etichettate si torna al passo 1. L'assegnamento
 delle variabili è commutativo ad esempio
 \begin{center}
@@ -227,7 +228,8 @@ Si devono solo considerare gli assegnamenti alle singole variabili per ogni nodo
 $\rightarrow$ b = d e ci sono $d^n$ foglie. \\La \textbf{DFS} per i CSP son gli
 assegnamenti a variabili singole è chiamata ricerca \textbf{backtracking}, essa
 è l'algoritmo base uniformed per i CSP.
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{img/Cap2/back2.png}
     \caption{Esempio generate and test vs backtracking}
@@ -247,12 +249,12 @@ In termini di grandezza dell'albero di ricerca il numero di foglie è pari a
 $d^n$, dove n è il numero di variabili e $d = max|D_i|$.
 
 % TODO: queste immagini vengono mostrate a cazzo su una pagina a parte 🤔
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap2/dfs.png}
     \caption{Algoritmo di backtracking.}
 \end{figure}
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap2/dfs2.png}
     \caption{Esempio backtracking.}
@@ -265,31 +267,31 @@ VARIABLES[csp]. \\Questo ordinamento di variabili statiche raramente si traduce
 nella ricerca più efficiente. Ad esempio, dopo le assegnazioni per WA = rosso e
 NT = verde, c'è un solo valore possibile per SA, quindi ha senso assegnare SA =
 blue next piuttosto che assegnare Q. Infatti, dopo l'assegnazione di SA, le
-scelte per Q, NSW e V sono tutte forzate.
+scelte per Q, NSW e V sono tutte forzate.\\
 
 \textbf{Variabile più vincolata.} Con questo approccio si va a scegliere, fra le
 variabili disponibili per l'assegnamento, quella più vincolata in base ad alcune
 caratteristiche:
 \begin{itemize}
     \item si sceglie la variabile con il \textbf{minor numero di valori legali}
-          (minimum remaining values-MRV). È stata anche chiamata la "variabile più
+          (\textit{minimum remaining values-MRV}). È stata anche chiamata la "variabile più
           vincolata" o euristica "fail-first", quest'ultima perché seleziona una
           variabile che ha maggiori probabilità di causare un errore presto, potando
           così l'albero di ricerca.
-          \begin{figure}[htp]
+          \begin{figure}[H]
               \centering
               \includegraphics[width=12cm, keepaspectratio]{img/Cap2/m1.png}
           \end{figure}
-    \item si sceglie la variabile con \textbf{più vincoli possibili} (degree
-          heuristic) sulle variabili rimanenti.
-          \begin{figure}[htp]
+    \item si sceglie la variabile con \textbf{più vincoli possibili} (\textit{degree
+              heuristic}) sulle variabili rimanenti.
+          \begin{figure}[H]
               \centering
               \includegraphics[width=12cm, keepaspectratio]{img/Cap2/m2.png}
           \end{figure}
     \item data una variabile, si sceglie \textbf{il valore meno vincolante}
-          (least-constraining-value), quello che esclude il minor numero di valori
+          (\textit{least-constraining-value}), quello che esclude il minor numero di valori
           nelle restanti variabili.
-          \begin{figure}[htp]
+          \begin{figure}[H]
               \centering
               \includegraphics[width=12cm, keepaspectratio]{img/Cap2/m3.png}
           \end{figure}
@@ -304,16 +306,16 @@ della ricerca, possiamo drasticamente ridurre lo spazio di ricerca.
 \textbf{Forward Checking: }  Prima di assegnare una variabile controlla che
 questo assegnamento mi renda possibile futuri assegnamenti ad altri nodi, poiché
 se dopo l'assegnamento, un dominio per una variabile diventasse vuoto, non si
-avrebbe soluzione e quindi l'assegnamento non andrebbe nemmeno provato.
-\\\textbf{Euristica utilizzata: }  Elimina i valori dal dominio quando viene
+avrebbe soluzione e quindi l'assegnamento non andrebbe nemmeno provato.\\
+\textbf{Euristica utilizzata:} elimina i valori dal dominio quando viene
 fatto un assegnamento ad una variabile, \textbf{se un dominio diventa vuoto,
     interrompi la ricerca poiché la soluzione non esiste con gli assegnamenti
     fatti}. Questo metodo offre spesso una soluzione senza avere backtrack.
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap2/forwod1.png}
 \end{figure}
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=11cm, keepaspectratio]{img/Cap2/f2.png}
     \caption{Forward checking applicata a Map-coloring problem.}
@@ -331,6 +333,23 @@ vincolo (constraint propagation) è il termine generale per propagare le
 implicazioni di un vincolo su una variabile su altre variabili; in questo caso
 dobbiamo propagare da WA e Q su NT e SA, e quindi sul vincolo tra NT e SA per
 rilevare l'incoerenza.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm, keepaspectratio]{img/Cap3/prova4.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm, keepaspectratio]{img/Cap3/prova5.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm, keepaspectratio]{img/Cap3/prova6.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm, keepaspectratio]{img/Cap3/prova7.png}
+\end{figure}
 
 \chapter{Local Search per CSP: Consistenza locale - Local Consistency}
 \label{ch:Local Search per Crisp CSP: Consistenza locale}
@@ -366,68 +385,60 @@ dei \textbf{vertici}. Il vertice è \textbf{node consistent} se ogni valore nel
 dominio delle variabili soddisfa tutti i vincoli unari imposti sulla variabile
 X. Spesso vengono rappresentati come un cappio o arco che ritorna sullo stesso
 nodo.
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{img/Cap3/node1.png}
     \caption{Esempio grafo node consistent}
 \end{figure}
-
-\subsection{Domain Consistency}
-L'idea di arc consistency fornisce un metodo veloce di propagazione dei vincoli
-sostanzialmente più forte del forward checking. Una variabile è consistente al
-dominio (domain consistent) se nessun valore del dominio del nodo è dichiarato
-impossibile da uno qualsiasi dei vincoli. L'idea è di "potare" il più possibile
-prima di selezionare un valore per le variabili. La domain consistency è stata
-definita solo per i vincoli che coinvolgono una sola variabile. Quando i vincoli
-sono binari, possiamo usare gli archi per indicare che un vincolo vale tra una
-coppia di variabili:
-\begin{itemize}
-    \item \textbf{un nodo} per ogni variabile
-    \item \textbf{un arco} per ogni vincolo
-\end{itemize}
 
 \subsection{Arc Consistency}
 Quando tutti i vincoli sono binari si parla di arc consistency. Un arco $(u,v)$ è
 consistente se per ogni valore $x$ del dominio $dom(u)$ esiste un valore $y$ nel
 $dom(v)$ tale che un assegnamento $u=x$ e $v=y$ soddisfa tutti i vincoli binari
 che coinvolgono sia $u$ che $v$.
-\subsubsection{Punto fisso e supporto}
+
+\paragraph{Punto fisso e supporto:}
 Tutto il processo di consistenza locale viene applicato fin quando non si riesce
 a trovare un punto fisso, cioè fino a quando il dominio delle variabili resta
 invariato.
-\vspace{0.5cm}
 
-\textbf{Problema arc-consistente:} Un problema nel quale applicando local
-consistency, nessun dominio di nessuna variabile viene modificato. \\
-\noindent \textbf{Supporto:} Per la riduzione dobbiamo vedere quali elementi
+\paragraph{Problema arc-consistente:} Un problema nel quale applicando local
+consistency, nessun dominio di nessuna variabile viene modificato.
+
+\paragraph{Supporto:} Per la riduzione dobbiamo vedere quali elementi
 hanno supporto in Y, ovvero quali hanno un assegnamento in Y tale per cui il
 vincolo viene soddisfatto.
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{img/Cap3/esempio-arc.png}
     \caption{Esempio arc-consistency}
 \end{figure}
-\begin{center}
-    Quando $X=1$ esiste un elemento in Y tale per cui $X < Y$? Si, 2,3 \\Quando
-    $X=2$ esiste un elemento in Y tale per cui $X < Y$? Si, 3 \\Quando $X=3$
-    esiste un elemento in Y tale per cui $X < Y$? \\No, quindi posso eliminare 3
-    il dominio di X
-\end{center}
+
+
+Quando $X=1$ esiste un elemento in Y tale per cui $X < Y$? Si, 2,3\\
+Quando $X=2$ esiste un elemento in Y tale per cui $X < Y$? Si, 3\\
+Quando $X=3$ esiste un elemento in Y tale per cui $X < Y$?\\
+No, quindi posso eliminare 3 il dominio di X\\
+
 L'operazione che ho fatto si chiama Local Consistency, ma dato che ho utilizzato
 il vincolo binario si chiama Arc Consistency.\\
 
-\textbf{Conclusione:} In questo caso sono stato molto fortunato perché
+\paragraph{Conclusione:} In questo caso sono stato molto fortunato perché
 ho rimasto 1 solo valore possibile per ogni variabile. Quindi la soluzione è
 unica e sarà:
-\begin{center}
-    $X = 1, Y = 3, Z = 3, T = 2$
-\end{center}
+
+$$
+    X = 1, Y = 3, Z = 3, T = 2
+$$
+
 Se fossi stato meno fortunato comunque avrei ridotto gli elementi del dominio e
 quindi quando sarei andato a fare la ricerca con backtrack comunque lo spazio di
-ricerca si sarebbe di molto diminuito (avrei controllano meno assegnamenti).\\
+ricerca si sarebbe di molto diminuito (avrei controllano meno assegnamenti).
 
-\subsubsection{\textbf{Vantaggio rispetto a fare solo Backtracking senza prima
-        applicare local consistency}} Se faccio backtrack il dominio degli stati che
+\paragraph{Vantaggio dell'applicazione della Local Consistency prima della Backtracking:}
+Se faccio backtrack il dominio degli stati che
 vado ad esplorare è esponenziale perché ad X dovrei moltiplicare tutti i
 possibili valori di Y, a cui dovrei moltiplicare tutti i possibili valori di Z
 che moltiplico per tutti i valori possibili per T. All'inizio quindi in quel
@@ -440,7 +451,7 @@ variabili che coinvolgo (in questo caso lo spazio di ricerca mi si riduce ad 1).
 Per fare diventare un arco $(u,v)$ consistente si cancellano tutti i valori $x$ dal
 $dom(u)$ che sono inconsistenti con tutti i valori in $dom(v)$. \\Restituisce true se
 è stata fatta una modifica al dominio di $u$.
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{img/Cap3/revise.png}
     \caption{Procedura REVISE}
@@ -451,12 +462,14 @@ Un singolo passo dell'algoritmo REVISE non è sufficiente. L'algoritmo base per
 arc consistency è AC-1, il quale esegue l'algoritmo REVISE finché il dominio
 delle variabili cambia. In questo si ripete la procedura REVISE ogni volta che
 viene modificato un valore in un dominio.
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{img/Cap3/ac-1.png}
     \caption{Algoritmo AC-1}
 \end{figure}
-\\Una sola revisione riuscita di un arco su una particolare iterazione causa la
+
+Una sola revisione riuscita di un arco su una particolare iterazione causa la
 revisione di tutti gli archi nella prossima iterazione anche se gli archi non
 sono influenzati dal cambiamento.\\
 \textbf{L'inefficienza} sta nel fatto che se anche una singola chiamata alla
@@ -466,9 +479,7 @@ non è sempre necessario, perché la modifica del dominio di una variabile
 influenza solamente le variabili che sono collegate a X da un vincolo e non le
 restanti.\\
 La complessità temporale è $O(e \cdot n \cdot d^3)$ e quella spaziale è $O(e \cdot n \cdot d)$.
-% TODO: valutare se cambiare i costi con O(end^2)
 
-% TODO: questa parte si capisce un po poco 🤔
 \subsubsection{Algoritmo AC-2}
 AC-2 è un algoritmo che può fare arc consistency in un solo passo attraverso i
 nodi. Il risultato è ottenuto passando per i nodi in un ordine numerico:
@@ -489,39 +500,45 @@ conflitto allora si elimina. Stessa cosa si per l'arco $(x,y)$ se si fa qualche
 modifica si rimette in coda l'arco in modo da controllare se ci sono altre
 modifiche da fare. Se un valore $b$ del nodo $i$ è rimosso allora si aggiunge tutti
 $(k,i)$ alla coda Q, per il controllo degli archi.
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{img/Cap3/ac-2.png}
     \caption{Algoritmo AC-2}
 \end{figure}
-\\La complessità temporale è $O(n^2 \cdot d^3)$ e quella spaziale è $O(n^2$).
+
+La complessità temporale è $O(n^2 \cdot d^3)$ e quella spaziale è $O(n^2$).
 
 \subsubsection{Algoritmo AC-3}
-% TODO: questa parte non si capisce bene
 AC-3 è un miglioramento di AC-2, alcuni di essi possono essere già nella
 coda Q. Se è così allora non dovrebbero essere inseriti di nuovo.
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=13cm, keepaspectratio]{img/Cap3/ac-3.png}
     \caption{Algoritmo AC-3}
 \end{figure}
+
 In sostanza si prende un arco dalla coda Q, si fa la REVISE, se faccio una
 modifica allora si aggiunge alla coda Q tutti gli archi $(u,k)$ che non sono stati
 già controllati ovvero $u \neq k$ e $u \neq m$.\\
 La complessità temporale è $O(n^2 \cdot d^2)$ e quella spaziale è $O(n^2$).
 
-\section{Riassunto del prof}
+\section{Ricapitolando}
+
 \subsection{Arc-consistency}
+
 Algoritmo che ha la caratteristica di lavorare a livello locale sul CSP.
 L'obiettivo è quello di semplificarlo in maniera tale da ridurre la quantità di
 elementi possibili nel dominio e quindi ridurre il tempo necessario quando
 faccio la ricerca con backtrack. \\\textbf{Supporto: } un elemento del dominio
 di X può essere buttato via se non ha supporto in y.
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=9cm, keepaspectratio]{img/Cap3/riassunto1.png}
 \end{figure}
-\\Ad esempio, 1 ha supporto in X perché in Y c'è 2 e 3. Se un elemento non ha
+
+Ad esempio, 1 ha supporto in X perché in Y c'è 2 e 3. Se un elemento non ha
 supporto lo posso escludere dai valori assegnabili alla variabile. Un problema
 si dice arc-consistente se ho buttato via tutti gli elementi che NON hanno
 supporto.
@@ -529,11 +546,12 @@ supporto.
 \vspace{0.8cm}
 
 \textbf{Questo è un problema Arc-Consistente?}
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=9cm, keepaspectratio]{img/Cap3/riassunto2.png}
 \end{figure}
-\\No, perché il 2 andrebbe eliminato da Z. Se riesco a buttare via tutti gli
+
+No, perché il 2 andrebbe eliminato da Z. Se riesco a buttare via tutti gli
 elementi che non hanno supporto allora il problema diventa arc-consistente.
 
 \subsection{Soluzione di un CSP}
@@ -555,7 +573,7 @@ Tuttavia è possibile applicarla anche durante la ricerca con backtrack ogni
 volta che si modifica il dominio di una variabile, vediamo come: (credo che
 serva solamente sapere che si può fare anche durante e non l'esempio vero e
 proprio).
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap3/prova3.png}
 \end{figure}
@@ -567,22 +585,7 @@ restringere lo spazio di ricerca, quindi si può rendere un CSP arc-consistente 
 poi cercare una soluzione con backtracking; oppure assegnare iterativamente un
 valore e rendere le variabili restanti arco consistenti. Inoltre, se il dominio
 di una variabile diventa vuoto, sappiamo che non esisterà soluzione.
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=9cm, keepaspectratio]{img/Cap3/prova4.png}
-\end{figure}
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=9cm, keepaspectratio]{img/Cap3/prova5.png}
-\end{figure}
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=9cm, keepaspectratio]{img/Cap3/prova6.png}
-\end{figure}
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=9cm, keepaspectratio]{img/Cap3/prova7.png}
-\end{figure}
+
 \subsection{Vincolo distinto (Proiezione)}
 Alcune volte non ci interessa sapere il valore che possono ottenere tutte le
 variabili, ma solamente un sottoinsieme di esse. Definiamo quindi il: \\
@@ -618,10 +621,9 @@ Un Soft constraint satisfaction Problem (SCSP) è una coppia $<C, con>$ dove:
                     assegnamento di variabile):
                     \begin{center}
                         def: $D^k$ $\rightarrow$ A
-
-                        Che associa ad ogni elemento del dominio un valore del
-                        semiring. \\k rappresenta il numero di variabili.
                     \end{center}
+                    Che associa ad ogni elemento del dominio un valore del
+                    semiring. \\k rappresenta il numero di variabili.
           \end{itemize}
 \end{itemize}
 \textbf{La struttura utilizzata per descrivere problemi di Soft CSP è chiamata semiring.}
@@ -642,12 +644,14 @@ un costo di 2, mentre all'assegnamento prof X $=$ (lezione alle 9) un costo di
 minimizzare (o massimizzare...) il costo della soluzione. \\Supponiamo di avere
 un problema di colorazione del grafo e cerchiamo di trovare una soluzione
 ottimale.
+
 \begin{figure}[htp]
     \centering
     \includegraphics[width=14cm, keepaspectratio]{img/Cap4/scsp2.png}
     \caption{Esempio di SCSP su grafo.}
 \end{figure}
-\\Partiamo riprendendo la definizione di un CSP, esso è definito come
+
+Partiamo riprendendo la definizione di un CSP, esso è definito come
 $P=\{V,D,C,PC,con,def,a\}$ i quali indicano:
 \begin{itemize}
     \item V $=$ insieme delle variabili;
@@ -684,12 +688,11 @@ richiesto, le cerca tutte quante. Nel caso di SCSP siamo costretti a trovare
 tutte le possibili soluzioni in modo da scegliere la migliore. Normalmente si
 utilizzano due operazioni per trovare la soluzione ottimale in un SCSP:
 
-%% TODO: ricontrollare, forse gli operatori sono INVERTITI !
 \begin{itemize}
-    \item \textbf{Operatore di Combinazione(+):} dove metto insieme tutti gli
+    \item \textbf{Operatore di Combinazione($\times$):} dove metto insieme tutti gli
           assegnamenti, combinando i vincoli, quindi si calcola anche il costo totale
           ad esempio con l'operazione di somma;
-    \item \textbf{Operatore di Proiezione ($\times$):} operazione di scelta della
+    \item \textbf{Operatore di Proiezione ($+$):} operazione di scelta della
           soluzione migliore data dalla combinazione in base al minimo o al massimo
           del costo.
 \end{itemize}
@@ -700,10 +703,10 @@ Un semiring è una quintupla:
     $<A, +, \times, 0, 1>$
 \end{center}
 \begin{itemize}
-    \item \textbf{A:} l'insieme degli elementi che mi rappresentano i costi
+    \item \textbf{A:} \textit{l'insieme degli elementi} che mi rappresentano i costi
           (dominio dei costi). Esso può essere l'insieme dei reali oppure un
           intervallo specifico (ad esempio $[0,1]$)
-    \item \textbf{$+$:} operatore di proiezione, usato per fare la scelta fra le
+    \item $+$: \textit{operatore di proiezione}, usato per fare la scelta fra le
           soluzioni trovate dalla combinazione, può essere il minimo o massimo.
           Possiamo definire alcune proprietà:
           \begin{itemize}
@@ -715,7 +718,7 @@ Un semiring è una quintupla:
                         $a + b = b$
                     \end{center}
           \end{itemize}
-    \item \textbf{$\times$:} operatore di combinazione, utilizzato per combinare i
+    \item $\times$: \textit{operatore di combinazione}, utilizzato per combinare i
           vincoli, può essere somma,moltiplicazione etc... dipende dal problema.
           Possiamo definire alcune proprietà:
           \begin{itemize}
@@ -731,17 +734,16 @@ Un semiring è una quintupla:
 Tutti questi che abbiamo visto sono simboli quindi quando si utilizza
 l'operatore $+$ non ci si riferisce alla somma ma ad un operatore per la
 proiezione che potrebbe essere $min, max, \text{OR}, \ldots$
+
 \subsection{Tipi di Semiring}
-%% mannaggia a quel porco del signore, erano al contrario !!
-%% guadare https://www.dmi.unipg.it/~bista/didattica/CSP/soft-csps.pdf [pagina 19]
 \begin{itemize}
     \item \textbf{Probabilistic:} $<[0, 1], \max, \times, 0, 1>$ si massimizza
           la probabilità,
     \item \textbf{Weighted:} $<R^+, \min, +, +\infty, 0>$ si minimizza la somma
           dei costi,
     \item \textbf{Fuzzy:} $<[0,1], \max, \min, 0, 1>$,
-    \item \textbf{Classical:} $<\{false,true\}, \lor(\text{OR}),
-              \land(\text{AND}), false, true>$.
+    \item \textbf{Classical:} $<\{false,true\}, \ \lor(\text{OR}), \
+              \land(\text{AND}), \ false, \ true>$.
 \end{itemize}
 
 \subsection{Esempi pratici SCSP: Domanda esame}
@@ -754,12 +756,15 @@ A può assumere sia il valore di
     \item $x \rightarrow x = a$
     \item $y \rightarrow y = a$
 \end{enumerate}
+
 \subsubsection{Esempio con probabilistic}
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=14cm, keepaspectratio]{img/Cap4/probabilistic2.png}
 \end{figure}
-\noindent \textbf{Descrizione del semiring:} I valori possibili sono tra 0 ed 1,
+
+\paragraph{Descrizione del semiring:} I valori possibili sono tra 0 ed 1,
 l'operazione di proiezione è il Massimo; quella di combinazione è la
 \textbf{moltiplicazione}; il minimo valore è 0; il massimo valore è 1. \\Ci
 domandiamo: Quanto vale l'assegnamento X $=$ a?
@@ -780,12 +785,11 @@ domandiamo: Quanto vale l'assegnamento X $=$ a?
 \end{enumerate}
 
 \subsubsection{Esempio con Fuzzy}
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=14cm, keepaspectratio]{img/Cap4/fuzzy.png}
+    \includegraphics[width=12cm, keepaspectratio]{img/Cap4/fuzzy.png}
 \end{figure}
 
-\newpage
 \paragraph{Teorema dell'Estensività: }
 \begin{center}
     \textit{L'aggiunta di vincoli è monotona, peggiora la soluzione}

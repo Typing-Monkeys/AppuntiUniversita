@@ -6,8 +6,9 @@
 % %\usepackage[english]{babel}
 % \usepackage[italian]{babel}
 
-\usepackage[protrusion=true,expansion=true]{microtype}	
-\usepackage{amsmath,amsfonts,amsthm} % Math packages
+% \usepackage[protrusion=true,expansion=true]{microtype}	
+\usepackage{amsmath}
+% \usepackage{amsmath,amsfonts,amsthm} % Math packages
 \usepackage{graphicx}
 \usepackage{mathtools}
 
@@ -40,18 +41,18 @@
 % % \usepackage[square,numbers]{natbib}
 
 %per pseudocodice
-\usepackage{algorithm} 
-\usepackage{algorithmic}
-\floatname{algorithm}{Algoritmo}
-\renewcommand{\thealgorithm}{\unskip}
-\newlength\myindent
-\setlength\myindent{2em}
-\newcommand\bindent{%
-	\begingroup
-	\setlength{\itemindent}{\myindent}
-	\addtolength{\algorithmicindent}{\myindent}
-}
-\newcommand\eindent{\endgroup}
+% \usepackage{algorithm} 
+% \usepackage{algorithmic}
+% \floatname{algorithm}{Algoritmo}
+% \renewcommand{\thealgorithm}{\unskip}
+% \newlength\myindent
+% \setlength\myindent{2em}
+% \newcommand\bindent{%
+% 	\begingroup
+% 	\setlength{\itemindent}{\myindent}
+% 	\addtolength{\algorithmicindent}{\myindent}
+% }
+% \newcommand\eindent{\endgroup}
 \usepackage{listings}
 % % package italiano
 % %
@@ -101,13 +102,6 @@
 \newcommand{\tr}{{\rm Tr}\;}
 \newcommand{\eq}{\begin{equation}}
 \newcommand{\feq}{\end{equation}}
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
- 
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-
-\definecolor{blu_dmi}{HTML}{002e62}
 
 \setlength{\parindent}{0pt}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
