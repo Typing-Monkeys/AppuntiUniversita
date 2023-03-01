@@ -47,10 +47,6 @@ evidenziare i concetti di stato e di assegnamento:
           consistente se soddisfa i vincoli esistenti tra le variabili in S.
 \end{enumerate}
 
-\subsection{Constraint Solving}
-La risoluzione dei vincoli differisce dalla soddisfazione dei vincoli poiché
-utilizza variabili con domini infiniti come i numeri reali. Inoltre, i singoli
-vincoli sono più complicati, ad esempio non lineari, uguaglianze...
 \subsection{Esempi}
 \subsubsection{Esempio 1}
 \textbf{Problema:} Assegnazione delle ore di lezione dei professori (Time
@@ -143,7 +139,7 @@ Inoltre i vincoli possono essere espressi in maniera:
 Nell'esempio precedente si avranno tutte le coppie di valori ammessi in base a
 quel vincolo.
 
-\subsection{Proprietà CSP}
+\subsection{Proprietà dei CSP}
 \begin{enumerate}
     \item \textbf{Commutatività:} Si considera l'assegnamento di una singola
           variabile per volta.
@@ -175,9 +171,9 @@ Gli stati sono definiti dal valore assegnato finora:
 
 \chapter{Metodi di ricerca sistematici} \label{ch:Metodi di ricerca sistematici}
 \section{Metodi di ricerca sistematici}
-I CSP sono problemi combinatori, quindi si deve trovare una soluzione su tutte
-le possibili combinazioni di assegnamenti che si possono avere in maniera tale
-da soddisfare tutti i vincoli. I vari metodi per fare questo sono:
+I CSP sono problemi combinatori, quindi si deve trovare una soluzione che appartiene
+all'insieme dato da tutte le possibili combinazioni di assegnamenti.
+I vari metodi per fare questo sono:
 \begin{enumerate}
     \item \textbf{Generate and Test: }Probabilmente il metodo di risoluzione dei
           problemi più generale. L'algoritmo consiste nei seguenti due passaggi che si
@@ -188,7 +184,7 @@ da soddisfare tutti i vincoli. I vari metodi per fare questo sono:
           \end{enumerate}
           Alcuni possibili miglioramenti sono ad esempio uno smart generator,
           ovvero si assegnano i valori alle variabili e se non vanno bene si
-          effettuano dei cambiamenti sugli assegnamenti errati (ricerca locale).
+          effettuano dei cambiamenti sugli assegnamenti errati (\textbf{ricerca locale}).
           Un altro miglioramento consiste nel fare il test sugli assegnamenti e
           poi fare backtracking.
     \item \textbf{Backtracking:} Assegno uno alla volta i valori alle variabili
@@ -213,12 +209,12 @@ L'algoritmo consiste in:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=13cm, keepaspectratio]{img/Cap2/back1.png}
+    \includegraphics[width=11cm, keepaspectratio]{img/Cap2/back1.png}
     \caption{Esempio backtracking}
 \end{figure}
 
 Se tutte le variabili non sono etichettate si torna al passo 1. L'assegnamento
-delle variabili è commutativo ad esempio
+delle variabili è commutativo, ad esempio
 \begin{center}
     $[WA = red$ allora $NT = green]$ come [$NT=green$ allora $WA =red]$
 \end{center}
@@ -251,7 +247,7 @@ $d^n$, dove n è il numero di variabili e $d = max|D_i|$.
 % TODO: queste immagini vengono mostrate a cazzo su una pagina a parte 🤔
 \begin{figure}[H]
     \centering
-    \includegraphics[width=12cm, keepaspectratio]{img/Cap2/dfs.png}
+    \includegraphics[width=11cm, keepaspectratio]{img/Cap2/dfs.png}
     \caption{Algoritmo di backtracking.}
 \end{figure}
 \begin{figure}[H]
@@ -363,13 +359,13 @@ nodo, arco o cammino.
 \begin{itemize}
     \item \textbf{Consistenza di Nodo:} Consiste nella verifica dei valori del
           dominio di un nodo rispetto ai vincoli del nodo stesso. Ad esempio, se il
-          dominio del nodo $x_1$ è pari a $1,2,3$ e il vincolo unario di $x_1$ è $x_1 >
-              1$, la consistenza di nodo consente di ridurre il dominio di $x_1$ a $2,3$
+          dominio del nodo $x_1$ è pari a \{$1,2,3$\} e il vincolo unario di $x_1$ è $x_1 >
+              1$, la consistenza di nodo consente di ridurre il dominio di $x_1$ a \{$2,3$\}
           riducendo il processo di ricerca dell'algoritmo.
     \item \textbf{Consistenza di Arco:} Consiste nella verifica dei valori di un
           dominio di un nodo rispetto ai vincoli binari con un altro nodo. Ad esempio,
-          dati due nodi $x_1$ e $x_2$ con rispettivi domini $1,2,3$ e $1,4,5,9$, il
-          vincolo $x_2 = x_{1}^2$ consente di ridurre il dominio del nodo $x_2$ a $1,4,9$
+          dati due nodi $x_1$ e $x_2$ con rispettivi domini \{$1,2,3$\} e \{$1,4,5,9$\}, il
+          vincolo $x_2 = x_{1}^2$ consente di ridurre il dominio del nodo $x_2$ a \{$1,4,9$\}
           poiché non sussiste alcun nesso tra il valore 5 dell'insieme dominio di
           $x_2$ e qualsiasi altro elementi dell'insieme dominio di $x_1$.
     \item \textbf{Consistenza di Cammino:} Consiste nella verifica dei valori di
@@ -426,7 +422,7 @@ L'operazione che ho fatto si chiama Local Consistency, ma dato che ho utilizzato
 il vincolo binario si chiama Arc Consistency.\\
 
 \paragraph{Conclusione:} In questo caso sono stato molto fortunato perché
-ho rimasto 1 solo valore possibile per ogni variabile. Quindi la soluzione è
+è rimasto 1 solo valore possibile per ogni variabile. Quindi la soluzione è
 unica e sarà:
 
 $$
@@ -761,7 +757,7 @@ A può assumere sia il valore di
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=14cm, keepaspectratio]{img/Cap4/probabilistic2.png}
+    \includegraphics[width=12.5cm, keepaspectratio]{img/Cap4/probabilistic2.png}
 \end{figure}
 
 \paragraph{Descrizione del semiring:} I valori possibili sono tra 0 ed 1,
@@ -787,7 +783,7 @@ domandiamo: Quanto vale l'assegnamento X $=$ a?
 \subsubsection{Esempio con Fuzzy}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=12cm, keepaspectratio]{img/Cap4/fuzzy.png}
+    \includegraphics[width=12.5cm, keepaspectratio]{img/Cap4/fuzzy.png}
 \end{figure}
 
 \paragraph{Teorema dell'Estensività: }
