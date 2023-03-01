@@ -847,8 +847,8 @@ utilizzassimo la somma, ma potremmo farlo se usassimo $\min$.
     \centering
     \includegraphics[width=14cm, keepaspectratio]{img/Cap5/Local.png}
 \end{figure}
-\noindent In questo esempio sono presenti solo vincoli unari, che mi dice che
-quando ad $x_1$ gli assegno rosso ha valore 0.3, quando blu o giallo ha valore
+\noindent In questo esempio sono presenti solo vincoli unari, ciò mi dice che
+quando ad $x_1$  assegno rosso ha valore 0.3, quando blu o giallo ha valore
 0; cosi per tutte le variabili. Siccome il valore 0 è il bottom del semiring,
 dare 0 significa che non sono assegnamenti permessi, quindi li possiamo
 direttamente eliminare.\\
@@ -865,7 +865,7 @@ passaggi:
           colore uguale perché c'era scritto $pairwise-different$.
     \item \textbf{Proiezione:} Tra tutti i risultati che genera la combinazione
           faccio la proiezione sulla variabile in questione, in questo caso $x_3$.
-          Adesso: quanto valore ha $x_3$ quando ha valore rosso? Devo fare il massimo
+          Adesso: che valore ha $x_3$ quando ha valore rosso? Devo fare il massimo
           tra 0 e 0 che è 0 e tutto rimane invariato perché $x_3$ sul rosso ha
           comunque 0. Per $x_3$ $=$ blu il massimo è 0.2. Per $x_3$ $=$ giallo il
           massimo è comunque 0.2. L'unica modifica da apportare quindi è al blu di $x_3$
@@ -880,7 +880,7 @@ ricerca, per trovare la soluzione.
 \subsection{Esempio con Fuzzy}
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=15cm, keepaspectratio]{img/Cap5/ffuzzy2.png}
+    \includegraphics[width=14cm, keepaspectratio]{img/Cap5/ffuzzy2.png}
 \end{figure}
 Consideriamo il vincolo unario $c_1$ sulla variabile X ed il vincolo binario $c_2$
 sulle variabili X ed Y. Faccio $c_1$ $(x)$ $c_2$ proiettato $x(a)$:
@@ -903,7 +903,7 @@ applico la proiezione quindi non uso il massimo). \\Altra domanda: Applichiamo
 local consistency per X $=$ a. \\Devo fare min(0.9, 0.8, 0.9) $=$ 0.8. \\Devo
 fare min(0.9, 0.2, 0.5) $=$ 0.2. \\Devo fare min(0.9, 0.2, 0.5) $=$ 0.2. Se vado
 a proiettare fa 0.8 perché prendo il massimo. Se io vado a calcolare la
-soluzione adesso vado a calcolare la soluzione di "quanto vale $x=a$ $y=b$"?
+soluzione, adesso vado a calcolare la soluzione di "quanto vale $x=a$ $y=b$"?
 \\min tra 0.8, 0.2 e 0.2 = 0.2 che è come prima, la soluzione non è cambiata.
 \textbf{Ho migliorato il bound ma non ho modificato la soluzione, è una cosa buona.}
 \\Nell' esempio successivo (prossima sezione, sarebbe quello probabilistico) la
@@ -975,7 +975,7 @@ sarebbero accettabili perché sbagliate.
 \subsection{Altro esempio con vincolo \texorpdfstring{$c_3$}{c3}}
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=16cm, keepaspectratio]{img/Cap5/FUZZY2.png}
+    \includegraphics[width=14cm, keepaspectratio]{img/Cap5/FUZZY2.png}
 \end{figure}
 I nuovi valori per il vincolo $c_3$ sono ottenuti analizzando prima $y = a$ e
 quindi poi si analizza $<a, a>$ e poi $x = a$. Poi $y = b$ e quindi poi $<b, b>$ e
@@ -987,7 +987,7 @@ Vogliamo ottimizzare i CSP Soft anche se la loro operazione di combinazione non
 è idempotente.
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=10cm, keepaspectratio]{img/Cap5/divisione.png}
+    \includegraphics[width=13cm, keepaspectratio]{img/Cap5/divisione.png}
 \end{figure}
 \\L'operatore che utilizzeremo è l'opposto dell'operatore di combinazione ed è
 chiamato "\textit{Diviso}": $\div$. Analizziamo la riga del Fuzzy:
@@ -1006,6 +1006,7 @@ Quanto fa $a \div b$? Fa il più
 piccolo (min) elemento $x$ tale per cui $b + x$ fa $a$. Questo però lo possiamo fare
 solo se $a$ è maggiore di $b$ (altrimenti si prenderebbero in considerazioni valori
 non consoni tipo negativi) e se $b$ è maggiore uguale di $a$ si da come risultato 0.\\
+\newpage
 
 \textbf{Esempio probabilistico:}
 
@@ -1049,8 +1050,8 @@ l'operazione $\div$ sarebbe stata la \textit{sottrazione}.
 Come i CSP l'argumentation è un altro metodo che offre l'intelligenza
 artificiale per rappresentare la conoscenza e risolvere i problemi. Quello che
 andremo a rappresentare sono delle situazioni/dialoghi che vogliamo studiare dal
-punto di vista logico. \\Argumentation Framework. Un argumentation framework
-(AF) è una coppia (A,R) dove
+punto di vista logico.\\
+Un argumentation framework (AF) è una coppia (A,R) dove
 \begin{itemize}
     \item A è un set di argomentazioni
     \item R $\subseteq$ A $\times$ A è una relazione rappresentante gli "attacchi"
@@ -1059,16 +1060,17 @@ punto di vista logico. \\Argumentation Framework. Un argumentation framework
 \begin{center}
     $F(\{a,b,c,d,e\}, \{(a,b),(c,b),(c,d),(d,c),(d,e),(e,e)\})$
 \end{center}
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap6/arg1.png}
     \caption{Argumentation framework}
 \end{figure}
+
 Si ha un attacco quando si ha un'espressione logica (frase, dato...) che è in
 contraddizione con un'altra. Gli attacchi possono essere anche pesati, essi
 possono dipendere anche da chi ha detto quella frase.
 
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap6/arg2.png}
     \caption{Esempio di argumentation framework}
@@ -1080,11 +1082,13 @@ argomenti perché attaccano gli altri e contrattaccano nel caso siano attaccati.
 Lo scopo è di definire dei criteri per trovare gli argomenti più forti, validi
 (che stanno "in piedi da soli"), in modo da selezione i conflitti che riescono a
 sopportare gli attacchi dall'esterno.
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap6/arg3.png}
     \caption{Altro esempio di argumentation framework}
 \end{figure}
+
 Dobbiamo trovare gli argomenti che "stanno bene insieme", la prima nozione di
 questo tipo è un insieme di argomenti senza conflitti.
 
@@ -1099,12 +1103,14 @@ Dato un Augmentation Framework F = (A, R), l'insieme S $\subseteq$ A è
 conflict-free se, per ogni (a, b) $\in$ S, si ha che (a, b) $\notin$ R. (Per
 ogni coppia di elementi in S non è presente una relazione d'attacco tra questi
 elementi).
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap6/cf.png}
     \caption{Esempio insieme conflict-free.}
 \end{figure}
-\\In questo caso andiamo a scegliere come coppie gli argomenti che non sono in
+
+In questo caso andiamo a scegliere come coppie gli argomenti che non sono in
 conflitto (quindi che non si attaccano) fra di loro, ($\{a,c\},\{a,d\}$ ma non $\{a,b\}$),
 e anche i singoli argomenti tranne e poiché esso si contraddice da solo visto
 che ha un cappio.
@@ -1125,11 +1131,13 @@ ammissibile se:
           b che attacca quell'elemento a esiste un altro elemento sempre dentro S che
           contrattacca l'attacco di b verso a).
 \end{itemize}
-\begin{figure}[htp]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=12cm, keepaspectratio]{img/Cap6/ammissibile.png}
     \caption{Esempio insieme Ammissibile.}
 \end{figure}
+
 Non è necessario che sia lo stesso argomento a difendersi da altri attacchi, ad
 esempio in questo caso, supponendo che non ci sia a, b è attaccato da c ma se
 prendo d lui oltre che difendere se stesso da c (poiché attaccato) difende anche
@@ -1159,9 +1167,11 @@ se:
     \caption{Esempio insieme Completo.}
 \end{figure}
 Quindi un insieme complete contiene tutti gli insiemi ammissibili e anche tutti
-gli argomenti che sono difesi. \\L'insieme $\emptyset$ (vuoto) è \textbf{Completo}? Va messo
+gli argomenti che sono difesi.\\
+L'insieme $\emptyset$ (vuoto) è \textbf{Completo}? Va messo
 soltanto quando tutti gli argomenti sono attaccati e quindi quando \textbf{non}
-c'è un qualche argomento che è sempre difeso. \\Infatti sopra non va messo
+c'è un qualche argomento che è sempre difeso.\\
+Infatti sopra non va messo
 perché a è sempre difeso. a è sempre difeso da tutti perché non è attaccato da
 nessuno, quindi nel calcolo dei difensori va sempre messo dentro.
 \begin{enumerate}
