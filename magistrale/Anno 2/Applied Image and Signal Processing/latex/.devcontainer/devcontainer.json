@@ -9,7 +9,7 @@
     ],
     "shutdownAction": "stopCompose",
     "workspaceFolder": "/workspace",
-    "postCreateCommand": "",
+    "postCreateCommand": "if [ -f 'requirements.txt' ]; then tlmgr install `cat requirements.txt` && texhash; fi",
     "extensions": [
         "james-yu.latex-workshop",
         // Git

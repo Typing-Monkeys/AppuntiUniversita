@@ -9,7 +9,11 @@
 \usepackage{hyperref}
 \usepackage{wrapfig}
 \usepackage{fancyhdr}
-
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts} 
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 % forza le footnote a stare il più in basso possibile
 \usepackage[bottom]{footmisc}
 
@@ -73,6 +77,9 @@
 \usepackage{emoji}
 \setemojifont{NotoColorEmoji.ttf}[Path=/usr/share/fonts/truetype/noto/]
 
+\newtheorem{definition}{Definizione}
+
+
 \begin{document}
 \include{frontmatter/main.tex}
 
@@ -81,7 +88,7 @@
 \include{quote/main.tex}
 
 %% Aggiungere i capitoli qui sotto
-\include{capitoli/cap1/main.tex}
+\include{capitoli/richiami/main.tex}
 
 
 \end{document}
