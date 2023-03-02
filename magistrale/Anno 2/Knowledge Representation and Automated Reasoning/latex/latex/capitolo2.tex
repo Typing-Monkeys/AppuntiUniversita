@@ -1312,13 +1312,14 @@ dove:
           $\forall$(a, b) $\in$ R, W (a, b) = s significa che a attacca b con un peso
           di s $\in$ S.
 \end{itemize}
-\newpage
+
 \textbf{ Esempio:}
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=14cm, keepaspectratio]{img/Cap6/SoftA2.png}
 \end{figure}
-\\\textbf{Cambia la nozione di attacco:} Prima l'attacco era una funzione
+
+\textbf{Cambia la nozione di attacco:} Prima l'attacco era una funzione
 booleana (a attacca b). Adesso invece quando a attacca b gli viene associato un
 valore (comunque appartenente al semiring). \\\textbf{Cambia la nozione di
     difesa:} Nell'esempio sopra, nel caso in cui fossimo negli AF tradizionali C si
@@ -1442,7 +1443,6 @@ W, S)$, a, b, c $\in$ $A_{rgs}$ , B $\subseteq$ $A_{rgs}$ , allora b è
               ammissibili.
     \end{itemize}
 
-    \newpage
     \section{Teoremi di implicazione tra le nozioni}
     \textbf{N.B1 (da sapere):} La relazione di w-difesa implica la relazione di
     difesa:
@@ -1466,18 +1466,18 @@ W, S)$, a, b, c $\in$ $A_{rgs}$ , B $\subseteq$ $A_{rgs}$ , allora b è
               Classic, \\allora $D_w \Leftarrow \Rightarrow D_0 \Leftarrow
                   \Rightarrow D1 \Leftarrow \Rightarrow D_2$ (ma cosa è $D_0$ )??
     \end{itemize}
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
-        \includegraphics[width=12cm, keepaspectratio]{img/Cap6/teor1.png}
-        \includegraphics[width=12cm, keepaspectratio]{img/Cap6/teor2.png}
+        \includegraphics[width=14cm, keepaspectratio]{img/Cap6/teor1.png}
+        \includegraphics[width=14cm, keepaspectratio]{img/Cap6/teor2.png}
     \end{figure}
     L'implicazione delle semantiche è la stessa sia nel caso classico che in
     quello pesato.
-    \newpage
+
     \section{Orthogonal Relaxations}
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
-        \includegraphics[width=12cm, keepaspectratio]{img/Cap6/ortogonal.png}
+        \includegraphics[width=14cm, keepaspectratio]{img/Cap6/ortogonal.png}
     \end{figure}
     \noindent In questo esempio notiamo che (d, c) non stanno bene insieme,
     perché si attaccato 100. (b, c) sono abbastanza compatibili, perché la
@@ -1579,11 +1579,12 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     Un estensione E è grounded se e solo se è una complete e nessun altra
     estensione dentro le complete è più piccola di lei (quindi è la più piccola
     delle complete).
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
-        \includegraphics[width=12cm, keepaspectratio]{img/Cap6/w-grounded.png}
+        \includegraphics[width=14cm, keepaspectratio]{img/Cap6/w-grounded.png}
     \end{figure}
-    \\\textbf{Calcolo delle complete se non ci fossero i pesi:} L'insieme
+
+    \textbf{Calcolo delle complete se non ci fossero i pesi:} L'insieme
     complete era (a, d, c) perché a difendeva sia d che c insieme.
     \\\textbf{Calcolo delle complete con pesi (usiamo Bistarelli):} Le complete
     in questo caso sono a perché non viene attaccata da nessuno e più tutte
@@ -1615,7 +1616,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     \textbf{Skep/(Scet)ticamente }accettato su questo esempio.
     \begin{figure}[htp]
         \centering
-        \includegraphics[width=12cm, keepaspectratio]{img/Cap6/scet.png}
+        \includegraphics[width=14cm, keepaspectratio]{img/Cap6/scet.png}
     \end{figure}
     \begin{itemize}
         \item \textbf{Cred} (Almeno in un insieme): Ci domandiamo: esiste
@@ -1689,7 +1690,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
         \item $a$ è \textbf{IN} se non ha altri attaccanti IN.
         \item $a$ è \textbf{OUT} se è attaccato da almeno un argomento IN.
     \end{itemize}
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/CF.png}
         \caption{Esempio di Conflict-Free Labeling.}
@@ -1707,7 +1708,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     \end{itemize}
     \textbf{Domanda: } Questo labeling sotto è conflict free? (cioè soddisfa le
     regole scritte sopra?)
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/CF2.png}
         \caption{Conflict free label}
@@ -1717,7 +1718,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     \end{center}
 
     \textbf{Domanda: } Questo labeling sotto è conflict free?
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/CF3.png}
         \caption{No conflict free label}
@@ -1725,26 +1726,24 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     \begin{center}
         \textbf{No! perché a è rosso ma non ha un argomento verde che lo attacca.}
     \end{center}
-    \newpage
+
     \subsection{Labeling Admissible}
     Per ogni argomento $a \in A$ si ha che:
     \begin{itemize}
         \item $a$ è \textbf{IN} se tutti i suoi attaccanti sono OUT.
-        \item $a$ è \textbf{OUT} se è attaccato da almeno un argomento IN. In
-              questo caso c'è la nozione di Difesa, ovvero che un argomento è
-              accettato (è IN) solamente se tutti i suoi attaccanti sono sconfitti
-              (OUT)
+        \item $a$ è \textbf{OUT} se è attaccato da almeno un argomento IN.
     \end{itemize}
     In questo caso c'è la nozione di Difesa, ovvero che un argomento è accettato
     (è IN) solamente se \textbf{tutti} i suoi attaccanti sono sconfitti (OUT)
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/LA.png}
         \caption{Esempio Labeling Admissible}
     \end{figure}
-    \\Questo labeling è admissible, ad esempio c è accettato perché d che lo
+
+    Questo labeling è admissible, ad esempio c è accettato perché d che lo
     attacca è sconfitto, cioè OUT.
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/LA2.png}
         \caption{Esempio2 Labeling Admissible}
@@ -1757,7 +1756,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     \subsubsection{\textbf{Differenza}} La differenza tra Admissible e Complete
     è che A in complete deve essere per forza verde mentre qui può essere anche
     giallo.
-    \newpage
+
     \subsection{Labeling Complete}
     Per ogni argomento $a \in A$ si ha che:
     \begin{itemize}
@@ -1767,12 +1766,12 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
               argomento IN.
     \end{itemize}
     \textbf{Domanda: } Questo labeling è complete?
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/LC.png}
         \caption{Esempio Labeling NON COMPLETE}
     \end{figure}
-    \\No, perché l'argomento a è etichettato di giallo, ma la prima regola mi
+    No, perché l'argomento a è etichettato di giallo, ma la prima regola mi
     dice che un argomento è etichettato di verde quando tutti i suoi attaccanti
     sono etichettati di rosso, ma ho un se e solo se, devo leggerlo anche dalla
     parte opposta, ovvero:
@@ -1790,7 +1789,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
     attaccano sono out (e questo accade anche quando nessun argomento mi
     attacca) allora devo essere per forza verde. \\
     Il labeling complete dell'esempio sarebbe:
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/LC2.png}
         \caption{Esempio Labeling COMPLETE}
@@ -1809,7 +1808,7 @@ $\gamma$. \\Questo significa che nell'esempio sopra che era $2^3$ admissible
         \item L'insieme degli argomenti \textbf{IN} deve essere
               \textbf{Massimale} tra tutte le labeling complete.
     \end{itemize}
-    \begin{figure}[htp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=12cm, keepaspectratio]{img/Cap7/GR.png}
     \end{figure}
