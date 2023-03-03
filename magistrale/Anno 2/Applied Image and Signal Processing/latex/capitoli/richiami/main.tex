@@ -10,8 +10,12 @@
     $$
 \end{definition}
 
-Ci riferiamo anche a questo spazio come \textit{L'insieme di tutte le funzioni
-    sempre o assolutamente integrabili in modulo}.
+Ci riferiamo anche a questo spazio come
+\begin{center}
+    \textit{L'insieme di tutte le funzioni sempre o assolutamente integrabili in modulo}.
+\end{center}
+
+\textbf{N.B.} Con la notazione "$< +\infty$" si intende "\textit{è finito}".
 
 \begin{definition}
     Definiamo lo spazio delle funzioni sempre o assolutamente integrabili in
@@ -20,6 +24,8 @@ Ci riferiamo anche a questo spazio come \textit{L'insieme di tutte le funzioni
     $$
         L^p(\mathbb{R}) = \left \{ f: \mathbb{R} \rightarrow \mathbb{R} : \int_\mathbb{R} |f(t)|^p \ dt < +\infty \right \}
     $$
+
+    $L^p (\mathbb{R})$ è anche detto \textbf{Spazio di Lebesgue al variare di p} (con $p \ge 1$).
 \end{definition}
 
 \begin{definition}
@@ -63,6 +69,8 @@ Concludiamo quindi che $f(x) = \frac{1}{\sqrt{x}} \in L^1(]0, 1])$.
           \end{tikzpicture}
 \end{itemize}
 
+\vspace{1cm}
+
 Ora ci chiediamo se il prodotto di due funzioni che appartengono a $L^1$ sta
 ancora in $L^1$. Prendiamo dunque:
 
@@ -98,28 +106,51 @@ appartiene a $L^1$.
     \item $\lim_{x \rightarrow 0^+} [log 1 - log|x|] = 0 - (-\infty) = +\infty$
 \end{itemize}
 
+\vspace{1cm}
+
 Per far sì che il prodotto appartenga a $L^1$ dobbiamo introdurre il concetto di
 \textit{\textbf{Prodotto di Convoluzione}}.
 
 \section{Prodotto di Convoluzione}
+Il \textbf{Prodotto di Convoluzione} è importante perchè ci permette di mantenere
+l'appartenenza allo spazio della singola immagine. Questo, può essere espresso,
+in modo formale, nel seguente modo:
+\begin{center}
+    La \textit{Convoluzione} è una tecnica che consente di regolarizzare le funzioni
+    e di approssimarle in $L^p$.
+\end{center}
 
-La \textit{Convoluzione} è una tecnica che consente di regolarizzare le funzioni
-e di approssimarle in $L^p$.
 \begin{definition}
     Siano $f \in L^1(\mathbb{R})$ e $g \in L^p(\mathbb{R})$ con $1 \leq p \leq
-        +\infty$. Allora possiamo definire il prodotto di convoluzione tra $f$ e $g$
+        +\infty$. \'E possibile definire il prodotto di convoluzione tra $f$ e $g$
     come:
 
     $$
         \left( f \star g\right)(x) = \int_{\mathbb{R}} f(x - y) g(y) \ dy
     $$
 
-    Risulta inoltre $f \star g \in L^p(\mathbb{R})$ e
+    e
 
     $$
-        ||f \star g||_p \leq ||f||_1 \ ||g||_p.
+        ||f \star g||_p \leq ||f||_1 \cdot ||g||_p.
     $$
+
+    Ovvero, il Prodotto di Convoluzione sta in $L^p (\mathbb{R})$
+
+    $$f
+        \star g \in L^p(\mathbb{R})
+    $$
+
+    Risulta quindi vero che $||f \star g||_p < +\infty$.
+
 \end{definition}
+
+\vspace{0.3cm}
+
+\textbf{N.B.} Il Prodotto di Convoluzione eredita le migliori proprietà delle due
+funzioni.
+
+\vspace{1cm}
 
 Diamo ora il seguente lemma riassuntivo che raccoglie tutte le principali
 proprietà del prodotto di convoluzione.
@@ -130,7 +161,7 @@ proprietà del prodotto di convoluzione.
     \begin{enumerate}
         \item $f \star g = g \star f$ (proprietà commutativa);
         \item $f \star (g + h) = (f \star g) + (f \star h)$ (proprietà
-              distributiva rispetto ala somma);
+              distributiva rispetto alla somma);
         \item $(f \star g) \star h = f \star (g \star h)$ (proprietà
               associativa);
         \item posto $\tau_a f(x) := f(x + a), \ x \in \mathbb{R}$ (operatore di
@@ -145,9 +176,9 @@ proprietà del prodotto di convoluzione.
 \section{Trasformata di Fourier}
 
 In questa sezione daremo la definizione e richiameremo alcune importanti
-proprietà che riguardano la trasformata di Fourier. La trasformata di Fourier
-viene introdotta per poter dare una rappresentazione simile a quella fornita
-dalle serie di Fourier per le funzioni non periodiche.
+proprietà che riguardano la trasformata di Fourier.\\
+La trasformata di Fourier viene introdotta per poter dare una rappresentazione
+simile a quella fornita dalle serie di Fourier per le funzioni non periodiche.
 
 \begin{definition}
     % TODO: aggiungere ?? f (una funzione che rappresenta un segnale) 
@@ -219,6 +250,8 @@ dalle serie di Fourier per le funzioni non periodiche.
 
 \end{itemize}
 
+\vspace{1cm}
+
 Ci domandiamo il perchè sia così importante che $f \in L^1(\mathbb{R})$
 (possibile domanda di esame).\\
 
@@ -237,9 +270,12 @@ Ci domandiamo il perchè sia così importante che $f \in L^1(\mathbb{R})$
         \end{aligned}
     \end{equation}
 
+    Risulta essere $< +\infty$ \textit{se e solo se} $f\in L^1(\mathbb{R})$
+
 \end{proof}
 
-Ma, in generale non possiamo dire non possiamo affermare che $\hat{f}(\lambda)
+%%siamo sicuri di questa cosa ???
+Ma, in generale non possiamo affermare che $\hat{f}(\lambda)
     \in L^1(\mathbb{R})$.\\
 
 %% TODO: la successiva parte che riguarda il grafico del segnale non l'ho
