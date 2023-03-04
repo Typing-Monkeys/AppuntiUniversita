@@ -1,0 +1,77 @@
+\chapter{Campionamento}
+
+%% TODO: C'è una sezione nelle dispense di Vinti riguardante
+%% la storia del campionamento. Non so se metterla 🤔
+
+\section{Teorema del Campionamento}
+
+Diamo la definizione del classico \textit{WKS-sampling theorem} o
+\textit{Teorema del Campionamento}. Definiamo prim il \textbf{supporto}
+di una funzione $f$ come:
+
+$$
+    \text{supp } f = \{ x \in \mathbb{R} : f(x) \neq 0 \}.
+$$
+
+%% TODO: qui ci stanno alcune discrepanze tra Vinti e Fagiolo, va ricontrollato.
+\begin{theorem}
+    Sia $f \in L^2(\mathbb{R})$ una funzione a banda limitata, i.e., tale che
+    $\text{supp } \hat{f} \subset \left[ -\pi w, \ \pi w\right], w > 0$.
+    Allora vale la seguente formula di interpolazione.
+
+    $$
+        S(t) = \sum_{k \in - \infty}^{+\infty} f \left(\frac{k}{W}\right) sinc \left[\right]
+    $$
+\end{theorem}
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+    %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+    %Shape: Axis 2D [id:dp6614397845308091] 
+    \draw  (204,183.5) -- (379,183.5)(291,82) -- (291,196.5) (372,178.5) -- (379,183.5) -- (372,188.5) (286,89) -- (291,82) -- (296,89)  ;
+    %Straight Lines [id:da7696580538613964] 
+    \draw    (250,161.25) -- (250,183.25) ;
+    %Straight Lines [id:da059819649685002974] 
+    \draw    (331,161.25) -- (331,183.25) ;
+    %Straight Lines [id:da32947787237217474] 
+    \draw    (331,161.25) -- (250,161.25) ;
+
+    % Text Node
+    \draw (222.5,191.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle -\pi W$};
+    % Text Node
+    \draw (316,192) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \pi W$};
+
+
+\end{tikzpicture}
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+    %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+    %Shape: Axis 2D [id:dp6614397845308091] 
+    \draw  (204,230.75) -- (542.5,230.75)(306,82) -- (306,250.25) (535.5,225.75) -- (542.5,230.75) -- (535.5,235.75) (301,89) -- (306,82) -- (311,89)  ;
+    %Straight Lines [id:da059819649685002974] 
+    \draw    (421,226.75) -- (421,237.25) ;
+    %Straight Lines [id:da333995992515034] 
+    \draw    (441,226.75) -- (441,237.25) ;
+    %Straight Lines [id:da4908605908983048] 
+    \draw    (461,226.75) -- (461,237.25) ;
+    %Straight Lines [id:da5180908391730039] 
+    \draw    (400,226.75) -- (400,237.25) ;
+    %Curve Lines [id:da6657246696267412] 
+    \draw    (254,118.5) .. controls (269.59,106.81) and (338.93,97.87) .. (337.5,120.75) .. controls (336.07,143.63) and (365.6,210.17) .. (385,212.25) .. controls (404.4,214.33) and (425,145.75) .. (443,135.25) .. controls (461,124.75) and (493.73,190.83) .. (506.5,181.25) ;
+    %Shape: Circle [id:dp878091919683829] 
+    \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (397,202) .. controls (397,200.62) and (398.12,199.5) .. (399.5,199.5) .. controls (400.88,199.5) and (402,200.62) .. (402,202) .. controls (402,203.38) and (400.88,204.5) .. (399.5,204.5) .. controls (398.12,204.5) and (397,203.38) .. (397,202) -- cycle ;
+    %Shape: Circle [id:dp017384754588354534] 
+    \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (417,169.5) .. controls (417,168.12) and (418.12,167) .. (419.5,167) .. controls (420.88,167) and (422,168.12) .. (422,169.5) .. controls (422,170.88) and (420.88,172) .. (419.5,172) .. controls (418.12,172) and (417,170.88) .. (417,169.5) -- cycle ;
+    %Shape: Circle [id:dp3580711979696489] 
+    \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (436,139.5) .. controls (436,138.12) and (437.12,137) .. (438.5,137) .. controls (439.88,137) and (441,138.12) .. (441,139.5) .. controls (441,140.88) and (439.88,142) .. (438.5,142) .. controls (437.12,142) and (436,140.88) .. (436,139.5) -- cycle ;
+    %Shape: Circle [id:dp2482434926915713] 
+    \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (458,141.5) .. controls (458,140.12) and (459.12,139) .. (460.5,139) .. controls (461.88,139) and (463,140.12) .. (463,141.5) .. controls (463,142.88) and (461.88,144) .. (460.5,144) .. controls (459.12,144) and (458,142.88) .. (458,141.5) -- cycle ;
+
+    % Text Node
+    \draw (412.5,243) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize] [align=left] {$\displaystyle \frac{k}{W}$};
+    % Text Node
+    \draw (435,243) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize] [align=left] {$\displaystyle \frac{k}{W}$};
+
+
+\end{tikzpicture}
