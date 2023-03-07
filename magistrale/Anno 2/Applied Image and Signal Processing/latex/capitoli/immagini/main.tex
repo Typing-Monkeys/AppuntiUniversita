@@ -46,3 +46,155 @@ assume (\textbf{quantizzazione}).
     \textbf{campionamento + quantizzazione}
 \end{center}
 significa passare da un'immagine \textbf{analogica} ad un'immagine \textbf{digitale}
+\section{Campionamento di un segnale}
+Il campionamento di un segnale può essere fatto in 2 diversi modi:
+\begin{enumerate}
+    \item \textbf{Nel tempo:} Il campionamento di un segnale si ottiene prelevando
+          i valori che il segnale assume soltanto in istanti temporali fissati, in genere individuati tramite una funzione periodica \textbf{(funzione campionante)}.
+          La successione dei valori campionati di s fornisce una rappresentazione \textbf{discreta} (nel tempo) di $s(t)$.
+\end{enumerate}
+\section{Funzione Campionante}
+In genere, si assume che il campionamento sia \textbf{uniforme}, sia dal punto di vista spaziale che temporale, ovvero che la funzione campionante sia periodica di periodo costante.
+\\\\Fissiamo gli intervalli di campionamento $\Delta x$ , $\Delta y$, $\Delta t$ appropriati (dal Teorema Sampling e dalla teoria di Nyquist), ovvero la
+distanza tra due campioni successivi lungo le coordinate $x$,$y$ e $t$.
+\\\\Indichiamo con $N$,$M$,$T$ le dimensioni della matrice dei valori campionati dell’immagine.
+\\\\Andiamo a definire \textbf{la funzione campionante} come:
+\begin{center}
+    $s_c(x,y,t) = \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k \Delta y, t - h  \Delta t )$
+\end{center}
+L'immagine \textbf{campionata diventa}:
+\begin{center}
+    $s_c(x,y,t) = f(x,y,t)s_c(x,y,t)$
+\end{center}
+\begin{center}
+    $= f(x,y,t) \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k \Delta y, t - h  \Delta t )$
+\end{center}
+Lo scopo della funzione campionante sc(x , y, t) è di prelevare i
+valori campionati dal segnale continuo di partenza e pertanto ha
+un caratteristico andamento \textbf{pulsante}
+
+%TODO: Inserire foto
+
+\section{Quantizzazione}
+Per ottenere una completa discretizzazione di un’immagine è
+necessario discretizzare, oltre al dominio, anche l’insieme immagine
+(insieme dei valori).
+\begin{definition}
+    Si definisce \textbf{quantizzazione} il procedimento di discretizzazione dei
+    valori della funzione che rappresenta un’immagine, cioè il passaggio
+    da valori continui a valori discreti.
+\end{definition}
+Per le immagini a toni di grigio si parla di \textbf{grey level quantization},
+mentre per le immagini a colori si parla di \textbf{color depth}, in
+riferimento al numero di bit utilizzati per ciascun canale di colore
+(8, 16, 24, 32 bit).
+\section{Immagine Digitale}
+Tramite il campionamento e la quantizzazione è possibile definire
+un’immagine digitale come segue:
+\begin{definition}
+    Una immagine digitale è una rappresentazione di matrici di
+    elementi immagine, detti anche pixel (pixel= picture elements).
+\end{definition}
+\begin{itemize}
+    \item Il \textbf{pixel} costituisce la componente elementare della matrice,
+          dove gli indici di riga e colonna indicano i valori delle due
+          variabili spaziali, cioè la posizione di un punto nell’immagine.
+    \item Ogni elemento della matrice contiene i valori che
+          rappresentano l’intensità dei corrispondenti punti
+          nell’immagine, anche detta \textbf{luminanza}.
+\end{itemize}
+\section{Teorema Campionamento Immagini}
+%TODO Inserire tutto
+\section{L'aliasing}
+Per ricostruire esattamente una immagine, è necessario limitare in
+banda l’immagine che deve essere campionata, campionando all’ordine di campionamento di Nyquist o più grande e
+interpolando appropriatamente i valori immagine.
+\\\\Se c’è sovrapposizione di spettri, risultante dal
+sottocampionamento, vuol dire che componenti spettrali spurie
+sono state introdotte nel processo di ricostruzione. L’effetto che si
+ottiene è chiamato aliasing.
+%TODO: Inserire foto appunti fatti a mano 
+
+Quindi l'aliasing è la presenza di componenti spettrali (frequenze)
+indesiderate nella ricostruzione dell’immagine, componenti che non
+erano presenti quando l’immagine originale era stata campionata.
+
+%TODO Inserire immagini
+
+L’aliasing deriva dal sottocampionamento e causa perdita di
+risoluzione dell’immagine campionata (effetto scacchiera).
+
+%TODO Inserire Immagini
+
+\begin{itemize}
+    \item Per prevenire aliasing di queste componenti, è possibile
+          filtrarle via (eliminarle) prima di campionare il segnale.
+          Eliminare certe frequenze e lasciare passare le basse frequenze,
+          è una operazione nota come \textbf{filtraggio passa-basso}.
+    \item Ogni attenuazione relativa a questo processo di filtraggio
+          rappresenta una perdita di risoluzione dell’immagine
+          campionata.
+    \item Come risultato, mentre da un lato c’è una perdita della
+          risoluzione dell’immagine campionata, dall’altro c’è una
+          attenuazione dell’aliasing error.
+    \item \textbf{Effetto Moirè:} ovvero la distorsione visiva che si manifesta quando due
+          griglie si sovrappongono
+          %TODO: Inserire foto
+\end{itemize}
+\section{La risoluzione}
+Il campionamento e la quantizzazione determinano la \textbf{risoluzione}
+dell’immagine.
+\\\\La \textbf{risoluzione} di un segnale è un indice del grado di qualità
+dell’immagine: misura il grado di oggetti distinguibili
+nell’immagine.
+\begin{itemize}
+    \item \textbf{Risoluzione spaziale}
+
+          Indica la densità dei campioni, ovvero è data dal numero di campioni per unità di area.
+          \\\\Spesso è espressa come numero di pixel nell’unità di lunghezza
+          e viene misurata in pixel per pollice (ppi).
+          \\Un’immagine ad alta risoluzione contiene più pixel di una delle
+          stesse dimensioni con una risoluzione inferiore, quindi è in
+          grado di riprodurre un maggior numero di dettagli. Un’elevata
+          risoluzione comporta tuttavia un aumento considerevole delle
+          dimensioni (quantità di dati) dell’immagine.
+          \begin{itemize}
+              \item \textbf{Esempio:}
+
+                    Un’immagine di 1cm x 1cm con una risoluzione di 72 ppi
+                    contiene 5184 pixel (72 x 72). La stessa immagine di 1 cm x 1 cm a 300 ppi conterrebbe 90.000 pixel.
+          \end{itemize}
+    \item \textbf{Risoluzione spettrale}
+
+          Indica la banda passante del sensore.
+
+    \item \textbf{Risoluzione radiometrica}
+
+          indica il numero di livelli di quantizzazione.
+
+    \item \textbf{Risoluzione temporale}
+
+          indica la frequenza di acquisizione dei frames di un’immagine in movimento.
+\end{itemize}
+\section{Alterazioni della risoluzione}
+Alterando i vari tipi di risoluzione, l’immagine presenterà di volta in
+volta un diverso tipo di distorsione.
+\\ \textbf{Immagine originale:}
+%TODO Inserire immagine
+\begin{trivlist}
+    \item \textbf{Risoluzione spaziale:} diminuendo la risoluzione spaziale
+    (nell’esempio di un quarto) si ottiene il tipico effetto
+    ”quadrettato”, detto anche a scacchiera, dovuto all’aliasing.
+    %TODO Inserire immagine
+    \item \textbf{Risoluzione spettrale:} Diminuendo la banda passante del
+    sensore di acquisizione dell’immagine si ottiene un’immagine
+    più ”sfocata”, in quanto i dettagli ad alta frequenza spaziale
+    vanno persi.
+    %TODO Inserie Immagine
+    \item \textbf{Risoluzione radiometrica:} Diminuendo la profondità di
+    colore, si distinguono in maniera più marcata i passaggi da un
+    colore ad un altro; essi risultano pertanto sempre più
+    accentuati e meno graduali, fino a produrre dei ”falsi contorni”
+    %TODO Inserire Immagine
+\end{trivlist}
+
