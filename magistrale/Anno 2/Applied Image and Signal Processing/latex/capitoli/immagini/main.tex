@@ -1,0 +1,48 @@
+\chapter{Le immagini digitali}
+\section{Definizione di immagine}
+Useremo il Teorema del campionamento per applicarlo al concetto di immagine.
+\begin{definition}
+    Un’immagine è una rappresentazione grafica di valori numerici.
+\end{definition}
+In dettaglio un’immagine è una funzione bi-dimensionale $f(x,y)$, dove le variabili (spaziali) $x$ e $y$ sono valori reali che definiscono la posizione dei punti nell’immagine e $f(x,y)$ e in genere un valore reale che definisce l’intensità dell’immagine nel punto $(x,y)$.
+\\\\Il punto che andiamo a definire con le coordinare $x$, $y$ definisce il punto di grigio, al quale appartiene una data intensità.
+\section{Rappresentazione di un’immagine}
+La funzione f che rappresenta l’immagine può essere a valori in R,
+in $R^2$ o in $R^3$, a seconda del tipo di immagine.
+\begin{itemize}
+    \item \textbf{Immagine in scala di grigi:} $f:R^2 \rightarrow R$ (funzione scalare)
+    \item \textbf{Immagine a colori:} $f:R^2 \rightarrow R^3$ (funzione vettoriale)
+\end{itemize}
+Ovvero:
+\begin{center}
+    $f(x,y) = [f_1(x,y), f_2(x,y), f_3(x,y)]$
+\end{center}
+dove le componenti $f_i$, $i = 1,2,3$ si dicono canali.
+\\\\Se vogliamo rappresentare una scena in movimento, ottenendo
+ciò e un’\textbf{immagine dinamica}, è necessario introdurre una terza
+variabile, quella \textbf{temporale} ($t$), per cui si lavora con una funzione
+$f: R^3 \rightarrow R^3$.
+\begin{center}
+    $f(x,y,t) = [f_1(x,y,t), f_2(x ,y,t), f_3(x,y,t)].$
+\end{center}
+Nelle immagini \textbf{Analogiche} conosco l'intensità di ogni livello di grigio in ogni punto.
+Le immagini mostrate al calcolatore invece vanno \textbf{DISCRETIZZATE!}
+\section{Discretizzazione}
+Se si vuole utilizzare un calcolatore elettronico per lo studio di un
+segnale, è necessario \textbf{discretizzare} la funzione $s(t)$ che rappresenta
+il segnale. Infatti un calcolatore elettronico è in grado di trattare
+solo segnali discreti, cioè successioni di campioni i cui valori sono
+rappresentati con precisione finita.
+\\Se si lavora con un segnale continuo $s(t)$, per implementarne lo
+studio al calcolatore è necessario passare ad un opportuno segnale
+discreto.
+\begin{center}
+    Ciò avviene utilizzando il procedimento di \textbf{campionamento}, che consiste nel discretizzare la variabile temporale $t$.
+\end{center}
+Inoltre, è anche necessario discretizzare i valori che la funzione $s(t)$
+assume (\textbf{quantizzazione}).
+\\\\Nel caso delle immagini appliccare i processi di:
+\begin{center}
+    \textbf{campionamento + quantizzazione}
+\end{center}
+significa passare da un'immagine \textbf{analogica} ad un'immagine \textbf{digitale}
