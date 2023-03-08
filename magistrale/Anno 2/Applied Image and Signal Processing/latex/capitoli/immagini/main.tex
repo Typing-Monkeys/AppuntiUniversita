@@ -104,7 +104,58 @@ un’immagine digitale come segue:
           nell’immagine, anche detta \textbf{luminanza}.
 \end{itemize}
 \section{Teorema Campionamento Immagini}
-%TODO Inserire tutto
+L'Immagine campionata è rappresentata tramite la seguente formula:
+\begin{center}
+    $s_c(x,y) = f(x,y)s_c(x,y)=f(x,y)\sum_{j=-\infty}^{+\infty} \sum_{k=-\infty}^{+\infty} \delta (x-j \Delta x, y-k \Delta y)$
+\end{center}
+dove $s_c(x,y)$ è \textbf{la funzione campionante}.
+\\\\Si può provare che c’è una relazione tra $\hat{f}_c$ e $\hat{f}$. Per questo è importante assumere che lo spettro del segnale f sia \textbf{a banda limitata}, cioè:
+\begin{center}
+    $\hat{f}(w_x,w_y)=0$ per $|w_x| > \bar{w}_x$ e $|w_y| > \bar{w}_y$
+\end{center}
+dove $\bar{ω_x}$ e $\bar{ω_y}$ definiscono la banda rettangolare dell’immagine.
+\\Così lo spettro dell’immagine campionata consiste nello spettro
+dell’immagine continua infinitamente ripetuta nel piano delle
+frequenze, in una griglia di risoluzione ($\frac{2\pi}{\Delta x}, \frac{2 \pi}{\Delta y}$), dove:
+\begin{center}
+    ($\frac{2\pi}{\Delta x}, \frac{2 \pi}{\Delta y}$) = $(w_{xe}, w_{ye})$
+\end{center}
+sono le \textbf{frequenze Sampling}.
+\\\\Per ricostruire esattamente un segnale campionato, la frequenza
+del campionamento non deve essere inferiore ad una \textbf{frequenza
+    minima (ovvero frequenza sampling)}, che corrisponde ad un valore
+massimo per ciascuno degli intervalli $\Delta x$ , $\Delta y$.
+\\\\Tale valore minimo deve essere almeno pari al doppio della banda
+massima di $f$ , cioè:
+\begin{center}
+    $w_{xe} >= 2 \bar{w_x}$ e $w_{ye} >= 2 \bar{w_y}$
+\end{center}
+Se nella (1) vale l’uguaglianza, allora si dice che l’immagine è
+\textbf{campionata alla sua frequenza di Nyquist.}
+\\\\Se $\Delta x$ e $\Delta y$ sono più piccoli del richiesto criterio di Nyquist,
+l’immagine risulta sovracampionata \textbf{(oversampling)}.
+Nel caso contrario, l’immagine non può essere ricostruita
+esattamente: si parla di sottocampionamento \textbf{(undersampling)} e si
+presenta un fenomeno di distorsione detto \textbf{aliasing.}
+\begin{itemize}
+    \item \textbf{Osservazione:}
+
+          il valore minimo è un valore puramente teorico.
+          \\Nella pratica, non potendo in generale determinare con precisione la banda massima del segnale, si utilizzano frequenze di campionamento più alte.
+          \\Spesso si campiona con una frequenza pari a 4 volte quella misurata.
+\end{itemize}
+\begin{theorem}
+    Sia $f(x,y)$ una immagine a banda limitata e ad energia finita,
+    soddisfacente quindi la condizione $\hat{f}(w_x,w_y) = 0$, per $| w_x | > \bar{ω_x}$ e
+    $| w_y | > \bar{w_y}$; se $f$ è uniformemente campionata in una griglia rettangolare
+    con intervalli spaziali $\Delta x$, $\Delta y$, allora la $f$ può essere ricostruita dai suoi
+    valori campione $f(j \Delta x, k \Delta y)$ a condizione che l’ordine di campionamento
+    sia più grande dell’ordine di Nyquist, cioè $w_{xe} >= 2 \bar{w_x}$, $w_{ye} >= 2 \bar{w_y}$.
+    Inoltre,l’immagine ricostruita è data dalla seguente formula di interpolazione:
+\end{theorem}
+\begin{center}
+    $f(x,y) = \sum_{j=-\infty}^{+\infty} \sum_{k=-\infty}^{+\infty} f(j \Delta x, k \Delta y) (\frac{\sin(xw_{xe}-j)\pi}{(xw_{xe}-j)\pi})  (\frac{\sin(yw_{ye}-k)\pi}{(yw_{ye}-k)\pi})$
+\end{center}
 \section{L'aliasing}
 Per ricostruire esattamente una immagine, è necessario limitare in
 banda l’immagine che deve essere campionata, campionando all’ordine di campionamento di Nyquist o più grande e
