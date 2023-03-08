@@ -9,7 +9,7 @@ simile a quella fornita dalle serie di Fourier per le funzioni non periodiche.
     % TODO: aggiungere ?? f (una funzione che rappresenta un segnale) 
     Sia $f \in L^1(\mathbb{R})$. Allora la trasformata di Fourier di $f$ è
     definita come:
-
+    
     $$
         \hat{f}(\lambda) := \int_{-\infty}^{+\infty} f(x) e^{-i\lambda x} \ dx,
         \ \lambda \in \mathbb{R}
@@ -33,7 +33,7 @@ simile a quella fornita dalle serie di Fourier per le funzioni non periodiche.
               \begin{tikzpicture}[x=1.0pt,y=1.0pt,yscale=-1,xscale=1]
                   %uncomment if require: \path (0,300); %set diagram left start
                   %at 0, and has height of 300
-
+                  
                   %Straight Lines [id:da5730343469684522] 
                   \draw    (150.5,189.75) -- (150.5,234.75) ;
                   %Straight Lines [id:da70665287162995] 
@@ -52,7 +52,7 @@ simile a quella fornita dalle serie di Fourier per le funzioni non periodiche.
                   %Straight Lines [id:da11421787184111976] 
                   \draw  [dash pattern={on 0.84pt off 2.51pt}]  (150.5,189.25)
                   -- (100,235) ;
-
+                  
                   % Text Node
                   \draw (154,165) node [anchor=north west][inner sep=0.75pt]
                   [align=left] {z};
@@ -65,8 +65,8 @@ simile a quella fornita dalle serie di Fourier per le funzioni non periodiche.
                   % Text Node
                   \draw (106,196) node [anchor=north west][inner sep=0.75pt]
                   [align=left] {|z|};
-
-
+                  
+                  
               \end{tikzpicture}
           \end{center}
     \item Quindi
@@ -74,7 +74,7 @@ simile a quella fornita dalle serie di Fourier per le funzioni non periodiche.
               |e^{-i \lambda x}| = (\cos^2 (\lambda x) + \sin^2(\lambda
               x))^{\frac{1}{2}} = 1
           $$
-
+          
 \end{itemize}
 
 \vspace{1cm}
@@ -89,16 +89,16 @@ Ci domandiamo il perchè sia così importante che $f \in L^1(\mathbb{R})$
 \begin{proof}
     Poiché $f \in L^1(\mathbb{R})$, la funzione $\hat{f}(\lambda)$ risulterà
     sicuramente ben definita, infatti:
-
+    
     \begin{equation}
         \begin{aligned}
             |\hat{f}(\lambda)| & = \left|\int_{\mathbb{R}} f(t) e^{-i \lambda t} \ dt \right| \leq \int_{\mathbb{R}} |f(t) e^{-i \lambda t}| \ dt =                  \\
                                & = \int_{\mathbb{R}} |f(t)| \cdot |e^{-i \lambda t}| \ dt = \int_{\mathbb{R}} |f(t)| \ dt < + \infty, \forall \lambda \in \mathbb{R}
         \end{aligned}
     \end{equation}
-
+    
     Risulta essere $< +\infty$ \textit{se e solo se} $f\in L^1(\mathbb{R})$
-
+    
 \end{proof}
 
 %%siamo sicuri di questa cosa ???
@@ -117,12 +117,26 @@ altre parole ci domandiamo se esiste l'inverso della Trasformata di Fourier.
     Sia $f \in L^1(\mathbb{R}) \cap C^0(\mathbb{R})$ e tale che $\hat{f} \in
         L^1(\mathbb{R})$. Allora definiamo la \textit{Trasformata Inversa di
         Fourier} come:
-
+    
     $$
         f(x) = \int_{-\infty}^{+\infty} \hat{f}(\lambda) e^{i \lambda x} \
         d\lambda, \ \ \forall x \in \mathbb{R}
     $$
 \end{theorem}
+
+\begin{proof}
+    Poiché $f \in L^1(\mathbb{R})$, la funzione $f(x)$ risulterà
+    sicuramente ben definita, infatti:
+    
+    \begin{equation}
+        \begin{aligned}
+            |f(x)| & = \left|\int_{\mathbb{R}} f(\lambda) e^{-i \lambda t} \ d\lambda \right| \leq \int_{\mathbb{R}} |f(\lambda)| \ d\lambda < + \infty, \forall x \in \mathbb{R}
+        \end{aligned}
+    \end{equation}
+    
+    Risulta essere $< +\infty$ \textit{se e solo se} $\hat{f}\in L^1(\mathbb{R})$
+    
+\end{proof}
 
 Il precedente Teorema permette di esprimere $f$ in termini della sua Trasformata
 di Fourier. Questo rappresenta la Trasformata Inversa di Fourier e possiamo
@@ -131,11 +145,11 @@ indicarla anche con $\hat{f}^{-1}$.
 \begin{center}
 
     \tikzset{every picture/.style={line width=0.75pt}}
-
+    
     \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
         %uncomment if require: \path (0,300); %set diagram left start at 0, and
         %has height of 300
-
+        
         %Shape: Axis 2D [id:dp5823155267563114] 
         \draw  (88,155.67) -- (188,155.67)(138.33,71) -- (138.33,171)
         (181,150.67) -- (188,155.67) -- (181,160.67) (133.33,78) -- (138.33,71)
@@ -163,7 +177,7 @@ indicarla anche con $\hat{f}^{-1}$.
         [fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ][line
             width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) --
         cycle    ;
-
+        
         % Text Node
         \draw (287.33,56) node [anchor=north west][inner sep=0.75pt]
         [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]
@@ -172,10 +186,10 @@ indicarla anche con $\hat{f}^{-1}$.
         \draw (289.33,191.33) node [anchor=north west][inner sep=0.75pt]
         [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]
         [align=left] {$\displaystyle f$};
-
-
+        
+        
     \end{tikzpicture}
-
+    
 \end{center}
 
 \paragraph{Note:}
@@ -191,7 +205,7 @@ Analizziamo ora alcune proprietà della Trasformata di Fourier.
 \begin{theorem}
     Sia $f \in L^1(\mathbb{R})$, allora la funzione $\hat{f}(\lambda) \in
         C^0(\mathbb{R})$ e vale:
-
+    
     $$
         \lim_{\lambda \rightarrow +\infty} \left| \hat{f}(\lambda) \right| = 0.
     $$
@@ -200,16 +214,19 @@ Analizziamo ora alcune proprietà della Trasformata di Fourier.
 Ricordiamo che le funzioni che sono in $L^1(\mathbb{R})$ non è detto che siano
 continue ! Una funzione può essere integrale anche se ha un numero finito di
 punti di discontinuità. Il precedente teorema ci va a dire che se applico la
-Trasformata di Fourier ad una funziona che non è continua (ma comunque
-integrabile), allora il risultato sarà sicuramente una funzione continua !\\
+Trasformata di Fourier ad una funzione che non è continua (ma comunque
+integrabile), allora il risultato sarà sicuramente una funzione continua e 
+che quella funzione sarà integrabile ! Questo è anche visibile dal grafico che 
+otterremmo in quanto avarà le "code" che si schiacciano su zero.\\
 Questa proprietà viene anche chiamata \textit{"Regolarizzazione"}.
 %% TODO: c'è anche un secondo significato a questo teorema, ci assicura che %
 %all'infinito la funzione tende a 0, ma non so bene spiegarlo. Vanno rivisti gli
-%appunti
+%appunti (ci assicura che sia 0 perchè se no si schiacciasse l'area sotto la
+%funzione tenderebbge a +inf, ed il suo itegrale sarebbe di conseguenza non finito)
 
 \begin{theorem}
     Siano $f, g \in L^1(\mathbb{R})$ e $\alpha, \beta \in \mathbb{C}$ allora:
-
+    
     $$
         (\widehat{ \alpha f + \beta g })(\lambda) = \alpha \hat{f}(\lambda) +
         \beta \hat{g}(\lambda).
@@ -225,7 +242,7 @@ sua Derivata Prima e se c'è la possibilità di legarle in qualche modo.
 \begin{theorem}
     Sia $f \in L^1(\mathbb{R}) \cap C^1(\mathbb{R})$ tale che $f^{\prime} \in
         L^1(\mathbb{R})$. Allora:
-
+    
     $$
         \widehat{f^{\prime}}(\lambda) = i \lambda \hat{f}(\lambda), \ \ \forall
         \lambda \in \mathbb{R}.
@@ -247,12 +264,25 @@ derivate di ordine superiore. Infatti:
     Sia $f \in L^1(\mathbb{R}) \cap C^k(\mathbb{R})$ con $k \in \mathbb{N}$, $k
         \geq 2$ e $f^{\left(j\right)} \in L^1(\mathbb{R})$ per ogni $j = 1, 2,
         \ldots, k$, allora risulta banalmente che:
-
+    
     $$
         \widehat{f^k}(\lambda) = (i \lambda)^k \hat{f}(\lambda), \ \ \lambda \in
         \mathbb{R}.
     $$
+    ed anche che:
+    $$
+        \lim_{ |\lambda| \rightarrow +\infty } \left| \hat{f}^k(\lambda) \right| = 0 \rightarrow
+        \lim_{ |\lambda| \rightarrow +\infty } \left|\lambda\right|^k\left| \hat{f}(\lambda) \right| = 0
+    $$
 \end{theorem}
+
+\paragraph{Note:}
+\begin{itemize}
+    \item $C^k(\mathbb{R}) = \{ f: \mathbb{R} \rightarrow \mathbb{R} \ | \
+              \exists f^{k} \text{ continua in } \mathbb{R} \}$. Questo è
+          l'insieme delle funzioni la cui Derivata k-esima e di conseguenza tutte le precedenti sono continue in
+          $\mathbb{R}$.
+\end{itemize}
 
 Vale il seguente corollario.
 
@@ -260,7 +290,7 @@ Vale il seguente corollario.
 \begin{corollary}
     Sia $f \in L^1(\mathbb{R}) \cap C^2(\mathbb{R})$ e $f^{\left(j\right)} \in
         L^1(\mathbb{R})$ per ogni $j = 1, 2$. Allora:
-
+    
     $$
         \lim_{\lambda \rightarrow \infty} \left| \lambda \right|^2 \left|
         \hat{f}(\lambda) \right|  = \lim_{\lambda \rightarrow \infty}
@@ -270,7 +300,7 @@ Vale il seguente corollario.
 \end{corollary}
 
 Questo ci dice che $\left|\hat{f}(\lambda)\right|$ è un infinitesimo più veloce di
-$\left|\lambda^2\right|$, per $\lambda$ che tende a infinito, perciò sappiamo che $\hat{f}$ è
+$\left|\lambda\right|^2$, per $\lambda$ che tende a infinito, perciò sappiamo che $\hat{f}$ è
 assolutamente integrabile. Quindi $\hat{f} \in L^1(\mathbb{R})$. Questo
 corollario ci fornisce anche una condizione sufficiente per l'integrabilità di
 $\hat{f}(\lambda)$.
@@ -278,13 +308,16 @@ $\hat{f}(\lambda)$.
 \begin{theorem}
     Sia $f \in L^1(\mathbb{R}) \cap C^0(\mathbb{R})$.
     Se $\hat{f}(\lambda) = 0, \forall \lambda \in \mathbb{R}$, allora $f(x) = 0, \forall x \in \mathbb{R}$.\\
-    In particolare se due funzioni $f, g \in L^1(\mathbb{R}) \cap C^0(\mathbb{R})$ e $\hat{f}(\lambda) = \hat{g}(\lambda), \forall \lambda \in \mathbb{R}$,
-    allora $f = g$ in $\mathbb{R}$.
 \end{theorem}
+
+\begin{corollary}
+    Se due funzioni $f, g \in L^1(\mathbb{R}) \cap C^0(\mathbb{R})$ e $\hat{f}(\lambda) = \hat{g}(\lambda), \forall \lambda \in \mathbb{R}$,
+    allora $f = g$ in $\mathbb{R}$.
+\end{corollary}
 
 \begin{theorem}
     Siano $f, g \in L^1(R)$. Allora,
-
+    
     $$
         \widehat{f \star g}(\lambda) = \hat{f}(\lambda) \hat{g}(\lambda), \
         \forall \lambda \in \mathbb{R}.
