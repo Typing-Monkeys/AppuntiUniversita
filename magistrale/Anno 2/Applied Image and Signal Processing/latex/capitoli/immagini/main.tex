@@ -6,6 +6,11 @@ Useremo il Teorema del campionamento per applicarlo al concetto di immagine.
 \end{definition}
 In dettaglio un’immagine è una funzione bi-dimensionale $f(x,y)$, dove le variabili (spaziali) $x$ e $y$ sono valori reali che definiscono la posizione dei punti nell’immagine e $f(x,y)$ e in genere un valore reale che definisce l’intensità dell’immagine nel punto $(x,y)$.
 \\\\Il punto che andiamo a definire con le coordinare $x$, $y$ definisce il punto di grigio, al quale appartiene una data intensità.
+\\\\Tutti i colori al calcolatore possono essere scoomposti mediante combinazioni di \textbf{RGB}.
+\\Dove:
+\begin{center}
+    $R = f_1$, $G = f_2$, $B = f_3$
+\end{center}
 \section{Rappresentazione di un’immagine}
 La funzione f che rappresenta l’immagine può essere a valori in R,
 in $R^2$ o in $R^3$, a seconda del tipo di immagine.
@@ -52,6 +57,8 @@ Il campionamento di un segnale può essere fatto in 2 diversi modi:
     \item \textbf{Nel tempo:} Il campionamento di un segnale si ottiene prelevando
           i valori che il segnale assume soltanto in istanti temporali fissati, in genere individuati tramite una funzione periodica \textbf{(funzione campionante)}.
           La successione dei valori campionati di s fornisce una rappresentazione \textbf{discreta} (nel tempo) di $s(t)$.
+    \item \textbf{Nello spazio:} Un’immagine può essere vista come una funzione $f(x,y,t)$ dello spazio e del tempo e dunque è necessario discretizzare anche le variabili spaziali.
+          \\Si ottiene in questo modo una matrice a tre dimensioni, delle quali due sono spaziali ed una è temporale.
 \end{enumerate}
 \section{Funzione Campionante}
 In genere, si assume che il campionamento sia \textbf{uniforme}, sia dal punto di vista spaziale che temporale, ovvero che la funzione campionante sia periodica di periodo costante.
@@ -71,8 +78,16 @@ L'immagine \textbf{campionata diventa}:
 \end{center}
 Lo scopo della funzione campionante sc(x , y, t) è di prelevare i
 valori campionati dal segnale continuo di partenza e pertanto ha
-un caratteristico andamento \textbf{pulsante}
+un caratteristico andamento \textbf{pulsante}.ù
+\begin{itemize}
+    \item Il segnale \textbf{non va mai letto}
 
+          quando x cade nel nodo della funzione in quanto non si sarebbe in grado di leggerlo.
+
+    \item Il segnale \textbf{va letto}
+
+          soltanto in $\frac{j}{w}$ ovvero la funzione campionante parellela ai campioni.
+\end{itemize}
 %TODO: Inserire foto
 
 \section{Quantizzazione}
@@ -88,6 +103,12 @@ Per le immagini a toni di grigio si parla di \textbf{grey level quantization},
 mentre per le immagini a colori si parla di \textbf{color depth}, in
 riferimento al numero di bit utilizzati per ciascun canale di colore
 (8, 16, 24, 32 bit).
+\begin{itemize}
+    \item \textbf{Esempio:}
+
+          Nelle immagini mediche formato \textbf{DOICOM} gli ultimi 4 bit dell'immagine
+          sono riservati ad informazioni personali che servono ad identificare il paziente che ha sostenuto l'esame.
+\end{itemize}
 \section{Immagine Digitale}
 Tramite il campionamento e la quantizzazione è possibile definire
 un’immagine digitale come segue:
