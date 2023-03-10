@@ -259,19 +259,24 @@ di Nyquist o più grande e interpolando appropriatamente i valori immagine.
 \\\\Se c’è sovrapposizione di spettri, risultante dal sottocampionamento, vuol
 dire che componenti spettrali spurie sono state introdotte nel processo di
 ricostruzione. L’effetto che si ottiene è chiamato aliasing.
+
 %TODO: Inserire foto appunti fatti a mano 
+\missingfigure{Inserire foto appunti fatti a mano}
 
 Quindi l'aliasing è la presenza di componenti spettrali (frequenze) indesiderate
 nella ricostruzione dell’immagine, componenti che non erano presenti quando
 l’immagine originale era stata campionata.
 
 %TODO Inserire immagini
+\missingfigure{Inserire immagini}
 
 L’aliasing deriva dal sottocampionamento e causa perdita di risoluzione
 dell’immagine campionata (effetto scacchiera).
 
 %TODO Inserire Immagini
+\missingfigure[]{Inserire immagini}
 
+\paragraph{Note:} \TODO[]{Pricontrollare, potrebbe essere reso discorsivo.}
 \begin{itemize}
     \item Per prevenire aliasing di queste componenti, è possibile filtrarle via
           (eliminarle) prima di campionare il segnale. Eliminare certe frequenze
@@ -285,60 +290,78 @@ dell’immagine campionata (effetto scacchiera).
     \item \textbf{Effetto Moirè:} ovvero la distorsione visiva che si manifesta
           quando due griglie si sovrappongono
           %TODO: Inserire foto
+          \missingfigure[]{Inserire foto}
 \end{itemize}
+
 \section{La risoluzione}
 Il campionamento e la quantizzazione determinano la \textbf{risoluzione}
 dell’immagine. \\\\La \textbf{risoluzione} di un segnale è un indice del grado
 di qualità dell’immagine: misura il grado di oggetti distinguibili
-nell’immagine.
-\begin{itemize}
-    \item \textbf{Risoluzione spaziale}
+nell’immagine. Esistono differenti definizione di risoluzione:
 
-          Indica la densità dei campioni, ovvero è data dal numero di campioni
-          per unità di area. \\\\Spesso è espressa come numero di pixel
-          nell’unità di lunghezza e viene misurata in pixel per pollice (ppi).
-          \\Un’immagine ad alta risoluzione contiene più pixel di una delle
-          stesse dimensioni con una risoluzione inferiore, quindi è in grado di
-          riprodurre un maggior numero di dettagli. Un’elevata risoluzione
-          comporta tuttavia un aumento considerevole delle dimensioni (quantità
-          di dati) dell’immagine.
-          \begin{itemize}
-              \item \textbf{Esempio:}
+\begin{definition}
+    La \textbf{Risoluzione Spaziale} indica la densità dei campioni, ovvero è data dal numero di campioni
+    per unità di area.
+\end{definition}
 
-                    Un’immagine di 1cm x 1cm con una risoluzione di 72 ppi
-                    contiene 5184 pixel (72 x 72). La stessa immagine di 1 cm x
-                    1 cm a 300 ppi conterrebbe 90.000 pixel.
-          \end{itemize}
-    \item \textbf{Risoluzione spettrale}
+Spesso è espressa come numero di pixel
+nell’unità di lunghezza e viene misurata in pixel per pollice (ppi).
+\\Un’immagine ad alta risoluzione contiene più pixel di una delle
+stesse dimensioni con una risoluzione inferiore, quindi è in grado di
+riprodurre un maggior numero di dettagli. Un’elevata risoluzione
+comporta tuttavia un aumento considerevole delle dimensioni (quantità
+di dati) dell’immagine.
 
-          Indica la banda passante del sensore.
+\paragraph{Esempio:}
 
-    \item \textbf{Risoluzione radiometrica}
+Un’immagine di 1cm x 1cm con una risoluzione di 72 ppi
+contiene 5184 pixel (72 x 72). La stessa immagine di 1 cm x
+1 cm a 300 ppi conterrebbe 90.000 pixel.
 
-          indica il numero di livelli di quantizzazione.
+\begin{definition}
+    La \textbf{Risoluzione spettrale} indica la banda passante del sensore.
 
-    \item \textbf{Risoluzione temporale}
+\end{definition}
 
-          indica la frequenza di acquisizione dei frames di un’immagine in
-          movimento.
-\end{itemize}
+
+\begin{definition}
+    \textbf{Risoluzione radiometrica} indica il numero di livelli di quantizzazione.
+
+\end{definition}
+
+
+\begin{definition}
+    \textbf{Risoluzione temporale} indica la frequenza di acquisizione dei frames di un’immagine in
+    movimento.
+\end{definition}
+
+
+
 \section{Alterazioni della risoluzione}
 Alterando i vari tipi di risoluzione, l’immagine presenterà di volta in volta un
 diverso tipo di distorsione. \\ \textbf{Immagine originale:}
+
 %TODO Inserire immagine
+\missingfigure[]{Inserire immagine}
+
 \begin{trivlist}
     \item \textbf{Risoluzione spaziale:} diminuendo la risoluzione spaziale
     (nell’esempio di un quarto) si ottiene il tipico effetto ”quadrettato”,
     detto anche a scacchiera, dovuto all’aliasing.
     %TODO Inserire immagine
+    \missingfigure[]{Inserire immagine}
+
     \item \textbf{Risoluzione spettrale:} Diminuendo la banda passante del
     sensore di acquisizione dell’immagine si ottiene un’immagine più ”sfocata”,
     in quanto i dettagli ad alta frequenza spaziale vanno persi.
     %TODO Inserie Immagine
+    \missingfigure[]{Inserire immagine}
+
     \item \textbf{Risoluzione radiometrica:} Diminuendo la profondità di colore,
     si distinguono in maniera più marcata i passaggi da un colore ad un altro;
     essi risultano pertanto sempre più accentuati e meno graduali, fino a
     produrre dei ”falsi contorni”
     %TODO Inserire Immagine
+    \missingfigure[]{Inserire immagine}
 \end{trivlist}
 
