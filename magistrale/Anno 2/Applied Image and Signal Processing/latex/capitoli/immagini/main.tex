@@ -28,7 +28,7 @@ $$
 
 \section{Rappresentazione di un’immagine}
 La funzione $f$ che rappresenta l’immagine può essere a valori in $\mathbb{R}$,
-in $\mathbb{R}^2$ o in $\mathbb{R}^3$, a seconda del tipo di immagine.
+in $\mathbb{R}^2$ o in $\mathbb{R}^3$, a seconda del tipo di immagine. \TODO{Ricontrollare, $\mathbb{R}^2$ non ha senso}
 
 \begin{itemize}
     \item \textbf{Immagine in scala di grigi:} $f:\mathbb{R}^2 \rightarrow \mathbb{R}$ (funzione
@@ -63,17 +63,19 @@ Infatti un calcolatore elettronico è in grado di trattare solo segnali discreti
 cioè successioni di campioni i cui valori sono rappresentati con precisione
 finita. \\Se si lavora con un segnale continuo $s(t)$, per implementarne lo
 studio al calcolatore è necessario passare ad un opportuno segnale discreto.
+
 \begin{center}
     Ciò avviene utilizzando il procedimento di \textbf{campionamento}, che
     consiste nel discretizzare la variabile temporale $t$.
 \end{center}
+
 Inoltre, è anche necessario discretizzare i valori che la funzione $s(t)$ assume
-(\textbf{quantizzazione}). \\\\Nel caso delle immagini appliccare i processi di:
-\begin{center}
-    \textbf{campionamento + quantizzazione}
-\end{center}
-significa passare da un'immagine \textbf{analogica} ad un'immagine
-\textbf{digitale}
+(\textbf{quantizzazione}).\\
+
+Nel caso delle immagini applicare i processi di \textbf{campionamento} e
+\textbf{quantizzazione} significa passare da un'immagine \textbf{analogica} ad
+un'immagine \textbf{digitale}.
+
 \section{Campionamento di un segnale}
 Il campionamento di un segnale può essere fatto in 2 diversi modi:
 \begin{enumerate}
@@ -85,7 +87,7 @@ Il campionamento di un segnale può essere fatto in 2 diversi modi:
           tempo) di $s(t)$.
     \item \textbf{Nello spazio:} Un’immagine può essere vista come una funzione
           $f(x,y,t)$ dello spazio e del tempo e dunque è necessario
-          discretizzare anche le variabili spaziali. \\Si ottiene in questo modo
+          discretizzare anche le variabili spaziali. Si ottiene in questo modo
           una matrice a tre dimensioni, delle quali due sono spaziali ed una è
           temporale.
 \end{enumerate}
@@ -95,36 +97,45 @@ di vista spaziale che temporale, ovvero che la funzione campionante sia
 periodica di periodo costante. \\\\Fissiamo gli intervalli di campionamento
 $\Delta x$ , $\Delta y$, $\Delta t$ appropriati (dal Teorema Sampling e dalla
 teoria di Nyquist), ovvero la distanza tra due campioni successivi lungo le
-coordinate $x$,$y$ e $t$. \\\\Indichiamo con $N$,$M$,$T$ le dimensioni della
-matrice dei valori campionati dell’immagine. \\\\Andiamo a definire \textbf{la
-    funzione campionante} come:
-\begin{center}
-    $s_c(x,y,t) = \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k
-        \Delta y, t - h  \Delta t )$
-\end{center}
-L'immagine \textbf{campionata diventa}:
-\begin{center}
-    $s_c(x,y,t) = f(x,y,t)s_c(x,y,t)$
-\end{center}
-\begin{center}
-    $= f(x,y,t) \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k
-        \Delta y, t - h  \Delta t )$
-\end{center}
-Lo scopo della funzione campionante sc(x , y, t) è di prelevare i valori
+coordinate $x$, $y$ e $t$.\\Indichiamo con $N$, $M$, $T$ le dimensioni della
+matrice dei valori campionati dell’immagine. Infine possiamo dare le seguenti
+
+\begin{definition}
+    La \textbf{funzione campionante} è
+    $$
+        s_c(x,y,t) = \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k
+        \Delta y, t - h  \Delta t )
+    $$
+\end{definition}
+
+\begin{definition}
+    L'\textbf{immagine campionata} è
+
+    \begin{equation}
+        \begin{aligned}
+            s_c(x,y,t) & = f(x,y,t)s_c(x,y,t) =                                                    \\
+                       & = f(x,y,t) \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k
+            \Delta y, t - h  \Delta t )
+        \end{aligned}
+    \end{equation}
+\end{definition}
+
+Lo scopo della funzione campionante $s_c(x , y, t)$ è di prelevare i valori
 campionati dal segnale continuo di partenza e pertanto ha un caratteristico
-andamento \textbf{pulsante}.ù
+andamento \textbf{pulsante}.
 \begin{itemize}
     \item Il segnale \textbf{non va mai letto}
 
-          quando x cade nel nodo della funzione in quanto non si sarebbe in
+          quando $x$ cade nel nodo della funzione in quanto non si sarebbe in
           grado di leggerlo.
-
     \item Il segnale \textbf{va letto}
-
-          soltanto in $\frac{j}{w}$ ovvero la funzione campionante parellela ai
+          soltanto in $\frac{j}{w}$ ovvero la funzione campionante parallela ai
           campioni.
+          \TODO[]{Ricontrollare questi 2 punti.}
 \end{itemize}
+
 %TODO: Inserire foto
+\missingfigure{Inserire foto}
 
 \section{Quantizzazione}
 Per ottenere una completa discretizzazione di un’immagine è necessario
