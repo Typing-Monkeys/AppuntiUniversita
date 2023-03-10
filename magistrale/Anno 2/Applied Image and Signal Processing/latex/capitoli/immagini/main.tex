@@ -4,237 +4,272 @@ Useremo il Teorema del campionamento per applicarlo al concetto di immagine.
 \begin{definition}
     Un’immagine è una rappresentazione grafica di valori numerici.
 \end{definition}
-In dettaglio un’immagine è una funzione bi-dimensionale $f(x,y)$, dove le variabili (spaziali) $x$ e $y$ sono valori reali che definiscono la posizione dei punti nell’immagine e $f(x,y)$ e in genere un valore reale che definisce l’intensità dell’immagine nel punto $(x,y)$.
-\\\\Il punto che andiamo a definire con le coordinare $x$, $y$ definisce il punto di grigio, al quale appartiene una data intensità.
-\\\\Tutti i colori al calcolatore possono essere scoomposti mediante combinazioni di \textbf{RGB}.
-\\Dove:
-\begin{center}
-    $R = f_1$, $G = f_2$, $B = f_3$
-\end{center}
-\section{Rappresentazione di un’immagine}
-La funzione f che rappresenta l’immagine può essere a valori in R,
-in $R^2$ o in $R^3$, a seconda del tipo di immagine.
+In dettaglio un’immagine è una funzione bi-dimensionale $f(x,y)$, dove le
+variabili (spaziali) $x$ e $y$ sono valori reali che definiscono la posizione
+dei punti nell’immagine e $f(x,y)$ e in genere un valore reale che definisce
+l’intensità dell’immagine nel punto $(x,y)$. \\Il punto che andiamo a definire
+con le coordinare $x$, $y$ definisce il punto di grigio, al quale appartiene una
+data intensità.\\
+
+Tutti i colori al calcolatore possono essere scomposti
+mediante combinazioni di 3 colori principali: \textbf{Rosso}, \textbf{Verde} e
+\textbf{Blu} (\textbf{RGB}). Dove:
+
+$$
+    R = f_1, \ G = f_2, \ B = f_3
+$$
+
+\paragraph{Note:}
 \begin{itemize}
-    \item \textbf{Immagine in scala di grigi:} $f:R^2 \rightarrow R$ (funzione scalare)
-    \item \textbf{Immagine a colori:} $f:R^2 \rightarrow R^3$ (funzione vettoriale)
+    \item In natura i tutti i colori si ottengono a partire da \textbf{Rosso},
+          \textbf{Giallo} e \textbf{Blu} (\textbf{RYB}), ma al computer possiamo ottenere
+          un \textit{"giallo sintetico"} partendo dal Verde.
 \end{itemize}
+
+\section{Rappresentazione di un’immagine}
+La funzione $f$ che rappresenta l’immagine può essere a valori in $\mathbb{R}$,
+in $\mathbb{R}^2$ o in $\mathbb{R}^3$, a seconda del tipo di immagine.
+
+\begin{itemize}
+    \item \textbf{Immagine in scala di grigi:} $f:\mathbb{R}^2 \rightarrow \mathbb{R}$ (funzione
+          scalare)
+    \item \textbf{Immagine a colori:} $f:\mathbb{R}^2 \rightarrow \mathbb{R}^3$ (funzione
+          vettoriale)
+\end{itemize}
+
 Ovvero:
 \begin{center}
     $f(x,y) = [f_1(x,y), f_2(x,y), f_3(x,y)]$
 \end{center}
-dove le componenti $f_i$, $i = 1,2,3$ si dicono canali.
-\\\\Se vogliamo rappresentare una scena in movimento, ottenendo
-ciò e un’\textbf{immagine dinamica}, è necessario introdurre una terza
-variabile, quella \textbf{temporale} ($t$), per cui si lavora con una funzione
-$f: R^3 \rightarrow R^3$.
+dove le componenti $f_i$, $i = 1,2,3$ si dicono canali. \\\\Se vogliamo
+rappresentare una scena in movimento, ottenendo ciò e un’\textbf{immagine
+    dinamica}, è necessario introdurre una terza variabile, quella
+\textbf{temporale} ($t$), per cui si lavora con una funzione $f: R^3 \rightarrow
+    R^3$.
 \begin{center}
     $f(x,y,t) = [f_1(x,y,t), f_2(x ,y,t), f_3(x,y,t)].$
 \end{center}
-Nelle immagini \textbf{Analogiche} conosco l'intensità di ogni livello di grigio in ogni punto.
-Le immagini mostrate al calcolatore invece vanno \textbf{DISCRETIZZATE!}
+Nelle immagini \textbf{Analogiche} conosco l'intensità di ogni livello di grigio
+in ogni punto. Le immagini mostrate al calcolatore invece vanno
+\textbf{DISCRETIZZATE!}
 \section{Discretizzazione}
-Se si vuole utilizzare un calcolatore elettronico per lo studio di un
-segnale, è necessario \textbf{discretizzare} la funzione $s(t)$ che rappresenta
-il segnale. Infatti un calcolatore elettronico è in grado di trattare
-solo segnali discreti, cioè successioni di campioni i cui valori sono
-rappresentati con precisione finita.
-\\Se si lavora con un segnale continuo $s(t)$, per implementarne lo
-studio al calcolatore è necessario passare ad un opportuno segnale
-discreto.
+Se si vuole utilizzare un calcolatore elettronico per lo studio di un segnale, è
+necessario \textbf{discretizzare} la funzione $s(t)$ che rappresenta il segnale.
+Infatti un calcolatore elettronico è in grado di trattare solo segnali discreti,
+cioè successioni di campioni i cui valori sono rappresentati con precisione
+finita. \\Se si lavora con un segnale continuo $s(t)$, per implementarne lo
+studio al calcolatore è necessario passare ad un opportuno segnale discreto.
 \begin{center}
-    Ciò avviene utilizzando il procedimento di \textbf{campionamento}, che consiste nel discretizzare la variabile temporale $t$.
+    Ciò avviene utilizzando il procedimento di \textbf{campionamento}, che
+    consiste nel discretizzare la variabile temporale $t$.
 \end{center}
-Inoltre, è anche necessario discretizzare i valori che la funzione $s(t)$
-assume (\textbf{quantizzazione}).
-\\\\Nel caso delle immagini appliccare i processi di:
+Inoltre, è anche necessario discretizzare i valori che la funzione $s(t)$ assume
+(\textbf{quantizzazione}). \\\\Nel caso delle immagini appliccare i processi di:
 \begin{center}
     \textbf{campionamento + quantizzazione}
 \end{center}
-significa passare da un'immagine \textbf{analogica} ad un'immagine \textbf{digitale}
+significa passare da un'immagine \textbf{analogica} ad un'immagine
+\textbf{digitale}
 \section{Campionamento di un segnale}
 Il campionamento di un segnale può essere fatto in 2 diversi modi:
 \begin{enumerate}
-    \item \textbf{Nel tempo:} Il campionamento di un segnale si ottiene prelevando
-          i valori che il segnale assume soltanto in istanti temporali fissati, in genere individuati tramite una funzione periodica \textbf{(funzione campionante)}.
-          La successione dei valori campionati di s fornisce una rappresentazione \textbf{discreta} (nel tempo) di $s(t)$.
-    \item \textbf{Nello spazio:} Un’immagine può essere vista come una funzione $f(x,y,t)$ dello spazio e del tempo e dunque è necessario discretizzare anche le variabili spaziali.
-          \\Si ottiene in questo modo una matrice a tre dimensioni, delle quali due sono spaziali ed una è temporale.
+    \item \textbf{Nel tempo:} Il campionamento di un segnale si ottiene
+          prelevando i valori che il segnale assume soltanto in istanti
+          temporali fissati, in genere individuati tramite una funzione
+          periodica \textbf{(funzione campionante)}. La successione dei valori
+          campionati di s fornisce una rappresentazione \textbf{discreta} (nel
+          tempo) di $s(t)$.
+    \item \textbf{Nello spazio:} Un’immagine può essere vista come una funzione
+          $f(x,y,t)$ dello spazio e del tempo e dunque è necessario
+          discretizzare anche le variabili spaziali. \\Si ottiene in questo modo
+          una matrice a tre dimensioni, delle quali due sono spaziali ed una è
+          temporale.
 \end{enumerate}
 \section{Funzione Campionante}
-In genere, si assume che il campionamento sia \textbf{uniforme}, sia dal punto di vista spaziale che temporale, ovvero che la funzione campionante sia periodica di periodo costante.
-\\\\Fissiamo gli intervalli di campionamento $\Delta x$ , $\Delta y$, $\Delta t$ appropriati (dal Teorema Sampling e dalla teoria di Nyquist), ovvero la
-distanza tra due campioni successivi lungo le coordinate $x$,$y$ e $t$.
-\\\\Indichiamo con $N$,$M$,$T$ le dimensioni della matrice dei valori campionati dell’immagine.
-\\\\Andiamo a definire \textbf{la funzione campionante} come:
+In genere, si assume che il campionamento sia \textbf{uniforme}, sia dal punto
+di vista spaziale che temporale, ovvero che la funzione campionante sia
+periodica di periodo costante. \\\\Fissiamo gli intervalli di campionamento
+$\Delta x$ , $\Delta y$, $\Delta t$ appropriati (dal Teorema Sampling e dalla
+teoria di Nyquist), ovvero la distanza tra due campioni successivi lungo le
+coordinate $x$,$y$ e $t$. \\\\Indichiamo con $N$,$M$,$T$ le dimensioni della
+matrice dei valori campionati dell’immagine. \\\\Andiamo a definire \textbf{la
+    funzione campionante} come:
 \begin{center}
-    $s_c(x,y,t) = \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k \Delta y, t - h  \Delta t )$
+    $s_c(x,y,t) = \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k
+        \Delta y, t - h  \Delta t )$
 \end{center}
 L'immagine \textbf{campionata diventa}:
 \begin{center}
     $s_c(x,y,t) = f(x,y,t)s_c(x,y,t)$
 \end{center}
 \begin{center}
-    $= f(x,y,t) \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k \Delta y, t - h  \Delta t )$
+    $= f(x,y,t) \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k
+        \Delta y, t - h  \Delta t )$
 \end{center}
-Lo scopo della funzione campionante sc(x , y, t) è di prelevare i
-valori campionati dal segnale continuo di partenza e pertanto ha
-un caratteristico andamento \textbf{pulsante}.ù
+Lo scopo della funzione campionante sc(x , y, t) è di prelevare i valori
+campionati dal segnale continuo di partenza e pertanto ha un caratteristico
+andamento \textbf{pulsante}.ù
 \begin{itemize}
     \item Il segnale \textbf{non va mai letto}
 
-          quando x cade nel nodo della funzione in quanto non si sarebbe in grado di leggerlo.
+          quando x cade nel nodo della funzione in quanto non si sarebbe in
+          grado di leggerlo.
 
     \item Il segnale \textbf{va letto}
 
-          soltanto in $\frac{j}{w}$ ovvero la funzione campionante parellela ai campioni.
+          soltanto in $\frac{j}{w}$ ovvero la funzione campionante parellela ai
+          campioni.
 \end{itemize}
 %TODO: Inserire foto
 
 \section{Quantizzazione}
-Per ottenere una completa discretizzazione di un’immagine è
-necessario discretizzare, oltre al dominio, anche l’insieme immagine
-(insieme dei valori).
+Per ottenere una completa discretizzazione di un’immagine è necessario
+discretizzare, oltre al dominio, anche l’insieme immagine (insieme dei valori).
 \begin{definition}
     Si definisce \textbf{quantizzazione} il procedimento di discretizzazione dei
-    valori della funzione che rappresenta un’immagine, cioè il passaggio
-    da valori continui a valori discreti.
+    valori della funzione che rappresenta un’immagine, cioè il passaggio da
+    valori continui a valori discreti.
 \end{definition}
 Per le immagini a toni di grigio si parla di \textbf{grey level quantization},
-mentre per le immagini a colori si parla di \textbf{color depth}, in
-riferimento al numero di bit utilizzati per ciascun canale di colore
-(8, 16, 24, 32 bit).
+mentre per le immagini a colori si parla di \textbf{color depth}, in riferimento
+al numero di bit utilizzati per ciascun canale di colore (8, 16, 24, 32 bit).
 \begin{itemize}
     \item \textbf{Esempio:}
 
-          Nelle immagini mediche formato \textbf{DOICOM} gli ultimi 4 bit dell'immagine
-          sono riservati ad informazioni personali che servono ad identificare il paziente che ha sostenuto l'esame.
+          Nelle immagini mediche formato \textbf{DOICOM} gli ultimi 4 bit
+          dell'immagine sono riservati ad informazioni personali che servono ad
+          identificare il paziente che ha sostenuto l'esame.
 \end{itemize}
 \section{Immagine Digitale}
-Tramite il campionamento e la quantizzazione è possibile definire
-un’immagine digitale come segue:
+Tramite il campionamento e la quantizzazione è possibile definire un’immagine
+digitale come segue:
 \begin{definition}
-    Una immagine digitale è una rappresentazione di matrici di
-    elementi immagine, detti anche pixel (pixel= picture elements).
+    Una immagine digitale è una rappresentazione di matrici di elementi
+    immagine, detti anche pixel (pixel= picture elements).
 \end{definition}
 \begin{itemize}
     \item Il \textbf{pixel} costituisce la componente elementare della matrice,
           dove gli indici di riga e colonna indicano i valori delle due
           variabili spaziali, cioè la posizione di un punto nell’immagine.
-    \item Ogni elemento della matrice contiene i valori che
-          rappresentano l’intensità dei corrispondenti punti
-          nell’immagine, anche detta \textbf{luminanza}.
+    \item Ogni elemento della matrice contiene i valori che rappresentano
+          l’intensità dei corrispondenti punti nell’immagine, anche detta
+          \textbf{luminanza}.
 \end{itemize}
 \section{Teorema Campionamento Immagini}
 L'Immagine campionata è rappresentata tramite la seguente formula:
 \begin{center}
-    $s_c(x,y) = f(x,y)s_c(x,y)=f(x,y)\sum_{j=-\infty}^{+\infty} \sum_{k=-\infty}^{+\infty} \delta (x-j \Delta x, y-k \Delta y)$
+    $s_c(x,y) = f(x,y)s_c(x,y)=f(x,y)\sum_{j=-\infty}^{+\infty}
+        \sum_{k=-\infty}^{+\infty} \delta (x-j \Delta x, y-k \Delta y)$
 \end{center}
-dove $s_c(x,y)$ è \textbf{la funzione campionante}.
-\\\\Si può provare che c’è una relazione tra $\hat{f}_c$ e $\hat{f}$. Per questo è importante assumere che lo spettro del segnale f sia \textbf{a banda limitata}, cioè:
+dove $s_c(x,y)$ è \textbf{la funzione campionante}. \\\\Si può provare che c’è
+una relazione tra $\hat{f}_c$ e $\hat{f}$. Per questo è importante assumere che
+lo spettro del segnale f sia \textbf{a banda limitata}, cioè:
 \begin{center}
     $\hat{f}(w_x,w_y)=0$ per $|w_x| > \bar{w}_x$ e $|w_y| > \bar{w}_y$
 \end{center}
 dove $\bar{ω_x}$ e $\bar{ω_y}$ definiscono la banda rettangolare dell’immagine.
-\\Così lo spettro dell’immagine campionata consiste nello spettro
-dell’immagine continua infinitamente ripetuta nel piano delle
-frequenze, in una griglia di risoluzione ($\frac{2\pi}{\Delta x}, \frac{2 \pi}{\Delta y}$), dove:
+\\Così lo spettro dell’immagine campionata consiste nello spettro dell’immagine
+continua infinitamente ripetuta nel piano delle frequenze, in una griglia di
+risoluzione ($\frac{2\pi}{\Delta x}, \frac{2 \pi}{\Delta y}$), dove:
 \begin{center}
     ($\frac{2\pi}{\Delta x}, \frac{2 \pi}{\Delta y}$) = $(w_{xe}, w_{ye})$
 \end{center}
-sono le \textbf{frequenze Sampling}.
-\\\\Per ricostruire esattamente un segnale campionato, la frequenza
-del campionamento non deve essere inferiore ad una \textbf{frequenza
-    minima (ovvero frequenza sampling)}, che corrisponde ad un valore
-massimo per ciascuno degli intervalli $\Delta x$ , $\Delta y$.
-\\\\Tale valore minimo deve essere almeno pari al doppio della banda
-massima di $f$ , cioè:
+sono le \textbf{frequenze Sampling}. \\\\Per ricostruire esattamente un segnale
+campionato, la frequenza del campionamento non deve essere inferiore ad una
+\textbf{frequenza minima (ovvero frequenza sampling)}, che corrisponde ad un
+valore massimo per ciascuno degli intervalli $\Delta x$ , $\Delta y$. \\\\Tale
+valore minimo deve essere almeno pari al doppio della banda massima di $f$ ,
+cioè:
 \begin{center}
     $w_{xe} >= 2 \bar{w_x}$ e $w_{ye} >= 2 \bar{w_y}$
 \end{center}
 Se nella (1) vale l’uguaglianza, allora si dice che l’immagine è
 \textbf{campionata alla sua frequenza di Nyquist.}
-\\\\Se $\Delta x$ e $\Delta y$ sono più piccoli del richiesto criterio di Nyquist,
-l’immagine risulta sovracampionata \textbf{(oversampling)}.
-Nel caso contrario, l’immagine non può essere ricostruita
-esattamente: si parla di sottocampionamento \textbf{(undersampling)} e si
-presenta un fenomeno di distorsione detto \textbf{aliasing.}
+\\\\Se $\Delta x$ e $\Delta y$ sono più piccoli del richiesto criterio di
+Nyquist, l’immagine risulta sovracampionata \textbf{(oversampling)}. Nel caso
+contrario, l’immagine non può essere ricostruita esattamente: si parla di
+sottocampionamento \textbf{(undersampling)} e si presenta un fenomeno di
+distorsione detto \textbf{aliasing.}
 \begin{itemize}
     \item \textbf{Osservazione:}
 
-          il valore minimo è un valore puramente teorico.
-          \\Nella pratica, non potendo in generale determinare con precisione la banda massima del segnale, si utilizzano frequenze di campionamento più alte.
-          \\Spesso si campiona con una frequenza pari a 4 volte quella misurata.
+          il valore minimo è un valore puramente teorico. \\Nella pratica, non
+          potendo in generale determinare con precisione la banda massima del
+          segnale, si utilizzano frequenze di campionamento più alte. \\Spesso
+          si campiona con una frequenza pari a 4 volte quella misurata.
 \end{itemize}
 \begin{theorem}
     Sia $f(x,y)$ una immagine a banda limitata e ad energia finita,
-    soddisfacente quindi la condizione $\hat{f}(w_x,w_y) = 0$, per $| w_x | > \bar{ω_x}$ e
-    $| w_y | > \bar{w_y}$; se $f$ è uniformemente campionata in una griglia rettangolare
-    con intervalli spaziali $\Delta x$, $\Delta y$, allora la $f$ può essere ricostruita dai suoi
-    valori campione $f(j \Delta x, k \Delta y)$ a condizione che l’ordine di campionamento
-    sia più grande dell’ordine di Nyquist, cioè $w_{xe} >= 2 \bar{w_x}$, $w_{ye} >= 2 \bar{w_y}$.
-    Inoltre,l’immagine ricostruita è data dalla seguente formula di interpolazione:
+    soddisfacente quindi la condizione $\hat{f}(w_x,w_y) = 0$, per $| w_x | >
+        \bar{ω_x}$ e $| w_y | > \bar{w_y}$; se $f$ è uniformemente campionata in una
+    griglia rettangolare con intervalli spaziali $\Delta x$, $\Delta y$, allora
+    la $f$ può essere ricostruita dai suoi valori campione $f(j \Delta x, k
+        \Delta y)$ a condizione che l’ordine di campionamento sia più grande
+    dell’ordine di Nyquist, cioè $w_{xe} >= 2 \bar{w_x}$, $w_{ye} >= 2
+        \bar{w_y}$. Inoltre,l’immagine ricostruita è data dalla seguente formula di
+    interpolazione:
 \end{theorem}
 \begin{center}
-    $f(x,y) = \sum_{j=-\infty}^{+\infty} \sum_{k=-\infty}^{+\infty} f(j \Delta x, k \Delta y) (\frac{\sin(xw_{xe}-j)\pi}{(xw_{xe}-j)\pi})  (\frac{\sin(yw_{ye}-k)\pi}{(yw_{ye}-k)\pi})$
+    $f(x,y) = \sum_{j=-\infty}^{+\infty} \sum_{k=-\infty}^{+\infty} f(j \Delta
+        x, k \Delta y) (\frac{\sin(xw_{xe}-j)\pi}{(xw_{xe}-j)\pi})
+        (\frac{\sin(yw_{ye}-k)\pi}{(yw_{ye}-k)\pi})$
 \end{center}
 \section{L'aliasing}
-Per ricostruire esattamente una immagine, è necessario limitare in
-banda l’immagine che deve essere campionata, campionando all’ordine di campionamento di Nyquist o più grande e
-interpolando appropriatamente i valori immagine.
-\\\\Se c’è sovrapposizione di spettri, risultante dal
-sottocampionamento, vuol dire che componenti spettrali spurie
-sono state introdotte nel processo di ricostruzione. L’effetto che si
-ottiene è chiamato aliasing.
+Per ricostruire esattamente una immagine, è necessario limitare in banda
+l’immagine che deve essere campionata, campionando all’ordine di campionamento
+di Nyquist o più grande e interpolando appropriatamente i valori immagine.
+\\\\Se c’è sovrapposizione di spettri, risultante dal sottocampionamento, vuol
+dire che componenti spettrali spurie sono state introdotte nel processo di
+ricostruzione. L’effetto che si ottiene è chiamato aliasing.
 %TODO: Inserire foto appunti fatti a mano 
 
-Quindi l'aliasing è la presenza di componenti spettrali (frequenze)
-indesiderate nella ricostruzione dell’immagine, componenti che non
-erano presenti quando l’immagine originale era stata campionata.
+Quindi l'aliasing è la presenza di componenti spettrali (frequenze) indesiderate
+nella ricostruzione dell’immagine, componenti che non erano presenti quando
+l’immagine originale era stata campionata.
 
 %TODO Inserire immagini
 
-L’aliasing deriva dal sottocampionamento e causa perdita di
-risoluzione dell’immagine campionata (effetto scacchiera).
+L’aliasing deriva dal sottocampionamento e causa perdita di risoluzione
+dell’immagine campionata (effetto scacchiera).
 
 %TODO Inserire Immagini
 
 \begin{itemize}
-    \item Per prevenire aliasing di queste componenti, è possibile
-          filtrarle via (eliminarle) prima di campionare il segnale.
-          Eliminare certe frequenze e lasciare passare le basse frequenze,
-          è una operazione nota come \textbf{filtraggio passa-basso}.
-    \item Ogni attenuazione relativa a questo processo di filtraggio
-          rappresenta una perdita di risoluzione dell’immagine
-          campionata.
-    \item Come risultato, mentre da un lato c’è una perdita della
-          risoluzione dell’immagine campionata, dall’altro c’è una
-          attenuazione dell’aliasing error.
-    \item \textbf{Effetto Moirè:} ovvero la distorsione visiva che si manifesta quando due
-          griglie si sovrappongono
+    \item Per prevenire aliasing di queste componenti, è possibile filtrarle via
+          (eliminarle) prima di campionare il segnale. Eliminare certe frequenze
+          e lasciare passare le basse frequenze, è una operazione nota come
+          \textbf{filtraggio passa-basso}.
+    \item Ogni attenuazione relativa a questo processo di filtraggio rappresenta
+          una perdita di risoluzione dell’immagine campionata.
+    \item Come risultato, mentre da un lato c’è una perdita della risoluzione
+          dell’immagine campionata, dall’altro c’è una attenuazione
+          dell’aliasing error.
+    \item \textbf{Effetto Moirè:} ovvero la distorsione visiva che si manifesta
+          quando due griglie si sovrappongono
           %TODO: Inserire foto
 \end{itemize}
 \section{La risoluzione}
 Il campionamento e la quantizzazione determinano la \textbf{risoluzione}
-dell’immagine.
-\\\\La \textbf{risoluzione} di un segnale è un indice del grado di qualità
-dell’immagine: misura il grado di oggetti distinguibili
+dell’immagine. \\\\La \textbf{risoluzione} di un segnale è un indice del grado
+di qualità dell’immagine: misura il grado di oggetti distinguibili
 nell’immagine.
 \begin{itemize}
     \item \textbf{Risoluzione spaziale}
 
-          Indica la densità dei campioni, ovvero è data dal numero di campioni per unità di area.
-          \\\\Spesso è espressa come numero di pixel nell’unità di lunghezza
-          e viene misurata in pixel per pollice (ppi).
+          Indica la densità dei campioni, ovvero è data dal numero di campioni
+          per unità di area. \\\\Spesso è espressa come numero di pixel
+          nell’unità di lunghezza e viene misurata in pixel per pollice (ppi).
           \\Un’immagine ad alta risoluzione contiene più pixel di una delle
-          stesse dimensioni con una risoluzione inferiore, quindi è in
-          grado di riprodurre un maggior numero di dettagli. Un’elevata
-          risoluzione comporta tuttavia un aumento considerevole delle
-          dimensioni (quantità di dati) dell’immagine.
+          stesse dimensioni con una risoluzione inferiore, quindi è in grado di
+          riprodurre un maggior numero di dettagli. Un’elevata risoluzione
+          comporta tuttavia un aumento considerevole delle dimensioni (quantità
+          di dati) dell’immagine.
           \begin{itemize}
               \item \textbf{Esempio:}
 
                     Un’immagine di 1cm x 1cm con una risoluzione di 72 ppi
-                    contiene 5184 pixel (72 x 72). La stessa immagine di 1 cm x 1 cm a 300 ppi conterrebbe 90.000 pixel.
+                    contiene 5184 pixel (72 x 72). La stessa immagine di 1 cm x
+                    1 cm a 300 ppi conterrebbe 90.000 pixel.
           \end{itemize}
     \item \textbf{Risoluzione spettrale}
 
@@ -246,27 +281,26 @@ nell’immagine.
 
     \item \textbf{Risoluzione temporale}
 
-          indica la frequenza di acquisizione dei frames di un’immagine in movimento.
+          indica la frequenza di acquisizione dei frames di un’immagine in
+          movimento.
 \end{itemize}
 \section{Alterazioni della risoluzione}
-Alterando i vari tipi di risoluzione, l’immagine presenterà di volta in
-volta un diverso tipo di distorsione.
-\\ \textbf{Immagine originale:}
+Alterando i vari tipi di risoluzione, l’immagine presenterà di volta in volta un
+diverso tipo di distorsione. \\ \textbf{Immagine originale:}
 %TODO Inserire immagine
 \begin{trivlist}
     \item \textbf{Risoluzione spaziale:} diminuendo la risoluzione spaziale
-    (nell’esempio di un quarto) si ottiene il tipico effetto
-    ”quadrettato”, detto anche a scacchiera, dovuto all’aliasing.
+    (nell’esempio di un quarto) si ottiene il tipico effetto ”quadrettato”,
+    detto anche a scacchiera, dovuto all’aliasing.
     %TODO Inserire immagine
     \item \textbf{Risoluzione spettrale:} Diminuendo la banda passante del
-    sensore di acquisizione dell’immagine si ottiene un’immagine
-    più ”sfocata”, in quanto i dettagli ad alta frequenza spaziale
-    vanno persi.
+    sensore di acquisizione dell’immagine si ottiene un’immagine più ”sfocata”,
+    in quanto i dettagli ad alta frequenza spaziale vanno persi.
     %TODO Inserie Immagine
-    \item \textbf{Risoluzione radiometrica:} Diminuendo la profondità di
-    colore, si distinguono in maniera più marcata i passaggi da un
-    colore ad un altro; essi risultano pertanto sempre più
-    accentuati e meno graduali, fino a produrre dei ”falsi contorni”
+    \item \textbf{Risoluzione radiometrica:} Diminuendo la profondità di colore,
+    si distinguono in maniera più marcata i passaggi da un colore ad un altro;
+    essi risultano pertanto sempre più accentuati e meno graduali, fino a
+    produrre dei ”falsi contorni”
     %TODO Inserire Immagine
 \end{trivlist}
 
