@@ -149,79 +149,102 @@ Per le immagini a toni di grigio si parla di \textbf{grey level quantization},
 mentre per le immagini a colori si parla di \textbf{color depth}, in riferimento
 al numero di bit utilizzati per ciascun canale di colore (8, 16, 24, 32 bit).
 \begin{itemize}
-    \item \textbf{Esempio:}
-
-          Nelle immagini mediche formato \textbf{DOICOM} gli ultimi 4 bit
-          dell'immagine sono riservati ad informazioni personali che servono ad
-          identificare il paziente che ha sostenuto l'esame.
+    \item \textbf{Esempio 1:} \TODO[]{Si potrebbe aggiungere qualche altra informazione}
+          Le immagini che siamo abituati a vedere tutti i giorni sui nostri cellulari
+          sono immagini a colori a 8bit.
+    \item \textbf{Esempio 2:} Nelle immagini mediche, di solito in formato
+          \textbf{DICOM}, le immagini vengono rappresentate a 16bit ma gli
+          ultimi 4 bit dell'immagine sono riservati ad informazioni personali
+          che servono ad identificare il paziente che ha sostenuto l'esame.
 \end{itemize}
 \section{Immagine Digitale}
 Tramite il campionamento e la quantizzazione è possibile definire un’immagine
 digitale come segue:
 \begin{definition}
     Una immagine digitale è una rappresentazione di matrici di elementi
-    immagine, detti anche pixel (pixel= picture elements).
+    immagine, detti anche pixel (pixel = picture elements). Dove
+
+    \begin{itemize}
+        \item Il \textbf{pixel} costituisce la componente elementare della matrice,
+              dove gli indici di riga e colonna indicano i valori delle due
+              variabili spaziali, cioè la posizione di un punto nell’immagine.
+        \item Ogni elemento della matrice contiene i valori che rappresentano
+              l’intensità dei corrispondenti punti nell’immagine, anche detta
+              \textbf{luminanza}.
+    \end{itemize}
 \end{definition}
-\begin{itemize}
-    \item Il \textbf{pixel} costituisce la componente elementare della matrice,
-          dove gli indici di riga e colonna indicano i valori delle due
-          variabili spaziali, cioè la posizione di un punto nell’immagine.
-    \item Ogni elemento della matrice contiene i valori che rappresentano
-          l’intensità dei corrispondenti punti nell’immagine, anche detta
-          \textbf{luminanza}.
-\end{itemize}
-\section{Teorema Campionamento Immagini}
+
+\section{Teorema del Campionamento nelle Immagini}
 L'Immagine campionata è rappresentata tramite la seguente formula:
-\begin{center}
-    $s_c(x,y) = f(x,y)s_c(x,y)=f(x,y)\sum_{j=-\infty}^{+\infty}
-        \sum_{k=-\infty}^{+\infty} \delta (x-j \Delta x, y-k \Delta y)$
-\end{center}
+
+$$
+    s_c(x,y) = f(x,y)s_c(x,y)=f(x,y)\sum_{j=-\infty}^{+\infty}
+    \sum_{k=-\infty}^{+\infty} \delta (x-j \Delta x, y-k \Delta y)
+$$
+
 dove $s_c(x,y)$ è \textbf{la funzione campionante}. \\\\Si può provare che c’è
 una relazione tra $\hat{f}_c$ e $\hat{f}$. Per questo è importante assumere che
-lo spettro del segnale f sia \textbf{a banda limitata}, cioè:
-\begin{center}
-    $\hat{f}(w_x,w_y)=0$ per $|w_x| > \bar{w}_x$ e $|w_y| > \bar{w}_y$
-\end{center}
-dove $\bar{ω_x}$ e $\bar{ω_y}$ definiscono la banda rettangolare dell’immagine.
+lo spettro del segnale $f$ sia \textbf{a banda limitata}, cioè:
+
+$$
+    \hat{f}(\omega_x, \omega_y)=0 \text{ per } |\omega_x| > \bar{\omega}_x \text{ e } |\omega_y| > \bar{\omega}_y
+$$
+dove $\bar{\omega}_x$ e $\bar{\omega}_y$ definiscono la banda rettangolare dell’immagine.
 \\Così lo spettro dell’immagine campionata consiste nello spettro dell’immagine
 continua infinitamente ripetuta nel piano delle frequenze, in una griglia di
 risoluzione ($\frac{2\pi}{\Delta x}, \frac{2 \pi}{\Delta y}$), dove:
-\begin{center}
-    ($\frac{2\pi}{\Delta x}, \frac{2 \pi}{\Delta y}$) = $(w_{xe}, w_{ye})$
-\end{center}
+
+$$
+    (\frac{2\pi}{\Delta x}, \frac{2 \pi}{\Delta y}) = (w_{xe}, w_{ye})
+$$
+
 sono le \textbf{frequenze Sampling}. \\\\Per ricostruire esattamente un segnale
 campionato, la frequenza del campionamento non deve essere inferiore ad una
 \textbf{frequenza minima (ovvero frequenza sampling)}, che corrisponde ad un
-valore massimo per ciascuno degli intervalli $\Delta x$ , $\Delta y$. \\\\Tale
+valore \TODO[]{Ricontrollare, prima viene detto 'valore massimo' e poi 'valore minimo'.}massimo per ciascuno degli intervalli $\Delta x$ , $\Delta y$. Tale
 valore minimo deve essere almeno pari al doppio della banda massima di $f$ ,
 cioè:
-\begin{center}
-    $w_{xe} >= 2 \bar{w_x}$ e $w_{ye} >= 2 \bar{w_y}$
-\end{center}
-Se nella (1) vale l’uguaglianza, allora si dice che l’immagine è
+
+$$
+    \omega_{xe} \geq 2 \bar{\omega}_x \text{ e } \omega_{ye} \geq 2 \bar{\omega}_y
+$$
+
+Se nella \TODO[]{Mo la (1) che è ?}(1) vale l’uguaglianza, allora si dice che l’immagine è
 \textbf{campionata alla sua frequenza di Nyquist.}
 \\\\Se $\Delta x$ e $\Delta y$ sono più piccoli del richiesto criterio di
 Nyquist, l’immagine risulta sovracampionata \textbf{(oversampling)}. Nel caso
 contrario, l’immagine non può essere ricostruita esattamente: si parla di
 sottocampionamento \textbf{(undersampling)} e si presenta un fenomeno di
 distorsione detto \textbf{aliasing.}
-\begin{itemize}
-    \item \textbf{Osservazione:}
 
-          il valore minimo è un valore puramente teorico. \\Nella pratica, non
+\paragraph{Note:}
+\begin{itemize}
+    \item il valore minimo è un valore puramente teorico. \\Nella pratica, non
           potendo in generale determinare con precisione la banda massima del
           segnale, si utilizzano frequenze di campionamento più alte. \\Spesso
           si campiona con una frequenza pari a 4 volte quella misurata.
 \end{itemize}
+
 \begin{theorem}
-    Sia $f(x,y)$ una immagine a banda limitata e ad energia finita,
-    soddisfacente quindi la condizione $\hat{f}(w_x,w_y) = 0$, per $| w_x | >
-        \bar{ω_x}$ e $| w_y | > \bar{w_y}$; se $f$ è uniformemente campionata in una
-    griglia rettangolare con intervalli spaziali $\Delta x$, $\Delta y$, allora
+    Sia $f(x,y)$ una immagine
+    \begin{itemize}
+        \item  a banda limitata e ad energia finita, soddisfa quindi
+              $$
+                  \hat{f}(\omega_x,\omega_y) = 0 \text{ per } | \omega_x | >
+                  \bar{\omega}_x \text{ e } | \omega_y | > \bar{\omega}_y;
+              $$
+        \item con $f$ uniformemente campionata in una
+              griglia rettangolare con intervalli spaziali $\Delta x$, $\Delta y$,
+        \item che abbia l'ordine di campionamento più grande dell'ordine di
+              Nyquist, cioè
+              $$
+                  \omega_{xe} \geq 2 \bar{\omega}_x, \ \omega_{ye} \geq 2 \bar{\omega}_y
+              $$
+    \end{itemize}
+
+    allora
     la $f$ può essere ricostruita dai suoi valori campione $f(j \Delta x, k
-        \Delta y)$ a condizione che l’ordine di campionamento sia più grande
-    dell’ordine di Nyquist, cioè $w_{xe} >= 2 \bar{w_x}$, $w_{ye} >= 2
-        \bar{w_y}$. Inoltre,l’immagine ricostruita è data dalla seguente formula di
+        \Delta y)$. Inoltre, l’immagine ricostruita è data dalla seguente formula di
     interpolazione:
 \end{theorem}
 \begin{center}
