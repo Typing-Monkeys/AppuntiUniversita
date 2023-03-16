@@ -110,12 +110,10 @@ matrice dei valori campionati dell’immagine. Infine possiamo dare le seguenti
 
 \begin{definition}
     L'\textbf{immagine campionata} è
-
     \begin{equation}
         \begin{aligned}
-            s_c(x,y,t) & = f(x,y,t)s_c(x,y,t) =                                                    \\
-                       & = f(x,y,t) \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k
-            \Delta y, t - h  \Delta t )
+            s_c(x,y,t) & = f(x,y,t)s_c(x,y,t) =                                                                                \\
+                       & = f(x,y,t) \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j, y - k \Delta y, t - h  \Delta t )
         \end{aligned}
     \end{equation}
 \end{definition}
@@ -125,7 +123,7 @@ campionati dal segnale continuo di partenza e pertanto ha un caratteristico
 andamento \textbf{pulsante}.
 \begin{itemize}
     \item Il segnale \textbf{non va mai letto}
-
+          
           quando $x$ cade nel nodo della funzione in quanto non si sarebbe in
           grado di leggerlo.
     \item Il segnale \textbf{va letto}
@@ -163,7 +161,7 @@ digitale come segue:
 \begin{definition}
     Una immagine digitale è una rappresentazione di matrici di elementi
     immagine, detti anche pixel (pixel = picture elements). Dove
-
+    
     \begin{itemize}
         \item Il \textbf{pixel} costituisce la componente elementare della matrice,
               dove gli indici di riga e colonna indicano i valori delle due
@@ -241,7 +239,7 @@ distorsione detto \textbf{aliasing.}
                   \omega_{xe} \geq 2 \bar{\omega}_x, \ \omega_{ye} \geq 2 \bar{\omega}_y
               $$
     \end{itemize}
-
+    
     allora
     la $f$ può essere ricostruita dai suoi valori campione $f(j \Delta x, k
         \Delta y)$. Inoltre, l’immagine ricostruita è data dalla seguente formula di
@@ -261,20 +259,24 @@ dire che componenti spettrali spurie sono state introdotte nel processo di
 ricostruzione. L’effetto che si ottiene è chiamato aliasing.
 
 %TODO: Inserire foto appunti fatti a mano 
-\missingfigure{Inserire foto appunti fatti a mano}
+\missingfigure{Inserire foto appunti fatti a mano }
 
 Quindi l'aliasing è la presenza di componenti spettrali (frequenze) indesiderate
 nella ricostruzione dell’immagine, componenti che non erano presenti quando
 l’immagine originale era stata campionata.
 
-%TODO Inserire immagini
-\missingfigure{Inserire immagini}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/aliasing_componenti_spettrali.jpg}
+\end{figure}
 
 L’aliasing deriva dal sottocampionamento e causa perdita di risoluzione
 dell’immagine campionata (effetto scacchiera).
 
-%TODO Inserire Immagini
-\missingfigure[]{Inserire immagini}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/aliasing_tajmahal.jpg}
+\end{figure}
 
 \paragraph{Note:} \TODO[]{Pricontrollare, potrebbe essere reso discorsivo.}
 \begin{itemize}
@@ -289,8 +291,10 @@ dell’immagine campionata (effetto scacchiera).
           dell’aliasing error.
     \item \textbf{Effetto Moirè:} ovvero la distorsione visiva che si manifesta
           quando due griglie si sovrappongono
-          %TODO: Inserire foto
-          \missingfigure[]{Inserire foto}
+          \begin{figure}[H]
+              \centering
+              \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/effetto_moire.jpg}
+          \end{figure}
 \end{itemize}
 
 \section{La risoluzione}
@@ -320,13 +324,13 @@ contiene 5184 pixel (72 x 72). La stessa immagine di 1 cm x
 
 \begin{definition}
     La \textbf{Risoluzione spettrale} indica la banda passante del sensore.
-
+    
 \end{definition}
 
 
 \begin{definition}
     \textbf{Risoluzione radiometrica} indica il numero di livelli di quantizzazione.
-
+    
 \end{definition}
 
 
@@ -341,27 +345,363 @@ contiene 5184 pixel (72 x 72). La stessa immagine di 1 cm x
 Alterando i vari tipi di risoluzione, l’immagine presenterà di volta in volta un
 diverso tipo di distorsione. \\ \textbf{Immagine originale:}
 
-%TODO Inserire immagine
-\missingfigure[]{Inserire immagine}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/alterazione_risoluzioni_esempio_base.jpg}
+\end{figure}
 
 \begin{trivlist}
     \item \textbf{Risoluzione spaziale:} diminuendo la risoluzione spaziale
     (nell’esempio di un quarto) si ottiene il tipico effetto ”quadrettato”,
     detto anche a scacchiera, dovuto all’aliasing.
-    %TODO Inserire immagine
-    \missingfigure[]{Inserire immagine}
-
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/esempio_risoluzione_spaziale.jpg}
+    \end{figure}
+    
     \item \textbf{Risoluzione spettrale:} Diminuendo la banda passante del
     sensore di acquisizione dell’immagine si ottiene un’immagine più ”sfocata”,
     in quanto i dettagli ad alta frequenza spaziale vanno persi.
-    %TODO Inserie Immagine
-    \missingfigure[]{Inserire immagine}
-
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/esempio_risoluzione_spettrale.jpg}
+    \end{figure}
+    
     \item \textbf{Risoluzione radiometrica:} Diminuendo la profondità di colore,
     si distinguono in maniera più marcata i passaggi da un colore ad un altro;
     essi risultano pertanto sempre più accentuati e meno graduali, fino a
     produrre dei ”falsi contorni”
-    %TODO Inserire Immagine
-    \missingfigure[]{Inserire immagine}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/esempio_risoluzione_radiometrica.jpg}
+    \end{figure}
 \end{trivlist}
 
+\section{Immagini in bianco e nero e immagini a colori}
+
+\subsection{Immagini in bianco e nero}
+
+Un’\textbf{immagine in bianco e nero (b/w)} è caratterizzata da una
+rappresentazione binaria, ovvero la funzione che la rappresenta in
+ogni punto ($x$ , $y$) può assumere solo due valori: 0 e 1. In genere,
+ad 1 si associa il bianco, mentre a 0 il nero.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/immagine_binaria_bianco_nero.jpg}
+\end{figure}
+
+\subsection{Immagini a colori}
+
+Per rappresentare un’\textbf{immagine a colori} è necessario ricorrere ad
+una funzione vettoriale. Un colore infatti può essere sempre
+decomposto come \textbf{somma dei tre colori fondamentali (rosso, verde,
+    blu)}, ciascuno con un’opportuna intensità.
+Un’immagine a colori, dunque, può essere rappresentata da una
+funzione $f: \mathbb{R}^2 \rightarrow \mathbb{R}^3$ del tipo
+
+$$
+    f(x, y) = [R(x, y), G(x, y), B(x, y)]
+$$
+
+Questo tipo di rappresentazione viene detta \textbf{RGB (Red,Green,Blue)}.
+\subsection{Lo spazio RGB}
+
+Lo spazio RGB è uno spazio cartesiano, con tre assi ortogonali.
+Il colore di ciascun pixel viene rappresentato da un vettore
+$[R(x , y), G(x , y), B(x , y)]$ nello spazio RGB; ogni componente
+indica la quantit`a di rosso, verde e blu, rispettivamente, necessari
+ad ottenere quel colore.
+In base alla rappresentazione RGB, un’immagine a colori viene
+rappresentata da una terna di matrici, ognuna delle quali contiene i
+valori relativi ad un canale di colore.\\
+Ogni canale, preso a sè, non è altro che un’immagine a toni di
+grigio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm, keepaspectratio]{capitoli/immagini/imgs/canali_RGB_e_grigio.jpg}
+\end{figure}
+
+\subsection{Lo spazio HSV}
+
+Oltre alla RGB esistono anche altri tipi di rappresentazioni (che
+possono essere in genere derivate da essa).
+Una di queste è la rappresentazione \textbf{HSV}. Lo spazio HSV ha un
+sistema di coordinate cilindrico con due assi ortogonali ed un
+angolo di rotazione intorno ad uno dei due assi.
+L’altezza del cono rappresenta la \textbf{luminosità (Value)}, con valori da
+0 (nero) a 1 (bianco). La \textbf{saturazione (Saturation)} indica l’intensità
+e la purezza del colore, con valori da 0 (sull’asse del cono) a 1
+(sulla superficie del cono). La terza coordinata rappresenta la
+\textbf{tonalità di colore (Hue)} e viene misurata da un angolo intorno
+all’asse verticale (rosso a 0 gradi, verde a 120 e blu a 240).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/cilindro_hsv.jpg}
+\end{figure}
+
+\section{Immagini a toni di grigio}
+
+Un’immagine a toni di grigio è rappresentata da una matrice le cui
+entrate sono i valori che la funzione $f$ assume in ogni punto.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm, keepaspectratio]{capitoli/immagini/imgs/rappresentazione_immagine_toni_grigio.jpg}
+\end{figure}
+
+In genere, si assume che i \textbf{livelli di grigio} siano discreti ed
+equispaziati in un intervallo di valori normalmente \textbf{tra 0 e 255}:
+esistono allora un massimo di 256 livelli di grigio.
+\\
+La funzione $f (x , y)$ può essere rappresentata come una superficie
+nello spazio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/funzione_toni_grigio.jpg}
+\end{figure}
+
+\subsection{Zoom e Shrink}
+
+\textbf{DA IMPLEMENTARE QUANDO IL PROF LE SPIEGA}
+
+\subsection{Elaborazione delle immagini}
+L’elaborazione delle immagini è una disciplina che prevede l’utilizzo
+di algoritmi i quali operano sui pixel che compongono l’immagine
+e, applicando trasformazioni numeriche, restituiscono un’immagine
+modificata.\\
+Le tecniche di elaborazione delle immagini hanno vari scopi, fra cui:
+
+\begin{itemize}
+    \item il miglioramento della qualità dell’immagine (\textbf{image enhancement})
+    \item il ripristino della qualità dell’immagine (\textbf{image restoration})
+    \item l’estrazione di informazioni sul contenuto dell’immagine (\textbf{image analysis})
+\end{itemize}
+
+\textbf{Note:}\\
+
+\begin{itemize}
+    \item L’\textbf{image analysis} è una parte fondamentale della computer vision e
+          precede l’\textbf{image recognition}.\\
+          Essa può richiedere elaborazioni differenti a seconda del tipo di
+          informazione che si vuole estrarre: tra queste, le elaborazioni nel
+          dominio spaziale, nel dominio delle frequenze, con riduzione dei
+          dati tra ingresso e uscita (compressione), etc.
+\end{itemize}
+
+\textbf{Esempio:}\\
+
+Un’elaborazione nel dominio spaziale, ad esempio, può essere
+espressa come
+
+$$
+    g(x , y) = T(f (x , y))
+$$
+
+\begin{itemize}
+    \item $f$ è l’immagine di ingresso
+    \item $g$ è l’immagine di uscita
+    \item $T$ è un operatore su f, definito in un intorno di $(x , y)$.
+\end{itemize}
+
+La natura dell’intorno definisce il tipo di elaborazione e si distingue,
+in particolare, fra: \textbf{elaborazioni puntuali}, \textbf{locali} e \textbf{globali}.
+
+\begin{definition}
+    Le elaborazioni \textbf{puntuali} trasformano il valore di un pixel sulla base del 
+    valore del pixel stesso.
+\end{definition}
+
+\begin{definition}
+    Le elaborazioni \textbf{locali} lavorano sulla base dei valori assunti dai pixel in 
+    un intorno di quello preso in esame.
+\end{definition}
+
+\begin{definition}
+    Le elaborazioni \textbf{globali} trasformano il valore di un pixel sulla
+    base dei valori assunti da tutti i pixel dell’immagine.
+\end{definition}
+
+\subsubsection{Elaborazioni Puntuali}
+
+\begin{definition}
+    Un’elaborazione puntuale si dice \textbf{omogenea} se il risultato
+    dipende solo dal valore del pixel a cui è applicata.\\
+    Se invece il risultato dipende anche dalla posizione del pixel,
+    l’elaborazione puntuale è \textbf{non omogenea}.
+\end{definition}
+
+\textbf{Note:}\\
+
+Elaborazioni puntuali sono anche dette \textbf{manipolazioni della scala dei
+    grigi}\\
+Un’elaborazione puntuale omogenea può essere rappresentata da
+una trasformazione
+
+$$
+    s = T(r)
+$$
+
+\begin{itemize}
+    \item $r$ è il livello di grigio dell’immagine di ingresso
+    \item $s$ è il livello di grigio dell’immagine in uscita
+\end{itemize}
+In base al tipo di funzione T si ottiene un tipo diverso di
+trasformazione: a \textbf{gradino (threshold)}, a \textbf{rampa}, 
+\textbf{lineare} a \textbf{tratti}...
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/elaborazioni_puntuali_immagine.jpg}
+\end{figure}
+
+\textbf{Esempio 1:}\\
+
+Consideriamo una funzione T a gradino, ottenendo così una
+\textbf{elaborazione threshold (soglia)}.\\
+Tale elaborazione fa sì che i valori dei pixel che non superano la
+soglia fissata vengano portato a 0, mentre i valori dei pixel che
+superano la soglia siano posti pari a 1.\\
+Si produce così un’immagine \textbf{binaria}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/foto_esempio_1.jpg}
+\end{figure}
+
+Questo è un tipico esempio di \textbf{binarizzazione}.
+Si può ottenere una binarizzazione anche scegliendo una qualsiasi
+altra \textbf{funzione di discriminazione}, invece di una soglia costante.
+
+\textbf{Esempio 2:}\\
+
+Consideriamo una $T$ del tipo:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/trasformazione_esempio_2.jpg}
+\end{figure}
+
+Vengono scuriti i livelli di grigio al di sotto di $k$ e schiariti quelli al
+di sopra di $k$. Si ottiene così uno \textbf{stiramento dell’immagine (image
+    stretching)}. L’elaborazione threshold può essere riguardata come
+caso limite di questo tipo di operazione.
+
+\textbf{Esempio 3:}\\
+
+Consideriamo una $T$ del tipo:
+
+$$
+    T(r) = L - 1 - r
+$$
+
+se il range dinamico dell’immagine è $[0, L - 1]$
+la scala di grigi viene invertita, ottenendo così una negazione.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/angiografie_esempio_3.jpg}
+\end{figure}
+
+\textbf{Esempio 4:}\\
+
+Consideriamo una $T$ del tipo:
+
+$$
+    T(r) = c \log(1 + r), c \in  \mathbb{R}, r \geq 0
+$$
+
+che prende il nome di \textbf{trasformazione logaritmica}: associa ad una
+stretta gamma di valori a bassa intensità dell’immagine originale
+una più ampia gamma nell’immagine in output.\\
+Per livelli ad alta intensità, invece, si verifica il contrario.\\
+Un tipico caso in cui è utile applicare questa trasformazione è per
+rappresentare la trasformata di Fourier, che spesso presenta una
+gamma molto ampia di intensità, difficilmente riproducibile senza
+perdere un significativo livello di dettaglio
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/trasformazione_logaritmica_esempio_4.jpg}
+\end{figure}
+
+\begin{itemize}
+    \item Fig. sinistra: spettro di Fourier con valori in $[0, 1.5 \times 10^6]$.
+    \item Fig. destra: risultato dell’applicazione della trasformazione logaritmica
+          con $c = 1$ (valori in $[0, 6.2]$).
+\end{itemize}
+
+\textbf{Esempio 5:}\\
+
+Consideriamo una $T$ del tipo:
+
+$$
+    T(r) = cr^\gamma, c, \gamma > 0,
+$$
+
+che prende il nome di \textbf{trasformazione di potenza (gamma)}
+Se $\gamma < 1$ le curve potenza corrispondenti trasformano una stretta
+gamma di valori scuri in una gamma più ampia di valori in output,
+mentre se $\gamma > 1$, si verifica la trasformazione opposta.\\
+La correzione tramite il fattore $\gamma$ è importante per la corretta
+visualizzazione di immagini sullo schermo di un computer:
+immagini non corrette nel modo giusto possono apparire sbiadite o,
+al contrario, troppo scure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/foto_esempio_5.jpg}
+\end{figure}
+
+\textbf{Esempio 6:}\\
+
+Considerando una $T$ \textbf{lineare a tratti} del tipo si ottiene uno 
+stretching del contrasto
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/lineare_a_tratti_esempio_6.jpg}
+\end{figure}
+
+In questo caso invece si ha uno stretching del contrasto differente perchè si
+sceglie come $(r_1, s_1) = (r_{min}, 0)$ e $(r_2, s_2) = (r_{max} , L - 1)$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/globuli_rossi.jpg}
+\end{figure}
+
+\textbf{Note:}\\
+In questo caso $r_{min}$ e $r_{max}$ stanno ad indicare il più basso e alto valore
+nei livelli di grigio dell'immagine utilizzata.
+
+\textbf{Esempio 7:}\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/trasformazioni_lineari_esempio_7.jpg}
+\end{figure}
+
+In questo caso prendiamo queste due diverse trasformazioni ed analizziamo il loro effetto sull'immagine.
+
+\begin{itemize}
+    \item La prima crea una binarizzazione ma in questo caso utilizza due differenti gradazioni di grigio e sono precisamente bianco e nero.
+    \item La seconda mette in \textbf{risalto} una porzione della scala di grigi alzandogli il lvello e schiarendoli.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/angiografie_esempio_7.jpg}
+\end{figure}
+
+\begin{itemize}
+    \item Nella prima immagine vediamo una normale Angiografia aortica.
+    \item Nella seconda abbiamo il risultato della selezione di intensità del primo tipo (banda di
+          interesse $[A, B]$ selezionata sulla parte alta della scala di grigi).
+    \item Nella terza abbiamo il risultato della selezione di intensità del secondo tipo (banda
+          $[A, B]$ sulle tonalità medio-grigie impostata sul nero, così da
+          preservare le tonalità di grigio dei vasi e dei reni).
+\end{itemize}
