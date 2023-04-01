@@ -710,3 +710,128 @@ In questo caso prendiamo queste due diverse trasformazioni ed analizziamo il lor
           $[A, B]$ sulle tonalità medio-grigie impostata sul nero, così da
           preservare le tonalità di grigio dei vasi e dei reni).
 \end{itemize}
+
+\subsubsection{Finestramento - Windowing}
+
+\begin{definition}
+    \textbf{Il windowing} consiste nel mostrare solo una parte del range dei valori di grigio dell’immagine.
+\end{definition}
+
+%Inserire Immagine
+\textbf{Applicazione:} in molte immagini mediche il numero di valori della
+scala dei grigi utili dal punto di vista diagnostico `e sensibilmente
+minore di tutti quelli disponibili. Usando sul monitor tutto il range
+possibile si diminuisce il contrasto visibile nella zona di interesse.
+%Inserire Immagine
+
+\begin{itemize}
+    \item Finestramento con $L = 169$ e $W = 97$
+    \item Numero di grigio: $238$ (Immagine di sx) e $97$ (immagine di dx)
+    \item Non viene aggiunta informazione, si aumenta solo il contrasto visibile
+\end{itemize}
+
+\section{Modelli delle Immagini}
+In base al tipo di elaborazione che si vuole effettuare, può essere conveniente adottare diversi modelli per le immagini. Ad esempio:
+
+\begin{itemize}
+    \item \textbf{Modello Deterministico}
+    \item \textbf{Modello Probabilistico} (sui \textbf{pixel} prevedendo il che il valore dei pixel sia considerato una variabile aleatoria,
+          oppure \textbf{sull'immagine} riguardando cioè l'immagine stessa come un processo stocastico)
+\end{itemize}
+
+\subsection{Il modello Probabilistico}
+
+Nel modello probabilistico per i pixel, i valori assunti nei vari pixel ($N × M$) di un’immagine vengono considerati come valori assunti
+da una variabile aleatoria in una successione di $N × M$ esperimenti. E’ dunque possibile analizzare ed elaborare l’immagine utilizzando gli strumenti del calcolo delle probabilità e del calcolo stocastico.
+Un esempio di questo processo è \textbf{l’analisi dell’istogramma}.
+
+\section{L’istogramma dei toni di grigio}
+
+\textbf{L’istogramma dei toni di grigio} (istogramma) si ottiene contando, per ogni valore del codominio dell’immagine (spazio di tutti i valori
+che possono essere assunti dai pixel), il numero di volte che tale valore compare nell’immagine.
+Il grafico che si ricava è un istogramma, cioè un grafico a barre dove l’asse delle ascisse è suddiviso in tanti punti quanti sono i
+possibili toni di grigio dell’immagine.
+
+\begin{trivlist}
+    \item \textbf{Esempio}: il codominio di un’immagine a 256 toni di grigio sarà formato da tutti i numeri interi da 0 a 255 $\rightarrow$ l’asse orizzontale sarà suddiviso in 256 parti.
+\end{trivlist}
+
+%Inserire immagine
+\textbf{In termini probabilistici:} l’istogramma rappresenta la distribuzione di probabilità della variabile aleatoria r che indica il
+valore di grigio di un pixel.
+
+\begin{definition}
+    In base alla definizione di distribuzione l’istogramma andrebbe normalizzato in modo da assumere valori tra 0 e 1.
+    Se i toni di grigio sono $r_k, k = 0, . . . , 255$ allora l’altezza della barra in $r_k$ è pari alla frequenza relativa di $r_k$ , ovvero
+    \begin{center}
+        $p(r_k) = \frac{n_k}{n}$
+    \end{center}
+    dove $n_k$ è il numero di pixel in cui viene assunto $r_k$, $n$ è il numero totale di pixel dell'immagine.
+\end{definition}
+
+L’istogramma quindi fornisce una raffigurazione sintetica del contenuto cromatico o di luminosità dell’immagine, dunque una descrizione
+della qualità dell’immagine.
+
+\begin{itemize}
+    \item \textbf{Esempio:} Immagine con alto contrasto la distribuzione è concentrata su valori vicini a 0 e a 255
+\end{itemize}
+
+%Inserire immagine 
+
+\subsection{Interventi sull’istogramma}
+Qualora le caratteristiche della distribuzione dei toni di grigio nell’immagine non siano ottimali, è consigliabile applicare
+all’istogramma opportune trasformazioni, basate su sistemi stocastici.
+Tra queste:
+
+\begin{itemize}
+    \item \textbf{Equalizzazione dell’istogramma}
+    \item \textbf{Shift dell’istogramma}
+    \item \textbf{Stretching dell’istogramma}
+\end{itemize}
+
+\subsubsection{Equalizzazione sull'istogramma}
+
+\textbf{L'equalizzazione dell’istogramma} ha lo scopo di uniformare l’istogramma dell’immagine lungo tutto il suo dominio. Il risultato
+è un nuovo istogramma in cui il numero di pixel ad ogni tono di grigio è il più possibile costante.
+\\\textbf{Algoritmo:}
+
+\begin{center}
+    $T(r_k) = (L-1)\sum_{j=0}^{k}p(r_j)=\frac{L-1}{n} \sum_{j=0}^{k}n_j = \frac{L-1}{MN}\sum_{j=0}^{k}n_j$
+\end{center}
+
+$k=0,...,L-1$.
+\\\textbf{Il risultato} è l'aumento del contrasto.
+
+%Inserire foto
+
+\subsubsection{Equalizzazione sull'istogramma}
+
+\textbf{Shift dell’istogramma:} consiste nel traslare i valori dell’istogramma.
+\\\textbf{Algoritmo:}
+\begin{center}
+    $T(r) = \alpha r, 0 < \alpha < 1$
+    \\
+    $T(r) = \alpha r + (L-1)(1-\alpha), 0<\alpha<1$
+\end{center}
+Il $risultato$ è un immagine più scura o schiarita.
+
+%Inserisci immagine
+
+\subsubsection{Stretching dell’istogramma}
+
+si usa quando l’istogramma presenta dei picchi abbastanza ravvicinati, provocando un’immagine
+piuttosto uniforme. Consiste in uno $stiramento$ dell’istogramma, in modo da distanziarne i picchi.
+\\\textbf{Algoritmo:}
+\begin{center}
+    $$
+        T(r) = \left\{ \begin{array}{cl}
+            0                                         & \ 0 <= r <= r_{min}       \\
+            (r - r_{min}) \frac{L-1}{r_{max}-r_{min}} & \ r_{min} <= r <= r_{max} \\
+            L-1                                       & \ r_{max} <= r <= L-1
+        \end{array} \right.
+    $$
+\end{center}
+dove $[r_min, r_max ]$ è il range osservato nell’immagine originale, individuato dal minimo e dal massimo livello di grigio che presenta
+l’immagine.
+\\Il risultato è \textbf{l'aumento di contrasto}
+%Inserire foto
