@@ -835,3 +835,138 @@ dove $[r_min, r_max ]$ è il range osservato nell’immagine originale, individu
 l’immagine.
 \\Il risultato è \textbf{l'aumento di contrasto}
 %Inserire foto
+\section{Il rumore}
+Per \textbf{rumore} si intende l’insieme dei segnali indesiderati che si
+sovrappongono al segnale utile oggetto di studio (ad esempio
+un’immagine) causandone una degenerazione.
+\\
+Si possono avere diverse forme di degrado tra cui, ad esempio:
+\begin{itemize}
+    \item \textbf{Il rumore di quantizzazione}
+    \item \textbf{Il rumore introdotto da condizioni esterne}
+    \item \textbf{Il rumore introdotto dal sensore}
+    \item \textbf{Il rumore introdotto dai dispositivi di amplificazione/condizionamento del segnale}
+\end{itemize}
+
+In base alle sue cause, il rumore si distingue tra:
+\begin{itemize}
+    \item \textbf{Rumore indipendente dal segnale} (additivo)
+    \item \textbf{Rumore dipendente dal segnale} (la relazione tra il segnale corrotto e quello originale è non lineare)
+\end{itemize}
+
+\begin{trivlist}
+    \item \textbf{Rumore indipendete dal segnale:} (caso più comune) la funzione che descrive il segnale corrotto è:
+    \begin{center}
+        $f(x,y) = g(x,y)+v(x,y)$
+    \end{center}
+    dove $g(x,y)$ è il segnale e $v(x,y)$ è il rumore $\rightarrow$ \textbf{additivo}
+    \item \textbf{Rumore dipendente dal segnale:} l’intensità del rumore dipende dal
+    segnale. Supponendo anche che esso sia molto più grande del segnale, la funzione è
+    \begin{center}
+        $f(x,y)=g(x,y)+v(x,y)g(x,y)=g(x,y)(1+v(x,y)) \approx g(x,y)v(x,y)$
+    \end{center}
+    $\rightarrow$ \textbf{moltiplicativo}
+\end{trivlist}
+
+Essendo di natura intrinsecamente stocastica, il rumore viene in
+genere analizzato usando la teoria dei processi stocastici ed è
+caratterizzato in base alla:
+
+\begin{itemize}
+    \item \textbf{Distribuzione:} descrive la probabilità che il rumore assuma
+          certi valori di intensità
+    \item \textbf{Distribuzione spettrale:} ha a che fare con l’energia ad esso
+          associata, al variare della frequenza
+\end{itemize}
+
+\subsection{Il modello del rumore}
+Per poter caratterizzare e studiare il rumore in un’immagine si fanno in genere delle ipotesi semplificative, in modo che il rumore abbia una qualche distribuzione di probabilità: si costruisce in
+questo modo un modello del rumore.
+Una modellizazione tipica prevede che:
+\begin{itemize}
+    \item \textbf{lo spettro abbia distribuzione uniforme (rumore bianco)}
+    \item \textbf{il rumore abbia distribuzione gaussiana, cioè}
+          \begin{center}
+              $p(r)=\frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{(r-\mu)^2}{2\sigma^2}}$
+          \end{center}
+          dove $\mu$ è il valor medio e $\sigma$ la deviazione standard.
+\end{itemize}
+
+%Inserire Immagine
+%Inserire Esempio
+
+\subsubsection{Il rumore "salt and pepper"}
+Nel caso in cui il rumore abbia distribuzione spaziale di tipo impulsivo, si parla di rumore salt and pepper (sale e pepe): agisce
+corrompendo in maniera casuale i pixel dell’immagine, portandone il valore a $0=a$ (valore minimo) oppure a $255=b$ (valore massimo).
+\begin{center}
+    $$
+        p(r) = \left\{ \begin{array}{cl}
+            p_a & \ r = a    \\
+            p_b & r = b      \\
+            0   & altrimenti
+        \end{array} \right.
+    $$
+\end{center}
+Ovviamente il rumore impulsivo, pur essendo additivo, \textbf{non è
+    lineare.}
+
+%Inserire immagine 
+%Inserire Esempio 
+
+\subsubsection{Altre modellizzazioni del rumore: il rumore di Rayleigh}
+\textbf{Il rumore di Rayleigh} ha la seguente distribuzione:
+
+\begin{center}
+    $$
+        p(r) = \left\{ \begin{array}{cl}
+            \frac{2}{b}(r-a)e^{-{r-a}\frac{2}{b}} & \ r >= a \\
+            0                                     & r<a
+        \end{array} \right.
+    $$
+\end{center}
+
+%Inserire immagine
+dove il valor medio e la deviazione standard sono dati da:
+
+\begin{center}
+    $\mu = a + \sqrt{\pi b/4}$ $\sigma = \frac{b(4-\pi)}{4}$
+\end{center}
+
+Nel grafico lo scostamento dall’origine e la forma inclinata verso
+destra rende questa densit`a utile per l’approssimazione di
+istogrammi non simmetrici e pu`o essere utilizzata per rappresentare
+fenomeni di rumori tipici di alcuni sensori di range.
+
+%Inserire Esempio
+
+\subsubsection{Altre modellizzazioni del rumore: il rumore Esponenziale}
+Il \textbf{rumore Esponenziale} ha la seguente distribuzione:
+
+\begin{center}
+    $$
+        p(r) = \left\{ \begin{array}{cl}
+            ae^{-ar} & \ r >= a \\
+            0        & r<0
+        \end{array} \right.
+    $$
+\end{center}
+dove $a > 0$, b e il valor medio e la deviazione standard sono dati da:
+
+\begin{center}
+    $\mu = \frac{1}{a}$ $\sigma = \frac{1}{a}$
+\end{center}
+
+Questo rumore è un caso particolare del rumore di Gamma con $b = 1$.
+
+%Inserire esempio
+
+\subsubsection{Signal-Noise Ratio}
+Per avere una valutazione numerica dell’entità del rumore associato ad una data immagine si pu`o ricorrere al \textbf{rapporto segnale-rumore
+    (Signal Noise Ratio - SNR)}, definito come:
+\begin{center}
+    $
+        SNR = \frac{\sum_{(x,y)}^{}f^2(x,y)}{\sum_{(x,y)}^{}v^2(x,y)}
+    $
+\end{center}
+dove $f(x, y)$ è l’intensità del pixel $(x, y)$ dell’immagine (già corrotta dal rumore), $v(x, y)$ è il rumore e le sommatorie sono al
+variare di tutti i pixel $(x, y)$ dell’immagine.
