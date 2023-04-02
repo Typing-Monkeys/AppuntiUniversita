@@ -717,12 +717,20 @@ In questo caso prendiamo queste due diverse trasformazioni ed analizziamo il lor
     \textbf{Il windowing} consiste nel mostrare solo una parte del range dei valori di grigio dell’immagine.
 \end{definition}
 
-%Inserire Immagine
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/win1.png}
+\end{figure}
+
 \textbf{Applicazione:} in molte immagini mediche il numero di valori della
 scala dei grigi utili dal punto di vista diagnostico `e sensibilmente
 minore di tutti quelli disponibili. Usando sul monitor tutto il range
 possibile si diminuisce il contrasto visibile nella zona di interesse.
-%Inserire Immagine
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/windowing.png}
+\end{figure}
 
 \begin{itemize}
     \item Finestramento con $L = 169$ e $W = 97$
@@ -756,7 +764,11 @@ possibili toni di grigio dell’immagine.
     \item \textbf{Esempio}: il codominio di un’immagine a 256 toni di grigio sarà formato da tutti i numeri interi da 0 a 255 $\rightarrow$ l’asse orizzontale sarà suddiviso in 256 parti.
 \end{trivlist}
 
-%Inserire immagine
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-istogramma.png}
+\end{figure}
+
 \textbf{In termini probabilistici:} l’istogramma rappresenta la distribuzione di probabilità della variabile aleatoria r che indica il
 valore di grigio di un pixel.
 
@@ -773,10 +785,34 @@ L’istogramma quindi fornisce una raffigurazione sintetica del contenuto cromat
 della qualità dell’immagine.
 
 \begin{itemize}
-    \item \textbf{Esempio:} Immagine con alto contrasto la distribuzione è concentrata su valori vicini a 0 e a 255
+    \item \textbf{Esempio:} \textbf{Immagine troppo scura}
+          la distribuzione è concentrata su toni bassi di grigio
 \end{itemize}
 
-%Inserire immagine 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/isto-scuro.png}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Esempio:} \textbf{Immagine troppo chiara}
+          la distribuzione è concentrata su toni alti di grigio
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/isto-chiaro.png}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Esempio:} \textbf{Immagine con alto contrasto}
+          la distribuzione è concentrata su valori vicini a 0 e a 255
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/alto-c.png}
+\end{figure}
 
 \subsection{Interventi sull’istogramma}
 Qualora le caratteristiche della distribuzione dei toni di grigio nell’immagine non siano ottimali, è consigliabile applicare
@@ -802,7 +838,12 @@ Tra queste:
 $k=0,...,L-1$.
 \\\textbf{Il risultato} è l'aumento del contrasto.
 
-%Inserire foto
+\subsubsection{Risultato equalizzazione dell'istogramma}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/eq-istogramma.png}
+\end{figure}
 
 \subsubsection{Equalizzazione sull'istogramma}
 
@@ -815,7 +856,12 @@ $k=0,...,L-1$.
 \end{center}
 Il $risultato$ è un immagine più scura o schiarita.
 
-%Inserisci immagine
+\subsubsection{Risultato shift dell'istogramma}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/shift-isto.png}
+\end{figure}
 
 \subsubsection{Stretching dell’istogramma}
 
@@ -834,11 +880,17 @@ piuttosto uniforme. Consiste in uno $stiramento$ dell’istogramma, in modo da d
 dove $[r_min, r_max ]$ è il range osservato nell’immagine originale, individuato dal minimo e dal massimo livello di grigio che presenta
 l’immagine.
 \\Il risultato è \textbf{l'aumento di contrasto}
-%Inserire foto
+
+\subsubsection{Risultato strtching dell'istogramma}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/stretch-isto.png}
+\end{figure}
+
 \section{Il rumore}
-Per \textbf{rumore} si intende l’insieme dei segnali indesiderati che si
-sovrappongono al segnale utile oggetto di studio (ad esempio
-un’immagine) causandone una degenerazione.
+
+Per \textbf{rumore} si intende l’insieme dei segnali indesiderati che si sovrappongono al segnale utile oggetto di studio (ad esempio un’immagine) causandone una degenerazione.
 \\
 Si possono avere diverse forme di degrado tra cui, ad esempio:
 \begin{itemize}
@@ -880,9 +932,11 @@ caratterizzato in base alla:
 \end{itemize}
 
 \subsection{Il modello del rumore}
+
 Per poter caratterizzare e studiare il rumore in un’immagine si fanno in genere delle ipotesi semplificative, in modo che il rumore abbia una qualche distribuzione di probabilità: si costruisce in
 questo modo un modello del rumore.
 Una modellizazione tipica prevede che:
+
 \begin{itemize}
     \item \textbf{lo spettro abbia distribuzione uniforme (rumore bianco)}
     \item \textbf{il rumore abbia distribuzione gaussiana, cioè}
@@ -892,10 +946,18 @@ Una modellizazione tipica prevede che:
           dove $\mu$ è il valor medio e $\sigma$ la deviazione standard.
 \end{itemize}
 
-%Inserire Immagine
-%Inserire Esempio
+%Inserire foto funzione
+
+\subsubsection{Esempio}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-rumore.png}
+    \caption*{Immagine originale e immagine corrotta da rumore gaussiano}
+\end{figure}
 
 \subsubsection{Il rumore "salt and pepper"}
+
 Nel caso in cui il rumore abbia distribuzione spaziale di tipo impulsivo, si parla di rumore salt and pepper (sale e pepe): agisce
 corrompendo in maniera casuale i pixel dell’immagine, portandone il valore a $0=a$ (valore minimo) oppure a $255=b$ (valore massimo).
 \begin{center}
@@ -910,11 +972,20 @@ corrompendo in maniera casuale i pixel dell’immagine, portandone il valore a $
 Ovviamente il rumore impulsivo, pur essendo additivo, \textbf{non è
     lineare.}
 
-%Inserire immagine 
-%Inserire Esempio 
+%Inserire foto funzione
+
+\subsubsection{Esempio}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-salt-pepper.png}
+    \caption*{Immagine originale e immagine corrotta da rumore salt and pepper}
+\end{figure}
 
 \subsubsection{Altre modellizzazioni del rumore: il rumore di Rayleigh}
 \textbf{Il rumore di Rayleigh} ha la seguente distribuzione:
+
+%Inserire foto funzione
 
 \begin{center}
     $$
@@ -925,7 +996,6 @@ Ovviamente il rumore impulsivo, pur essendo additivo, \textbf{non è
     $$
 \end{center}
 
-%Inserire immagine
 dove il valor medio e la deviazione standard sono dati da:
 
 \begin{center}
@@ -937,9 +1007,37 @@ destra rende questa densit`a utile per l’approssimazione di
 istogrammi non simmetrici e pu`o essere utilizzata per rappresentare
 fenomeni di rumori tipici di alcuni sensori di range.
 
-%Inserire Esempio
+\subsubsection{Esempio}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-rumore.png}
+    \caption*{Immagine originale e immagine corrotta da rumore Rayleigh}
+\end{figure}
+
+\subsubsection{Altre modellizzazioni del rumore: il rumore Gamma}
+
+Il \textbf{rumore gamma} ha la seguente distribuzione:
+
+\begin{center}
+    $$
+        p(r) = \left\{ \begin{array}{cl}
+            \frac{a^b r^{b-1}}{(b-1)!}e^-{ar} & \ r >= a \\
+            0                                 & r<a
+        \end{array} \right.
+    $$
+\end{center}
+
+dove $a > 0$, $b$ è un intero positivo e il valor medio e la deviazione standard sono dati da:
+
+\begin{center}
+    $\mu=\frac{b}{a}$ $\sigma=\frac{\sqrt{b}}{a}$
+\end{center}
+
+Questo rumore è presente nelle immagini laser.
 
 \subsubsection{Altre modellizzazioni del rumore: il rumore Esponenziale}
+
 Il \textbf{rumore Esponenziale} ha la seguente distribuzione:
 
 \begin{center}
@@ -952,21 +1050,31 @@ Il \textbf{rumore Esponenziale} ha la seguente distribuzione:
 \end{center}
 dove $a > 0$, b e il valor medio e la deviazione standard sono dati da:
 
+%Inserire foto funzione
+
 \begin{center}
     $\mu = \frac{1}{a}$ $\sigma = \frac{1}{a}$
 \end{center}
 
 Questo rumore è un caso particolare del rumore di Gamma con $b = 1$.
 
-%Inserire esempio
+\subsubsection{Esempio}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-esponenziale.png}
+    \caption*{Immagine originale e immagine corrotta da rumore Esponenziale}
+\end{figure}
 
 \subsubsection{Signal-Noise Ratio}
 Per avere una valutazione numerica dell’entità del rumore associato ad una data immagine si pu`o ricorrere al \textbf{rapporto segnale-rumore
     (Signal Noise Ratio - SNR)}, definito come:
+
 \begin{center}
     $
         SNR = \frac{\sum_{(x,y)}^{}f^2(x,y)}{\sum_{(x,y)}^{}v^2(x,y)}
     $
 \end{center}
+
 dove $f(x, y)$ è l’intensità del pixel $(x, y)$ dell’immagine (già corrotta dal rumore), $v(x, y)$ è il rumore e le sommatorie sono al
 variare di tutti i pixel $(x, y)$ dell’immagine.
