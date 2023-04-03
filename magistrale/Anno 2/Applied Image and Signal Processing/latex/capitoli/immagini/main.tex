@@ -1067,6 +1067,7 @@ Questo rumore è un caso particolare del rumore di Gamma con $b = 1$.
 \end{figure}
 
 \subsubsection{Signal-Noise Ratio}
+
 Per avere una valutazione numerica dell’entità del rumore associato ad una data immagine si pu`o ricorrere al \textbf{rapporto segnale-rumore
     (Signal Noise Ratio - SNR)}, definito come:
 
@@ -1078,3 +1079,135 @@ Per avere una valutazione numerica dell’entità del rumore associato ad una da
 
 dove $f(x, y)$ è l’intensità del pixel $(x, y)$ dell’immagine (già corrotta dal rumore), $v(x, y)$ è il rumore e le sommatorie sono al
 variare di tutti i pixel $(x, y)$ dell’immagine.
+
+\section{Filtri}
+
+Il rumore può essere corretto applicando opportune trasformazioni ai pixel dell’immagine, dette filtri.
+Per ogni tipo di rumore esiste un filtraggio differente, che risulterà il più adatto ad attenuare o eliminare quel particolare rumore.
+In genere, la scelta del filtro dipende dalla linearità o meno della relazione fra l’immagine corrotta e quella originale.
+E’ possibile combinare pi`u filtri, in modo da avere effetti più complessi.
+
+\subsection{Il filtraggio spaziale}
+
+Un filtro spaziale è caratterizzato da:
+
+\begin{itemize}
+    \item Un intorno (\textbf{machera}), in genere di dimensioni dispari;
+    \item Un'operazione predefinita che viene applicata ai pixel nell'intorno
+\end{itemize}
+se l'operazione è lineare si parla di \textbf{filtro lineare}.
+\\
+L'intensità dell'immagine filtrata nel pixel (x,y) sarà:
+\begin{center}
+    $g(x,y) = \sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x+s,y+t)$,
+\end{center}
+$x=0,..,M-1$, $y=0,...,N-1$ (\textbf{correlazione di f e w}), dove i valri $w$ sono i \textbf{coefficienti della maschera}
+avente dimensione $m x n$, con $m = 2a+1$ e $n = 2b+1$
+\\
+Ad esempio, se la maschera ha dimensione 3 x 3, l'intensità dell'immagine filtrata nel pixel ($x,y$) sarà:
+\begin{itemize}
+    \item $g(x,y)=w(-1,-1)f(x-1,y-1)+w(-1,0)f(x-1,y)+...+w(0,0)f(x,y)+...+w(1,1)f(x+1,y+1)$
+\end{itemize}
+
+\subsection{Filtri lineari}
+
+i filtri maggiormente utilizzati per la rimozione del rumore sono i cosidetti \textbf{filtri di smoothing}, i quali eliminano picchi e increspature (passa-basso)
+\\
+\textbf{Esempio}
+
+\begin{itemize}
+    \item \textbf{Filtro medio:} sostituisce il valore di ogni pixel prefissato con il
+          valor medio dei pixel in un suo intorno di dimensioni fissate.
+    \item \textbf{Filtro media ponderata:} sostituisce il valore di ogni pixel prefissato con la media ponderata dei pixel in un suo
+          intorno di dimensioni fissate.
+    \item \textbf{Filtro gaussiano:} sostituisce al valore di ogni pixel prefissato la
+          media pesata dei valori dei pixel in un suo intorno. I pesi sono distribuiti secondo una funzione gaussiana.
+\end{itemize}
+
+\subsubsection{Filtro medio}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/filtro-medio.png}
+\end{figure}
+
+\subsubsection{Filtro di media ponderata}
+
+\begin{center}
+    $g(x,y)=\frac{\sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x+s,y+t)}{\sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)}$
+\end{center}
+
+\subsubsection{Filtro Gaussiano}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/filtro-gaussiano.png}
+\end{figure}
+\textbf{Esempio}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/filtri-l-esempio.png}
+\end{figure}
+
+\begin{enumerate}
+    \item [a.] Immagine originale di 500 × 500 pixel.
+    \item [b.f.] Risultato della sfocatura con filtro medio tramite maschere di
+          dimensione 3, 5, 9, 15, 35.
+\end{enumerate}
+\textbf{Esempio}
+\\
+Esempio di applicazione del filtro medio
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/filtro-l-esempio2.png}
+\end{figure}
+
+\begin{enumerate}
+    \item [a.] Immagine originale di 528 × 485 pixel.
+    \item [b.] Risultato della sfocatura con filtro medio tramite maschera di dimensione 15
+    \item [c.]  Risultato dell’applicazione di una soglia.
+\end{enumerate}
+I rumori non lineari (ad esempio quello impulsivo) non possono essere corretti con i filtri lineari.
+Possono essere trattati invece efficacemente con \textbf{filtri non lineari}
+\\
+\textbf{Esempio:}
+\begin{trivlist}
+    \item \textbf{Filtro mediano:}  sostituisce al valore di ogni pixel prefissato la
+    mediana (valore centrale della lista ordinata) dei
+    valori dei pixel nell’intorno fissato.
+\end{trivlist}
+Il filtro mediano risulta particolarmente adatto a correggere il rumore \textbf{salt and pepper}, a differenza del filtro medio che, come si
+vede dall’esempio seguente, non risulta invece particolarmente efficace.
+
+\subsubsection{Esempio: Filtro medio}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-filtro-medio.png}
+\end{figure}
+Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e
+immagine filtrata con \textbf{filtro medio}
+
+\subsubsection{Esempio: Filtro medinao}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-filtro-mediano.png}
+\end{figure}
+Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e
+immagine filtrata con \textbf{filtro mediano}
+
+\subsubsection{Esempio: Filtro medio}
+Il \textbf{filtro medio} è invece molto utilizzato ad esempio per correggere il
+\textbf{rumore gaussiano.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/filtro-medio-esempio2.png}
+\end{figure}
+Immagine originale, immagine corrotta da rumore gaussiano e immagine filtrata con filtro medio
+\subsubsection{Altri filtri (non lineari) basati sulle statistiche d’ordine}
+\begin{itemize}
+    \item \textbf{Filtro di massimo}
+    \item \textbf{Filtro di minimo}
+    \item \textbf{Filtro di punto medio}
+    \item \textbf{Filtro medio di alpha-trimmed}
+\end{itemize}
