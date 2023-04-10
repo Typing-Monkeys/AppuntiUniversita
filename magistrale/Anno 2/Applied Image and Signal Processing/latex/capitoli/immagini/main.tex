@@ -1205,10 +1205,176 @@ Il \textbf{filtro medio} è invece molto utilizzato ad esempio per correggere il
 \end{figure}
 Immagine originale, immagine corrotta da rumore gaussiano e immagine filtrata con filtro medio
 
-\subsubsection{Altri filtri (non lineari) basati sulle statistiche d’ordine}
+\subsection{Altri filtri (non lineari) basati sulle statistiche d’ordine}
 \begin{itemize}
     \item \textbf{Filtro di massimo}
     \item \textbf{Filtro di minimo}
     \item \textbf{Filtro di punto medio}
     \item \textbf{Filtro medio di alpha-trimmed}
 \end{itemize}
+
+\subsubsection{Filtro di massimo}
+Sia $S_p$ una maschera di dimensioni $m × n$, dove $p = (x,y)$ è il pixel centrale della maschera.
+Il filtro di massimo sostituisce a p il massimo dei valori dei pixel in $S_p$, cioè
+
+\begin{center}
+    $g_{max}(x,y)=max f(x,y)$ dove $(x,y) \in S_p$
+\end{center}
+
+Questo filtro è utile per diminuire il rumore di tipo "pepper".
+
+\subsubsection{Filtro di minimo}
+Il \textbf{filtro di minimo} sostituisce a $p$ il minimo dei valori dei pixel in $S_p$ cioè:
+
+\begin{center}
+    $g_{min}(x,y) = min f(x,y)$ dove $(x,y) \in S_p$
+\end{center}
+
+Questo filtro è utile per diminuire il rumore di tipo "salt"
+
+\subsubsection{Filtro medio alpha-trimmed}
+Fissato un valore $0 <= d <= mn − 1$, supponiamo di cancellare in $S_p$ i $d/2$ valori più chiari e i $d/2$ valori più scuri; delle
+restanti intensità ne calcoliamo la media aritmetica, cioè:
+
+\begin{center}
+    $g(x,y) = \frac{1}{mn-d}$ $\sum_{(x,y) \in \bar{S_p}}^{max} f(x,y)$
+\end{center}
+dove $\bar{S_p}$ è l'insieme dei pixel $S_p$ rimanenti.
+Questo filtro risulta utile in situazioni in cui si sovrappongono diversi tipi di rumore, ad esempio nel caso di una combinazione tra
+rumore salt an pepper e rumore gaussiano.
+
+\section{Filtri di sharpering}
+L'obiettivo di questi filtri è quello di marcare i bordi (edge detection), attribuendo meno importanza alle aree che hanno variazione lenta a livello di intensità.
+Si basano sull’operatore di derivazione ed hanno l’effetto di evidenziare soltanto i bordi dell’immagine. In forma discreta, se f rappresenta l’intensità associata a ogni pixel
+$(x,y)$, le derivate possono essere espresse come differenze finite:
+\begin{center}
+    $\frac{\partial{f}}{\partial{x}}(x,y) \sim f(x+1, y) − f(x, y)$, $\frac{\partial{f}}{\partial{y}} \sim f(x,y+1) − f(x,y)$
+    \\
+    $\frac{\partial{f^2}}{\partial{x^2}}(x,y) \sim f(x+1,y) + f(x-1, y) - 2f(x,y)$
+    \\
+    $\frac{\partial{f^2}}{\partial{y^2}}(x,y) \sim f(x,y+1) + f(x, y-1) - 2f(x,y)$
+\end{center}
+Il filtro di sharpening ha l’effetto di evidenziare soltanto i bordi dell’immagine.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sharpening.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sharpening2.png}
+\end{figure}
+
+\subsubsection{Filtro del Gradiente}
+Operatore Gradiente:
+\begin{center}
+    $\nabla f=(\frac{\partial{f}}{\partial{x}}, \frac{\partial{f}}{\partial{y}})$,
+\end{center}
+Una comune implementazione della derivata prima nell’ambito dell’image processing è costituita dal modulo del gradiente
+\begin{center}
+    $| \nabla f(x,y) |$ $\sim$ $|\frac{\partial{f}}{\partial{x}}|$ $+$ $|\frac{\partial{f}}{\partial{y}}|$
+\end{center}
+Maschere:
+\begin{center}
+    \[
+        \begin{bmatrix}
+            0 & 0  & 0 \\
+            0 & -1 & 0 \\
+            0 & 1  & 0
+        \end{bmatrix}
+        \begin{bmatrix}
+            0 & 0  & 0 \\
+            0 & -1 & 1 \\
+            0 & 0  & 0
+        \end{bmatrix}
+    \]
+\end{center}
+\textbf{Esempio}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/gradiente.png}
+\end{figure}
+
+\subsection{Filtro di Sobel}
+Un’altra approssimazione discreta del gradiente è data da:
+$\nabla f(x,y) \sim \frac{\partial{f}}{\partial{x}} + \frac{\partial{f}}{\partial{y}}$
+\\$\sim  |[f(x+1,y-1) + 2f(x+1,y) + f(x+1 y+1)]+$
+    \\$ - |[f(x-1, y-1)+2f(x-1,y) + f(x-1, y+1)]|+$
+\\$ + |[f(x-1, y+1) + 2f(x,y+1)+f(x+1,y+1)]+$
+    \\$ - [f(x-1,y -1) + 2f(x,y-1) + f(x+1,y-1)]|$
+\\Maschere:
+
+\begin{center}
+    \[
+        \begin{bmatrix}
+            -1 & -2 & -1 \\
+            0  & 0  & 0  \\
+            1  & 2  & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            -1 & 0 & 1 \\
+            -2 & 0 & 2 \\
+            -1 & 0 & 1
+        \end{bmatrix}
+    \]
+\end{center}
+che sono detti \textbf{operatori di Sobel.}
+\\\textbf{Esempio}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sobel.png}
+    \caption*{Immagine originale e immagine filtrata tramite il gradiente di Sobel.}
+\end{figure}
+
+\subsubsection{Filtro di Prewitt}
+Analogo a quello di Sobel eccetto per le maschere di convoluzione
+che in questo caso sono:
+\begin{center}
+    \[
+        \begin{bmatrix}
+            -1 & 0 & 1 \\
+            -1 & 0 & 1 \\
+            -1 & 1 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            -1 & - & -1 \\
+            0  & 0 & 0  \\
+            1  & 1 & 1
+        \end{bmatrix}
+    \]
+\end{center}
+\textbf{Esempio}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/prewitt.png}
+    \caption*{Immagine originale e immagine filtrata tramite il gradiente
+        di Prewitt.}
+\end{figure}
+\subsubsection{Filtro di Roberts}
+Si ottiene mediante la seguente approssimazione del gradiente:
+\begin{center}
+    $|\nabla f(x,y)| \sim |\frac{\partial{f}}{\partial{x}}| + \frac{\partial{f}}{\partial{y}}$
+    \\ $\sim |f(x,y) - f(x+1, y+1)| + |f(x+1, y) - f(x,y+1)|$
+\end{center}
+Calcola il gradiente lungo le direzioni diagonali.
+\\Maschere:
+\begin{center}
+    \[
+        \begin{bmatrix}
+            0 & 0 & 0  \\
+            0 & 1 & 0  \\
+            0 & 0 & -1
+        \end{bmatrix}
+        \begin{bmatrix}
+            0 & 0 & 0  \\
+            0 & 0 & -1 \\
+            0 & 1 & 0
+        \end{bmatrix}
+    \]
+\end{center}
+\textbf{Esempio}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/roberts.png}
+\end{figure}
