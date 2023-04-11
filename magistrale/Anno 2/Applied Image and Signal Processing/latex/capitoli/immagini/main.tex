@@ -1378,3 +1378,324 @@ Calcola il gradiente lungo le direzioni diagonali.
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/roberts.png}
 \end{figure}
+
+\subsubsection{Filtro Laplaciano}
+Operatore Laplaciano:
+\begin{center}
+    $\nabla^2 f = \frac{\partial^2{f}}{\partial{x^2}} + \frac{\partial^2{f}}{\partial{y^2}}$
+    \\$\sim f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)$
+\end{center}
+Maschera:
+\begin{center}
+    \[
+        \begin{bmatrix}
+            0 & 1  & 0 \\
+            1 & -4 & 1 \\
+            0 & 1  & 0
+        \end{bmatrix}
+    \]
+\end{center}
+oppure, tenendo conto delle direzioni diagonali:
+\begin{center}
+    \[
+        \begin{bmatrix}
+            1 & 1  & 1 \\
+            1 & -8 & 1 \\
+            1 & 1  & 1
+        \end{bmatrix}
+    \]
+\end{center}
+\textbf{Esempio}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/laplaciano.png}
+    \caption*{(a) Immagine originale, (b) con laplaciano, (c) con laplaciano con
+        diagonali.}
+\end{figure}
+
+\subsection{Filtro Differenziale}
+Sfruttare la proprietà di attraversamento dello zero della derivata seconda nelle varie direzioni, coordinate e diagonali, che ha come effetto quello di evidenziare direzionalmente i bordi di un’immagine lungo di esse.
+Dalle approssimazioni:
+\begin{center}
+    $\frac{\partial^2{f}}{\partial{x}^2}(x,y) \sim f(x+1,y)+f(x-1,y)-2f(x,y),$
+    \\$\frac{\partial^2{f}}{\partial{y}^2}(x,y) \sim f(x,y+1)+f(x,y-1)-2f(x,y)$
+\end{center}
+$\frac{\partial^2{f}}{\partial{x,y}}(x,y) \sim \frac{1}{4}[f(x-1,y-1)-f(x-1,y+1)-f(x+1,y-1)+f(x+1, y+1)]$
+\\Si ottengono le maschere:
+\begin{center}
+    \[
+        \begin{bmatrix}
+            0 & 0  & 0 \\
+            0 & -2 & 0 \\
+            0 & 1  & 0
+        \end{bmatrix}
+        \begin{bmatrix}
+            0 & 0  & 0 \\
+            1 & -2 & 1 \\
+            0 & 0  & 0
+        \end{bmatrix}
+        \begin{bmatrix}
+            \frac{1}{4}  & 0 & \frac{-1}{4} \\
+            0            & 0 & -1           \\
+            \frac{-1}{4} & 0 & \frac{1}{4}
+        \end{bmatrix}
+    \]
+\end{center}
+\textbf{Esempio di Applicazione: Digital Composting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/digital-composing.png}
+\end{figure}
+
+\section{Operazioni aritmetiche e Image Enhancement}
+Date due immagini digitali $f(x,y)$ e $g(x,y)$ della stessa dimensione, si possono definire le seguenti operazioni:
+\begin{center}
+    $s(x,y) = f(x,y) + g(x,y),$
+    \\$t(x,y) = f(x,y)-g(x,y),$
+        \\$p(x,y)=f(x,y)·g(x,y),$
+\end{center}
+$d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).$
+\begin{itemize}
+    \item \textbf{Sommatoria di immagini}
+
+          Siano $g_i(x,y)$ $K$ immagini corrotte da rumore additivo $\eta_i$,
+          ovvero
+          \begin{center}
+              $g_i(x,y) = f(x,y) + \eta_i(x,y)$, $i=...K,$
+          \end{center}
+          dove $f(x,y)$ è l’immagine priva di rumore. Se $g(x,y)$ è la loro media, ovvero
+          \begin{center}
+              $\bar{g}(x,y)=\frac{1}{K} \sum_{i=1}^{K}g_i(x,y)$
+          \end{center}
+          allora sotto opportune ipotesi, risultata:
+          \\$E[\bar{g}(x,y)] = f(x,y)$ e $\sigma^2_{\bar{g}(x,y)}=\frac{1}{K}\sigma^2_{\eta(x,y)}$
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sommatoria-immagini.png}
+    \caption*{a) Immagine originale affetta da rumore gaussiano
+        b)-f) Risultato della media di 5, 10, 20, 50 e 100 immagini
+        rumorose.}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Sottrazione di immagini}
+          \begin{center}
+              $g(x,y) = f(x,y)-h(x,y),$
+          \end{center}
+          Si utilizza, ad esempio, quando si vogliono evidenziare le differenze fra due immagini,
+          dove $h(x,y)$, detta maschera, è un’immagine della regione di interesse.
+          \\ \textbf{Esempio:}
+          \\ \textbf{Digital Subtraction Angiography (DSA)}
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sottrazione.png}
+\end{figure}
+
+
+\begin{itemize}
+    \item \textbf{Moltiplicazione e divisione di immagini}
+          \begin{center}
+              $g(x,y) = f(x,y)h(x,y),$
+          \end{center}
+          \textbf{Esempi:}
+          \begin{itemize}
+              \item Correzzione dell'ombreggiatura(shading)
+              \item Selezione di una ROI
+          \end{itemize}
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/moltiplicazione.png}
+\end{figure}
+
+\section{La segmentazione}
+La segmentazione di un’immagine nell’elaborazione digitale è un processo di partizione dell’immagine in regioni significative.
+E' il processo con il quale si classificano i pixel dell’immagine che hanno caratteristiche comuni: pertanto ciascun pixel in una regione
+è simile agli altri della stessa regione per una qualche proprietà o
+caratteristica (colore, intensità o texture).
+\\Matematicamente, il processo di segmentazione di un’immagine $f(x,y)$ in regioni $R_1,...,R_n$ deve soddisfare le seguenti condizioni (Zhang, 2006):
+\begin{itemize}
+    \item $\cup^n_{i=1}$ $R_i = f(x,y)$
+    \item Ogni regione $R_i$ con $i=1,...,n$ è connessa;
+    \item $R_i \cap R_j = \emptyset$ con $i \neq j$;
+    \item Se $P(•)$ è un predicato che indica la conformità di tutti i pixel
+          di una regione $R_i$ ad un particolare modello della regione
+          stessa, allora devono valere:
+          \begin{itemize}
+              \item $P(R_i) = vero$ $\forall i = 1...n$
+              \item $P(R_i \cup R_j) = falso$ $\forall R_i, R_j$ regioni adiacenti
+          \end{itemize}
+          La segmentazione dell’immagine ha molte applicazioni...
+\end{itemize}
+\textbf{Biologia}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/biologia.png}
+\end{figure}
+\textbf{Segmentazione}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/texture.png}
+\end{figure}
+\textbf{Medicina}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/medicina.png}
+\end{figure}
+Le fondamentali metodologie di segmentazione sono:
+\begin{itemize}
+    \item \textbf{Thresholding Segmentation:} segmentazione mediante
+          sogliatura;
+    \item \textbf{Edge Segmentation:} edge based segmentation - localizzazione
+          dei bordi;
+    \item \textbf{Region Based Segmentation:} operatori morfologici;
+    \item \textbf{Clustering Based Segmentation:} raggruppamento di oggetti
+          sulla base della loro distanza reciproca;
+    \item \textbf{Matching Techniques:} tecniche basate sulla conoscenza a
+          priori.
+\end{itemize}
+
+\subsection{Thresholding Segmentation}
+Singoli pixel dell’immagine sono catalogati come "pixel oggetto" se
+il loro valore è maggiore di una certa soglia e come "pixel di sfondo"
+se il valore è sotto la soglia. L’immagine binaria in uscita ha valore
+pari a 1 per ogni pixel dell’oggetto e pari a 0 per lo sfondo.
+\begin{trivlist}
+    \item \textbf{Problema:} individuare il valore ottimo che minimizza l’errore dovuto all’oversegmentation (troppi oggetti) e
+    all’undersegmentation (pochi oggetti).
+    \item \textbf{Soluzione:} sogliatura locale $\rightarrow$ scelta di un valore di soglia diverso,
+    adatto ad ogni regione esaminata.
+\end{trivlist}
+
+\subsection{Thresholding manuale}
+\begin{itemize}
+    \item Procedura supervisionata $\rightarrow$ dipendente dall’operatore
+    \item Procedura NON automatica
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/trash-manuale.png}
+\end{figure}
+
+\subsubsection{Thresholding automatico basilare}
+Separazione dei picchi negli istrogrammi che rappresentano oggetti
+diversi nell’immagine.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/trash-automatico-basilare.png}
+    \caption*{Immagine sintetica vs immagine reale}
+\end{figure}
+Separazione dei picchi negli istrogrammi che rappresentano oggetti diversi nell’immagine.
+\textbf{Problema:} Cosa accade se le code si sovrappongono?
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/trash-automatico-basilare2.png}
+\end{figure}
+\section{Metodo di Otsu (1979)}
+\textbf{Idea:} trovare la soglia ottimale massimizzando \textbf{la varianza
+    interclasse} o, equivalentemente, minimizzando \textbf{la varianza
+    intraclasse}.
+\\\textbf{Vantaggi:}
+\begin{itemize}
+    \item procedura non parametrica;
+    \item senza supervisione;
+    \item automatica;
+    \item facile da implementare e costo computazionale basso nel caso
+          di immagine con istogramma bimodale.
+\end{itemize}
+\textbf{Limiti:}
+\begin{itemize}
+    \item è un metodo di sogliatura globale $\rightarrow$ non tiene conto delle
+          piccole variazioni di livelli di grigio;
+    \item si basa solamente sull’istogramma dell’immagine (e quindi sul
+          livello di grigio dei pixel) e prevede che sia bimodale.
+\end{itemize}
+
+\subsection{Descrizione}
+Si ipotizzi che un’immagine digitale di $M x N$ pixel, abbia $L$ differenti livelli di grigio e si indichi con $\eta_i$
+il numero di pixel di intensità i. L’istogramma normalizzato ha componenti $p_i = \eta_i/(M x N)$ da cui si ha:
+\begin{center}
+    $\sum_{i=0}^{L-1}p_i = 1$ $p_i >= 0$
+\end{center}
+Ora si ipotizzi di selezionare una soglia $T(k) = k$, $0 < k < L - 1$ e di utilizzarla come soglia sull’immagine di input ottenendo due classi $C_0$ e $C_1$
+La probabilità $\omega_0(k)$ che un pixel venga assegnato alla classe $C_0$ è data dalla probabilità cumulativa
+\begin{center}
+    $\omega_0(k) = \sum_{i=0}^{k}p_i,$
+\end{center}
+Analogamente per la classe $C_1$ si ha:
+\begin{center}
+    $\omega_1(k) = \sum_{i=k+1}^{L-1}p_i=1-\omega_0(k)$
+\end{center}
+Il valore medio (valore atteso) di intensità dei pixel appartenenti a
+$C_0$ è
+\begin{center}
+    $\mu_0(k)=\frac{1}{\omega_o(k)} \sum_{i=0}^{k}ip_i$
+\end{center}
+Analogamente, il valore medio di intensità della seconda classe è
+\begin{center}
+    $\mu_1(k)=\frac{1}{\omega_1(k)}\sum_{i=k+1}^{L-1}ip_i$
+\end{center}
+La media e la probabilità cumulativa fino al livello k sono date da:
+\begin{center}
+    $\mu(k)=\sum_{i=0}^{k}ip_i$ $w(k)=\sum_{i=0}^{k}p_i$
+\end{center}
+mentre la media globale, cioè l’intensità media dell’intera
+immagine, è
+\begin{center}
+    $\mu_T=\mu(L)=\sum_{i=0}^{L-1}ip_i$
+\end{center}
+devono valere le seguenti relazioni:
+\begin{itemize}
+    \item $\omega_o \mu_o + \omega_1 \mu_1 = \mu_T$,
+    \item $\omega_0 + \omega_1 = 1$
+\end{itemize}
+La varianza delle due classi è data da:
+\begin{center}
+    $\sigma^2_0 = \frac{1}{\omega_0}\sum_{i=0}^{k}(i-\mu_0)^2p_i$  $\sigma^2_1 = \frac{1}{\omega_1}\sum_{i=0}^{k}(i-\mu_1)^2p_i$
+\end{center}
+La \textbf{la varianza interclasse} è definita come:
+\begin{center}
+    $\sigma^2_W = \omega_0 \sigma^2_0 + \omega_1 \sigma^2_1$
+\end{center}
+ovvero la somma pesata delle varianze delle due classi.
+\\Mentre la \textbf{varianza interclasse} è data da
+\begin{center}
+    $\sigma^2_B = \omega_0(\mu_0 - \mu_T)^2 + \omega_1(\mu_1 - \mu_T)^2 = \omega_0\omega_1(\mu_1-\mu_0)^2 = \frac{[\mu_t \omega_k - \mu(k)]^2}{\omega(k)(1-\omega(k))}$
+\end{center}
+Da notare che $\sigma^2_B$  cresce all’aumentare della distanza tra i due valori medi $\mu_0$ e $\mu_1$, mettendo in evidenza che la varianza interclasse è la misura della separabilità tra le classi.
+\\
+La soglia ottimale è data dal valore $k^*$ che massimizza $\sigma^2_B(k)$, ovvero
+\begin{center}
+    $\sigma^2_B(k) = max_{0<=k<=L-1} \sigma^2_B(k)$
+\end{center}
+Una volta che è stato trovato $k^*$ l’immagine viene segmentata nel modo seguente:
+\begin{center}
+    $
+        g(x,y) = \left\{ \begin{array}{cl}
+            1 & \ se f(x,y) > k^* \\
+            0 & se f(x,y) <= k^*
+        \end{array} \right.
+    $
+\end{center}
+L’algoritmo può essere riassunto come segue:
+\begin{enumerate}
+    \item calcolare l’istogramma normalizzato dell’immagine denotando
+          le componenti $p_i$, $i=0,1,2,...,L-1$;
+    \item calcolare la probabilità cumulativa $\omega(k)$;
+    \item calcolare la media cumulativa $\mu(k)$;
+    \item calcolare l’intensità media globale $\mu_T$;
+    \item calcolare la varianza interclasse $\sigma^2_B$;
+    \item  calcolare la soglia di Otsu $k^*$, cioè il valore di k che rende
+          massima la varianza interclasse;
+\end{enumerate}
+Esiste un’estensione del metodo di Otsu che prende il nome di
+metodo di \textbf{Phansalkar}
+
+\subsubsection*{Esempio}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/otsu.png}
+    \caption*{ Immagine originale e immagine sogliata con l’algoritmo Otsu}
+\end{figure}
