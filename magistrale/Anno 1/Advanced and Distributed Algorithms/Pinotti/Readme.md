@@ -49,12 +49,13 @@ Considero i job in base al loro $f_j$. Il job 3 sarà quello con $f_j = 3$
 **Def.** $p(j) =  max(i < j)$ tale che $i$ è compatibile con $j$
 
 Ovvero l'ultimo job che finisce prima che inizi il job $j$, il job "più compatibile".
-$$
+
+```math
 OPT(j) = \begin{cases} 
 0 & \mbox{if }j = 0 \\
 max\{v_j + OPT(p(j)), OPT(j -1)\} & \mbox{otherwise}
 \end{cases}
-$$
+```
 
 ## Brute Force
 
@@ -158,12 +159,12 @@ $f(x)= E + cL$
 ## Dynamic version
 
 $e(i,j)$ = somma degli errori quadrati per i punti $p_i, p_{i+1},..., p_j$
-$$
+```math
 OPT(j) = \begin{cases} 
 0 & \mbox{if } j = 0 \\
 min_{1 \leq i \leq j}\{ e(i,j) + c + OPT(i-1)\} & \mbox{otherwise}
 \end{cases}
-$$
+```
 
 ```pseudocode
 for j = 1 to n 
@@ -189,7 +190,7 @@ Può essere migliorato in  $O(n^2)$ time, $O(n)$ space grazie ad alcune precompu
   - $c$: il costo da pagare per ogni segmento
   - $e$: il costo degli errori
 - risolvo n problemi **SPAZIO =** $O(n)$
-- per ogni problema ho n scelte ( $O(n^2)$) ma per computare $e(i,j)$$ **TEMPO =** $O(n^3)$
+- per ogni problema ho n scelte ( $O(n^2)$ ) ma per computare $e(i,j)$ **TEMPO =** $O(n^3)$
 - per ricostruire la soluzione salvo un vettore dove $S[j] = min_i$ **SPAZIO_S** = $O(n)$
 
 ---
@@ -207,13 +208,13 @@ Posso cercare algoritmi greedy, (by value, by weight, by ratio $v_i/w_i$) ma nes
 Non posso usare una funzione $OPT(j)$ perchè senza sapere quali altri oggetti ho nello zaino non so se posso prendere $j$.
 
 $OPT(j, w)$ = miglior soluzione nel subset di oggetti da 1 a $j$ con peso massimo $w$.
-$$
+```math
 OPT(j, w) = \begin{cases} 
 0 & \mbox{if } j = 0 \\
 OPT(j-1, w) & \mbox{if } w_j \gt w \\
 max\{OPT(j-1, w), v_j + OPT(j-1, w-w_j)\} & \mbox{otherwise}
 \end{cases}
-$$
+```
 
 
 ## Bottom-Up
@@ -320,14 +321,15 @@ possiamo tagliare il pole il $2^{n-1}$ modi diversi
 
 ## Recursive Top-Down
 
-Considero la soluzione per input $n$:	$n = i_1 + i_2 + ... i_k $ 	per qualche k
+Considero la soluzione per input $n$ :	$n = i_1 + i_2 + ... i_k$ 	per qualche k
 
 Ma allora 	$n - i_1 = i_2 + ... + i_k$ 	è una soluzione ottima per input $n - i_1$.
 
 Posso quindi calcolare il massimo guadagno $r_n = max\{p_n, r_1 + r_{n-1}, r_2 + r_{n-2}, ..., r_{n-1} + r_1\}$.	$p_n$ è il guadagno del pole intero, senza tagli. 
-$$
+
+```math
 r_n = max_{1 \le i \le n}(p_i + r_{n-i})
-$$
+```
 
 ```pseudocode
 Cut-Pole(p, n) {
@@ -394,19 +396,19 @@ Costo computazionale = $O(n^2)$
 
 # Matrix Chain Parentesizathion
 
-moltiplicazione tra 2 matrici $(p \times r)(r \times q) = (p \times q)$. $i,j = $ riga $i$ x colonna $j$ = $O(n^3)$ time
+moltiplicazione tra 2 matrici $(p \times r)(r \times q) = (p \times q)$ . $i,j =$ riga $i$ x colonna $j$ = $O(n^3)$ time
 
 **Goal:** data una sequenza di matrici, trovare il modo migliore di parentesizzarla per calcolare la moltiplicazione tra tutte le matrici con meno moltiplicazioni scalari possibili. 
 
 ### Quante possibili parentesizzazioni?
 
-$$
+```math
 P(n) =
 \begin{cases} 
 1 & \mbox{if }n = 0 \\
 \sum_{k=1}^{n-1}P(k)P(n-k) & \mbox{otherwise}
 \end{cases}
-$$
+```
 
 Ovvero $\Omega(2^n)$
 
@@ -425,13 +427,13 @@ MCP è un problema in sottostruttura ottima.
 - se $i \lt j$ e nella soluzione ottimale c'è la moltiplicazione $A_{ik} \times A_{(k+1) j}$ per qualche j allora $m[i,j] = m[i,k] + m[k+1,j] + p_{i-1} p_k p_j$
   - $p_{i-1} p_k p_j$ è il costo della moltiplicazione di $A_{ik} \times A_{(k+1)j}$
 
-$$
+```math
 m[i,j] = 
 \begin{cases}
 0 & \mbox{if } i = j \\
 min_{i \le k \lt j} \{ m[i,k] + m[k+1, j] + p_{i-1} p_k p_j\} & \mbox{if } i \lt j
 \end{cases}
-$$
+```
 
 Se implementassimo questa formula direttamente il costo computazionale diventerebbe esponenziale
 
@@ -525,9 +527,9 @@ Output:
 
 - un BST su $S$ con **avgCost** il più piccolo possibile
 
-$$
+```math
 avgCost(T) = \sum_{i = a}^{b} W[i] * cost_T(i)
-$$
+```
 
 - $cost_T(i)$ = numero di nodi da controllare per trovare $i$ in T
 
@@ -540,30 +542,33 @@ Scegliamo una root **r**, il suo sottoalbero di sinistra sarà un BST $T_1$ su $
 ### 2. Data la prima scelta, trovare la soluzione migliore
 
 Per trovare la soluzione migliore per T dobbiamo scegliere le soluzioni migliori per $T_1$ e $T_2$
-$$
+
+```math
 avgCost(T) = \sum_{i=a}^{b} W[i] * cost_T(i) 
 = \left( \sum_{i=a}^{b} W[i] \right) + avgCost(T_1) + avgCost(T_2)
-$$
+```
+
 $optAvg(a,b)$
 
 - 0 se $a \gt b$
 - min BST su $\{a .. b\}$ altrimenti
 
 $optAvg(a,b | r)$ è la soluzione ottima dato $r$ come radice.
-$$
+
+```math
 optAvg(a,b | r ) = \left( \sum_{i=a}^{b} W[i] \right) +optAvg(a,r-1) + optAvg(r+1, b)
-$$
+```
 
 
 ### 3. Prendere la prima scelta che porta alla soluzione migliore 
 
-$$
+```math
 optAvg(a,b) = 
 \begin{cases}
 0 & \mbox{if } a\gt b \\
 \left( \sum_{i=a}^{b} W[i] \right) + min_{r=a}^b \{ optAvg(a,r-1) + optAvg(r+1, b) \} & \mbox{otherwise}
 \end{cases}
-$$
+```
 
 ## Riepilogo
 
@@ -586,9 +591,11 @@ Costo totale = somma delle penalità
 Date due stringhe $x_1x_2...x_m$ e $y_1y_2...y_n$ un **allineamento** è una set di coppie ordinate $x_i - y_i$ tale che ogni lettera compaia in una sola coppia e non ci siano incroci ($x_i-y_j$ e $x_{i'}-y_{j'}$ si incrociano se $i \lt i'$ e $j > j'$)
 
 Il costo dell'allineamento è dato dalla somma dei costi dei mismatch e dei costi dei gap
-$$
+
+```math
 cost(M) = \sum_{(x_i,y_j) \in M} \alpha_{x_j y_j} + \sum_{i:x_i unmatched} \delta + \sum_{j:y_j unmatched} \delta
-$$
+```
+
 **Goal:** Date due stringhe, trovare l'allineamento di costo minimo.
 
  ## Stuttura del Problema
@@ -607,7 +614,7 @@ $OPT(i,j)$ = costo minimo dell'allineamento delle stringhe $x_1x_2...x_i$ e $y_1
 
   ​	pago $\delta$ + il costo di $OPT(i-1, j)$ 
 
-$$
+```math
 OPT(i,j) = 
 \begin{cases}
 j\delta & \mbox{if } i = 0 \\
@@ -619,7 +626,7 @@ min
 \delta + OPT(i-1, j)
 \end{cases}  & \mbox{otherwise}
 \end{cases}
-$$
+```
 
 ## Bottom-Up
 
@@ -664,7 +671,7 @@ permette di risparmiare spazio nella costruzione della soluzione del problema Lo
 
 risolvere LCS è come risolvere il cammino minimo su un grafo $n \times m$ da (0,0) a (n,m)
 
-**Lemma:** $f(i,j) = $ shortest path from $(0,0)$ to $(i,j) = OPT(i,j)$
+**Lemma:** $f(i,j) =$ shortest path from $(0,0)$ to $(i,j) = OPT(i,j)$
 
 **Dimostrazione** per induzione
 
@@ -694,7 +701,7 @@ e posso quindi renderlo ricorsivo, in ogni ricorsione mi ricordo solo q.
 
 ### Algoritmo
 
-per prima cosa calcolo shortest path su tutta la matrice (Dijkstra in $O(nm)$). Cerco poi q sulla colonna n/2 e lo salvo ricorsivamente n volte.
+per prima cosa calcolo shortest path su tutta la matrice (Dijkstra in $O(nm)$ ). Cerco poi q sulla colonna n/2 e lo salvo ricorsivamente n volte.
 
 Chiamo poi ricorsivamente f per trovare le soluzioni da sinistra a n/2 e da destra a n/2.
 
@@ -764,13 +771,13 @@ Invece di un arco $(u,v)$ su cui segno flow/capacity, ho due archi
 
 ### Capacità residua:
 
-$$
+```math
 c_f(e) = 
 \begin{cases}
 c(e) - f(e) & \mbox{if } e \in E \\
 f(e) & \mbox{if } e^{reverse} \in E
 \end{cases}
-$$
+```
 
 ### Residual Network:
 
@@ -822,14 +829,16 @@ L'algoritmo continua a chiamare AUGMENT sugli augmenting path finchè può.
 ### Flow Value Lemma
 
 sia $f$ un qualsiasi flow e $(A,B)$ un qualsiasi cut. Il valore del flow è uguale al flow passante per il cut.
-$$
+
+```math
 val(f) = \sum_{e \mbox { out of } A} f(e) -  \sum_{e \mbox { in to } A} f(e)
-$$
+```
+
 **Dimostrazione:**
 
- $ val(f) = \sum_{e \mbox { out of } s} f(e) -  \sum_{e \mbox { in to } s} f(e) =$
+ $val(f) = \sum_{e \mbox { out of } s} f(e) -  \sum_{e \mbox { in to } s} f(e) =$
 
-$ =\sum_{v \in A} \left( \sum_{e \mbox { out of } v} f(e) -  \sum_{e \mbox { in to } v} f(e) \right) =$ per la prorpietà della conservazione del flusso, ogni valore con $v \ne s$ è 0
+$=\sum_{v \in A} \left( \sum_{e \mbox { out of } v} f(e) -  \sum_{e \mbox { in to } v} f(e) \right) =$ per la prorpietà della conservazione del flusso, ogni valore con $v \ne s$ è 0
 
 $= \sum_{e \mbox { out of } A} f(e) -  \sum_{e \mbox { in to } A} f(e)$
 
@@ -889,7 +898,7 @@ Assumiamo che per ogni $e \in E$, $c(e)$ è un intero tra 0 e C, quindi anche og
 
 ### Teorema:
 
-Ford-Fulkerson termina dopo al più $val(f^*) \le nC$ augmenting paths, dove $f^*$ è il flusso massimo.
+Ford-Fulkerson termina dopo al più $val(f^{\*}) \le nC$ augmenting paths, dove $f^{\*}$ è il flusso massimo.
 
 **Dimostrazione:** ogni ciclo dell'algoritmo aumenta il flow di almeno 1.
 
@@ -962,7 +971,7 @@ Assumo che tutte le capacità siano intere e che $\Delta$ sia una potenza di 2.
 
     
 
-- ci sono $\lt 2m $ augmentation per ogni fase di scaling
+- ci sono $\lt 2m$ augmentation per ogni fase di scaling
 
   - ogni augmentation aumenta il flow di almeno $\Delta$
 
