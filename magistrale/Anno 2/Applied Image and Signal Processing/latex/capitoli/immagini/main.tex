@@ -410,7 +410,7 @@ Questo tipo di rappresentazione viene detta \textbf{RGB (Red,Green,Blue)}.
 Lo spazio RGB è uno spazio cartesiano, con tre assi ortogonali.
 Il colore di ciascun pixel viene rappresentato da un vettore
 $[R(x , y), G(x , y), B(x , y)]$ nello spazio RGB; ogni componente
-indica la quantit`a di rosso, verde e blu, rispettivamente, necessari
+indica la quantità di rosso, verde e blu, rispettivamente, necessari
 ad ottenere quel colore.
 In base alla rappresentazione RGB, un'immagine a colori viene
 rappresentata da una terna di matrici, ognuna delle quali contiene i
@@ -714,7 +714,7 @@ In questo caso prendiamo queste due diverse trasformazioni ed analizziamo il lor
 \subsubsection{Finestramento - Windowing}
 
 \begin{definition}
-    \textbf{Il windowing} consiste nel mostrare solo una parte del range dei valori di grigio dell’immagine.
+    \textbf{Il windowing} consiste nel mostrare solo una parte del range dei valori di grigio dell'immagine.
 \end{definition}
 
 \begin{figure}[H]
@@ -723,7 +723,7 @@ In questo caso prendiamo queste due diverse trasformazioni ed analizziamo il lor
 \end{figure}
 
 \textbf{Applicazione:} in molte immagini mediche il numero di valori della
-scala dei grigi utili dal punto di vista diagnostico `e sensibilmente
+scala dei grigi utili dal punto di vista diagnostico è sensibilmente
 minore di tutti quelli disponibili. Usando sul monitor tutto il range
 possibile si diminuisce il contrasto visibile nella zona di interesse.
 
@@ -749,19 +749,19 @@ In base al tipo di elaborazione che si vuole effettuare, può essere conveniente
 
 \subsection{Il modello Probabilistico}
 
-Nel modello probabilistico per i pixel, i valori assunti nei vari pixel ($N × M$) di un’immagine vengono considerati come valori assunti
-da una variabile aleatoria in una successione di $N × M$ esperimenti. E’ dunque possibile analizzare ed elaborare l’immagine utilizzando gli strumenti del calcolo delle probabilità e del calcolo stocastico.
-Un esempio di questo processo è \textbf{l’analisi dell’istogramma}.
+Nel modello probabilistico per i pixel, i valori assunti nei vari pixel ($N × M$) di un'immagine vengono considerati come valori assunti
+da una variabile aleatoria in una successione di $N × M$ esperimenti. E' dunque possibile analizzare ed elaborare l'immagine utilizzando gli strumenti del calcolo delle probabilità e del calcolo stocastico.
+Un esempio di questo processo è \textbf{l'analisi dell'istogramma}.
 
-\section{L’istogramma dei toni di grigio}
+\section{L'istogramma dei toni di grigio}
 
-\textbf{L’istogramma dei toni di grigio} (istogramma) si ottiene contando, per ogni valore del codominio dell’immagine (spazio di tutti i valori
-che possono essere assunti dai pixel), il numero di volte che tale valore compare nell’immagine.
-Il grafico che si ricava è un istogramma, cioè un grafico a barre dove l’asse delle ascisse è suddiviso in tanti punti quanti sono i
-possibili toni di grigio dell’immagine.
+\textbf{L'istogramma dei toni di grigio} (istogramma) si ottiene contando, per ogni valore del codominio dell'immagine (spazio di tutti i valori
+che possono essere assunti dai pixel), il numero di volte che tale valore compare nell'immagine.
+Il grafico che si ricava è un istogramma, cioè un grafico a barre dove l'asse delle ascisse è suddiviso in tanti punti quanti sono i
+possibili toni di grigio dell'immagine.
 
 \begin{trivlist}
-    \item \textbf{Esempio}: il codominio di un’immagine a 256 toni di grigio sarà formato da tutti i numeri interi da 0 a 255 $\rightarrow$ l’asse orizzontale sarà suddiviso in 256 parti.
+    \item \textbf{Esempio}: il codominio di un'immagine a 256 toni di grigio sarà formato da tutti i numeri interi da 0 a 255 $\rightarrow$ l'asse orizzontale sarà suddiviso in 256 parti.
 \end{trivlist}
 
 \begin{figure}[H]
@@ -769,20 +769,20 @@ possibili toni di grigio dell’immagine.
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-istogramma.png}
 \end{figure}
 
-\textbf{In termini probabilistici:} l’istogramma rappresenta la distribuzione di probabilità della variabile aleatoria r che indica il
+\textbf{In termini probabilistici:} l'istogramma rappresenta la distribuzione di probabilità della variabile aleatoria r che indica il
 valore di grigio di un pixel.
 
 \begin{definition}
-    In base alla definizione di distribuzione l’istogramma andrebbe normalizzato in modo da assumere valori tra 0 e 1.
-    Se i toni di grigio sono $r_k, k = 0, . . . , 255$ allora l’altezza della barra in $r_k$ è pari alla frequenza relativa di $r_k$ , ovvero
+    In base alla definizione di distribuzione l'istogramma andrebbe normalizzato in modo da assumere valori tra 0 e 1.
+    Se i toni di grigio sono $r_k, k = 0, . . . , 255$ allora l'altezza della barra in $r_k$ è pari alla frequenza relativa di $r_k$ , ovvero
     \begin{center}
         $p(r_k) = \frac{n_k}{n}$
     \end{center}
     dove $n_k$ è il numero di pixel in cui viene assunto $r_k$, $n$ è il numero totale di pixel dell'immagine.
 \end{definition}
 
-L’istogramma quindi fornisce una raffigurazione sintetica del contenuto cromatico o di luminosità dell’immagine, dunque una descrizione
-della qualità dell’immagine.
+L'istogramma quindi fornisce una raffigurazione sintetica del contenuto cromatico o di luminosità dell'immagine, dunque una descrizione
+della qualità dell'immagine.
 
 \begin{itemize}
     \item \textbf{Esempio:} \textbf{Immagine troppo scura}
@@ -814,20 +814,20 @@ della qualità dell’immagine.
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/alto-c.png}
 \end{figure}
 
-\subsection{Interventi sull’istogramma}
-Qualora le caratteristiche della distribuzione dei toni di grigio nell’immagine non siano ottimali, è consigliabile applicare
-all’istogramma opportune trasformazioni, basate su sistemi stocastici.
+\subsection{Interventi sull'istogramma}
+Qualora le caratteristiche della distribuzione dei toni di grigio nell'immagine non siano ottimali, è consigliabile applicare
+all'istogramma opportune trasformazioni, basate su sistemi stocastici.
 Tra queste:
 
 \begin{itemize}
-    \item \textbf{Equalizzazione dell’istogramma}
-    \item \textbf{Shift dell’istogramma}
-    \item \textbf{Stretching dell’istogramma}
+    \item \textbf{Equalizzazione dell'istogramma}
+    \item \textbf{Shift dell'istogramma}
+    \item \textbf{Stretching dell'istogramma}
 \end{itemize}
 
 \subsubsection{Equalizzazione sull'istogramma}
 
-\textbf{L'equalizzazione dell’istogramma} ha lo scopo di uniformare l’istogramma dell’immagine lungo tutto il suo dominio. Il risultato
+\textbf{L'equalizzazione dell'istogramma} ha lo scopo di uniformare l'istogramma dell'immagine lungo tutto il suo dominio. Il risultato
 è un nuovo istogramma in cui il numero di pixel ad ogni tono di grigio è il più possibile costante.
 \\\textbf{Algoritmo:}
 
@@ -847,7 +847,7 @@ $k=0,...,L-1$.
 
 \subsubsection{Equalizzazione sull'istogramma}
 
-\textbf{Shift dell’istogramma:} consiste nel traslare i valori dell’istogramma.
+\textbf{Shift dell'istogramma:} consiste nel traslare i valori dell'istogramma.
 \\\textbf{Algoritmo:}
 \begin{center}
     $T(r) = \alpha r, 0 < \alpha < 1$
@@ -863,10 +863,10 @@ Il $risultato$ è un immagine più scura o schiarita.
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/shift-isto.png}
 \end{figure}
 
-\subsubsection{Stretching dell’istogramma}
+\subsubsection{Stretching dell'istogramma}
 
-si usa quando l’istogramma presenta dei picchi abbastanza ravvicinati, provocando un’immagine
-piuttosto uniforme. Consiste in uno $stiramento$ dell’istogramma, in modo da distanziarne i picchi.
+si usa quando l'istogramma presenta dei picchi abbastanza ravvicinati, provocando un'immagine
+piuttosto uniforme. Consiste in uno $stiramento$ dell'istogramma, in modo da distanziarne i picchi.
 \\\textbf{Algoritmo:}
 \begin{center}
     $$
@@ -877,8 +877,8 @@ piuttosto uniforme. Consiste in uno $stiramento$ dell’istogramma, in modo da d
         \end{array} \right.
     $$
 \end{center}
-dove $[r_min, r_max ]$ è il range osservato nell’immagine originale, individuato dal minimo e dal massimo livello di grigio che presenta
-l’immagine.
+dove $[r_min, r_max ]$ è il range osservato nell'immagine originale, individuato dal minimo e dal massimo livello di grigio che presenta
+l'immagine.
 \\Il risultato è \textbf{l'aumento di contrasto}
 
 \subsubsection{Risultato strtching dell'istogramma}
@@ -890,7 +890,7 @@ l’immagine.
 
 \section{Il rumore}
 
-Per \textbf{rumore} si intende l’insieme dei segnali indesiderati che si sovrappongono al segnale utile oggetto di studio (ad esempio un’immagine) causandone una degenerazione.
+Per \textbf{rumore} si intende l'insieme dei segnali indesiderati che si sovrappongono al segnale utile oggetto di studio (ad esempio un'immagine) causandone una degenerazione.
 \\
 Si possono avere diverse forme di degrado tra cui, ad esempio:
 \begin{itemize}
@@ -912,7 +912,7 @@ In base alle sue cause, il rumore si distingue tra:
         $f(x,y) = g(x,y)+v(x,y)$
     \end{center}
     dove $g(x,y)$ è il segnale e $v(x,y)$ è il rumore $\rightarrow$ \textbf{additivo}
-    \item \textbf{Rumore dipendente dal segnale:} l’intensità del rumore dipende dal
+    \item \textbf{Rumore dipendente dal segnale:} l'intensità del rumore dipende dal
     segnale. Supponendo anche che esso sia molto più grande del segnale, la funzione è
     \begin{center}
         $f(x,y)=g(x,y)+v(x,y)g(x,y)=g(x,y)(1+v(x,y)) \approx g(x,y)v(x,y)$
@@ -927,13 +927,13 @@ caratterizzato in base alla:
 \begin{itemize}
     \item \textbf{Distribuzione:} descrive la probabilità che il rumore assuma
           certi valori di intensità
-    \item \textbf{Distribuzione spettrale:} ha a che fare con l’energia ad esso
+    \item \textbf{Distribuzione spettrale:} ha a che fare con l'energia ad esso
           associata, al variare della frequenza
 \end{itemize}
 
 \subsection{Il modello del rumore}
 
-Per poter caratterizzare e studiare il rumore in un’immagine si fanno in genere delle ipotesi semplificative, in modo che il rumore abbia una qualche distribuzione di probabilità: si costruisce in
+Per poter caratterizzare e studiare il rumore in un'immagine si fanno in genere delle ipotesi semplificative, in modo che il rumore abbia una qualche distribuzione di probabilità: si costruisce in
 questo modo un modello del rumore.
 Una modellizazione tipica prevede che:
 
@@ -959,7 +959,7 @@ Una modellizazione tipica prevede che:
 \subsubsection{Il rumore "salt and pepper"}
 
 Nel caso in cui il rumore abbia distribuzione spaziale di tipo impulsivo, si parla di rumore salt and pepper (sale e pepe): agisce
-corrompendo in maniera casuale i pixel dell’immagine, portandone il valore a $0=a$ (valore minimo) oppure a $255=b$ (valore massimo).
+corrompendo in maniera casuale i pixel dell'immagine, portandone il valore a $0=a$ (valore minimo) oppure a $255=b$ (valore massimo).
 \begin{center}
     $$
         p(r) = \left\{ \begin{array}{cl}
@@ -1002,9 +1002,9 @@ dove il valor medio e la deviazione standard sono dati da:
     $\mu = a + \sqrt{\pi b/4}$ $\sigma = \frac{b(4-\pi)}{4}$
 \end{center}
 
-Nel grafico lo scostamento dall’origine e la forma inclinata verso
-destra rende questa densit`a utile per l’approssimazione di
-istogrammi non simmetrici e pu`o essere utilizzata per rappresentare
+Nel grafico lo scostamento dall'origine e la forma inclinata verso
+destra rende questa densità utile per l'approssimazione di
+istogrammi non simmetrici e può essere utilizzata per rappresentare
 fenomeni di rumori tipici di alcuni sensori di range.
 
 \subsubsection{Esempio}
@@ -1068,7 +1068,7 @@ Questo rumore è un caso particolare del rumore di Gamma con $b = 1$.
 
 \subsubsection{Signal-Noise Ratio}
 
-Per avere una valutazione numerica dell’entità del rumore associato ad una data immagine si pu`o ricorrere al \textbf{rapporto segnale-rumore
+Per avere una valutazione numerica dell'entità del rumore associato ad una data immagine si può ricorrere al \textbf{rapporto segnale-rumore
     (Signal Noise Ratio - SNR)}, definito come:
 
 \begin{center}
@@ -1077,15 +1077,15 @@ Per avere una valutazione numerica dell’entità del rumore associato ad una da
     $
 \end{center}
 
-dove $f(x, y)$ è l’intensità del pixel $(x, y)$ dell’immagine (già corrotta dal rumore), $v(x, y)$ è il rumore e le sommatorie sono al
-variare di tutti i pixel $(x, y)$ dell’immagine.
+dove $f(x, y)$ è l'intensità del pixel $(x, y)$ dell'immagine (già corrotta dal rumore), $v(x, y)$ è il rumore e le sommatorie sono al
+variare di tutti i pixel $(x, y)$ dell'immagine.
 
 \section{Filtri}
 
-Il rumore può essere corretto applicando opportune trasformazioni ai pixel dell’immagine, dette filtri.
+Il rumore può essere corretto applicando opportune trasformazioni ai pixel dell'immagine, dette filtri.
 Per ogni tipo di rumore esiste un filtraggio differente, che risulterà il più adatto ad attenuare o eliminare quel particolare rumore.
-In genere, la scelta del filtro dipende dalla linearità o meno della relazione fra l’immagine corrotta e quella originale.
-E’ possibile combinare pi`u filtri, in modo da avere effetti più complessi.
+In genere, la scelta del filtro dipende dalla linearità o meno della relazione fra l'immagine corrotta e quella originale.
+E' possibile combinare più filtri, in modo da avere effetti più complessi.
 
 \subsection{Il filtraggio spaziale}
 
@@ -1165,7 +1165,7 @@ Esempio di applicazione del filtro medio
 \begin{enumerate}
     \item [a.] Immagine originale di 528 × 485 pixel.
     \item [b.] Risultato della sfocatura con filtro medio tramite maschera di dimensione 15
-    \item [c.]  Risultato dell’applicazione di una soglia.
+    \item [c.]  Risultato dell'applicazione di una soglia.
 \end{enumerate}
 I rumori non lineari (ad esempio quello impulsivo) non possono essere corretti con i filtri lineari.
 Possono essere trattati invece efficacemente con \textbf{filtri non lineari}
@@ -1174,10 +1174,10 @@ Possono essere trattati invece efficacemente con \textbf{filtri non lineari}
 \begin{trivlist}
     \item \textbf{Filtro mediano:}  sostituisce al valore di ogni pixel prefissato la
     mediana (valore centrale della lista ordinata) dei
-    valori dei pixel nell’intorno fissato.
+    valori dei pixel nell'intorno fissato.
 \end{trivlist}
 Il filtro mediano risulta particolarmente adatto a correggere il rumore \textbf{salt and pepper}, a differenza del filtro medio che, come si
-vede dall’esempio seguente, non risulta invece particolarmente efficace.
+vede dall'esempio seguente, non risulta invece particolarmente efficace.
 
 \subsubsection{Esempio: Filtro medio}
 
@@ -1205,7 +1205,7 @@ Il \textbf{filtro medio} è invece molto utilizzato ad esempio per correggere il
 \end{figure}
 Immagine originale, immagine corrotta da rumore gaussiano e immagine filtrata con filtro medio
 
-\subsection{Altri filtri (non lineari) basati sulle statistiche d’ordine}
+\subsection{Altri filtri (non lineari) basati sulle statistiche d'ordine}
 \begin{itemize}
     \item \textbf{Filtro di massimo}
     \item \textbf{Filtro di minimo}
@@ -1245,7 +1245,7 @@ rumore salt an pepper e rumore gaussiano.
 
 \section{Filtri di sharpering}
 L'obiettivo di questi filtri è quello di marcare i bordi (edge detection), attribuendo meno importanza alle aree che hanno variazione lenta a livello di intensità.
-Si basano sull’operatore di derivazione ed hanno l’effetto di evidenziare soltanto i bordi dell’immagine. In forma discreta, se f rappresenta l’intensità associata a ogni pixel
+Si basano sull'operatore di derivazione ed hanno l'effetto di evidenziare soltanto i bordi dell'immagine. In forma discreta, se f rappresenta l'intensità associata a ogni pixel
 $(x,y)$, le derivate possono essere espresse come differenze finite:
 \begin{center}
     $\frac{\partial{f}}{\partial{x}}(x,y) \sim f(x+1, y) − f(x, y)$, $\frac{\partial{f}}{\partial{y}} \sim f(x,y+1) − f(x,y)$
@@ -1254,7 +1254,7 @@ $(x,y)$, le derivate possono essere espresse come differenze finite:
     \\
     $\frac{\partial{f^2}}{\partial{y^2}}(x,y) \sim f(x,y+1) + f(x, y-1) - 2f(x,y)$
 \end{center}
-Il filtro di sharpening ha l’effetto di evidenziare soltanto i bordi dell’immagine.
+Il filtro di sharpening ha l'effetto di evidenziare soltanto i bordi dell'immagine.
 
 \begin{figure}[H]
     \centering
@@ -1271,7 +1271,7 @@ Operatore Gradiente:
 \begin{center}
     $\nabla f=(\frac{\partial{f}}{\partial{x}}, \frac{\partial{f}}{\partial{y}})$,
 \end{center}
-Una comune implementazione della derivata prima nell’ambito dell’image processing è costituita dal modulo del gradiente
+Una comune implementazione della derivata prima nell'ambito dell'image processing è costituita dal modulo del gradiente
 \begin{center}
     $| \nabla f(x,y) |$ $\sim$ $|\frac{\partial{f}}{\partial{x}}|$ $+$ $|\frac{\partial{f}}{\partial{y}}|$
 \end{center}
@@ -1297,7 +1297,7 @@ Maschere:
 \end{figure}
 
 \subsection{Filtro di Sobel}
-Un’altra approssimazione discreta del gradiente è data da:
+Un'altra approssimazione discreta del gradiente è data da:
 $\nabla f(x,y) \sim \frac{\partial{f}}{\partial{x}} + \frac{\partial{f}}{\partial{y}}$
 \\$\sim  |[f(x+1,y-1) + 2f(x+1,y) + f(x+1 y+1)]+$
     \\$ - |[f(x-1, y-1)+2f(x-1,y) + f(x-1, y+1)]|+$
@@ -1414,7 +1414,7 @@ oppure, tenendo conto delle direzioni diagonali:
 \end{figure}
 
 \subsection{Filtro Differenziale}
-Sfruttare la proprietà di attraversamento dello zero della derivata seconda nelle varie direzioni, coordinate e diagonali, che ha come effetto quello di evidenziare direzionalmente i bordi di un’immagine lungo di esse.
+Sfruttare la proprietà di attraversamento dello zero della derivata seconda nelle varie direzioni, coordinate e diagonali, che ha come effetto quello di evidenziare direzionalmente i bordi di un'immagine lungo di esse.
 Dalle approssimazioni:
 \begin{center}
     $\frac{\partial^2{f}}{\partial{x}^2}(x,y) \sim f(x+1,y)+f(x-1,y)-2f(x,y),$
@@ -1463,7 +1463,7 @@ $d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).$
           \begin{center}
               $g_i(x,y) = f(x,y) + \eta_i(x,y)$, $i=...K,$
           \end{center}
-          dove $f(x,y)$ è l’immagine priva di rumore. Se $g(x,y)$ è la loro media, ovvero
+          dove $f(x,y)$ è l'immagine priva di rumore. Se $g(x,y)$ è la loro media, ovvero
           \begin{center}
               $\bar{g}(x,y)=\frac{1}{K} \sum_{i=1}^{K}g_i(x,y)$
           \end{center}
@@ -1484,7 +1484,7 @@ $d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).$
               $g(x,y) = f(x,y)-h(x,y),$
           \end{center}
           Si utilizza, ad esempio, quando si vogliono evidenziare le differenze fra due immagini,
-          dove $h(x,y)$, detta maschera, è un’immagine della regione di interesse.
+          dove $h(x,y)$, detta maschera, è un'immagine della regione di interesse.
           \\ \textbf{Esempio:}
           \\ \textbf{Digital Subtraction Angiography (DSA)}
 \end{itemize}
@@ -1511,11 +1511,11 @@ $d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).$
 \end{figure}
 
 \section{La segmentazione}
-La segmentazione di un’immagine nell’elaborazione digitale è un processo di partizione dell’immagine in regioni significative.
-E' il processo con il quale si classificano i pixel dell’immagine che hanno caratteristiche comuni: pertanto ciascun pixel in una regione
+La segmentazione di un'immagine nell'elaborazione digitale è un processo di partizione dell'immagine in regioni significative.
+E' il processo con il quale si classificano i pixel dell'immagine che hanno caratteristiche comuni: pertanto ciascun pixel in una regione
 è simile agli altri della stessa regione per una qualche proprietà o
 caratteristica (colore, intensità o texture).
-\\Matematicamente, il processo di segmentazione di un’immagine $f(x,y)$ in regioni $R_1,...,R_n$ deve soddisfare le seguenti condizioni (Zhang, 2006):
+\\Matematicamente, il processo di segmentazione di un'immagine $f(x,y)$ in regioni $R_1,...,R_n$ deve soddisfare le seguenti condizioni (Zhang, 2006):
 \begin{itemize}
     \item $\cup^n_{i=1}$ $R_i = f(x,y)$
     \item Ogni regione $R_i$ con $i=1,...,n$ è connessa;
@@ -1527,7 +1527,7 @@ caratteristica (colore, intensità o texture).
               \item $P(R_i) = vero$ $\forall i = 1...n$
               \item $P(R_i \cup R_j) = falso$ $\forall R_i, R_j$ regioni adiacenti
           \end{itemize}
-          La segmentazione dell’immagine ha molte applicazioni...
+          La segmentazione dell'immagine ha molte applicazioni...
 \end{itemize}
 \textbf{Biologia}
 \begin{figure}[H]
@@ -1558,20 +1558,20 @@ Le fondamentali metodologie di segmentazione sono:
 \end{itemize}
 
 \subsection{Thresholding Segmentation}
-Singoli pixel dell’immagine sono catalogati come "pixel oggetto" se
+Singoli pixel dell'immagine sono catalogati come "pixel oggetto" se
 il loro valore è maggiore di una certa soglia e come "pixel di sfondo"
-se il valore è sotto la soglia. L’immagine binaria in uscita ha valore
-pari a 1 per ogni pixel dell’oggetto e pari a 0 per lo sfondo.
+se il valore è sotto la soglia. L'immagine binaria in uscita ha valore
+pari a 1 per ogni pixel dell'oggetto e pari a 0 per lo sfondo.
 \begin{trivlist}
-    \item \textbf{Problema:} individuare il valore ottimo che minimizza l’errore dovuto all’oversegmentation (troppi oggetti) e
-    all’undersegmentation (pochi oggetti).
+    \item \textbf{Problema:} individuare il valore ottimo che minimizza l'errore dovuto all'oversegmentation (troppi oggetti) e
+    all'undersegmentation (pochi oggetti).
     \item \textbf{Soluzione:} sogliatura locale $\rightarrow$ scelta di un valore di soglia diverso,
     adatto ad ogni regione esaminata.
 \end{trivlist}
 
 \subsection{Thresholding manuale}
 \begin{itemize}
-    \item Procedura supervisionata $\rightarrow$ dipendente dall’operatore
+    \item Procedura supervisionata $\rightarrow$ dipendente dall'operatore
     \item Procedura NON automatica
 \end{itemize}
 \begin{figure}[H]
@@ -1581,13 +1581,13 @@ pari a 1 per ogni pixel dell’oggetto e pari a 0 per lo sfondo.
 
 \subsubsection{Thresholding automatico basilare}
 Separazione dei picchi negli istrogrammi che rappresentano oggetti
-diversi nell’immagine.
+diversi nell'immagine.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/trash-automatico-basilare.png}
     \caption*{Immagine sintetica vs immagine reale}
 \end{figure}
-Separazione dei picchi negli istrogrammi che rappresentano oggetti diversi nell’immagine.
+Separazione dei picchi negli istrogrammi che rappresentano oggetti diversi nell'immagine.
 \textbf{Problema:} Cosa accade se le code si sovrappongono?
 \begin{figure}[H]
     \centering
@@ -1609,17 +1609,17 @@ Separazione dei picchi negli istrogrammi che rappresentano oggetti diversi nell�
 \begin{itemize}
     \item è un metodo di sogliatura globale $\rightarrow$ non tiene conto delle
           piccole variazioni di livelli di grigio;
-    \item si basa solamente sull’istogramma dell’immagine (e quindi sul
+    \item si basa solamente sull'istogramma dell'immagine (e quindi sul
           livello di grigio dei pixel) e prevede che sia bimodale.
 \end{itemize}
 
 \subsection{Descrizione}
-Si ipotizzi che un’immagine digitale di $M x N$ pixel, abbia $L$ differenti livelli di grigio e si indichi con $\eta_i$
-il numero di pixel di intensità i. L’istogramma normalizzato ha componenti $p_i = \eta_i/(M x N)$ da cui si ha:
+Si ipotizzi che un'immagine digitale di $M x N$ pixel, abbia $L$ differenti livelli di grigio e si indichi con $\eta_i$
+il numero di pixel di intensità i. L'istogramma normalizzato ha componenti $p_i = \eta_i/(M x N)$ da cui si ha:
 \begin{center}
     $\sum_{i=0}^{L-1}p_i = 1$ $p_i >= 0$
 \end{center}
-Ora si ipotizzi di selezionare una soglia $T(k) = k$, $0 < k < L - 1$ e di utilizzarla come soglia sull’immagine di input ottenendo due classi $C_0$ e $C_1$
+Ora si ipotizzi di selezionare una soglia $T(k) = k$, $0 < k < L - 1$ e di utilizzarla come soglia sull'immagine di input ottenendo due classi $C_0$ e $C_1$
 La probabilità $\omega_0(k)$ che un pixel venga assegnato alla classe $C_0$ è data dalla probabilità cumulativa
 \begin{center}
     $\omega_0(k) = \sum_{i=0}^{k}p_i,$
@@ -1641,7 +1641,7 @@ La media e la probabilità cumulativa fino al livello k sono date da:
 \begin{center}
     $\mu(k)=\sum_{i=0}^{k}ip_i$ $w(k)=\sum_{i=0}^{k}p_i$
 \end{center}
-mentre la media globale, cioè l’intensità media dell’intera
+mentre la media globale, cioè l'intensità media dell'intera
 immagine, è
 \begin{center}
     $\mu_T=\mu(L)=\sum_{i=0}^{L-1}ip_i$
@@ -1664,13 +1664,13 @@ ovvero la somma pesata delle varianze delle due classi.
 \begin{center}
     $\sigma^2_B = \omega_0(\mu_0 - \mu_T)^2 + \omega_1(\mu_1 - \mu_T)^2 = \omega_0\omega_1(\mu_1-\mu_0)^2 = \frac{[\mu_t \omega_k - \mu(k)]^2}{\omega(k)(1-\omega(k))}$
 \end{center}
-Da notare che $\sigma^2_B$  cresce all’aumentare della distanza tra i due valori medi $\mu_0$ e $\mu_1$, mettendo in evidenza che la varianza interclasse è la misura della separabilità tra le classi.
+Da notare che $\sigma^2_B$  cresce all'aumentare della distanza tra i due valori medi $\mu_0$ e $\mu_1$, mettendo in evidenza che la varianza interclasse è la misura della separabilità tra le classi.
 \\
 La soglia ottimale è data dal valore $k^*$ che massimizza $\sigma^2_B(k)$, ovvero
 \begin{center}
     $\sigma^2_B(k) = max_{0<=k<=L-1} \sigma^2_B(k)$
 \end{center}
-Una volta che è stato trovato $k^*$ l’immagine viene segmentata nel modo seguente:
+Una volta che è stato trovato $k^*$ l'immagine viene segmentata nel modo seguente:
 \begin{center}
     $
         g(x,y) = \left\{ \begin{array}{cl}
@@ -1679,23 +1679,153 @@ Una volta che è stato trovato $k^*$ l’immagine viene segmentata nel modo segu
         \end{array} \right.
     $
 \end{center}
-L’algoritmo può essere riassunto come segue:
+L'algoritmo può essere riassunto come segue:
 \begin{enumerate}
-    \item calcolare l’istogramma normalizzato dell’immagine denotando
+    \item calcolare l'istogramma normalizzato dell'immagine denotando
           le componenti $p_i$, $i=0,1,2,...,L-1$;
     \item calcolare la probabilità cumulativa $\omega(k)$;
     \item calcolare la media cumulativa $\mu(k)$;
-    \item calcolare l’intensità media globale $\mu_T$;
+    \item calcolare l'intensità media globale $\mu_T$;
     \item calcolare la varianza interclasse $\sigma^2_B$;
     \item  calcolare la soglia di Otsu $k^*$, cioè il valore di k che rende
           massima la varianza interclasse;
 \end{enumerate}
-Esiste un’estensione del metodo di Otsu che prende il nome di
+Esiste un'estensione del metodo di Otsu che prende il nome di
 metodo di \textbf{Phansalkar}
 
 \subsubsection*{Esempio}
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/otsu.png}
-    \caption*{ Immagine originale e immagine sogliata con l’algoritmo Otsu}
+    \caption*{ Immagine originale e immagine sogliata con l'algoritmo Otsu}
+\end{figure}
+
+\section{Edge-Gray Levels Histogram method (Panda e Rosenfeld (1977)}
+Testato per la prima volta su immagini termografiche (FLIR-Forward-Looking Infra Red). Sfrutta un vettore multidimensionale di criteri piuttosto che un solo parametro caratterizzante come il livello di grigio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/rosenfeld.png}
+\end{figure}
+
+Il Metodo di segmentazione delle immagini in uno spazio bidimensionale di parametri, in cui i criteri considerati per ciascun
+pixel sono da una parte il livello di grigio (grey level), dall'altra il valore ai bordi (edge value), rappresentativo nel mondo digitale del
+modulo approssimato del valore puntuale del gradiente.
+
+\section{Fuzzy Selection}
+La Fuzzy selection seleziona tutti i pixel di un oggetto fra loro adiacenti e che abbiano un valore compreso in un certo intervallo di livelli di grigio.
+Si tratta, anche in questo caso, di una selezione multiparametrica. L'algoritmo che la implementa dovrà attraversare l'immagine etichettando i vertici in base alla connettività ed ai valori relativi dei vicini.
+Al termine della scansione tutti i polimini, fra loro disgiunti, saranno etichettati con label differenti.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/fuzzy-selection.png}
+\end{figure}
+
+\section{Operatori morfologici}
+La parola morfologia denota comunemente lo studio della forma.
+Gli operatori morfologici matematici effettuano elaborazioni dipendentemente dalla forma di un oggetto, estraendo
+dall'immagine componenti utili alla rappresentazione e descrizione della forma di una regione (contorni, scheletro, ecc...).
+La struttura dell'immagine viene "sondata" con un insieme di forma definibile dall'utente (elemento strutturante)
+\\ I principali operatori morfologici sono:
+
+\begin{itemize}
+    \item \textbf{Erosione}
+    \item \textbf{Dilatazione}
+    \item \textbf{Apertura}
+    \item \textbf{Chiusura}
+\end{itemize}
+
+\subsection{Erosione}
+Sia I l'immagine da analizzare ed SE un elemento strutturante.
+L'erosione tra I e SE è definita come:
+\begin{center}
+    $I \ominus SE = {z|(SE)_z \in I} $
+\end{center}
+dove $(SE)_z$ indica l'elemento strutturante centrato nel punto z .
+Equivalentemente si usa
+\begin{center}
+    $I \ominus SE = {z|(SE)_z \cap I^c = \emptyset}$
+\end{center}
+\textbf{Erosione - Esempio}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/erosione-esempio.png}
+\end{figure}
+
+\subsection{Dilatazione}
+La dilatazione, detta anche addizione di Minkowsky, tra $I$ ed $SE$ è
+definita come:
+
+\begin{center}
+    $I \oplus SE = {z|(SE)_z \cap I = \emptyset}$
+\end{center}
+
+La formulazione appena riportata è equivalente a:
+
+\begin{center}
+    $I \oplus SE = {z|(SE)_z \cup I} \subset I$
+\end{center}
+\textbf{Dilatazione - Esempio}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/dilatazione-esempio.png}
+\end{figure}
+
+\textbf{Dilatazione - Applicazione: riempimento}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/dilatazione-applicazione.png}
+\end{figure}
+
+\subsection{Erosione e Dilatazione in scala di grigi}
+L'erosione fa si che il pixel, in cui $SE$ è centrato, diventi 0 se nell'intorno di quel pixel c'è almeno uno zero; la dilatazione fa sì
+che il pixel, in cui $SE$ è centrato, diventi 1 se nell'intorno di quel pixel c'è almeno un 1.
+Per le immagini a scala di grigi l'erosione prende il minimo valore nell'elemento strutturante, mentre la dilatazione prende il valore massimo:
+
+\begin{center}
+    $I \ominus SE = min{I(z):z \in SE}$
+    \\$I \oplus SE = max{I(z):z \in SE}$
+\end{center}
+\textbf{Erosione e Dilatazione: Esempio}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/erosione-dilatazione-esempio.png}
+    \caption*{Immagine originale a sinistra, risultato dell'erosione al centro, risultato della dilatazione a destra.}
+\end{figure}
+
+\subsection{Apertura}
+L'apertura è una erosione seguita da una dilatazione, dove si considera sempre lo stesso elemento strutturante e non è commutativa.
+E' definita come:
+
+\begin{center}
+    $I \circ SE = (I \ominus SE) \oplus SE$
+\end{center}
+
+L'effetto dell'apertura è di preservare il più possibile regioni di
+forma simile all'elemento strutturante, e di eliminare quelle
+differenti.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/apertura.png}
+\end{figure}
+
+\subsection{Chiusura}
+La chiusura è una dilatazione seguita da una erosione, dove si considera sempre lo stesso elemento strutturante e non è
+commutativa.
+E'definita come
+
+\begin{center}
+    $I \bullet SE = (I \oplus SE) \ominus SE$
+\end{center}
+
+L'effetto della chiusura è di chiudere gli eventuali buchi interni.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/chiusura.png}
 \end{figure}
