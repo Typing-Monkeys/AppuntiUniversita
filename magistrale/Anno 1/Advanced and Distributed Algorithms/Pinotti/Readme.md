@@ -1,11 +1,12 @@
-# Algoritmi - Pinotti
-
-
+# Advanced and Distributed Algorithms - Modulo 2
 
 ## Indice
 
 - [Dynamic Programming](#Dynamic-Programming)
+  - [Introduzione](#introduzione)
   - [Weighted Interval Scheduling](#Weighted-Interval-Scheduling)
+
+  -
   - [Segmented Least Squares](#Segmented-Least-Squares)
   - [Knapsack Problem](#Knapsack-Problem)
   - [RNA Secondary Stucture](#RNA-Secondary-Stucture)
@@ -22,58 +23,91 @@
   - [Disjoint Paths](#Disjoint-Paths)
   - [Network Connectivity](#Network-Connectivity)
 
+
+<hr>
+
 # Dynamic Programming
 
-Suddividere i problemi in sottoproblemi che si sovrappongono e costruire la soluzione verso l'alto di sottoproblemi sempre più grandi.
+### Introduzione
+Dopo aver visto tecniche di design per vari tipi algoritmi (ad esempio Ricerca, Ordinamento ecc...) quali 
+- **Greedy** in cui si costruisce una soluzione in modo incrementale, ottimizzando ciecamente alcuni criteri locali.
+- **Divide et Impera** nella quale si suddivide un problema in sottoproblemi indipendenti, si risolve ogni sottoproblema e ne si combina la soluzione con gli altri sottoproblemi per formare la soluzione al problema originale,
 
-I risultati intermedi vengono salvati in cache e riutilizzati più avanti.
+è possibile introdurre una tecnica più potente ma anche più complessa da applicare: la **Programmazione Dinamica** (Dynamic Programming). L'idea su cui si fonda è simile alla tecnica **Divide et Impera** ed è essenzialmente l'opposto di una strategia **Greedy**. In sostanza si esplora implicitamente tutto lo spazio delle soluzioni e lo si decompone 
+in una serie di **sotto-problemi**, grazie ai quali si costruiscono le soluzioni per **sotto-problemi sempre più grandi** finché non si raggiunge il **problema di partenza**.
 
----
+Una tecnica di programmazione dinamica è quella della `Memoization`, che è utile per risolvere una moltitudine di problemi, in cui risultati intermedi vengono salvati in cache e riutilizzati più avanti.
 
-# Weighted Interval Scheduling
+Per applicare la programmazione dinamica è necessario creare un *sotto-set* di problemi che soddisfano le seguenti proprietà:
+1. Esiste solo un **numero polinomiale di sotto-problemi**
+2. La soluzione al problema originale può essere calcolata **facilmente dalla soluzione dei sotto-problemi**
+3. C'è un **ordinamento naturale dei sotto-problemi** dal più piccolo al più grande, insieme a una ricorsione facilmente calcolabile
 
-- Job $j$ che iniziano al tempo $s_j$, finiscono al tempo $f_j$ e hanno peso $v_j$.
-- Due job sono compatibili se non si sovrappongono temporalmente.
-- **Obiettivo:** trovare il subset di job compatibili con peso massimo.
+Qui di seguito verranno descritti i principali problemi e algoritmi di risoluzione nell'ambito della programmazione dinamica.
 
-## Greedy Version - Earliest Finish Time First
+<hr>
 
-Considero i job in ordine ascendente di $f_j$, aggiungo un job alla soluzione se è compatibile con il precedente.
+## Weighted Interval Scheduling
 
-È corretto se i pesi sono tutti 1, ma fallisce clamorosamente nella versione pesata.
+Abbiamo visto che un algoritmo **greedy** produce una soluzione ottimale per l'Interval Scheduling Problem, in cui l'obiettivo è accettare un insieme di intervalli non sovrapposti il più ampio possibile. **Il Weighted Interval Scheduling Problem** è una versione più **generale**, in cui ogni intervallo ha un certo valore (o peso), e vogliamo accettare un insieme di valore massimo.
 
-## Dynamic Version
+Questo problema ha l'obiettivo di ottenere un insieme (il più grande possibile) di intervalli non sovrapposti (overlapping). Per la versione non pesata (Interval Scheduling Problem in cui weight=1) esiste uno specifico algoritmo **Greedy** che è in grado di trovare la soluzione ottima, tuttavia nella versione più generale, ovvero la versione pesata (**il Weighted Interval Scheduling Problem**, weight $\neq$ 1) è necessario utilizzare la programmazione dinamica.
 
-Considero i job in base al loro $f_j$. Il job 3 sarà quello con $f_j = 3$
+#### **Descrizione del problema**
+- $n$: un intero che rappresenta l'indice dell'intervallo (job)
+- $s_i$: tempo di inizio dell'intervallo $i$
+- $f_i$: tempo di fine dell'intervallo $i$
+- $v_i$: peso dell'intervallo $i$
+- Due job sono **compatibili** se non si sovrappongono.
+- $p(j)$: ritorna l'indice più grande $i$, con $i < j$, del primo intervallo compatibile con l'intervallo $j$, considerando il fatto che gli intervalli sono ordinati in ordine non decrescente in base a $f_i$
+- $\mathcal{O}_j$: rappresenta la soluzione ottima al problema calcolato sull'insieme $\{1, \ldots, j\}$
+- $OPT(j)$: rappresenta il valore della soluzione ottima $\mathcal{O}_j$
 
-**Def.** $p(j) =  max(i < j)$ tale che $i$ è compatibile con $j$
+#### **Goal**
+- L'obiettivo del problema attuale è quello di trovare un sottoinsieme $S \subseteq \{1, \ldots, n\}$ di intervalli mutualmente compatibili che vanno a massimizzare la somma dei pesi degli intervalli selezionati $\sum_{i \in S} v_i$.
 
-Ovvero l'ultimo job che finisce prima che inizi il job $j$, il job "più compatibile".
+#### Greedy Version - Earliest Finish Time First
+Considero i job in ordine non decrescente di $f_j$, aggiungo un job alla soluzione se è compatibile con il precedente.
 
-```math
-OPT(j) = \begin{cases} 
-0 & \mbox{if }j = 0 \\
-max\{v_j + OPT(p(j)), OPT(j -1)\} & \mbox{otherwise}
-\end{cases}
-```
+È corretto se i pesi sono tutti 1, ma **fallisce** clamorosamente nella versione pesata.
 
-## Brute Force
+### Dynamic Version
 
-```pseudocode
+Come prima cosa definiamo il metodo per calcolare $OPT(j)$. Il problema è una _scelta binaria_ che va a decidere se l'intervallo di indice $j$ verrà incluso nella soluzione oppure no, basandosi sul valore ritornato dalla seguente formula:
+
+$$
+OPT(j) = max(v_j + OPT(p(j)), \ \ OPT(j-1))
+$$
+
+Questo può essere anche visto come una disequazione:
+
+$$
+v_j + OPT(p(j)) \geq OPT(j-1)
+$$
+
+che se vera, includerà $j$ nella soluzione ottimale.
+
+#### **Brute Force**
+Scrivendo tutto sotto forma di algoritmo ricorsivo avremmo che:
+```javascript
 Input: n, s[1..n], f[1..n], v[1..n]
 Sort jobs by finish time so that f[1] ≤ f[2] ≤ ... ≤ f[n]. 
 Compute p[1], p[2], ..., p[n].
 
-Compute-Opt(j)
-	if j = 0
-		return 0
-  else
-  	return max(v[j] + Compute-Opt(p[j], Compute-Opt(j–1)))
+function Compute-Opt(j){
+    if (j == 0)
+        return 0
+    else
+        return max(vj+Compute-Opt(p(j)), Compute-Opt(j − 1))
+}
 ```
+Costruendo l'albero della ricorsione dell'algoritmo si nota che la complessità temporale è **esponenziale**. Questo perchè seguendo questo approccio calcolo più volte gli stessi sottoproblemi che si espandono come un albero binario. Il numero di chiamate ricorsive cresce come la **sequenza di fibonacci**.
 
-In questo modo calcolo più volte gli stessi sottoproblemi che si espandono come un albero binario. Il numero di chiamate ricorsive cresce come la sequenza di fibonacci.
+<img src="./imgs/opt_recursion_tree.png" width="50%"/>
 
-## Memoization
+Una soluzione è quella di utilizzare la tecnica della **Memoization** che evita di ricalcolare $OPT$ per gli indici già calcolati precedentemente, rendendo così il costo temporale uguale ad $O(n)$.
+
+#### Memoization
 
 ```pseudocode
 Input: n, s[1..n], f[1..n], v[1..n]
@@ -99,6 +133,8 @@ Costo computazionale = $O(n\log{n})$:
 - M-Compute-Opt( j ): $O(1)$ ogni iterazione, al massimo $2n$ ricorsioni = $O(n)$
 
 Se i job sono già ordinati = $O(n)$
+
+Oltre al valore della soluzione ottimale probabilmente vorremmo sapere anche quali sono gli intervalli che la compongono, e intuitivamente verrebbe da creare un array aggiuntivo in cui verranno aggiunti gli indici degli intervalli ottenuti con `M-Compute-Opt`. Tuttavia questo aggiungerebbe una complessità temporale di $O(n)$ peggiorando notevolmente le prestazioni. Un'alternativa è quella di recuperare le soluzioni dai valori salvati nell'array `M` dopo che la soluzione ottimale è stata calcolata. Per farlo possiamo sfruttare la formula vista in precedenza $v_j + OPT(p(j)) \geq OPT(j-1)$, che ci permette di rintracciare gli intervalli della soluzione ottima.
 
 ## Finding a solution
 
@@ -134,7 +170,8 @@ for j = 1 TO n
 - lo spazio è un vettore di $OPT[j]$ **SPAZIO =** $O(n)$
 - per ricostruire la soluzione uso un vettore dove per ogni $j$ ho un valore booleano che indica se il job fa parte della soluzione **SPAZIO_S =** $O(n)$
 
----
+<hr>
+#### ARRIVATO QUI A LEGGERTE
 
 # Segmented Least Squares
 
