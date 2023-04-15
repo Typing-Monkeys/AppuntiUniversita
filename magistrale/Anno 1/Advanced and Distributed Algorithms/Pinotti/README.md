@@ -52,7 +52,7 @@ Abbiamo visto che un algoritmo **greedy** produce una soluzione ottimale per l'I
 
 Questo problema ha l'obiettivo di ottenere un insieme (il più grande possibile) di intervalli non sovrapposti (overlapping). Per la versione non pesata (Interval Scheduling Problem in cui weight=1) esiste uno specifico algoritmo **Greedy** che è in grado di trovare la soluzione ottima, tuttavia nella versione più generale, ovvero la versione pesata (**il Weighted Interval Scheduling Problem**, weight $\neq$ 1) è necessario utilizzare la programmazione dinamica.
 
-#### **Descrizione del problema**
+### **Descrizione del problema**
 - $n$: un intero che rappresenta l'indice dell'intervallo (job)
 - $s_i$: tempo di inizio dell'intervallo $i$
 - $f_i$: tempo di fine dell'intervallo $i$
@@ -62,7 +62,7 @@ Questo problema ha l'obiettivo di ottenere un insieme (il più grande possibile)
 - $\mathcal{O}_j$: rappresenta la soluzione ottima al problema calcolato sull'insieme $\{1, \ldots, j\}$
 - $OPT(j)$: rappresenta il valore della soluzione ottima $\mathcal{O}_j$
 
-#### **Goal**
+### **Goal**
 - L'obiettivo del problema attuale è quello di trovare un sottoinsieme $S \subseteq \{1, \ldots, n\}$ di intervalli mutualmente compatibili che vanno a massimizzare la somma dei pesi degli intervalli selezionati $\sum_{i \in S} v_i$.
 
 #### Greedy Version - Earliest Finish Time First
@@ -86,7 +86,7 @@ $$
 
 che se vera, includerà $j$ nella soluzione ottimale.
 
-#### **Brute Force**
+### **Brute Force**
 Scrivendo tutto sotto forma di algoritmo ricorsivo avremmo che:
 ```javascript
 Input: n, s[1..n], f[1..n], v[1..n]
@@ -106,7 +106,7 @@ Costruendo l'albero della ricorsione dell'algoritmo si nota che la complessità 
 
 Una soluzione è quella di utilizzare la tecnica della **Memoization** che evita di ricalcolare $OPT$ per gli indici già calcolati precedentemente, rendendo così il costo temporale uguale ad $O(n)$.
 
-#### Memoization
+### Memoization
 
 ```pseudocode
 Input: n, s[1..n], f[1..n], v[1..n]
@@ -133,9 +133,8 @@ Costo computazionale = $O(n\log{n})$:
 
 Se i job sono già ordinati = $O(n)$
 
+### Finding a solution
 Oltre al valore della soluzione ottimale probabilmente vorremmo sapere anche quali sono gli intervalli che la compongono, e intuitivamente verrebbe da creare un array aggiuntivo in cui verranno aggiunti gli indici degli intervalli ottenuti con `M-Compute-Opt`. Tuttavia questo aggiungerebbe una complessità temporale di $O(n)$ peggiorando notevolmente le prestazioni. Un'alternativa è quella di recuperare le soluzioni dai valori salvati nell'array `M` dopo che la soluzione ottimale è stata calcolata. Per farlo possiamo sfruttare la formula vista in precedenza $v_j + OPT(p(j)) \geq OPT(j-1)$, che ci permette di rintracciare gli intervalli della soluzione ottima.
-
-## Finding a solution
 
 ```pseudocode
 Find-Solution(j)
@@ -149,7 +148,10 @@ Find-Solution(j)
 
 Numero di chiamate ricorsive $\leq n = O(n)$ 
 
-## Bottom-Up
+### Bottom-Up (iterative way)
+Usiamo ora l'algoritmo per il Weighted Interval Scheduling Problem sviluppato nella sezione precedente per riassumere i principi di base della programmazione dinamica, e anche per offrire una prospettiva diversa che sarà fondamentale per il resto delle spiegazioni: ***iterare su sottoproblemi, piuttosto che calcolare soluzioni in modo ricorsivo***.
+
+Nella sezione precedente, abbiamo sviluppato una soluzione in tempo polinomiale al problema progettando prima un **algoritmo ricorsivo in tempo esponenziale** e poi **convertendolo (tramite memoization) in un algoritmo ricorsivo efficiente** che consultava un array globale M di soluzioni ottimali per sottoproblemi. Per capire davvero i concetti della programmazione dinamica, è utile formulare una versione essenzialmente equivalente dell'algoritmo. **È questa nuova formulazione che cattura in modo più esplicito l'essenza della tecnica di programmazione dinamica e servirà come modello generale per gli algoritmi che svilupperemo nelle sezioni successive**.
 
 ```pseudocode
 Sort jobs by finish time so that f1 ≤ f2 ≤ ... ≤ fn. 
@@ -159,8 +161,9 @@ M[0] ← 0
 for j = 1 TO n
 	M[j] ← max { vj + M[p(j)], M[j–1] }
 ```
+Questo approccio fornisce un secondo algoritmo efficiente per risolvere il problema dell'Interval Weighted Scheduling. I due approcci (**iterativo e ricorsione con memoization**) hanno chiaramente una grande quantità di sovrapposizioni concettuali, poiché entrambi crescono dall'intuizione contenuta nella ricorrenza per `OPT`. Per il resto del capitolo, svilupperemo algoritmi di programmazione dinamica usando il secondo tipo di approccio (costruzione iterativa di sottoproblemi) perché gli algoritmi sono spesso più semplici da esprimere in questo modo.
 
-## Riepilogo
+### Riepilogo
 
 - $OPT[j] = max\{ v_j + OPT[p_j], OPT[j-1] \}$
 - per ogni j scelgo se prenderlo o meno
