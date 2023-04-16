@@ -5,9 +5,9 @@
 - [Dynamic Programming](#Dynamic-Programming)
   - [Introduzione](#introduzione)
   - [Weighted Interval Scheduling](#Weighted-Interval-Scheduling)
+  - [Segmented Least Squares Problem](#segmented-least-squares-problem)
 
   -
-  - [Segmented Least Squares](#Segmented-Least-Squares)
   - [Knapsack Problem](#Knapsack-Problem)
   - [RNA Secondary Stucture](#RNA-Secondary-Stucture)
   - [Pole Cutting](#Pole-Cutting)
@@ -175,7 +175,7 @@ Questo approccio fornisce un secondo algoritmo efficiente per risolvere il probl
 
 ## Segmented Least Squares Problem
 
-### Linear Least Square: Multi-way Choice
+### Linear Least Square
 Nel capitolo precedente la risoluzione al problema Wheighted Interval Scheduling richiedeva una ricorsione basata su scelte ***binarie***, in questo capitolo invece introdurremo un algoritmo che richiede ad ***ogni step un numero di scelte polinomiali*** (_multi-way choice_). Vedremo come la programmazione dinamica si  presta molto bene a risolvere anche questo tipo di problemi.
 
 #### **Descrizione del Problema**
@@ -211,9 +211,11 @@ Formalmente, il problema è espresso come segue:
 > Vogliamo partizionare $P$ in un qualche numero di segmenti, ogni numero di segmenti è un sottoinsieme di $P$ che rappresenta un _set_ contiguo delle coordinate $x$ con la forma $\{p_i, p_{i+1}, \ldots, p_{j-1}, p_j\}$ per degli indici $i \leq j$.
 > Dopodiché, per ogni segmento $S$ calcoliamo la linea che minimizza l'errore rispetto ai punti in $S$ secondo quanto espresso dalle formule enunciate prima.
 
-Definiamo infine una penalità per una data partizione come la somma dei seguenti termini:
+Definiamo infine una **penalità** per una data partizione come la somma dei seguenti termini:
 - Numero di segmenti in cui viene partizionato $P$ moltiplicato per un valore $C > 0$ (più è grande e più penalizza tante partizioni)
 - Per ogni segmento l'errore della linea ottima attraverso quel segmento.
+
+$$f(x) = E + C L$$
 
 Il goal del Segmented Least Square Problem è quindi quello di trovare la partizione di **penalità minima**. 
 
