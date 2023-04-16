@@ -164,7 +164,6 @@ for j = 1 TO n
 Questo approccio fornisce un secondo algoritmo efficiente per risolvere il problema dell'Interval Weighted Scheduling. I due approcci (**iterativo e ricorsione con memoization**) hanno chiaramente una grande quantità di sovrapposizioni concettuali, poiché entrambi crescono dall'intuizione contenuta nella ricorrenza per `OPT`. Per il resto del capitolo, svilupperemo algoritmi di programmazione dinamica usando il secondo tipo di approccio (costruzione iterativa di sottoproblemi) perché gli algoritmi sono spesso più semplici da esprimere in questo modo.
 
 ### Riepilogo
-
 - $OPT[j] = max\{ v_j + OPT[p_j], OPT[j-1] \}$
 - per ogni j scelgo se prenderlo o meno
 - alcuni sottoproblemi vengono scartati (quelli che si sovrappongono al j scelto)
@@ -173,66 +172,126 @@ Questo approccio fornisce un secondo algoritmo efficiente per risolvere il probl
 - per ricostruire la soluzione uso un vettore dove per ogni $j$ ho un valore booleano che indica se il job fa parte della soluzione **SPAZIO_S =** $O(n)$
 
 <hr>
-#### ARRIVATO QUI A LEGGERTE
 
-# Segmented Least Squares
+## Segmented Least Squares Problem
 
-### Least Squares
+### Linear Least Square: Multi-way Choice
+Nel capitolo precedente la risoluzione al problema Wheighted Interval Scheduling richiedeva una ricorsione basata su scelte ***binarie***, in questo capitolo invece introdurremo un algoritmo che richiede ad ***ogni step un numero di scelte polinomiali*** (_multi-way choice_). Vedremo come la programmazione dinamica si  presta molto bene a risolvere anche questo tipo di problemi.
 
-Data una lista di punti nel piano $(x_1, y_1), ..., (x_n, y_n)$, trovare una retta $y=ax+b$ che minimizza l'errore quadrato medio.
+#### **Descrizione del Problema**
+> Dato un insieme $P$ composto di $n$ punti sul piano denotati con $(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)$ e supponiamo che $x_1 < x_2 < \ldots < x_n$ (sono strettamente crescenti). Data una linea $L$ definita dall'equazione $y = ax + b$, definiamo l'_errore_ di $L$ in funzione di $P$ come la somma delle distanze al quadrato della linea rispetto ai punti in $P$.
+>
+> Formalmente:
+> $$Error(L, P) = \sum_{i=1}^{n} (y_i - ax_i - b)^2$$
 
-## Segmented Least Squares
+<img src="./imgs/linear_least.png" width="50%"/>
 
-Data una lista di punti nel piano $(x_1, y_1), ..., (x_n, y_n)$, trovare una sequenza di segmenti che minimizzano $f(x)$.
+#### Goal 
+Il goal dell'algoritmo è quello di cercare la linea con errore minimo, che può essere facilmente trovata utilizzando l'analisi matematica.
 
-$f(x)$ deve bilanciare accuratezza (errore quadrato medio) e numero di segmenti.
+La linea di errore minimo è $y = ax + b$ dove:
 
-$f(x)= E + cL$
+$$
+    a = \frac{n \sum_{i} x_i y_i - (\sum_{i} x_i) (\sum_{i} y_i)}{n \sum_{i} x_i^2 - (\sum_{i} x_i)^2} \ \ \  \ \ b = \frac{\sum_{i} y_i - a \sum_{i} x_i}{n} 
+$$
 
-- E = somma della somma degli errori quadrati medi
+### Segmented Least Squares
 
-- c = costante $\gt0$
+Le formule appena citate sono utilizzabili solo se i punti di $P$ hanno un andamento che è abbastanza lineare ma falliscono in altre circostanze.
 
-- L = numero di segmenti
+<img src="./imgs/linear_least2.png" width="50%"/>
 
-## Dynamic version
+Come è evidente dalla figura non è possibile trovare una linea che approssimi in maniera soddisfacente i punti, dunque per risolvere il problema possiamo pensare di rilassare la condizione che sia solo una la linea. Questo però implica dover riformulare il goal che altrimenti risulterebbe banale (si fanno $n$ linee  che passano per ogni punto).
+
+#### Goal
+Formalmente, il problema è espresso come segue:
+
+> Come prima abbiamo un set di punti $P = \{(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\}$ strettamente crescenti.
+> Denoteremo l'insieme dei punti $(x_i, y_i)$ con $p_i$.
+> Vogliamo partizionare $P$ in un qualche numero di segmenti, ogni numero di segmenti è un sottoinsieme di $P$ che rappresenta un _set_ contiguo delle coordinate $x$ con la forma $\{p_i, p_{i+1}, \ldots, p_{j-1}, p_j\}$ per degli indici $i \leq j$.
+> Dopodiché, per ogni segmento $S$ calcoliamo la linea che minimizza l'errore rispetto ai punti in $S$ secondo quanto espresso dalle formule enunciate prima.
+
+Definiamo infine una penalità per una data partizione come la somma dei seguenti termini:
+- Numero di segmenti in cui viene partizionato $P$ moltiplicato per un valore $C > 0$ (più è grande e più penalizza tante partizioni)
+- Per ogni segmento l'errore della linea ottima attraverso quel segmento.
+
+Il goal del Segmented Least Square Problem è quindi quello di trovare la partizione di **penalità minima**. 
+
+#### Funzionamento
+Seguendo la logica alla base della programmazione dinamica, ci poniamo l'obiettivo di suddividere il problema in sotto-problemi e per farlo partiamo dall'osservazione che l'ultimo punto appartiene ad una partizione ottima che parte da un valore $p_i$ fino a $p_n$ e che possiamo togliere questi punti dal totale per ottenete un sotto-problema più piccolo. <br>
+Supponiamo che la soluzione ottima sia denotata da `OPT(j)`, per i punti che vanno da $p_1$ a $p_j$, allora avremo che la soluzione ottima al problema dato l'ultimo segmento che va da $p_i$ a $p_n$, sarà dalla seguente formula:
+
+$$
+    OPT(n) = e_{i,n} + C + OPT(i - 1)
+$$
+
+Questa formula è data dalla soluzione ottima dell'ultima partizione ( $e_{i,n} + C$ ) a cui viene aggiunta la soluzione ottima di tutte le partizioni precedenti ( $OPT(i -1)$ ).
+
+Per i sotto-problemi possiamo scrivere la soluzione al problema in forma ricorsiva utilizzando la formula appena espressa che prenderà la forma:
+
+$$
+    OPT(j) = \min_{1 \leq i \leq j}(e_{i,j} + C + OPT(i - 1))
+$$
+
+***N.B.***
+$OPT(j) = 0$ if $j=0$
+
 
 $e(i,j)$ = somma degli errori quadrati per i punti $p_i, p_{i+1},..., p_j$
-```math
-OPT(j) = \begin{cases} 
-0 & \mbox{if } j = 0 \\
-min_{1 \leq i \leq j}\{ e(i,j) + c + OPT(i-1)\} & \mbox{otherwise}
-\end{cases}
+
+```javascript
+function Segmented-Least-Squares(n) {
+    M[0 ... n]
+    M[0] = 0
+    
+    // compute the errors
+    for (j in 1 ... n) {
+        for (i in 1 ... j) {
+            compute eij for the segment pi, ..., pj
+        }
+    }
+
+    // find optimal value
+    for (j in 1 ... n) {
+        M[j] = min_i(eij + C + M[i - 1]) // OPT(J)
+    }
+
+    return M[n]
+}
 ```
 
-```pseudocode
-for j = 1 to n 
-	for i = 1 to j
-		Compute the least squares e(i, j) for the segment pi, pi+1, ..., pj
-		
-M[0] ← 0
-for j = 1 to n
-	M [ j ] ← min (1 ≤ i ≤ j) { eij + c + M [i – 1] }
-return M[n]
+Dopo aver trovato la soluzione ottima, possiamo sfruttare la **memoization** per ricavarci i segmenti in tempi brevi.
+
+```javascript
+function Find-Segments(j) {
+    if (j == 0) 
+        print('')
+    else {
+        Find an i that minimizes ei,j + C + M[i − 1]
+        Output the segment {pi,..., pj} and the result of Find-Segments(i − 1)
+    }
+}
 ```
 
-Costo computazionale = $O(n^3)$ time, $O(n^2)$ space.
+#### Costo
+La parte che computa gli errori ha costo in tempo $O(n^3)$. La parte che trova il valore ottimo ha costo in tempo $O(n^2)$.
 
-Il collo di bottiglia è la computazione di $e(i, j)$. $O(n^2)$ per punto per $O(n)$ punti.
+In spazio l'algoritmo ha costo $O(n^2)$ ma può essere ridotto a $O(n)$.
 
-Può essere migliorato in  $O(n^2)$ time, $O(n)$ space grazie ad alcune precomputazioni.
+Quindi:
+- L'algoritmo ha costo $O(n^3)$ in tempo e $O(n^2)$ in spazio. Il collo di bottiglia è la computazione di $e(i, j)$. $O(n^2)$ per punto per $O(n)$ punti.
+- Questo tempo può essere ridotto applicando la memoization alle formule per il calcolo dell'errore viste in precedenza portandolo a $O(n^2)$ per il tempo e $O(n)$ per lo spazio.
 
-## Riepilogo
-
-- trovare il numero di segmenti su un piano cartesiamo per minimizzare i quadrati degli errori
+#### Riepilogo
+- Trovare il numero di segmenti su un piano cartesiamo per minimizzare i quadrati degli errori
 - $OPT[j] = min_{1 \le i \le j } \{ OPT[i-1] + e(i,j) + c \}$
   - $c$: il costo da pagare per ogni segmento
   - $e$: il costo degli errori
-- risolvo n problemi **SPAZIO =** $O(n)$
-- per ogni problema ho n scelte ( $O(n^2)$ ) ma per computare $e(i,j)$ **TEMPO =** $O(n^3)$
-- per ricostruire la soluzione salvo un vettore dove $S[j] = min_i$ **SPAZIO_S** = $O(n)$
+- Risolvo n problemi **SPAZIO =** $O(n)$
+- Per ogni problema ho n scelte ( $O(n^2)$ ) ma per computare $e(i,j)$ **TEMPO =** $O(n^3)$
+- Per ricostruire la soluzione salvo un vettore dove $S[j] = min_i$ **SPAZIO_S** = $O(n)$
 
----
+<hr>
 
 # Knapsack Problem
 
