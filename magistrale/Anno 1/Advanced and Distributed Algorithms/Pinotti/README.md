@@ -6,9 +6,8 @@
   - [Introduzione](#introduzione)
   - [Weighted Interval Scheduling](#Weighted-Interval-Scheduling)
   - [Segmented Least Squares Problem](#segmented-least-squares-problem)
-
-  -
   - [Knapsack Problem](#Knapsack-Problem)
+  - 
   - [RNA Secondary Stucture](#RNA-Secondary-Stucture)
   - [Pole Cutting](#Pole-Cutting)
   - [Matrix Chain Parentesizathion](#Matrix-Chain-Parentesizathion)
@@ -295,30 +294,37 @@ Quindi:
 
 <hr>
 
-# Knapsack Problem
+## Knapsack Problem
 
-Dati uno zaino di capacità W e una lista di oggetti $i$ con peso $w_i$ e valore $v_i$.
+### Descrizione del problema
+Il **Problema dello Zaino** (o *Subset Sum*) è formalmente definito come segue:
 
-**Goal:** Trovare l'insieme di $i$ con peso $\leq W$ e valore massimo.
+> Ci sono $n$ oggetti $\{1, \ldots, n\}$, a ognuno viene assegnato un peso non negativo $w_i$ (per $i = 1, \ldots, n$ ) e viene dato anche un limite $W$ (limite capienza dello zaino). 
+> L'obbiettivo è quello di selezionare un sottoinsieme $S$ degli oggetti tale che $\sum_{i \in S}w_i \leq W$ e che questa sommatoria abbia valore più grande possibile.
 
-Posso cercare algoritmi greedy, (by value, by weight, by ratio $v_i/w_i$) ma nessuno di questi è ottimo.
+Questo problema è un caso specifico di un problema più generale conosciuto come il Knapsack Problem, in cui l'unica differenza sta nel valore da massimizzare, che per il Knapsack è un valore $v_i$ e non più il peso.
 
-## Dynamic Version
+Si potrebbe pensare di risolvere questi problemi con un algoritmo greedy ma 
+purtroppo non ne esiste uno in grado di trovare efficientemente la soluzione ottima. <br>
+Un altro possibile approccio potrebbe essere quello di ordinare gli oggetti in base al peso in ordine crescente o decrescente e prenderli, tuttavia questo approccio fallisce per determinati casi (come per l'insieme $\{W/2+1, W/2, W/2\}$ ordinato in senso decrescente) e l'unica opzione sarà quella di provare con la programmazione dinamica.
 
-Non posso usare una funzione $OPT(j)$ perchè senza sapere quali altri oggetti ho nello zaino non so se posso prendere $j$.
+### Goal
+Possiamo riassumere il goal di questa tipologia di problemi come segue:
+> Ci sono $n$ oggetti $\{1, \ldots, n\}$, a ognuno viene assegnato un peso non negativo $w_i$ (per $i = 1, \ldots, n$ ) e ci viene dato anche un  limite $W$.
+> L'obbiettivo è quello di selezionare un sottoinsieme $S$ degli oggetti tale che $\sum_{i \in S}w_i \leq W$ e che questa sommatoria abbia valore più  grande possibile.
 
-$OPT(j, w)$ = miglior soluzione nel subset di oggetti da 1 a $j$ con peso massimo $w$.
-```math
-OPT(j, w) = \begin{cases} 
-0 & \mbox{if } j = 0 \\
-OPT(j-1, w) & \mbox{if } w_j \gt w \\
-max\{OPT(j-1, w), v_j + OPT(j-1, w-w_j)\} & \mbox{otherwise}
-\end{cases}
-```
+### Dynamic Version
+Come per tutti gli algoritmi dinamici dobbiamo cercare dei **sotto-problemi** e possiamo utilizzare la stessa intuizione avuto per il problema dello scheduling (scelta binaria in cui un oggetto viene incluso nell'insieme o meno). Facendo tutti i calcoli di dovere otteniamo la seguente ricorsione:
+> se $w < w_i$ allora $OPT(i, w) = OPT(i-1,w)$ altrimenti
+> $OPT(i, w) = max(OPT(i-1, w), w_i + OPT(i-1, w-w_i))$
 
+- Nella prima parte analizziamo il caso in cui l'elemento che vogliamo aggiungere va a superare il peso massimo residuo $w$, dunque viene **scartato**. 
+- Nella seconda parte andiamo ad analizzare se l'aggiunta o meno del nuovo oggetto va a migliorare la soluzione (viene quindi **selezionato**) di $OPT$ che è definita come:
+  $$
+      OPT(i, w) = \max_{S} \sum_{j \in S} w_j
+  $$
 
-## Bottom-Up
-
+Possiamo formalizzare il tutto con il seguente pseudo-codice:
 ```pseudocode
 for w = 0 to W 
 	M[0, w] ← 0
@@ -332,30 +338,37 @@ for j = 1 to n
 return M[n,W]
 ```
 
-Complessità computazionale = $\Theta(nW)$ space e $\Theta(nW)$ time
+#### Costi
+| Funzione        | Costo in tempo                | Costo in spazio               |
+| --------------- | ----------------------------- | ----------------------------- |
+| `Subset-Sum`    | $\Theta(nW)$                  | $\Theta(nW)$                  |
+| `Find-Solution` | $O(n)$                        | Costo in tempo                |
 
 - $O(1)$ per ogni elemento inserito nella tabella
 - $\Theta(nW)$ elementi della tabella
 - Dopo aver computato il valore ottimo, per trovare la soluzione completa: prendo $i$ in $OPT(i, w)$ iff $M[i, w] \gt M[i-1, w]$ 
 
-## Osservazioni
 
-Dimensione dell'input non polinomiale, pseudopolinomiale, perchè dipende da due variabili. 
-
-La versione del problema con decisione è NP-Completo
-
-Esiste un algoritmo che trova una soluzione in tempo polinomiale entro l'1% di quella ottima.
+#### Osservazioni
+- La particolarità di questo algoritmo è che avremmo 2 insiemi di sotto problemi diversi che devono essere risolti per ottenere la soluzione ottima. Questo fatto si riflette in come viene popolato l'array di memoization dei valori di $OPT$ che verranno salvati in un array bidimensionale (dimensione dell'input non polinomiale, pseudopolinomiale, perchè dipende da due variabili). <br> <img src="./imgs/zaino.png" width="50%"/>
+- A causa del costo computazionale $O(nW)$, questo algoritmo fa parte della famiglia degli algoritmi _pseudo polinomiali_, ovvero algoritmi il cui costi dipende da una variabile di input che se piccola, lo mantiene basso e se grande lo fa esplodere. Ovvero, la versione del problema con decisione è **NP-Completo**.
+- Per recuperare gli oggetti dall'array di Memoization la complessità in tempo è di $O(n)$.
+- Questa implementazione funziona anche per il problema più generale del Knapsack,
+ci basterà solo cambiare la parte di ricorsione scrivendola come segue:
+  > se $w < w_i$ allora $OPT(i, w) = OPT(i-1,w)$ altrimenti
+  > $OPT(i, w) = max(OPT(i-1, w), v_i + OPT(i-1, w-w_i))$
+- Esiste un algoritmo che trova una soluzione in tempo polinomiale entro l'1% di quella ottima.
 
 ## Riepilogo
 
-- scegliere gli oggetti da mettere nello zaino per massimizzare il valore, non superando il peso massimo.
+- Scegliere gli oggetti da mettere nello zaino per massimizzare il valore, non superando il peso massimo.
 - $OPT[i,w] = max\{ v_i + OPT[i-1, w-w_i], OPT[i-1,w] \}$
 - scelgo se prendere o meno l'oggetto $i$
-- ho bisogno di una matrice $n \times z$ ($z$ è la capacità dello zaino). problema pseudopolinomiale perchè varia in base a $z$ **SPAZIO =** $O(nz)$
-- per riempire una cella devo solo controllare due valori **TEMPO =** $O(nz)$
-- per costruire una soluzione ho una matrice dove per ogni $S[i,j]$ ho un booleano che indica se appartiene alla soluzione **SPAZIO_S =** $O(n^2)$ **TEMPO_S =** $O(n+z)$
-- in questo problema la matrice può essere costruita per righe o per colonne
-- per trovare $(i,w)$ leggo solo da una riga, per costrure la riga $i$ ho solo bisogno della riga $i-1$, la soluzione è in $S[n,z]$. Posso quindi trovare una soluzione utilizzando una matrice con sole due righe **SPAZIO =** $O(z)$ ma cosí non posso ricostruire la soluzione.
+- Ho bisogno di una matrice $n \times z$ ($z$ è la capacità dello zaino). problema pseudopolinomiale perchè varia in base a $z$ **SPAZIO =** $O(nz)$
+- Per riempire una cella devo solo controllare due valori **TEMPO =** $O(nz)$
+- Per costruire una soluzione ho una matrice dove per ogni $S[i,j]$ ho un booleano che indica se appartiene alla soluzione **SPAZIO_S =** $O(n^2)$ **TEMPO_S =** $O(n+z)$
+- In questo problema la matrice può essere costruita per righe o per colonne
+- Per trovare $(i,w)$ leggo solo da una riga, per costrure la riga $i$ ho solo bisogno della riga $i-1$, la soluzione è in $S[n,z]$. Posso quindi trovare una soluzione utilizzando una matrice con sole due righe **SPAZIO =** $O(z)$ ma cosí non posso ricostruire la soluzione.
 
 ---
 
