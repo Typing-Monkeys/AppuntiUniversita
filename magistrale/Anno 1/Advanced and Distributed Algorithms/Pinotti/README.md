@@ -2,13 +2,13 @@
 
 ## Indice
 
-- [Dynamic Programming](#Dynamic-Programming)
+- [Dynamic Programming](#dynamic-programming)
   - [Introduzione](#introduzione)
   - [Weighted Interval Scheduling Problem](#weighted-interval-scheduling-problem)
   - [Segmented Least Squares Problem](#segmented-least-squares-problem)
   - [Knapsack Problem](#Knapsack-Problem)
+  - [RNA Secondary Stucture](#rna-secondary-stucture-problem)
   - 
-  - [RNA Secondary Stucture](#RNA-Secondary-Stucture)
   - [Pole Cutting](#Pole-Cutting)
   - [Matrix Chain Parentesizathion](#Matrix-Chain-Parentesizathion)
   - [Optimal Binary Search Tree](#Optimal-Binary-Search-Tree)
@@ -177,7 +177,7 @@ Questo approccio fornisce un secondo algoritmo efficiente per risolvere il probl
 ### Linear Least Square
 Nel capitolo precedente la risoluzione al problema Wheighted Interval Scheduling richiedeva una ricorsione basata su scelte ***binarie***, in questo capitolo invece introdurremo un algoritmo che richiede ad ***ogni step un numero di scelte polinomiali*** (_multi-way choice_). Vedremo come la programmazione dinamica si  presta molto bene a risolvere anche questo tipo di problemi.
 
-#### **Descrizione del Problema**
+### **Descrizione del Problema**
 > Dato un insieme $P$ composto di $n$ punti sul piano denotati con $(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)$ e supponiamo che $x_1 < x_2 < \ldots < x_n$ (sono strettamente crescenti). Data una linea $L$ definita dall'equazione $y = ax + b$, definiamo l'_errore_ di $L$ in funzione di $P$ come la somma delle distanze al quadrato della linea rispetto ai punti in $P$.
 >
 > Formalmente:
@@ -185,7 +185,7 @@ Nel capitolo precedente la risoluzione al problema Wheighted Interval Scheduling
 
 <img src="./imgs/linear_least.png" width="50%"/>
 
-#### Goal 
+### Goal 
 Il goal dell'algoritmo è quello di cercare la linea con errore minimo, che può essere facilmente trovata utilizzando l'analisi matematica.
 
 La linea di errore minimo è $y = ax + b$ dove:
@@ -202,7 +202,7 @@ Le formule appena citate sono utilizzabili solo se i punti di $P$ hanno un andam
 
 Come è evidente dalla figura non è possibile trovare una linea che approssimi in maniera soddisfacente i punti, dunque per risolvere il problema possiamo pensare di rilassare la condizione che sia solo una la linea. Questo però implica dover riformulare il goal che altrimenti risulterebbe banale (si fanno $n$ linee  che passano per ogni punto).
 
-#### Goal
+### Goal
 Formalmente, il problema è espresso come segue:
 
 > Come prima abbiamo un set di punti $P = \{(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\}$ strettamente crescenti.
@@ -218,7 +218,7 @@ $$f(x) = E + C L$$
 
 Il goal del Segmented Least Square Problem è quindi quello di trovare la partizione di **penalità minima**. 
 
-#### Funzionamento
+### Funzionamento
 Seguendo la logica alla base della programmazione dinamica, ci poniamo l'obiettivo di suddividere il problema in sotto-problemi e per farlo partiamo dall'osservazione che l'ultimo punto appartiene ad una partizione ottima che parte da un valore $p_i$ fino a $p_n$ e che possiamo togliere questi punti dal totale per ottenete un sotto-problema più piccolo. <br>
 Supponiamo che la soluzione ottima sia denotata da `OPT(j)`, per i punti che vanno da $p_1$ a $p_j$, allora avremo che la soluzione ottima al problema dato l'ultimo segmento che va da $p_i$ a $p_n$, sarà dalla seguente formula:
 
@@ -234,8 +234,7 @@ $$
     OPT(j) = \min_{1 \leq i \leq j}(e_{i,j} + C + OPT(i - 1))
 $$
 
-***N.B.***
-$OPT(j) = 0$ if $j=0$
+***N.B.*** : $OPT(j) = 0$ if $j=0$
 
 
 $e(i,j)$ = somma degli errori quadrati per i punti $p_i, p_{i+1},..., p_j$
@@ -274,7 +273,7 @@ function Find-Segments(j) {
 }
 ```
 
-#### Costo
+### Costo
 La parte che computa gli errori ha costo in tempo $O(n^3)$. La parte che trova il valore ottimo ha costo in tempo $O(n^2)$.
 
 In spazio l'algoritmo ha costo $O(n^2)$ ma può essere ridotto a $O(n)$.
@@ -283,7 +282,7 @@ Quindi:
 - L'algoritmo ha costo $O(n^3)$ in tempo e $O(n^2)$ in spazio. Il collo di bottiglia è la computazione di $e(i, j)$. $O(n^2)$ per punto per $O(n)$ punti.
 - Questo tempo può essere ridotto applicando la memoization alle formule per il calcolo dell'errore viste in precedenza portandolo a $O(n^2)$ per il tempo e $O(n)$ per lo spazio.
 
-#### Riepilogo
+### Riepilogo
 - Trovare il numero di segmenti su un piano cartesiamo per minimizzare i quadrati degli errori
 - $OPT[j] = min_{1 \le i \le j } \{ OPT[i-1] + e(i,j) + c \}$
   - $c$: il costo da pagare per ogni segmento
@@ -338,7 +337,7 @@ for j = 1 to n
 return M[n,W]
 ```
 
-#### Costi
+### Costi
 | Funzione        | Costo in tempo                | Costo in spazio               |
 | --------------- | ----------------------------- | ----------------------------- |
 | `Subset-Sum`    | $\Theta(nW)$                  | $\Theta(nW)$                  |
@@ -350,7 +349,7 @@ return M[n,W]
 
 
 #### Osservazioni
-- La particolarità di questo algoritmo è che avremmo 2 insiemi di sotto problemi diversi che devono essere risolti per ottenere la soluzione ottima. Questo fatto si riflette in come viene popolato l'array di memoization dei valori di $OPT$ che verranno salvati in un array bidimensionale (dimensione dell'input non polinomiale, pseudopolinomiale, perchè dipende da due variabili). <br> <img src="./imgs/zaino.png" width="50%"/>
+- La particolarità di questo algoritmo è che avremmo 2 insiemi di sotto problemi diversi che devono essere risolti per ottenere la soluzione ottima. Questo fatto si riflette in come viene popolato l'array di memoization dei valori di $OPT$ che verranno salvati in un array bidimensionale (dimensione dell'input non polinomiale, pseudopolinomiale, perchè dipende da due variabili). <br> <img src="./imgs/zaino.png" width="90%"/>
 - A causa del costo computazionale $O(nW)$, questo algoritmo fa parte della famiglia degli algoritmi _pseudo polinomiali_, ovvero algoritmi il cui costi dipende da una variabile di input che se piccola, lo mantiene basso e se grande lo fa esplodere. Ovvero, la versione del problema con decisione è **NP-Completo**.
 - Per recuperare gli oggetti dall'array di Memoization la complessità in tempo è di $O(n)$.
 - Questa implementazione funziona anche per il problema più generale del Knapsack,
@@ -372,57 +371,100 @@ ci basterà solo cambiare la parte di ricorsione scrivendola come segue:
 
 <hr>
 
----ARRIVATO QUI
+## RNA Secondary Stucture Problem
+La ricerca della struttura secondaria dell'RNA è un problema a 2 variabili risolvibile tramite il paradigma della programmazione dinamica. Come sappiamo il DNA è composto da due filamenti, mentre l'RNA è composto da un filamento singolo. Questo comporta che spesso le basi di un singolo filamento di RNA si accoppino tra di loro.
 
-# RNA Secondary Stucture
+L'insieme della basi può essere visto come l'alfabeto  $\{A, C, U, G\}$ e l'RNA è una sequenza di simboli presi da questo alfabeto.
+
+Il processo di accoppiamento delle basi è dettato dalla regola di _Watson-Crick_ e segue il seguente schema: 
+
+$$
+    A - U \ \ \ \text{ e } \ \ \ C - G \ \ \ \text{ (l'ordine non conta)}
+$$
+
+<img src="./imgs/rna1.png" width="50%"/>
 
 **RNA:** stringa $b_0b_1...b_n$ su alfabeto {A, C, G, U}
 
-**Secondary Structure:** set di coppie $S = \{(b_i,b_j)\}$ che soddisfa le seguenti proprietà:
+### Descrizione del Problema
+In questo problema si vuole trovare la struttura secondaria dell'RNA che abbia **maggiore energia libera (ovvero il maggior numero di coppie di basi possibili)**. Per farlo dobbiamo tenere in considerazione alcune condizioni che devono essere soddisfatte per permettere di approssimare al meglio il modello biologico dell'RNA.
 
-- Ogni coppia è del tipo **A-U, U-A, C-G** o **G-C**
-- se $(b_i,b_j)\in S \implies i \lt j-4$  (no sharp turns)
-- se $(b_i,b_j)$ e $(b_k, b_l) \in S$ allora **NON** può essere $i < k < j < l$  (non crossing)
+Formalmente la struttura secondaria di $B$ è un insieme di coppie $S = \{(i,j)\}$ dove $i,j \in \{1,2,\ldots,n\}$, che soddisfa le seguenti condizioni:
 
-**Goal:** Data una molecola di RNA trovare una struttura secondaria che massimizza il numero di coppie.
+1. **No sharp turns**: la fine di ogni coppia è separata da almeno 4 basi, quindi se $(i,j) \in S$ allora $i < j - 4$
+2. Gli elementi di una qualsiasi coppia $S$ consistono di $\{A, U\}$ o $\{C, G\}$ (in qualsiasi ordine).
+3. $S$ è un _matching_: nessuna base compare in più di una coppia.
+4. **Non crossing condition**: se $(i, j)$ e $(k,l)$ sono due coppie in $S$ allora **non** può avvenire che $i < k < j < l$.
 
-## Dynamic Version
+<img src="./imgs/rna2.png" width="70%"/>
+<br>
+_La figura (a) rappresenta un esempio di Sharp Turn, mentre la figura (b) mostra una Crossing Condition dove il filo blu non dovrebbe esistere._
 
-$OPT(i,j)$ = massimo numero di coppie nella sottostringa $b_ib_{i+1}...b_j$
+### Goal
+Data una molecola di RNA trovare una struttura secondaria che massimizza il numero di coppie.
 
-distinguo 3 diversi casi:
+### Funzionamento
+Per mappare il problema sul paradigma della programmazione dinamica, come prima idea, potremmo basarci sul seguente sotto-problema: 
+>affermiamo che $OPT(j)$ è il massimo numero di coppie di basi sulla struttura secondaria $b_1 b_2 \ldots b_j$, 
+>per la Non Sharp Turn Condition sappiamo che $OPT(j) = 0$ per $j \leq 5$ e sappiamo anche che $OPT(n)$ è la soluzione che vogliamo trovare. 
 
-1. if $i \ge j -4$: 
+Il problema sta nell'esprimere $OPT(j)$ ricorsivamente. Possiamo parzialmente farlo sfruttando le seguenti scelte:
+1. $j$ non appartiene ad una coppia
+2. $j$ si accoppia con $t$ per qualche $t \leq j - 4$
 
-   $OPT(i,j) = 0$
+- Per il primo caso basta cercare la soluzione per $OPT(j - 1)$
+- Nel secondo caso, se teniamo conto della Non Crossing Condition, possiamo isolare due nuovi sotto-problemi: uno sulle basi $b_1 b_2 \ldots b_{t-1}$ e l'altro sulle basi  $b_{t+1} \ldots b_{j-1}$.
+  - Il primo si risolve con $OPT(t-1)$ 
+  - Il secondo, dato che non inizia con indice $1$, non è nella lista dei nostri sotto-problemi. A causa di ciò risulta necessario aggiungere una variabile.
 
+<img src="./imgs/rna3.png" width="70%"/>
+
+Basandoci sui ragionamenti precedenti, possiamo scrivere una ricorsione di successo, ovvero: <br>
+sia $OPT(i,j)$ = massimo numero di coppie nella nella struttura secondaria $b_i b_{i+1} \ldots b_j$, grazie alla non sharp turn Condition possiamo inizializzare gli  elementi con $i \geq j -4$ a $0$. Ora avremmo sempre le stesse condizioni elencate sopra:
+- $j$ non appartiene ad una coppia
+- $j$ si accoppia con $t$ per qualche $t \leq j - 4$
+
+Nel primo caso avremmo che $OPT(i,j) = OPT(i, j-1)$, nel secondo caso possiamo ricorrere su due sotto-problemi $OPT(i, t-1)$ e $OPT(t+1, j-1)$ affinché venga rispettata la non crossing condition.
+
+Riassumendo, distinguiamo 3 diversi casi:
+1. if $i \ge j -4$:
+   $OPT(i,j) = 0$ dalla no-sharp turns condition
 2. $b_j$ non viene accoppiata:
-
    $OPT(i,j) = OPT(i,j-1)$
-
 3. $b_j$ si accoppia con $b_t$ per una qualche $i \le t \lt j -4$:
-
    $OPT(i,j) = 1 + max_t\{OPT(i, t-1) + OPT(t+1, j-1)\}$
 
+Possiamo esprimere formalmente la ricorsione come segue:
+> $OPT(i, j) = \max(OPT(i, j-1), \max_t(1+OPT(i, t-1)+OPT(t+1, j-1))),$
+> dove il massimo è calcolato su $t$ tale che $b_t$ e $b_j$ siano una coppia di basi consentita (sotto le condizioni (1) e (2) dalla definizione di struttura secondaria).
+>
+
+<img src="./imgs/rna4.png" width="70%"/> <br>
+_Iterazioni dell'algoritmo su un campione del problema in questione_ $ACCGGUAGU$
+
+Possiamo infine formalizzare il tutto con il seguente pseudo-codice:
 ```pseudocode
+Initialize OPT(i, j) = 0 whenever i ≥ j − 4
+
 for k = 5 to n – 1 
 	for i = 1 to n – k
-		j← i+k
-		Compute M[i, j] using formula
+		j ← i + k
+		Compute M[i, j] using the previous recurrence formula
 return M[1,n]
 ```
 
-Risolvere prima i sottoproblemi più piccoli.
+### Costo
+Ci sono $O(n^2)$ sotto-problemi da risolvere e ognuno richiede tempo $O(n)$, quindi il running time complessivo è di $O(n^3)$.
 
 Costo computazionale: $O(n^3)$ time e $O(n^2)$ space
 
-## Riepilogo
+### Riepilogo
 
-- trovare il modo di accoppiare le basi di RNA con delle regole
+- Trovare il modo di accoppiare le basi di RNA con delle regole
 - $OPT[i,j] = max\{ max_{i \le t \le j-5} \{ 1 + OPT[i, t-1] + OPT[t+1, j] \}, OPT[i, j-1] \}$
-- spazio = matrice riempita per diagonali **SPAZIO =** $O(n^2)$
-- per calcolare ogni OPT pago n **TEMPO =** $O(n^3)$
-- per costruire una soluzione mi serve una matrice dove $S[i,j] = max_t$ **SPAZIO_S =** $O(n^2)$
+- Spazio = matrice riempita per diagonali **SPAZIO =** $O(n^2)$
+- Per calcolare ogni OPT pago n **TEMPO =** $O(n^3)$
+- Per costruire una soluzione mi serve una matrice dove $S[i,j] = max_t$ **SPAZIO_S =** $O(n^2)$
 
 ---
 
