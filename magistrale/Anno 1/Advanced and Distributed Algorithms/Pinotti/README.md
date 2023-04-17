@@ -28,13 +28,13 @@
 # Dynamic Programming
 
 ### Introduzione
-Dopo aver visto tecniche di design per vari tipi algoritmi (ad esempio Ricerca, Ordinamento ecc...) quali 
+Dopo aver visto tecniche di design per vari tipi algoritmi (ad esempio Ricerca, Ordinamento ecc...) quali: 
 - **Greedy** in cui si costruisce una soluzione in modo incrementale, ottimizzando ciecamente alcuni criteri locali.
 - **Divide et Impera** nella quale si suddivide un problema in sottoproblemi indipendenti, si risolve ogni sottoproblema e ne si combina la soluzione con gli altri sottoproblemi per formare la soluzione al problema originale,
 
 è possibile introdurre una tecnica più potente ma anche più complessa da applicare: la **Programmazione Dinamica** (Dynamic Programming). L'idea su cui si fonda è simile alla tecnica **Divide et Impera** ed è essenzialmente l'opposto di una strategia **Greedy**. In sostanza si esplora implicitamente tutto lo spazio delle soluzioni e lo si decompone in una serie di **sotto-problemi**, grazie ai quali si costruiscono le soluzioni per **sotto-problemi sempre più grandi** finché non si raggiunge il **problema di partenza**.
 
-Una tecnica di programmazione dinamica è quella della `Memoization`, che è utile per risolvere una moltitudine di problemi, in cui risultati intermedi vengono salvati in cache e riutilizzati più avanti.
+Una tecnica di programmazione dinamica è quella della `Memoization`, che è utile per risolvere una moltitudine di problemi. In sostanza, nella programmazione dinamica si verifica spesso la situazione in cui lo stesso sotto-problema deve essere risolto più volte, per questo motivo i risultati intermedi (le soluzioni a questi sotto-problemi) vengono salvati in una struttura dati (utilizzata come cache) e riutilizzati ogni qualvolta si presenta un sottoproblema già risolto. In questo modo, lo stesso sotto-problema non viene risolto/computato più volte ma soltanto una, diminuendo di molto il costo computazionale (in tempo) dell'algoritmo al prezzo di un costo in spazio (per salvare le soluzioni ai sotto-problemi risolti).
 
 Per applicare la programmazione dinamica è necessario creare un *sotto-set* di problemi che soddisfano le seguenti proprietà:
 1. Esiste solo un **numero polinomiale di sotto-problemi**
@@ -61,17 +61,17 @@ Questo problema ha l'obiettivo di ottenere un insieme (il più grande possibile)
 - $\mathcal{O}_j$: rappresenta la soluzione ottima al problema calcolato sull'insieme $\{1, \ldots, j\}$
 - $OPT(j)$: rappresenta il valore della soluzione ottima $\mathcal{O}_j$
 
-### **Goal**
+#### **Goal**:
 - L'obiettivo del problema attuale è quello di trovare un sottoinsieme $S \subseteq \{1, \ldots, n\}$ di intervalli mutualmente compatibili che vanno a massimizzare la somma dei pesi degli intervalli selezionati $\sum_{i \in S} v_i$.
 
-#### Greedy Version - Earliest Finish Time First
+#### Greedy Version - *Earliest Finish Time First*
 Considero i job in ordine non decrescente di $f_j$, aggiungo un job alla soluzione se è compatibile con il precedente.
 
 È corretto se i pesi sono tutti 1, ma **fallisce** clamorosamente nella versione pesata.
 
 ### Dynamic Version
 
-Come prima cosa definiamo il metodo per calcolare $OPT(j)$. Il problema è una _scelta binaria_ che va a decidere se il job di indice $j$ verrà incluso nella soluzione oppure no, basandosi sul valore ritornato dalla seguente formula (si considerano sempre i job in ordine non decrescente rispetto a $f_i$):
+Come prima cosa definiamo il metodo per calcolare $OPT(j)$. Il problema è una ***scelta binaria*** che va a decidere se il job di indice $j$ verrà **incluso** nella soluzione **oppure no**, basandosi sul valore ritornato dalla seguente formula (si considerano sempre i job in ordine non decrescente rispetto a $f_i$):
 
 $$
 OPT(j) = max(v_j + OPT(p(j)), \ \ OPT(j-1))
@@ -83,7 +83,7 @@ $$
 v_j + OPT(p(j)) \geq OPT(j-1)
 $$
 
-che se vera, includerà $j$ nella soluzione ottimale.
+che **se vera**, includerà $j$ nella soluzione ottimale.
 
 ### **Brute Force**
 Scrivendo tutto sotto forma di algoritmo ricorsivo avremmo che:
@@ -99,7 +99,7 @@ function Compute-Opt(j){
         return max(vj+Compute-Opt(p(j)), Compute-Opt(j − 1))
 }
 ```
-Costruendo l'albero della ricorsione dell'algoritmo si nota che la complessità temporale è **esponenziale**. Questo perchè seguendo questo approccio calcolo più volte gli stessi sottoproblemi che si espandono come un albero binario. Il numero di chiamate ricorsive cresce come la **sequenza di fibonacci**.
+Costruendo l'albero della ricorsione dell'algoritmo si nota che la complessità temporale è **esponenziale**. Questo perchè seguendo questo approccio, venogno calcolati più volte gli stessi sottoproblemi, i quali si espandono come un albero binario. Il numero di chiamate ricorsive cresce come la **sequenza di fibonacci**.
 
 <img src="./imgs/opt_recursion_tree.png" width="50%"/>
 
@@ -122,7 +122,7 @@ M-Compute-Opt(j)
   return M[j]
 ```
 
-Costruisco una matrice dove salvo i risultati dei sottoproblemi. Quando devo accedere ad un sottoproblema prima di ricalcolarlo controllo se è presente nella matrice.
+Costruisco una matrice dove salvo i risultati dei sottoproblemi. Quando devo accedere ad un sottoproblema, prima di ricalcolarlo, controllo se è presente nella matrice.
 
 Costo computazionale = $O(n\log{n})$:
 
@@ -150,7 +150,7 @@ Numero di chiamate ricorsive $\leq n = O(n)$
 ### Bottom-Up (iterative way)
 Usiamo ora l'algoritmo per il Weighted Interval Scheduling Problem sviluppato nella sezione precedente per riassumere i principi di base della programmazione dinamica, e anche per offrire una prospettiva diversa che sarà fondamentale per il resto delle spiegazioni: ***iterare su sottoproblemi, piuttosto che calcolare soluzioni in modo ricorsivo***.
 
-Nella sezione precedente, abbiamo sviluppato una soluzione in tempo polinomiale al problema progettando prima un **algoritmo ricorsivo in tempo esponenziale** e poi **convertendolo (tramite memoization) in un algoritmo ricorsivo efficiente** che consultava un array globale M di soluzioni ottimali per sottoproblemi. Per capire davvero i concetti della programmazione dinamica, è utile formulare una versione essenzialmente equivalente dell'algoritmo. **È questa nuova formulazione che cattura in modo più esplicito l'essenza della tecnica di programmazione dinamica e servirà come modello generale per gli algoritmi che svilupperemo nelle sezioni successive**.
+Nella sezione precedente, abbiamo sviluppato una soluzione in tempo polinomiale al problema, progettando: prima un **algoritmo ricorsivo in tempo esponenziale** e poi **convertendolo (tramite memoization) in un algoritmo ricorsivo efficiente** che consultava un array globale M di soluzioni ottimali per sottoproblemi. Per capire davvero i concetti della programmazione dinamica, è utile formulare una versione essenzialmente equivalente dell'algoritmo. **È questa nuova formulazione che cattura in modo più esplicito l'essenza della tecnica di programmazione dinamica e servirà come modello generale per gli algoritmi che svilupperemo nelle sezioni successive**.
 
 ```pseudocode
 Sort jobs by finish time so that f1 ≤ f2 ≤ ... ≤ fn. 
@@ -164,11 +164,11 @@ Questo approccio fornisce un secondo algoritmo efficiente per risolvere il probl
 
 ### Riepilogo
 - $OPT[j] = max\{ v_j + OPT[p_j], OPT[j-1] \}$
-- per ogni j scelgo se prenderlo o meno
-- alcuni sottoproblemi vengono scartati (quelli che si sovrappongono al j scelto)
-- per ogni scelta ho due possibilità **TEMPO =** $O(n \log n)$
-- lo spazio è un vettore di $OPT[j]$ **SPAZIO =** $O(n)$
-- per ricostruire la soluzione uso un vettore dove per ogni $j$ ho un valore booleano che indica se il job fa parte della soluzione **SPAZIO_S =** $O(n)$
+- Per ogni $j$ scelgo se prenderlo o meno
+- Alcuni sottoproblemi vengono scartati (quelli che si sovrappongono al $j$ scelto)
+- Per ogni scelta ho due possibilità **TEMPO =** $O(n \log n)$
+- Lo spazio è un vettore di $OPT[j]$ **SPAZIO =** $O(n)$
+- Per ricostruire la soluzione uso un vettore dove per ogni $j$ ho un valore booleano che indica se il job fa parte della soluzione **SPAZIO_S =** $O(n)$
 
 <hr>
 
@@ -185,8 +185,8 @@ Nel capitolo precedente la risoluzione al problema Wheighted Interval Scheduling
 
 <img src="./imgs/linear_least.png" width="50%"/>
 
-### Goal 
-Il goal dell'algoritmo è quello di cercare la linea con errore minimo, che può essere facilmente trovata utilizzando l'analisi matematica.
+#### **Goal**:
+- Il goal dell'algoritmo è quello di ***cercare la linea con errore minimo***, che può essere facilmente trovata utilizzando l'analisi matematica.
 
 La linea di errore minimo è $y = ax + b$ dove:
 
@@ -202,13 +202,12 @@ Le formule appena citate sono utilizzabili solo se i punti di $P$ hanno un andam
 
 Come è evidente dalla figura non è possibile trovare una linea che approssimi in maniera soddisfacente i punti, dunque per risolvere il problema possiamo pensare di rilassare la condizione che sia solo una la linea. Questo però implica dover riformulare il goal che altrimenti risulterebbe banale (si fanno $n$ linee  che passano per ogni punto).
 
-### Goal
-Formalmente, il problema è espresso come segue:
-
-> Come prima abbiamo un set di punti $P = \{(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\}$ strettamente crescenti.
-> Denoteremo l'insieme dei punti $(x_i, y_i)$ con $p_i$.
-> Vogliamo partizionare $P$ in un qualche numero di segmenti, ogni numero di segmenti è un sottoinsieme di $P$ che rappresenta un _set_ contiguo delle coordinate $x$ con la forma $\{p_i, p_{i+1}, \ldots, p_{j-1}, p_j\}$ per degli indici $i \leq j$.
-> Dopodiché, per ogni segmento $S$ calcoliamo la linea che minimizza l'errore rispetto ai punti in $S$ secondo quanto espresso dalle formule enunciate prima.
+#### **Goal**:
+- Formalmente, il problema è espresso come segue:
+  > Come prima abbiamo un set di punti $P = \{(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\}$ strettamente crescenti.
+  > Denoteremo l'insieme dei punti $(x_i, y_i)$ con $p_i$.
+  > Vogliamo partizionare $P$ in un qualche numero di segmenti, ogni numero di segmenti è un sottoinsieme di $P$ che rappresenta un _set_ contiguo delle coordinate $x$ con la forma $\{p_i, p_{i+1}, \ldots, p_{j-1}, p_j\}$ per degli indici $i \leq j$.
+  > Dopodiché, per ogni segmento $S$ calcoliamo la linea che minimizza l'errore rispetto ai punti in $S$ secondo quanto espresso dalle formule enunciate prima.
 
 Definiamo infine una **penalità** per una data partizione come la somma dei seguenti termini:
 - Numero di segmenti in cui viene partizionato $P$ moltiplicato per un valore $C > 0$ (più è grande e più penalizza tante partizioni)
@@ -216,10 +215,10 @@ Definiamo infine una **penalità** per una data partizione come la somma dei seg
 
 $$f(x) = E + C L$$
 
-Il goal del Segmented Least Square Problem è quindi quello di trovare la partizione di **penalità minima**. 
+Il goal del Segmented Least Square Problem è quindi quello di **trovare la partizione di penalità minima**. 
 
 ### Funzionamento
-Seguendo la logica alla base della programmazione dinamica, ci poniamo l'obiettivo di suddividere il problema in sotto-problemi e per farlo partiamo dall'osservazione che l'ultimo punto appartiene ad una partizione ottima che parte da un valore $p_i$ fino a $p_n$ e che possiamo togliere questi punti dal totale per ottenete un sotto-problema più piccolo. <br>
+Seguendo la logica alla base della programmazione dinamica, ci poniamo l'obiettivo di suddividere il problema in sotto-problemi e, per farlo, partiamo dall'osservazione che l'ultimo punto appartiene ad una partizione ottima che parte da un valore $p_i$ fino a $p_n$ e che possiamo togliere questi punti dal totale per ottenete un sotto-problema più piccolo. <br>
 Supponiamo che la soluzione ottima sia denotata da `OPT(j)`, per i punti che vanno da $p_1$ a $p_j$, allora avremo che la soluzione ottima al problema dato l'ultimo segmento che va da $p_i$ a $p_n$, sarà dalla seguente formula:
 
 $$
@@ -280,16 +279,16 @@ In spazio l'algoritmo ha costo $O(n^2)$ ma può essere ridotto a $O(n)$.
 
 Quindi:
 - L'algoritmo ha costo $O(n^3)$ in tempo e $O(n^2)$ in spazio. Il collo di bottiglia è la computazione di $e(i, j)$. $O(n^2)$ per punto per $O(n)$ punti.
-- Questo tempo può essere ridotto applicando la memoization alle formule per il calcolo dell'errore viste in precedenza portandolo a $O(n^2)$ per il tempo e $O(n)$ per lo spazio.
+- Questo tempo può essere ridotto applicando la `memoization` alle formule per il calcolo dell'errore viste in precedenza portandolo a $O(n^2)$ per il tempo e $O(n)$ per lo spazio.
 
 ### Riepilogo
 - Trovare il numero di segmenti su un piano cartesiamo per minimizzare i quadrati degli errori
-- $OPT[j] = min_{1 \le i \le j } \{ OPT[i-1] + e(i,j) + c \}$
-  - $c$: il costo da pagare per ogni segmento
+- $OPT[j] = min_{1 \le i \le j } \{ OPT[i-1] + e(i,j) + C \}$
+  - $C$: il costo da pagare per ogni segmento
   - $e$: il costo degli errori
 - Risolvo n problemi **SPAZIO =** $O(n)$
 - Per ogni problema ho n scelte ( $O(n^2)$ ) ma per computare $e(i,j)$ **TEMPO =** $O(n^3)$
-- Per ricostruire la soluzione salvo un vettore dove $S[j] = min_i$ **SPAZIO_S** = $O(n)$
+- Per ricostruire la soluzione salvo un vettore dove $S[j] = min_i$ **SPAZIO** = $O(n)$
 
 <hr>
 
@@ -298,13 +297,12 @@ Quindi:
 ### Descrizione del problema
 Il **Problema dello Zaino** (o *Subset Sum*) è formalmente definito come segue:
 
-> Ci sono $n$ oggetti $\{1, \ldots, n\}$, a ognuno viene assegnato un peso non negativo $w_i$ (per $i = 1, \ldots, n$ ) e viene dato anche un limite $W$ (limite capienza dello zaino). 
+> Ci sono $n$ oggetti $\{1, \ldots, n\}$, a ognuno viene assegnato un peso non negativo $w_i$ (per $i = 1, \ldots, n$ ) e viene dato anche un limite $W$ (capienza dello zaino). 
 > L'obbiettivo è quello di selezionare un sottoinsieme $S$ degli oggetti tale che $\sum_{i \in S}w_i \leq W$ e che questa sommatoria abbia valore più grande possibile.
 
 Questo problema è un caso specifico di un problema più generale conosciuto come il Knapsack Problem, in cui l'unica differenza sta nel valore da massimizzare, che per il Knapsack è un valore $v_i$ e non più il peso.
 
-Si potrebbe pensare di risolvere questi problemi con un algoritmo greedy ma 
-purtroppo non ne esiste uno in grado di trovare efficientemente la soluzione ottima. <br>
+Si potrebbe pensare di risolvere questi problemi con un algoritmo greedy ma  purtroppo non ne esiste uno in grado di trovare efficientemente la soluzione ottima. <br>
 Un altro possibile approccio potrebbe essere quello di ordinare gli oggetti in base al peso in ordine crescente o decrescente e prenderli, tuttavia questo approccio fallisce per determinati casi (come per l'insieme $\{W/2+1, W/2, W/2\}$ ordinato in senso decrescente) e l'unica opzione sarà quella di provare con la programmazione dinamica.
 
 ### Goal
@@ -313,11 +311,11 @@ Possiamo riassumere il goal di questa tipologia di problemi come segue:
 > L'obbiettivo è quello di selezionare un sottoinsieme $S$ degli oggetti tale che $\sum_{i \in S}w_i \leq W$ e che questa sommatoria abbia valore più  grande possibile.
 
 ### Dynamic Version
-Come per tutti gli algoritmi dinamici dobbiamo cercare dei **sotto-problemi** e possiamo utilizzare la stessa intuizione avuto per il problema dello scheduling (scelta binaria in cui un oggetto viene incluso nell'insieme o meno). Facendo tutti i calcoli di dovere otteniamo la seguente ricorsione:
-> se $w < w_i$ allora $OPT(i, w) = OPT(i-1,w)$ altrimenti
-> $OPT(i, w) = max(OPT(i-1, w), w_i + OPT(i-1, w-w_i))$
+Come per tutti gli algoritmi dinamici dobbiamo cercare dei **sotto-problemi** e possiamo utilizzare la stessa intuizione avuto per il problema dello scheduling (scelta binaria in cui un oggetto viene incluso nell'insieme o meno). Facendo tutti i calcoli di dovere, otteniamo la seguente ricorsione:
+> - se $W < w_i$ allora $OPT(i, W) = OPT(i-1,W)$;
+> - altrimenti $OPT(i, W) = max(OPT(i-1, W), w_i + OPT(i-1, W-w_i))$
 
-- Nella prima parte analizziamo il caso in cui l'elemento che vogliamo aggiungere va a superare il peso massimo residuo $w$, dunque viene **scartato**. 
+- Nella prima parte analizziamo il caso in cui l'elemento che vogliamo aggiungere va a superare il peso massimo residuo $W$, dunque viene **scartato**. 
 - Nella seconda parte andiamo ad analizzare se l'aggiunta o meno del nuovo oggetto va a migliorare la soluzione (viene quindi **selezionato**) di $OPT$ che è definita come:
   $$
       OPT(i, w) = \max_{S} \sum_{j \in S} w_j
@@ -330,10 +328,10 @@ for w = 0 to W
 	
 for j = 1 to n
 	for w = 1 to W
-		if(wj>w) 
-			M[j,w]←M[j–1,w]
+		if(wj>W) 
+			M[j,W]←M[j–1,W]
 		else 
-			M[j, w] ← max { M [j – 1, w], vj + M [j – 1, w – wj] }
+			M[j, W] ← max { M [j – 1, W], vj + M [j – 1, W – wj] }
 return M[n,W]
 ```
 
@@ -341,7 +339,7 @@ return M[n,W]
 | Funzione        | Costo in tempo                | Costo in spazio               |
 | --------------- | ----------------------------- | ----------------------------- |
 | `Subset-Sum`    | $\Theta(nW)$                  | $\Theta(nW)$                  |
-| `Find-Solution` | $O(n)$                        | Costo in tempo                |
+| `Find-Solution` | $O(n)$                        |                               |
 
 - $O(1)$ per ogni elemento inserito nella tabella
 - $\Theta(nW)$ elementi della tabella
@@ -352,22 +350,20 @@ return M[n,W]
 - La particolarità di questo algoritmo è che avremmo 2 insiemi di sotto problemi diversi che devono essere risolti per ottenere la soluzione ottima. Questo fatto si riflette in come viene popolato l'array di memoization dei valori di $OPT$ che verranno salvati in un array bidimensionale (dimensione dell'input non polinomiale, pseudopolinomiale, perchè dipende da due variabili). <br> <img src="./imgs/zaino.png" width="90%"/>
 - A causa del costo computazionale $O(nW)$, questo algoritmo fa parte della famiglia degli algoritmi _pseudo polinomiali_, ovvero algoritmi il cui costi dipende da una variabile di input che se piccola, lo mantiene basso e se grande lo fa esplodere. Ovvero, la versione del problema con decisione è **NP-Completo**.
 - Per recuperare gli oggetti dall'array di Memoization la complessità in tempo è di $O(n)$.
-- Questa implementazione funziona anche per il problema più generale del Knapsack,
-ci basterà solo cambiare la parte di ricorsione scrivendola come segue:
-  > se $w < w_i$ allora $OPT(i, w) = OPT(i-1,w)$ altrimenti
-  > $OPT(i, w) = max(OPT(i-1, w), v_i + OPT(i-1, w-w_i))$
+- Questa implementazione funziona anche per il problema più generale del Knapsack, ci basterà solo cambiare la parte di ricorsione scrivendola come segue:
+  > - se $W < w_i$ allora $OPT(i, W) = OPT(i-1,W)$,
+  > - altrimenti $OPT(i, W) = max(OPT(i-1, W), v_i + OPT(i-1, W-w_i))$
 - Esiste un algoritmo che trova una soluzione in tempo polinomiale entro l'1% di quella ottima.
 
 ### Riepilogo
 
 - Scegliere gli oggetti da mettere nello zaino per massimizzare il valore, non superando il peso massimo.
 - $OPT[i,w] = max\{ v_i + OPT[i-1, w-w_i], OPT[i-1,w] \}$
-- scelgo se prendere o meno l'oggetto $i$
-- Ho bisogno di una matrice $n \times z$ ($z$ è la capacità dello zaino). problema pseudopolinomiale perchè varia in base a $z$ **SPAZIO =** $O(nz)$
-- Per riempire una cella devo solo controllare due valori **TEMPO =** $O(nz)$
-- Per costruire una soluzione ho una matrice dove per ogni $S[i,j]$ ho un booleano che indica se appartiene alla soluzione **SPAZIO_S =** $O(n^2)$ **TEMPO_S =** $O(n+z)$
+- **Scelgo se prendere o meno l'oggetto** $i$
+- Ho bisogno di una matrice $n \times W$ ($W$ è la capacità dello zaino). problema pseudopolinomiale perchè varia in base a $W$ $\rightarrow$ **SPAZIO =** $O(nW)$
+- Per riempire una cella devo solo controllare due valori $\rightarrow$ **TEMPO =** $O(nW)$
 - In questo problema la matrice può essere costruita per righe o per colonne
-- Per trovare $(i,w)$ leggo solo da una riga, per costrure la riga $i$ ho solo bisogno della riga $i-1$, la soluzione è in $S[n,z]$. Posso quindi trovare una soluzione utilizzando una matrice con sole due righe **SPAZIO =** $O(z)$ ma cosí non posso ricostruire la soluzione.
+- Per trovare $(i,w)$ leggo solo da una riga, per costrure la riga $i$ ho solo bisogno della riga $i-1$, la soluzione è in $S[n,W]$. Posso quindi trovare una soluzione utilizzando una matrice con sole due righe **SPAZIO =** $O(W)$ ma cosí non posso ricostruire la soluzione.
 
 <hr>
 
@@ -393,42 +389,43 @@ Formalmente la struttura secondaria di $B$ è un insieme di coppie $S = \{(i,j)\
 
 1. **No sharp turns**: la fine di ogni coppia è separata da almeno 4 basi, quindi se $(i,j) \in S$ allora $i < j - 4$
 2. Gli elementi di una qualsiasi coppia $S$ consistono di $\{A, U\}$ o $\{C, G\}$ (in qualsiasi ordine).
-3. $S$ è un _matching_: nessuna base compare in più di una coppia.
-4. **Non crossing condition**: se $(i, j)$ e $(k,l)$ sono due coppie in $S$ allora **non** può avvenire che $i < k < j < l$.
+3. $S$ è un **matching**: nessuna base compare in più di una coppia.
+4. **Non crossing condition**: se $(i, j)$ e $(k,l)$ sono due coppie in $S$ allora **non può avvenire che** $i < k < j < l$.
 
 <img src="./imgs/rna2.png" width="70%"/>
-<br>
-_La figura (a) rappresenta un esempio di Sharp Turn, mentre la figura (b) mostra una Crossing Condition dove il filo blu non dovrebbe esistere._
+
+*La figura (a) rappresenta un esempio di Sharp Turn, mentre la figura (b) mostra una Crossing Condition dove il filo blu non dovrebbe esistere.*
 
 ### Goal
 Data una molecola di RNA trovare una struttura secondaria che massimizza il numero di coppie.
 
 ### Funzionamento
 Per mappare il problema sul paradigma della programmazione dinamica, come prima idea, potremmo basarci sul seguente sotto-problema: 
->affermiamo che $OPT(j)$ è il massimo numero di coppie di basi sulla struttura secondaria $b_1 b_2 \ldots b_j$, 
->per la Non Sharp Turn Condition sappiamo che $OPT(j) = 0$ per $j \leq 5$ e sappiamo anche che $OPT(n)$ è la soluzione che vogliamo trovare. 
+> - Affermiamo che $OPT(j)$ è il massimo numero di coppie di basi sulla struttura secondaria $b_1 b_2 \ldots b_j$, 
+> - per la Non Sharp Turn Condition sappiamo che $OPT(j) = 0$ per $j \leq 5$
+> - e sappiamo anche che $OPT(n)$ è la soluzione che vogliamo trovare. 
 
 Il problema sta nell'esprimere $OPT(j)$ ricorsivamente. Possiamo parzialmente farlo sfruttando le seguenti scelte:
 1. $j$ non appartiene ad una coppia
 2. $j$ si accoppia con $t$ per qualche $t \leq j - 4$
 
 - Per il primo caso basta cercare la soluzione per $OPT(j - 1)$
-- Nel secondo caso, se teniamo conto della Non Crossing Condition, possiamo isolare due nuovi sotto-problemi: uno sulle basi $b_1 b_2 \ldots b_{t-1}$ e l'altro sulle basi  $b_{t+1} \ldots b_{j-1}$.
+- Nel secondo caso, se teniamo conto della **Non Crossing Condition**, possiamo isolare due nuovi sotto-problemi: uno sulle basi $b_1 b_2 \ldots b_{t-1}$ e l'altro sulle basi  $b_{t+1} \ldots b_{j-1}$.
   - Il primo si risolve con $OPT(t-1)$ 
   - Il secondo, dato che non inizia con indice $1$, non è nella lista dei nostri sotto-problemi. A causa di ciò risulta necessario aggiungere una variabile.
 
 <img src="./imgs/rna3.png" width="70%"/>
 
 Basandoci sui ragionamenti precedenti, possiamo scrivere una ricorsione di successo, ovvero: <br>
-sia $OPT(i,j)$ = massimo numero di coppie nella nella struttura secondaria $b_i b_{i+1} \ldots b_j$, grazie alla non sharp turn Condition possiamo inizializzare gli  elementi con $i \geq j -4$ a $0$. Ora avremmo sempre le stesse condizioni elencate sopra:
+sia $OPT(i,j)$ = massimo numero di coppie nella nella struttura secondaria $b_i b_{i+1} \ldots b_j$, grazie alla **non Sharp turn Condition** possiamo inizializzare gli  elementi con $i \geq j -4$ a $0$. Ora avremmo sempre le stesse condizioni elencate sopra:
 - $j$ non appartiene ad una coppia
 - $j$ si accoppia con $t$ per qualche $t \leq j - 4$
 
-Nel primo caso avremmo che $OPT(i,j) = OPT(i, j-1)$, nel secondo caso possiamo ricorrere su due sotto-problemi $OPT(i, t-1)$ e $OPT(t+1, j-1)$ affinché venga rispettata la non crossing condition.
+Nel primo caso avremmo che $OPT(i,j) = OPT(i, j-1)$, nel secondo caso possiamo ricorrere su due sotto-problemi $OPT(i, t-1)$ e $OPT(t+1, j-1)$ affinché venga rispettata la **non crossing condition**.
 
 Riassumendo, distinguiamo 3 diversi casi:
 1. if $i \ge j -4$:
-   $OPT(i,j) = 0$ dalla no-sharp turns condition
+   $OPT(i,j) = 0$ dalla **no-Sharp Turns condition**
 2. $b_j$ non viene accoppiata:
    $OPT(i,j) = OPT(i,j-1)$
 3. $b_j$ si accoppia con $b_t$ per una qualche $i \le t \lt j -4$:
@@ -462,10 +459,12 @@ Costo computazionale: $O(n^3)$ time e $O(n^2)$ space
 
 - Trovare il modo di accoppiare le basi di RNA con delle regole
 - $OPT[i,j] = max\{ max_{i \le t \le j-5} \{ 1 + OPT[i, t-1] + OPT[t+1, j] \}, OPT[i, j-1] \}$
-- Spazio = matrice riempita per diagonali **SPAZIO =** $O(n^2)$
-- Per calcolare ogni OPT pago n **TEMPO =** $O(n^3)$
-- Per costruire una soluzione mi serve una matrice dove $S[i,j] = max_t$ **SPAZIO_S =** $O(n^2)$
+- Spazio = matrice riempita per diagonali $\rightarrow$ **SPAZIO =** $O(n^2)$
+- Per calcolare ogni $OPT$ pago $n$ $\rightarrow$ **TEMPO =** $O(n^3)$
+- Per costruire una soluzione mi serve una matrice dove $S[i,j] = max_t$ $\rightarrow$ **SPAZIO =** $O(n^2)$
 
+---
+---
 ---
 
 # Pole Cutting
