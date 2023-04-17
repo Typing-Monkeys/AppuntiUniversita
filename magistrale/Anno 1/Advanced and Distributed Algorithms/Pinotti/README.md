@@ -4,7 +4,7 @@
 
 - [Dynamic Programming](#Dynamic-Programming)
   - [Introduzione](#introduzione)
-  - [Weighted Interval Scheduling](#Weighted-Interval-Scheduling)
+  - [Weighted Interval Scheduling Problem](#weighted-interval-scheduling-problem)
   - [Segmented Least Squares Problem](#segmented-least-squares-problem)
   - [Knapsack Problem](#Knapsack-Problem)
   - 
@@ -45,7 +45,7 @@ Qui di seguito verranno descritti i principali problemi e algoritmi di risoluzio
 
 <hr>
 
-## Weighted Interval Scheduling
+## Weighted Interval Scheduling Problem
 
 Abbiamo visto che un algoritmo **greedy** produce una soluzione ottimale per l'Interval Scheduling Problem, in cui l'obiettivo è accettare un insieme di intervalli non sovrapposti il più ampio possibile. **Il Weighted Interval Scheduling Problem** è una versione più **generale**, in cui ogni intervallo ha un certo valore (o peso), e vogliamo accettare un insieme di valore massimo.
 
@@ -359,7 +359,7 @@ ci basterà solo cambiare la parte di ricorsione scrivendola come segue:
   > $OPT(i, w) = max(OPT(i-1, w), v_i + OPT(i-1, w-w_i))$
 - Esiste un algoritmo che trova una soluzione in tempo polinomiale entro l'1% di quella ottima.
 
-## Riepilogo
+### Riepilogo
 
 - Scegliere gli oggetti da mettere nello zaino per massimizzare il valore, non superando il peso massimo.
 - $OPT[i,w] = max\{ v_i + OPT[i-1, w-w_i], OPT[i-1,w] \}$
@@ -370,7 +370,9 @@ ci basterà solo cambiare la parte di ricorsione scrivendola come segue:
 - In questo problema la matrice può essere costruita per righe o per colonne
 - Per trovare $(i,w)$ leggo solo da una riga, per costrure la riga $i$ ho solo bisogno della riga $i-1$, la soluzione è in $S[n,z]$. Posso quindi trovare una soluzione utilizzando una matrice con sole due righe **SPAZIO =** $O(z)$ ma cosí non posso ricostruire la soluzione.
 
----
+<hr>
+
+---ARRIVATO QUI
 
 # RNA Secondary Stucture
 
