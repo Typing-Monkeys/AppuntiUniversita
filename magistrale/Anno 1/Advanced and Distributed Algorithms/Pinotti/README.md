@@ -9,8 +9,9 @@
   - [Knapsack Problem](#knapsack-problem)
   - [RNA Secondary Stucture](#rna-secondary-stucture-problem)
   - [Pole Cutting Problem](#pole-cutting-problem)
+  - [Matrix Chain Parentesizathion](#matrix-chain-parenthesization)
   - 
-  - [Matrix Chain Parentesizathion](#Matrix-Chain-Parentesizathion)
+  - 
   - [Optimal Binary Search Tree](#Optimal-Binary-Search-Tree)
   - [String Similarity](#String-Similarity)
   - [Hirschberg's Algorithm](#Hirschbergs-Algorithm)
@@ -642,7 +643,66 @@ Anche il tempo di esecuzione della sua **controparte Top-Dow**n è $O(n^2)$, seb
 ---
 ---
 
-# Matrix Chain Parentesizathion
+## Matrix Chain Parenthesization
+
+### Descrizione del problema
+Data una sequenza di $n$ matrici $A_1, A_2, ..., A_n$, vogliamo calcolare il prodotto $A_1A_2...A_n$.
+
+Possiamo calcolare quest'ultimo utilizzando come subroutine l'algoritmo standard per moltiplicare una coppia di matrici, dopo che abbiamo posto le opportune parentesi per eliminare qualsiasi ambiguità sul modo in cui devono essere moltiplicate le matrici. La moltiplicazione delle matrici è associativa, quindi **tutte le parentesizzazioni forniscono lo stesso prodotto**. Un prodotto di matrici è **completamente parentesizzato** se è una singola matrice oppure è il prodotto, racchiuso tra parentesi di due prodotti di matrici completamente parentesizzati. Per esempio, se la sequenza delle matrici è $A_1, A_2, A_3, A_4$, il prodotto $A_1 A_2 A_3 A_4$ può essere parentesizzato in cinqui modi distinti:
+- $(A_1 (A_2 (A_3 A_4)))$
+- $(A_1 ((A_2 A_3) A_4))$
+- $((A_1 A_2 )(A_3 A_4))$
+- $((A_1 (A_2 A_3 ))A_4)$
+- $(((A_1 A_2) A_3 )A_4)$
+
+Il modo in cui parentesizziamo una sequenza di matrici può avere un impatto notevole sul costo per calcolare il prodotto.
+
+L'algoritmo standard di moltiplicazioni tra matrici è dato dal seguente pseudocodice:
+#### `Algorithm Matrix-Multiply(A, B)`
+```pseudocode
+Require: Matrices A, B with A.columns = B.rows
+
+Let C be a new A.rows × B.columns matrix
+
+for i ← 1 . . . A.rows do
+  for j ← 1 . . . B.columns do
+    Cij ← 0
+    for k ← 1 . . . A.columns do
+      Cij ← Cij + Aik · Bkj
+
+return C
+```
+
+#### **Costo**:
+- Tre cicli nidificati: $O(A.righe · B.colonne · A.colonne)$
+- Numero di moltiplicazioni: *A.righe · B.colonne · A.colonne*
+- Moltiplicazione di due matrici $n x n$: runtime $O(n^3)$
+
+**N.B.**:
+- Possiamo moltiplicare due matrici soltanto se sono **compatibili**: il numero di colonne di A deve essere uguale al numero di righe di B.
+- Se A è una matrice $p x q$ e B è una matrice $q x r$, la matrice risultante C è una matrice $p x r$
+
+Il tempo per calcolare C è denominato dal numero di prodotti scalari, che è $pqr$ (riga 8 dell'algoritmo).
+
+Per mostrare come il costo per moltiplicare le matrici dipenda dallo schema di parentesizzazione, consideriamo il problema di moltiplicare una sequenza di tre matrici $A_1, A_2, A_3$. Supponiamo che le dimensioni siano rispettivamente `10 x 100`, `100 x 5`, `5 x 50`. Se moltiplichiamo secondo lo schema di parentesizzazione $((A_1 A_2 )A_3)$ eseguiamo `10 x 100 x 5 = 5000` prodotti scalari per calcolare la matrice `10 x 5` risultante dal prodottto $A_1 A_2$, più altri `10 x 5 x 50 = 2500` prodotti scalari per moltiplicare questa matrice per $A_3$, per un totale di 7500 prodotti scalari.
+Se invece moltiplichiamo secondo lo schema di parentesizzazione $(A_1 (A_2 A_3))$ eseguiamo `100 x 5 x 50 = 25000` prodotti scalari per calcolare la matrice `100 x 50` risultante dal prodottto $A_2 A_3$, più altri `10 x 100 x 50 = 50000` prodotti scalari per moltiplicare questa matrice per $A_1$, per un totale di 75000 prodotti scalari.
+Quindi il calcolo della moltiplicazione delle matrici è 10 volte più rapido con il primo schema di parentesizzazioni.
+
+Il **problema della parentesizzazione tra matrici** può essere descritto in questo modo:
+> Data una sequenza di $n$ matrici $A_1, A_2, ..., A_n$, dove la matrice $A_i$ ha dimensioni $p_{i-1} x p_i$ per $i = 1,2,...,n$, determinare lo schema di parentesizzazione completa del prodotto $A_1A_2...A_n$ che minimizza il numero di prodotti scalari.
+
+È importante notare che, nel problema della moltiplicazione di una sequenza di matrici, non vengono effettivamente moltiplicate le matrici. Il nostro obiettivo è soltanto quello di determinare un ordine di moltiplicazione delle matrici che ha il costo minimo. Tipicamente, il tempo impiegato per determinare quest'ordine ottimo è più che ripagato dal tempo risparmiato successivamente per eseguire effettivamente i prodotti delle matrici (per esempio, eseguire soltanto 7500 prodotti, anzichè 75000).
+
+Contare il numero di parantesizzazioni.
+ARRIVATO QUI
+
+
+
+
+
+
+
+
 
 moltiplicazione tra 2 matrici $(p \times r)(r \times q) = (p \times q)$ . $i,j =$ riga $i$ x colonna $j$ = $O(n^3)$ time
 
