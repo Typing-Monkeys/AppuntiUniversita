@@ -6,10 +6,10 @@
   - [Introduzione](#introduzione)
   - [Weighted Interval Scheduling Problem](#weighted-interval-scheduling-problem)
   - [Segmented Least Squares Problem](#segmented-least-squares-problem)
-  - [Knapsack Problem](#Knapsack-Problem)
+  - [Knapsack Problem](#knapsack-problem)
   - [RNA Secondary Stucture](#rna-secondary-stucture-problem)
+  - [Pole Cutting Problem](#pole-cutting-problem)
   - 
-  - [Pole Cutting](#Pole-Cutting)
   - [Matrix Chain Parentesizathion](#Matrix-Chain-Parentesizathion)
   - [Optimal Binary Search Tree](#Optimal-Binary-Search-Tree)
   - [String Similarity](#String-Similarity)
@@ -472,7 +472,7 @@ Costo computazionale: $O(n^3)$ time e $O(n^2)$ space
 
 <hr>
 
-## Pole Cutting
+## Pole Cutting Problem
 
 ### Descrizione del problema
 
