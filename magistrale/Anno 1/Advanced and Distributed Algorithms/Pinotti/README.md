@@ -43,6 +43,13 @@ Per applicare la programmazione dinamica è necessario creare un *sotto-set* di 
 
 Qui di seguito verranno descritti i principali problemi e algoritmi di risoluzione nell'ambito della programmazione dinamica.
 
+#### **Recap**:
+- Programmazione Dinamica
+  - Risolve un problema combinando sottoproblemi
+  - I sottoproblemi vengono risolti al massimo una volta, memorizza le soluzioni nella tabella
+  - Se un problema presenta una sottostruttura ottimale, la programmazione dinamica è spesso la scelta giusta
+  - Gli approcci Top-Down e Bottom-Up hanno lo stesso runtime
+
 <hr>
 
 ## Weighted Interval Scheduling Problem
@@ -463,91 +470,176 @@ Costo computazionale: $O(n^3)$ time e $O(n^2)$ space
 - Per calcolare ogni $OPT$ pago $n$ $\rightarrow$ **TEMPO =** $O(n^3)$
 - Per costruire una soluzione mi serve una matrice dove $S[i,j] = max_t$ $\rightarrow$ **SPAZIO =** $O(n^2)$
 
----
----
----
+<hr>
 
-# Pole Cutting
+## Pole Cutting
 
-Pole di lunghezza n. Può essere tagiato in più parti di lunghezza intera. Poles di lunghezza $i$ vengono venduti al prezzo $p(i)$.
+### Descrizione del problema
 
-**Goal:** Trovare il maggior possibile guadagno tramite il taglio del pole.
+Il **Problema del Taglio delle Aste (Pole Cutting)** può essere definito nel modo seguente:
 
-possiamo tagliare il pole il $2^{n-1}$ modi diversi
+> Data un'asta di lunghezza $n$ pollici e una tabella di prezzi $p_i$ per $i = 1, ..., n$, **determinare il ricavo massimo $r_n$ che si può ottenere tagliando l'asta e vendendone i pezzi**. Si noti che, se il prezzo $p_n$ di un'asta di lunghezza n è sufficientemente grande, la soluzione ottima potrebbe essere quella di non effettuare alcun taglio.
 
-## Recursive Top-Down
+La figura qui di seguito mostra un esempio di problema Pole Cutting. <br>
+<img src="./imgs/pole1.png" width="80%"/> 
 
-Considero la soluzione per input $n$ :	$n = i_1 + i_2 + ... i_k$ 	per qualche k
+<img src="./imgs/pole2.png" width="70%"/> <br>
+_La figura sopra invece, mostra tutti i modi in cui può essere tagliata un'asta lunga 4 pollici._
 
-Ma allora 	$n - i_1 = i_2 + ... + i_k$ 	è una soluzione ottima per input $n - i_1$.
+È importante notare che un'asta di lunghezza $n$ può essre tagliata in $2^{n-1}$ modi differenti, in quanto **si ha un'opzione indipendente di tagliare o non tagliare**, alla distanza di $i$ pollici dall'estremità sinistra, per $i = 1, 2, ..., n-1$.
 
-Posso quindi calcolare il massimo guadagno $r_n = max\{p_n, r_1 + r_{n-1}, r_2 + r_{n-2}, ..., r_{n-1} + r_1\}$.	$p_n$ è il guadagno del pole intero, senza tagli. 
+Se una **soluzione ottima** prevede il taglio dell'asta in $k$ pezzi, per $1 \le k \le n$, allora una **decomposizione ottima** $n = i_1 + i_2, ... + i_k$ dell'asta in pezzi di lunghezze $i_1, i_2, ..., i_k$ fornisce il ricavo massimo corrispondente $r_m = p_{i_1} + p_{i_2} + ... + p_{i_k}$
 
-```math
-r_n = max_{1 \le i \le n}(p_i + r_{n-i})
+<img src="./imgs/pole3.png" width="70%"/> 
+
+#### **Goal**:
+Data un'asta di lunghezza $n$ pollici e una tabella di prezzi $p_i$ per $i = 1, ..., n$, **determinare il ricavo massimo $r_n$ che si può ottenere tagliando l'asta e vendendone i pezzi**.
+
+### Funzionamento
+Più in generale, posisiamo esprimere i valori $r_n$ per $n \ge 1$ in funzione dei ricavi ottimi delle aste più corte:
+
+$$
+r_n = max(p_n, r_1 + r_{n-1}, r_2 + r_{n-2}, ..., r_{n-1} + r_1)
+$$
+
+- Il primo argomento, $p_n$, corrisponde alla vendita dell'asta di lunghezza $n$ senza tagli. 
+- Gli altri $n-1$ argomenti corrispondono al ricavo massimo ottenuto facendo un taglio iniziale dell'asta in due pezzi di dimensione $i$ e $n-1$, per $i = 1, 2, ..., n-1$, e poi tagliando in modo ottimale gli ulteriori pezzi, ottenendo i ricavi $r_i$ e $r_{n-1}$ da questi due pezzi.
+
+**N.B.** Per risolvere il problema originale di dimensione $n$, risolviamo problemi più piccoli dello stesso tipo, ma di dimensioni inferiori. Una volta effettuato il primo taglio, possiamo considerare i due pezzi come istanze indipendenti del problema del taglio delle aste. Possiamo quindi dire che il problema del taglio delle aste presenta una **sottostruttura ottima**, ovvero **le soluzioni ottime di un problema incorporano le soluzioni ottime dei sottoproblemi correlati**.
+
+Tuttavia, c'è un modo più semplice di definire una struttura ricorsiva per il problema del taglio delle aste:
+> Consideriamo la decomposizione formata da un primo pezzo di lunghezza $i$ tagliato dall'estremità sinistra e dal pezzo restante di destra di lunghezza $n-i$. **Soltanto il pezzo restante di destra (non il primo pezzo) potrà essere ulteriormente tagliato**. Possiamo vedere ciascuna decomposizione di un'asta di lunghezza $n$ in questo modo:
+> **un primo pezzo seguito da un'eventuale decomposizione del pezzo restante**. 
+> Così facendo, possiamo esprimere la soluzione senza alcun taglio dicendo che il primo pezzo ha dimensione $i = n$ e ricavo $p_n$ e che il pezzo restante ha dimensione 0 con ricavo $r_0 = 0$.
+
+Otteniamo così la seguente **versione semplificata dell'equazione:**
+
+$$
+r_n = max(o_i + r_{n-1})
+$$
+
+Secondo questa formulazione, **una soluzione ottima incorpora la soluzione di un solo sottoproblema** (il pezzo restante) anzichè due.
+
+### Algorimto ricorsivo TOP-down
+`Algorithm Cut-Pole(p, n)`
+```pseudocode
+Require: Integer n, Array p of length n with prices
+if n == 0 then
+  return 0
+
+q ← −∞
+
+for i = 1 . . . n do
+  q ← max{q, p[i] + Cut-Pole(p, n − i)}
+
+return q
+```
+#### Costo:
+Perchè questo algoritmo è così **inefficiente**? Il problema è che la procedura `CUT-Pole` chiama più e più volte sè stessa in modo ricorsivo con gli stessi valori dei parametri, ovverro **risolve ripetutamente gli stessi sottoproblemi**.
+
+<img src="./imgs/pole4.png" width="70%"/> 
+
+$$
+T(n) = 1 + \sum^{n-1}_{j=0}T(j)
+$$
+
+$$
+T(n) = 2^n
+$$
+
+**N.B.** `CUT-Pole` è esponenziale in $n$.
+
+La procedura cut-rod considera esplicitamente tutti i $2^{n-1}$ modi possibili di tagliare un'asta di lunghezza $n$. L'albero delle chiamate ricorsive ha $2^{n-1}$ foglie, una per ogni modo possibile di tagliare l'asta.
+
+### Applicare la Programmazione Dinamica al taglio delle aste
+L'idea è quella di applicare i concetti fondamentali della programmazione dinamica: <br>
+*Se avremo bisogno di nuovo della soluzione di questo sottoproblema, potremo riaverla immediatamente **senza bisogno di ricalcolarla***. <br>
+Come sappiamo per i problemi risolti precedentemente: <br>
+La programmazione dinamica richiede una memoria extra per ridurre il tempo di esecuzione (**compromesso tempo-memoria**). 
+
+Il risparmio di tempo ottenibile può essere notevole: **una soluzione con tempo esponenziale può essere trasformata in una soluzione con tempo polinomiale**:
+- Un metodo di programmazione dinamica viene eseguito in **tempo polinomiale** quando il numero di sottoproblemi distinti richiesti è **polinomiale nbella dimensione dell'input** e cuascun sottoproblema può essere risolto in un tempo polinomiale.
+
+Come già visto per la risoluzione degli altri problemi, ci sono due modi equivalenti:
+- **Metodo Top-Down con Memoization**: In questo approccio si scrive la procedura ricorsiva in modo naturale, modificandola per salvare il risultato di ciascun sottoproblema. La procedura prima veriffica se ha risoltoprecedentemente questo problema. In caso affermativo, restituisce il valore salvato, risparmiando gli ulteriori calcoli a quel livello; altrimenti la procedura calcola il valore nel modo usuale.
+- **Metodo Bottom-Up**: Ordiniamo i sottoproblemi per dimensione e poi li risolviamo ordinatamente a partire dal più piccolo. Quando risolviamo un particolare sottoproblema, abbiamo già risolto tutti i sottoproblemi più piccoli da cui dipende la sua soluzione.
+
+Questi due approcci generano ***algoritmo con lo stesso tempo di esecuzione asintotico***. L'approccio **Bottom-Up** spesso ha fattori costanti molto migliori, in quanto ha **meno costi per le chiamate di procedura**.
+
+### Top-down Approach
+#### `Algorithm Memoized-Cut-Pole(p, n)`
+```pseudocode
+Require: Integer n, Array p of length n with prices
+
+Let r [0 . . . n] be a new array
+
+for i = 0 . . . n do
+  r [i] ← −∞
+
+return Memoized-Cut-Pole-Aux(p, n, r )
 ```
 
+#### `Algorithm Memoized-Cut-Pole-Aux(p, n, r )`
 ```pseudocode
-Cut-Pole(p, n) {
-  if n = 0 then
-    return 0 
+Require: Integer n, array p of length n with prices, array r of revenues
+
+if r [n] ≥ 0 then
+  return r[n]
+
+if n = 0 then
+  q ← 0
+else
   q ← −∞
   for i = 1 . . . n do
-    q ← max{q, p[i] + Cut-Pole(p, n − i)}
-  return q
-}
+    q ← max{q, p[i] + Memoized-Cut-Pole-Aux(p, n − i, r )}
+  r [n] ← q
+
+return q
 ```
 
-Costo computazionale: $O(n2^n)$
+- Preparare una tabella `r` di dimensione $n$
+- Inizializza tutti gli elementi di `r` con $-\infty$
+- Il lavoro effettivo viene svolto in `Memoized-Cut-Pole-Aux`, la tabella `r` viene passata a `Memoized-Cut-Pole-Aux`
 
-- $2^i$ chiamate ricorsive
-- $O(n)$ per ogni chiamata
+Observe: If r [n] ≥ 0 then r [n] has been computed previously
 
-## Memoization Top-Down
+**Osserva**: Se `r[n] ≥ 0` allora `r[n]` **è stato calcolato in precedenza**
 
+### Bottom-up Approach
+#### `Algorithm Bottom-Up-Cut-Pole(p, n)`
 ```pseudocode
-Let r[0...n] be a new array
-for i = 0 . . . n do
-		r[i] ← −∞
-return Memoized-Cut-Pole-Aux(p,n,r)
-
-Memoized-Cut-Pole-Aux(p,n,r){
-  if r[n] ≥ 0 then 
-  	return r[n]
-  if n = 0 then 
-  	q←0
-  else
-  	q ← −∞
-  	for i = 1 . . . n do
-  		q ← max{q, p[i] + Memoized-Cut-Pole-Aux(p, n − i,r)} 
-  r[n] ← q
-  return q
-}
-```
-
-## Bottom-Up
-
-```pseudocode
-Let r[0...n] be a new array
+Require: Integer n, array p of length n with prices
+Let r[0 . . . n] be a new array
 r[0] ← 0
+
 for j = 1 . . . n do
-	q ← −∞
-	for i = 1 . . . j do
-		q ← max{q, p[i] + r[j − i]} 
-	r[j] ← q
+  q ← −∞
+  for i = 1 . . . j do
+    q ← max{q, p[i] + r[j − i]}
+  r[j] ← q
+
 return r[n]
 ```
 
-Costo computazionale = $O(n^2)$
+### Costi
+Il tempo di esecuzione della procedura bottom up è $O(n^2)$, a causa della doppia struttura annidata del suo ciclo.
 
-## Riepilogo
+$$
+\sum^n_{j=1} \sum^j_{i=1} O(1) = O(1) \sum^n_{j=1} \sum^j_{i=1} 1 = O(1) \sum^n_{j=1} j = O(1) \frac{n(n+1)}{2} = O(n^2)
+$$
 
-- massimizzare il reward in base ai tagli
-- $OPT[j] - max_{i \le l \le j} \{ OPT[j-l] + p_l \}$
-- devo calcolare OPT per ogni n, per ognuno pago n **TEMPO =** $O(n^2)$
+Anche il tempo di esecuzione della sua **controparte Top-Dow**n è $O(n^2)$, sebbene questo tempo di esecuzione sia un pò più difficile da spiegare. Poichè **una chiamata ricorsiva per risolvere un sottoproblema precedentemente risolto termina immediatamente**.
+
+### Riepilogo
+- Massimizzare il reward in base ai tagli
+- Tempo di esecuzione dell'approccio Top-Down $O(n^2)$
+   - devo calcolare OPT per ogni n, per ognuno pago n **TEMPO =** $O(n^2)$
+- $OPT[j] = max_{i \le l \le j} \{ OPT[j-l] + p_l \}$
 - salvo i dati in un vettore che contiene OPT dei vari segmenti **SPAZIO =** $O(n)$
 - per ricostruire la soluzione uso un vettore dove $S[j] = max_l$ **SPAZIO_S =** $O(n)$
 
+---
+---
 ---
 
 # Matrix Chain Parentesizathion
