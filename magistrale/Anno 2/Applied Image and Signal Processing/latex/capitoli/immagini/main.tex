@@ -1829,3 +1829,261 @@ L'effetto della chiusura è di chiudere gli eventuali buchi interni.
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/chiusura.png}
 \end{figure}
+
+\section{Operatori Morfologici: applicazione}
+E' importante osservare come la convoluzione dell'elemento strutturante modifichi l'immagine di partenza solo alla fine
+dell'analisi di tutti i punti del dominio. Un esempio di applicazione degli operatori morfologici è il problema posto da Sternberg nel 1985, al fine di controllare, a
+partire da una foto binaria, l'integrità dei denti degli ingranaggi prodotti in un'azienda di orologi.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/orologi-esempio.png}
+\end{figure}
+
+Come primo passo è necessario riempire i “buchi” degli ingranaggi nell'immagine originale.
+Si nega l'immagine di partenza $B$ ottenendo $B^c$ e si effettua un'erosione con un SE grande come i buchi centrali degli ingranaggi, ottenendo l'immagine (b).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/orologi2.png}
+    \caption*{a) originale image B}
+    \caption*{b) $B1=B^c \ominus$ hole\_ring}
+\end{figure}
+
+Si prende un SE di dimensioni maggiori rispetto ai buchi degli ingranaggi di partenza e si opera una dilatazione: il risultato è
+mostrato in (c). Quindi si opera un'operazione logica di OR fra B e B2 al fine di ottenere B3, figura (d)
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/orologi3.png}
+    \caption*{c) $B2 = B1 \oplus$ hole\_mask}
+    \caption*{d)$B3 = B OR B2$}
+\end{figure}
+
+A questo punto si può considerare un SE che abbia una dimensione tale da includere soltanto i denti degli ingranaggi al suo interno,
+B7 di figura (e). Tramite un'operazione di AND è facile ottenere un'immagine
+binaria contenente solo i denti degli ingranaggi da analizzare, (f).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/orologi4.png}
+    \caption*{e) $B7$}
+    \caption*{f) $Bs = B AND B7$}
+\end{figure}
+
+Se si sceglie un SE circolare con diametro pari alla metà della distanza fra due denti successivi e se si applica una dilatazione, si
+otterranno “buchi” in corrispondenza delle strutture dentate uscenti come in figura (g). Infine, un altro elemento strutturante di diametro superiore a
+quello della distanza interdentale viene utilizzato per evidenziare i denti mancanti (h).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/orologi5.png}
+    \caption*{g) $B9=B8 \oplus$ Up\_spacing}
+    \caption*{h) RESULT = $((B8 * B9) \oplus$ defect\_cue)$OR B9$ }
+\end{figure}
+
+\section{MSE - Mean Squear Error}
+Al fine di valutare matematicamente la differenza in termini di intensità fra due immagini A e B, viene introdotto il concetto di
+\textbf{Errore Quadratico Medio (MSE)}.
+
+\begin{center}
+    $MSE_{AB} = \sum_{i=1}^{N}\sum_{J=1}^{M}\frac{|I_A(i,j)-I_B(i,j)^2|}{NM}$
+\end{center}
+
+dove $I_A$ e $I_B$ sono le intensità dei livelli di grigio delle due immagini di dimensioni $M × N$ di cui si calcola la differenza. Più il valore di questo indice è basso, minore sarà la differenza tra
+le immagini sia numericamente in termini di bit, sia in termini di qualità visiva.
+
+\section{PSNR - Peak Signal to Noise Ratio}
+Per quantificare l'entità del suddetto errore secondo un termine di paragone, viene introdotto un ulteriore indice di qualità delle
+immagini. Si definisce come \textbf{Peak Signal to Noise Ratio (PSNR)}, il rapporto
+tra la massima potenza ammisibile di un segnale e l'MSE.
+
+\begin{center}
+    $PSNR_{AB} = 10 \log(\frac{255^2}{MSE_{AB}})$
+\end{center}
+
+\section{Image Registration}
+La registratura d'immagini (image registration) è quel processo che permette la trasformazione di differenti insiemi di dati, presenti in diversi insiemi di coordinate, in un sistema dove ogni coordinata
+spaziale corrisponde. La registratura è necessaria per poter confrontare o integrare i dati ottenuti da diverse misure. Si prende una delle immagini come sorgente (source) e ci si
+riferisce alla seconda immagine come bersaglio (target).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/image-registration.png}
+\end{figure}
+
+\subsubsection{Image Registration: Applicazioni}
+\textbf{Rilevamento del movimento con videocamera non stazionaria}
+\\IL Rilevamento del movimento, registrazione spaziale/tonale del fotogramma attuale con la corrispondente regione del modello di
+sfondo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/image-registration-applicazioni.png}
+\end{figure}
+
+\textbf{Ricostruzione 3D}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/ricostruzione-3-d.png}
+\end{figure}
+
+\textbf{Medical imaging}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/medical-imaging.png}
+\end{figure}
+
+\section{Classificazione dei metodi di registratura in ambito dico - van den Elsen, Pol \& and Viergever (1993)}
+Una classificazione dei metodi di registratura si basa su nove
+criteri:
+\begin{enumerate}
+    \item Dimensione del dominio dell'immagine;
+    \item Natura della registrazione;
+    \item Interazione;
+    \item Procedura di ottimizzazione;
+    \item Modalità;
+    \item Soggetto;
+    \item Oggetto;
+\end{enumerate}
+
+\subsection{Dimensione del dominio dell'immagine}
+Si possono considerare:
+\begin{enumerate}
+    \item solamente le dimensioni spaziali:
+          \begin{itemize}
+              \item 2D/2D
+              \item 2D/3D
+              \item 3D/3D
+          \end{itemize}
+    \item immagini acquisite in tempi differenti, con dimensioni spaziali:
+          \begin{enumerate}
+              \item 2D/2D
+              \item 2D/3D
+              \item 3D/3D
+          \end{enumerate}
+\end{enumerate}
+
+\subsubsection{Natura della registrazione}
+\begin{itemize}
+    \item \textbf{Estrinseca}
+    \item \textbf{Intrinseca}
+    \item \textbf{Non basata su immagini}
+\end{itemize}
+
+\subsection{Estrinseca}
+I metodi estrinseci si fondano su oggetti artificiali che vengono attaccati sul paziente. Si dividono in
+\begin{itemize}
+    \item Invasivi
+          \begin{itemize}
+              \item telaio stereotassico (stereotassic frame)
+              \item marcatori a vite (screw mounted markers)
+          \end{itemize}
+    \item Non Invasivi
+          \begin{itemize}
+              \item stampi, adattatori dentali
+              \item marcatori su pelle
+          \end{itemize}
+\end{itemize}
+
+\textbf{Stereotassic frame}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/strssotic-frame.png}
+\end{figure}
+
+\textbf{Screw mounted markers}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/screw-mounted-markes.png}
+\end{figure}
+
+\subsection{Natura della registrazione}
+I metodi intrinseci si basano sul solo contenuto dell'immagine del paziente. Si dividono in:
+\begin{itemize}
+    \item \textbf{Landmark based -} basata sui punti fiduciali: i punti di possono essere anatomici, cioè punti precisi e
+          localizzabili della morfologia dell'anatomia visibile, solitamente identificati in modo interattivo dall'utente.
+    \item \textbf{Segmentation based -} può essere \textbf{rigid model based}, dove si
+          individuano le stesse strutture anatomiche (principalmente superfici) estratte da entrambe le immagini da registrare e
+          utilizzate come unico input per la procedura di allineamento; oppure deformable model based, dove una struttura estratta
+          (principalmente superfici e curve) da un'immagine è deformata elasticamente per adattarsi alla seconda immagine
+    \item  \textbf{Voxel property based -} si basano solamente sui livelli di grigio
+          dell'immagine (metodo globale).
+\end{itemize}
+
+\subsubsection{Tipi di trasformazione}
+\begin{itemize}
+    \item \textbf{Rigida:} comprende solo traslazioni e rotazioni
+    \item \textbf{Affine:} mappa linee parallele in linee parallele
+    \item \textbf{Proiettiva:} mappa linee in linee
+    \item \textbf{Elastica:} mappa linee in curve
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/tipi-trasformazione.png}
+\end{figure}
+
+\subsubsection{Dominio della trasformazione}
+Una trasformazione è chiamata globale se è applicata all'intera immagine, locale se è applicata ad un sottoinsieme del'immagine.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/dominio-trasformazione.png}
+\end{figure}
+
+\subsubsection{Interazione}
+Fra gli algoritmi di registratura, si possono individuare tre livelli di
+interazione:
+\begin{itemize}
+    \item \textbf{Automatica:}l'utente fornisce all'algoritmo solo i dati
+          dell'immagine ed eventualmente informazioni sull'acquisizione
+          dell'immagine.
+    \item \textbf{Interattiva:} l'utente effettua personalmente la registrazione,
+          assistito da software.
+    \item \textbf{Semi-autimatica:} l'utente deve inizializzare l'algoritmo, ad esempio, segmentando i dati o guidando l'algoritmo a rifiutare
+          o accettare le ipotesi di registrazione suggerite.
+\end{itemize}
+
+\subsection{Procedura di ottimizzazione}
+\begin{itemize}
+    \item \textbf{Parameters computed:} i parametri che compongono la trasformazione della registrazione vengono calcolati direttamente, cioè determinato in maniera esplicita dai dati
+          disponibili
+    \item \textbf{Parameters searched for:} i parametri che compongono la trasformazione della registrazione vengono ricercati, cioè
+          determinati trovando un massimo di qualche funzione definita nello spazio dei parametri.
+\end{itemize}
+
+\subsection{Modalità}
+\begin{itemize}
+    \item \textbf{Monomodale: }le immagini da registrare appartengono alla
+          stessa modalità (radiografia, CT, MR, PET, SPECT, US,
+          raggi X o DSA, ecc..)
+    \item \textbf{Multimodale: }le immagini da registrare derivano da due
+          diverse modalità (TC-MR, TC-PET, TC-SPECT, DSA-MR,
+          PET-MR, US-TC, raggi X-MR, ecc..).
+\end{itemize}
+
+\subsection{Soggetto}
+\begin{itemize}
+    \item \textbf{Intrasubject: }tutte le immagini coinvolte nella registrazione
+          sono acquisite da un singolo paziente;
+    \item \textbf{Intersubject: }la registrazione viene effettuata utilizzando due
+          immagini di diversi pazienti (o un paziente e un modello);
+    \item \textbf{Atlas:} un'immagine viene acquisita da un singolo paziente e
+          l'altra immagine è in qualche modo costruita da un database
+          di informazioni su un'immagine ottenuta utilizzando l'imaging
+          di molti soggetti.
+\end{itemize}
+
+\subsubsection{Oggetto}
+\begin{itemize}
+    \item \textbf{Testa:} cervello, occhio, denti.
+    \item \textbf{Torace:} intero, cardiaco, seno.
+    \item \textbf{Addome:} generale, rene, fegato.
+    \item \textbf{Bacino e perineo}
+    \item \textbf{Arti} generale, femorale, omero, mano
+    \item \textbf{Colonna vertebrale e vertebre}
+\end{itemize}
+
+
+
+
