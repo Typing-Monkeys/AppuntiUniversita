@@ -693,15 +693,53 @@ Il **problema della parentesizzazione tra matrici** può essere descritto in que
 
 È importante notare che, nel problema della moltiplicazione di una sequenza di matrici, non vengono effettivamente moltiplicate le matrici. Il nostro obiettivo è soltanto quello di determinare un ordine di moltiplicazione delle matrici che ha il costo minimo. Tipicamente, il tempo impiegato per determinare quest'ordine ottimo è più che ripagato dal tempo risparmiato successivamente per eseguire effettivamente i prodotti delle matrici (per esempio, eseguire soltanto 7500 prodotti, anzichè 75000).
 
-Contare il numero di parantesizzazioni.
-ARRIVATO QUI
+Vogliamo tuttavia dimostrare che un controllo esaustivo di tutti i possibili schemi di parentesizzazione non ci consente di ottenere un algoritmo effciente. Indichiamo con $P(n)$ il numero di parentesizzazioni alternative di una sequenza di $n$ matrici. Quando $n=1$, c'è una sola matrice e, quindi un solo schema di parentesizzazione. Quando $n \ge 2$, un prodotto di matrici completamente parentesizzato è il prodotto di due sottoprodotti di matrici completamente parentesizzati e la suddivisione fra i due sottoprodotti può avvenire fra la k-esima e ka (k+1)-esima matrice per qualsiasi k=1,2,...,n-1.
+
+Quindi otteniamo la seguente riccorenza
+
+<img src="./imgs/matrix1.png" width="50%"/>
+
+1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012, 742900, . . .
+
+- Si può dimostrare che ci sono $\Omega(2^n)$ combinazioni
+- Un algoritmo efficiente quindi non può provare tutte le possibili combinazioni
+
+### Applicare la programmazione dinamica
+Seguiremo un procedimento di quattro fasi (classico della programmazione dinamica):
+1. Caratterizzare la struttura di una soluzione ottima
+2. Definire in modo ricorsivo il valore di una soluzione ottima
+3. Calcolare il valore di una soluzione ottima
+4. Costruire una soluzione ottima dalle informazioni calcolare
+
+#### 1. Struttra di una parentesizzazione ottima
+Per comodità adottiamo la notazione $A_{i..j}$ dove $i \le j$, per la matrice che si ottiene calcolando il prodotto $A_i A_{i+1} ... A_j$. Notate che, se il problema non è banale, cioè $i < j$, allora qualsiasi parentesizzazione del prodotto $A_i A_{i+1} ... A_j$ deve suddividere l prodotto fra $A_k$ e $A_{k+1}$ per qualche intero k nell'intervallo $i \le k < j$, ovvero, per qualche valore di k, prima calcoliamo le matrici $A_{i..k}$ e $A_{k+1..j}$ e, poi, le moltiplichiamo per ottenere il prodotto finale $A_{i..j}$. Il costo di questa parentesizzazione è, quindi, il costo per calcolare la matrice $A_{i..k}$, più il costo per calcolare la matrice $A_{k+1..j}$ più il costo per per moltiplicare queste due matrici.
+
+Defininizione della sottostruttura:
+Supponiamo chr una parentesizzazione ottimaa $A_i A_{i+1} ... A_j$ suddivida il prodotto fra $A_k$ e $A_{k+1}$. Allora la parentesizzazione ottima di $A_i A_{i+1} ... A_j$ deve essere una parentesizzazione opttima di  $A_i A_{i+1} ... A_k$.
+
+Possiamo quindi costruire una soluzione ottima di un'istanza del problema della moltiplicazione di una sequenza di matrici suddividendo il problema in due sottoproblemi (quelli della parentesizzazione ottima  $A_i A_{i+1} ... A_k$ e  $A_{k+1} A_{k+2} ... A_j$  ), trovando le soluzioni ottime delle istanze dei sottoproblemi e, infine, combinando le soluzioni ottime dei sottoproblemi.
+
+#### 2. Soluzione in modo ricorsivo
+Scegliamo come sottoproblemi i problemi per determinare il costo minimo di una parentesizzazione $A_i A_{i+1} ... A_j$ per $1 \le i \le j \le n$.
+Sia m[i,j] il numero minimo di prodotti scalari richiesti per calcolare la matrice $A_{i..j}$; per il problema principale, il costo del metodo più economico per calcolare $A_{1..N}$ sarà quindi m[1,n]
+Possimao definire m[i,j] ricorsivamente in questo modo. Se i=j, il problema è banale; la sequenza è formata da una matrice $A_{I..I} = A_i$, quindi non occorre eseguire alcun prodotto scalare. Allora m[i,i] = 0 per i=1,2,...,n. Per calcolare m[i,j] quando i < j, sfruttiamo la struttura di una soluzioine ottima ottenuta nella fase 1.. Supponiamo che la parentesizzazio3 ottima suddivida il prodotto $A_i A_{i+1} ... A_j$ fra $A_k$ e $A_{k+1}$, dove $i \le k < j$. Quindi m[i,j] è uguale al costo minimo per calcolare i sottoprodotti  $A_{i..k}$ e  $A_{k+1..j}$, più il costo per moltiplicare queste due matrici. Ricordando che ogni matrice $A_i$ è $p_{i-1} x p_i$, il calcolo del prodotto delle matrici $A_{i..k} A_{k+1..j}$ richiede $p_{i-1} p_k  p_j$ prodotti scalari. Quindi otteniamo
+
+$m[i,j] = m[i,k] + m[k+1,j] + p_{i-1} p_k p_j$
+
+Questa equazione ricorsiva supppone che sia noto il valore di k, che invece non conosciasmo. Notiamo tuttavia, che ci sono soltanto j-i valori possibili per k, ovvero k=i, i+1, ..., j-1. Poichè la parentesizzazione ottima deve utilizzare uno di questi valori di k, dobbiamo semplicemente controllarli tutti per trovare il migliore. Quindi, la nostra definizione ricorsiva per il costo minimo di una parentesizzazione del prodotto $A_i A_{i+1} ... A_j$ diventa
+
+<img src="./imgs/matrix2.png" width="50%"/>
+
+I valori m[i, j] soo i costi delle soluzioni ottime dei sottoproblemi, ma essi non ci forniscono tutte le informazioni necessarie a ricostruire la soluzione ottima. Per poterlo fare definiamo s[i,j] come il valore k in cui è stato suddiviso il prodotto $A_{i} A_{i+1j} ... A_j$ per ottenere una parentesizzazione otttima. Ovvero, s[i,j] è uguale a un valore k tale che $m[i,j] = m[i,k] + m[k+1,j] + p_{i-1} p_k p_j$
+
+#### 3. Calcolo dei costi ottimi
+Osserviamo che ci sono relativamente pochi problemi distinti: un problema per ogni possibile scelta di i e j, con $1 \le i \le j \le n$ per un totale di  $O(n^2)$.
 
 
 
 
 
-
-
+---
 
 
 moltiplicazione tra 2 matrici $(p \times r)(r \times q) = (p \times q)$ . $i,j =$ riga $i$ x colonna $j$ = $O(n^3)$ time
