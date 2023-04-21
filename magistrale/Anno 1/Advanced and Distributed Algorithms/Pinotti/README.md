@@ -10,9 +10,10 @@
   - [RNA Secondary Stucture](#rna-secondary-stucture-problem)
   - [Pole Cutting Problem](#pole-cutting-problem)
   - [Matrix Chain Parentesizathion](#matrix-chain-parenthesization)
+  - [Optimal Binary Search Tree](#optimal-binary-search-tree)
   - 
   - 
-  - [Optimal Binary Search Tree](#Optimal-Binary-Search-Tree)
+  - 
   - [String Similarity](#String-Similarity)
   - [Hirschberg's Algorithm](#Hirschbergs-Algorithm)
 - [Network Flow](#Network-Flow)
@@ -794,6 +795,7 @@ La procedura `Matrix-Chain-Order`, determina il numero ottimo di prodotti scalar
 Quindi, sappiamo che il prodotto finale delle matrici nel calcolo di $A_{1..n}$ è  $A_{1..s[1,n]} A_{s[1,n]+1..n}$. I prodotti prededenti possono essere calcolati ricorsivamente perchè `s[i, s[i,n]]` determina l'ultimo prodotto nel calcolo di $A_{s[1,n]+1..n}$. La seguente procedura ricorsiva produce una parentesizzazione ottima di ($A_i$, $A_{i+1}$,...,$A_j$) dati gli indici $i$ e $j$ e la tabella `s` (calcolata da `Matrix-Chain-Order`). La chiamata iniziale di `Print-Optimal-Parens(s, 1, n)` produce una parentesizzazione ottima di ($A_1$, $A_2$,...,$A_n$).
 
 #### `Print-Optimal-Parens(s, 1, n)`
+```pseudocode
 Require: Array s, positions i, j
 
 if i = j then
@@ -803,7 +805,7 @@ else
   Print-Optimal-Parens(s, i, s[i, j])
   Print-Optimal-Parens(s, s[i, j] + 1, j)
   print “)”
-
+```
 
 ### Riepilogo
 - L'obiettivo è minimizzare i prodotti scalari con parentesizzazione
@@ -815,94 +817,137 @@ else
 - per ricorstruire la soluzione **SPAZIO** = $O(n^2)$
   uso una matrice dove segno quale $k$ per ogni $(i,j)$ ha dato il risultato migliore
 
----
----
-ARRIVATO QUI
----
+<hr>
 
-# Optimal Binary Search Tree
+## Optimal Binary Search Tree
+Come possiamo organizzare un albero binario di ricerca per minimizzare il numero di nodi visitati in tutte le ricerche, conoscendo le frequenze con cui vengono cercati i nodi? Ciò che fa al caso nostro è un **albero binario di ricerca ottimo**.
 
-**BST:** 
+### Descrizione del problema
+> Formalmente, data una sequenza $K = k_1, k_2, ..., k_n$ di $n$ chiavi distinte e ordinate (con $k_1 < k_2 < ... < k_n$), **vogliamo costruire un albero binario di ricerca** con queste chiavi. Per ogni chiave $k_i$, abbiamo una probabilità $p_i$ che una ricerca riguarderà $k_i$. Alcune ricerche potrebbero riguardare valori che non si trovano in $K$, quindi abbiamo anche $n+1$ chiavi fittizie (o **dumy**) $d_0, d_1, ..., d_n$ che rappresentano valori che non appartengono a $K$.
 
-- ogni nodo ha una chiave 
+$d_0$ rappresenta tutti i valori minori di $k_1$, $d_n$ rappresenta tutti i valori maggiori di $k_n$ e, per $i = 1, 2, ..., n-1$, la chiave fittizia $d_i$ rappresenta tutti i valori fra $k_i$ e $k_{i+1}$. Per ogni chiave fittizia $d_i$, abbiamo una probabilità $q_i$ che una ricerca corrisponderà a $d_i$.
 
-- la chiave di un nodo interno **u** è maggiore di tutte le chiavi del suo sottoalbero di sinistra e maggiore di tutte le chiavi del suo sottoalbero di destra
+$$
+  \sum_{i=1}^{n} p_i +  \sum_{i=0}^{n} q_i = 1
+$$
 
-  
+**Poichè conosciamo le probabilità delle ricerche per ogni chiave e per ogni chiave fittizia, possiamo determinare il costo atteso di una ricerca in un determinato albero binario di ricerca $T$.** Supposiniamo che il costo effettivo di una ricerca sia il numero di nodi esaminati, ovvero la profondità del nodo trovato dalla ricerca in $T$, più 1. Allora il costo atteso di una ricerca in $T$ è:
 
-- il **livello** di un nodo **u** in un albero **T**, $level_T (u)$, è il numero di archi dalla radice di T fino al nodo **u**
+$$
+avgCost(T) = \sum_{i = 1}^{n} profondità_T(d_i) \cdot q_i
+$$
 
-- la **profondità** di **T** è il suo livello massimo
+- dove $profondità_T$ indica la profondità di un nodo nell'albero $T$.
 
-- la **ricerca** di un nodo u ha un costo proporzionale a $1 + level_T(u)$
+#### **Goal**:
+Per un dato insieme di probabilità, il nostro obiettivo è costruire un albero binario di ricerca il cui costo atteso di ricerca è minimo.
 
-un BST **bilanciato** con n elementi ha profondità $O(\log n)$. Questo è buono se assumiamo che i nodi vengano cercato con probabilità uguali. Se non è cosí vogliamo rendere i nodi più cercati più facili da trovare.
+**N.B.** Un albero binario di ricerca ottimo non è necessariamente un albero la cui altezza è minima, nè possiamo necessariamente costruire un albero binario di ricerca ottimo ponendo sempre nella radice la chiave con probabilità massima.
 
-**Goal:** Vogliamo costruire un BST, conoscendo le frequenze con cui i nodi vengono cercati, che minimizza il costo medio di ricerca.
+Come nella moltiplicazione di una sequenza di matrici, il controllo esaustivo di tutte le possibilità non riesce a produrre un algoritmo efficiente. In una ricerca esaustiva, dovremmo esaminare un numero esponenziale di alberi binari di ricerca.
 
-## Optimal BST Problem
+#### 1. La struttura di un albero binario di ricerca ottimo
+Iniziamo con una osservazione sui sottoalberi. Consideriamo un sottoalbero qualsiasi di un albero binario di ricerca; le sue chiavi devono essere in un intervallo coniguo $k_i, ..., k_j$, per qualche $1 \le i \le j \le n$. Inoltre, un sottoalbero che contiene le chiavi $k_i, ..., k_j$ deve anche avere come foglie le chiavi fittizie $d_{i-1}, ..., d_j$. Adesso possiamo definire la sottostruttura ottima: se un alvero binario di ricerca ottimo $T$ ha un sottoalbero $T'$ che contiene le chiavi $k_i, ..., k_j$, allora questo sottoalberto $T'$ deve essere ottimo anche per il sottoproblema con chiavi $k_i, ..., k_j$ e chiavi fittizie $d_{i-1}, ..., d_j$.
 
-input: 
+Date le chiavi $k_i, ..., k_j$, una di queste chiavi, per esempio $k_r$ ($i \le r \le j$), sarà la radice di un sottoalbero ottimo che contine queste chiavi. Il sottoalbero sinistro della radice $k_r$ conterra le chiavi $k_i, ..., k_{r-1}$ (e le chiavi fittizie $d_{i-1}, ..., d_{r-1}$) e il sottoalbero destro conterrà le chiavi $k_{r+1}, ..., k_j$ (e le chiavi fittizie $d_{r}, ..., d_{j}$).
 
-- un set $S$ di n interi
-- un array $W$ con n elementi che contiene interi positivi ($W[i]$ = frequenza di $i$)
-- $a$, $b$ interi tali che $1 \le a \le b \le n$
+Se esaminiamo tutte le radici candidate $_r$ con $i \le r \le j$, e determiniamo tutti gli alberi binari di ricerca ottimi che contengono $k_i, ..., k_{r-1}$ e quelli che contengono $k_{r+1}, ..., k_{j}$, avremo la garanzia di trovare un albero binario di ricerca ottimo.
 
-Output:
+**Note sui sottoalberi vuoti**: supponiamo di scegliere $k_i$ come radice di un sottoalbero con chiavi $k_i, ..., k_j$. Il sottoalbero sinistro di $k_i$, contiene le chiavi $k_i, ..., k_{i-1}$. È naturale dedurre che questa sequenza non contiene chiavi ma, notiamo che i sottoalberi contengono anche le chiavi fittizie. Adottiamo la convenzione che un sottoalbero che contiene le chiavi $k_i, ..., k_{i-1}$ non ha chiavi reali, ma contiene l'unica chiave fittizia $d_{i-1}$. In modo simmetrico, il sottoalbero destro di $k_j$, contiene le chiavi $k_{j+1}, ..., k_j$; questo sottoalbero destro non contiene chiavi reali, ma contiene la chiave fittizia $d_j$.
 
-- un BST su $S$ con **avgCost** il più piccolo possibile
+#### 2. Una soluzione ricorsiva
+Il nostro dominio dei sottoproblemi è trovare un albero binario di ricerca ottimo che contiene le chiavi $k_i, ..., k_j$, dove $i \ge 1$, $j \le n$ e $j \ge i-1$ (quando $j = i-1$, non ci sono chiavi reali e c'è l'unica chiave fittizia $d_{i-1}$). Definiamo `e[i,j]` come il costo di ricerca atteso in un albero binario di ricerca ottimo che contiene le chiavi $k_i, ..., k_j$. In ultima analisi, vogliamo calcolare `e[1,n]`.
 
-```math
-avgCost(T) = \sum_{i = a}^{b} W[i] * cost_T(i)
+Il caso semplice si verifica quando $j = i-1$; c'è una sola chiave fittizia: $d_{i-1}$.
+
+Il costo atteso di ricerca è `e[i, i-1]` = $q_{i-1}$.
+
+Quando $j \ge i$, bisogna scegliere una radice $k_r$ fra $k_i, ..., k_j$ e poi creare, come suo sottoalbero sinistro, un albero binario di ricerca ottimo con le chiavi $k_i, ..., k_{r-1}$ e, come suo sottoalbero destro, un albero binario di ricerca ottimo con le chiavi $k_{r+1}, ..., k_j$. La profondità di ogni nodo nel sottoalbero aumenta di 1 quando questo sottoalbero diventa sottoalbero di un nodo e, il costo atteso di ricerca di questo sottoalbero aumenta della somma di tutte le probabilità nel sottoalbero. 
+
+Per un sottoalbero con chiavi $k_i, ..., k_j$
+
+$$
+w(i , j) = \sum_{l = 1}^{j} p_l + \sum_{l = i - 1}^{j} q_l
+$$
+
+Quindi se $k_r$ è la radice di un sottoalbero ottimo che contiene le chiavi $k_i, ..., k_j$ abbiamo
+
+$$
+e[i,j] = p_r + (e[i, r-1] + w(i, r-1)) + (e[r+1, j] + w(r+1, j)) 
+$$
+
+Osservando che
+
+$$
+w(i,j) = w(i, r-1) + p_r + w(r+1, j)
+$$
+
+possiamo riscrivere $e[i,j]$ in questo modo
+
+$$
+e[i,j] = e[i, r-1] + e[r+1, j] + w(i,j)
+$$
+
+Otteniamo quindi la seguente formula ricorsiva finale:
+
+$e[i,j]$ = 
+- $q_{i-1}$ se $j = i-1$
+- $min_{i \le r \le j} {e[i, r-1] + e[r+1, j] + w(i,j)}$ se $i \le j$
+
+I valori $e[i,j]$ rappresentano i costi attesi di ricerca negli alberi binari di ricerca ottimi. Per tenere traccia della struttura degli alberi binari di ricerca ottimi, definiamo $root[i,j]$, per $i \le i \le j \le n$, come l'indice $r$ per il quale $k_r$ è la radice di un albero binario di ricerca ottimo che contiene le chiavi $k_i , ..., k_j$.
+
+#### 3. Calcolare il costo di ricerca atteso in un albero binario di ricerca ottimo
+Si possono vedere diverse analogie fra la caratterizzazione degli alberi binari di ricerca ottimi e la caratterizzazione della moltiplicazione di una sequenza di matrici. Per entrambi i domini dei problemi, i sottoproblemi sono formati da sottointervalli di indici e cotigui. Una implementazione ricorsiva diretta dell'equazione definita precedentemente potrebbe risultare inefficiente come l'algoritmo ricorsivo diretto della moltiplicazione di una sequenza di matrici. Memorizziamo quindi i valori $e[i,j]$ in una tabella $e[1..n +1, 0..n]$. Il primo indice deve arrivare fino a $n+1$ (anzichè $n$) perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_n$, dobbiamo calcolare e memorizzare $e[n+1,n]$. Il secondo indice deve iniziare da 0 perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_0$, dobbiamo calcolare e memorizzare $e[1,0]$. Utilizzeremo soltanto le posizioni $e[i,j]$ èper le quali $j \ge i-$. Utilizzeremo anche una tbabella $root[i,j]$ per memoriazzare la radice del sottoalbero che contiene le chiavi $k_i, ..., k_j$ (questa tabella usa soltanto le posizioni per le quali $1 \le i \le j \le n$).
+
+Ovviamente, per migliorare l'efficienza, utilizzeremo un'altra tabella. Anzichè ricominciare da zero il calcolo di $w(i,j)$ ogni volta che calcoliamo $e[i,j]$ (il che richiederebbe $O(j-1)$ addizioni) memorizziamo questi valori in una tabella $w[1..n+1,0..n]$. Per il caso base, calcoliamo $w[i, i-1] = q_{i-1}$ per $ 1 \le i \le n+1$. Per $j \ge i$, calcoliamo $w[i,j] = w[i, j-1] + p_j + q_j$.
+
+Quindi possiamo calcolare ciascuno dei $O(n^2)$ valori di $w[i,j]$ nel tempo $O(1)$.
+
+Il seguente pseudocodice riceve come input le probabilità $p_1, ..., p_n$ e $q_0, ..., q_n$ e la dimensione $n$ e restituisce le tabelle $e$ e $root$.
+
+#### `Optimal-BST(p,q,n)`
+```pseudocode
+Let e[1..n+1,0..n], w[1..n+1,0..n] and root[1..n,1..n] be three new table
+
+for i = 1 to n + 1
+  e[i,i - 1] = qi-1
+  w[i,i - 1] = qi-1
+
+for l = 1 to n
+  for i = 1 to n - l + 1
+    j = i + l - 1
+    e[i,j] = ∞
+    w[i,j] = w[i,j - 1] + pj + qj
+    for r = i to j
+      t = e[i, r - 1] + e[r + 1, j] + w[i,j]
+      if t < e[i,j]
+        e[i,j] = t
+        root[i,j] = r
+
+return e[] and root[]
 ```
 
-- $cost_T(i)$ = numero di nodi da controllare per trovare $i$ in T
+- Il primo ciclo `for` inizializza i valori di $e[i,i - 1]$ e $w[i,i - 1]$. 
+- Il ciclo `for` principale usa le ricorrenze per calcolare $e[i,j]$ e $w[i,j]$ per ogni $1 \le i \le j \le n$.
+- Quando $l = 1$, il ciclo calcola $e[i,i]$ e $w[i,i]$ per $i = 1, 2, ..., n$
+- Quando $l = 2$, il ciclo calcola $e[i,i+1]$ e $w[i,i+1]$ per $i = 1, 2, ..., n$ per $i = 1, 2, ..., n-1$, e così via.
+- Il ciclo for più interno prova ciascun indice $r$ candidato per determinare (e salvare i $root[i,j]$) quale chiave $k_r$ utilizzare come radice di un albero binario di ricerca ottimo che contiene le chiavi $k_i, ..., k_j$.
 
-## Costruzione dell'algoritmo
+#### **Costo**:
+- Per ogni operazione pago n **TEMPO =** $O(n^3)$, esattamente come `Matrix-Chain-Order`
+- Spazio = matrice `n x n` **SPAZIO =** $O(n^2)$
 
-### 1. Trovare tutte le opzioni per la prima scelta
-
-Scegliamo una root **r**, il suo sottoalbero di sinistra sarà un BST $T_1$ su $S_1 = \{a ... r-1 \}$  e quello di destra un BST $T_2$ su $S_2 = \{ r+1 ... b \}$
-
-### 2. Data la prima scelta, trovare la soluzione migliore
-
-Per trovare la soluzione migliore per T dobbiamo scegliere le soluzioni migliori per $T_1$ e $T_2$
-
-```math
-avgCost(T) = \sum_{i=a}^{b} W[i] * cost_T(i) 
-= \left( \sum_{i=a}^{b} W[i] \right) + avgCost(T_1) + avgCost(T_2)
-```
-
-$optAvg(a,b)$
-
-- 0 se $a \gt b$
-- min BST su $\{a .. b\}$ altrimenti
-
-$optAvg(a,b | r)$ è la soluzione ottima dato $r$ come radice.
-
-```math
-optAvg(a,b | r ) = \left( \sum_{i=a}^{b} W[i] \right) +optAvg(a,r-1) + optAvg(r+1, b)
-```
-
-
-### 3. Prendere la prima scelta che porta alla soluzione migliore 
-
-```math
-optAvg(a,b) = 
-\begin{cases}
-0 & \mbox{if } a\gt b \\
-\left( \sum_{i=a}^{b} W[i] \right) + min_{r=a}^b \{ optAvg(a,r-1) + optAvg(r+1, b) \} & \mbox{otherwise}
-\end{cases}
-```
-
-## Riepilogo
-
-- Costruire un albero di ricerca massimizzando la velocità di ricerca in base alla probabilità
+### Riepilogo
+- L'obiettivo è costruire un albero di ricerca massimizzando la velocità di ricerca in base alla probabilità
 - $OPT[i,j] - min_{i \le r \le j} \{ OPT[i, r-1] + OPT[r+1, j] + w[i,j] \}$
-- $r$ è la radice sei sottoalberi creati ricorsivmente
-- spazio = matrice n x n **SPAZIO =** $O(n^2)$
-- per ogni operazione pagno n **TEMPO =** $O(n^3)$
-- per ricostruire la soluzione uso un'altra matrice dove $S[i,j] = min_r$ **SPAZIO_S =** $O(n^2)$
+- $r$ è la radice dei sottoalberi creati ricorsivmente
+- Per ricostruire la soluzione uso un'altra matrice dove $S[i,j] = min_r$ $\rightarrow$ **SPAZIO =** $O(n^2)$
+
+
+---
+---
+---
+
 
 # String Similarity
 
