@@ -2084,6 +2084,126 @@ interazione:
     \item \textbf{Colonna vertebrale e vertebre}
 \end{itemize}
 
+\section{Compressione di immagini}
+La creazione di un'immagine digitale comporta la generazione di
+una enorme quantità di dati, tanto più per immagini ad alta risoluzione e con molte sfumature di colore
+\\Questo può essere un inconveniente per varie operazioni quali:
 
+\begin{itemize}
+    \item archiviazione dell'immagine
+    \item processamento e trasferimento dell'immagine
+    \item trasmissione in rete
+\end{itemize}
 
+\subsubsection*{Esempio}
+Per acquisire tramite uno scanner a 300 dots per inch (dpi) una pagina quantizzata con 2 livelli di grigio vengono generati più di
+8.000.000 di bits (1.000.000 di bytes, ovvero 1 MB). Per rappresentare in formato digitale l'Enciclopedia Britannica sono necessari dunque oltre 25 GB.
+\textbf{NB:} le dimensioni di un Hard Disk si aggirano in media intorno agli
+80 GB. Un'immagine di 512x480 pixel in \textbf{scala di grigi} occupa 512x480x1
+bytes, ovvero 240 Kb, in quanto ogni pixel equivale ad un byte.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-compressione-immagini.png}
+\end{figure}
+
+La stessa immagine, in \textbf{RGB}, occuperebbe 512x480x3 bytes, cioè 720 Kb (ogni pixel equivale a 3 bytes, uno per ogni canale).
+
+\subsubsection*{Esempio - filmato}
+Passando ai filmati video, la situazione diventa ancora più complessa: un filmato a 25fps (frame per secondo) occupa 99Kb x 25, ovvero 2.4 Mb al secondo.
+\\Un filmato in RGB addirittura 7.2 Mb al secondo.
+
+\subsection{Compressione}
+In quest'ottica diventa fondamentale ridurre la quantità di dati, mantenendo però le informazioni essenziali. La tecnica è quella di
+eliminare le eventuali ridondanze, lasciando soltanto le informazioni principali e necessarie.
+Le tecniche che hanno lo scopo di ridurre la quantità di dati necessari a rappresentare l'immagine, vanno sotto il nome di compressione. La compressione può essere vista come una trasformazione matematica, applicata all'immagine di partenza,
+che restituisce un'immagine priva di dati ridondanti. La compressione delle immagini ha importanti applicazioni, fra cui videoconferenze, trasmissione di immagini satellitari, trasmissioni FAX, controllo remoto di veicoli militari, etc.
+
+\subsubsection{informazioni e dati}
+I termini \textbf{dato} e informazione non indicano la stessa cosa.
+\begin{trivlist}
+    \item \textbf{Informazione:} è una parte di conoscenza.
+    Acquisendo un'informazione si accresce la conoscenza e si riduce
+    il livello di incertezza.
+    \item \textbf{Dato: }attraverso il dato viene trasmessa l'informazione,
+    presupponendone un'interpretazione.
+\end{trivlist}
+Un dato, in sè e per sè, non comporta interpretazione e pertanto
+non apporta alcuna conoscenza.
+\textbf{Un dato corredato di un opportuno significato costituisce un'informazione}
+
+\section{Ridondanza}
+La \textbf{ridondanza dei dati} è un punto centrale nella compressione di un'immagine digitale. Non si tratta di un concetto astratto, bensì di una vera e propria entità matematica quantificabile.
+Più precisamente, la stessa informazione può essere rappresentata da diverse quantità di dati, ad esempio pari a $n_1$ e $n_2$: allora la
+ridondanza relativa dei dati è definita come:
+
+\begin{center}
+    $R_D = 1 - \frac{1}{C_r}$
+\end{center}
+
+\textbf{Esempio}
+Un rapporto di compressione $C_R = \frac{n_1}{n_2} = 10$ indica che a 10 dati (ad esempio bits) del primo insieme corrisponde 1 dato dell'insieme compresso.
+La ridondanza relativa è allora $R_D = 1 - \frac{1}{C_R} = 0.9$ il che indica che il \textbf{90\%  dei dati presenti nel primo insieme sono ridondanti.}
+\\Nel campo della compressione di immagini si possono individuare
+tre tipi di ridondanza:
+\begin{itemize}
+    \item la ridondanza nella codifica
+    \item la ridondanza interpixel
+    \item la ridondanza psicovisuale
+\end{itemize}
+
+\subsubsection{Ridondanza nella codifica}
+La \textbf{ridondanza nella codifica} deriva dalla scelta del codice (binario) adottato per rappresentare il colore oppure il livello di grigio
+assunto da un pixel. Può essere causata da un numero eccessivo di bits per pixel, oppure dall'ipotesi, spesso non vera, che tutti i valori che un pixel può assumere sono equiprobabili.
+\textbf{Esempio ridondanza nella codifica}
+immagine costituita da punti casuali
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/ridondanza-codifica.png}
+\end{figure}
+
+e una figura naturale
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/ridondanza-codifica2.png}
+\end{figure}
+
+\subsubsection{Ridondanza interpixel}
+La ridondanza interpixel (detta anche talvolta ridondanza spaziale, o geometrica, o interframe) si deve al fatto che in genere c'è una correlazione fra i valori assunti da pixel vicini:
+è molto probabile che pixel vicini assumano valori di intensità o di colori piuttosto simili.
+
+\subsubsection{Ridondanza psicovisuale}
+La \textbf{ridondanza psicovisuale} nasce dal fatto che l'occhio umano non percepisce con la stessa sensibilità tutte le informazioni visive: alcune informazioni hanno minore importanza di altre.
+Ad esempio, nel riconoscimento di un oggetto risultano più importanti i contorni che non il corpo dell'oggetto.
+
+\textbf{Esempio}
+La prima immagine presenta 256 livelli di grigio, mentre la seconda soltanto 64.
+L'occhio umano non è in grado di percepire una differenza marcata, ma la seconda immagine utilizza
+192 colori in meno rispetto alla prima.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/ridondanza-psicovisuale.png}
+    \caption{Immagine a profondità 8 (256 livelli di grigio) e immagine a
+        profondità 6 (64 livelli)}
+\end{figure}
+
+\subsubsection{Ridondanza}
+\begin{itemize}
+    \item La ridondanza è molto utile nel processo di compressione in
+          quanto consente di eliminare una certa quantità di dati.
+    \item E' bene però tenere presente che, nell'eliminare ridondanza
+          interpixel o psicovisuale, è possibile avere anche una perdita di
+          qualità.
+    \item Per questo motivo è utile avere dei criteri con cui valutare la
+          natura e l'entità delle perdite durante la compressione (criteri
+          oggettivi, che hanno una formulazione matematica, e criteri soggettivi, quali ad esempio i sondaggi).
+\end{itemize}
+
+\section{Il processo di compressione}
+Nel processo di compressione, l'immagine originale viene compressa
+attraverso un \textbf{coder}, il quale elimina in genere la ridondanza spaziale.
+I dati ottenuti vengono trasmessi poi ad un \textbf{decoder} che
+ricostruisce l'immagine di partenza, riaggiungendo alcuni dati ridondanti che risultano significativi.
