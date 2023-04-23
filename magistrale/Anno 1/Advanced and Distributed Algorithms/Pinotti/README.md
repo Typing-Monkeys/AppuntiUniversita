@@ -11,10 +11,10 @@
   - [Pole Cutting Problem](#pole-cutting-problem)
   - [Matrix Chain Parentesizathion](#matrix-chain-parenthesization)
   - [Optimal Binary Search Tree](#optimal-binary-search-tree)
+  - [Sequence Alignment Problem](#sequence-alignment)
   - 
   - 
   - 
-  - [String Similarity](#String-Similarity)
   - [Hirschberg's Algorithm](#Hirschbergs-Algorithm)
 - [Network Flow](#Network-Flow)
   - [Max-Flow and Min-Cut Problems](#Max-Flow-and-Min-Cut-Problems)
@@ -943,63 +943,64 @@ return e[] and root[]
 - $r$ è la radice dei sottoalberi creati ricorsivmente
 - Per ricostruire la soluzione uso un'altra matrice dove $S[i,j] = min_r$ $\rightarrow$ **SPAZIO =** $O(n^2)$
 
+<hr>
 
----
----
----
+## Sequence Alignment
 
+Il problema del Sequence Alignment consiste nel riuscire a comparare delle stringhe, come per esempio quando si effettua un ***typo*** in un motore di ricerca e quello ci fornisce l'alternativa corretta. Una prima idea potrebbe essere quella di **allineare** le due parole lettera per lettera, riempendo gli eventuali spazi bianchi, e vedendo di quanto le due differiscono. Tuttavia ci sono varie possibilità con cui due parole di lunghezza diversa possono essere confrontate, quindi è necessario fornire una definizione di **similarità**.
 
-# String Similarity
+### Descrizione del Problema
+Come prima definizione di similarità possiamo dire che: **minore è il numero di caratteri che non corrispondono, maggiore è la similarità tra le parole**.
 
-Operazioni:
+Questa problematica è anche un tema centrale della biologia molecolare, e proprio grazie ad un biologo abbiamo una definizione rigorosa e soddisfacente di similarità.
 
-- **mismatch:** cambio una lettera in un'altra. Penalità $\alpha_{pq}$ (passare dalla lettera $p$ alla lettera $q$, $\alpha_{pp} = 0$)
-- **gap:** aggiungo o rimuovo una lettera. Penalità $\delta$
+Prima di dare una definizione similarità dobbiamo però darne una di **allineamento**:
+> Supponiamo di avere due stringhe $X$ e $Y$, che consistono rispettivamente della sequenza di simboli $x_1 x_2 \ldots x_m$ e $y_1 y_2 \ldots y_n$, e consideriamo gli insiemi $\{1,2,\ldots ,m\}$ e $\{1,2,\ldots ,n\}$ che rappresentano le varie posizioni nelle stringhe $X$ e $Y$, ora si considera un **Matching** di queste due parole (un matching è stato definito [qui](#rna-secondary-stucture-problem) $\rightarrow$ si tratta di un insieme di coppie ordinate con la proprietà che ogni oggetto si trova al più in una sola coppia).
+> Diciamo ora che **un matching $M$ di questi due insiemi è un allineamento se gli elementi di varie coppie non si incrociano**:
+> - se $(i,j),(i^{\prime},j^{\prime}) \in M$
+> - e $i < i^{\prime}$, 
+> - allora $j < j^{\prime}$.
 
-Costo totale = somma delle penalità
+Ora la nostra definizione di similarità si baserà sul **trovare il miglior allineamento**, seguendo questi criteri:
+- C'è un parametro $\delta>0$ che definisce la **gap penalty** , ovvero ogni volta che un simbolo di una parola non corrisponde ad un simbolo dell'altra.
+- Per ogni coppia di lettere $p,q$ del nostro alfabeto, se c'è un accoppiamento errato si paga il corrispondente **mismatch cost** $a_(p,q)$.
+- Il costo di $M$ è la somma del suo gap e mismatch cost, e l'**obiettivo sarà quello di minimizzarlo**.
 
-Date due stringhe $x_1x_2...x_m$ e $y_1y_2...y_n$ un **allineamento** è una set di coppie ordinate $x_i - y_i$ tale che ogni lettera compaia in una sola coppia e non ci siano incroci ($x_i-y_j$ e $x_{i'}-y_{j'}$ si incrociano se $i \lt i'$ e $j > j'$)
+#### **Goal:** 
+Date due stringhe, trovare l'allineamento di costo minimo.
 
-Il costo dell'allineamento è dato dalla somma dei costi dei mismatch e dei costi dei gap
+### Implementazione dell'algoritmo
+Ora affronteremo il problema di calcolarci questo costo minimo, e l'allineamento ottimale che lo fornisce, date le coppie $X$ e $Y$.
+Come al solito proveremo con un approccio di programmazione dinamica, e per realizzare l'algoritmo definiamo, come per altri algoritmi già visti, una **scelta binaria**.
+Dato l'allineamento ottimale $M$, allora:
+- $(m,n) \in M$ (quindi gli ultimi due simboli delle 2 stringhe **sono in un matching**)
+- $(m,n) \notin M$ (gli ultimi simboli delle due stringhe ***non* sono in un matching**)
 
-```math
-cost(M) = \sum_{(x_i,y_j) \in M} \alpha_{x_j y_j} + \sum_{i:x_i unmatched} \delta + \sum_{j:y_j unmatched} \delta
-```
+Tuttavia questa semplice distinzione **non è sufficiente**, quindi supponiamo di aggiungere anche il seguente concetto elementare:
+> Sia $M$ un qualsiasi allineamento di $X$ e $Y$.
+> se $(m,n) \notin M$, 
+> allora, o l' $m$-esima posizione di $X$ o l' $n$-esima posizione di $Y$ **non è in un matching di $M$**.
 
-**Goal:** Date due stringhe, trovare l'allineamento di costo minimo.
+Dire questo, equivale a riscrivere le due condizioni sopra come tre, dunque **in un allineamento ottimo $M$ almeno una deve essere vera**:
+- $(m,n) \in M$ 
+- l' $m-esima$ posizione di $X$ non è nel matching
+- l' $n-esima$ posizione di $Y$ non è nel matching
 
- ## Stuttura del Problema
+Ora definiamo la funzione di costo minimo $OPT(i,j)$ come costo dell'alignmet tra $x_1 x_2 \ldots x_i$ e $y_1 y_2 \ldots y_j$.
 
-$OPT(i,j)$ = costo minimo dell'allineamento delle stringhe $x_1x_2...x_i$ e $y_1y_2...y_j$
+In base alle condizioni espresse in precedenza la funzione $OPT(m,n)$ assumerà il costo relativo più $OPT(m-1,n-1)$, in particolare (i tre casi citati sopra):
+- **condizione 1**, si paga un matching cost per le lettere $m,n$
+- **condizione 2 e 3**, si paga un gap cost $\delta$ per $m$(condizione 2) o $n$(condizione 3) 
 
-- aggiungo $x_i-y_j$ al match: 
+Utilizzando dunque gli stessi argomenti per i sottoproblemi, per l'allineamento di costo minimo tra $X$ e $Y$, otteniamo la definizione generale di $OPT(i,j)$:
 
-  ​	pago $\alpha_{x_iy_j}$ + il costo $OPT(i-1,j-1)$
+> L'allineamento di costo minimo soddisfa la seguente ricorsione per $i \geq 1$ e $j \geq 1$:
+> $$OPT(i,j) = min[a_{(x_i y_j)} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)]$$
 
-- lascio $x_i$ senza match:
+Dunque così abbiamo ottenuto la nostra funzione di ricorsione e possiamo procedere alla scrittura dello pseudo codice.
 
-  ​	pago $\delta$ + il costo di $OPT(i, j-1)$
-
-- lascio $y_j$ senza match:
-
-  ​	pago $\delta$ + il costo di $OPT(i-1, j)$ 
-
-```math
-OPT(i,j) = 
-\begin{cases}
-j\delta & \mbox{if } i = 0 \\
-i\delta & \mbox{if } j = 0 \\
-min
-\begin{cases}
-\alpha_{x_iy_j}+ OPT(i-1,j-1) \\
-\delta + OPT(i, j-1)\\
-\delta + OPT(i-1, j)
-\end{cases}  & \mbox{otherwise}
-\end{cases}
-```
-
-## Bottom-Up
-
+### Bottom-Up
+#### `alignment(X,Y)`
 ```pseudocode
 for i = 0 to m
 	M[i, 0] ← i δ
@@ -1008,24 +1009,91 @@ for j = 0 to n
 	
 for i = 1 to m
 	for j = 1 to n
-		M[i, j] ← min { 
-			α(xi yj) + M[i – 1, j – 1],
- 			δ + M [i – 1, j],
- 			δ + M [i, j – 1] 
- 		}
+		M[i, j] ← min { α(xi yj) + M[i – 1, j – 1], δ + M [i – 1, j], δ + M [i, j – 1] }
  		
 RETURN M[m, n]
 ```
 
-Costo computazionale = $\Theta(nm)$
+#### **Costo**
+- Il running time è di $O(mn)$
+- Costo spaziale è di $O(mn)$
 
-## Riepilogo
+### Sequence Alignment in Spazio Lineare
+Come abbiamo appena visto l'algoritmo ha sia costo spaziale che temporale uguale a $O(mn)$ e se come input consideriamo le parole della lingua inglese non risulta essere un grande problema, ma se consideriamo genomi con 10 miliardi di caratteri potrebbe verificarsi la situazione di dover lavorare 
+con array di 10 GB, il che renderebbe questo approccio molto costoso. Tuttavia, questo problema può essere risolto utilizzando un approccio **divide et impera** che va a rendere lineare il costo dello spazio, ovvero $\rightarrow$ $O(n + m)$
 
-- trovare il numero di operazioni da fare per allineare due sequenze
+#### **Funzionamento** 
+Come prima cosa definiamo un algoritmo `Space Efficient Alignment`, che ci permette di trovare la soluzione ottima utilizzando il minor spazio possibile.
+Per farlo, notiamo che la funzione $OPT$ dipende solamente da una colonna precedente di quella che si sta analizzando, dunque basterà caricarsi in memoria una matrice $m$ x $2$, riducendo così il costo spaziale ad $m$.
+Tuttavia utilizzando questo metodo **non è possibile ricavare l'alignment effettivo** perché **non si hanno informazioni sufficienti**.
+
+Lo pseudo-codice dell'algoritmo appena definito è il seguente:
+```javascript
+function Space-Efficient-Alignment(X,Y) {
+    var B = Matrix(m, 2)
+    Initialize B[i, 0]= iδ for each i // (just as in column 0 of M)
+    
+    for (j in 1...n) {
+        B[0, 1]= jδ (since this corresponds to entry M[0, j])
+        
+        for (i in 1...m) {
+            B[i, 1]= min[αxiyj + B[i − 1, 0],δ + B[i − 1, 1], δ + B[i, 0]]
+
+        }
+        
+        Move column 1 of B to column 0 to make room for next iteration:
+        Update B[i, 0]= B[i, 1] for each i
+    }
+}
+```
+
+Possiamo quindi utilizzare un approccio **divide et impera** il quale incorpora 2 tecniche diverse di programmazione dinamica per riuscire a trovare anche l'alignment in spazio lineare.
+Definiamo quindi due funzioni:
+- $f(i, j)$ : è la funzione definita per l'algoritmo di **Sequence Alignment di base** (analoga a $OPT(i,j)$)
+- $g(i, j)$ : è la lunghezza dello shortest path da (i, j) a (m, n) in $G_{XY}$ . La funzione $g$ fornisce un approccio di programmazione dinamica altrettanto naturale all'allineamento di sequenze, tranne per il fatto che **lo costruiamo al contrario**: iniziamo con g(m, n) = 0 e la risposta che vogliamo è g(0, 0). È definito dalla seguente funzione ricorsiva: 
+per $i < m$ e $j < n$ : $g(i,j) = min[a_{x+1y+1} + g(i+1, j+1), \delta + g(i, j+1), \delta + g(i+1, j)]$ 
+
+Possiamo notare che la ricorsione $f$ procede a ritroso partendo dal fondo mentre la ricorsione $g$ procede in avanti partendo dall'inizio.
+
+Possiamo sfruttare questo fatto per provare ad utilizzare lo `Space Efficient Sequence Alignment Algorithm` combinato ad un approccio _**divide et impera**_ e **un array di supporto $P$ per riuscire a calcolare il Sequence Alignment in spazio lineare**, aumentando solo di una costatane la complessità temporale.
+
+Possiamo riassumere il tutto con il seguente pseudo-codice:
+```javascript
+function Divide-and-Conquer-Alignment(X,Y) {
+    var m = length(X)
+    var n = length(Y)
+
+    if (m <= 2 or n <= 2) {
+        Compute optimal alignment using Alignment(X,Y)
+    }
+    
+    Space-Efficient-Alignment(X, Y[1 : n/2])
+    Backward-Space-Efficient-Alignment(X, Y[n/2 + 1 : n])
+
+    Let q be the index minimizing f(q, n/2) + g(q, n/2)
+    Add (q, n/2) to global list P
+
+    Divide-and-Conquer-Alignment(X[1 : q],Y[1 : n/2])
+    Divide-and-Conquer-Alignment(X[q + 1 : n],Y[n/2 + 1 : n])
+    
+    return P
+}
+```
+
+<img src="./imgs/seq_align_recurrence.png" width="70%"/> 
+
+### Riepilogo
+
+- Trovare il numero di operazioni da fare per allineare due sequenze
 - $OPT[i,j] = min\{ \alpha_{ij} + OPT[i-1,j-1], \delta + OPT[i, j-1], \delta + OPT[i-1, j] \}$
-- Ho bisogno di una matrice $i \times j$ **TEMPO =** $O(nm)$
-- per ogni sottoproblema faccio solo un controllo. Posso anche utilizzare una matrice con sole due righe o sole due colonne **SPAZIO =** $O(nm)$
-- per costrure la soluzione ho bisogno di una matrice dove salvo le operazioni fatte, posso risalire in diagonale. **SPAZIO_S =** $O(nm)$ **TEMPO_S =** $O(n+m)$
+- Ho bisogno di una matrice $i \times j$ **TEMPO =** $O(nm)$ (nella versione base dell'algoritmo)
+- Per ogni sottoproblema faccio solo un controllo. Posso anche utilizzare una matrice con sole due righe o sole due colonne **SPAZIO =** $O(nm)$ (nella versione base dell'algoritmo)
+- **Per costrure la soluzione** ho bisogno di una matrice dove salvo le operazioni fatte, posso risalire in diagonale.
+  - **SPAZIO =** $O(nm)$
+  - **TEMPO =** $O(n+m)$
+
+---
+--- ARRIVATO QUI ---
 
 ---
 
