@@ -947,7 +947,8 @@ return e[] and root[]
 
 ## Sequence Alignment
 
-Il problema del Sequence Alignment consiste nel riuscire a comparare delle stringhe, come per esempio quando si effettua un ***typo*** in un motore di ricerca e quello ci fornisce l'alternativa corretta. Una prima idea potrebbe essere quella di **allineare** le due parole lettera per lettera, riempendo gli eventuali spazi bianchi, e vedendo di quanto le due differiscono. Tuttavia ci sono varie possibilità con cui due parole di lunghezza diversa possono essere confrontate, quindi è necessario fornire una definizione di **similarità**.
+Il problema del Sequence Alignment consiste nel riuscire a comparare delle stringhe, come per esempio quando si effettua un ***typo*** in un motore di ricerca e quello ci fornisce l'alternativa corretta. Una prima idea potrebbe essere quella di **allineare** le due parole lettera per lettera, riempendo gli eventuali spazi bianchi, e vedendo di quanto le due differiscono. Vogliamo quindi un modello in cui la **similarità** sia determinata approssimativamente dal numero di **gap** e **mismatch** in cui incorriamo quando allineiamo le due parole.
+Tuttavia ci sono varie possibilità con cui due parole di lunghezza diversa possono essere confrontate, quindi è necessario fornire una definizione di **similarità**. 
 
 ### Descrizione del Problema
 Come prima definizione di similarità possiamo dire che: **minore è il numero di caratteri che non corrispondono, maggiore è la similarità tra le parole**.
@@ -955,16 +956,28 @@ Come prima definizione di similarità possiamo dire che: **minore è il numero d
 Questa problematica è anche un tema centrale della biologia molecolare, e proprio grazie ad un biologo abbiamo una definizione rigorosa e soddisfacente di similarità.
 
 Prima di dare una definizione similarità dobbiamo però darne una di **allineamento**:
-> Supponiamo di avere due stringhe $X$ e $Y$, che consistono rispettivamente della sequenza di simboli $x_1 x_2 \ldots x_m$ e $y_1 y_2 \ldots y_n$, e consideriamo gli insiemi $\{1,2,\ldots ,m\}$ e $\{1,2,\ldots ,n\}$ che rappresentano le varie posizioni nelle stringhe $X$ e $Y$, ora si considera un **Matching** di queste due parole (un matching è stato definito [qui](#rna-secondary-stucture-problem) $\rightarrow$ si tratta di un insieme di coppie ordinate con la proprietà che ogni oggetto si trova al più in una sola coppia).
+> Supponiamo di avere due stringhe $X$ e $Y$, che consistono rispettivamente della sequenza di simboli $x_1 x_2 \ldots x_m$ e $y_1 y_2 \ldots y_n$. 
+> Consideriamo gli insiemi $\{1,2,\ldots ,m\}$ e $\{1,2,\ldots ,n\}$ che rappresentano le varie posizioni nelle stringhe $X$ e $Y$, e consideriamo un **Matching** di questi due insiemi (un matching è stato definito [qui](#rna-secondary-stucture-problem) $\rightarrow$ si tratta di un insieme di coppie ordinate con la proprietà che ogni oggetto si trova al più in una sola coppia).
 > Diciamo ora che **un matching $M$ di questi due insiemi è un allineamento se gli elementi di varie coppie non si incrociano**:
 > - se $(i,j),(i^{\prime},j^{\prime}) \in M$
 > - e $i < i^{\prime}$, 
 > - allora $j < j^{\prime}$.
 
+Intuitivamente, un alignment fornisce un modo per allineare le due stringhe, dicendoci quali coppie di posizioni saranno allineate l'una con l'altra. Ad esempio:
+```
+stop-
+-tops
+```
+corrisponde all'alignment `{(2, 1), (3, 2), (4, 3)}`.
+
 Ora la nostra definizione di similarità si baserà sul **trovare il miglior allineamento**, seguendo questi criteri:
-- C'è un parametro $\delta>0$ che definisce la **gap penalty** , ovvero ogni volta che un simbolo di una parola non corrisponde ad un simbolo dell'altra.
+
+Supponiamo che $M$ sia un dato allineamento tra $X$ e $Y$.
+- C'è un parametro $\delta>0$ che definisce la **gap penalty** , ovvero ogni volta che un simbolo di una parola non corrisponde ad un simbolo dell'altra. Per ogni posizione di $X$ o $Y$ che non trova corrispondenza in $M$ (un gap) sosteniamo un costo di $\delta$.
 - Per ogni coppia di lettere $p,q$ del nostro alfabeto, se c'è un accoppiamento errato si paga il corrispondente **mismatch cost** $a_(p,q)$.
 - Il costo di $M$ è la somma del suo gap e mismatch cost, e l'**obiettivo sarà quello di minimizzarlo**.
+
+**N.B.** Le quantità $\delta$ e $a_(p,q)$ sono parametri esterni che devono essere inseriti nel software per l'allineamento della sequenza; infatti, molto lavoro va nella scelta delle impostazioni per questi parametri. Dal nostro punto di vista, nel progettare un algoritmo per il sequence alignment, li prenderemo come input.
 
 #### **Goal:** 
 Date due stringhe, trovare l'allineamento di costo minimo.
@@ -982,22 +995,21 @@ Tuttavia questa semplice distinzione **non è sufficiente**, quindi supponiamo d
 > allora, o l' $m$-esima posizione di $X$ o l' $n$-esima posizione di $Y$ **non è in un matching di $M$**.
 
 Dire questo, equivale a riscrivere le due condizioni sopra come tre, dunque **in un allineamento ottimo $M$ almeno una deve essere vera**:
-- $(m,n) \in M$ 
-- l' $m-esima$ posizione di $X$ non è nel matching
-- l' $n-esima$ posizione di $Y$ non è nel matching
+1. $(m,n) \in M$ 
+2. l' $m-esima$ posizione di $X$ non è nel matching; o
+3. l' $n-esima$ posizione di $Y$ non è nel matching
 
-Ora definiamo la funzione di costo minimo $OPT(i,j)$ come costo dell'alignmet tra $x_1 x_2 \ldots x_i$ e $y_1 y_2 \ldots y_j$.
+Ora definiamo la funzione di costo minimo $OPT(i,j)$ come costo dell'alignment tra $x_1 x_2 \ldots x_i$ e $y_1 y_2 \ldots y_j$.
 
-In base alle condizioni espresse in precedenza la funzione $OPT(m,n)$ assumerà il costo relativo più $OPT(m-1,n-1)$, in particolare (i tre casi citati sopra):
-- **condizione 1**, si paga un matching cost per le lettere $m,n$
-- **condizione 2 e 3**, si paga un gap cost $\delta$ per $m$(condizione 2) o $n$(condizione 3) 
+Nel caso 1, abbiamo un costo di $a_{x_m y_n}$ e poi si allinea $x_1 x_2 \ldots x_{m-1}$ nel miglior modo possibile con $y_1 y_2 \ldots y_{n-1}$. Si ha quindi che $OPT(m,n) = a_{x_m y_n} + $OPT(m-1,n-1)$.
+Nel caso 2, si paga un gap cost $\delta$ dato che la $m^{th}$ posizione di $X$ non è in matching, e poi si allinea $x_1 x_2 \ldots x_{m-1}$ nel miglior modo possibile con $y_1 y_2 \ldots y_{n}$. Si ha quindi che $OPT(m,n) = \delta + $OPT(m,n-1)$.
 
 Utilizzando dunque gli stessi argomenti per i sottoproblemi, per l'allineamento di costo minimo tra $X$ e $Y$, otteniamo la definizione generale di $OPT(i,j)$:
 
 > L'allineamento di costo minimo soddisfa la seguente ricorsione per $i \geq 1$ e $j \geq 1$:
 > $$OPT(i,j) = min[a_{(x_i y_j)} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)]$$
 
-Dunque così abbiamo ottenuto la nostra funzione di ricorsione e possiamo procedere alla scrittura dello pseudo codice.
+Dunque così abbiamo ottenuto la nostra funzione di ricorsione e possiamo procedere alla scrittura dello pseudo codice sfruttando la programmazione dinamica.
 
 ### Bottom-Up
 #### `alignment(X,Y)`
@@ -1015,14 +1027,35 @@ RETURN M[m, n]
 ```
 
 #### **Costo**
-- Il running time è di $O(mn)$
+- Il running time è di $O(mn)$, poiché l'array $A$ ha $O(mn)$ voci e nel peggiore dei casi trascorriamo un tempo costante su ciascuna.
 - Costo spaziale è di $O(mn)$
 
-### Sequence Alignment in Spazio Lineare
-Come abbiamo appena visto l'algoritmo ha sia costo spaziale che temporale uguale a $O(mn)$ e se come input consideriamo le parole della lingua inglese non risulta essere un grande problema, ma se consideriamo genomi con 10 miliardi di caratteri potrebbe verificarsi la situazione di dover lavorare 
-con array di 10 GB, il che renderebbe questo approccio molto costoso. Tuttavia, questo problema può essere risolto utilizzando un approccio **divide et impera** che va a rendere lineare il costo dello spazio, ovvero $\rightarrow$ $O(n + m)$
+C'è un modo pittorico accattivante in cui le persone pensano a questo algoritmo di sequence alignment. Supponiamo di costruire un grafo a griglia $m$ × $n$ bidimensionale $G_{XY}$ , con le righe etichettate da simboli nella stringa $X$, le colonne etichettate da simboli in $Y$ e gli archi orientati come nella Figura di seguito.
 
-#### **Funzionamento** 
+<img src="./imgs/sa.png" width="50%"/> 
+
+Numeriamo le righe da 0 a $m$ e le colonne da 0 a $n$; indichiamo il nodo nell'$i$-esima riga e nella $j$-esima colonna con l'etichetta `(i, j)`. Mettiamo i costi sugli archi di $G_{XY}$ : il costo di ogni arco orizzontale e verticale è $\delta$, e il costo dell'arco diagonale da `(i − 1, j − 1)` a `(i, j)` è $a_{x_i y_i}$ . Lo scopo di questa immagine emerge ora: la ricorrenza in definita precedentemente per $OPT(i, j)$ **è precisamente la ricorrenza che si ottiene per il percorso di costo minimo in $G_{XY}$ da `(0, 0)` a `(i, j)`**. Così possiamo mostrare che:
+> Sia $f(i, j)$ il costo minimo di un cammino da `(0, 0)` a `(i, j)` in $G_{XY}$ . Allora per ogni $i$, $j$, abbiamo $f(i, j) = OPT(i, j)$.
+
+Quindi il valore dell'allineamento ottimale è la lunghezza dello shortest path in $G_{XY}$ da `(0, 0)` a `(m, n)`. (Chiameremo qualsiasi percorso in $G_{XY}$ da `(0, 0)` a `(m, n)` un *percorso da angolo ad angolo*.) Inoltre, gli archi diagonali utilizzati in un percorso più breve corrispondono esattamente alle coppie utilizzate in un allineamento di costo minimo. Queste connessioni al problema del cammino minimo nel grafo $G_{XY}$ non producono direttamente un miglioramento del tempo di esecuzione per il problema dell'allineamento di sequenza; tuttavia, aiutano la propria intuizione per il problema e sono stati utili nel suggerire algoritmi per varianti più complesse sul sequence alignment.
+
+#### Riepilogo
+
+- Trovare il numero di operazioni da fare per allineare due sequenze
+- $OPT[i,j] = min\{ \alpha_{ij} + OPT[i-1,j-1], \delta + OPT[i, j-1], \delta + OPT[i-1, j] \}$
+- Ho bisogno di una matrice $i \times j$ **TEMPO =** $O(nm)$ (nella versione base dell'algoritmo)
+- Per ogni sottoproblema faccio solo un controllo. Posso anche utilizzare una matrice con sole due righe o sole due colonne **SPAZIO =** $O(nm)$ (nella versione base dell'algoritmo)
+- **Per costrure la soluzione** ho bisogno di una matrice dove salvo le operazioni fatte, posso risalire in diagonale.
+  - **SPAZIO =** $O(nm)$
+  - **TEMPO =** $O(n+m)$
+
+## Hirschberg′s algorithm
+### Sequence Alignment in Spazio Lineare utilizzando la *Dividi et Impera*
+Come abbiamo appena visto l'algoritmo ha sia costo spaziale che temporale uguale a $O(mn)$ e se come input consideriamo le parole della lingua inglese non risulta essere un grande problema, ma se consideriamo genomi con 10 miliardi di caratteri potrebbe verificarsi la situazione di dover lavorare con array anche superiori ai 10 GB, il che renderebbe questo approccio molto costoso o quasi infattibile da applicare. Tuttavia, questo problema può essere risolto utilizzando un approccio **divide et impera** che va a rendere lineare il costo dello spazio, ovvero $\rightarrow$ $O(n + m)$
+
+Per facilità di presentazione, descriveremo vari passaggi in termini di cammini nel grafico $G_{XY}$, con l'equivalenza naturale al problema dell'allineamento della sequenza. Pertanto, quando cerchiamo le coppie in un allineamento ottimale, possiamo equivalentemente chiedere gli archi in un percorso *angolo-angolo* più breve in $G_{XY}$. L'algoritmo stesso sarà una bella applicazione delle idee *divide et impera*. Il punto cruciale della tecnica è l'osservazione che, **se dividiamo il problema in più chiamate ricorsive, allora lo spazio necessario per il calcolo può essere riutilizzato da una chiamata all'altra**. Il modo in cui questa idea viene utilizzata, tuttavia, è abbastanza sottile.
+
+### Implementazione dell'algoritmo 
 Come prima cosa definiamo un algoritmo `Space Efficient Alignment`, che ci permette di trovare la soluzione ottima utilizzando il minor spazio possibile.
 Per farlo, notiamo che la funzione $OPT$ dipende solamente da una colonna precedente di quella che si sta analizzando, dunque basterà caricarsi in memoria una matrice $m$ x $2$, riducendo così il costo spaziale ad $m$.
 Tuttavia utilizzando questo metodo **non è possibile ricavare l'alignment effettivo** perché **non si hanno informazioni sufficienti**.
@@ -1047,6 +1080,21 @@ function Space-Efficient-Alignment(X,Y) {
 }
 ```
 
+Esiste, tuttavia, una soluzione a questo problema - saremo in grado di recuperare l'allineamento stesso utilizzando lo spazio $O(m + n)$ - ma richiede un'idea nuova. L'intuizione si basa sull'utilizzo della tecnica *divide et impera* che abbiamo visto in precedenza. Iniziamo con un semplice modo alternativo per implementare la soluzione di programmazione dinamica di base.
+
+**A Backward Formulation of the Dynamic Program**: Ricordiamo che usiamo $f(i, j)$ per denotare la lunghezza del cammino minimo da `(0, 0)` a `(i, j)` nel grafo $G_{XY}$. (Come abbiamo mostrato nell'algoritmo di allineamento della sequenza iniziale, $f(i, j)$ ha lo stesso valore di $OPT(i, j)$.) Ora definiamo $g(i, j)$ come la lunghezza del cammino minimo da `(i , j)` a `(m, n)` in $G_{XY}$ . La funzione $g$ fornisce un approccio di programmazione dinamica altrettanto naturale al problema del sequence alignment, tranne per il fatto che **lo costruiamo al contrario**: iniziamo con $g(m, n) = 0$ e la risposta che vogliamo è $g(0, 0)$. Per stretta analogia con la ricorrenza precedente, abbiamo la seguente ricorrenza per $g$:
+> Per $i < m$ e $j < n$ abbiamo 
+> $g(i, j) = min[a_{x_{i+1} y_{i+1}} + g(i + 1, j + 1), \delta + g(i, j + 1), \delta + g (i + 1, j)]$.
+
+Questa è solo la ricorrenza che si ottiene prendendo il grafo $G_{XY}$ , “ruotandolo” in modo che il nodo `(m, n)` si trovi nell'angolo in basso a sinistra, e utilizzando l'approccio precedente. Usando questa immagine, possiamo anche elaborare l'intero algoritmo di programmazione dinamica per costruire i valori di $g$, a ritroso partendo da `(m, n)`. Allo stesso modo, esiste una versione efficiente in termini di spazio di questo algoritmo di programmazione dinamica all'indietro, analogo a `Space-Efficient-Alignment`, che calcola il valore dell'allineamento ottimale utilizzando solo lo spazio `O(m + n)`. Faremo riferimento a questa versione all'indietro come `Backward-Space-Efficient-Alignment`.
+
+**Combinazione delle formulazioni Forward e Backward**: Quindi ora abbiamo algoritmi simmetrici che costruiscono i valori delle funzioni $f$ e $g$.
+L'idea sarà quella di utilizzare questi due algoritmi insieme per trovare l'allineamento ottimale. Innanzitutto, ecco due fatti fondamentali che riassumono alcune relazioni tra le funzioni $f$ e $g$.
+> La lunghezza del cammino *angolo-angolo* più corto in $G_{XY}$  che passa per `(i, j)` è $f(i, j) + g(i, j)$.
+
+>Sia k un qualsiasi numero in ${0, . . . , n}$, e sia $q$ un indice che minimizza la quantità $f(q, k) + g(q, k)$. Poi c'è un percorso *angolo-angolo* di lunghezza minima che passa attraverso il nodo `(q, k)`.
+
+#### Breve Riepilogo
 Possiamo quindi utilizzare un approccio **divide et impera** il quale incorpora 2 tecniche diverse di programmazione dinamica per riuscire a trovare anche l'alignment in spazio lineare.
 Definiamo quindi due funzioni:
 - $f(i, j)$ : è la funzione definita per l'algoritmo di **Sequence Alignment di base** (analoga a $OPT(i,j)$)
@@ -1057,6 +1105,39 @@ Possiamo notare che la ricorsione $f$ procede a ritroso partendo dal fondo mentr
 
 Possiamo sfruttare questo fatto per provare ad utilizzare lo `Space Efficient Sequence Alignment Algorithm` combinato ad un approccio _**divide et impera**_ e **un array di supporto $P$ per riuscire a calcolare il Sequence Alignment in spazio lineare**, aumentando solo di una costatane la complessità temporale.
 
+#### Lemma e Dimostrazione
+**Lemma:** $f(i,j) =$ shortest path from $(0,0)$ to $(i,j) = OPT(i,j)$
+**Dimostrazione** per induzione
+- caso base: $f(o,o) = OPT(0,0) = 0$
+- ipotesi induttiva: assum vero per ogni $(i', j')$ con $i'+j' \lt i+j$
+- l'ultimo arco nello shortest path verso $(i,j)$ è $(i-1, j-1)$, $(i, j-1)$ o $(i-1, j)$
+
+- quindi 
+  $f(i,j) = min\{ \alpha_{x_i y_j} + f(i-1, j-1), \delta + f(i-1, j), \delta +f(i, j-1)\} = $
+  $= min\{ \alpha_{x_i y_j} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)\} =$
+  $= OPT(i,j)$
+
+per calcolare lo shortest path da un $(i,j)$ a $(n,m)$ posso cambiare la direzione degli archi e calcolare lo shortest path da $(n,m)$ a tutti i vertici $(i,j)$.
+
+Il costo per andare da $(0,0)$ a $(n,m)$ posso scomporlo da $(0,0)$ a $(i,j)$ e da $(m,n)$ a $(i,j)$.
+
+Nel commino incontrerò per forza la colonna $n/2$ ma non so per quale vertice (riga $q$): 
+- voglio trovare $q$. 
+  divido quindi il problema in 2:
+​	  $f((0,0)(n/2,q)) + f((n/2,q)(n,m))$ 
+  - e posso quindi renderlo ricorsivo, 
+    - in ogni ricorsione mi ricordo solo $q$.
+
+### Funzionamento Algoritmo
+Dividiamo $G_{XY}$ lungo la sua colonna centrale e calcoliamo il valore di $f(i, n/2)$ e $g(i, n/2)$ per ogni valore di $i$, usando i nostri due algoritmi efficienti in termini di spazio. Possiamo quindi determinare il valore minimo di $f(i, n/2) + g(i, n/2)$, e concludere tramite la precedente definizione che esiste un cammino *angolo-angolo* più breve che passa attraverso il nodo `(i, n/2)`. Detto questo, possiamo cercare ricorsivamente il cammino minimo nella porzione di $G_{XY}$ tra `(0, 0)` e `(i, n/2)` e nella porzione tra `(i, n/2)` e `(m, n)`. Il punto cruciale è che applichiamo queste chiamate ricorsive in sequenza e riutilizziamo lo spazio di lavoro da una chiamata all'altra. Pertanto, poiché lavoriamo solo su una chiamata ricorsiva alla volta, l'utilizzo totale dello spazio è $O(m + n)$. La domanda chiave che dobbiamo risolvere è se il tempo di esecuzione di questo algoritmo rimane $O(mn)$.
+Nell'eseguire l'algoritmo, manteniamo un elenco $P$ accessibile a livello globale che manterrà i nodi sul percorso *angolo-angolo* più breve man mano che vengono scoperti.
+Inizialmente $P$ è vuoto. $P$ deve avere solo $m + n$ voci, poiché nessun percorso da angolo a angolo può utilizzare più di questo numero di spigoli. Usiamo anche la seguente notazione:
+$X[i : j]$, per $1 \le i \le j \le m$, denota la sottostringa di $X$ costituita da $x_i x_{i+1} ... x_j$;
+e definiamo $Y[i : j]$ in modo analogo. Assumeremo per semplicità che $n$ sia una potenza di 2; questo presupposto rende il discorso molto più pulito, anche se può essere facilmente evitato.
+
+Per prima cosa calcolo shortest path su tutta la matrice (Dijkstra in $O(nm)$ ). Cerco poi $q$ sulla colonna $n/2$ e lo salvo ricorsivamente $n$ volte.
+Chiamo poi ricorsivamente $f$ per trovare le soluzioni da sinistra a $n/2$ e da destra a $n/2$
+.
 Possiamo riassumere il tutto con il seguente pseudo-codice:
 ```javascript
 function Divide-and-Conquer-Alignment(X,Y) {
@@ -1080,81 +1161,18 @@ function Divide-and-Conquer-Alignment(X,Y) {
 }
 ```
 
-<img src="./imgs/seq_align_recurrence.png" width="70%"/> 
+<img src="./imgs/seq_align_recurrence.png" width="40%"/> 
 
-### Riepilogo
-
-- Trovare il numero di operazioni da fare per allineare due sequenze
-- $OPT[i,j] = min\{ \alpha_{ij} + OPT[i-1,j-1], \delta + OPT[i, j-1], \delta + OPT[i-1, j] \}$
-- Ho bisogno di una matrice $i \times j$ **TEMPO =** $O(nm)$ (nella versione base dell'algoritmo)
-- Per ogni sottoproblema faccio solo un controllo. Posso anche utilizzare una matrice con sole due righe o sole due colonne **SPAZIO =** $O(nm)$ (nella versione base dell'algoritmo)
-- **Per costrure la soluzione** ho bisogno di una matrice dove salvo le operazioni fatte, posso risalire in diagonale.
-  - **SPAZIO =** $O(nm)$
-  - **TEMPO =** $O(n+m)$
-
----
---- ARRIVATO QUI ---
-
----
-
-# Hirschberg's Algorithm
-
-permette di risparmiare spazio nella costruzione della soluzione del problema Longest Common Subsequence
-
-- serve una marice $n \times m$
-
-  non si può calcolare la soluzione di LCS in meno di $n^{2-\epsilon}$ a meno che LCS non sia risolvibile in meno
-
-**Teorema di Hirschberg:** esiste un algoritmo per ricostruire la soluzione di LCS in $O(nm)$ tempo e $O(n+m)$ spazio (basato su divide et impera)
-
-risolvere LCS è come risolvere il cammino minimo su un grafo $n \times m$ da (0,0) a (n,m)
-
-**Lemma:** $f(i,j) =$ shortest path from $(0,0)$ to $(i,j) = OPT(i,j)$
-
-**Dimostrazione** per induzione
-
-- caso base: $f(o,o) = OPT(0,0) = 0$
-
-- ipotesi induttiva: assum vero per ogni $(i', j')$ con $i'+j' \lt i+j$
-
-- l'ultimo arco nello shortest path verso $(i,j)$ è $(i-1, j-1)$, $(i, j-1)$ o $(i-1, j)$
-
-- quindi 
-
-  $f(i,j) = min\{ \alpha_{x_i y_j} + f(i-1, j-1), \delta + f(i-1, j), \delta +f(i, j-1)\} = $
-
-  $= min\{ \alpha_{x_i y_j} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)\} =$
-
-  $= OPT(i,j)$
-
-per calcolare lo shortest path da un $(i,j)$ a $(n,m)$ posso cambiare la direzione degli archi e calcolare lo shortest path da $(n,m)$ a tutti i vertici $(i,j)$
-
-il costo per andare da $(0,0)$ a $(n,m)$ posso scomporlo da $(0,0)$ a $(i,j)$ e da $(m,n)$ a $(i,j)$
-
-nel commino incontrerò per forza la colonna n/2 ma non su per quale vertice (riga q): voglio trovare q. divido quindi il problema in 2:
-
-​	$f((0,0)(n/2,q)) + f((n/2,q)(n,m))$ 
-
-e posso quindi renderlo ricorsivo, in ogni ricorsione mi ricordo solo q.
-
-### Algoritmo
-
-per prima cosa calcolo shortest path su tutta la matrice (Dijkstra in $O(nm)$ ). Cerco poi q sulla colonna n/2 e lo salvo ricorsivamente n volte.
-
-Chiamo poi ricorsivamente f per trovare le soluzioni da sinistra a n/2 e da destra a n/2.
-
-### Costo computazionale
-
+#### **Costo:**
 $T(m,n) \le 2T(m, n/2) + O(nm) = O(mn \log n)$ Costo troppo elevato.
+I due sottoinsiemi però non sono $2T(m, n/2)$ ma $(q, n/2) + (m-q, n/2)$
 
-i due sottoinsiemi però non sono $2T(m, n/2)$ ma $(q, n/2) + (m-q, n/2)$
+<img src="./imgs/hirschberg.png" width="70%"/> 
 
-![hirsberg](./imgs/hirschberg.png)
+Quindi, il tempo di esecuzione dell'aligment *divide et impera* su stringhe di lunghezza $m$ ed $n$ è $O(mn)$.
 
-## Riepilogo
-
-si può trovare un allineamento ottimo in tempo $O(nm)$ e spazio $O(n+m)$ con spazio_s = $O(n+m)$
-
+---
+---
 ---
 
 # Network Flow
