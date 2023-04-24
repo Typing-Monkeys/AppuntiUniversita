@@ -12,10 +12,8 @@
   - [Matrix Chain Parentesizathion](#matrix-chain-parenthesization)
   - [Optimal Binary Search Tree](#optimal-binary-search-tree)
   - [Sequence Alignment Problem](#sequence-alignment)
-  - 
-  - 
-  - 
-  - [Hirschberg's Algorithm](#Hirschbergs-Algorithm)
+  - [Hirschberg's Algorithm](#sequence-alignment-in-spazio-lineare-utilizzando-la-dividi-et-impera)
+  - [Longest Common Subsequence (LCS)](#longest-common-subsequence)
 - [Network Flow](#Network-Flow)
   - [Max-Flow and Min-Cut Problems](#Max-Flow-and-Min-Cut-Problems)
   - [Capacity Scaling Algorithm](#Capacity-Scaling-Algorithm)
@@ -1171,6 +1169,40 @@ I due sottoinsiemi però non sono $2T(m, n/2)$ ma $(q, n/2) + (m-q, n/2)$
 
 Quindi, il tempo di esecuzione dell'aligment *divide et impera* su stringhe di lunghezza $m$ ed $n$ è $O(mn)$.
 
+<hr>
+
+## Longest Common Subsequence
+È un caso particolare del problema del Sequence Alignment.
+
+### Descrizione del Problema
+Per prima cosa è necessario dare la definizione di **sottosequenza**.
+Una sottosequenza di una data sequenza è la sequenza stessa alla quale sono stat tolti zero o più elementi. Formalmente:
+> Data una sequenza $X$ = $x_1, x_2, ..., x_m$, un'altra sequenza $Z$ = $z_1, z_2, ..., z_k$ è una **sottosequenza** di $X$ se esiste una sequenza strettamente crescente $i_2, i_2, ..., i_k$ di indici di $X$ tale che per ogni $j = 1, 2, ..., k$, si ha $x_{i_j} = z_j$. 
+
+Per esempio, $Z = <B, C, D, B>$ è una sottosequenza di $X = < A, B, C, B, D, A, B>$ con la corrispondente sequenza di indici $<2, 3, 5, 7>$.
+
+Date due sequenze $X$ e $Y$, diciamo che una sequenza $Z$ è una **sottosequenza comune** di $X$ e $Y$ se $Z$ è una sottosequenza di entrambe le sequenze $X$ e $Y$. Per esempio, se $X = <A,B,C,B,D,A,B>$ e $Y = <B,D,C,A,B,A>$, la sequenza $B,C,A$ è una sottosequenza comune di $X$ e $Y$.
+
+**N.B.** Notare che comunque il nostro obiettivo non è trovare una sottosequenza comune, ma di trovare la sottosequenza comune di lunghezza massima
+
+#### **Goal**:
+Nel **problema della più lunga sottosequenza comune** sono date due sequenze $X = <x_1, x_2, ..., x_m>$ e $Y = <y_1, y_2, ..., y_n>$ e si vuole trovare una sottosequenza di lunghezza massima che è comune a $X$ e $Y$.
+
+### 1. Caratterizzare la più lunga sottosequenza comune
+Una tecnica a forza bruta per risolvere questo problema consiste nell'enumerare tutte le sottosequenze di $X$ e controllare le singole sottosequenze per vedere se sono anche sottosequenze di $Y$. Un simile approccio comporterebbe l'analisi di $2^m$ sottosequenze di $X$, quindi questo approccio richiede un tempo esponenziale, il che lo rende inutilizzabile per le sequenze lunghe.
+
+Per costruire una rappresentazione che porta ad un approccio risolutivo migliore, procediamo nel seguente modo:
+data una sequenza $X = <x_1, x_2, ..., x_m>$, definiamo $X_i = <x_1, x_2, ..., x_i>$ l'$i$-esimo **prefisso** di $X$, per $i=0,1,...,m$. Per esempio, se $X = <A,B,C,B,D,A,B>$, allora $X_4 = <A,B,C,B>$ e $X_0$ è la sequenza vuota.
+
+#### Teorema: Sottostruttura ottima di una LCS
+Siano $X = <x_1, x_2, ..., x_m>$ e $Y = <y_1, y_2, ..., y_n>$ le sequenze, sia $Z = z_1, z_2, ..., z_k$ una qualsiasi LCS di $X$ e $Y$.
+1. Se $x_m = y_n$, allora $z_k = x_m = y_n$ e $Z_{k-1}$ è una LCS di $X_{m-1}$ e $Y_{n-1}$
+2. Se $x_m \ne y_n$, allora $z_k \ne x_m$ implica che $Z$ è una LCS di $X_{m-1}$ e $Y$. 
+3. Se $x_m \ne y_n$, allora $z_k \ne y_n$ implica che $Z$ è una LCS di $X$ e $Y_{n-1}$. 
+
+Quindi, il problema della più lunga sottosequenza comune gode della proprietà della sottostruttura ottima. Una soluzione ricorsiva gode anche della proprietà dei sottoproblemi ripetuti.
+
+### 2. Una Soluzione Ricorsiva
 ---
 ---
 ---
