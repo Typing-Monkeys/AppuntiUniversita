@@ -1203,6 +1203,68 @@ Siano $X = <x_1, x_2, ..., x_m>$ e $Y = <y_1, y_2, ..., y_n>$ le sequenze, sia $
 Quindi, il problema della più lunga sottosequenza comune gode della proprietà della sottostruttura ottima. Una soluzione ricorsiva gode anche della proprietà dei sottoproblemi ripetuti.
 
 ### 2. Una Soluzione Ricorsiva
+Il teorema precedente implica che ci sono uno o due sottoproblemi da esaminare per trovare una LCS di $X = <x_1, x_2, ..., x_m>$ e $Y$ = $<y_1, y_2, ..., y_n>$. Se $x_m = y_n$, dobbiamo trovare una LCS di $X_{m-1}$ e $Y_{n-1}$. Accodando $x_m = y_n$ a questa LCS, si ottiene una LCS di $X$ e $Y$. Se $x_m \neq y_n$, allora dobbiamo risolverre due sottoproblemi: trovare una LCS di $X_{m-1}$ e $Y$ e trovare una LCS di $X$ e $Y_{n-1}$. La più lunga di queste due LCS è una LCS di $X$ e $Y$. Poichè questi casi esauriscono tutte le possibilità, sappiamo che all'interno di una LCS di $X$ e $Y$ deve essere utilizzata una delle soluzioni ottime dei sottoproblemi.
+
+Come nel problema della moltiplicazione di una sequenza di matrici, la nostra soluzione ricorsiva del problema della più lunga sottosequenza comune richiede la definizione di una ricorrenza per il valore di una soluzione ottima. Definiamo $c[i,j]$ come la lunghezza di una LCS delle sequenze $X_i$ e $Y_j$. Se $i = 0$ o $j = 0$, una delle sequenze ha lunghezza 0, quindi la LCS ha lunghezza 0. La sottostruttura ottima del problema della LCS consente di scrivere la formula ricorsiva
+
+$c[i,j] = $:
+- 0 se $i = 0$ o $j = 0$
+- $c[i-1, j-1] + 1$ se $i, j > 0$ e $x_i = y_i$
+- $max(c[i, j-1], c[i-1, j])$ se $i,j > 0$ e $x_i \neq y_j$
+
+### 3. Calcolare la lunghezza di una LCS
+Utilizzando l'equazione precedente potremmo scrivere facilmente un algoritmo ricorsivo con tempo esponenziale per calcolare la lunghezza di una LCS di due sequenze. Tuttavia, poichè ci sono soltanto $O(mn)$ sottoproblemi distinti, posiamo utilizzare la programmazione dinamica per calcolare le soluzioni con un metodo bottom-up. La procedura `LCS-Length` riceve come input due sequenze $X = <x_1, x_2, ..., x_m>$ e $Y$ = $<y_1, y_2, ..., y_n>$ e memorizza i valori $c[i,j]$ in una tabella $c[o..m, 0..n]$, le cui posizioni sono calcolate secondo l'ordine delle righe (cioè, vengono inseriti i valori nella prima rica di $c$ da sinistra a destra, poi vengono inseriti i valori nella seconda riga e così via).
+
+La procedura utilizza anche la tabella $b[1..m, 1..n]$ per semplificare la costruzione di una soluzione ottima. Intuitvamente, $b[i, j]$ punta alla posizione della tabella che corrisponde alla soluzione ottima del sottoproblema che è stata scelta per calcolare $c[i,j]$. La procedura restituisce le tabelle $b$ e $c$; la posizione $c[m,n]$ contiene la lunghezza di una LCS di $X$ e $Y$.
+
+#### `LCS-Lenght(X, Y)`
+```pseudocode
+m = X.length
+n = Y.length
+
+Let b[1..m, 1..n] e c[0..m, 0..n] two new tables
+
+for i = 1 to m
+  c[i,0] = 0
+
+for j = 0 to n
+  c[0,j] = 0
+
+for i = 1 to m
+  for j = 1 to n
+    if xi == yi
+      c[i,j] = c[i-1, j-1] + 1
+      b[i,j] = "↖"
+    elseif c[i-1,j] ≥ c[i,j-1]
+      c[i,j] = c[i-1,j]
+      b[i,j] = "↑"
+    else 
+      c[i,j] = c[i,j-1] 
+      b[i,j] = "←"
+
+return c e b
+```
+
+#### **Costo:**
+Il tempo di esecuzione è $O(mn)$, perchè il calcolo di ogni posizione della tabella richiede un tempo $O(1)$
+
+### 4. Costruire una LCS
+La tabella $b$ restituita dalla procedura `LCS-length` può essere utilizzata per costruire rapidamente una LCS delle sequenze $X = <x_1, x_2, ..., x_m>$ e $Y$ = $<y_1, y_2, ..., y_n>$. Iniziamo semplicemente da $b[m,n]$ e, ogni volta che incontriamo una freccia "↖" nella posizione $b[i,j]$, significa che $x_i = y_j$ è un elemento della LCS trovata da `LCS-Length`. In questo modo gli elementi della LCS si incontrano in ordine inverso. La seguente procedura ricorsiva stampa una LCS di $X$ e $Y$ nell'ordine corretto. La chiamata iniziale è `Print-LCS(b, X, X.length, Y.length)`
+
+#### `Print-LCS(b, X, i, j)`
+```pseudocode
+if i == 0 or j == 0
+  return
+if b[i,j] == "↖"
+  Print-LCS(b, X, i-1, j-1)
+  print xi
+elseif b[i,j] == "↑"
+  Print-LCS(b, X, i-1, j)
+else
+  Print-LCS(b, X, i, j-1)
+```
+La procedura impiega un tempo $O(m + n)$, perchè a ogni chiamata ricorsiva essa decrementa almeno uno dei due valori $i$ e $j$.
+
 ---
 ---
 ---
