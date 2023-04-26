@@ -464,9 +464,108 @@ nello spazio.
     \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/funzione_toni_grigio.jpg}
 \end{figure}
 
-\subsection{Zoom e Shrink}
+\section{Zoom e Shrink}
 
-\TODO[inline]{DA IMPLEMENTARE QUANDO IL PROF LE SPIEGA}
+\subsection{ZOOM}
+
+Si crea una nuova griglia, ovvero delle nuove "locazioni" per i pixel, sovrapponendola a quella originale; si assegnano poi i livelli di
+grigio a queste nuove locazioni.
+
+\begin{itemize}
+    \item \textbf{Nearest Neighbor:} assegna ad ogni nuova locazione l'intensità del pixel piu' vicino dell'immagine originale
+
+    \item \textbf{Interpolazione bilineare:} prevede l’utilizzo dei quattro pixel piu' vicini per stimare l’intensita' da assegnare ad ogni nuova
+          locazione
+
+          \begin{figure}[H]
+              \centering
+              \includegraphics[width=12cm, keepaspectratio]{capitoli/immagini/imgs/esempio-interpolazione.png}
+          \end{figure}
+
+          \begin{center}
+              $f(x,y)=ax+by+cxy+d$
+          \end{center}
+
+    \item \textbf{Interpolazione bicubica:} prevede l’utilizzo dei sedici pixel piu' vicini per stimare l’intensit`a
+          da assegnare ad ogni nuova locazione.
+
+          \begin{figure}[H]
+              \centering
+              \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/interpolazione-bicubica.png}
+          \end{figure}
+
+\end{itemize}
+
+
+\subsection{SHRINK}
+Lo sttesso procedimento dello zoom, con una griglia immaginaria di dimensioni inferiori all’originale.
+Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di righe e colonne.
+
+\subsubsection{Relazioni di base fra i pixel}
+
+\begin{itemize}
+
+    \item \textbf{Intorni}
+
+          Un pixel $p$ di coordinate $(x,y)$ ha quattro \textbf{neighbors} (vicini) orizzontali e verticali:
+          \begin{center}
+              $(x+1, y), (x-1, y), (x, y-1), (x, y+1)$
+          \end{center}
+          Questi punti formano il \textbf{4-intorno (4-neighboor)} di $(x,y)$ $N_4(p)$
+          \\I quattro \textbf{neighbors (vicini) diagonali} di $p$ $(N_D(p))$ hanno invece coordinate
+          \begin{center}
+              $(x+1, y+1), (x+1,y-1), (x-1, y+1), (x-1, y-1)$
+          \end{center}
+          I vicini diagonali, insieme a quelli orizzontali e verticali, formano l’\textbf{8-intorno (8-neighbor)} di $(x,y)$ $N_8(p)$
+
+    \item \textbf{Connettivita', adiacenza}
+          Due pixel sono connessi se sono vicini e presentano livelli di intensita' con una certa relazione (ad esempio hanno lo stesso livello di grigio).
+          Fissato un insieme V di valori di intensita', due pixel $p$ e $q$ si dicono
+
+          \begin{itemize}
+              \item \textbf{4-adiacenti} se i valori di entrambi appartengono a $V$ e $q \in N_4(p)$
+              \item \textbf{8-adiacenti} se i valori di entrambi appartengono a $V$ e $q \in N_8(p)$
+              \item \textbf{m-adiacenti} (adiacenza mista) se i valori di entrambi appartengono a $V$ e $q \in N_4(p)$ oppure $q \in N_D(p)$ e l’insieme $N_4(p) \cap N_4(q)$ non contiene pixel a valori in V.
+          \end{itemize}
+
+    \item \textbf{Cammini}
+          Un \textbf{cammino (path) digitale} dal pixel $p = (x,y)$ al pixel $q = (x', y')$ e' una sequenza di pixel
+
+          \begin{center}
+              $(x0, y0), (x1, y1), ... ,(x_n, y_n)$
+          \end{center}
+
+          dove $(x_0, y_0) = (x,y)$, $(x_n, y_n) = (x', y')$ e i pixel $(x_i, y_i)$, $(x_{i+1}, y_{i+1})$ sono adiacenti per ogni $i=0, ... , n-1$
+          n e' la \textbf{lunghezza del cammino}. $Se (x_0, y_0) = (x_n, y_n)$ si parla di \textbf{cammino chiuso}. Si puo' definire in particolare un $4-, 8-, o m-cammino$ restringendo l’adiacenza alla corrispondente tipologia.
+
+    \item \textbf{Cammini, regioni}
+
+          Fissato un sottoinsieme $S$ di pixel di un'immagine digitale, due pixel p e q si dicono \textbf{connessi} se esiste un cammino tra $p$ e $q$ che consiste di pixel tutti contenuti in $S$.
+          Se tutti i pixel di $S$ sono connessi, $S$ si dice un insieme connesso: in tal caso diciamo che $S$ e' una regione dell'immagine.
+          Il \textbf{bordo (boundary, border, contour)} di una regione $R$ e' l’insieme dei pixel di $R$ che hanno uno o piu' vicini che non appartengono ad R.
+          Nel caso in cui $R$ sia l’intera immagine, il bordo si definisce come la prima e l’ultima riga e la prima e l’ultima colonna.
+          \\Se l’immagine contiene $k$ regioni distinte $R_1,..., R_k$, nessuna delle quali tocca i bordi dell'immagine, allora l’unione
+          $R = \cup_{i=1}^n R_i$ si dice \textbf{primo piano (foreground)}, mentre il complementare $R^c$ viene detto \textbf{sfondo(background)}
+          viene detto \textbf{sfondo (background)}.
+\end{itemize}
+
+\subsection{Distanza tra pixel}
+Una distanza (o metrica) tra pixel e' una funzione $D(p, q)$ tale che per ogni $p, q, z$
+
+\begin{itemize}
+    \item $D(p, q) >= 0 e D(p, q) = 0$ se e solo se $p = q$
+    \item $D(p, q) = D(q, p)$
+    \item $D(p, z) <= D(p, q) + D(q, z)$
+\end{itemize}
+
+\textbf{Esempi}
+
+\begin{itemize}
+    \item Distanza euclidea: $D_e(p, q) = {(x_1 - x_2)^2 + (y_1 - y_2)^2}^{\frac{1}{2}}$, se $p = (x_1, y_1), q=(x_2, y_2)$
+    \item Distanza $D_4$, o city-block: $D_4(p, q) = |x_1 - x_2| + |y_1 - y_2|$.
+    \item Distanza $D_8$, o a scacchiera: $D_s(p,q) = max{|x_1 - x_2|, |y_1 - y_2|}$
+\end{itemize}
+
 
 \subsection{Elaborazione delle immagini}
 L'elaborazione delle immagini è una disciplina che prevede l'utilizzo
