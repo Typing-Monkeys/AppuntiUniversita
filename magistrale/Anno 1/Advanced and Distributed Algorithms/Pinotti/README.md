@@ -14,7 +14,8 @@
   - [Sequence Alignment Problem](#sequence-alignment)
   - [Hirschberg's Algorithm](#sequence-alignment-in-spazio-lineare-utilizzando-la-dividi-et-impera)
   - [Longest Common Subsequence (LCS)](#longest-common-subsequence)
-- [Network Flow](#Network-Flow)
+- [Network Flow](#network-flow)
+  - [Introduzione](#introduzione-1)
   - [Max-Flow and Min-Cut Problems](#Max-Flow-and-Min-Cut-Problems)
   - [Capacity Scaling Algorithm](#Capacity-Scaling-Algorithm)
   - [Ford-Fulkerson pathological example](#Ford-Fulkerson-pathological-example)
@@ -1267,9 +1268,31 @@ La procedura impiega un tempo $O(m + n)$, perchè a ogni chiamata ricorsiva essa
 
 ---
 ---
----
 
 # Network Flow
+### Introduzione
+Ricordiamo la struttura dei **Bipartite Matching Problems**: 
+> Un grafo bipartito $G = (V , E)$ è un grafo non orientato il cui insieme di nodi può essere partizionato come $V = X \cup Y$, con la proprietà che ogni arco $e \in E$ ha un estremo in $X$ e l'altro estremo in $Y$.
+
+Ora, abbiamo già visto la nozione di **matching**: abbiamo usato il termine per descrivere raccolte di coppie su un insieme, con la proprietà che **nessun elemento dell'insieme appare in più di una coppia**. (Si pensi ai caratteri nel Problema dell'Allineamento di Sequenze.) 
+
+Nel caso di un grafo, gli archi costituiscono coppie di nodi, e di conseguenza diciamo che un matching in un grafo $G = (V , E)$ è un insieme di archi $M \subseteq E$ con la proprietà che ogni nodo appare al massimo in un arco di $M$. 
+
+**Un insieme di archi $M$ è un matching perfetto se ogni nodo appare esattamente in un arco di $M$**.
+
+I matching nei grafi bipartiti possono modellare situazioni in cui gli oggetti vengono assegnati ad altri oggetti. Un esempio sorge quando i nodi in $X$ rappresentano i *job*, i nodi in $Y$ rappresentano le *macchine* e un arco ($x_i$ , $y_j$ ) indica che la *macchina* $y_j$ è in grado di elaborare il *job* $x_i$ (job shop schedulng problem). Un matching perfetto è, quindi, un modo per assegnare ogni *job* a una *macchina* in grado di elaborarlo, con la proprietà che a ogni *macchina* è assegnato esattamente un *job*.
+
+**Uno dei problemi più antichi negli algoritmi combinatori è quello di determinare la dimensione del matching più grande in un grafo bipartito G**. (Come caso particolare, si noti che $G$ ha un matching perfetto se e solo se $|X| = |Y|$ e ha un matching di dimensione $|X|$.) Questo problema risulta essere risolvibile da un algoritmo che gira in tempo polinomiale, ma lo sviluppo di questo algoritmo necessita di idee fondamentalmente diverse dalle tecniche che abbiamo visto finora.
+
+Invece di sviluppare direttamente l'algoritmo, iniziamo formulando una classe generale di problemi, i **Network Flow Problems**, che include il Bipartite Matching Problem come caso particolare. 
+
+Sviluppiamo quindi un algoritmo con tempo polinomiale per un problema generale, il problema del **Flusso Massimo (Maximum-Flow Problem)**, e mostriamo come questo fornisca un algoritmo efficiente anche per il Bipartite Matching.
+
+
+---
+---
+---
+
 
 Una rete di flusso è una quintupla **G = (V, E, s, t, c)**
 
