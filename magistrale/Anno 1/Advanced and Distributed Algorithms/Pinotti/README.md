@@ -16,6 +16,10 @@
   - [Longest Common Subsequence (LCS)](#longest-common-subsequence)
 - [Network Flow](#network-flow)
   - [Introduzione](#introduzione-1)
+  - [The Max-Flow Problem and the Ford-Fulkerson Algorithm](#the-maximum-flow-problem-and-the-ford-fulkerson-algorithm)
+  - 
+  - 
+  - 
   - [Max-Flow and Min-Cut Problems](#Max-Flow-and-Min-Cut-Problems)
   - [Capacity Scaling Algorithm](#Capacity-Scaling-Algorithm)
   - [Ford-Fulkerson pathological example](#Ford-Fulkerson-pathological-example)
@@ -1288,113 +1292,150 @@ Invece di sviluppare direttamente l'algoritmo, iniziamo formulando una classe ge
 
 Sviluppiamo quindi un algoritmo con tempo polinomiale per un problema generale, il problema del **Flusso Massimo (Maximum-Flow Problem)**, e mostriamo come questo fornisca un algoritmo efficiente anche per il Bipartite Matching.
 
+<hr>
 
----
----
----
+## The Maximum-Flow Problem and the Ford-Fulkerson Algorithm
+Spesso si utilizzano i grafi per modellare le ***transportation networks***, reti i cui archi trasportano una sorta di traffico e i cui nodi fungono da "*interruttori*" che fanno passare il traffico tra i diversi archi. Si consideri, ad esempio, un sistema autostradale in cui gli archi sono autostrade e i nodi sono svincoli; o una rete di computer in cui gli archi sono collegamenti che possono trasportare pacchetti e i nodi sono interruttori. I modelli di rete di questo tipo hanno diversi ingredienti:
+- **capacità** sugli archi, che indica quanto possono trasportare; 
+- **nodi sorgente** nel grafo, che generano traffico; 
+- **nodi sink (o destinazione)** nel grafo, che possono *“assorbire”* il traffico man mano che arriva; 
+- il **traffico**, che viene trasmesso attraverso gli archi.
 
+**Flow Networks**: 
+Prenderemo in considerazione grafi di questa forma e ci riferiamo al **traffico** come **flusso**, un'entità **astratta** che viene **generata** nei **nodi sorgente**, trasmessa attraverso gli archi e assorbita nei **nodi sink**. 
 
-Una rete di flusso è una quintupla **G = (V, E, s, t, c)**
+Formalmente diremo che una Flow Network è un grafo orientato $G = (V , E)$ con le seguenti caratteristiche:
+- Associata a ciascun arco $e$ c'è una **capacità**, che è un numero **non negativo** che denotiamo $c_e$ .
+- **Esiste un solo nodo sorgente** $s \in V$.
+- C'è **un solo nodo sink** $t \in V$.
 
-- Digrafo **(V, E)** con source **s** $\in V$ e sink **t** $\in V$
-- Capacità $c(e) \gt 0$ per ogni $e \in E$
+I nodi diversi da $s$ e $t$ saranno chiamati **nodi interni**.
 
-# Max-Flow and Min-Cut Problems
+Faremo delle assunzioni sulle reti di flusso di cui ci occupiamo:
+1. **Nessun arco entra nella sorgente $s$ e nessun arco esce dal sink $t$**; 
+2. Vi sia almeno un arco per ogni nodo;
+3. Tutte le capacità sono numeri interi.
 
-## Minimun Cut Problem
+<img src="./imgs/flow1.png" width="30%"/>
 
-un **st-Cut** (cut) è una partizione $(A,B)$ con $s \in A$ e $t \in B$
+#### **Definizione di Flusso**
+Definiamo cosa significa per la nostra rete trasportare traffico, o flusso. Diciamo che un flusso $s-t$ è una funzione $f$ che associa ogni arco $e$ a un numero reale non negativo, $f : E → R^+$; il valore $f(e)$ rappresenta intuitivamente la quantità di flusso trasportato dall'arco $e$. Un flusso $f$ deve soddisfare le seguenti due proprietà:
+1. (**Capacity conditions**) Per ogni $e \in E$, abbiamo $0 \le f(e) \le c_e$
+2. (**Conservation conditions**) Per ogni nodo $v$ diverso da $s$ e $t$, abbiamo
+  $$
+    \sum_{e \text{ into } v}f(e) = \sum_{e \text{ out of } v}f(e)
+  $$
 
-la sua capacità è la somma delle capacità degli archi da A a B
+Qui $\sum_{e \text{ into } v}f(e)$ somma il valore del flusso $f(e)$ su tutti gli archi che entrano nel nodo $v$, mentre $\sum_{e \text{ out of } v}f(e)$ è la somma dei valori di flusso su tutti gli archi che escono dal nodo $v$.
 
-**Min-Cut Problem:** trovare un cut con capacità minima
+Quindi il flusso su un arco non può superare la capacità dell'arco stesso. Per ogni nodo diverso dalla **source** e dal **sink,**, la quantità di flusso in entrata deve essere uguale alla quantità di flusso in uscita. 
+- La sorgente non ha archi entranti (secondo la nostra assunzione), ma le è consentito avere un flusso uscente; in altre parole, può generare flusso. 
+- Simmetricamente, il sink può avere flusso in entrata, anche se non ha archi in uscita. 
 
----
+**Il valore di un flusso** $f$, indicato con $v(f)$, è definito come la quantità di flusso generato alla sorgente:
+$$
+  v(f) = \sum_{e \text{ out of } s}f(e)
+$$
 
-## Maximum Flow Problem
+Per rendere la notazione più compatta, definiamo $f^{out}(v) = \sum_{e \text{ out of } v}f(e)$ e $f^{in}(v) = \sum_{e \text{ into } v}f(e)$. 
 
-un **st-Flow** (flow) $f$ è una funzione che soddisfa:
+Possiamo estenderlo ad insiemi di vertici; se $S \subseteq V$, definiamo $f^{out}(S) = \sum_{e \text{ out of } S}f(e)$ e $f^{in}(S) = \sum_{e \text{ into } S}f(e)$. In questa terminologia, la condizione di conservazione per i nodi $v \neq s, t$ diventa $f^{in}(v) = f^{out}(v)$; e possiamo scrivere $v(f) = f^{out}(s)$.
 
-- **Capcaity:** Per ogni $e \in E$: $0 \le f(e) \le c(e)$
-- **Flow Conservation:** Per ogni $v \in V - \{s, t\}$: $\sum_{e\mbox{ in to }v} f(e) = \sum_{e\mbox{ out of }v} f(e)$
+### Descrizione Problema del Maximum-Flow
+Data una flow network, l'obiettivo è quello di organizzare il traffico in modo da fare un uso il più efficiente possibile della capacità disponibile. 
 
-il **valore** del flow $f$ è $val(f) = \sum_{e\mbox{ out of }s} f(e) - \sum_{e\mbox{ in to }s} f(e)$
+#### **Goal:**
+Data una rete di flussi, trovare un flusso di massimo valore possibile.
 
-**Max-Flow Problem:** trovare un flow di valore massimo
+È utile considerare come la struttura della rete di flusso pone **upper bounds** al **valore massimo** di un flusso $s-t$.
+Supponiamo quindi di dividere i nodi del grafo in due insiemi, $A$ e $B$, in modo che $s \in A$ e $t \in B$. Allora, intuitivamente, ogni flusso che va da $s$ a $t$ deve passare da $A$ a $B$ ad un certo punto, e quindi consumare parte della capacità dell'arco da $A$ a $B$. Ciò suggerisce che ciascuno di questi "***tagli***" del grafo pone un **limite al massimo valore di flusso possibile**. L'algoritmo del flusso massimo che svilupperemo, sarà collegato ad una dimostrazione la quale afferma che: **il valore del flusso massimo è uguale alla capacità minima di ciascuna di queste divisioni, chiamata taglio minimo** (*l'algoritmo calcolerà anche il taglio minimo*).
 
----
+### Implementazione dell'algoritmo
+Una prima idea è quella di applicare un approccio greedy e calcolare il valore del flusso procedendo con gli archi di capacità massima. Come si può vedere nella Figura di seguito, questo approccio fallisce e non riesce a calcolare effettivamente il flusso massimo.
 
-# Ford-Fulkerson Algorithm
+<img src="./imgs/flow2.png" width="70%"/>
 
-## Greedy Algorithm
+Nella figura (a) vediamo il grafo originale e nella (b) la soluzione trovata provando ad utilizzare un approccio greedy. Nella figura (c) vediamo invece quello che sarebbe la soluzione esatta per il problema del massimo flusso.
 
-1. Inizia con $f(e) = 0$ per ogni $e \in E$ 
-2. Trova un path $P$ da $s$ a $t$ dove ogni arco ha $f(e) \lt c(e)$
-3. Aumenta il flow lungo $P$ (vanno riguardati anche i flow per mantenera la proprietà della conservazione)
-4. Ripeti 2 e 3 finchè puoi
+#### **The Residual Graph**
+Dato una ﬂow network $G$, e un flusso $f$ su $G$, definiamo il **grafo residuale** $G_f$ di $G$ rispetto a $f$ come segue. (Vedi Figura successiva per il grafico residuo del flusso sulla Figura precedente dopo aver spinto 20 unità di flusso lungo il percorso $s, u, v, t$.)
+> - L'insieme dei nodi di $G_f$ è uguale a quello di $G$.
+> - Per ogni arco $e = (u, v)$ di $G$ su cui $f(e) < c_e$ , ci sono $c_e − f(e)$ unità di capacità *“rimanenti”* su cui potremmo provare a spingere il flusso in avanti. Quindi includiamo l'arco $e = (u, v)$ in $G_f$ , con una capacità di $c_e − f(e)$. Chiameremo gli archi inclusi in questo modo **forward edges**.
+> - Per ogni arco $e = (u, v)$ di $G$ su cui $f(e) > 0$, ci sono $f(e)$ unità di flusso che possiamo "*annullare*" se vogliamo, spingendo il flusso all'indietro (backward). Quindi includiamo l'arco $e' = (v, u)$ in $G_f$ , con una capacità di $f(e)$. Notare che $e'$ ha le stesse estremità di $e$, ma la sua direzione è **invertita**; chiameremo gli archi inclusi in questo modo **backward edges**.
 
-Non funziona perchè non ho alcun modo di diminuire il flow sugli archi, se prendo decisioni sbagliate non posso tornare indietro.
+Si noti che ogni arco $e$ in $G$ può dare origine a uno o due archi in $G_f$ : Se $0 < f (e) < c_e$ risulta che sia un arco in avanti che uno all'indietro siano inclusi in $G_f$ . Quindi $G_f$ ha al massimo il doppio degli archi rispetto a $G$. A volte ci riferiremo alla capacità di un arco nel grafo residuo come **residual capacity**, per aiutare a distinguerla dalla capacità dell'arco corrispondente nella rete di flusso originale $G$.
 
-## Residual Network
+#### **Augmenting Paths in a Residual Graph**
+Ora vogliamo rendere preciso il modo in cui viene spinto il flusso da $s$ a $t$ in $G_f$ . Sia $P$ un semplice cammino $s-t$ in $G_f$, cioè $P$ non visita nessun nodo più di una volta. Definiamo `bottleneck(P, f)` come la minima capacità residua di ogni arco su $P$, rispetto al flusso $f$. Definiamo ora la seguente operazione `augment(f , P)`, che produce un nuovo flusso $f'$ in $G$.
 
-Invece di un arco $(u,v)$ su cui segno flow/capacity, ho due archi
-
-1. $e=(u,v)$ dove segno $c(e) - f(e)$
-2. $e^{reverse} = (v,u)$ dove segno $f(e)$
-
-### Capacità residua:
-
-```math
-c_f(e) = 
-\begin{cases}
-c(e) - f(e) & \mbox{if } e \in E \\
-f(e) & \mbox{if } e^{reverse} \in E
-\end{cases}
-```
-
-### Residual Network:
-
-$G_f = (V, E_f, s, t, c_f)$
-
-- $E_f = \{ e: f(e) \lt c(e) \} \cup \{ e^{reverse}: f(e) \gt 0 \}$
-- key property: $f'$ è un flow in $G_f \iff f+f'$ è un flow in $G$
-
-**Augmenting Path:** un path da $s$ a $t$ nel resiudal network $G_f$.
-
-**Bottleneck Capacity** di un augmenting path: minima capacità residua degli archi nel path.
-
+#### `augment(f , P)`
 ```pseudocode
-AUGMENT(f, c, P) {
-  δ ← bottleneck capacity of augmenting path P.
-  forEach edge e ∈ P :
-  	if (e ∈ E) 
-  		f(e) ← f(e) + δ.
-  	else 
-  		f(e_reverse) ← f(e_reverse) – δ.
-  return f.
-}
+Let b = bottleneck(P, f)
+
+For each edge (u, v) ∈ P
+  If e = (u, v) is a forward edge then
+    increase f (e) in G by b
+  Else ((u, v) is a backward edge, and let e = (v, u))
+    decrease f (e) in G by b
+  Endif
+Endfor
+
+Return(f)
 ```
 
-f = flow. P = augmenting path.
+Proprio per poter eseguire questa operazione abbiamo deﬁnito il grafo residuale; per riflettere l'importanza dell'**augment** (aumento), ci si riferisce spesso a qualsiasi cammino $s-t$ nel grafo residuale come ***augmenting path***.
+Il risultato di `augment(f , P)` è un nuovo flusso $f'$ in $G$, ottenuto aumentando e diminuendo i valori di flusso sugli archi di $P$.
 
-$f' = AUGMENT(f,c,P)$ è un flow e $val(f') = val(f) + bottleneck(G_f, P)$
+Questa operazione di **augmentation** cattura il tipo di spinta avanti e indietro (forward and backward) del flusso che abbiamo discusso in precedenza. Consideriamo ora il seguente algoritmo per calcolare un flusso $s-t$ in $G$.
 
-quindi risco a trovare un flow con valore maggiore di quello precedente.
+#### `Max-Flow(G)`
+```
+Initially f(e) = 0 for all e in G
 
-```pseudocode
-FORD–FULKERSON(G) {
-  forEach edge e ∈ E: 
-  	f(e) ← 0
-  Gf ← residual network of G with respect to flow f.
-  while(there exists an s↝t path P in Gf )
-  	f ← AUGMENT(f, c, P)
-  	Update Gf
-  return f
-}
+While there is an s-t path in the residual graph Gf
+  Let P be a simple s-t path in Gf
+  f' = augment(f , P)
+  Update f to be f'
+  Update the residual graph Gf to be Gf'
+Endwhile
+
+Return f
 ```
 
-L'algoritmo continua a chiamare AUGMENT sugli augmenting path finchè può.
+Lo chiameremo Algoritmo di **Ford-Fulkerson**, dal nome dei due ricercatori che lo svilupparono nel 1956. Vedere la Figura seguente per un'esecuzione dell'algoritmo. 
 
+<img src="./imgs/flow3.png" width="70%"/>
+
+
+L'algoritmo Ford-Fulkerson è davvero molto semplice. Ciò che non è affatto chiaro è se il suo ciclo `While` centrale termini e se il flusso restituito sia un flusso massimo. Le risposte a entrambe queste domande si rivelano abbastanza sottili.
+
+### Analyzing the Algorithm: Termination and Running Time
+Per prima cosa consideriamo alcune proprietà che l'algoritmo mantiene per induzione sul numero di iterazioni del ciclo `While`, basandoci sulla nostra ipotesi che tutte le *capacità* siano numeri interi.
+
+> Ad ogni stadio intermedio dell'algoritmo di Ford-Fulkerson, i valori di flusso $f(e)$ e le capacità residue in $G_f$ sono interi.
+
+Possiamo usare questa proprietà per dimostrare che l'algoritmo di Ford-Fulkerson termina. Per prima cosa mostriamo che il valore del flusso aumenta strettamente quando applichiamo *augmentation*
+
+##### (7.3)
+> Sia $f$ un flusso in $G$, e sia $P$ un semplice cammino $s-t$ in $G_f$ . Allora $v(f') = v(f)$ + `bottleneck(P, f)`; e poiché `bottleneck(P, f)` > 0, abbiamo $v(f') > v(f)$.
+
+Abbiamo bisogno di un'altra osservazione per dimostrare la terminazione. Dobbiamo essere in grado di limitare il massimo valore di flusso possibile. Ecco un upper bound: 
+> se tutti gli archi al di fuori di $s$ potessero essere completamente saturati dal flusso, il valore del flusso sarebbe $\sum_{e \text{ out of }s} c_e$. Sia $C$ questa somma. Quindi abbiamo $v(f) \le C$ per tutti i flussi $s-t$ $f$ 
+
+**N.B.** $C$ può essere un'enorme sovrastima del valore massimo di un flusso in $G$, ma è utile per noi come limite finito. 
+
+Usando l'affermazione (7.3), ora possiamo dimostrare la terminazione:
+> Supponiamo, come sopra, che tutte le capacità nella rete di flusso $G$ siano numeri interi. Quindi l'algoritmo di Ford-Fulkerson termina al massimo in $C$ iterazioni del ciclo `While`.
+
+#### **Costo:**
+Successivamente consideriamo il tempo di esecuzione dell'algoritmo Ford-Fulkerson. Sia $n$ il numero di nodi in $G$, ed $m$ il numero di archi in $G$. Abbiamo supposto che tutti i nodi abbiano almeno un arco incidente, quindi $m \ge n/2$, e quindi possiamo usare $O(m + n ) = O(m)$ per semplificare i limiti.
+
+> Supponiamo, come sopra, che tutte le capacità nella rete di flusso $G$ siano numeri interi. Quindi l'algoritmo Ford-Fulkerson può essere implementato per funzionare in tempo $O(mC)$.
+
+Una versione un po' più efficiente dell'algoritmo manterrebbe le linked lists di archi nel grafo residuo $G_f$ come parte della procedura di augmentation per il flusso $f$.
+
+---
+---
 ---
 
 # Max-Flow Min-Cut Theorem
