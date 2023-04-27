@@ -474,31 +474,31 @@ grigio a queste nuove locazioni.
 \begin{itemize}
     \item \textbf{Nearest Neighbor:} assegna ad ogni nuova locazione l'intensità del pixel piu' vicino dell'immagine originale
 
-    \item \textbf{Interpolazione bilineare:} prevede l’utilizzo dei quattro pixel piu' vicini per stimare l’intensita' da assegnare ad ogni nuova
+    \item \textbf{Interpolazione bilineare:} prevede l'utilizzo dei quattro pixel piu' vicini per stimare l'intensita' da assegnare ad ogni nuova
           locazione
 
           \begin{figure}[H]
               \centering
-              \includegraphics[width=12cm, keepaspectratio]{capitoli/immagini/imgs/esempio-interpolazione.png}
+              \includegraphics[width=3cm, keepaspectratio]{capitoli/immagini/imgs/esempio-interpolazione.png}
           \end{figure}
 
           \begin{center}
               $f(x,y)=ax+by+cxy+d$
           \end{center}
 
-    \item \textbf{Interpolazione bicubica:} prevede l’utilizzo dei sedici pixel piu' vicini per stimare l’intensit`a
+    \item \textbf{Interpolazione bicubica:} prevede l'utilizzo dei sedici pixel piu' vicini per stimare l'intensit`a
           da assegnare ad ogni nuova locazione.
 
           \begin{figure}[H]
               \centering
-              \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/interpolazione-bicubica.png}
+              \includegraphics[width=3cm, keepaspectratio]{capitoli/immagini/imgs/interpolazione-bicubica.png}
           \end{figure}
 
 \end{itemize}
 
 
 \subsection{SHRINK}
-Lo sttesso procedimento dello zoom, con una griglia immaginaria di dimensioni inferiori all’originale.
+Lo sttesso procedimento dello zoom, con una griglia immaginaria di dimensioni inferiori all'originale.
 Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di righe e colonne.
 
 \subsubsection{Relazioni di base fra i pixel}
@@ -508,27 +508,33 @@ Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di 
     \item \textbf{Intorni}
 
           Un pixel $p$ di coordinate $(x,y)$ ha quattro \textbf{neighbors} (vicini) orizzontali e verticali:
+
           \begin{center}
               $(x+1, y), (x-1, y), (x, y-1), (x, y+1)$
           \end{center}
+
           Questi punti formano il \textbf{4-intorno (4-neighboor)} di $(x,y)$ $N_4(p)$
           \\I quattro \textbf{neighbors (vicini) diagonali} di $p$ $(N_D(p))$ hanno invece coordinate
+
           \begin{center}
               $(x+1, y+1), (x+1,y-1), (x-1, y+1), (x-1, y-1)$
           \end{center}
-          I vicini diagonali, insieme a quelli orizzontali e verticali, formano l’\textbf{8-intorno (8-neighbor)} di $(x,y)$ $N_8(p)$
+
+          I vicini diagonali, insieme a quelli orizzontali e verticali, formano l'\textbf{8-intorno (8-neighbor)} di $(x,y)$ $N_8(p)$
 
     \item \textbf{Connettivita', adiacenza}
-          Due pixel sono connessi se sono vicini e presentano livelli di intensita' con una certa relazione (ad esempio hanno lo stesso livello di grigio).
-          Fissato un insieme V di valori di intensita', due pixel $p$ e $q$ si dicono
+
+          Due pixel sono connessi se sono vicini e presentano livelli di intensità con una certa relazione (ad esempio hanno lo stesso livello di grigio).
+          Fissato un insieme V di valori di intensità, due pixel $p$ e $q$ si dicono
 
           \begin{itemize}
               \item \textbf{4-adiacenti} se i valori di entrambi appartengono a $V$ e $q \in N_4(p)$
               \item \textbf{8-adiacenti} se i valori di entrambi appartengono a $V$ e $q \in N_8(p)$
-              \item \textbf{m-adiacenti} (adiacenza mista) se i valori di entrambi appartengono a $V$ e $q \in N_4(p)$ oppure $q \in N_D(p)$ e l’insieme $N_4(p) \cap N_4(q)$ non contiene pixel a valori in V.
+              \item \textbf{m-adiacenti} (adiacenza mista) se i valori di entrambi appartengono a $V$ e $q \in N_4(p)$ oppure $q \in N_D(p)$ e l'insieme $N_4(p) \cap N_4(q)$ non contiene pixel a valori in V.
           \end{itemize}
 
     \item \textbf{Cammini}
+
           Un \textbf{cammino (path) digitale} dal pixel $p = (x,y)$ al pixel $q = (x', y')$ e' una sequenza di pixel
 
           \begin{center}
@@ -536,15 +542,15 @@ Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di 
           \end{center}
 
           dove $(x_0, y_0) = (x,y)$, $(x_n, y_n) = (x', y')$ e i pixel $(x_i, y_i)$, $(x_{i+1}, y_{i+1})$ sono adiacenti per ogni $i=0, ... , n-1$
-          n e' la \textbf{lunghezza del cammino}. $Se (x_0, y_0) = (x_n, y_n)$ si parla di \textbf{cammino chiuso}. Si puo' definire in particolare un $4-, 8-, o m-cammino$ restringendo l’adiacenza alla corrispondente tipologia.
+          n è la \textbf{lunghezza del cammino}. $Se (x_0, y_0) = (x_n, y_n)$ si parla di \textbf{cammino chiuso}. Si puo' definire in particolare un $4-, 8-, o m-cammino$ restringendo l'adiacenza alla corrispondente tipologia.
 
     \item \textbf{Cammini, regioni}
 
           Fissato un sottoinsieme $S$ di pixel di un'immagine digitale, due pixel p e q si dicono \textbf{connessi} se esiste un cammino tra $p$ e $q$ che consiste di pixel tutti contenuti in $S$.
-          Se tutti i pixel di $S$ sono connessi, $S$ si dice un insieme connesso: in tal caso diciamo che $S$ e' una regione dell'immagine.
-          Il \textbf{bordo (boundary, border, contour)} di una regione $R$ e' l’insieme dei pixel di $R$ che hanno uno o piu' vicini che non appartengono ad R.
-          Nel caso in cui $R$ sia l’intera immagine, il bordo si definisce come la prima e l’ultima riga e la prima e l’ultima colonna.
-          \\Se l’immagine contiene $k$ regioni distinte $R_1,..., R_k$, nessuna delle quali tocca i bordi dell'immagine, allora l’unione
+          \\Se tutti i pixel di $S$ sono connessi, $S$ si dice un insieme connesso: in tal caso diciamo che $S$ è una regione dell'immagine.
+          Il \textbf{bordo (boundary, border, contour)} di una regione $R$ è l'insieme dei pixel di $R$ che hanno uno o più vicini che non appartengono ad R.
+          Nel caso in cui $R$ sia l'intera immagine, il bordo si definisce come la prima e l'ultima riga e la prima e l'ultima colonna.
+          \\Se l'immagine contiene $k$ regioni distinte $R_1,..., R_k$, nessuna delle quali tocca i bordi dell'immagine, allora l'unione
           $R = \cup_{i=1}^n R_i$ si dice \textbf{primo piano (foreground)}, mentre il complementare $R^c$ viene detto \textbf{sfondo(background)}
           viene detto \textbf{sfondo (background)}.
 \end{itemize}
@@ -854,8 +860,10 @@ Un esempio di questo processo è \textbf{l'analisi dell'istogramma}.
 
 \section{L'istogramma dei toni di grigio}
 
-\textbf{L'istogramma dei toni di grigio} (istogramma) si ottiene contando, per ogni valore del codominio dell'immagine (spazio di tutti i valori
-che possono essere assunti dai pixel), il numero di volte che tale valore compare nell'immagine.
+\begin{definition}
+    si ottiene contando, per ogni valore del codominio dell'immagine (spazio di tutti i valori
+    che possono essere assunti dai pixel), il numero di volte che tale valore compare nell'immagine.
+\end{definition}
 Il grafico che si ricava è un istogramma, cioè un grafico a barre dove l'asse delle ascisse è suddiviso in tanti punti quanti sono i
 possibili toni di grigio dell'immagine.
 
@@ -916,7 +924,7 @@ della qualità dell'immagine.
 \subsection{Interventi sull'istogramma}
 Qualora le caratteristiche della distribuzione dei toni di grigio nell'immagine non siano ottimali, è consigliabile applicare
 all'istogramma opportune trasformazioni, basate su sistemi stocastici.
-Tra queste:
+\\Tra queste:
 
 \begin{itemize}
     \item \textbf{Equalizzazione dell'istogramma}
@@ -925,17 +933,20 @@ Tra queste:
 \end{itemize}
 
 \subsubsection{Equalizzazione sull'istogramma}
-
-\textbf{L'equalizzazione dell'istogramma} ha lo scopo di uniformare l'istogramma dell'immagine lungo tutto il suo dominio. Il risultato
-è un nuovo istogramma in cui il numero di pixel ad ogni tono di grigio è il più possibile costante.
-\\\textbf{Algoritmo:}
+\begin{definition}
+    Ha lo scopo di uniformare l'istogramma dell'immagine lungo tutto il suo dominio.
+\end{definition}
+Il risultato è un nuovo istogramma in cui il numero di pixel ad ogni tono di grigio è il più possibile costante.
+\\\\
+\textbf{Algoritmo:}
 
 \begin{center}
     $T(r_k) = (L-1)\sum_{j=0}^{k}p(r_j)=\frac{L-1}{n} \sum_{j=0}^{k}n_j = \frac{L-1}{MN}\sum_{j=0}^{k}n_j$
 \end{center}
 
 $k=0,...,L-1$.
-\\\textbf{Il risultato} è l'aumento del contrasto.
+\\\\
+\textbf{Il risultato} è l'aumento del contrasto.
 
 \subsubsection{Risultato equalizzazione dell'istogramma}
 
@@ -944,15 +955,19 @@ $k=0,...,L-1$.
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/eq-istogramma.png}
 \end{figure}
 
-\subsubsection{Equalizzazione sull'istogramma}
+\subsubsection{Shift istogramma}
 
-\textbf{Shift dell'istogramma:} consiste nel traslare i valori dell'istogramma.
-\\\textbf{Algoritmo:}
+\begin{definition}
+    consiste nel traslare i valori dell’istogramma.
+\end{definition}
+\textbf{Algoritmo:}
+
 \begin{center}
-    $T(r) = \alpha r, 0 < \alpha < 1$
+    $T(r) = \alpha r$  $ \ \ \ \  0 < \alpha < 1$
     \\
-    $T(r) = \alpha r + (L-1)(1-\alpha), 0<\alpha<1$
+    $T(r) = \alpha r + (L-1)(1-\alpha)$ $\ \ \ \ 0<\alpha<1$
 \end{center}
+
 Il $risultato$ è un immagine più scura o schiarita.
 
 \subsubsection{Risultato shift dell'istogramma}
@@ -964,9 +979,13 @@ Il $risultato$ è un immagine più scura o schiarita.
 
 \subsubsection{Stretching dell'istogramma}
 
-si usa quando l'istogramma presenta dei picchi abbastanza ravvicinati, provocando un'immagine
-piuttosto uniforme. Consiste in uno $stiramento$ dell'istogramma, in modo da distanziarne i picchi.
-\\\textbf{Algoritmo:}
+\begin{definition}
+    Consiste in uno $stiramento$ dell'istogramma, in modo da distanziarne i picchi.
+\end{definition}
+Si usa quando l'istogramma presenta dei picchi abbastanza ravvicinati, provocando un'immagine
+piuttosto uniforme.
+\\\\
+\textbf{Algoritmo:}
 \begin{center}
     $$
         T(r) = \left\{ \begin{array}{cl}
@@ -989,8 +1008,9 @@ l'immagine.
 
 \section{Il rumore}
 
-Per \textbf{rumore} si intende l'insieme dei segnali indesiderati che si sovrappongono al segnale utile oggetto di studio (ad esempio un'immagine) causandone una degenerazione.
-\\
+\begin{definition}
+    si intende l'insieme dei segnali indesiderati che si sovrappongono al segnale utile oggetto di studio (ad esempio un'immagine) causandone una degenerazione.
+\end{definition}
 Si possono avere diverse forme di degrado tra cui, ad esempio:
 \begin{itemize}
     \item \textbf{Il rumore di quantizzazione}
@@ -1007,20 +1027,24 @@ In base alle sue cause, il rumore si distingue tra:
 
 \begin{trivlist}
     \item \textbf{Rumore indipendete dal segnale:} (caso più comune) la funzione che descrive il segnale corrotto è:
+
     \begin{center}
         $f(x,y) = g(x,y)+v(x,y)$
     \end{center}
+
     dove $g(x,y)$ è il segnale e $v(x,y)$ è il rumore $\rightarrow$ \textbf{additivo}
+
     \item \textbf{Rumore dipendente dal segnale:} l'intensità del rumore dipende dal
     segnale. Supponendo anche che esso sia molto più grande del segnale, la funzione è
+
     \begin{center}
         $f(x,y)=g(x,y)+v(x,y)g(x,y)=g(x,y)(1+v(x,y)) \approx g(x,y)v(x,y)$
     \end{center}
-    $\rightarrow$ \textbf{moltiplicativo}
+
+    dove $g(x,y)$ è il segnale e $v(x,y)$ è il rumore $\rightarrow$ \textbf{moltiplicativo}
 \end{trivlist}
 
-Essendo di natura intrinsecamente stocastica, il rumore viene in
-genere analizzato usando la teoria dei processi stocastici ed è
+Essendo di natura intrinsecamente stocastica, il rumore viene in genere analizzato usando la teoria dei processi stocastici ed è
 caratterizzato in base alla:
 
 \begin{itemize}
@@ -1034,7 +1058,7 @@ caratterizzato in base alla:
 
 Per poter caratterizzare e studiare il rumore in un'immagine si fanno in genere delle ipotesi semplificative, in modo che il rumore abbia una qualche distribuzione di probabilità: si costruisce in
 questo modo un modello del rumore.
-Una modellizazione tipica prevede che:
+\\Una modellizazione tipica prevede che:
 
 \begin{itemize}
     \item \textbf{lo spettro abbia distribuzione uniforme (rumore bianco)}
@@ -1082,10 +1106,8 @@ Ovviamente il rumore impulsivo, pur essendo additivo, \textbf{non è
 \end{figure}
 
 \subsubsection{Altre modellizzazioni del rumore: il rumore di Rayleigh}
-\textbf{Il rumore di Rayleigh} ha la seguente distribuzione:
-
+Distribuzione del \textbf{rumore di Rayleigh}
 %Inserire foto funzione
-
 \begin{center}
     $$
         p(r) = \left\{ \begin{array}{cl}
@@ -1116,7 +1138,7 @@ fenomeni di rumori tipici di alcuni sensori di range.
 
 \subsubsection{Altre modellizzazioni del rumore: il rumore Gamma}
 
-Il \textbf{rumore gamma} ha la seguente distribuzione:
+Distribuzione del \textbf{rumore gamma}:
 
 \begin{center}
     $$
@@ -1137,7 +1159,7 @@ Questo rumore è presente nelle immagini laser.
 
 \subsubsection{Altre modellizzazioni del rumore: il rumore Esponenziale}
 
-Il \textbf{rumore Esponenziale} ha la seguente distribuzione:
+Distribuzione del \textbf{rumore Esponenziale}:
 
 \begin{center}
     $$
@@ -1181,7 +1203,9 @@ variare di tutti i pixel $(x, y)$ dell'immagine.
 
 \section{Filtri}
 
-Il rumore può essere corretto applicando opportune trasformazioni ai pixel dell'immagine, dette filtri.
+\begin{definition}
+    l rumore può essere corretto applicando opportune trasformazioni ai pixel dell'immagine, dette filtri.
+\end{definition}
 Per ogni tipo di rumore esiste un filtraggio differente, che risulterà il più adatto ad attenuare o eliminare quel particolare rumore.
 In genere, la scelta del filtro dipende dalla linearità o meno della relazione fra l'immagine corrotta e quella originale.
 E' possibile combinare più filtri, in modo da avere effetti più complessi.
@@ -1195,14 +1219,14 @@ Un filtro spaziale è caratterizzato da:
     \item Un'operazione predefinita che viene applicata ai pixel nell'intorno
 \end{itemize}
 se l'operazione è lineare si parla di \textbf{filtro lineare}.
-\\
+\\\\
 L'intensità dell'immagine filtrata nel pixel (x,y) sarà:
 \begin{center}
     $g(x,y) = \sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x+s,y+t)$,
 \end{center}
-$x=0,..,M-1$, $y=0,...,N-1$ (\textbf{correlazione di f e w}), dove i valri $w$ sono i \textbf{coefficienti della maschera}
+$x=0,..,M-1$, $y=0,...,N-1$ (\textbf{correlazione di f e w}), dove i valori $w$ sono i \textbf{coefficienti della maschera}
 avente dimensione $m x n$, con $m = 2a+1$ e $n = 2b+1$
-\\
+\\\\
 Ad esempio, se la maschera ha dimensione 3 x 3, l'intensità dell'immagine filtrata nel pixel ($x,y$) sarà:
 \begin{itemize}
     \item $g(x,y)=w(-1,-1)f(x-1,y-1)+w(-1,0)f(x-1,y)+...+w(0,0)f(x,y)+...+w(1,1)f(x+1,y+1)$
@@ -1210,8 +1234,8 @@ Ad esempio, se la maschera ha dimensione 3 x 3, l'intensità dell'immagine filtr
 
 \subsection{Filtri lineari}
 
-i filtri maggiormente utilizzati per la rimozione del rumore sono i cosidetti \textbf{filtri di smoothing}, i quali eliminano picchi e increspature (passa-basso)
-\\
+I filtri maggiormente utilizzati per la rimozione del rumore sono i cosidetti \textbf{filtri di smoothing}, i quali eliminano picchi e increspature (passa-basso)
+\\\\
 \textbf{Esempio}
 
 \begin{itemize}
@@ -1242,10 +1266,12 @@ i filtri maggiormente utilizzati per la rimozione del rumore sono i cosidetti \t
     \centering
     \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/filtro-gaussiano.png}
 \end{figure}
+
 \textbf{Esempio}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/filtri-l-esempio.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/filtri-l-esempio.png}
 \end{figure}
 
 \begin{enumerate}
@@ -1254,7 +1280,7 @@ i filtri maggiormente utilizzati per la rimozione del rumore sono i cosidetti \t
           dimensione 3, 5, 9, 15, 35.
 \end{enumerate}
 \textbf{Esempio}
-\\
+\\\\
 Esempio di applicazione del filtro medio
 \begin{figure}[H]
     \centering
@@ -1268,7 +1294,7 @@ Esempio di applicazione del filtro medio
 \end{enumerate}
 I rumori non lineari (ad esempio quello impulsivo) non possono essere corretti con i filtri lineari.
 Possono essere trattati invece efficacemente con \textbf{filtri non lineari}
-\\
+\\\\
 \textbf{Esempio:}
 \begin{trivlist}
     \item \textbf{Filtro mediano:}  sostituisce al valore di ogni pixel prefissato la
