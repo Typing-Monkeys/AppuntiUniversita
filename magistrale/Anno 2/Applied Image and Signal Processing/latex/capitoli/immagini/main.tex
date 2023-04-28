@@ -1225,7 +1225,7 @@ L'intensità dell'immagine filtrata nel pixel (x,y) sarà:
     $g(x,y) = \sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x+s,y+t)$,
 \end{center}
 $x=0,..,M-1$, $y=0,...,N-1$ (\textbf{correlazione di f e w}), dove i valori $w$ sono i \textbf{coefficienti della maschera}
-avente dimensione $m x n$, con $m = 2a+1$ e $n = 2b+1$
+avente dimensione $m$ x $n$, con $m = 2a+1$ e $n = 2b+1$
 \\\\
 Ad esempio, se la maschera ha dimensione 3 x 3, l'intensità dell'immagine filtrata nel pixel ($x,y$) sarà:
 \begin{itemize}
@@ -1309,26 +1309,29 @@ vede dall'esempio seguente, non risulta invece particolarmente efficace.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-filtro-medio.png}
+    \caption*{Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e immagine filtrata con \textbf{filtro medio}}
 \end{figure}
-Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e
-immagine filtrata con \textbf{filtro medio}
 
 \subsubsection{Esempio: Filtro medinao}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-filtro-mediano.png}
+    \caption*{Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e immagine filtrata con \textbf{filtro mediano}}
 \end{figure}
-Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e
-immagine filtrata con \textbf{filtro mediano}
 
+\newpage
 \subsubsection{Esempio: Filtro medio}
+
 Il \textbf{filtro medio} è invece molto utilizzato ad esempio per correggere il
 \textbf{rumore gaussiano.}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/filtro-medio-esempio2.png}
+    \caption*{Immagine originale, immagine corrotta da rumore gaussiano e immagine filtrata con filtro medio}
 \end{figure}
-Immagine originale, immagine corrotta da rumore gaussiano e immagine filtrata con filtro medio
+
 
 \subsection{Altri filtri (non lineari) basati sulle statistiche d'ordine}
 \begin{itemize}
@@ -1339,39 +1342,45 @@ Immagine originale, immagine corrotta da rumore gaussiano e immagine filtrata co
 \end{itemize}
 
 \subsubsection{Filtro di massimo}
-Sia $S_p$ una maschera di dimensioni $m × n$, dove $p = (x,y)$ è il pixel centrale della maschera.
+
+Sia $S_p$ una maschera di dimensioni $m $ x $n$, dove $p = (x,y)$ è il pixel centrale della maschera.
 Il filtro di massimo sostituisce a p il massimo dei valori dei pixel in $S_p$, cioè
 
 \begin{center}
     $g_{max}(x,y)=max f(x,y)$ dove $(x,y) \in S_p$
 \end{center}
 
-Questo filtro è utile per diminuire il rumore di tipo "pepper".
+Questo filtro è utile per \textbf{diminuire il rumore di tipo "pepper"}.
 
 \subsubsection{Filtro di minimo}
+
 Il \textbf{filtro di minimo} sostituisce a $p$ il minimo dei valori dei pixel in $S_p$ cioè:
 
 \begin{center}
     $g_{min}(x,y) = min f(x,y)$ dove $(x,y) \in S_p$
 \end{center}
 
-Questo filtro è utile per diminuire il rumore di tipo "salt"
+Questo filtro è utile \textbf{per diminuire il rumore di tipo "salt"}
 
 \subsubsection{Filtro medio alpha-trimmed}
+
 Fissato un valore $0 <= d <= mn − 1$, supponiamo di cancellare in $S_p$ i $d/2$ valori più chiari e i $d/2$ valori più scuri; delle
 restanti intensità ne calcoliamo la media aritmetica, cioè:
 
 \begin{center}
     $g(x,y) = \frac{1}{mn-d}$ $\sum_{(x,y) \in \bar{S_p}}^{max} f(x,y)$
 \end{center}
+
 dove $\bar{S_p}$ è l'insieme dei pixel $S_p$ rimanenti.
-Questo filtro risulta utile in situazioni in cui si sovrappongono diversi tipi di rumore, ad esempio nel caso di una combinazione tra
+Questo filtro risulta utile in situazioni in cui \textbf{si sovrappongono diversi tipi di rumore}, ad esempio nel caso di una combinazione tra
 rumore salt an pepper e rumore gaussiano.
 
 \section{Filtri di sharpering}
-L'obiettivo di questi filtri è quello di marcare i bordi (edge detection), attribuendo meno importanza alle aree che hanno variazione lenta a livello di intensità.
+
+L'obiettivo di questi filtri è quello di \textbf{marcare i bordi (edge detection)}, attribuendo meno importanza alle aree che hanno variazione lenta a livello di intensità.
 Si basano sull'operatore di derivazione ed hanno l'effetto di evidenziare soltanto i bordi dell'immagine. In forma discreta, se f rappresenta l'intensità associata a ogni pixel
 $(x,y)$, le derivate possono essere espresse come differenze finite:
+
 \begin{center}
     $\frac{\partial{f}}{\partial{x}}(x,y) \sim f(x+1, y) − f(x, y)$, $\frac{\partial{f}}{\partial{y}} \sim f(x,y+1) − f(x,y)$
     \\
@@ -1379,28 +1388,34 @@ $(x,y)$, le derivate possono essere espresse come differenze finite:
     \\
     $\frac{\partial{f^2}}{\partial{y^2}}(x,y) \sim f(x,y+1) + f(x, y-1) - 2f(x,y)$
 \end{center}
-Il filtro di sharpening ha l'effetto di evidenziare soltanto i bordi dell'immagine.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sharpening.png}
+    \caption*{Il filtro di sharpening ha l'effetto di evidenziare soltanto i bordi dell'immagine.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sharpening2.png}
+    \includegraphics[width=11cm, keepaspectratio]{capitoli/immagini/imgs/sharpering2.png}
 \end{figure}
 
 \subsubsection{Filtro del Gradiente}
+
 Operatore Gradiente:
+
 \begin{center}
     $\nabla f=(\frac{\partial{f}}{\partial{x}}, \frac{\partial{f}}{\partial{y}})$,
 \end{center}
+
 Una comune implementazione della derivata prima nell'ambito dell'image processing è costituita dal modulo del gradiente
+
 \begin{center}
     $| \nabla f(x,y) |$ $\sim$ $|\frac{\partial{f}}{\partial{x}}|$ $+$ $|\frac{\partial{f}}{\partial{y}}|$
 \end{center}
+
 Maschere:
+
 \begin{center}
     \[
         \begin{bmatrix}
@@ -1415,7 +1430,9 @@ Maschere:
         \end{bmatrix}
     \]
 \end{center}
+
 \textbf{Esempio}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/gradiente.png}
@@ -1428,7 +1445,7 @@ $\nabla f(x,y) \sim \frac{\partial{f}}{\partial{x}} + \frac{\partial{f}}{\partia
     \\$ - |[f(x-1, y-1)+2f(x-1,y) + f(x-1, y+1)]|+$
 \\$ + |[f(x-1, y+1) + 2f(x,y+1)+f(x+1,y+1)]+$
     \\$ - [f(x-1,y -1) + 2f(x,y-1) + f(x+1,y-1)]|$
-\\Maschere:
+\\\\Maschere:
 
 \begin{center}
     \[
@@ -1444,14 +1461,18 @@ $\nabla f(x,y) \sim \frac{\partial{f}}{\partial{x}} + \frac{\partial{f}}{\partia
         \end{bmatrix}
     \]
 \end{center}
+
 che sono detti \textbf{operatori di Sobel.}
-\\\textbf{Esempio}
+\\\\
+\textbf{Esempio}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sobel.png}
     \caption*{Immagine originale e immagine filtrata tramite il gradiente di Sobel.}
 \end{figure}
 
+\newpage
 \subsubsection{Filtro di Prewitt}
 Analogo a quello di Sobel eccetto per le maschere di convoluzione
 che in questo caso sono:
@@ -1469,21 +1490,29 @@ che in questo caso sono:
         \end{bmatrix}
     \]
 \end{center}
+
 \textbf{Esempio}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/prewitt.png}
     \caption*{Immagine originale e immagine filtrata tramite il gradiente
         di Prewitt.}
 \end{figure}
+
+\newpage
 \subsubsection{Filtro di Roberts}
 Si ottiene mediante la seguente approssimazione del gradiente:
+
 \begin{center}
     $|\nabla f(x,y)| \sim |\frac{\partial{f}}{\partial{x}}| + \frac{\partial{f}}{\partial{y}}$
     \\ $\sim |f(x,y) - f(x+1, y+1)| + |f(x+1, y) - f(x,y+1)|$
 \end{center}
+
 Calcola il gradiente lungo le direzioni diagonali.
-\\Maschere:
+\\\\
+Maschere:
+
 \begin{center}
     \[
         \begin{bmatrix}
@@ -1498,14 +1527,19 @@ Calcola il gradiente lungo le direzioni diagonali.
         \end{bmatrix}
     \]
 \end{center}
+
 \textbf{Esempio}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/roberts.png}
 \end{figure}
 
+\newpage
 \subsubsection{Filtro Laplaciano}
+
 Operatore Laplaciano:
+
 \begin{center}
     $\nabla^2 f = \frac{\partial^2{f}}{\partial{x^2}} + \frac{\partial^2{f}}{\partial{y^2}}$
     \\$\sim f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)$
@@ -1520,7 +1554,9 @@ Maschera:
         \end{bmatrix}
     \]
 \end{center}
+
 oppure, tenendo conto delle direzioni diagonali:
+
 \begin{center}
     \[
         \begin{bmatrix}
@@ -1530,7 +1566,9 @@ oppure, tenendo conto delle direzioni diagonali:
         \end{bmatrix}
     \]
 \end{center}
+
 \textbf{Esempio}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/laplaciano.png}
@@ -1539,14 +1577,17 @@ oppure, tenendo conto delle direzioni diagonali:
 \end{figure}
 
 \subsection{Filtro Differenziale}
+
 Sfruttare la proprietà di attraversamento dello zero della derivata seconda nelle varie direzioni, coordinate e diagonali, che ha come effetto quello di evidenziare direzionalmente i bordi di un'immagine lungo di esse.
-Dalle approssimazioni:
+\\Dalle approssimazioni:
+
 \begin{center}
     $\frac{\partial^2{f}}{\partial{x}^2}(x,y) \sim f(x+1,y)+f(x-1,y)-2f(x,y),$
     \\$\frac{\partial^2{f}}{\partial{y}^2}(x,y) \sim f(x,y+1)+f(x,y-1)-2f(x,y)$
 \end{center}
+
 $\frac{\partial^2{f}}{\partial{x,y}}(x,y) \sim \frac{1}{4}[f(x-1,y-1)-f(x-1,y+1)-f(x+1,y-1)+f(x+1, y+1)]$
-\\Si ottengono le maschere:
+\\\\Si ottengono le maschere:
 \begin{center}
     \[
         \begin{bmatrix}
@@ -1566,6 +1607,7 @@ $\frac{\partial^2{f}}{\partial{x,y}}(x,y) \sim \frac{1}{4}[f(x-1,y-1)-f(x-1,y+1)
         \end{bmatrix}
     \]
 \end{center}
+
 \textbf{Esempio di Applicazione: Digital Composting}
 \begin{figure}[H]
     \centering
@@ -1573,13 +1615,16 @@ $\frac{\partial^2{f}}{\partial{x,y}}(x,y) \sim \frac{1}{4}[f(x-1,y-1)-f(x-1,y+1)
 \end{figure}
 
 \section{Operazioni aritmetiche e Image Enhancement}
+
 Date due immagini digitali $f(x,y)$ e $g(x,y)$ della stessa dimensione, si possono definire le seguenti operazioni:
+
 \begin{center}
     $s(x,y) = f(x,y) + g(x,y),$
     \\$t(x,y) = f(x,y)-g(x,y),$
         \\$p(x,y)=f(x,y)·g(x,y),$
 \end{center}
 $d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).$
+
 \begin{itemize}
     \item \textbf{Sommatoria di immagini}
 
@@ -1595,6 +1640,7 @@ $d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).$
           allora sotto opportune ipotesi, risultata:
           \\$E[\bar{g}(x,y)] = f(x,y)$ e $\sigma^2_{\bar{g}(x,y)}=\frac{1}{K}\sigma^2_{\eta(x,y)}$
 \end{itemize}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sommatoria-immagini.png}
@@ -1610,12 +1656,13 @@ $d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).$
           \end{center}
           Si utilizza, ad esempio, quando si vogliono evidenziare le differenze fra due immagini,
           dove $h(x,y)$, detta maschera, è un'immagine della regione di interesse.
-          \\ \textbf{Esempio:}
-          \\ \textbf{Digital Subtraction Angiography (DSA)}
+          \\\\ \textbf{Esempio:}
+          \\\\ \textbf{Digital Subtraction Angiography (DSA)}
 \end{itemize}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sottrazione.png}
+    \includegraphics[width=9cm, keepaspectratio]{capitoli/immagini/imgs/sottrazione.png}
 \end{figure}
 
 
@@ -1630,6 +1677,7 @@ $d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).$
               \item Selezione di una ROI
           \end{itemize}
 \end{itemize}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/moltiplicazione.png}
@@ -1641,6 +1689,7 @@ E' il processo con il quale si classificano i pixel dell'immagine che hanno cara
 è simile agli altri della stessa regione per una qualche proprietà o
 caratteristica (colore, intensità o texture).
 \\Matematicamente, il processo di segmentazione di un'immagine $f(x,y)$ in regioni $R_1,...,R_n$ deve soddisfare le seguenti condizioni (Zhang, 2006):
+
 \begin{itemize}
     \item $\cup^n_{i=1}$ $R_i = f(x,y)$
     \item Ogni regione $R_i$ con $i=1,...,n$ è connessa;
@@ -1654,21 +1703,28 @@ caratteristica (colore, intensità o texture).
           \end{itemize}
           La segmentazione dell'immagine ha molte applicazioni...
 \end{itemize}
+
 \textbf{Biologia}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/biologia.png}
+    \includegraphics[width=9cm, keepaspectratio]{capitoli/immagini/imgs/biologia.png}
 \end{figure}
+
 \textbf{Segmentazione}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/texture.png}
+    \includegraphics[width=9cm, keepaspectratio]{capitoli/immagini/imgs/texture.png}
 \end{figure}
+
 \textbf{Medicina}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/medicina.png}
+    \includegraphics[width=9cm, keepaspectratio]{capitoli/immagini/imgs/medicina.png}
 \end{figure}
+
 Le fondamentali metodologie di segmentazione sono:
 \begin{itemize}
     \item \textbf{Thresholding Segmentation:} segmentazione mediante
@@ -1683,10 +1739,10 @@ Le fondamentali metodologie di segmentazione sono:
 \end{itemize}
 
 \subsection{Thresholding Segmentation}
-Singoli pixel dell'immagine sono catalogati come "pixel oggetto" se
-il loro valore è maggiore di una certa soglia e come "pixel di sfondo"
-se il valore è sotto la soglia. L'immagine binaria in uscita ha valore
-pari a 1 per ogni pixel dell'oggetto e pari a 0 per lo sfondo.
+
+Singoli pixel dell'immagine sono catalogati come "pixel oggetto" se il loro valore è maggiore di una certa soglia e come "pixel di sfondo"
+se il valore è sotto la soglia. L'immagine binaria in uscita ha valore pari a 1 per ogni pixel dell'oggetto e pari a 0 per lo sfondo.
+
 \begin{trivlist}
     \item \textbf{Problema:} individuare il valore ottimo che minimizza l'errore dovuto all'oversegmentation (troppi oggetti) e
     all'undersegmentation (pochi oggetti).
@@ -1699,103 +1755,134 @@ pari a 1 per ogni pixel dell'oggetto e pari a 0 per lo sfondo.
     \item Procedura supervisionata $\rightarrow$ dipendente dall'operatore
     \item Procedura NON automatica
 \end{itemize}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/trash-manuale.png}
+    \includegraphics[width=9cm, keepaspectratio]{capitoli/immagini/imgs/trash-manuale.png}
 \end{figure}
 
 \subsubsection{Thresholding automatico basilare}
-Separazione dei picchi negli istrogrammi che rappresentano oggetti
-diversi nell'immagine.
+
+Separazione dei picchi negli istrogrammi che rappresentano oggetti diversi nell'immagine.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/trash-automatico-basilare.png}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/trash-automatico-basilare.png}
     \caption*{Immagine sintetica vs immagine reale}
 \end{figure}
+
 Separazione dei picchi negli istrogrammi che rappresentano oggetti diversi nell'immagine.
+\\\\
 \textbf{Problema:} Cosa accade se le code si sovrappongono?
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/trash-automatico-basilare2.png}
+    \includegraphics[width=9cm, keepaspectratio]{capitoli/immagini/imgs/trash-automatico-basilare2.png}
 \end{figure}
+
 \section{Metodo di Otsu (1979)}
-\textbf{Idea:} trovare la soglia ottimale massimizzando \textbf{la varianza
-    interclasse} o, equivalentemente, minimizzando \textbf{la varianza
-    intraclasse}.
-\\\textbf{Vantaggi:}
+
+\textbf{Idea:} trovare la soglia ottimale massimizzando \textbf{la varianza interclasse} o,
+equivalentemente, minimizzando \textbf{la varianza intraclasse}.
+\\\\\textbf{Vantaggi:}
+
 \begin{itemize}
     \item procedura non parametrica;
     \item senza supervisione;
     \item automatica;
-    \item facile da implementare e costo computazionale basso nel caso
-          di immagine con istogramma bimodale.
+    \item facile da implementare e costo computazionale basso nel caso di immagine con istogramma bimodale.
 \end{itemize}
+
 \textbf{Limiti:}
+
 \begin{itemize}
-    \item è un metodo di sogliatura globale $\rightarrow$ non tiene conto delle
-          piccole variazioni di livelli di grigio;
-    \item si basa solamente sull'istogramma dell'immagine (e quindi sul
-          livello di grigio dei pixel) e prevede che sia bimodale.
+    \item è un metodo di sogliatura globale $\rightarrow$ non tiene conto delle piccole variazioni di livelli di grigio;
+    \item si basa solamente sull'istogramma dell'immagine (e quindi sul livello di grigio dei pixel) e prevede che sia bimodale.
 \end{itemize}
 
 \subsection{Descrizione}
-Si ipotizzi che un'immagine digitale di $M x N$ pixel, abbia $L$ differenti livelli di grigio e si indichi con $\eta_i$
-il numero di pixel di intensità i. L'istogramma normalizzato ha componenti $p_i = \eta_i/(M x N)$ da cui si ha:
+
+Si ipotizzi che un'immagine digitale di $M$ x $N$ pixel, abbia $L$ differenti livelli di grigio e si indichi con $\eta_i$
+il numero di pixel di intensità i. L'istogramma normalizzato ha componenti $p_i = \eta_i/(M$ x $N)$ da cui si ha:
+
 \begin{center}
     $\sum_{i=0}^{L-1}p_i = 1$ $p_i >= 0$
 \end{center}
+
 Ora si ipotizzi di selezionare una soglia $T(k) = k$, $0 < k < L - 1$ e di utilizzarla come soglia sull'immagine di input ottenendo due classi $C_0$ e $C_1$
 La probabilità $\omega_0(k)$ che un pixel venga assegnato alla classe $C_0$ è data dalla probabilità cumulativa
+
 \begin{center}
     $\omega_0(k) = \sum_{i=0}^{k}p_i,$
 \end{center}
+
 Analogamente per la classe $C_1$ si ha:
+
 \begin{center}
     $\omega_1(k) = \sum_{i=k+1}^{L-1}p_i=1-\omega_0(k)$
 \end{center}
+
 Il valore medio (valore atteso) di intensità dei pixel appartenenti a
 $C_0$ è
+
 \begin{center}
     $\mu_0(k)=\frac{1}{\omega_o(k)} \sum_{i=0}^{k}ip_i$
 \end{center}
+
 Analogamente, il valore medio di intensità della seconda classe è
+
 \begin{center}
     $\mu_1(k)=\frac{1}{\omega_1(k)}\sum_{i=k+1}^{L-1}ip_i$
 \end{center}
+
 La media e la probabilità cumulativa fino al livello k sono date da:
+
 \begin{center}
     $\mu(k)=\sum_{i=0}^{k}ip_i$ $w(k)=\sum_{i=0}^{k}p_i$
 \end{center}
-mentre la media globale, cioè l'intensità media dell'intera
-immagine, è
+
+mentre la media globale, cioè l'intensità media dell'intera immagine, è
+
 \begin{center}
     $\mu_T=\mu(L)=\sum_{i=0}^{L-1}ip_i$
 \end{center}
+
 devono valere le seguenti relazioni:
+
 \begin{itemize}
     \item $\omega_o \mu_o + \omega_1 \mu_1 = \mu_T$,
     \item $\omega_0 + \omega_1 = 1$
 \end{itemize}
+
 La varianza delle due classi è data da:
+
 \begin{center}
     $\sigma^2_0 = \frac{1}{\omega_0}\sum_{i=0}^{k}(i-\mu_0)^2p_i$  $\sigma^2_1 = \frac{1}{\omega_1}\sum_{i=0}^{k}(i-\mu_1)^2p_i$
 \end{center}
+
 La \textbf{la varianza interclasse} è definita come:
+
 \begin{center}
     $\sigma^2_W = \omega_0 \sigma^2_0 + \omega_1 \sigma^2_1$
 \end{center}
+
 ovvero la somma pesata delle varianze delle due classi.
-\\Mentre la \textbf{varianza interclasse} è data da
+\\\\Mentre la \textbf{varianza interclasse} è data da
+
 \begin{center}
     $\sigma^2_B = \omega_0(\mu_0 - \mu_T)^2 + \omega_1(\mu_1 - \mu_T)^2 = \omega_0\omega_1(\mu_1-\mu_0)^2 = \frac{[\mu_t \omega_k - \mu(k)]^2}{\omega(k)(1-\omega(k))}$
 \end{center}
+
 Da notare che $\sigma^2_B$  cresce all'aumentare della distanza tra i due valori medi $\mu_0$ e $\mu_1$, mettendo in evidenza che la varianza interclasse è la misura della separabilità tra le classi.
-\\
+\\\\
 La soglia ottimale è data dal valore $k^*$ che massimizza $\sigma^2_B(k)$, ovvero
+
 \begin{center}
     $\sigma^2_B(k) = max_{0<=k<=L-1} \sigma^2_B(k)$
 \end{center}
+
 Una volta che è stato trovato $k^*$ l'immagine viene segmentata nel modo seguente:
+
 \begin{center}
     $
         g(x,y) = \left\{ \begin{array}{cl}
@@ -1804,50 +1891,56 @@ Una volta che è stato trovato $k^*$ l'immagine viene segmentata nel modo seguen
         \end{array} \right.
     $
 \end{center}
+
 L'algoritmo può essere riassunto come segue:
+
 \begin{enumerate}
-    \item calcolare l'istogramma normalizzato dell'immagine denotando
-          le componenti $p_i$, $i=0,1,2,...,L-1$;
+    \item calcolare l'istogramma normalizzato dell'immagine denotando le componenti $p_i$, $i=0,1,2,...,L-1$;
     \item calcolare la probabilità cumulativa $\omega(k)$;
     \item calcolare la media cumulativa $\mu(k)$;
     \item calcolare l'intensità media globale $\mu_T$;
     \item calcolare la varianza interclasse $\sigma^2_B$;
-    \item  calcolare la soglia di Otsu $k^*$, cioè il valore di k che rende
-          massima la varianza interclasse;
+    \item  calcolare la soglia di Otsu $k^*$, cioè il valore di k che rende massima la varianza interclasse;
 \end{enumerate}
-Esiste un'estensione del metodo di Otsu che prende il nome di
-metodo di \textbf{Phansalkar}
+
+Esiste un'estensione del metodo di Otsu che prende il nome di metodo di \textbf{Phansalkar}
 
 \subsubsection*{Esempio}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/otsu.png}
     \caption*{ Immagine originale e immagine sogliata con l'algoritmo Otsu}
 \end{figure}
 
+\newpage
 \section{Edge-Gray Levels Histogram method (Panda e Rosenfeld (1977)}
 Testato per la prima volta su immagini termografiche (FLIR-Forward-Looking Infra Red). Sfrutta un vettore multidimensionale di criteri piuttosto che un solo parametro caratterizzante come il livello di grigio.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/rosenfeld.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/rosenfeld.png}
 \end{figure}
 
 Il Metodo di segmentazione delle immagini in uno spazio bidimensionale di parametri, in cui i criteri considerati per ciascun
 pixel sono da una parte il livello di grigio (grey level), dall'altra il valore ai bordi (edge value), rappresentativo nel mondo digitale del
 modulo approssimato del valore puntuale del gradiente.
 
+\newpage
 \section{Fuzzy Selection}
+
 La Fuzzy selection seleziona tutti i pixel di un oggetto fra loro adiacenti e che abbiano un valore compreso in un certo intervallo di livelli di grigio.
 Si tratta, anche in questo caso, di una selezione multiparametrica. L'algoritmo che la implementa dovrà attraversare l'immagine etichettando i vertici in base alla connettività ed ai valori relativi dei vicini.
 Al termine della scansione tutti i polimini, fra loro disgiunti, saranno etichettati con label differenti.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/fuzzy-selection.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/fuzzy-selection.png}
 \end{figure}
 
+\newpage
 \section{Operatori morfologici}
+
 La parola morfologia denota comunemente lo studio della forma.
 Gli operatori morfologici matematici effettuano elaborazioni dipendentemente dalla forma di un oggetto, estraendo
 dall'immagine componenti utili alla rappresentazione e descrizione della forma di una regione (contorni, scheletro, ecc...).
@@ -1862,12 +1955,17 @@ La struttura dell'immagine viene "sondata" con un insieme di forma definibile da
 \end{itemize}
 
 \subsection{Erosione}
+
 Sia I l'immagine da analizzare ed SE un elemento strutturante.
+\\\\
 L'erosione tra I e SE è definita come:
+
 \begin{center}
     $I \ominus SE = {z|(SE)_z \in I} $
 \end{center}
-dove $(SE)_z$ indica l'elemento strutturante centrato nel punto z .
+
+dove $(SE)_z$ indica l'elemento strutturante centrato nel punto z.
+\\\\
 Equivalentemente si usa
 \begin{center}
     $I \ominus SE = {z|(SE)_z \cap I^c = \emptyset}$
@@ -1880,6 +1978,7 @@ Equivalentemente si usa
 \end{figure}
 
 \subsection{Dilatazione}
+
 La dilatazione, detta anche addizione di Minkowsky, tra $I$ ed $SE$ è
 definita come:
 
@@ -1892,20 +1991,23 @@ La formulazione appena riportata è equivalente a:
 \begin{center}
     $I \oplus SE = {z|(SE)_z \cup I} \subset I$
 \end{center}
+
 \textbf{Dilatazione - Esempio}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/dilatazione-esempio.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/dilatazione-esempio.png}
 \end{figure}
 
 \textbf{Dilatazione - Applicazione: riempimento}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/dilatazione-applicazione.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/dilatazione-applicazione.png}
 \end{figure}
 
 \subsection{Erosione e Dilatazione in scala di grigi}
+
 L'erosione fa si che il pixel, in cui $SE$ è centrato, diventi 0 se nell'intorno di quel pixel c'è almeno uno zero; la dilatazione fa sì
 che il pixel, in cui $SE$ è centrato, diventi 1 se nell'intorno di quel pixel c'è almeno un 1.
 Per le immagini a scala di grigi l'erosione prende il minimo valore nell'elemento strutturante, mentre la dilatazione prende il valore massimo:
@@ -1940,6 +2042,7 @@ differenti.
 \end{figure}
 
 \subsection{Chiusura}
+
 La chiusura è una dilatazione seguita da una erosione, dove si considera sempre lo stesso elemento strutturante e non è
 commutativa.
 E'definita come
