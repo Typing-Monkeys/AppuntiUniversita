@@ -1204,7 +1204,7 @@ variare di tutti i pixel $(x, y)$ dell'immagine.
 \section{Filtri}
 
 \begin{definition}
-    l rumore può essere corretto applicando opportune trasformazioni ai pixel dell'immagine, dette filtri.
+    Il rumore può essere corretto applicando opportune trasformazioni ai pixel dell'immagine, dette filtri.
 \end{definition}
 Per ogni tipo di rumore esiste un filtraggio differente, che risulterà il più adatto ad attenuare o eliminare quel particolare rumore.
 In genere, la scelta del filtro dipende dalla linearità o meno della relazione fra l'immagine corrotta e quella originale.
@@ -1221,9 +1221,11 @@ Un filtro spaziale è caratterizzato da:
 se l'operazione è lineare si parla di \textbf{filtro lineare}.
 \\\\
 L'intensità dell'immagine filtrata nel pixel (x,y) sarà:
+
 \begin{center}
     $g(x,y) = \sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x+s,y+t)$,
 \end{center}
+
 $x=0,..,M-1$, $y=0,...,N-1$ (\textbf{correlazione di f e w}), dove i valori $w$ sono i \textbf{coefficienti della maschera}
 avente dimensione $m$ x $n$, con $m = 2a+1$ e $n = 2b+1$
 \\\\
@@ -1638,7 +1640,9 @@ $d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).$
               $\bar{g}(x,y)=\frac{1}{K} \sum_{i=1}^{K}g_i(x,y)$
           \end{center}
           allora sotto opportune ipotesi, risultata:
-          \\$E[\bar{g}(x,y)] = f(x,y)$ e $\sigma^2_{\bar{g}(x,y)}=\frac{1}{K}\sigma^2_{\eta(x,y)}$
+          \begin{center}
+              $E[\bar{g}(x,y)] = f(x,y)$ e $\sigma^2_{\bar{g}(x,y)}=\frac{1}{K}\sigma^2_{\eta(x,y)}$
+          \end{center}
 \end{itemize}
 
 \begin{figure}[H]
@@ -1684,11 +1688,15 @@ $d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).$
 \end{figure}
 
 \section{La segmentazione}
+
 La segmentazione di un'immagine nell'elaborazione digitale è un processo di partizione dell'immagine in regioni significative.
-E' il processo con il quale si classificano i pixel dell'immagine che hanno caratteristiche comuni: pertanto ciascun pixel in una regione
-è simile agli altri della stessa regione per una qualche proprietà o
-caratteristica (colore, intensità o texture).
-\\Matematicamente, il processo di segmentazione di un'immagine $f(x,y)$ in regioni $R_1,...,R_n$ deve soddisfare le seguenti condizioni (Zhang, 2006):
+
+\begin{definition}
+    E' il processo con il quale si classificano i pixel dell'immagine che hanno caratteristiche comuni: pertanto ciascun pixel in una regione
+    è simile agli altri della stessa regione per una qualche proprietà o caratteristica (colore, intensità o texture).
+\end{definition}
+
+Matematicamente, il processo di segmentazione di un'immagine $f(x,y)$ in regioni $R_1,...,R_n$ deve soddisfare le seguenti condizioni (Zhang, 2006):
 
 \begin{itemize}
     \item $\cup^n_{i=1}$ $R_i = f(x,y)$
@@ -1718,6 +1726,7 @@ caratteristica (colore, intensità o texture).
     \includegraphics[width=9cm, keepaspectratio]{capitoli/immagini/imgs/texture.png}
 \end{figure}
 
+\newpage
 \textbf{Medicina}
 
 \begin{figure}[H]
@@ -1954,6 +1963,7 @@ La struttura dell'immagine viene "sondata" con un insieme di forma definibile da
     \item \textbf{Chiusura}
 \end{itemize}
 
+\newpage
 \subsection{Erosione}
 
 Sia I l'immagine da analizzare ed SE un elemento strutturante.
@@ -1977,6 +1987,7 @@ Equivalentemente si usa
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/erosione-esempio.png}
 \end{figure}
 
+\newpage
 \subsection{Dilatazione}
 
 La dilatazione, detta anche addizione di Minkowsky, tra $I$ ed $SE$ è
@@ -1996,14 +2007,15 @@ La formulazione appena riportata è equivalente a:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/dilatazione-esempio.png}
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/dilatazione-esempio.png}
 \end{figure}
 
+\newpage
 \textbf{Dilatazione - Applicazione: riempimento}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/dilatazione-applicazione.png}
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/dilatazione-applicazione.png}
 \end{figure}
 
 \subsection{Erosione e Dilatazione in scala di grigi}
@@ -2016,6 +2028,8 @@ Per le immagini a scala di grigi l'erosione prende il minimo valore nell'element
     $I \ominus SE = min{I(z):z \in SE}$
     \\$I \oplus SE = max{I(z):z \in SE}$
 \end{center}
+
+\newpage
 \textbf{Erosione e Dilatazione: Esempio}
 
 \begin{figure}[H]
@@ -2032,8 +2046,7 @@ E' definita come:
     $I \circ SE = (I \ominus SE) \oplus SE$
 \end{center}
 
-L'effetto dell'apertura è di preservare il più possibile regioni di
-forma simile all'elemento strutturante, e di eliminare quelle
+L'effetto dell'apertura è di preservare il più possibile regioni di forma simile all'elemento strutturante, e di eliminare quelle
 differenti.
 
 \begin{figure}[H]
@@ -2058,7 +2071,9 @@ L'effetto della chiusura è di chiudere gli eventuali buchi interni.
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/chiusura.png}
 \end{figure}
 
+\newpage
 \section{Operatori Morfologici: applicazione}
+
 E' importante osservare come la convoluzione dell'elemento strutturante modifichi l'immagine di partenza solo alla fine
 dell'analisi di tutti i punti del dominio. Un esempio di applicazione degli operatori morfologici è il problema posto da Sternberg nel 1985, al fine di controllare, a
 partire da una foto binaria, l'integrità dei denti degli ingranaggi prodotti in un'azienda di orologi.
@@ -2111,6 +2126,7 @@ quello della distanza interdentale viene utilizzato per evidenziare i denti manc
 \end{figure}
 
 \section{MSE - Mean Squear Error}
+
 Al fine di valutare matematicamente la differenza in termini di intensità fra due immagini A e B, viene introdotto il concetto di
 \textbf{Errore Quadratico Medio (MSE)}.
 
@@ -2122,6 +2138,7 @@ dove $I_A$ e $I_B$ sono le intensità dei livelli di grigio delle due immagini d
 le immagini sia numericamente in termini di bit, sia in termini di qualità visiva.
 
 \section{PSNR - Peak Signal to Noise Ratio}
+
 Per quantificare l'entità del suddetto errore secondo un termine di paragone, viene introdotto un ulteriore indice di qualità delle
 immagini. Si definisce come \textbf{Peak Signal to Noise Ratio (PSNR)}, il rapporto
 tra la massima potenza ammisibile di un segnale e l'MSE.
@@ -2130,9 +2147,15 @@ tra la massima potenza ammisibile di un segnale e l'MSE.
     $PSNR_{AB} = 10 \log(\frac{255^2}{MSE_{AB}})$
 \end{center}
 
+\newpage
 \section{Image Registration}
-La registratura d'immagini (image registration) è quel processo che permette la trasformazione di differenti insiemi di dati, presenti in diversi insiemi di coordinate, in un sistema dove ogni coordinata
-spaziale corrisponde. La registratura è necessaria per poter confrontare o integrare i dati ottenuti da diverse misure. Si prende una delle immagini come sorgente (source) e ci si
+
+\begin{definition}
+    La registratura d'immagini (image registration) è quel processo che permette la trasformazione di differenti insiemi di dati, presenti in diversi insiemi di coordinate, in un sistema dove ogni coordinata
+    spaziale corrisponde.
+\end{definition}
+
+La registratura è necessaria per poter confrontare o integrare i dati ottenuti da diverse misure. Si prende una delle immagini come sorgente (source) e ci si
 riferisce alla seconda immagine come bersaglio (target).
 
 \begin{figure}[H]
@@ -2140,7 +2163,9 @@ riferisce alla seconda immagine come bersaglio (target).
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/image-registration.png}
 \end{figure}
 
+\newpage
 \subsubsection{Image Registration: Applicazioni}
+
 \textbf{Rilevamento del movimento con videocamera non stazionaria}
 \\IL Rilevamento del movimento, registrazione spaziale/tonale del fotogramma attuale con la corrispondente regione del modello di
 sfondo.
@@ -2156,15 +2181,18 @@ sfondo.
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/ricostruzione-3-d.png}
 \end{figure}
 
+\newpage
 \textbf{Medical imaging}
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/medical-imaging.png}
 \end{figure}
 
+\newpage
 \section{Classificazione dei metodi di registratura in ambito dico - van den Elsen, Pol \& and Viergever (1993)}
-Una classificazione dei metodi di registratura si basa su nove
-criteri:
+
+Una classificazione dei metodi di registratura si basa su nove criteri:
+
 \begin{enumerate}
     \item Dimensione del dominio dell'immagine;
     \item Natura della registrazione;
@@ -2176,6 +2204,7 @@ criteri:
 \end{enumerate}
 
 \subsection{Dimensione del dominio dell'immagine}
+
 Si possono considerare:
 \begin{enumerate}
     \item solamente le dimensioni spaziali:
@@ -2220,6 +2249,7 @@ I metodi estrinseci si fondano su oggetti artificiali che vengono attaccati sul 
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/strssotic-frame.png}
 \end{figure}
 
+\newpage
 \textbf{Screw mounted markers}
 \begin{figure}[H]
     \centering
@@ -2227,7 +2257,9 @@ I metodi estrinseci si fondano su oggetti artificiali che vengono attaccati sul 
 \end{figure}
 
 \subsection{Natura della registrazione}
+
 I metodi intrinseci si basano sul solo contenuto dell'immagine del paziente. Si dividono in:
+
 \begin{itemize}
     \item \textbf{Landmark based -} basata sui punti fiduciali: i punti di possono essere anatomici, cioè punti precisi e
           localizzabili della morfologia dell'anatomia visibile, solitamente identificati in modo interattivo dall'utente.
@@ -2239,29 +2271,34 @@ I metodi intrinseci si basano sul solo contenuto dell'immagine del paziente. Si 
           dell'immagine (metodo globale).
 \end{itemize}
 
+\newpage
 \subsubsection{Tipi di trasformazione}
+
 \begin{itemize}
     \item \textbf{Rigida:} comprende solo traslazioni e rotazioni
     \item \textbf{Affine:} mappa linee parallele in linee parallele
     \item \textbf{Proiettiva:} mappa linee in linee
     \item \textbf{Elastica:} mappa linee in curve
 \end{itemize}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/tipi-trasformazione.png}
 \end{figure}
 
+\newpage
 \subsubsection{Dominio della trasformazione}
 Una trasformazione è chiamata globale se è applicata all'intera immagine, locale se è applicata ad un sottoinsieme del'immagine.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/dominio-trasformazione.png}
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/dominio.png}
 \end{figure}
 
 \subsubsection{Interazione}
-Fra gli algoritmi di registratura, si possono individuare tre livelli di
-interazione:
+
+Fra gli algoritmi di registratura, si possono individuare tre livelli di interazione:
+
 \begin{itemize}
     \item \textbf{Automatica:}l'utente fornisce all'algoritmo solo i dati
           dell'immagine ed eventualmente informazioni sull'acquisizione
@@ -2273,6 +2310,7 @@ interazione:
 \end{itemize}
 
 \subsection{Procedura di ottimizzazione}
+
 \begin{itemize}
     \item \textbf{Parameters computed:} i parametri che compongono la trasformazione della registrazione vengono calcolati direttamente, cioè determinato in maniera esplicita dai dati
           disponibili
@@ -2281,6 +2319,7 @@ interazione:
 \end{itemize}
 
 \subsection{Modalità}
+
 \begin{itemize}
     \item \textbf{Monomodale: }le immagini da registrare appartengono alla
           stessa modalità (radiografia, CT, MR, PET, SPECT, US,
@@ -2291,6 +2330,7 @@ interazione:
 \end{itemize}
 
 \subsection{Soggetto}
+
 \begin{itemize}
     \item \textbf{Intrasubject: }tutte le immagini coinvolte nella registrazione
           sono acquisite da un singolo paziente;
