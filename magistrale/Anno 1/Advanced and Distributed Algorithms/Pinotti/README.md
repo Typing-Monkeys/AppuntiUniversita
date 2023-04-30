@@ -17,7 +17,7 @@
 - [Network Flow](#network-flow)
   - [Introduzione](#introduzione-1)
   - [The Max-Flow Problem and the Ford-Fulkerson Algorithm](#the-maximum-flow-problem-and-the-ford-fulkerson-algorithm)
-  - 
+  - [Maximum Flows and Minimum Cuts in a Network](#maximum-flows-and-minimum-cuts-in-a-network)
   - 
   - 
   - [Max-Flow and Min-Cut Problems](#Max-Flow-and-Min-Cut-Problems)
@@ -1434,55 +1434,89 @@ Successivamente consideriamo il tempo di esecuzione dell'algoritmo Ford-Fulkerso
 
 Una versione un po' più efficiente dell'algoritmo manterrebbe le linked lists di archi nel grafo residuo $G_f$ come parte della procedura di augmentation per il flusso $f$.
 
+<hr>
+
+## Maximum Flows and Minimum Cuts in a Network
+Proseguiamo ora con l'analisi dell'algoritmo Ford-Fulkerson.
+
+### Analyzing the Algorithm: Flows and Cuts
+Il nostro prossimo obiettivo è dimostrare che il flusso restituito dall'algoritmo di Ford-Fulkerson ha il massimo valore possibile di qualsiasi flusso in $G$.
+
+Per compiere progressi verso questo obiettivo, torniamo ad un problema già descritto: **il modo in cui la struttura della rete di flusso pone upper bounds al valore massimo di un flusso $s-t$**.
+Abbiamo già visto un upper bounds:
+il valore $v(f)$ di qualsiasi flusso $s-t-f$ è al massimo $C = \sum_{e \text{ out of } S} c_e$. A volte questo limite è utile, ma a volte è molto debole.
+
+Usiamo ora la nozione di **taglio** per sviluppare un metodo molto più generale per porre upper bounds al valore del flusso massimo.
+> Si consideri la possibilità di dividere i nodi del grafo in due insiemi, $A$ e $B$, in modo che $s \in A$ e $t \in B$.
+> Formalmente diciamo che un **taglio** $s-t$ è una partizione $(A, B)$ dell'insieme di vertici $V$, tale che $s \in A$ e $t \in B$B. 
+> La **capacità di un taglio** $(A, B)$, che indicheremo con $c(A , B)$, è la somma delle capacità di tutti gli archi che escono da $A$: $c(A, B) =  \sum_{e \text{ out of } A} c_e$
+> I tagli risultano fornire upper bounds molto naturali sui valori dei flussi. Lo precisiamo attraverso una sequenza di teoremi e/o definizioni.
+
+##### **DEF (7.6)**
+Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) = f^{out}(A) − f^{in}(A)$.
+
+Questa affermazione è in realtà molto più forte di un semplice upper bound. Dice che osservando la quantità di flusso che $f$ invia attraverso un taglio, possiamo misurare esattamente il valore del flusso: **è la quantità totale che lascia A, meno la quantità che "torna indietro" in A**.
+
+Se $A = {s}$, allora $f^{out}(A) = f^{out}(s)$ e $f^{in}(A) = 0$ poiché non ci sono archi che entrano nella sorgente per ipotesi. Quindi l'affermazione per questo insieme $A = {s}$ è esattamente la definizione del valore del flusso $v(f)$.
+Si noti che se $(A, B)$ è un taglio, allora gli archi in $B$ sono esattamente gli archi che escono da $A$. Allo stesso modo, gli archi che escono da $B$ sono esattamente gli archi che entrano in $A$. Quindi abbiamo $f^{out}(A) = f^{in}(B)$, semplicemente confrontando le definizioni di queste due espressioni. Quindi possiamo riformulare la (7.6) nel modo seguente.
+
+##### **DEF (7.7)**
+Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) = f^{in}(B) − f^{out}(B)$.
+
+Se poniamo $A = V − {t}$ e $B = {t}$ nella (7.7), abbiamo $v(f) = f^{in}(B) − f^{out}(B) = f^{in}(t) − f^{out}(t)$. In base alla nostra assunzione il **sink** $t$ non ha archi uscenti, quindi abbiamo $f^{out}(t) = 0$. Questo dice che avremmo potuto definire originariamente il *valore* di un flusso altrettanto bene in termini del sink $t$: è $f^{in}(t)$, la quantità di flusso che arriva al **sink**.
+Una conseguenza molto utile della (7.6) è il seguente upper bound.
+
+##### **DEF (7.8)**
+Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) \le c(A, B)$.
+
+In un certo senso, la (7.8) sembra più debole della (7.6), poiché è solo una disuguaglianza piuttosto che un'uguaglianza. Tuttavia, ci sarà estremamente utile, poiché il suo lato destro è indipendente da un flusso particolare $f$. Quello che dice la (7.8) è che **il valore di ogni flusso è superiore alla capacità di ogni taglio**. In altre parole, se eseguiamo un qualsiasi taglio $s-t$ in $G$ di un certo valore $c^∗$, sappiamo immediatamente dalla (7.8) che non può esserci un flusso $s-t$ in $G$ di valore maggiore di $c^∗$. Al contrario, se valutiamo un qualsiasi flusso $s-t$ in $G$ di un certo valore $v^∗$, sappiamo immediatamente dalla (7.8) che non può esserci un taglio $s-t$ in $G$ di valore minore di $v^∗$.
+
+### Analyzing the Algorithm: Max-Flow Equals Min-Cut
+Sia $\bar{f}$ il flusso restituito dall'algoritmo di **Ford-Fulkerson**. Vogliamo dimostrare che $\bar{f}$ ha il massimo valore possibile di qualsiasi flusso in $G$, e lo facciamo con il metodo discusso sopra: 
+Lo facciamo con un taglio $s-t$ $(A^∗ , B^∗)$ per il quale $v(\bar{f}) = c(A^∗ , B^∗)$. Questo stabilisce immediatamente che $f$ ha il valore massimo di qualsiasi flusso, e che $(A^∗ , B^∗)$ ha la capacità minima di qualsiasi taglio $s-t$.
+
+L'algoritmo di Ford-Fulkerson **termina quando il flusso $f$ non ha un cammino $s-t$ nel grafo residuale $G_f$**. Questa risulta essere l'unica proprietà necessaria per dimostrare la sua massimalità.
+
+##### **DEF (7.9)**
+Se $f$ è un flusso $s-t$ tale che non esiste un cammino $s-t$ nel grafo residuale $G_f$ , allora esiste un taglio $s-t$ $(A^∗ , B^∗)$ in $G$ per cui $v(f) = c(A^∗ , B^∗)$. Di conseguenza, $f$ ha il valore massimo di qualsiasi flusso in $G$, e $(A^∗ , B^∗)$ ha la capacità minima di qualsiasi taglio $s-t$ in $G$.
+
+#### Dimostrazione
+Dobbiamo identificare un taglio che dimostri la precedente proprietà. A tal fine, indichiamo con $A^∗$ l'insieme di tutti i nodi $v$ in $G$ per i quali esiste un cammino $s-v$ in $G_f$ . Sia $B^∗$ l'insieme di tutti gli altri nodi: $B^∗ = V − A^∗$.
+
+Per prima cosa stabiliamo che $(A^∗ , B^∗)$ è effettivamente un taglio $s-t$. È chiaramente una partizione di $V$. La sorgente $s$ appartiene ad $A^∗$ poiché c'è sempre un cammino da $s$ a $s$. Inoltre, $t \in A^∗$ assumendo che non ci sia cammino $s-t$ nel grafo residuale; quindi $t \in B^∗$ come desiderato.
+
+Supponiamo ora che $e = (u, v)$ sia un arco in $G$ per il quale $u \in A^∗$ e $v \in B^∗$, come mostrato nella Figura seguente. Affermiamo che $f(e) = c_e$ . Infatti, in caso contrario, $e$ sarebbe un arco *forward* nel grafo residuale $G_f$ , e poiché $u \in A^∗$ esiste un cammino $s-u$ in $G_f$ ; aggiungendo $e$ a questo cammino, otterremmo un cammino $s-v$ in $G_f$ , contraddicendo la nostra ipotesi che $v \in B^∗$.
+
+Supponiamo ora che $e' = (u' , v')$ sia un arco in $G$ per cui $u' \in B^∗$ e $v' \in A^∗$.
+Affermiamo che $f(e') = 0$. In caso contrario, $e'$ darebbe luogo a un arco *backward* $e'' = (v' , u')$ nel grafo residuale $G_f$ , e poiché $v' \in A^∗$, allora è un cammino $s-v'$ in $G_f$ ; aggiungendo $e''$ a questo cammino, otterremmo un cammino $s-u'$ in $G_f$ , contraddicendo la nostra ipotesi che $u' \in B^∗$.
+
+Quindi tutti gli archi uscenti da $A^∗$ sono completamente saturati di flusso, mentre tutti gli archi entranti in $A^∗$ sono completamente inutilizzati. Possiamo ora usare la (7.6) per raggiungere la conclusione desiderata:
+
+$$
+v(f) = f^{out}(A^*) - F^{in}(A^*) = \sum_{e \text{ out of }A^*} f(e) - \sum_{e \text{ into }A^*}f(e) = \sum_{e \text{ out of }A^*} c_e - 0 = c(A^*, B^*)
+$$
+
+<img src="./imgs/flow4.png" width="70%"/>
+
+
+##### **DEF (7.10)**
+Il flusso $\bar{f}$ restituito dall'algoritmo di Ford-Fulkerson è un flusso massimo.
+
+##### **DEF (7.11)**
+Dato un flusso f di valore massimo, possiamo calcolare un taglio $s-t$ di capacità minima in tempo $O(m)$.
+
+##### **DEF (7.12)**
+In ogni rete di flussi esiste un flusso $f$ e un taglio $(A, B)$ tale che $v(f) = c(A, B)$.
+
+Il punto è che $f$ nella (7.12) deve essere un flusso massimo $s-t$; poiché se ci fosse un flusso $f'$ di valore maggiore, il valore di $f$ supererebbe la capacità di $(A, B)$, e ciò contraddirebbe la (7.8). Allo stesso mod segue che $(A, B)$ nella (7.12) è un taglio minimo (nessun altro taglio può avere capacità minore) perché se ci fosse un taglio $(A , B)$ di capacità minore, sarebbe minore del valore di $f$ , e anche questo contraddirebbe la (7.8). A causa di queste implicazioni, la (7.12) è spesso chiamata **teorema del taglio minimo del flusso massimo** ed è formulata come segue.
+
+### Teorema del Taglio Minimo del Flusso Massimo
+> **In ogni rete di flussi, il valore massimo di un flusso $s-t$ è uguale alla capacità minima di un taglio $s-t$.**
+
+
 ---
 ---
 ---
-
-# Max-Flow Min-Cut Theorem
-
-### Flow Value Lemma
-
-sia $f$ un qualsiasi flow e $(A,B)$ un qualsiasi cut. Il valore del flow è uguale al flow passante per il cut.
-
-```math
-val(f) = \sum_{e \mbox { out of } A} f(e) -  \sum_{e \mbox { in to } A} f(e)
-```
-
-**Dimostrazione:**
-
- $val(f) = \sum_{e \mbox { out of } s} f(e) -  \sum_{e \mbox { in to } s} f(e) =$
-
-$=\sum_{v \in A} \left( \sum_{e \mbox { out of } v} f(e) -  \sum_{e \mbox { in to } v} f(e) \right) =$ per la prorpietà della conservazione del flusso, ogni valore con $v \ne s$ è 0
-
-$= \sum_{e \mbox { out of } A} f(e) -  \sum_{e \mbox { in to } A} f(e)$
-
-### Weak Duality
-
-Sia $f$ un qualsiasi flow e $(A,B)$ un qualsiasi cut. Allora $val(f) \le cap(A,B)$
-
-**Dimostrazione:**
-
-$val(f) = \sum_{e \mbox { out of } A} f(e) -  \sum_{e \mbox { in to } A} f(e) \le$ 
-
-$\le \sum_{e \mbox { out of } A} f(e) \le \sum_{e \mbox { out of } A} c(e) = cap(A,B)$
-
-**Corollario**
-
-Sia $f$ un qualsiasi flow e $(A,B)$ un qualsiasi cut. Se $val(f) = cap(A,B)$ allora $f$ è max-flow e $(A,B)$ è min-cut
-
-**Dimostrazione** (weak duality)**:**
-
-- per ogni flow $f'$: $val(f') \le cap(A,B) = val(f)$ 
-
-  Se f è max-flow è il più grande possibile
-
-- per ogni $(A',B')$: $cap(A',B') \ge val(f) = cap(A,B)$ 
-
-  Se (A,B) è min-cut la sua capacità è la più piccola possibile
-
-### Max-Flow Min-Cut Theorem
-
-Il valore del Max-Flow è uguale alla capacità del Min-Cut
 
 ### Augmenting Path Theorem
 
