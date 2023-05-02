@@ -474,7 +474,7 @@ grigio a queste nuove locazioni.
 \begin{itemize}
     \item \textbf{Nearest Neighbor:} assegna ad ogni nuova locazione l'intensità del pixel piu' vicino dell'immagine originale
 
-    \item \textbf{Interpolazione bilineare:} prevede l'utilizzo dei quattro pixel piu' vicini per stimare l'intensita' da assegnare ad ogni nuova
+    \item \textbf{Interpolazione bilineare:} prevede l'utilizzo dei quattro pixel più vicini per stimare l'intensità da assegnare ad ogni nuova
           locazione
 
           \begin{figure}[H]
@@ -498,7 +498,8 @@ grigio a queste nuove locazioni.
 
 
 \subsection{SHRINK}
-Lo sttesso procedimento dello zoom, con una griglia immaginaria di dimensioni inferiori all'originale.
+
+Lo stesso procedimento dello zoom, con una griglia immaginaria di dimensioni inferiori all'originale.
 Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di righe e colonne.
 
 \subsubsection{Relazioni di base fra i pixel}
@@ -556,6 +557,7 @@ Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di 
 \end{itemize}
 
 \subsection{Distanza tra pixel}
+
 Una distanza (o metrica) tra pixel e' una funzione $D(p, q)$ tale che per ogni $p, q, z$
 
 \begin{itemize}
@@ -572,8 +574,8 @@ Una distanza (o metrica) tra pixel e' una funzione $D(p, q)$ tale che per ogni $
     \item Distanza $D_8$, o a scacchiera: $D_s(p,q) = max{|x_1 - x_2|, |y_1 - y_2|}$
 \end{itemize}
 
-
 \subsection{Elaborazione delle immagini}
+
 L'elaborazione delle immagini è una disciplina che prevede l'utilizzo
 di algoritmi i quali operano sui pixel che compongono l'immagine
 e, applicando trasformazioni numeriche, restituiscono un'immagine
@@ -844,6 +846,7 @@ possibile si diminuisce il contrasto visibile nella zona di interesse.
 \end{itemize}
 
 \section{Modelli delle Immagini}
+
 In base al tipo di elaborazione che si vuole effettuare, può essere conveniente adottare diversi modelli per le immagini. Ad esempio:
 
 \begin{itemize}
@@ -854,8 +857,9 @@ In base al tipo di elaborazione che si vuole effettuare, può essere conveniente
 
 \subsection{Il modello Probabilistico}
 
-Nel modello probabilistico per i pixel, i valori assunti nei vari pixel ($N × M$) di un'immagine vengono considerati come valori assunti
-da una variabile aleatoria in una successione di $N × M$ esperimenti. E' dunque possibile analizzare ed elaborare l'immagine utilizzando gli strumenti del calcolo delle probabilità e del calcolo stocastico.
+Nel modello probabilistico per i pixel, i valori assunti nei vari pixel ($N$ x $M$) di un'immagine vengono considerati come valori assunti
+da una variabile aleatoria in una successione di $N$ x $M$ esperimenti. Vado quini a modificare i pixel in base ad un valore di probabilità.
+\\E' dunque possibile analizzare ed elaborare l'immagine utilizzando gli strumenti del calcolo delle probabilità e del calcolo stocastico.
 Un esempio di questo processo è \textbf{l'analisi dell'istogramma}.
 
 \section{L'istogramma dei toni di grigio}
@@ -864,8 +868,12 @@ Un esempio di questo processo è \textbf{l'analisi dell'istogramma}.
     si ottiene contando, per ogni valore del codominio dell'immagine (spazio di tutti i valori
     che possono essere assunti dai pixel), il numero di volte che tale valore compare nell'immagine.
 \end{definition}
+
 Il grafico che si ricava è un istogramma, cioè un grafico a barre dove l'asse delle ascisse è suddiviso in tanti punti quanti sono i
 possibili toni di grigio dell'immagine.
+\\\\
+L'istogramma ci da quindi una distribuzione di probabilità di una variabile aleatoria e rappresenta come la \textbf{carta d'identità di un'immagine}.
+Saper leggere l'istogramma ci da un valore \textbf{qualitativo} dell'Immagine.
 
 \begin{trivlist}
     \item \textbf{Esempio}: il codominio di un'immagine a 256 toni di grigio sarà formato da tutti i numeri interi da 0 a 255 $\rightarrow$ l'asse orizzontale sarà suddiviso in 256 parti.
@@ -913,7 +921,7 @@ della qualità dell'immagine.
 
 \begin{itemize}
     \item \textbf{Esempio:} \textbf{Immagine con alto contrasto}
-          la distribuzione è concentrata su valori vicini a 0 e a 255
+          la distribuzione è concentrata su valori vicini a 0 e a 255. L'alto contrasto dell'immagine è quindi dovuto all'uniformità dell'istogramma.
 \end{itemize}
 
 \begin{figure}[H]
@@ -922,6 +930,7 @@ della qualità dell'immagine.
 \end{figure}
 
 \subsection{Interventi sull'istogramma}
+
 Qualora le caratteristiche della distribuzione dei toni di grigio nell'immagine non siano ottimali, è consigliabile applicare
 all'istogramma opportune trasformazioni, basate su sistemi stocastici.
 \\Tra queste:
@@ -968,6 +977,8 @@ $k=0,...,L-1$.
     $T(r) = \alpha r + (L-1)(1-\alpha)$ $\ \ \ \ 0<\alpha<1$
 \end{center}
 
+Andrò quindi a shiftare verso sinistra o verso destra l'istogramma schiarendo o scurendo la mia immagine.
+\\\\
 Il $risultato$ è un immagine più scura o schiarita.
 
 \subsubsection{Risultato shift dell'istogramma}
@@ -1277,7 +1288,7 @@ I filtri maggiormente utilizzati per la rimozione del rumore sono i cosidetti \t
 \end{figure}
 
 \begin{enumerate}
-    \item [a.] Immagine originale di 500 × 500 pixel.
+    \item [a.] Immagine originale di 500 x 500 pixel.
     \item [b.f.] Risultato della sfocatura con filtro medio tramite maschere di
           dimensione 3, 5, 9, 15, 35.
 \end{enumerate}
@@ -1290,7 +1301,7 @@ Esempio di applicazione del filtro medio
 \end{figure}
 
 \begin{enumerate}
-    \item [a.] Immagine originale di 528 × 485 pixel.
+    \item [a.] Immagine originale di 528 x 485 pixel.
     \item [b.] Risultato della sfocatura con filtro medio tramite maschera di dimensione 15
     \item [c.]  Risultato dell'applicazione di una soglia.
 \end{enumerate}
@@ -1975,11 +1986,14 @@ L'erosione tra I e SE è definita come:
 \end{center}
 
 dove $(SE)_z$ indica l'elemento strutturante centrato nel punto z.
+Quando vado a fare l'erosione quindi vado ad \textbf{eliminare z}.
 \\\\
 Equivalentemente si usa
+
 \begin{center}
     $I \ominus SE = {z|(SE)_z \cap I^c = \emptyset}$
 \end{center}
+
 \textbf{Erosione - Esempio}
 
 \begin{figure}[H]
@@ -2064,7 +2078,7 @@ E'definita come
     $I \bullet SE = (I \oplus SE) \ominus SE$
 \end{center}
 
-L'effetto della chiusura è di chiudere gli eventuali buchi interni.
+L'effetto della chiusura è di chiudere gli eventuali buchi interni tenendo conto della forma dell'elemento strutturante.
 
 \begin{figure}[H]
     \centering
@@ -2134,8 +2148,10 @@ Al fine di valutare matematicamente la differenza in termini di intensità fra d
     $MSE_{AB} = \sum_{i=1}^{N}\sum_{J=1}^{M}\frac{|I_A(i,j)-I_B(i,j)^2|}{NM}$
 \end{center}
 
-dove $I_A$ e $I_B$ sono le intensità dei livelli di grigio delle due immagini di dimensioni $M × N$ di cui si calcola la differenza. Più il valore di questo indice è basso, minore sarà la differenza tra
+dove $I_A$ e $I_B$ sono le intensità dei livelli di grigio delle due immagini di dimensioni $M$ x $N$ di cui si calcola la differenza. Più il valore di questo indice è basso, minore sarà la differenza tra
 le immagini sia numericamente in termini di bit, sia in termini di qualità visiva.
+\\\\
+Faccio la differenza pixel a pixel e sommo le differenze al quadrato andando a dividere tutto per la dimensione delle due immagini (ovvero per il numero totale dei pixel delle due immagini)
 
 \section{PSNR - Peak Signal to Noise Ratio}
 
@@ -2145,6 +2161,12 @@ tra la massima potenza ammisibile di un segnale e l'MSE.
 
 \begin{center}
     $PSNR_{AB} = 10 \log(\frac{255^2}{MSE_{AB}})$
+\end{center}
+
+Può anche essere espresso come:
+
+\begin{center}
+    $PSNR_{AB} = 20 \log(\frac{255}{\sqrt{MSE}})$
 \end{center}
 
 \newpage
