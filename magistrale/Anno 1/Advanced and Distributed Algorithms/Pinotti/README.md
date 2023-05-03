@@ -18,11 +18,9 @@
   - [Introduzione](#introduzione-1)
   - [The Max-Flow Problem and the Ford-Fulkerson Algorithm](#the-maximum-flow-problem-and-the-ford-fulkerson-algorithm)
   - [Maximum Flows and Minimum Cuts in a Network](#maximum-flows-and-minimum-cuts-in-a-network)
+  - [Capacity Scaling Algorithm](#capacity-scaling-algorithmchoosing-good-augmenting-paths)
+  - [Ford-Fulkerson pathological example](#ford-fulkerson-pathological-example)
   - 
-  - 
-  - [Max-Flow and Min-Cut Problems](#Max-Flow-and-Min-Cut-Problems)
-  - [Capacity Scaling Algorithm](#Capacity-Scaling-Algorithm)
-  - [Ford-Fulkerson pathological example](#Ford-Fulkerson-pathological-example)
   - [Matching su Grafi Bipartiti](#Matching-su-Grafi-Bipartiti)
   - [Disjoint Paths](#Disjoint-Paths)
   - [Network Connectivity](#Network-Connectivity)
@@ -1513,141 +1511,150 @@ Il punto è che $f$ nella (7.12) deve essere un flusso massimo $s-t$; poiché se
 ### Teorema del Taglio Minimo del Flusso Massimo
 > **In ogni rete di flussi, il valore massimo di un flusso $s-t$ è uguale alla capacità minima di un taglio $s-t$.**
 
+<hr>
 
----
----
----
+## Capacity Scaling Algorithm:Choosing Good Augmenting Paths
+Nella sezione precedente, abbiamo visto che qualsiasi modo di scegliere un augmenting path aumenta il valore del flusso, e questo ha portato a un limite per C sul numero di augmentations, dove $C = \sum_{e \text{ out of }s} c_e$. Quando $C$ non è molto grande, questo può essere un limite ragionevole; tuttavia, è molto debole quando $C$ è grande.
 
-### Augmenting Path Theorem
+### Designing a Faster Flow Algorithm
+L'obiettivo di questa sezione è mostrare che con una migliore scelta dei path, possiamo migliorare significativamente questo limite. Una grande mole di lavoro è stata dedicata alla ricerca di metodi per scegliere augmenting path nel problema del flusso massimo in modo da minimizzare il numero di iterazioni. 
+Ricordiamo che l'augmentation aumenta il valore della capacità del bottleneck per il flusso massimo del percorso selezionato; quindi, è un buon approccio quello di scegliere percorsi con una grande capacità per il bottleneck. 
+**Un'idea è quella di selezionare il percorso che ha il bottleneck di maggiore capacità.**
+Tuttavia, rovare tali percorsi può rallentare di parecchio ogni singola iterazione. Eviteremo questo rallentamento non preoccupandoci di selezionare il percorso che ha esattamente la maggiore capacità di collo di bottiglia. Invece, manterremo un cosiddetto **scaling parameter** $\Delta$ e cercheremo percorsi che abbiano un bottleneck di capacità di almeno $\Delta$.
+Sia $G_f(\Delta)$ il sottoinsieme del grafo residuo costituito solo da archi con capacità residua di almeno $\Delta$. Lavoreremo con valori di $\Delta$ che sono potenze di 2.
 
-Un flow è max-flow se e solo se non ci sono Augmenting Path
+L'algoritmo è il seguente.
 
-**Dimostrazione:**
+#### `Scaling Max-Flow`
+```
+Initially f (e) = 0 for all e in G
+Initially set Δ to be the largest power of 2 that is no larger than the maximum capacity out of s: Δ ≤ max(e out of s ce)
 
-1. Esiste un cut $(A,B)$ tale che $cap(A,B) = val(f)$
+While Δ ≥ 1
+  While there is an s-t path in the graph Gf(Δ)
+    Let P be a simple s-t path in Gf(Δ)
+    f' = augment(f , P)
+    Update f to be f' and update Gf (Δ)
+  Endwhile
+  Δ = Δ/2
+Endwhile
 
-2. $f$ è max-flow
-
-   $1\to 2$ : corollario di weak duality
-
-3. Non ci sono augmenting path per $f$ 
-
-   $2\to3$: se ci fosse un augmenting path potremmo mandare più flow su questo path con AUGMENT, quindi $f$ non sarebbe un max-flow
-
-   $3 \to 1$: $val(f) = \sum_{e \mbox { out of } A} f(e) -  \sum_{e \mbox { in to } A} f(e) = \sum_{e \mbox { out of } A} c(e) -  0 = cap(A,B)$
-
-   Dato che non ci sono augmenting path, gli archi che escono da A hanno $f(e) = c(e)$ e gli archi che entrano in A hanno $f(e) = 0$ 
-
----
-
-# Capacity Scaling Algorithm
-
-Assumiamo che per ogni $e \in E$, $c(e)$ è un intero tra 0 e C, quindi anche ogni $f(e)$ ed ogni $c_f(e)$ è un intero.
-
-### Teorema:
-
-Ford-Fulkerson termina dopo al più $val(f^{\*}) \le nC$ augmenting paths, dove $f^{\*}$ è il flusso massimo.
-
-**Dimostrazione:** ogni ciclo dell'algoritmo aumenta il flow di almeno 1.
-
-**Corollario:** Ford-Fulkerson impiega $O(mnC)$ tempo.
-
-**Dimostrazione:** Si possono usare DFS o BFS per trovare un augmenting path in $O(m)$
-
-### Integrality Theorem:
-
-Esiste un max-flow dove ogni $f(e)$ è intero.
-
-## Scegliere Augmenting Paths
-
-Alcune scelte degli augmenting paths portano a tempi polinomiali, altre a tempo esponenziali.
-
-Quando le capacità sono irrazionali non è garantito che Ford-Fulkerson termini.
-
-Sceglo augmenting path con:
-
-- bottleneck capacity massima
-  - uso un parametro $\Delta$. Prendo in considerazione solo gli archi con capacità $\ge \Delta$.
-  - ogni augmenting path ora ha bottleneck capacity $\ge \Delta$
-- bottleneck capacity abbastanza grande
-- minor numero di archi
-
-```pseudocode
-CAPACITY-SCALING(G) {
-  forEach edge e ∈ E: 
-  	f(e) ← 0
-  Δ ← largest power of 2 ≤ C
-  
-  while (Δ ≥ 1)
-  	Gf(Δ) ← Δ-residual network of G with respect to flow f
-  	while (there exists an s↝t path P in Gf(Δ))
-  		f ← AUGMENT(f, c, P)
-  		Update Gf (Δ)
- 		Δ ← Δ / 2
- 		
-  return f
-}
+Return f
 ```
 
-Assumo che tutte le capacità siano intere e che $\Delta$ sia una potenza di 2.
+### Analyzing the Algorithm
+Innanzitutto dobbiamo osservare che l'algoritmo `Scaling Max-Flow` è in realtà solo un'implementazione dell'originale algoritmo di Ford-Fulkerson. 
+I nuovi cicli, il valore $\Delta$ e il grafo residuo ristretto $G_f(\Delta)$ vengono utilizzati solo per guidare la selezione del percorso residuo, con l'obiettivo di utilizzare archi con una grande capacità residua il più a lungo possibile. 
+Inoltre, tutte le proprietà che abbiamo dimostrato sull'algoritmo `Max-Flow` originale sono vere anche per questa nuova versione: il flusso rimane di valore intero per tutto l'algoritmo, e quindi tutte le capacità residue sono di valore intero.
 
-**Teorema:** Se CAPACITY-SCALING termina allora f è un max-flow
+##### Def. 7.15
+Se le capacità hanno valori interi, allora in tutto l'algoritmo `Scaling Max-Flow` il flusso e le capacità residue rimangono valori interi. Ciò implica che quando $\Delta$ = 1, $G_f(\Delta)$ è uguale a $G_f$, e quindi quando l'algoritmo termina, $f$ è di valore massimo.
 
-**Dimosrazione:**
+#### **Costo**:
+Chiamiamo un'iterazione del ciclo esterno `While`, con un valore fisso di $\Delta$, la fase di $\Delta$-ridimensionamento. È facile dare un limite superiore al numero di diverse fasi di $\Delta$ridimensionamento, in termini di valore di $C = \sum_{e \text{ out of }s} c_e$ che abbiamo usato anche nella sezione precedente. Il valore iniziale di $\Delta$ è al massimo $C$, scende di un fattore 2 e non scende mai al di sotto di 1.
 
-- quando $\Delta = 1 \implies G_f(\Delta) = G_f $
-- quando termina la fase con $\Delta = 1$ non ci sono più augmenting paths
-- se non ci sono augmenting paths allora il flusso è massimo
+Quindi:
+> Il numero di iterazioni del ciclo `While` esterno è al massimo $\left\lceil 1 + log2 C  \right\rceil$.
 
-**Lemma:** (non so se si dice lemmi)
+La parte più difficile è limitare il numero di aumenti eseguiti in ogni fase di ridimensionamento. L'idea qui è che stiamo usando percorsi che aumentano molto il flusso, e quindi dovrebbero esserci relativamente pochi aumenti.
+Durante la fase di $\Delta$-ridimensionamento utilizziamo solo archi con capacità residua di almeno $\Delta$.
+Quindi:
+> Durante la fase di $\Delta$-ridimensionamento, ogni augmentation aumenta il valore del flusso di almeno $\Delta$.
 
-- Ci sono $1 + \lfloor \log_2 C \rfloor$ fasi di scaling
+L'intuizione chiave è che alla fine della fase di $\Delta$-scaling, il flusso $f$ non può essere troppo lontano dal valore massimo possibile.
+
+#### **Teorema**
+Sia $f$ il flusso alla fine della fase di $\Delta$-scaling. Esiste un taglio $s-t$ $(A, B)$ in $G$ per cui $c(A, B) \le v(f) + m\Delta$ , dove $m$ è il numero di archi nel grafo $G$. Di conseguenza, il flusso massimo nella rete ha valore al massimo $v(f) + m\Delta$.
+
+##### Dimostrazione
+Questa dimostrazione è analoga alla nostra dimostrazione della (7.9), la quale stabilisce che il flusso restituito dall'originale `Max-Flow Algorithm` è di valore massimo.
+Come in quella dimostrazione, dobbiamo identificare un taglio $(A, B)$ con la proprietà desiderata.
+Sia $A$ l'insieme di tutti i nodi $v$ in $G$ per i quali esiste un cammino $s-v$ in $G_f(\Delta)$.
+Sia $B$ l'insieme di tutti gli altri nodi: $B = V − A$. Possiamo vedere che $(A, B)$ è effettivamente un taglio $s-t$ altrimenti la fase non sarebbe terminata.
+
+Consideriamo ora un arco $e = (u, v)$ in $G$ per il quale $u \in A$ e $v \in B$. Affermiamo che $c_e < f(e) + \Delta$ . Infatti, se così non fosse, allora $e$ sarebbe un arco in avanti nel grafo $G_f(\Delta)$, e poiché $u \in A$, esiste un cammino $s-u$ in $G_f(\Delta)$; aggiungendo $e$ a questo cammino, otterremmo un cammino $s-v$ in $G_f(\Delta)$, contraddicendo la nostra ipotesi che $v \in B$. Allo stesso modo, affermiamo che per ogni arco $e' = (u' , v')$ in $G$ per cui $u' \in B$ e $v' \in A$, abbia'mo $f(e') < \Delta$. Infatti, se $f(e') \ge \Delta$, allora $e'$ darebbe luogo ad un arco all'indietro $e'' = (v'' , u'')$ nel grafo $G_f(\Delta)$, e poiché $v' \in A$, esiste un cammino $s-v'$ in $G_f(\Delta)$; aggiungendo $e''$ a questo cammino, otterremmo un cammino $s-u'$ $G_f(\Delta)$, contraddicendo la nostra ipotesi che $'u \in B$.
+
+Quindi tutti gli archi $e$ uscenti da $A$ sono quasi saturati (soddisfano $c_e < f(e) + \Delta $) e tutti gli archi entranti in $A$ sono quasi vuoti (soddisfano $f(e) < \Delta$).
+
+Possiamo ora usare (7.6) per raggiungere la conclusione desiderata:
+
+$$
+v(f) = \sum_{e \text{ out of } A}f(e) - \sum_{e \text{ into } A}f(e) \ge \sum_{e \text{ out of } A}(c_e - \Delta) - \sum_{e \text{ into } A}\Delta = \sum_{e \text{ out of } A}c_e - \sum_{e \text{ out of } A}\Delta - \sum_{e \text{ into } A}\Delta \ge c(A, B) - m\Delta
+$$
+
+Qui la prima disuguaglianza segue dai nostri limiti sui valori di flusso degli archi attraverso il taglio, e la seconda disuguaglianza segue dal semplice fatto che il grafico contiene solo $m$ spigoli in totale.
+Il valore del flusso massimo è limitato dalla capacità di qualsiasi taglio di (7.8). Usiamo il taglio $(A, B)$ per ottenere il limite dichiarato nella seconda affermazione.
+
+##### Def. 7.19
+Il numero di aumenti in una fase di ridimensionamento è al massimo di $2m$.
+
+##### Dimostrazione
+L'affermazione è chiaramente vera nella prima fase di scaling: possiamo usare ciascuno degli archi di $s$ solo per al massimo un augmentation in quella fase.
+Consideriamo ora una successiva fase di scaling $\Delta$, e sia $f_p$ il flusso alla fine della precedente fase di scalatura. In quella fase, abbiamo usato $\Delta' = 2\Delta$ come nostro parametro. Per la (7.18), il flusso massimo $f^∗$ è al massimo $v(f^∗) \le v(f_p) + m\Delta' = v(f_p) + 2m\Delta$ . Nella fase di $\Delta$-scalatura, ogni augmentation aumenta il flusso di almeno $\Delta$ , e quindi possono esserci al massimo $2m$ augmentations.
+
+Una augmentation richiede un tempo $O(m)$, compreso il tempo necessario per impostare il grafo e trovare il percorso appropriato. Abbiamo al massimo $1 + \left\lceil log_2 C \right\rceil$ fasi di ridimensionamento $C$ e al massimo $2m$ augmentations in ciascuna fase di ridimensionamento. Abbiamo quindi il seguente risultato.
+
+### **Teorema** 7.20
+L'algoritmo `Scaling Max-Flow` in un grafo con $m$ archi e capacità intere trova un flusso massimo in al massimo $2m(1 + \left\lceil log2 C \right\rceil)$ augmentations. Può essere implementato per eseguire al massimo in tempo $O(m2 log2 C)$.
+
+Quando $C$ è grande, questo limite temporale è molto migliore del limite $O(mC)$ applicato a un'implementazione arbitraria dell'algoritmo di `Ford-Fulkerson`.
+Il generico algoritmo di Ford-Fulkerson richiede un tempo proporzionale alla grandezza delle capacità, mentre l'algoritmo di scala richiede solo un tempo proporzionale al numero di bit necessari per specificare le capacità nell'input del problema . Di conseguenza, l'algoritmo di ridimensionamento funziona in tempo polinomiale nella dimensione dell'input (ovvero, il numero di archi e la rappresentazione numerica delle capacità), e quindi soddisfa il nostro obiettivo tradizionale di ottenere un algoritmo polinomiale.
+
+<hr>
+
+### Ford-Fulkerson pathological example
+
+#### Intuizione:
+Sia $r$ tale che $r^2 = 1-r$:
+- le capacità iniziali sono $\{1, r\}$
+- dopo qualche augmentation, le capacità residuali diventano $\{1,r,r^2\}$ (dove $r^2$ = $1-r$)
+- dopo altre diventano $\{1,r,r^2, r^3\}$ (dove $r^3$ = $r-r^2$)
+- dopo altre ancora, diventano $\{1,r,r^2, r^3, r^4\}$ (dove $r^4$ = $r^2-r^3$)
+
+$$
+r = \frac{\sqrt{5}-1}{2} \rightarrow r^2 = 1 - r
+$$
+
+<img src="./imgs/pathological_example.png" width="70%"/>
+
+Augmenting path 1: $s \to v \to w \to t$. Bottleneck capacity = 1 (v,w).
+
+Continuo ad aumentare path che passano per (v,w) e per (w,v) alternati, quindi aggiungo e tolgo la bottleneck ogni volta. La bottleneck diminuisce sempre ma va da r a $r^2$ a $r^3$ e cosí via, cosí l'algoritmo non termina mai:
+- dopo augmenting path 1: $\{ 1 - r^0, 1, r - r^1 \}$ (flow = $1$)
+- dopo augmenting path 5: $\{ 1 - r^2, 1, r - r^3 \}$ (flow = $1 + 2r + 2r^2)
+- dopo augmenting path 9: $\{ 1 - r^4, 1, r - r^5 \}$ (flow = $1 + 2r + 2r^2 + 2r^3 + 2r^4$)
+
+| <img src="./imgs/ex1.png" width="100%"/> | <img src="./imgs/ex2.png" width="100%"/> | <img src="./imgs/ex3.png" width="100%"/> |
+| --- | --- | --- |
+| <img src="./imgs/ex4.png" width="100%"/> | <img src="./imgs/ex5.png" width="100%"/> | <img src="./imgs/ex6.png" width="100%"/> |
+| <img src="./imgs/ex7.png" width="100%"/> | <img src="./imgs/ex8.png" width="100%"/> | <img src="./imgs/ex9.png" width="100%"/> |
+
+**Teorema:** 
+> **L'algoritmo di Ford-Fulkerson può non terminare e può convergere ad un valore che non è il flusso massimo**.
+
+**Dimostrazione:**
+Utilizzando la data sequenza di augmenting paths, dopo $(1+4k)^{th}$ di questi path, il valore del flusso è uguale a
+
+$$
+1 + 2 \sum^{2k}_{i=1}r^i \le 1 + 2 \sum^{\infty}_{i=1}r^i = 3 + 2r < 5
+$$
+
+($r = \frac{\sqrt{5}-1}{2}$)
+
+Valore del flusso massimo = 200 + 1
+
+<hr>
+
+## Matching su Grafi Bipartiti
 
 
 
-- sia $f$ il flow dopo una fase di scaling. $val(f^*) \lt val(f) + m \Delta$
 
-  - Esiste un cut $(A,B)$ tale che $cap(A,B) \le val(f) + m\Delta$
 
-  - $val(f) = \sum_{e \mbox { out of } A} f(e) -  \sum_{e \mbox { in to } A} f(e) \ge$
 
-    $\ge \sum_{e \mbox { out of } A} (c(e) - \Delta) -  \sum_{e \mbox { in to } A} \Delta \ge$
-
-    $\ge \sum_{e \mbox { out of } A} c(e) - \sum_{e \mbox { out of } A} \Delta - \sum_{e \mbox { in to } A} \Delta \ge$
-
-    $\ge cap(A,B) + m\Delta$
-
-    
-
-- ci sono $\lt 2m$ augmentation per ogni fase di scaling
-
-  - ogni augmentation aumenta il flow di almeno $\Delta$
-
-  
-
-- CAPACITY-SCALING impiega $O(m^2 \log C)$
-
-  - $O(m \log C)$ augmetations
-  - ogni augmentation $O(m)$
 
 ---
-
-# Ford-Fulkerson pathological example
-
-sia $r$ tale che $r^2 = 1-r$
-
-- le capacità iniziali sono $\{1, r\}$
-- dopo qualche augmentation diventano $\{1,r,r^2\}$ ($1-r$)
-- dopo altre diventano $\{1,r,r^2, r^3\}$ ($r-r^2$)
-
-![pathological_example](./imgs/pathological_example.png)
-
-augment 1: $s \to v \to w \to t$. Bottleneck capacity = 1 (v,w).
-
-continuo ad aumentare path che passano per (v,w) e per (w,v) alternati, quindi aggiungo e tolgo la bottleneck ogni volta. La bottleneck diminuisce sempre ma va da r a $r^2$ a $r^3$ e cosí via, cosí l'algoritmo non termina mai. 
-
-**Teorema:** Ford-Fulkerson può non terminare e può convergere ad un valore che non è il flusso massimo.
-
+---
 ---
 
 # Matching su Grafi Bipartiti
@@ -1740,3 +1747,94 @@ $\le:$ Suppongo che $F \subseteq E$ disconnetta s da t e |F| = k. Ogni path da s
 
 $\ge :$ Suppongo che il massimo numero di edge-disjoint path sia k. Max-flow value è quindi k. Per il max-flow min-cut theorem esiste un cut $(A,B)$ di capacità k. Sia F l'insieme di archi da A a B. |F| = k e disconnette s da t.
 
+
+<!-- 
+# Capacity Scaling Algorithm
+
+Assumiamo che per ogni $e \in E$, $c(e)$ è un intero tra 0 e C, quindi anche ogni $f(e)$ ed ogni $c_f(e)$ è un intero.
+
+### Teorema:
+
+Ford-Fulkerson termina dopo al più $val(f^{\*}) \le nC$ augmenting paths, dove $f^{\*}$ è il flusso massimo.
+
+**Dimostrazione:** ogni ciclo dell'algoritmo aumenta il flow di almeno 1.
+
+**Corollario:** Ford-Fulkerson impiega $O(mnC)$ tempo.
+
+**Dimostrazione:** Si possono usare DFS o BFS per trovare un augmenting path in $O(m)$
+
+### Integrality Theorem:
+
+Esiste un max-flow dove ogni $f(e)$ è intero.
+
+## Scegliere Augmenting Paths
+
+Alcune scelte degli augmenting paths portano a tempi polinomiali, altre a tempo esponenziali.
+
+Quando le capacità sono irrazionali non è garantito che Ford-Fulkerson termini.
+
+Sceglo augmenting path con:
+
+- bottleneck capacity massima
+  - uso un parametro $\Delta$. Prendo in considerazione solo gli archi con capacità $\ge \Delta$.
+  - ogni augmenting path ora ha bottleneck capacity $\ge \Delta$
+- bottleneck capacity abbastanza grande
+- minor numero di archi
+
+```pseudocode
+CAPACITY-SCALING(G) {
+  forEach edge e ∈ E: 
+  	f(e) ← 0
+  Δ ← largest power of 2 ≤ C
+  
+  while (Δ ≥ 1)
+  	Gf(Δ) ← Δ-residual network of G with respect to flow f
+  	while (there exists an s↝t path P in Gf(Δ))
+  		f ← AUGMENT(f, c, P)
+  		Update Gf (Δ)
+ 		Δ ← Δ / 2
+ 		
+  return f
+}
+```
+
+Assumo che tutte le capacità siano intere e che $\Delta$ sia una potenza di 2.
+
+**Teorema:** Se CAPACITY-SCALING termina allora f è un max-flow
+
+**Dimosrazione:**
+
+- quando $\Delta = 1 \implies G_f(\Delta) = G_f $
+- quando termina la fase con $\Delta = 1$ non ci sono più augmenting paths
+- se non ci sono augmenting paths allora il flusso è massimo
+
+**Lemma:** (non so se si dice lemmi)
+
+- Ci sono $1 + \lfloor \log_2 C \rfloor$ fasi di scaling
+
+
+
+- sia $f$ il flow dopo una fase di scaling. $val(f^*) \lt val(f) + m \Delta$
+
+  - Esiste un cut $(A,B)$ tale che $cap(A,B) \le val(f) + m\Delta$
+
+  - $val(f) = \sum_{e \mbox { out of } A} f(e) -  \sum_{e \mbox { in to } A} f(e) \ge$
+
+    $\ge \sum_{e \mbox { out of } A} (c(e) - \Delta) -  \sum_{e \mbox { in to } A} \Delta \ge$
+
+    $\ge \sum_{e \mbox { out of } A} c(e) - \sum_{e \mbox { out of } A} \Delta - \sum_{e \mbox { in to } A} \Delta \ge$
+
+    $\ge cap(A,B) + m\Delta$
+
+    
+
+- ci sono $\lt 2m$ augmentation per ogni fase di scaling
+
+  - ogni augmentation aumenta il flow di almeno $\Delta$
+
+  
+
+- CAPACITY-SCALING impiega $O(m^2 \log C)$
+
+  - $O(m \log C)$ augmetations
+  - ogni augmentation $O(m)$ -->
