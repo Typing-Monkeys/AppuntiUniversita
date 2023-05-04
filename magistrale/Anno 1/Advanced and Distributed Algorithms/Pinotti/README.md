@@ -20,10 +20,9 @@
   - [Maximum Flows and Minimum Cuts in a Network](#maximum-flows-and-minimum-cuts-in-a-network)
   - [Capacity Scaling Algorithm](#capacity-scaling-algorithmchoosing-good-augmenting-paths)
   - [Ford-Fulkerson pathological example](#ford-fulkerson-pathological-example)
-  - 
   - [Matching su Grafi Bipartiti](#Matching-su-Grafi-Bipartiti)
-  - [Disjoint Paths](#Disjoint-Paths)
-  - [Network Connectivity](#Network-Connectivity)
+  - [Disjoint Paths](#disjoint-paths)
+  - [Network Connectivity](#network-connectivity)
 
 
 <hr>
@@ -1646,107 +1645,161 @@ Valore del flusso massimo = 200 + 1
 <hr>
 
 ## Matching su Grafi Bipartiti
+Ora che abbiamo visto e sviluppato degli algoritmo potenti ed efficaci per il problema del Flusso Massimo, è ora di vedere le applicazioni di quest'ultimi per alcuni problemi noti. Durante l'introduzione del Problema del Flusso Massimo, abbiamo introdotto il ***Bipartite Matching Problem***, inizieremo quindi con la risoluzione di quest'ultimo e, successivamente, affronteremo il ***Disjoint Paths Problem***.
 
+### Descrizione del problema
+Ricordando che un *grafo bipartito* $G = (V. E)$ è un grafo indiretto il cui insieme di nodi può essere partizionato come $V = X \cup Y$, con la proprietà che ogni arco $e \in E$ ha una fine in $X$ e l'altra in $Y$ (ogni arco connette un nodo in $X$ e uno in $Y$).
+Un **matching** $M$ in $G$ è un sottoinsieme di archi $M \subseteq E$ tale che ogni nodo appare in al massimo un arco in $M$.
+Il ***Bipartite Matching Problem*** consiste nel trovare il matching in $G$ più grande possibile (matching di **cardinalità massima**).
 
+### Designing the Algorithm
+Il grafo in questione è indiretto, mentre le reti di flusso sono dirette-, tuttavia non è difficile applicare un algoritmo per il Problema del Massimo Flusso per trovare un matching massimo, vediamo come:
 
+Dato un grafo $G$ come istanza per il Bipartite Matching Problem, si costruisce una rete di flusso $G'$ come mostrato nella Figura qui di seguito:
 
+<img src="./imgs/bipartite1.png" width="70%"/>
 
+Come si ottiene $G'$ ?
+- Per prima cosa si direzionano tutti gli archi di $G$ che vanno da $X$ a $Y$
+- Si aggiunge poi un nodo $s$, e un arco $(s, x)$ da $s$ ad ogni nodo in $X$
+- Si aggiunge un altro nodo $t$, e un arco $(y, t)$ da ogni nodo in $Y$ verso $t$
+- Infine, si da una capacità di 1 ad ogni arco in $G'$
 
+Si può ora calcolare il massimo flow $s-t$ nella rete $G'$.
+
+Vedremo ora come:
+1. **Il valore del massimo flusso di questa rete ($G'$)è in realtà è uguale alla dimensione del massimo matching in $G$**.
+2. Inoltre vederemo come ricostruire il matching utilizzando il flusso della rete.
 
 ---
+
+#### Definizione 7.14
+(7.14) Se tutte le capacità nella rete di flusso sono intere, allora esiste un flusso massimo $f$ per il quale ogni valore di flusso $f(e)$ è un numero intero.
+
 ---
----
 
-# Matching su Grafi Bipartiti
+#### Dimostrazione di 1
+$$
+\leftarrow
+$$
+Si supponga l'esistenza di un matching in $G$ composto da $k$ archi $(x_{i_1}, y_{i_1}), ..., (x_{i_k}, y_{i_k}) $
+Si consideri allora un flusso $f$ che trasporta una un'unità su ogni path dalla struttura $s, x_{i_j}, y_{i_j}, t$ con $f(e) = 1$ per ogni arco per ognuno dei cammini.
+Si può verificare facilmente che le condizioni di capacità e la conservazione sono verificate e che $f$ è un flusso $s-t$ di valore $k$
 
-Dato un grafo non diretto $G=(V,E)$, $M \subseteq E$ è un **matching** se ogni vertice $v \in V$ compare in $M$ al più una volta.
+$$
+\rightarrow
+$$
+Dall'altro lato, si supponga l'esistenza di un flusso $f'$ in $G'$ di valore $k$. Dal teorema dell'integralità del massimo flusso (7.14), sappiamo che esiste un flusso $f$ di valore intero $k$; e siccome tutte le capacità sono $1$, questo significa che $f(e)$ è uguale a 0 o 1 per ogni arco $e$.
+Su consideri ora un insieme $M'$ di archi dalla forma $(x, y)$ sui quali il flusso ha valore 1.
 
-**Max Matching:** Trovare un matching di cardinalità massima
+Ecco 3 semplici fatti sull'insieme $M'$:
+- $M'$ contiene $k$ archi 
+- Ogni nodo in $X$ è la coda di al massimo un arco in $M'$
+- Ogni nodo in $Y$ è la testa di al massimo un arco in $M'$
 
-**Grafo Bipartito:** Un grafo si dice bipartito se può essere diviso in due subset $L$ e $R$ tali che ogni arco connette un nodo in $L$ e uno in $R$
+Combinando questi fatti, vediamo che se consideriamo $M'$ come un insieme di archi nel grafo bipartito originale G, otteniamo un matching di dimensione $k$. In sintesi, abbiamo dimostrato il seguente fatto.
 
-**Bipartite Matching:** Dato un grafo bipartito $G=(L \cup R, E)$ trovare un max matching.
+> La dimensione del massimo matching in $G$ è uguale al valore del massimo flusso in $G'$ ; e gli archi in un tale matching in G sono gli archi che portano il flusso da $X$ a $Y$ in $G'$.
 
-## Max-Flow Formulation
+#### **Costo**:
+Sia $n = |X| = |Y|$, e sia $m$ il numero di archi di $G$. Assumiamo che ci sia un arco entrante in ogni nodo, e quindi $m \ge n/2$. Il tempo per computare il massimo matching è dominato dal tempo per computare un maximum flow a valore intero in $G'$, quindi convertire quest'ultimo ad un matching in $G$ è facile. Per questo problema di flusso, abbiamo che $C = \sum_{e \text{ out of } s}c_e = |X| = n$, con $s$ come arco di capacità 1 per ogni nodo di $X$. Quindi, utilizzando $O(mC)$ come bound (limite), abbiamo il seguente corollario:
+> L'algoritmo di `Ford-Fulkerson` può essere utilizzato per trovare un matching massimo in un grafo bipartito in tempo $O(mn)$.
 
-- Creo un grafo $G' = (L \cup R \cup \{ s, t\}, E')$
-- Direziono tutti gli archi da L a R, do loro capacità infinita.
-- Aggiungo archi da s a L con capacità 1. Aggiungo archi da R a t con capacità 1.
-
-### Teorema:
-
-La cardinalità di un max-matching su $G$ è uguale al max flow su $G'$
-
-**Dimostrazione:**
-
-$\le$: Considero un max-matching di valore k. Considero un flow che manda un unità in ognuno dei corrispondendi k archi. f è un flow di valore k.
-
-$\ge$: Considero f max flow su G' di valore k. Per l'Integrality Theorem k è un intero e posso assumere che i valori di f siano $\{0,1 \}$. Considero M come l'insieme degli archi da L a R con $f(e) = 1$. Ogni nodo in L e R appare al più una volta in M. $|M| = k$ per il flow-value lemma sul cut $(L \cup \{s\}, R \cup \{t\})$.
-
-## Perfect Matching
+### Perfect Matching
 
 Dato un grafo non diretto $G=(V,E)$, $M \subseteq E$ è un **matching perfetto** se ogni vertice $v \in V$ compare in $M$ esattamente una volta.
+- Dobbiamo avere |X| = |Y|
 
-Dobbiamo avere |L| = |R|
+**Notazione**: Sia $S$ un sottoinsieme dei nodi, e sia $N(S)$ l'insieme dei nodi adiacenti ai nodi in $S$
 
-Se G ha un perfect matching, possiamo vedere che $|N(S)| \ge |S|$. con S subset di nodi e N(S) nodi adiacenti ad S.
+> **Se un grafo bipartito $G = (V, E)$, con i due lati $X$ e $Y$, ha un perfect matching, allora per ogni $S \subseteq X$ si deve avere $|N(S)| \ge |S|$**.
 
-### Teorema:
+**Dimostrazione**
+Ogni nodo in $S$ deve essere matchato a un differente nodo in $N(S)$
 
-Sia $G=(L \cup R, E)$ un grafo bipartito con $|L| = |R|$. G ha perfect matching $\iff$ per ogni possibile $S \subseteq L$:  $|N(S)| \ge |S|$.
+<img src="./imgs/bipartite2.png" width="70%"/>
 
-**Dimostrazione:**
+Con l'affermazione precedente possiamo anche constatare quando un grafo non ha un matching perfetto:
+- un insieme $S \subseteq X$ tale per cui $|N(S)| < |S|$
 
-$\Rightarrow:$ ogni nodo in S deve essere collegato almeno ad un nodo al di fuori di S.
+Da qui ne deriva un teorema chiamato **Hall's Theorem**, la cui dimostrazione fornisce anche un modo per trovare il sottoinsieme $S$ in tempo polinomiale.
 
-$\Leftarrow:$ Suppongo che G **non** abbia perfect matching. sia $(A,B)$ un min-cut di $G'$. Dal max-flow min-cut theorem $cap(A,B) \lt |L|$.
+### Hall's Theorem:
 
-- Definisco $L_A = L \cap A$, $L_B = L \cap B$, $R_A = R \cap A$
-- $cap(A,B) = |L_B| + |R_A| \implies |R_A| \lt |L_A|$
-- min-cut non può usare archi con capacità infinita \implies $N(L_A) \subseteq R_A$
-- $|N(L_A)| \le |R_A| \lt |L_A|$
-- scelgo $S = L_A$. assurdo.
-
----
-
-# Disjoint Paths
-
-Due path sono **edge-disjoint** se non hanno archi in comune
-
-**Edge-Disjoint Paths Problem:** dato un grafo G e due nodi s e t, trovare il massimo numero di edge-disjoint path da s a t.
-
-## Max-Flow Formulation
-
-assegno capacità 1 ad ogni arco
-
-### Teorema:
-
-massimo numero di edge-disjoint paths = valore del max-flow
+Sia $G=(V, E)$ un grafo bipartito con i due lati $X$ e $Y$, tali per cui $|X| = |Y|$. Allora G ha un perfect matching oppure c'è un sottoinsieme $S \subseteq X$ tale per cui $|N(S)| < |S|$. Un matching perfetto o un appropriato sottoiunsieme $S$ può essere trovato in tempo $O(mn)$.
 
 **Dimostrazione:**
+$\Rightarrow:$ Ogni nodo in $S$ deve essere collegato ad un nodo al di fuori di $N(S)$ (al di fuori di $S$).
+(Si noti come questa è la stessa dimostrazione della precedente affermazione.)
 
-$\le:$ Suppongo che ci siano k edge-disjoint paths da s a t. Pongo $f(e)=1$ per tutti gli archi che compaiono in questi path, altrimenti pongo $f(e)=0$. Dato che non ci sono archi in comune, f è un flow di valore k.
+$\Leftarrow:$ Suppongo che G **non** abbia perfect matching. 
+- Lo si formuli come un max-flow problem e sia $(A,B)$ un min-cut di $G'$. 
+- Dal max-flow min-cut theorem $cap(A,B) \lt |X|$.
+- Definisco $X_A = X \cap A$, $X_B = X \cap B$, $Y_A = Y \cap A$
+- $cap(A,B) = |X_B| + |Y_A| \implies |Y_A| \lt |X_A|$
+- min-cut non può usare archi con capacità infinita $\implies N(X_A) \subseteq Y_A$
+- $|N(X_A)| \le |Y_A| \lt |X_A|$
+- scelgo $S = X_A$. **Il che è assurdo**.
 
-$\ge:$ Suppongo che il max-flow abbia valore k. Per l'integrality theorem esiste un flow 0-1 di valore k. Considero gli archi $(s, u)$ con flow = 1. Per la conservazione del flusso esiste un arco $(u,v)$ con flow =1. Continuo scegliendo sempre nuovi archi fino a raggiungere t. Produco k edge-disjoint paths.
+<img src="./imgs/bipartite3.png" width="70%"/>
 
----
+Si noti che $X$ corrisponde a $L$ e $Y$ a $R$ nella figura.
 
-# Network Connectivity
+<hr>
 
-Un set di archi $F \subseteq E$ disconnette t da s se ogni path da t a s passa per un arco di F.
+## Disjoint Paths
 
-**Network Connectivity:** dato un arco G e due nodi s e t, trovare il minor numero di archi che disconnette s da t.
+### Descrizione del problema
+Due path sono **edge-disjoint** se non hanno archi in comune.
 
-### Teorema di Menger:
+**Edge-Disjoint Paths Problem:** dato un grafo $G$ e due nodi $s$ e $t$, trovare il massimo numero di **edge-disjoint path** da $s$ a $t$.
 
-numero massimo di edge-disjoint paths = numero minimo di archi che disconnettono s da t.
+#### Max-Flow Formulation
+Assegno capacità 1 ad ogni arco
+
+#### Teorema:
+
+Il massimo numero di edge-disjoint $s-t$ paths = valore del max-flow
 
 **Dimostrazione:**
+$\le:$ 
+- Suppongo che ci siano $k$ edge-disjoint paths da s a t. 
+- Pongo $f(e)=1$ per tutti gli archi che compaiono in questi path, altrimenti pongo $f(e)=0$. 
+- Dato che non ci sono archi in comune, $f$ è un flow di valore $k$.
 
-$\le:$ Suppongo che $F \subseteq E$ disconnetta s da t e |F| = k. Ogni path da s a t passa per almeno un arco di F. Quindi il numero di edge-disjoint path è $\le k$
+$\ge:$ 
+- Suppongo che il max-flow abbia valore $k$. 
+- Per l'integrality theorem esiste un flow $0-1$ di valore $k$. 
+- Considero gli archi $(s, u)$ con $f(s, u) = 1$. 
+  - Per la conservazione del flusso esiste un arco $(u,v)$ con $f(u, v) = 1$. 
+  - Continuo scegliendo sempre nuovi archi fino a raggiungere $t$. 
+- Produco $k$ edge-disjoint paths.
 
-$\ge :$ Suppongo che il massimo numero di edge-disjoint path sia k. Max-flow value è quindi k. Per il max-flow min-cut theorem esiste un cut $(A,B)$ di capacità k. Sia F l'insieme di archi da A a B. |F| = k e disconnette s da t.
+<hr>
 
+## Network Connectivity
+### Descrizione del problema
+Un set di archi $F \subseteq E$ **disconnette** $t$ da $s$ se ogni path da $s-t$ passa per almeno un arco di $F$.
+
+**Network Connectivity:** Dato un digrafo $G = (V,E)$ e due nodi $s$ e $t$, trovare il minor numero di archi la cui rimozione porta alla disconnessione di $t$ da $s$.
+
+#### Teorema di Menger:
+Il numero massimo di edge-disjoint $s-t$ paths = numero minimo di archi la cui rimozione porta alla disconnessione di $t$ da $s$.
+
+**Dimostrazione:**
+$\le:$
+- Suppongo che la rimozione di $F \subseteq E$ disconnetta $t$ da $s$ e $|F| = k$. 
+- Ogni path $s-t$ passa per almeno un arco di $F$. 
+- Quindi il numero di edge-disjoint path è $\le k$
+- <img src="./imgs/bipartite4.png" width="50%"/>
+
+$\ge :$ 
+- Suppongo che il massimo numero di edge-disjoint path sia $k$.
+- Allora, il Max-flow value è $k$. 
+- Per il max-flow min-cut theorem esiste un cut $(A,B)$ di capacità $k$. 
+- Sia $F$ l'insieme di archi che vanno da $A$ a $B$.
+- $|F| = k$ e disconnette $t$ da $s$.
+- <img src="./imgs/bipartite5.png" width="50%"/>
 
 <!-- 
 # Capacity Scaling Algorithm
