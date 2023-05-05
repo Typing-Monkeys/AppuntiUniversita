@@ -498,7 +498,7 @@ Se una **soluzione ottima** prevede il taglio dell'asta in $k$ pezzi, per $1 \le
 Data un'asta di lunghezza $n$ pollici e una tabella di prezzi $p_i$ per $i = 1, ..., n$, **determinare il ricavo massimo $r_n$ che si può ottenere tagliando l'asta e vendendone i pezzi**.
 
 ### Funzionamento
-Più in generale, posisiamo esprimere i valori $r_n$ per $n \ge 1$ in funzione dei ricavi ottimi delle aste più corte:
+Più in generale, possiamo esprimere i valori $r_n$ per $n \ge 1$ in funzione dei ricavi ottimi delle aste più corte:
 
 $$
 r_n = max(p_n, r_1 + r_{n-1}, r_2 + r_{n-2}, ..., r_{n-1} + r_1)
@@ -511,13 +511,13 @@ $$
 
 Tuttavia, c'è un modo più semplice di definire una struttura ricorsiva per il problema del taglio delle aste:
 > Consideriamo la decomposizione formata da un primo pezzo di lunghezza $i$ tagliato dall'estremità sinistra e dal pezzo restante di destra di lunghezza $n-i$. **Soltanto il pezzo restante di destra (non il primo pezzo) potrà essere ulteriormente tagliato**. Possiamo vedere ciascuna decomposizione di un'asta di lunghezza $n$ in questo modo:
-> **un primo pezzo seguito da un'eventuale decomposizione del pezzo restante**. 
+> - **un primo pezzo seguito da un'eventuale decomposizione del pezzo restante**. 
 > Così facendo, possiamo esprimere la soluzione senza alcun taglio dicendo che il primo pezzo ha dimensione $i = n$ e ricavo $p_n$ e che il pezzo restante ha dimensione 0 con ricavo $r_0 = 0$.
 
 Otteniamo così la seguente **versione semplificata dell'equazione:**
 
 $$
-r_n = max(o_i + r_{n-1})
+r_n = max_{1 \le i \le n}(p_i + r_{n-i})
 $$
 
 Secondo questa formulazione, **una soluzione ottima incorpora la soluzione di un solo sottoproblema** (il pezzo restante) anzichè due.
@@ -560,10 +560,10 @@ Come sappiamo per i problemi risolti precedentemente: <br>
 La programmazione dinamica richiede una memoria extra per ridurre il tempo di esecuzione (**compromesso tempo-memoria**). 
 
 Il risparmio di tempo ottenibile può essere notevole: **una soluzione con tempo esponenziale può essere trasformata in una soluzione con tempo polinomiale**:
-- Un metodo di programmazione dinamica viene eseguito in **tempo polinomiale** quando il numero di sottoproblemi distinti richiesti è **polinomiale nbella dimensione dell'input** e cuascun sottoproblema può essere risolto in un tempo polinomiale.
+- Un metodo di programmazione dinamica viene eseguito in **tempo polinomiale** quando il numero di sottoproblemi distinti richiesti è **polinomiale nella dimensione dell'input** e ciascun sottoproblema può essere risolto in un tempo polinomiale.
 
 Come già visto per la risoluzione degli altri problemi, ci sono due modi equivalenti:
-- **Metodo Top-Down con Memoization**: In questo approccio si scrive la procedura ricorsiva in modo naturale, modificandola per salvare il risultato di ciascun sottoproblema. La procedura prima veriffica se ha risoltoprecedentemente questo problema. In caso affermativo, restituisce il valore salvato, risparmiando gli ulteriori calcoli a quel livello; altrimenti la procedura calcola il valore nel modo usuale.
+- **Metodo Top-Down con Memoization**: In questo approccio si scrive la procedura ricorsiva in modo naturale, modificandola per salvare il risultato di ciascun sottoproblema. La procedura prima verifica se ha risolto precedentemente questo problema. In caso affermativo, restituisce il valore salvato, risparmiando gli ulteriori calcoli a quel livello; altrimenti la procedura calcola il valore nel modo usuale.
 - **Metodo Bottom-Up**: Ordiniamo i sottoproblemi per dimensione e poi li risolviamo ordinatamente a partire dal più piccolo. Quando risolviamo un particolare sottoproblema, abbiamo già risolto tutti i sottoproblemi più piccoli da cui dipende la sua soluzione.
 
 Questi due approcci generano ***algoritmo con lo stesso tempo di esecuzione asintotico***. L'approccio **Bottom-Up** spesso ha fattori costanti molto migliori, in quanto ha **meno costi per le chiamate di procedura**.
@@ -603,9 +603,7 @@ return q
 - Inizializza tutti gli elementi di `r` con $-\infty$
 - Il lavoro effettivo viene svolto in `Memoized-Cut-Pole-Aux`, la tabella `r` viene passata a `Memoized-Cut-Pole-Aux`
 
-Observe: If r [n] ≥ 0 then r [n] has been computed previously
-
-**Osserva**: Se `r[n] ≥ 0` allora `r[n]` **è stato calcolato in precedenza**
+**N.B.**: Se `r[n] ≥ 0` allora `r[n]` **è stato calcolato in precedenza**
 
 ### Bottom-up Approach
 #### `Algorithm Bottom-Up-Cut-Pole(p, n)`
@@ -650,7 +648,7 @@ Data una sequenza di $n$ matrici $A_1, A_2, ..., A_n$, vogliamo calcolare il pro
 Possiamo calcolare quest'ultimo utilizzando come subroutine l'algoritmo standard per moltiplicare una coppia di matrici, dopo che abbiamo posto le opportune parentesi per eliminare qualsiasi ambiguità sul modo in cui devono essere moltiplicate le matrici. 
 La moltiplicazione delle matrici è associativa, quindi **tutte le parentesizzazioni forniscono lo stesso prodotto**.
 
-**DEF**: _Un prodotto di matrici è **completamente parentesizzato** se è una singola matrice oppure è il prodotto, racchiuso tra parentesi di due prodotti di matrici completamente parentesizzati_. 
+**DEF**: _Un prodotto di matrici è **completamente parentesizzato** se è una singola matrice oppure è il prodotto, racchiuso tra parentesi, di due prodotti di matrici completamente parentesizzati_. 
 Per esempio, se la sequenza delle matrici è $A_1, A_2, A_3, A_4$, il prodotto $A_1 A_2 A_3 A_4$ può essere parentesizzato in cinqui modi distinti:
 - $(A_1 (A_2 (A_3 A_4)))$
 - $(A_1 ((A_2 A_3) A_4))$
@@ -679,7 +677,7 @@ return C
 #### **Costo**:
 - Tre cicli nidificati: $O(A.righe · B.colonne · A.colonne)$
 - Numero di moltiplicazioni: *A.righe · B.colonne · A.colonne*
-- Moltiplicazione di due matrici $n x n$: runtime $O(n^3)$
+- Moltiplicazione di due matrici $n$ x $n$: runtime $O(n^3)$
 
 **N.B.**:
 - Possiamo moltiplicare due matrici soltanto se sono **compatibili**: il numero di colonne di $A$ deve essere uguale al numero di righe di $B$.
@@ -701,7 +699,7 @@ Tipicamente, il tempo impiegato per determinare quest'ordine ottimo è più che 
 Vogliamo tuttavia dimostrare che un controllo esaustivo di tutti i possibili schemi di parentesizzazione non ci consente di ottenere un algoritmo effciente. 
 Indichiamo con $P(n)$ il numero di parentesizzazioni alternative di una sequenza di $n$ matrici. 
 - Quando $n=1$, c'è una sola matrice e, quindi un solo schema di parentesizzazione. 
-- Quando $n \ge 2$, un prodotto di matrici completamente parentesizzato è il prodotto di due sottoprodotti di matrici completamente parentesizzati e la suddivisione fra i due sottoprodotti può avvenire fra la k-esima e ka (k+1)-esima matrice per qualsiasi k=1,2,...,n-1.
+- Quando $n \ge 2$, un prodotto di matrici completamente parentesizzato è il prodotto di due sottoprodotti di matrici completamente parentesizzati e la suddivisione fra i due sottoprodotti può avvenire fra la k-esima e la (k+1)-esima matrice per qualsiasi k=1,2,...,n-1.
 
 Quindi otteniamo la seguente riccorenza
 
@@ -727,16 +725,16 @@ Per comodità adottiamo la notazione $A_{i..j}$ dove $i \le j$, per la matrice c
 Il costo di questa parentesizzazione è, quindi, il costo per calcolare la matrice $A_{i..k}$, più il costo per calcolare la matrice $A_{k+1..j}$, più il costo per per moltiplicare queste due matrici.
 
 ##### **Defininizione della sottostruttura**:
-> Supponiamo che una parentesizzazione ottima $A_i A_{i+1} ... A_j$ suddivida il prodotto fra $A_k$ e $A_{k+1}$. Allora la parentesizzazione ottima di $A_i A_{i+1} ... A_j$ deve essere una parentesizzazione ottima di  $A_i A_{i+1} ... A_k$.
+> Supponiamo che una parentesizzazione ottima $A_i A_{i+1} ... A_j$ suddivida il prodotto fra $A_k$ e $A_{k+1}$. Allora la parentesizzazione della prima sottosequenza $A_i A_{i+1} ... A_k$ all'interno di questa parentesizzazione ottima di $A_i A_{i+1} ... A_j$, deve essere una parentesizzazione ottima di  $A_i A_{i+1} ... A_k$.
 
 **Possiamo quindi costruire una soluzione ottima di un'istanza del problema della moltiplicazione di una sequenza di matrici suddividendo il problema in due sottoproblemi** (quelli della parentesizzazione ottima  $A_i A_{i+1} ... A_k$ e  $A_{k+1} A_{k+2} ... A_j$  ), trovando le soluzioni ottime delle istanze dei sottoproblemi e, infine, **combinando** **le soluzioni ottime dei sottoproblemi**.
 
 #### 2. Soluzione in modo ricorsivo
 Scegliamo come sottoproblemi i problemi per determinare il costo minimo di una parentesizzazione $A_i A_{i+1} ... A_j$ per $1 \le i \le j \le n$.
-Sia `m[i,j]` il numero minimo di prodotti scalari richiesti per calcolare la matrice $A_{i..j}$; per il problema principale, il costo del metodo più economico per calcolare $A_{1..n}$ sarà quindi `m[1,n]`.
-Possimao definire `m[i,j]` ricorsivamente in questo modo:
+Sia `m[i,j]` **il numero minimo di prodotti scalari richiesti per calcolare la matrice** $A_{i..j}$; per il problema principale, il costo del metodo più economico per calcolare $A_{1..n}$ sarà quindi `m[1,n]`.
+Possiamo definire `m[i,j]` ricorsivamente in questo modo:
 - Se $i = j$, il problema è banale; la sequenza è formata da una matrice $A_{i..i} = A_i$, quindi non occorre eseguire alcun prodotto scalare. Allora `m[i,i]` = 0 per $i=1,2,...,n$. 
-- Per calcolare `m[i,j]` quando $i < j$, sfruttiamo la struttura di una soluzione ottima ottenuta nella [fase 1](#1-struttra-di-una-parentesizzazione-ottima). Supponiamo che la parentesizzazio ottima suddivida il prodotto $A_i A_{i+1} ... A_j$ fra $A_k$ e $A_{k+1}$, dove $i \le k < j$. Quindi `m[i,j]` è uguale al costo minimo per calcolare i sottoprodotti  $A_{i..k}$ e  $A_{k+1..j}$, più il costo per moltiplicare queste due matrici. Ricordando che ogni matrice $A_i$ è $p_{i-1}$ x $p_i$, il calcolo del prodotto delle matrici $A_{i..k} A_{k+1..j}$ richiede $p_{i-1} p_k  p_j$ prodotti scalari. Quindi otteniamo:
+- Per calcolare `m[i,j]` quando $i < j$, sfruttiamo la struttura di una soluzione ottima ottenuta nella [fase 1](#1-struttra-di-una-parentesizzazione-ottima). Supponiamo che la parentesizzazione ottima suddivida il prodotto $A_i A_{i+1} ... A_j$ fra $A_k$ e $A_{k+1}$, dove $i \le k < j$. Quindi `m[i,j]` è uguale al costo minimo per calcolare i sottoprodotti  $A_{i..k}$ e  $A_{k+1..j}$, più il costo per moltiplicare queste due matrici. Ricordando che ogni matrice $A_i$ è $p_{i-1}$ x $p_i$, il calcolo del prodotto delle matrici $A_{i..k} A_{k+1..j}$ richiede $p_{i-1} p_k  p_j$ prodotti scalari. Quindi otteniamo:
 $m[i,j] = m[i,k] + m[k+1,j] + p_{i-1} p_k p_j$
 
 Questa equazione ricorsiva supppone che sia noto il valore di $k$, che invece non conosciamo. Notiamo tuttavia, che ci sono soltanto $j-i$ valori possibili per $k$, ovvero $k=i, i+1, ..., j-1$. 
@@ -772,10 +770,10 @@ for l ← 2...n do                  # l = chain length
 		j ← i + l − 1                 # right position
 		m[i,j] ← ∞
 		for k ← i . . . j − 1 do
-      q  = m[i,k] + m[k +1,j] + pi−1 pk pj
-      if q < m[i,j]
-        m[i,j] = q
-        s[i,j] = k
+          q  = m[i,k] + m[k +1,j] + pi−1 pk pj
+          if q < m[i,j]
+            m[i,j] = q
+            s[i,j] = k
 
 return m and s
 ```
@@ -784,7 +782,7 @@ L'algoritmo prima calcola `m[i,i]` $= 0$ per $i=1, 2,...,n$ (i costi minimi per 
 
 
 #### **Costo**:
-- Da un semplice esame dalla struttura annidata dei cicli della procedura `Matrix-Chain-Order` si deduce che il **tempo di esecuzione dell'algoritmo è pari a** $O(n^3)$. I cicli hanno tre livelli di annidamento e ogni indice di ciclo $(l,i e k)$ assume al massimo $n-1$ valori.
+- Da un semplice esame dalla struttura annidata dei cicli della procedura `Matrix-Chain-Order` si deduce che il **tempo di esecuzione dell'algoritmo è pari a** $O(n^3)$. I cicli hanno tre livelli di annidamento e ogni indice di ciclo $(l,i \text{ e } k)$ assume al massimo $n-1$ valori.
 - L'algoritmo richiede **in spazio** $O(n^2)$ per memorizzare le tabelle `m` e `s`. 
 
 Quindi, la procedura `Matrix-Chain-Order` **è molto più efficiente del metodo con tempo esponenziale che elenca tutte le possiili parentesizzazioni controllandole una per una**.
@@ -831,7 +829,7 @@ $$
   \sum_{i=1}^{n} p_i +  \sum_{i=0}^{n} q_i = 1
 $$
 
-**Poichè conosciamo le probabilità delle ricerche per ogni chiave e per ogni chiave fittizia, possiamo determinare il costo atteso di una ricerca in un determinato albero binario di ricerca $T$.** Supposiniamo che il costo effettivo di una ricerca sia il numero di nodi esaminati, ovvero la profondità del nodo trovato dalla ricerca in $T$, più 1. Allora il costo atteso di una ricerca in $T$ è:
+**Poichè conosciamo le probabilità delle ricerche per ogni chiave e per ogni chiave fittizia, possiamo determinare il costo atteso di una ricerca in un determinato albero binario di ricerca $T$.** Supponiamo che il costo effettivo di una ricerca sia il numero di nodi esaminati, ovvero la profondità del nodo trovato dalla ricerca in $T$, più 1. Allora il costo atteso di una ricerca in $T$ è:
 
 $$
 avgCost(T) = \sum_{i = 1}^{n} profondità_T(d_i) \cdot q_i
@@ -847,11 +845,11 @@ Per un dato insieme di probabilità, il nostro obiettivo è costruire un albero 
 Come nella moltiplicazione di una sequenza di matrici, il controllo esaustivo di tutte le possibilità non riesce a produrre un algoritmo efficiente. In una ricerca esaustiva, dovremmo esaminare un numero esponenziale di alberi binari di ricerca.
 
 #### 1. La struttura di un albero binario di ricerca ottimo
-Iniziamo con una osservazione sui sottoalberi. Consideriamo un sottoalbero qualsiasi di un albero binario di ricerca; le sue chiavi devono essere in un intervallo coniguo $k_i, ..., k_j$, per qualche $1 \le i \le j \le n$. Inoltre, un sottoalbero che contiene le chiavi $k_i, ..., k_j$ deve anche avere come foglie le chiavi fittizie $d_{i-1}, ..., d_j$. Adesso possiamo definire la sottostruttura ottima: se un alvero binario di ricerca ottimo $T$ ha un sottoalbero $T'$ che contiene le chiavi $k_i, ..., k_j$, allora questo sottoalberto $T'$ deve essere ottimo anche per il sottoproblema con chiavi $k_i, ..., k_j$ e chiavi fittizie $d_{i-1}, ..., d_j$.
+Iniziamo con una osservazione sui sottoalberi. Consideriamo un sottoalbero qualsiasi di un albero binario di ricerca; le sue chiavi devono essere in un intervallo coniguo $k_i, ..., k_j$, per qualche $1 \le i \le j \le n$. Inoltre, un sottoalbero che contiene le chiavi $k_i, ..., k_j$ deve anche avere come foglie le chiavi fittizie $d_{i-1}, ..., d_j$. Adesso possiamo definire la sottostruttura ottima: se un albero binario di ricerca ottimo $T$ ha un sottoalbero $T'$ che contiene le chiavi $k_i, ..., k_j$, allora questo sottoalberto $T'$ deve essere ottimo anche per il sottoproblema con chiavi $k_i, ..., k_j$ e chiavi fittizie $d_{i-1}, ..., d_j$.
 
 Date le chiavi $k_i, ..., k_j$, una di queste chiavi, per esempio $k_r$ ($i \le r \le j$), sarà la radice di un sottoalbero ottimo che contine queste chiavi. Il sottoalbero sinistro della radice $k_r$ conterra le chiavi $k_i, ..., k_{r-1}$ (e le chiavi fittizie $d_{i-1}, ..., d_{r-1}$) e il sottoalbero destro conterrà le chiavi $k_{r+1}, ..., k_j$ (e le chiavi fittizie $d_{r}, ..., d_{j}$).
 
-Se esaminiamo tutte le radici candidate $_r$ con $i \le r \le j$, e determiniamo tutti gli alberi binari di ricerca ottimi che contengono $k_i, ..., k_{r-1}$ e quelli che contengono $k_{r+1}, ..., k_{j}$, avremo la garanzia di trovare un albero binario di ricerca ottimo.
+Se esaminiamo tutte le radici candidate $k_r$ con $i \le r \le j$, e determiniamo tutti gli alberi binari di ricerca ottimi che contengono $k_i, ..., k_{r-1}$ e quelli che contengono $k_{r+1}, ..., k_{j}$, avremo la garanzia di trovare un albero binario di ricerca ottimo.
 
 **Note sui sottoalberi vuoti**: supponiamo di scegliere $k_i$ come radice di un sottoalbero con chiavi $k_i, ..., k_j$. Il sottoalbero sinistro di $k_i$, contiene le chiavi $k_i, ..., k_{i-1}$. È naturale dedurre che questa sequenza non contiene chiavi ma, notiamo che i sottoalberi contengono anche le chiavi fittizie. Adottiamo la convenzione che un sottoalbero che contiene le chiavi $k_i, ..., k_{i-1}$ non ha chiavi reali, ma contiene l'unica chiave fittizia $d_{i-1}$. In modo simmetrico, il sottoalbero destro di $k_j$, contiene le chiavi $k_{j+1}, ..., k_j$; questo sottoalbero destro non contiene chiavi reali, ma contiene la chiave fittizia $d_j$.
 
@@ -897,7 +895,7 @@ $e[i,j]$ =
 I valori $e[i,j]$ rappresentano i costi attesi di ricerca negli alberi binari di ricerca ottimi. Per tenere traccia della struttura degli alberi binari di ricerca ottimi, definiamo $root[i,j]$, per $i \le i \le j \le n$, come l'indice $r$ per il quale $k_r$ è la radice di un albero binario di ricerca ottimo che contiene le chiavi $k_i , ..., k_j$.
 
 #### 3. Calcolare il costo di ricerca atteso in un albero binario di ricerca ottimo
-Si possono vedere diverse analogie fra la caratterizzazione degli alberi binari di ricerca ottimi e la caratterizzazione della moltiplicazione di una sequenza di matrici. Per entrambi i domini dei problemi, i sottoproblemi sono formati da sottointervalli di indici e cotigui. Una implementazione ricorsiva diretta dell'equazione definita precedentemente potrebbe risultare inefficiente come l'algoritmo ricorsivo diretto della moltiplicazione di una sequenza di matrici. Memorizziamo quindi i valori $e[i,j]$ in una tabella $e[1..n +1, 0..n]$. Il primo indice deve arrivare fino a $n+1$ (anzichè $n$) perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_n$, dobbiamo calcolare e memorizzare $e[n+1,n]$. Il secondo indice deve iniziare da 0 perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_0$, dobbiamo calcolare e memorizzare $e[1,0]$. Utilizzeremo soltanto le posizioni $e[i,j]$ èper le quali $j \ge i-$. Utilizzeremo anche una tbabella $root[i,j]$ per memoriazzare la radice del sottoalbero che contiene le chiavi $k_i, ..., k_j$ (questa tabella usa soltanto le posizioni per le quali $1 \le i \le j \le n$).
+Si possono vedere diverse analogie fra la caratterizzazione degli alberi binari di ricerca ottimi e la caratterizzazione della moltiplicazione di una sequenza di matrici. Per entrambi i domini dei problemi, i sottoproblemi sono formati da sottointervalli di indici e cotigui. Una implementazione ricorsiva diretta dell'equazione definita precedentemente potrebbe risultare inefficiente come l'algoritmo ricorsivo diretto della moltiplicazione di una sequenza di matrici. Memorizziamo quindi i valori $e[i,j]$ in una tabella $e[1..n +1, 0..n]$. Il primo indice deve arrivare fino a $n+1$ (anzichè $n$) perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_n$, dobbiamo calcolare e memorizzare $e[n+1,n]$. Il secondo indice deve iniziare da 0 perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_0$, dobbiamo calcolare e memorizzare $e[1,0]$. Utilizzeremo soltanto le posizioni $e[i,j]$ èper le quali $j \ge i-$. Utilizzeremo anche una tabella $root[i,j]$ per memoriazzare la radice del sottoalbero che contiene le chiavi $k_i, ..., k_j$ (questa tabella usa soltanto le posizioni per le quali $1 \le i \le j \le n$).
 
 Ovviamente, per migliorare l'efficienza, utilizzeremo un'altra tabella. Anzichè ricominciare da zero il calcolo di $w(i,j)$ ogni volta che calcoliamo $e[i,j]$ (il che richiederebbe $O(j-1)$ addizioni) memorizziamo questi valori in una tabella $w[1..n+1,0..n]$. Per il caso base, calcoliamo $w[i, i-1] = q_{i-1}$ per $ 1 \le i \le n+1$. Per $j \ge i$, calcoliamo $w[i,j] = w[i, j-1] + p_j + q_j$.
 
