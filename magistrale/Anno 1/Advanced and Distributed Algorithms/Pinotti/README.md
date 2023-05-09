@@ -12,8 +12,8 @@
   - [Matrix Chain Parentesizathion](#matrix-chain-parenthesization)
   - [Optimal Binary Search Tree](#optimal-binary-search-tree)
   - [Sequence Alignment Problem](#sequence-alignment)
-  - [Hirschberg's Algorithm](#sequence-alignment-in-spazio-lineare-utilizzando-la-dividi-et-impera)
-  - [Longest Common Subsequence (LCS)](#longest-common-subsequence)
+    - [Hirschberg's Algorithm](#sequence-alignment-in-spazio-lineare-utilizzando-la-dividi-et-impera)
+    - [Longest Common Subsequence (LCS)](#longest-common-subsequence)
 - [Network Flow](#network-flow)
   - [Introduzione](#introduzione-1)
   - [The Max-Flow Problem and the Ford-Fulkerson Algorithm](#the-maximum-flow-problem-and-the-ford-fulkerson-algorithm)
@@ -131,7 +131,7 @@ M-Compute-Opt(j)
   return M[j]
 ```
 
-Costruisco una matrice dove salvo i risultati dei sottoproblemi. Quando devo accedere ad un sottoproblema, prima di ricalcolarlo, controllo se è presente nella matrice.
+Costruisco una array dove salvo i risultati dei sottoproblemi. Quando devo accedere ad un sottoproblema, prima di ricalcolarlo, controllo se è presente nel suddetto array.
 
 Costo computazionale = $O(n\log{n})$:
 
@@ -207,7 +207,7 @@ $$
 
 Le formule appena citate sono utilizzabili solo se i punti di $P$ hanno un andamento che è abbastanza lineare ma falliscono in altre circostanze.
 
-<img src="./imgs/linear_least2.png" width="50%"/>
+<img src="./imgs/linear_least2.png" width="60%"/>
 
 Come è evidente dalla figura non è possibile trovare una linea che approssimi in maniera soddisfacente i punti, dunque per risolvere il problema possiamo pensare di rilassare la condizione che sia solo una la linea. Questo però implica dover riformulare il goal che altrimenti risulterebbe banale (si fanno $n$ linee  che passano per ogni punto).
 
@@ -467,7 +467,7 @@ Costo computazionale: $O(n^3)$ time e $O(n^2)$ space
 ### Riepilogo
 
 - Trovare il modo di accoppiare le basi di RNA con delle regole
-- $OPT[i,j] = max\{ max_{i \le t \le j-5} \{ 1 + OPT[i, t-1] + OPT[t+1, j] \}, OPT[i, j-1] \}$
+- $OPT[i,j] = max\{ max_{i \le t \le j-5} \{ 1 + OPT[i, t-1] + OPT[t+1, j-1] \}, OPT[i, j-1] \}$
 - Spazio = matrice riempita per diagonali $\rightarrow$ **SPAZIO =** $O(n^2)$
 - Per calcolare ogni $OPT$ pago $n$ $\rightarrow$ **TEMPO =** $O(n^3)$
 - Per costruire una soluzione mi serve una matrice dove $S[i,j] = max_t$ $\rightarrow$ **SPAZIO =** $O(n^2)$
@@ -480,7 +480,7 @@ Costo computazionale: $O(n^3)$ time e $O(n^2)$ space
 
 Il **Problema del Taglio delle Aste (Pole Cutting)** può essere definito nel modo seguente:
 
-> Data un'asta di lunghezza $n$ pollici e una tabella di prezzi $p_i$ per $i = 1, ..., n$, **determinare il ricavo massimo $r_n$ che si può ottenere tagliando l'asta e vendendone i pezzi**. Si noti che, se il prezzo $p_n$ di un'asta di lunghezza n è sufficientemente grande, la soluzione ottima potrebbe essere quella di non effettuare alcun taglio.
+> Data un'asta di lunghezza $n$ pollici e una tabella di prezzi $p_i$ per $i = 1, ..., n$, **determinare il ricavo massimo $r_n$ che si può ottenere tagliando l'asta e vendendone i pezzi**. Si noti che, se il prezzo $p_n$ di un'asta di lunghezza $n$ è sufficientemente grande, la soluzione ottima potrebbe essere quella di non effettuare alcun taglio.
 
 La figura qui di seguito mostra un esempio di problema Pole Cutting. <br>
 <img src="./imgs/pole1.png" width="80%"/> 
@@ -845,7 +845,8 @@ Per un dato insieme di probabilità, il nostro obiettivo è costruire un albero 
 Come nella moltiplicazione di una sequenza di matrici, il controllo esaustivo di tutte le possibilità non riesce a produrre un algoritmo efficiente. In una ricerca esaustiva, dovremmo esaminare un numero esponenziale di alberi binari di ricerca.
 
 #### 1. La struttura di un albero binario di ricerca ottimo
-Iniziamo con una osservazione sui sottoalberi. Consideriamo un sottoalbero qualsiasi di un albero binario di ricerca; le sue chiavi devono essere in un intervallo contiguo $k_i, ..., k_j$, per qualche $1 \le i \le j \le n$. Inoltre, un sottoalbero che contiene le chiavi $k_i, ..., k_j$ deve anche avere come foglie le chiavi fittizie $d_{i-1}, ..., d_j$. Adesso possiamo definire la sottostruttura ottima: se un albero binario di ricerca ottimo $T$ ha un sottoalbero $T'$ che contiene le chiavi $k_i, ..., k_j$, allora questo sottoalberto $T'$ deve essere ottimo anche per il sottoproblema con chiavi $k_i, ..., k_j$ e chiavi fittizie $d_{i-1}, ..., d_j$.
+Iniziamo con una osservazione sui sottoalberi. Consideriamo un sottoalbero qualsiasi di un albero binario di ricerca; le sue chiavi devono essere in un intervallo contiguo $k_i, ..., k_j$, per qualche $1 \le i \le j \le n$. Inoltre, un sottoalbero che contiene le chiavi $k_i, ..., k_j$ deve anche avere come foglie le chiavi fittizie $d_{i-1}, ..., d_j$. Adesso possiamo definire la **sottostruttura ottima**:
+> **se un albero binario di ricerca ottimo $T$ ha un sottoalbero $T'$ che contiene le chiavi $k_i, ..., k_j$, allora questo sottoalberto $T'$ deve essere ottimo anche per il sottoproblema con chiavi $k_i, ..., k_j$ e chiavi fittizie $d_{i-1}, ..., d_j$**.
 
 Date le chiavi $k_i, ..., k_j$, una di queste chiavi, per esempio $k_r$ ($i \le r \le j$), sarà la radice di un sottoalbero ottimo che contine queste chiavi. Il sottoalbero sinistro della radice $k_r$ conterra le chiavi $k_i, ..., k_{r-1}$ (e le chiavi fittizie $d_{i-1}, ..., d_{r-1}$) e il sottoalbero destro conterrà le chiavi $k_{r+1}, ..., k_j$ (e le chiavi fittizie $d_{r}, ..., d_{j}$).
 
@@ -865,7 +866,7 @@ Quando $j \ge i$, bisogna scegliere una radice $k_r$ fra $k_i, ..., k_j$ e poi c
 Per un sottoalbero con chiavi $k_i, ..., k_j$
 
 $$
-w(i , j) = \sum_{l = 1}^{j} p_l + \sum_{l = i - 1}^{j} q_l
+w(i , j) = \sum_{l = i}^{j} p_l + \sum_{l = i - 1}^{j} q_l
 $$
 
 Quindi se $k_r$ è la radice di un sottoalbero ottimo che contiene le chiavi $k_i, ..., k_j$ abbiamo
@@ -890,7 +891,7 @@ Otteniamo quindi la seguente formula ricorsiva finale:
 
 $e[i,j]$ = 
 - $q_{i-1}$ se $j = i-1$
-- $min_{i \le r \le j} {e[i, r-1] + e[r+1, j] + w(i,j)}$ se $i \le j$
+- $min_{i \le r \le j} \{e[i, r-1] + e[r+1, j] + w(i,j)\}$ se $i \le j$
 
 I valori $e[i,j]$ rappresentano i costi attesi di ricerca negli alberi binari di ricerca ottimi. Per tenere traccia della struttura degli alberi binari di ricerca ottimi, definiamo $root[i,j]$, per $i \le i \le j \le n$, come l'indice $r$ per il quale $k_r$ è la radice di un albero binario di ricerca ottimo che contiene le chiavi $k_i , ..., k_j$.
 
@@ -937,19 +938,21 @@ return e[] and root[]
 
 ### Riepilogo
 - L'obiettivo è costruire un albero di ricerca massimizzando la velocità di ricerca in base alla probabilità
-- $OPT[i,j] - min_{i \le r \le j} \{ OPT[i, r-1] + OPT[r+1, j] + w[i,j] \}$
-- $r$ è la radice dei sottoalberi creati ricorsivmente
+- $OPT[i,j] = min_{i \le r \le j} \{ OPT[i, r-1] + OPT[r+1, j] + w[i,j] \}$
+- $r$ è la radice dei sottoalberi creati ricorsivamente
 - Per ricostruire la soluzione uso un'altra matrice dove $S[i,j] = min_r$ $\rightarrow$ **SPAZIO =** $O(n^2)$
 
 <hr>
 
 ## Sequence Alignment
 
-Il problema del Sequence Alignment consiste nel riuscire a comparare delle stringhe, come per esempio quando si effettua un ***typo*** in un motore di ricerca e quello ci fornisce l'alternativa corretta in quanto il testo da noi scritto è "abbastanza" simile a un'altra ricerca (che sia stata fatta con più probabilità). Una prima idea potrebbe essere quella di **allineare** le due parole lettera per lettera, riempendo gli eventuali spazi bianchi, e vedendo di quanto le due differiscono. Vogliamo quindi un modello in cui la **similarità** sia determinata approssimativamente dal numero di **gap** e **mismatch** in cui incorriamo quando allineiamo le due parole.
+Il problema del Sequence Alignment consiste nel riuscire a comparare delle stringhe, come per esempio quando si effettua un ***typo*** in un motore di ricerca e quello ci fornisce l'alternativa corretta in quanto il testo da noi scritto è "abbastanza" simile a un'altra ricerca (che sia stata fatta con più probabilità).
+Vogliamo quindi un modello in cui la **similarità** sia determinata approssimativamente dal numero di **gap** e **mismatch** in cui incorriamo quando allineiamo le due parole.
 Tuttavia ci sono varie possibilità con cui due parole di lunghezza diversa possono essere confrontate, quindi è necessario fornire una definizione di **similarità**. 
 
 ### Descrizione del Problema
-Come prima definizione di similarità possiamo dire che: **minore è il numero di caratteri che non corrispondono, maggiore è la similarità tra le parole**.
+Come prima definizione di ***similarità*** possiamo dire che: 
+> **minore è il numero di caratteri che non corrispondono, maggiore è la similarità tra le parole**.
 
 Questa problematica è anche un tema centrale della biologia molecolare, e proprio grazie ad un biologo abbiamo una definizione rigorosa e soddisfacente di similarità.
 
@@ -961,7 +964,7 @@ Prima di dare una definizione similarità dobbiamo però darne una di **allineam
 > - e $i < i^{\prime}$, 
 > - allora $j < j^{\prime}$.
 
-Intuitivamente, un alignment fornisce un modo per allineare le due stringhe, dicendoci quali coppie di posizioni saranno allineate l'una con l'altra. Ad esempio:
+Intuitivamente, un ***alignment*** fornisce un modo per allineare le due stringhe, dicendoci quali coppie di posizioni saranno allineate l'una con l'altra. Ad esempio:
 ```
 stop-
 -tops
@@ -978,7 +981,7 @@ Supponiamo che $M$ sia un dato allineamento tra $X$ e $Y$.
 **N.B.** Le quantità $\delta$ e $a_{(p,q)}$ sono parametri esterni che devono essere inseriti nel software per l'allineamento della sequenza; infatti, molto lavoro va nella scelta delle impostazioni per questi parametri. Dal nostro punto di vista, nel progettare un algoritmo per il sequence alignment, li prenderemo come input.
 
 #### **Goal:** 
-Date due stringhe, trovare l'allineamento di costo minimo.
+**Date due stringhe, trovare l'allineamento di costo minimo.**
 
 ### Implementazione dell'algoritmo
 Ora affronteremo il problema di calcolarci questo costo minimo, e l'allineamento ottimale che lo fornisce, date le coppie $X$ e $Y$.
@@ -999,8 +1002,8 @@ Dire questo, equivale a riscrivere le due condizioni sopra come tre, dunque **in
 
 Ora definiamo la funzione di costo minimo $OPT(i,j)$ come costo dell'alignment tra $x_1 x_2 \ldots x_i$ e $y_1 y_2 \ldots y_j$.
 
-Nel caso 1, abbiamo un costo di $a_{x_m y_n}$ e poi si allinea $x_1 x_2 \ldots x_{m-1}$ nel miglior modo possibile con $y_1 y_2 \ldots y_{n-1}$. Si ha quindi che $OPT(m,n) = a_{x_m y_n} + OPT(m-1,n-1)$.
-Nel caso 2, si paga un gap cost $\delta$ dato che la $m^{th}$ posizione di $X$ non è in matching, e poi si allinea $x_1 x_2 \ldots x_{m-1}$ nel miglior modo possibile con $y_1 y_2 \ldots y_{n}$. Si ha quindi che $OPT(m,n) = \delta + OPT(m,n-1)$.
+- `Nel caso 1`, abbiamo un costo di $a_{x_m y_n}$ e poi si allinea $x_1 x_2 \ldots x_{m-1}$ nel miglior modo possibile con $y_1 y_2 \ldots y_{n-1}$. Si ha quindi che $OPT(m,n) = a_{x_m y_n} + OPT(m-1,n-1)$.
+- `Nel caso 2`, si paga un gap cost $\delta$ dato che la $m^{th}$ posizione di $X$ non è in matching, e poi si allinea $x_1 x_2 \ldots x_{m-1}$ nel miglior modo possibile con $y_1 y_2 \ldots y_{n}$. Si ha quindi che $OPT(m,n) = \delta + OPT(m,n-1)$.
 
 Utilizzando dunque gli stessi argomenti per i sottoproblemi, per l'allineamento di costo minimo tra $X$ e $Y$, otteniamo la definizione generale di $OPT(i,j)$:
 
@@ -1028,11 +1031,12 @@ RETURN M[m, n]
 - Il running time è di $O(mn)$, poiché l'array $A$ ha $O(mn)$ voci e nel peggiore dei casi trascorriamo un tempo costante su ciascuna.
 - Costo spaziale è di $O(mn)$
 
-C'è un modo pittorico accattivante in cui le persone pensano a questo algoritmo di sequence alignment. Supponiamo di costruire un grafo a griglia $m$ × $n$ bidimensionale $G_{XY}$ , con le righe etichettate da simboli nella stringa $X$, le colonne etichettate da simboli in $Y$ e gli archi orientati come nella Figura di seguito.
+C'è un modo pittorico accattivante in cui le persone pensano a questo algoritmo di sequence alignment. Supponiamo di costruire un grafo a griglia $m$ × $n$ bidimensionale $G_{XY}$ , con le righe etichettate da simboli nella stringa $X$, le colonne etichettate da simboli in $Y$ e gli archi orientati come nella *Figura* di seguito.
 
 <img src="./imgs/sa.png" width="50%"/> 
 
-Numeriamo le righe da 0 a $m$ e le colonne da 0 a $n$; indichiamo il nodo nell'$i$-esima riga e nella $j$-esima colonna con l'etichetta `(i, j)`. Mettiamo i costi sugli archi di $G_{XY}$ : il costo di ogni arco orizzontale e verticale è $\delta$, e il costo dell'arco diagonale da `(i − 1, j − 1)` a `(i, j)` è $a_{x_i y_i}$ . Lo scopo di questa immagine emerge ora: la ricorrenza in definita precedentemente per $OPT(i, j)$ **è precisamente la ricorrenza che si ottiene per il percorso di costo minimo in $G_{XY}$ da `(0, 0)` a `(i, j)`**. Così possiamo mostrare che:
+Numeriamo le righe da 0 a $m$ e le colonne da 0 a $n$; indichiamo il nodo nell'$i$-esima riga e nella $j$-esima colonna con l'etichetta `(i, j)`. Mettiamo i costi sugli archi di $G_{XY}$ : il costo di ogni arco orizzontale e verticale è $\delta$, e il costo dell'arco diagonale da `(i − 1, j − 1)` a `(i, j)` è $a_{x_i y_i}$ .
+Lo scopo di questa immagine emerge ora: la ricorrenza definita precedentemente per $OPT(i, j)$ **è precisamente la ricorrenza che si ottiene per il percorso di costo minimo in $G_{XY}$ da `(0, 0)` a `(i, j)`**. Così possiamo mostrare che:
 > Sia $f(i, j)$ il costo minimo di un cammino da `(0, 0)` a `(i, j)` in $G_{XY}$ . Allora per ogni $i$, $j$, abbiamo $f(i, j) = OPT(i, j)$.
 
 Quindi il valore dell'allineamento ottimale è la lunghezza dello shortest path in $G_{XY}$ da `(0, 0)` a `(m, n)`. (Chiameremo qualsiasi percorso in $G_{XY}$ da `(0, 0)` a `(m, n)` un *percorso da angolo ad angolo*.) Inoltre, gli archi diagonali utilizzati in un percorso più breve corrispondono esattamente alle coppie utilizzate in un allineamento di costo minimo. Queste connessioni al problema del cammino minimo nel grafo $G_{XY}$ non producono direttamente un miglioramento del tempo di esecuzione per il problema dell'allineamento di sequenza; tuttavia, aiutano la propria intuizione per il problema e sono stati utili nel suggerire algoritmi per varianti più complesse sul sequence alignment.
@@ -1080,33 +1084,29 @@ function Space-Efficient-Alignment(X,Y) {
 
 Esiste, tuttavia, una soluzione a questo problema - saremo in grado di recuperare l'allineamento stesso utilizzando lo spazio $O(m + n)$ - ma richiede un'idea nuova. L'intuizione si basa sull'utilizzo della tecnica *divide et impera* che abbiamo visto in precedenza. Iniziamo con un semplice modo alternativo per implementare la soluzione di programmazione dinamica di base.
 
-**A Backward Formulation of the Dynamic Program**: Ricordiamo che usiamo $f(i, j)$ per denotare la lunghezza del cammino minimo da `(0, 0)` a `(i, j)` nel grafo $G_{XY}$. (Come abbiamo mostrato nell'algoritmo di allineamento della sequenza iniziale, $f(i, j)$ ha lo stesso valore di $OPT(i, j)$.) Ora definiamo $g(i, j)$ come la lunghezza del cammino minimo da `(i , j)` a `(m, n)` in $G_{XY}$ . La funzione $g$ fornisce un approccio di programmazione dinamica altrettanto naturale al problema del sequence alignment, tranne per il fatto che **lo costruiamo al contrario**: iniziamo con $g(m, n) = 0$ e la risposta che vogliamo è $g(0, 0)$. Per stretta analogia con la ricorrenza precedente, abbiamo la seguente ricorrenza per $g$:
+**A Backward Formulation of the Dynamic Program**: 
+Ricordiamo che usiamo $f(i, j)$ per denotare la lunghezza del cammino minimo da `(0, 0)` a `(i, j)` nel grafo $G_{XY}$. (Come abbiamo mostrato nell'algoritmo di allineamento della sequenza iniziale, $f(i, j)$ ha lo stesso valore di $OPT(i, j)$.) 
+Ora definiamo $g(i, j)$ come la lunghezza del cammino minimo da `(i , j)` a `(m, n)` in $G_{XY}$ . 
+La funzione $g$ fornisce un approccio di programmazione dinamica altrettanto naturale al problema del sequence alignment, tranne per il fatto che **lo costruiamo al contrario**: 
+iniziamo con $g(m, n) = 0$ e la risposta che vogliamo è $g(0, 0)$. Per stretta analogia con la ricorrenza precedente, abbiamo la seguente ricorrenza per $g$:
 > Per $i < m$ e $j < n$ abbiamo 
 > $g(i, j) = min[a_{x_{i+1} y_{i+1}} + g(i + 1, j + 1), \delta + g(i, j + 1), \delta + g (i + 1, j)]$.
 
 Questa è solo la ricorrenza che si ottiene prendendo il grafo $G_{XY}$ , “ruotandolo” in modo che il nodo `(m, n)` si trovi nell'angolo in basso a sinistra, e utilizzando l'approccio precedente. Usando questa immagine, possiamo anche elaborare l'intero algoritmo di programmazione dinamica per costruire i valori di $g$, a ritroso partendo da `(m, n)`. Allo stesso modo, esiste una versione efficiente in termini di spazio di questo algoritmo di programmazione dinamica all'indietro, analogo a `Space-Efficient-Alignment`, che calcola il valore dell'allineamento ottimale utilizzando solo lo spazio `O(m + n)`. Faremo riferimento a questa versione all'indietro come `Backward-Space-Efficient-Alignment`.
 
-**Combinazione delle formulazioni Forward e Backward**: Quindi ora abbiamo algoritmi simmetrici che costruiscono i valori delle funzioni $f$ e $g$.
+**Combinazione delle formulazioni Forward e Backward**: 
+Quindi ora abbiamo algoritmi simmetrici che costruiscono i valori delle funzioni $f$ e $g$.
 L'idea sarà quella di utilizzare questi due algoritmi insieme per trovare l'allineamento ottimale. Innanzitutto, ecco due fatti fondamentali che riassumono alcune relazioni tra le funzioni $f$ e $g$.
 > La lunghezza del cammino *angolo-angolo* più corto in $G_{XY}$  che passa per `(i, j)` è $f(i, j) + g(i, j)$.
 
 >Sia k un qualsiasi numero in ${0, . . . , n}$, e sia $q$ un indice che minimizza la quantità $f(q, k) + g(q, k)$. Poi c'è un percorso *angolo-angolo* di lunghezza minima che passa attraverso il nodo `(q, k)`.
-
-#### Breve Riepilogo
-Possiamo quindi utilizzare un approccio **divide et impera** il quale incorpora 2 tecniche diverse di programmazione dinamica per riuscire a trovare anche l'alignment in spazio lineare.
-Definiamo quindi due funzioni:
-- $f(i, j)$ : è la funzione definita per l'algoritmo di **Sequence Alignment di base** (analoga a $OPT(i,j)$)
-- $g(i, j)$ : è la lunghezza dello shortest path da (i, j) a (m, n) in $G_{XY}$ . La funzione $g$ fornisce un approccio di programmazione dinamica altrettanto naturale all'allineamento di sequenze, tranne per il fatto che **lo costruiamo al contrario**: iniziamo con g(m, n) = 0 e la risposta che vogliamo è g(0, 0). È definito dalla seguente funzione ricorsiva: 
-per $i < m$ e $j < n$ : $g(i,j) = min[a_{x+1y+1} + g(i+1, j+1), \delta + g(i, j+1), \delta + g(i+1, j)]$ 
-
-Possiamo notare che la ricorsione $f$ procede a ritroso partendo dal fondo mentre la ricorsione $g$ procede in avanti partendo dall'inizio.
 
 Possiamo sfruttare questo fatto per provare ad utilizzare lo `Space Efficient Sequence Alignment Algorithm` combinato ad un approccio _**divide et impera**_ e **un array di supporto $P$ per riuscire a calcolare il Sequence Alignment in spazio lineare**, aumentando solo di una costatane la complessità temporale.
 
 #### Lemma e Dimostrazione
 **Lemma:** $f(i,j) =$ shortest path from $(0,0)$ to $(i,j) = OPT(i,j)$
 **Dimostrazione** per induzione
-- caso base: $f(o,o) = OPT(0,0) = 0$
+- caso base: $f(0,0) = OPT(0,0) = 0$
 - ipotesi induttiva: assum vero per ogni $(i', j')$ con $i'+j' \lt i+j$
 - l'ultimo arco nello shortest path verso $(i,j)$ è $(i-1, j-1)$, $(i, j-1)$ o $(i-1, j)$
 
@@ -1115,7 +1115,7 @@ Possiamo sfruttare questo fatto per provare ad utilizzare lo `Space Efficient Se
   $= min\{ \alpha_{x_i y_j} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)\} =$
   $= OPT(i,j)$
 
-per calcolare lo shortest path da un $(i,j)$ a $(n,m)$ posso cambiare la direzione degli archi e calcolare lo shortest path da $(n,m)$ a tutti i vertici $(i,j)$.
+Per calcolare lo shortest path da un $(i,j)$ a $(n,m)$ posso cambiare la direzione degli archi e calcolare lo shortest path da $(n,m)$ a tutti i vertici $(i,j)$.
 
 Il costo per andare da $(0,0)$ a $(n,m)$ posso scomporlo da $(0,0)$ a $(i,j)$ e da $(m,n)$ a $(i,j)$.
 
@@ -1134,8 +1134,8 @@ $X[i : j]$, per $1 \le i \le j \le m$, denota la sottostringa di $X$ costituita 
 e definiamo $Y[i : j]$ in modo analogo. Assumeremo per semplicità che $n$ sia una potenza di 2; questo presupposto rende il discorso molto più pulito, anche se può essere facilmente evitato.
 
 Per prima cosa calcolo shortest path su tutta la matrice (Dijkstra in $O(nm)$ ). Cerco poi $q$ sulla colonna $n/2$ e lo salvo ricorsivamente $n$ volte.
-Chiamo poi ricorsivamente $f$ per trovare le soluzioni da sinistra a $n/2$ e da destra a $n/2$
-.
+Chiamo poi ricorsivamente $f$ per trovare le soluzioni da sinistra a $n/2$ e da destra a $n/2$.
+
 Possiamo riassumere il tutto con il seguente pseudo-codice:
 ```javascript
 function Divide-and-Conquer-Alignment(X,Y) {
@@ -1159,13 +1159,13 @@ function Divide-and-Conquer-Alignment(X,Y) {
 }
 ```
 
-<img src="./imgs/seq_align_recurrence.png" width="40%"/> 
+<img src="./imgs/seq_align_recurrence.png" width="50%"/> 
 
 #### **Costo:**
 $T(m,n) \le 2T(m, n/2) + O(nm) = O(mn \log n)$ Costo troppo elevato.
 I due sottoinsiemi però non sono $2T(m, n/2)$ ma $(q, n/2) + (m-q, n/2)$
 
-<img src="./imgs/hirschberg.png" width="70%"/> 
+<img src="./imgs/hirschberg.png" width="80%"/> 
 
 Quindi, il tempo di esecuzione dell'aligment *divide et impera* su stringhe di lunghezza $m$ ed $n$ è $O(mn)$.
 
@@ -1176,7 +1176,7 @@ Quindi, il tempo di esecuzione dell'aligment *divide et impera* su stringhe di l
 
 ### Descrizione del Problema
 Per prima cosa è necessario dare la definizione di **sottosequenza**.
-Una sottosequenza di una data sequenza è la sequenza stessa alla quale sono stat tolti zero o più elementi. Formalmente:
+Una sottosequenza di una data sequenza è la sequenza stessa alla quale sono stati tolti zero o più elementi. Formalmente:
 > Data una sequenza $X$ = $x_1, x_2, ..., x_m$, un'altra sequenza $Z$ = $z_1, z_2, ..., z_k$ è una **sottosequenza** di $X$ se esiste una sequenza strettamente crescente $i_2, i_2, ..., i_k$ di indici di $X$ tale che per ogni $j = 1, 2, ..., k$, si ha $x_{i_j} = z_j$. 
 
 Per esempio, $Z = <B, C, D, B>$ è una sottosequenza di $X = < A, B, C, B, D, A, B>$ con la corrispondente sequenza di indici $<2, 3, 5, 7>$.
