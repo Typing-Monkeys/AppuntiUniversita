@@ -1024,7 +1024,7 @@ for i = 1 to m
 	for j = 1 to n
 		M[i, j] ← min { α(xi yj) + M[i – 1, j – 1], δ + M [i – 1, j], δ + M [i, j – 1] }
  		
-RETURN M[m, n]
+return M[m, n]
 ```
 
 #### **Costo**
@@ -1273,27 +1273,27 @@ La procedura impiega un tempo $O(m + n)$, perchè a ogni chiamata ricorsiva essa
 Ricordiamo la struttura dei **Bipartite Matching Problems**: 
 > Un grafo bipartito $G = (V , E)$ è un grafo non orientato il cui insieme di nodi può essere partizionato come $V = X \cup Y$, con la proprietà che ogni arco $e \in E$ ha un estremo in $X$ e l'altro estremo in $Y$.
 
-Ora, abbiamo già visto la nozione di **matching**: abbiamo usato il termine per descrivere raccolte di coppie su un insieme, con la proprietà che **nessun elemento dell'insieme appare in più di una coppia**. (Si pensi ai caratteri nel Problema dell'Allineamento di Sequenze.) 
+Ora, abbiamo già visto la nozione di **matching**: abbiamo usato il termine per descrivere raccolte di coppie su un insieme, con la proprietà che **nessun elemento dell'insieme appare in più di una coppia** (si pensi ai caratteri nel Problema del [Sequence Alignment](#sequence-alignment).) 
 
-Nel caso di un grafo, gli archi costituiscono coppie di nodi, e di conseguenza diciamo che un matching in un grafo $G = (V , E)$ è un insieme di archi $M \subseteq E$ con la proprietà che ogni nodo appare al massimo in un arco di $M$. 
+Nel caso di un grafo, gli archi costituiscono coppie di nodi, e di conseguenza diciamo che un **matching in un grafo $G = (V , E)$ è un insieme di archi $M \subseteq E$ con la proprietà che ogni nodo appare al massimo in un arco di $M$**.
 
 **Un insieme di archi $M$ è un matching perfetto se ogni nodo appare esattamente in un arco di $M$**.
 
-I matching nei grafi bipartiti possono modellare situazioni in cui gli oggetti vengono assegnati ad altri oggetti. Un esempio sorge quando i nodi in $X$ rappresentano i *job*, i nodi in $Y$ rappresentano le *macchine* e un arco ($x_i$ , $y_j$ ) indica che la *macchina* $y_j$ è in grado di elaborare il *job* $x_i$ (job shop schedulng problem). Un matching perfetto è, quindi, un modo per assegnare ogni *job* a una *macchina* in grado di elaborarlo, con la proprietà che a ogni *macchina* è assegnato esattamente un *job*.
+I matching nei grafi bipartiti possono modellare situazioni in cui gli oggetti vengono assegnati ad altri oggetti. Un esempio sorge quando i nodi in $X$ rappresentano i *job*, i nodi in $Y$ rappresentano le *macchine* e un arco ($x_i$ , $y_j$ ) indica che la *macchina* $y_j$ è in grado di elaborare il *job* $x_i$ (*job shop schedulng problem*). Un matching perfetto è, quindi, un modo per assegnare ogni *job* a una *macchina* in grado di elaborarlo, con la proprietà che a ogni *macchina* è assegnato esattamente un *job*.
 
 **Uno dei problemi più antichi negli algoritmi combinatori è quello di determinare la dimensione del matching più grande in un grafo bipartito G**. (Come caso particolare, si noti che $G$ ha un matching perfetto se e solo se $|X| = |Y|$ e ha un matching di dimensione $|X|$.) Questo problema risulta essere risolvibile da un algoritmo che gira in tempo polinomiale, ma lo sviluppo di questo algoritmo necessita di idee fondamentalmente diverse dalle tecniche che abbiamo visto finora.
 
 Invece di sviluppare direttamente l'algoritmo, iniziamo formulando una classe generale di problemi, i **Network Flow Problems**, che include il Bipartite Matching Problem come caso particolare. 
 
-Sviluppiamo quindi un algoritmo con tempo polinomiale per un problema generale, il problema del **Flusso Massimo (Maximum-Flow Problem)**, e mostriamo come questo fornisca un algoritmo efficiente anche per il Bipartite Matching.
+Sviluppiamo quindi un algoritmo con tempo polinomiale per un problema generale, il problema del **Flusso Massimo (Maximum-Flow Problem)**, e mostriamo come questo fornisca un algoritmo efficiente anche per il Bipartite Matching Problem.
 
 <hr>
 
 ## The Maximum-Flow Problem and the Ford-Fulkerson Algorithm
-Spesso si utilizzano i grafi per modellare le ***transportation networks***, reti i cui archi trasportano una sorta di traffico e i cui nodi fungono da "*interruttori*" che fanno passare il traffico tra i diversi archi. Si consideri, ad esempio, un sistema autostradale in cui gli archi sono autostrade e i nodi sono svincoli; o una rete di computer in cui gli archi sono collegamenti che possono trasportare pacchetti e i nodi sono interruttori. I modelli di rete di questo tipo hanno diversi ingredienti:
+Spesso si utilizzano i grafi per modellare le ***transportation networks***, reti i cui archi trasportano una sorta di traffico e i cui nodi fungono da "*interruttori*" che fanno passare il traffico tra i diversi archi. Si consideri, ad esempio, un sistema autostradale in cui gli archi sono autostrade e i nodi sono svincoli; o una rete di computer in cui gli archi sono collegamenti che possono trasportare pacchetti e i nodi sono switch. I modelli di rete di questo tipo hanno diversi ingredienti:
 - **capacità** sugli archi, che indica quanto possono trasportare; 
 - **nodi sorgente** nel grafo, che generano traffico; 
-- **nodi sink (o destinazione)** nel grafo, che possono *“assorbire”* il traffico man mano che arriva; 
+- **nodi sink (o destinazione)** nel grafo, che possono *“assorbire”* il traffico mano a mano che arriva; 
 - il **traffico**, che viene trasmesso attraverso gli archi.
 
 **Flow Networks**: 
@@ -1314,7 +1314,9 @@ Faremo delle assunzioni sulle reti di flusso di cui ci occupiamo:
 <img src="./imgs/flow1.png" width="30%"/>
 
 #### **Definizione di Flusso**
-Definiamo cosa significa per la nostra rete trasportare traffico, o flusso. Diciamo che un flusso $s-t$ è una funzione $f$ che associa ogni arco $e$ a un numero reale non negativo, $f : E → R^+$; il valore $f(e)$ rappresenta intuitivamente la quantità di flusso trasportato dall'arco $e$. Un flusso $f$ deve soddisfare le seguenti due proprietà:
+Definiamo cosa significa per la nostra rete trasportare traffico, o flusso. Diciamo che un flusso $s-t$ è una funzione $f$ che associa ogni arco $e$ a un numero reale non negativo, $f : E → R^+$; il valore $f(e)$ rappresenta la quantità di flusso trasportato dall'arco $e$.
+
+Un flusso $f$ deve soddisfare le seguenti due proprietà:
 1. (**Capacity conditions**) Per ogni $e \in E$, abbiamo $0 \le f(e) \le c_e$
 2. (**Conservation conditions**) Per ogni nodo $v$ diverso da $s$ e $t$, abbiamo
   $$
@@ -1340,20 +1342,30 @@ Possiamo estenderlo ad insiemi di vertici; se $S \subseteq V$, definiamo $f^{out
 Data una flow network, l'obiettivo è quello di organizzare il traffico in modo da fare un uso il più efficiente possibile della capacità disponibile. 
 
 #### **Goal:**
-Data una rete di flussi, trovare un flusso di massimo valore possibile.
+**Data una rete di flussi, trovare un flusso di massimo valore possibile.**
 
-È utile considerare come la struttura della rete di flusso pone **upper bounds** al **valore massimo** di un flusso $s-t$.
-Supponiamo quindi di dividere i nodi del grafo in due insiemi, $A$ e $B$, in modo che $s \in A$ e $t \in B$. Allora, intuitivamente, ogni flusso che va da $s$ a $t$ deve passare da $A$ a $B$ ad un certo punto, e quindi consumare parte della capacità dell'arco da $A$ a $B$. Ciò suggerisce che ciascuno di questi "***tagli***" del grafo pone un **limite al massimo valore di flusso possibile**. L'algoritmo del flusso massimo che svilupperemo, sarà collegato ad una dimostrazione la quale afferma che: **il valore del flusso massimo è uguale alla capacità minima di ciascuna di queste divisioni, chiamata taglio minimo** (*l'algoritmo calcolerà anche il taglio minimo*).
+È utile considerare come la struttura della rete di flusso pone un **upper bounds** al **valore massimo** di un flusso $s-t$.
+Supponiamo quindi di dividere i nodi del grafo in due insiemi, $A$ e $B$, in modo che $s \in A$ e $t \in B$. Allora, intuitivamente, ogni flusso che va da $s$ a $t$ deve passare da $A$ a $B$ ad un certo punto, e quindi consumare parte della capacità degli archi da $A$ a $B$. Ciò suggerisce che ciascuno di questi "***tagli***" del grafo pone un **limite al massimo valore di flusso possibile**. L'algoritmo del flusso massimo che svilupperemo, sarà collegato ad una dimostrazione, la quale afferma che: 
+> **il valore del flusso massimo è uguale alla capacità minima di ciascuna di queste divisioni, chiamata taglio minimo** (*l'algoritmo calcolerà anche il taglio minimo*).
 
 ### Implementazione dell'algoritmo
-Una prima idea è quella di applicare un approccio greedy e calcolare il valore del flusso procedendo con gli archi di capacità massima. Come si può vedere nella Figura di seguito, questo approccio fallisce e non riesce a calcolare effettivamente il flusso massimo.
+Una prima idea è quella di applicare un approccio greedy e calcolare il valore del flusso procedendo con gli archi di capacità massima. L'algoritmo greedy segue la seguente logica:
+- Iniziare con $f(e) = 0$ per ogni arco $e \in E$
+- Trovare un cammino $s-t$ $P$ in cui ogni arco ha $f(e) < c_e$
+- Augmentare il flusso lungo il cammino $P$
+- Ripetere le operazioni precedenti finchè non puoi più proseguire
 
-<img src="./imgs/flow2.png" width="70%"/>
+Come si può vedere nella Figura di seguito, questo approccio fallisce e non riesce a calcolare effettivamente il flusso massimo.
+
+***Perchè l'algoritmo greedy fallisce?***
+Perchè una volta che l'algoritmo incrementa il flusso su un arco non può più essere decrementato.
+
+<img src="./imgs/flow2.png" width="80%"/>
 
 Nella figura (a) vediamo il grafo originale e nella (b) la soluzione trovata provando ad utilizzare un approccio greedy. Nella figura (c) vediamo invece quello che sarebbe la soluzione esatta per il problema del massimo flusso.
 
 #### **The Residual Graph**
-Dato una ﬂow network $G$, e un flusso $f$ su $G$, definiamo il **grafo residuale** $G_f$ di $G$ rispetto a $f$ come segue. (Vedi Figura successiva per il grafico residuo del flusso sulla Figura precedente dopo aver spinto 20 unità di flusso lungo il percorso $s, u, v, t$.)
+Dato una ﬂow network $G$, e un flusso $f$ su $G$, definiamo il **grafo residuale** $G_f$ di $G$ rispetto a $f$ come segue. (Vedi grafo residuo (c)  del flusso sulla Figura precedente dopo aver spinto 20 unità di flusso lungo il percorso $s, u, v, t$.)
 > - L'insieme dei nodi di $G_f$ è uguale a quello di $G$.
 > - Per ogni arco $e = (u, v)$ di $G$ su cui $f(e) < c_e$ , ci sono $c_e − f(e)$ unità di capacità *“rimanenti”* su cui potremmo provare a spingere il flusso in avanti. Quindi includiamo l'arco $e = (u, v)$ in $G_f$ , con una capacità di $c_e − f(e)$. Chiameremo gli archi inclusi in questo modo **forward edges**.
 > - Per ogni arco $e = (u, v)$ di $G$ su cui $f(e) > 0$, ci sono $f(e)$ unità di flusso che possiamo "*annullare*" se vogliamo, spingendo il flusso all'indietro (backward). Quindi includiamo l'arco $e' = (v, u)$ in $G_f$ , con una capacità di $f(e)$. Notare che $e'$ ha le stesse estremità di $e$, ma la sua direzione è **invertita**; chiameremo gli archi inclusi in questo modo **backward edges**.
@@ -1361,7 +1373,9 @@ Dato una ﬂow network $G$, e un flusso $f$ su $G$, definiamo il **grafo residua
 Si noti che ogni arco $e$ in $G$ può dare origine a uno o due archi in $G_f$ : Se $0 < f (e) < c_e$ risulta che sia un arco in avanti che uno all'indietro siano inclusi in $G_f$ . Quindi $G_f$ ha al massimo il doppio degli archi rispetto a $G$. A volte ci riferiremo alla capacità di un arco nel grafo residuo come **residual capacity**, per aiutare a distinguerla dalla capacità dell'arco corrispondente nella rete di flusso originale $G$.
 
 #### **Augmenting Paths in a Residual Graph**
-Ora vogliamo rendere preciso il modo in cui viene spinto il flusso da $s$ a $t$ in $G_f$ . Sia $P$ un semplice cammino $s-t$ in $G_f$, cioè $P$ non visita nessun nodo più di una volta. Definiamo `bottleneck(P, f)` come la minima capacità residua di ogni arco su $P$, rispetto al flusso $f$. Definiamo ora la seguente operazione `augment(f , P)`, che produce un nuovo flusso $f'$ in $G$.
+Ora vogliamo rendere preciso il modo in cui viene spinto il flusso da $s$ a $t$ in $G_f$ . Sia $P$ un cammino $s-t$ in $G_f$ (un path nel grafo residuale viene chiamato **augmenting path**), cioè $P$ non visita nessun nodo più di una volta.
+Definiamo `bottleneck(P, f)` come la **minima capacità residua tra tutti gli archi di $P$**, rispetto al flusso $f$.
+Definiamo ora la seguente operazione `augment(f , P)`, che produce un nuovo flusso $f'$ in $G$.
 
 #### `augment(f , P)`
 ```pseudocode
@@ -1378,20 +1392,19 @@ Endfor
 Return(f)
 ```
 
-Proprio per poter eseguire questa operazione abbiamo deﬁnito il grafo residuale; per riflettere l'importanza dell'**augment** (aumento), ci si riferisce spesso a qualsiasi cammino $s-t$ nel grafo residuale come ***augmenting path***.
+Proprio per poter eseguire questa operazione abbiamo deﬁnito il grafo residuale; per riflettere l'importanza dell'**augment** (aumento), ci si riferisce a qualsiasi cammino $s-t$ nel grafo residuale come ***augmenting path***.
 Il risultato di `augment(f , P)` è un nuovo flusso $f'$ in $G$, ottenuto aumentando e diminuendo i valori di flusso sugli archi di $P$.
 
 Questa operazione di **augmentation** cattura il tipo di spinta avanti e indietro (forward and backward) del flusso che abbiamo discusso in precedenza. Consideriamo ora il seguente algoritmo per calcolare un flusso $s-t$ in $G$.
 
 #### `Max-Flow(G)`
 ```
-Initially f(e) = 0 for all e in G
-
-While there is an s-t path in the residual graph Gf
-  Let P be a simple s-t path in Gf
+Start with f (e) = 0 for each edge e ∈ E.
+  
+While there is an s-t path in the residual graph G_f
+  Find an s↝t path P in the residual network G_f
   f' = augment(f , P)
-  Update f to be f'
-  Update the residual graph Gf to be Gf'
+  Update the residual graph Gf using f'
 Endwhile
 
 Return f
@@ -1399,10 +1412,12 @@ Return f
 
 Lo chiameremo Algoritmo di **Ford-Fulkerson**, dal nome dei due ricercatori che lo svilupparono nel 1956. Vedere la Figura seguente per un'esecuzione dell'algoritmo. 
 
-<img src="./imgs/flow3.png" width="70%"/>
+<img src="./imgs/flow3.png" width="80%"/>
 
 
-L'algoritmo Ford-Fulkerson è davvero molto semplice. Ciò che non è affatto chiaro è se il suo ciclo `While` centrale termini e se il flusso restituito sia un flusso massimo. Le risposte a entrambe queste domande si rivelano abbastanza sottili.
+L'algoritmo Ford-Fulkerson è davvero molto semplice. 
+Per quanto riguarda il modo in cui vengono trovati i path nel grafo residuale, non è stato specificato nell'algoritmo, ma si ha libera scelta sull'utilizzo di algoritmi di esplorazioned dei grafi, un esempio è l'utilizzo della DFS (il costo complessivo dell'algoritmo di Ford-Fulkerson dipenderà anche da questa scelta).
+Ciò che non è affatto chiaro è se il suo ciclo `While` centrale termini e se il flusso restituito sia un flusso massimo. Le risposte a entrambe queste domande si rivelano abbastanza sottili.
 
 ### Analyzing the Algorithm: Termination and Running Time
 Per prima cosa consideriamo alcune proprietà che l'algoritmo mantiene per induzione sul numero di iterazioni del ciclo `While`, basandoci sulla nostra ipotesi che tutte le *capacità* siano numeri interi.
@@ -1415,7 +1430,7 @@ Possiamo usare questa proprietà per dimostrare che l'algoritmo di Ford-Fulkerso
 > Sia $f$ un flusso in $G$, e sia $P$ un semplice cammino $s-t$ in $G_f$ . Allora $v(f') = v(f)$ + `bottleneck(P, f)`; e poiché `bottleneck(P, f)` > 0, abbiamo $v(f') > v(f)$.
 
 Abbiamo bisogno di un'altra osservazione per dimostrare la terminazione. Dobbiamo essere in grado di limitare il massimo valore di flusso possibile. Ecco un upper bound: 
-> se tutti gli archi al di fuori di $s$ potessero essere completamente saturati dal flusso, il valore del flusso sarebbe $\sum_{e \text{ out of }s} c_e$. Sia $C$ questa somma. Quindi abbiamo $v(f) \le C$ per tutti i flussi $s-t$ $f$ 
+> se tutti gli archi al di fuori di $s$ potessero essere completamente saturati dal flusso, il valore del flusso sarebbe $\sum_{e \text{ out of }s} c_e$. Sia $C$ questa somma. Quindi abbiamo $v(f) \le C$ per tutti i flussi $f$ $s-t$ 
 
 **N.B.** $C$ può essere un'enorme sovrastima del valore massimo di un flusso in $G$, ma è utile per noi come limite finito. 
 
@@ -1435,20 +1450,22 @@ Una versione un po' più efficiente dell'algoritmo manterrebbe le linked lists d
 Proseguiamo ora con l'analisi dell'algoritmo Ford-Fulkerson.
 
 ### Analyzing the Algorithm: Flows and Cuts
-Il nostro prossimo obiettivo è dimostrare che il flusso restituito dall'algoritmo di Ford-Fulkerson ha il massimo valore possibile di qualsiasi flusso in $G$.
+Il nostro prossimo obiettivo è dimostrare che il flusso restituito dall'algoritmo di Ford-Fulkerson ha il massimo valore possibile per il flusso in $G$.
 
 Per compiere progressi verso questo obiettivo, torniamo ad un problema già descritto: **il modo in cui la struttura della rete di flusso pone upper bounds al valore massimo di un flusso $s-t$**.
-Abbiamo già visto un upper bounds:
-il valore $v(f)$ di qualsiasi flusso $s-t-f$ è al massimo $C = \sum_{e \text{ out of } S} c_e$. A volte questo limite è utile, ma a volte è molto debole.
+Abbiamo già visto un upper bound:
+> il valore $v(f)$ di qualsiasi flusso $s-t$ $f$ è al massimo $C = \sum_{e \text{ out of } S} c_e$. A volte questo limite è utile, ma a volte è molto debole.
 
-Usiamo ora la nozione di **taglio** per sviluppare un metodo molto più generale per porre upper bounds al valore del flusso massimo.
+Usiamo ora la nozione di **taglio** per sviluppare un metodo molto più generale per porre upper bound al valore del flusso massimo.
 > Si consideri la possibilità di dividere i nodi del grafo in due insiemi, $A$ e $B$, in modo che $s \in A$ e $t \in B$.
-> Formalmente diciamo che un **taglio** $s-t$ è una partizione $(A, B)$ dell'insieme di vertici $V$, tale che $s \in A$ e $t \in B$B. 
+> Formalmente diciamo che un **taglio** $s-t$ è una partizione $(A, B)$ dell'insieme di vertici $V$, tale che $s \in A$ e $t \in B$. 
 > La **capacità di un taglio** $(A, B)$, che indicheremo con $c(A , B)$, è la somma delle capacità di tutti gli archi che escono da $A$: $c(A, B) =  \sum_{e \text{ out of } A} c_e$
-> I tagli risultano fornire upper bounds molto naturali sui valori dei flussi. Lo precisiamo attraverso una sequenza di teoremi e/o definizioni.
+> I tagli risultano fornire upper bounds molto naturali sui valori dei flussi. 
+
+Lo precisiamo attraverso una sequenza di teoremi e/o definizioni.
 
 ##### **DEF (7.6)**
-Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) = f^{out}(A) − f^{in}(A)$.
+S<> ia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) = f^{out}(A) − f^{in}(A)$.
 
 Questa affermazione è in realtà molto più forte di un semplice upper bound. Dice che osservando la quantità di flusso che $f$ invia attraverso un taglio, possiamo misurare esattamente il valore del flusso: **è la quantità totale che lascia A, meno la quantità che "torna indietro" in A**.
 
@@ -1456,15 +1473,15 @@ Se $A = {s}$, allora $f^{out}(A) = f^{out}(s)$ e $f^{in}(A) = 0$ poiché non ci 
 Si noti che se $(A, B)$ è un taglio, allora gli archi in $B$ sono esattamente gli archi che escono da $A$. Allo stesso modo, gli archi che escono da $B$ sono esattamente gli archi che entrano in $A$. Quindi abbiamo $f^{out}(A) = f^{in}(B)$, semplicemente confrontando le definizioni di queste due espressioni. Quindi possiamo riformulare la (7.6) nel modo seguente.
 
 ##### **DEF (7.7)**
-Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) = f^{in}(B) − f^{out}(B)$.
+> Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) = f^{in}(B) − f^{out}(B)$.
 
 Se poniamo $A = V − {t}$ e $B = {t}$ nella (7.7), abbiamo $v(f) = f^{in}(B) − f^{out}(B) = f^{in}(t) − f^{out}(t)$. In base alla nostra assunzione il **sink** $t$ non ha archi uscenti, quindi abbiamo $f^{out}(t) = 0$. Questo dice che avremmo potuto definire originariamente il *valore* di un flusso altrettanto bene in termini del sink $t$: è $f^{in}(t)$, la quantità di flusso che arriva al **sink**.
 Una conseguenza molto utile della (7.6) è il seguente upper bound.
 
 ##### **DEF (7.8)**
-Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) \le c(A, B)$.
+> Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) \le c(A, B)$.
 
-In un certo senso, la (7.8) sembra più debole della (7.6), poiché è solo una disuguaglianza piuttosto che un'uguaglianza. Tuttavia, ci sarà estremamente utile, poiché il suo lato destro è indipendente da un flusso particolare $f$. Quello che dice la (7.8) è che **il valore di ogni flusso è superiore alla capacità di ogni taglio**. In altre parole, se eseguiamo un qualsiasi taglio $s-t$ in $G$ di un certo valore $c^∗$, sappiamo immediatamente dalla (7.8) che non può esserci un flusso $s-t$ in $G$ di valore maggiore di $c^∗$. Al contrario, se valutiamo un qualsiasi flusso $s-t$ in $G$ di un certo valore $v^∗$, sappiamo immediatamente dalla (7.8) che non può esserci un taglio $s-t$ in $G$ di valore minore di $v^∗$.
+In un certo senso, la (7.8) sembra più debole della (7.6), poiché è solo una disuguaglianza piuttosto che un'uguaglianza. Tuttavia, ci sarà estremamente utile, poiché il suo lato destro è indipendente da un flusso particolare $f$. Quello che dice la (7.8) è che **il valore di ogni flusso è limitato superiormente dalla capacità di ogni taglio**. In altre parole, se eseguiamo un qualsiasi taglio $s-t$ in $G$ di un certo valore $c^∗$, sappiamo immediatamente dalla (7.8) che non può esserci un flusso $s-t$ in $G$ di valore maggiore di $c^∗$. Al contrario, se valutiamo un qualsiasi flusso $s-t$ in $G$ di un certo valore $v^∗$, sappiamo immediatamente dalla (7.8) che non può esserci un taglio $s-t$ in $G$ di valore minore di $v^∗$.
 
 ### Analyzing the Algorithm: Max-Flow Equals Min-Cut
 Sia $\bar{f}$ il flusso restituito dall'algoritmo di **Ford-Fulkerson**. Vogliamo dimostrare che $\bar{f}$ ha il massimo valore possibile di qualsiasi flusso in $G$, e lo facciamo con il metodo discusso sopra: 
@@ -1473,7 +1490,7 @@ Lo facciamo con un taglio $s-t$ $(A^∗ , B^∗)$ per il quale $v(\bar{f}) = c(A
 L'algoritmo di Ford-Fulkerson **termina quando il flusso $f$ non ha un cammino $s-t$ nel grafo residuale $G_f$**. Questa risulta essere l'unica proprietà necessaria per dimostrare la sua massimalità.
 
 ##### **DEF (7.9)**
-Se $f$ è un flusso $s-t$ tale che non esiste un cammino $s-t$ nel grafo residuale $G_f$ , allora esiste un taglio $s-t$ $(A^∗ , B^∗)$ in $G$ per cui $v(f) = c(A^∗ , B^∗)$. Di conseguenza, $f$ ha il valore massimo di qualsiasi flusso in $G$, e $(A^∗ , B^∗)$ ha la capacità minima di qualsiasi taglio $s-t$ in $G$.
+> Se $f$ è un flusso $s-t$ tale che non esiste un cammino $s-t$ nel grafo residuale $G_f$ , allora esiste un taglio $s-t$ $(A^∗ , B^∗)$ in $G$ per cui $v(f) = c(A^∗ , B^∗)$. Di conseguenza, $f$ ha il valore massimo di qualsiasi flusso in $G$, e $(A^∗ , B^∗)$ ha la capacità minima di qualsiasi taglio $s-t$ in $G$.
 
 #### Dimostrazione
 Dobbiamo identificare un taglio che dimostri la precedente proprietà. A tal fine, indichiamo con $A^∗$ l'insieme di tutti i nodi $v$ in $G$ per i quali esiste un cammino $s-v$ in $G_f$ . Sia $B^∗$ l'insieme di tutti gli altri nodi: $B^∗ = V − A^∗$.
@@ -1495,29 +1512,31 @@ $$
 
 
 ##### **DEF (7.10)**
-Il flusso $\bar{f}$ restituito dall'algoritmo di Ford-Fulkerson è un flusso massimo.
+> Il flusso $\bar{f}$ restituito dall'algoritmo di Ford-Fulkerson è un flusso massimo.
 
 ##### **DEF (7.11)**
-Dato un flusso f di valore massimo, possiamo calcolare un taglio $s-t$ di capacità minima in tempo $O(m)$.
+> Dato un flusso f di valore massimo, possiamo calcolare un taglio $s-t$ di capacità minima in tempo $O(m)$.
 
 ##### **DEF (7.12)**
-In ogni rete di flussi esiste un flusso $f$ e un taglio $(A, B)$ tale che $v(f) = c(A, B)$.
+> In ogni rete di flussi esiste un flusso $f$ e un taglio $(A, B)$ tale che $v(f) = c(A, B)$.
 
-Il punto è che $f$ nella (7.12) deve essere un flusso massimo $s-t$; poiché se ci fosse un flusso $f'$ di valore maggiore, il valore di $f$ supererebbe la capacità di $(A, B)$, e ciò contraddirebbe la (7.8). Allo stesso mod segue che $(A, B)$ nella (7.12) è un taglio minimo (nessun altro taglio può avere capacità minore) perché se ci fosse un taglio $(A , B)$ di capacità minore, sarebbe minore del valore di $f$ , e anche questo contraddirebbe la (7.8). A causa di queste implicazioni, la (7.12) è spesso chiamata **teorema del taglio minimo del flusso massimo** ed è formulata come segue.
+Il punto è che $f$ nella (7.12) deve essere un flusso massimo $s-t$; poiché se ci fosse un flusso $f'$ di valore maggiore, il valore di $f$ supererebbe la capacità di $(A, B)$, e ciò contraddirebbe la (7.8). Allo stesso modo segue che $(A, B)$ nella (7.12) è un taglio minimo (nessun altro taglio può avere capacità minore) perché se ci fosse un taglio $(A , B)$ di capacità minore, sarebbe minore del valore di $f$ , e anche questo contraddirebbe la (7.8). A causa di queste implicazioni, la (7.12) è spesso chiamata **teorema del taglio minimo del flusso massimo** ed è formulata come segue.
 
 ### Teorema del Taglio Minimo del Flusso Massimo
 > **In ogni rete di flussi, il valore massimo di un flusso $s-t$ è uguale alla capacità minima di un taglio $s-t$.**
 
 <hr>
 
-## Capacity Scaling Algorithm:Choosing Good Augmenting Paths
+## Capacity Scaling Algorithm: Choosing Good Augmenting Paths
 Nella sezione precedente, abbiamo visto che qualsiasi modo di scegliere un augmenting path aumenta il valore del flusso, e questo ha portato a un limite per C sul numero di augmentations, dove $C = \sum_{e \text{ out of }s} c_e$. Quando $C$ non è molto grande, questo può essere un limite ragionevole; tuttavia, è molto debole quando $C$ è grande.
 
 ### Designing a Faster Flow Algorithm
 L'obiettivo di questa sezione è mostrare che con una migliore scelta dei path, possiamo migliorare significativamente questo limite. Una grande mole di lavoro è stata dedicata alla ricerca di metodi per scegliere augmenting path nel problema del flusso massimo in modo da minimizzare il numero di iterazioni. 
-Ricordiamo che l'augmentation aumenta il valore della capacità del bottleneck per il flusso massimo del percorso selezionato; quindi, è un buon approccio quello di scegliere percorsi con una grande capacità per il bottleneck. 
-**Un'idea è quella di selezionare il percorso che ha il bottleneck di maggiore capacità.**
-Tuttavia, rovare tali percorsi può rallentare di parecchio ogni singola iterazione. Eviteremo questo rallentamento non preoccupandoci di selezionare il percorso che ha esattamente la maggiore capacità di collo di bottiglia. Invece, manterremo un cosiddetto **scaling parameter** $\Delta$ e cercheremo percorsi che abbiano un bottleneck di capacità di almeno $\Delta$.
+**Ricordiamo che l'augmentation aumenta il valore della capacità del bottleneck per il flusso massimo del percorso selezionato; quindi, è un buon approccio quello di scegliere percorsi con una grande capacità per il bottleneck.**
+
+**Quindi, un'idea è quella di selezionare il percorso che ha il bottleneck di maggiore capacità.**
+
+Tuttavia, trovare tali percorsi può rallentare di parecchio ogni singola iterazione. Eviteremo questo rallentamento non preoccupandoci di selezionare il percorso che ha esattamente la maggiore capacità di bottleneck. Invece, manterremo un cosiddetto **scaling parameter** $\Delta$ e cercheremo percorsi che abbiano un bottleneck di capacità di almeno $\Delta$.
 Sia $G_f(\Delta)$ il sottoinsieme del grafo residuo costituito solo da archi con capacità residua di almeno $\Delta$. Lavoreremo con valori di $\Delta$ che sono potenze di 2.
 
 L'algoritmo è il seguente.
@@ -1540,23 +1559,26 @@ Return f
 ```
 
 ### Analyzing the Algorithm
-Innanzitutto dobbiamo osservare che l'algoritmo `Scaling Max-Flow` è in realtà solo un'implementazione dell'originale algoritmo di Ford-Fulkerson. 
-I nuovi cicli, il valore $\Delta$ e il grafo residuo ristretto $G_f(\Delta)$ vengono utilizzati solo per guidare la selezione del percorso residuo, con l'obiettivo di utilizzare archi con una grande capacità residua il più a lungo possibile. 
+Innanzitutto dobbiamo osservare che l'algoritmo `Scaling Max-Flow` **è in realtà solo una variante dell'originale algoritmo di Ford-Fulkerson**. 
+I nuovi cicli, il valore $\Delta$ e il grafo residuo ristretto $G_f(\Delta)$ vengono utilizzati solo per **guidare la selezione del percorso residuo, con l'obiettivo di utilizzare archi con una grande capacità residua il più a lungo possibile.** 
 Inoltre, tutte le proprietà che abbiamo dimostrato sull'algoritmo `Max-Flow` originale sono vere anche per questa nuova versione: il flusso rimane di valore intero per tutto l'algoritmo, e quindi tutte le capacità residue sono di valore intero.
 
+#### Def 7.14
+> (7.14) Se tutte le capacità nella rete di flusso sono intere, allora esiste un flusso massimo $f$ per il quale ogni valore di flusso $f(e)$ è un numero intero.
+
 ##### Def. 7.15
-Se le capacità hanno valori interi, allora in tutto l'algoritmo `Scaling Max-Flow` il flusso e le capacità residue rimangono valori interi. Ciò implica che quando $\Delta$ = 1, $G_f(\Delta)$ è uguale a $G_f$, e quindi quando l'algoritmo termina, $f$ è di valore massimo.
+> Se le capacità hanno valori interi, allora in tutto l'algoritmo `Scaling Max-Flow` il flusso e le capacità residue rimangono valori interi. Ciò implica che quando $\Delta$ = 1, $G_f(\Delta)$ è uguale a $G_f$, e quindi quando l'algoritmo termina, $f$ è di valore massimo.
 
 #### **Costo**:
-Chiamiamo un'iterazione del ciclo esterno `While`, con un valore fisso di $\Delta$, la fase di $\Delta$-ridimensionamento. È facile dare un limite superiore al numero di diverse fasi di $\Delta$ridimensionamento, in termini di valore di $C = \sum_{e \text{ out of }s} c_e$ che abbiamo usato anche nella sezione precedente. Il valore iniziale di $\Delta$ è al massimo $C$, scende di un fattore 2 e non scende mai al di sotto di 1.
+Chiamiamo un'iterazione del ciclo esterno `While`, con un valore fisso di $\Delta$, la fase di $\Delta$-scaling. È facile dare un limite superiore al numero di diverse fasi di $\Delta$-scaling, in termini di valore di $C = \sum_{e \text{ out of }s} c_e$ che abbiamo usato anche nella sezione precedente. Il valore iniziale di $\Delta$ è al massimo $C$, scende di un fattore 2 e non scende mai al di sotto di 1.
 
 Quindi:
 > Il numero di iterazioni del ciclo `While` esterno è al massimo $\left\lceil 1 + log2 C  \right\rceil$.
 
 La parte più difficile è limitare il numero di aumenti eseguiti in ogni fase di ridimensionamento. L'idea qui è che stiamo usando percorsi che aumentano molto il flusso, e quindi dovrebbero esserci relativamente pochi aumenti.
-Durante la fase di $\Delta$-ridimensionamento utilizziamo solo archi con capacità residua di almeno $\Delta$.
+Durante la fase di $\Delta$-scaling utilizziamo solo archi con capacità residua di almeno $\Delta$.
 Quindi:
-> Durante la fase di $\Delta$-ridimensionamento, ogni augmentation aumenta il valore del flusso di almeno $\Delta$.
+> Durante la fase di $\Delta$-scaling, ogni augmentation aumenta il valore del flusso di almeno $\Delta$.
 
 L'intuizione chiave è che alla fine della fase di $\Delta$-scaling, il flusso $f$ non può essere troppo lontano dal valore massimo possibile.
 
@@ -1583,7 +1605,7 @@ Qui la prima disuguaglianza segue dai nostri limiti sui valori di flusso degli a
 Il valore del flusso massimo è limitato dalla capacità di qualsiasi taglio di (7.8). Usiamo il taglio $(A, B)$ per ottenere il limite dichiarato nella seconda affermazione.
 
 ##### Def. 7.19
-Il numero di aumenti in una fase di ridimensionamento è al massimo di $2m$.
+> Il numero di aumenti in una fase di ridimensionamento è al massimo di $2m$.
 
 ##### Dimostrazione
 L'affermazione è chiaramente vera nella prima fase di scaling: possiamo usare ciascuno degli archi di $s$ solo per al massimo un augmentation in quella fase.
@@ -1592,7 +1614,7 @@ Consideriamo ora una successiva fase di scaling $\Delta$, e sia $f_p$ il flusso 
 Una augmentation richiede un tempo $O(m)$, compreso il tempo necessario per impostare il grafo e trovare il percorso appropriato. Abbiamo al massimo $1 + \left\lceil log_2 C \right\rceil$ fasi di ridimensionamento $C$ e al massimo $2m$ augmentations in ciascuna fase di ridimensionamento. Abbiamo quindi il seguente risultato.
 
 ### **Teorema** 7.20
-L'algoritmo `Scaling Max-Flow` in un grafo con $m$ archi e capacità intere trova un flusso massimo in al massimo $2m(1 + \left\lceil log2 C \right\rceil)$ augmentations. Può essere implementato per eseguire al massimo in tempo $O(m2 log2 C)$.
+> L'algoritmo `Scaling Max-Flow` in un grafo con $m$ archi e capacità intere trova un flusso massimo in al massimo $2m(1 + \left\lceil log2 C \right\rceil)$ augmentations. Può essere implementato per eseguire al massimo in tempo $O(m2 \cdot log2 C)$.
 
 Quando $C$ è grande, questo limite temporale è molto migliore del limite $O(mC)$ applicato a un'implementazione arbitraria dell'algoritmo di `Ford-Fulkerson`.
 Il generico algoritmo di Ford-Fulkerson richiede un tempo proporzionale alla grandezza delle capacità, mentre l'algoritmo di scala richiede solo un tempo proporzionale al numero di bit necessari per specificare le capacità nell'input del problema . Di conseguenza, l'algoritmo di ridimensionamento funziona in tempo polinomiale nella dimensione dell'input (ovvero, il numero di archi e la rappresentazione numerica delle capacità), e quindi soddisfa il nostro obiettivo tradizionale di ottenere un algoritmo polinomiale.
@@ -1651,7 +1673,7 @@ Un **matching** $M$ in $G$ è un sottoinsieme di archi $M \subseteq E$ tale che 
 Il ***Bipartite Matching Problem*** consiste nel trovare il matching in $G$ più grande possibile (matching di **cardinalità massima**).
 
 ### Designing the Algorithm
-Il grafo in questione è indiretto, mentre le reti di flusso sono dirette-, tuttavia non è difficile applicare un algoritmo per il Problema del Massimo Flusso per trovare un matching massimo, vediamo come:
+Il grafo in questione è indiretto, mentre le reti di flusso sono dirette, tuttavia non è difficile applicare un algoritmo per il Problema del Massimo Flusso per trovare un matching massimo, vediamo come:
 
 Dato un grafo $G$ come istanza per il Bipartite Matching Problem, si costruisce una rete di flusso $G'$ come mostrato nella Figura qui di seguito:
 
@@ -1666,15 +1688,8 @@ Come si ottiene $G'$ ?
 Si può ora calcolare il massimo flow $s-t$ nella rete $G'$.
 
 Vedremo ora come:
-1. **Il valore del massimo flusso di questa rete ($G'$)è in realtà è uguale alla dimensione del massimo matching in $G$**.
+1. **Il valore del massimo flusso di questa rete ($G'$) è in realtà è uguale alla dimensione del massimo matching in $G$**.
 2. Inoltre vederemo come ricostruire il matching utilizzando il flusso della rete.
-
----
-
-#### Definizione 7.14
-(7.14) Se tutte le capacità nella rete di flusso sono intere, allora esiste un flusso massimo $f$ per il quale ogni valore di flusso $f(e)$ è un numero intero.
-
----
 
 #### Dimostrazione di 1
 $$
@@ -1687,7 +1702,7 @@ Si può verificare facilmente che le condizioni di capacità e la conservazione 
 $$
 \rightarrow
 $$
-Dall'altro lato, si supponga l'esistenza di un flusso $f'$ in $G'$ di valore $k$. Dal teorema dell'integralità del massimo flusso (7.14), sappiamo che esiste un flusso $f$ di valore intero $k$; e siccome tutte le capacità sono $1$, questo significa che $f(e)$ è uguale a 0 o 1 per ogni arco $e$.
+Dall'altro lato, si supponga l'esistenza di un flusso $f'$ in $G'$ di valore $k$. Dal teorema dell'integralità del massimo flusso [7.14](#def-714), sappiamo che esiste un flusso $f$ di valore intero $k$; e siccome tutte le capacità sono $1$, questo significa che $f(e)$ è uguale a 0 o 1 per ogni arco $e$.
 Su consideri ora un insieme $M'$ di archi dalla forma $(x, y)$ sui quali il flusso ha valore 1.
 
 Ecco 3 semplici fatti sull'insieme $M'$:
@@ -1739,7 +1754,7 @@ $\Leftarrow:$ Suppongo che G **non** abbia perfect matching.
 - $|N(X_A)| \le |Y_A| \lt |X_A|$
 - scelgo $S = X_A$. **Il che è assurdo**.
 
-<img src="./imgs/bipartite3.png" width="70%"/>
+<img src="./imgs/bipartite3.png" width="80%"/>
 
 Si noti che $X$ corrisponde a $L$ e $Y$ a $R$ nella figura.
 
@@ -1789,7 +1804,7 @@ $\le:$
 - Suppongo che la rimozione di $F \subseteq E$ disconnetta $t$ da $s$ e $|F| = k$. 
 - Ogni path $s-t$ passa per almeno un arco di $F$. 
 - Quindi il numero di edge-disjoint path è $\le k$
-- <img src="./imgs/bipartite4.png" width="50%"/>
+- <img src="./imgs/bipartite4.png" width="70%"/>
 
 $\ge :$ 
 - Suppongo che il massimo numero di edge-disjoint path sia $k$.
@@ -1797,95 +1812,4 @@ $\ge :$
 - Per il max-flow min-cut theorem esiste un cut $(A,B)$ di capacità $k$. 
 - Sia $F$ l'insieme di archi che vanno da $A$ a $B$.
 - $|F| = k$ e disconnette $t$ da $s$.
-- <img src="./imgs/bipartite5.png" width="50%"/>
-
-<!-- 
-# Capacity Scaling Algorithm
-
-Assumiamo che per ogni $e \in E$, $c(e)$ è un intero tra 0 e C, quindi anche ogni $f(e)$ ed ogni $c_f(e)$ è un intero.
-
-### Teorema:
-
-Ford-Fulkerson termina dopo al più $val(f^{\*}) \le nC$ augmenting paths, dove $f^{\*}$ è il flusso massimo.
-
-**Dimostrazione:** ogni ciclo dell'algoritmo aumenta il flow di almeno 1.
-
-**Corollario:** Ford-Fulkerson impiega $O(mnC)$ tempo.
-
-**Dimostrazione:** Si possono usare DFS o BFS per trovare un augmenting path in $O(m)$
-
-### Integrality Theorem:
-
-Esiste un max-flow dove ogni $f(e)$ è intero.
-
-## Scegliere Augmenting Paths
-
-Alcune scelte degli augmenting paths portano a tempi polinomiali, altre a tempo esponenziali.
-
-Quando le capacità sono irrazionali non è garantito che Ford-Fulkerson termini.
-
-Sceglo augmenting path con:
-
-- bottleneck capacity massima
-  - uso un parametro $\Delta$. Prendo in considerazione solo gli archi con capacità $\ge \Delta$.
-  - ogni augmenting path ora ha bottleneck capacity $\ge \Delta$
-- bottleneck capacity abbastanza grande
-- minor numero di archi
-
-```pseudocode
-CAPACITY-SCALING(G) {
-  forEach edge e ∈ E: 
-  	f(e) ← 0
-  Δ ← largest power of 2 ≤ C
-  
-  while (Δ ≥ 1)
-  	Gf(Δ) ← Δ-residual network of G with respect to flow f
-  	while (there exists an s↝t path P in Gf(Δ))
-  		f ← AUGMENT(f, c, P)
-  		Update Gf (Δ)
- 		Δ ← Δ / 2
- 		
-  return f
-}
-```
-
-Assumo che tutte le capacità siano intere e che $\Delta$ sia una potenza di 2.
-
-**Teorema:** Se CAPACITY-SCALING termina allora f è un max-flow
-
-**Dimosrazione:**
-
-- quando $\Delta = 1 \implies G_f(\Delta) = G_f $
-- quando termina la fase con $\Delta = 1$ non ci sono più augmenting paths
-- se non ci sono augmenting paths allora il flusso è massimo
-
-**Lemma:** (non so se si dice lemmi)
-
-- Ci sono $1 + \lfloor \log_2 C \rfloor$ fasi di scaling
-
-
-
-- sia $f$ il flow dopo una fase di scaling. $val(f^*) \lt val(f) + m \Delta$
-
-  - Esiste un cut $(A,B)$ tale che $cap(A,B) \le val(f) + m\Delta$
-
-  - $val(f) = \sum_{e \mbox { out of } A} f(e) -  \sum_{e \mbox { in to } A} f(e) \ge$
-
-    $\ge \sum_{e \mbox { out of } A} (c(e) - \Delta) -  \sum_{e \mbox { in to } A} \Delta \ge$
-
-    $\ge \sum_{e \mbox { out of } A} c(e) - \sum_{e \mbox { out of } A} \Delta - \sum_{e \mbox { in to } A} \Delta \ge$
-
-    $\ge cap(A,B) + m\Delta$
-
-    
-
-- ci sono $\lt 2m$ augmentation per ogni fase di scaling
-
-  - ogni augmentation aumenta il flow di almeno $\Delta$
-
-  
-
-- CAPACITY-SCALING impiega $O(m^2 \log C)$
-
-  - $O(m \log C)$ augmetations
-  - ogni augmentation $O(m)$ -->
+- <img src="./imgs/bipartite5.png" width="70%"/>
