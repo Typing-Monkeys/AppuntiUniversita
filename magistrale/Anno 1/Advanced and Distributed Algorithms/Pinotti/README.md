@@ -169,15 +169,15 @@ M[0] ← 0
 for j = 1 TO n
 	M[j] ← max { vj + M[p(j)], M[j–1] }
 ```
-Questo approccio fornisce un secondo algoritmo efficiente per risolvere il problema dell'Interval Weighted Scheduling. I due approcci (**iterativo e ricorsione con memoization**) hanno chiaramente una grande quantità di sovrapposizioni concettuali, poiché entrambi crescono dall'intuizione contenuta nella ricorrenza per `OPT`. Per il resto del capitolo, svilupperemo algoritmi di programmazione dinamica usando il secondo tipo di approccio (costruzione iterativa di sottoproblemi) perché gli algoritmi sono spesso più semplici da esprimere in questo modo.
+Questo approccio fornisce un secondo algoritmo efficiente per risolvere il problema dell'Weighted Interval Scheduling. I due approcci (**ricorsivo con memoization e iterativo**) hanno chiaramente una grande quantità di sovrapposizioni concettuali, poiché entrambi crescono dall'intuizione contenuta nella ricorrenza per `OPT`. Per il resto del capitolo, svilupperemo algoritmi di programmazione dinamica usando il secondo tipo di approccio (costruzione iterativa di sottoproblemi) perché gli algoritmi sono spesso più semplici da esprimere in questo modo.
 
 ### Riepilogo
 - $OPT[j] = max\{ v_j + OPT[p_j], OPT[j-1] \}$
 - Per ogni $j$ scelgo se prenderlo o meno
 - Alcuni sottoproblemi vengono scartati (quelli che si sovrappongono al $j$ scelto)
-- Per ogni scelta ho due possibilità **TEMPO =** $O(n \log n)$
-- Lo spazio è un vettore di $OPT[j]$ **SPAZIO =** $O(n)$
-- Per ricostruire la soluzione uso un vettore dove per ogni $j$ ho un valore booleano che indica se il job fa parte della soluzione **SPAZIO_S =** $O(n)$
+- Per ogni scelta ho due possibilità: **TEMPO =** $O(n \log n)$
+- Lo spazio è un vettore di $OPT[j]$ : **SPAZIO =** $O(n)$
+- Per ricostruire la soluzione uso un vettore dove per ogni $j$ ho un valore booleano che indica se il job fa parte della soluzione: **SPAZIO_S =** $O(n)$
 
 <hr>
 
@@ -295,9 +295,9 @@ Quindi:
 - $OPT[j] = min_{1 \le i \le j } \{ OPT[i-1] + e(i,j) + C \}$
   - $C$: il costo da pagare per ogni segmento
   - $e$: il costo degli errori
-- Risolvo n problemi **SPAZIO =** $O(n)$
-- Per ogni problema ho n scelte ( $O(n^2)$ ) ma per computare $e(i,j)$ **TEMPO =** $O(n^3)$
-- Per ricostruire la soluzione salvo un vettore dove $S[j] = min_i$ **SPAZIO** = $O(n)$
+- Risolvo n problemi: **SPAZIO =** $O(n)$
+- Per ogni problema ho n scelte ( $O(n^2)$ ) ma per computare $e(i,j)$ : **TEMPO =** $O(n^3)$
+- Per ricostruire la soluzione salvo un vettore dove $S[j] = min_i$ : **SPAZIO** = $O(n)$
 
 <hr>
 
@@ -344,6 +344,38 @@ for j = 1 to n
 return M[n,W]
 ```
 
+### Find Solution
+
+Dopo aver computato il valore ottimo, per trovare la soluzione completa:
+
+
+prendo come soluzione l'oggetto di inidce $i$ in $OPT(i, w)$ iff $M[i, w] \gt M[i-1, w]$
+
+poi se ho incluso $i$ nella soluzione mi sposto sotto di 1 (j-1) e a sinistra di tante
+celle quanto è il peso dell'oggetto inserito sennò non mi muovo a sinistra e continuo
+solo scendendo di 1. Continuo questa procedura fin quando non arrivo alla riga
+di indice 0.
+Tutto questo è riassunto nel seguente pseudocodice.
+
+
+```javascript
+// come invochi la funzione per far paretire la ricorsione
+// Find-Solution(n, W)
+
+function Find-Solution(j, w) {
+  if (j == 0) {
+    ritorna la soluzione
+  }
+
+  if (M[j, w] > M[j-1, w]) {
+    includi j nella soluzione 
+    Find-Solution(j-1, w-wj)
+  }
+
+  Find-Solution(j-1, w)
+}
+```
+
 ### Costi
 | Funzione        | Costo in tempo                | Costo in spazio               |
 | --------------- | ----------------------------- | ----------------------------- |
@@ -352,7 +384,6 @@ return M[n,W]
 
 - $O(1)$ per ogni elemento inserito nella tabella
 - $\Theta(nW)$ elementi della tabella
-- Dopo aver computato il valore ottimo, per trovare la soluzione completa: prendo $i$ in $OPT(i, w)$ iff $M[i, w] \gt M[i-1, w]$ 
 
 
 #### Osservazioni
