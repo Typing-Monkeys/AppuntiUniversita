@@ -29,7 +29,7 @@
 
 # Dynamic Programming
 
-### Introduzione
+## Introduzione
 Dopo aver visto tecniche di design per vari tipi algoritmi (ad esempio Ricerca, Ordinamento ecc...) quali: 
 - **Greedy** in cui si costruisce una soluzione in modo incrementale, ottimizzando ciecamente alcuni criteri locali.
 - **Divide et Impera** nella quale si suddivide un problema in sottoproblemi indipendenti, si risolve ogni sottoproblema e ne si combina la soluzione con gli altri sottoproblemi per formare la soluzione al problema originale,
@@ -43,9 +43,24 @@ Per applicare la programmazione dinamica è necessario creare un *sotto-set* di 
 2. La soluzione al problema originale può essere calcolata **facilmente dalla soluzione dei sotto-problemi**
 3. C'è un **ordinamento naturale dei sotto-problemi** dal più piccolo al più grande, insieme a una ricorsione facilmente calcolabile
 
+### Applicare la Programmazione Dinamica
+
+L'idea è quella di applicare i concetti fondamentali della programmazione dinamica: <br>
+*Se avremo bisogno di nuovo della soluzione di questo sottoproblema, potremo riaverla immediatamente **senza bisogno di ricalcolarla***. <br>
+Come sappiamo per i problemi risolti precedentemente: <br>
+La programmazione dinamica richiede una memoria extra per ridurre il tempo di esecuzione (**compromesso tempo-memoria**). 
+
+Il risparmio di tempo ottenibile può essere notevole: **una soluzione con tempo esponenziale può essere trasformata in una soluzione con tempo polinomiale**:
+- Un metodo di programmazione dinamica viene eseguito in **tempo polinomiale** quando il numero di sottoproblemi distinti richiesti è **polinomiale nella dimensione dell'input** e ciascun sottoproblema può essere risolto in un tempo polinomiale.
+
+Come già visto per la risoluzione degli altri problemi, ci sono due modi equivalenti:
+- **Metodo Top-Down con Memoization**: In questo approccio si scrive la procedura ricorsiva in modo naturale, modificandola per salvare il risultato di ciascun sottoproblema. La procedura prima verifica se ha risolto precedentemente questo problema. In caso affermativo, restituisce il valore salvato, risparmiando gli ulteriori calcoli a quel livello; altrimenti la procedura calcola il valore nel modo usuale.
+- **Metodo Bottom-Up**: Ordiniamo i sottoproblemi per dimensione e poi li risolviamo ordinatamente a partire dal più piccolo. Quando risolviamo un particolare sottoproblema, abbiamo già risolto tutti i sottoproblemi più piccoli da cui dipende la sua soluzione.
+
+Questi due approcci generano ***algoritmo con lo stesso tempo di esecuzione asintotico***. L'approccio **Bottom-Up** spesso ha fattori costanti molto migliori, in quanto ha **meno costi per le chiamate di procedura**.
 Qui di seguito verranno descritti i principali problemi e algoritmi di risoluzione nell'ambito della programmazione dinamica.
 
-#### **Recap**:
+### **Recap**:
 - Programmazione Dinamica
   - Risolve un problema combinando sottoproblemi
   - I sottoproblemi vengono risolti al massimo una volta, memorizza le soluzioni nella tabella
@@ -458,7 +473,7 @@ Il problema sta nell'esprimere $OPT(j)$ ricorsivamente. Possiamo parzialmente fa
 <img src="./imgs/rna3.png" width="70%"/>
 
 Basandoci sui ragionamenti precedenti, possiamo scrivere una ricorsione di successo, ovvero: <br>
-sia $OPT(i,j)$ = massimo numero di coppie nella nella struttura secondaria $b_i b_{i+1} \ldots b_j$, grazie alla **non Sharp turn Condition** possiamo inizializzare gli  elementi con $i \geq j -4$ a $0$. Ora avremmo sempre le stesse condizioni elencate sopra:
+sia $OPT(i,j)$ = massimo numero di coppie nella struttura secondaria $b_i b_{i+1} \ldots b_j$, grazie alla **non Sharp turn Condition** possiamo inizializzare gli  elementi con $i \geq j -4$ a $0$. Ora avremmo sempre le stesse condizioni elencate sopra:
 - $j$ non appartiene ad una coppia
 - $j$ si accoppia con $t$ per qualche $t \leq j - 4$
 
@@ -586,22 +601,9 @@ $$
 La procedura cut-rod considera esplicitamente tutti i $2^{n-1}$ modi possibili di tagliare un'asta di lunghezza $n$. L'albero delle chiamate ricorsive ha $2^{n-1}$ foglie, una per ogni modo possibile di tagliare l'asta.
 
 ### Applicare la Programmazione Dinamica al taglio delle aste
-L'idea è quella di applicare i concetti fondamentali della programmazione dinamica: <br>
-*Se avremo bisogno di nuovo della soluzione di questo sottoproblema, potremo riaverla immediatamente **senza bisogno di ricalcolarla***. <br>
-Come sappiamo per i problemi risolti precedentemente: <br>
-La programmazione dinamica richiede una memoria extra per ridurre il tempo di esecuzione (**compromesso tempo-memoria**). 
 
-Il risparmio di tempo ottenibile può essere notevole: **una soluzione con tempo esponenziale può essere trasformata in una soluzione con tempo polinomiale**:
-- Un metodo di programmazione dinamica viene eseguito in **tempo polinomiale** quando il numero di sottoproblemi distinti richiesti è **polinomiale nella dimensione dell'input** e ciascun sottoproblema può essere risolto in un tempo polinomiale.
-
-Come già visto per la risoluzione degli altri problemi, ci sono due modi equivalenti:
-- **Metodo Top-Down con Memoization**: In questo approccio si scrive la procedura ricorsiva in modo naturale, modificandola per salvare il risultato di ciascun sottoproblema. La procedura prima verifica se ha risolto precedentemente questo problema. In caso affermativo, restituisce il valore salvato, risparmiando gli ulteriori calcoli a quel livello; altrimenti la procedura calcola il valore nel modo usuale.
-- **Metodo Bottom-Up**: Ordiniamo i sottoproblemi per dimensione e poi li risolviamo ordinatamente a partire dal più piccolo. Quando risolviamo un particolare sottoproblema, abbiamo già risolto tutti i sottoproblemi più piccoli da cui dipende la sua soluzione.
-
-Questi due approcci generano ***algoritmo con lo stesso tempo di esecuzione asintotico***. L'approccio **Bottom-Up** spesso ha fattori costanti molto migliori, in quanto ha **meno costi per le chiamate di procedura**.
-
-### Top-down Approach
-#### `Algorithm Memoized-Cut-Pole(p, n)`
+#### Top-down Approach
+##### `Algorithm Memoized-Cut-Pole(p, n)`
 ```pseudocode
 Require: Integer n, Array p of length n with prices
 
@@ -613,7 +615,7 @@ for i = 0 . . . n do
 return Memoized-Cut-Pole-Aux(p, n, r )
 ```
 
-#### `Algorithm Memoized-Cut-Pole-Aux(p, n, r )`
+##### `Algorithm Memoized-Cut-Pole-Aux(p, n, r )`
 ```pseudocode
 Require: Integer n, array p of length n with prices, array r of revenues
 
@@ -637,8 +639,8 @@ return q
 
 **N.B.**: Se `r[n] ≥ 0` allora `r[n]` **è stato calcolato in precedenza**
 
-### Bottom-up Approach
-#### `Algorithm Bottom-Up-Cut-Pole(p, n)`
+#### Bottom-up Approach
+##### `Algorithm Bottom-Up-Cut-Pole(p, n)`
 ```pseudocode
 Require: Integer n, array p of length n with prices
 Let r[0 . . . n] be a new array
@@ -653,7 +655,7 @@ for j = 1 . . . n do
 return r[n]
 ```
 
-### Costi
+#### Costi
 Il tempo di esecuzione della procedura bottom up è $O(n^2)$, a causa della doppia struttura annidata del suo ciclo.
 
 $$
@@ -681,7 +683,7 @@ Possiamo calcolare quest'ultimo utilizzando come subroutine l'algoritmo standard
 La moltiplicazione delle matrici è associativa, quindi **tutte le parentesizzazioni forniscono lo stesso prodotto**.
 
 **DEF**: _Un prodotto di matrici è **completamente parentesizzato** se è una singola matrice oppure è il prodotto, racchiuso tra parentesi, di due prodotti di matrici completamente parentesizzati_. 
-Per esempio, se la sequenza delle matrici è $A_1, A_2, A_3, A_4$, il prodotto $A_1 A_2 A_3 A_4$ può essere parentesizzato in cinqui modi distinti:
+Per esempio, se la sequenza delle matrici è $A_1, A_2, A_3, A_4$, il prodotto $A_1 A_2 A_3 A_4$ può essere parentesizzato in cinque modi distinti:
 - $(A_1 (A_2 (A_3 A_4)))$
 - $(A_1 ((A_2 A_3) A_4))$
 - $((A_1 A_2 )(A_3 A_4))$
@@ -774,16 +776,20 @@ Poichè la parentesizzazione ottima deve utilizzare uno di questi valori di $k$,
 
 <img src="./imgs/matrix2.png" width="80%"/>
 
-I valori `m[i, j]` sono i costi delle soluzioni ottime dei sottoproblemi, ma essi non ci forniscono tutte le informazioni necessarie a ricostruire la soluzione ottima. Per poterlo fare definiamo `s[i,j]` come il valore $k$ in cui è stato suddiviso il prodotto $A_{i} A_{i+1j} ... A_j$ per ottenere una parentesizzazione otttima. Ovvero, `s[i,j]` è uguale a un valore $k$ tale che $m[i,j] = m[i,k] + m[k+1,j] + p_{i-1} p_k p_j$
+I valori `m[i, j]` sono i costi delle soluzioni ottime dei sottoproblemi, ma essi non ci forniscono tutte le informazioni necessarie a ricostruire la soluzione ottima. Per poterlo fare definiamo `s[i,j]` come il valore $k$ in cui è stato suddiviso il prodotto $A_{i} A_{i+1} ... A_j$ per ottenere una parentesizzazione otttima. Ovvero, `s[i,j]` è uguale a un valore $k$ tale che $m[i,j] = m[i,k] + m[k+1,j] + p_{i-1} p_k p_j$
+<!-- Cosci molto gay -->
 
 #### 3. Calcolo dei costi ottimi
 Osserviamo che ci sono relativamente pochi problemi distinti: un problema per ogni possibile scelta di $i$ e $j$, con $1 \le i \le j \le n$ per un totale di  $O(n^2)$. Un algoritmo ricorsivo può incontrare ciascun sottoproblema più volte nelle varie diramazioni del suo albero di ricorsione. **Questa proprietà dei sottoproblemi che si ripresentano è la seconda cartatteristica peculiare dell'applicabilità della programmazione dinamica** (la prima è la sottostruttura ottima).
 
 Anzichè calcolare la soluzione della ricorrenza ricorsivamente, calcoliamo il costo ottimale applicando un metodo tabulare Bottom-Up. 
-Implementiamo quest'ultimo con la procedura `Matrix-Chain-Order` riportata qui di seguito. Questa procedura assume che la matrice $A_i$ abbia dimensione $p_{i-1}$ x $p_i$ per $i=1,2,...n$. L'input è una sequenza $p = p_o, p_1, ..., p_n$, dove `p.length` $= n+1$. 
+Implementiamo quest'ultimo con la procedura `Matrix-Chain-Order` riportata qui di seguito. Questa procedura assume che la matrice $A_i$ abbia dimensione $p_{i-1}$ x $p_i$ per $i=1,2,...n$. L'input è una sequenza $p = p_0, p_1, ..., p_n$, dove `p.length` $= n+1$. 
 La procedura usa una tabella ausiliaria `m[1..n, 1..n]` per memorizzare i costi `m[i,j]` e una tabella ausiliaria `s[1..n, 1..n]` che registra l'indice $k$ cui corrisponde il costo ottimo nel calcolo `m[i,j]`. La tabella `s` sarà poi utilizzata per costruire una soluzione ottima. 
 
-Per implementare correttamente il metodo Bottom-Up dobbiamo determinare quali posizioni nella tabella sono utilizzate nel calcolo di `m[i,j]`. L'equazione ricorsiva, definita precedentemente, indica che il costo `m[i,j]` per calcolare il prodotto $j-i+1$ matrici dipende soltanto dai costi per calcolare prodotti di sequenze di meno di $j-i+1$ matrici. Ovvero, per $k=i,i+1,...,j-1$, la matrice $A_{i..k}$ è un prodotto di $k-i+1 < j-i+1$  matrici e la matrice $A_{k+1..j}$ è un prodotto di $j-k < j-i+1$ matrici.
+Per implementare correttamente il metodo Bottom-Up dobbiamo determinare
+quali posizioni nella tabella sono utilizzate nel calcolo di `m[i,j]`.
+L'equazione ricorsiva, definita precedentemente, indica che il costo `m[i,j]`
+per calcolare il prodotto di $j-i+1$ matrici dipende soltanto dai costi per calcolare prodotti di sequenze di meno di $j-i+1$ matrici. Ovvero, per $k=i,i+1,...,j-1$, la matrice $A_{i..k}$ è un prodotto di $k-i+1 < j-i+1$  matrici e la matrice $A_{k+1..j}$ è un prodotto di $j-k < j-i+1$ matrici.
 
 L'algoritmo dovrebbe riempire la tabella `m` in modo da risolvere il problema della parentesizzazione di sequenze di matrici di lunghezza crescente. Per il sottoproblema della parentesizzazione ottima della sequenza di matrici $A_i A_{i+1} ...A_j$, assumiamo come dimensione del problema la lunghezza $j-i+1$ della sequenza.
 
@@ -822,7 +828,7 @@ Quindi, la procedura `Matrix-Chain-Order` **è molto più efficiente del metodo 
 #### 4. Costruire una soluzione ottima
 La procedura `Matrix-Chain-Order`, determina il numero ottimo di prodotti scalari richiesti per moltiplciare una sequenza di matrici, ma non mostra direttamente come moltiplicare le matrici. La tabella `s[1,..n,1,..n]` ci fornisce le informazioni per farlo. Ogni posizione `s[i,j]` registra quel valore di $k$ per il quale la parentesizzazione ottima di $A_i A_{i+1}...A_j$ suddivide il prodotto fra $A_k$ e $A_{k+1}$.
 
-Quindi, sappiamo che il prodotto finale delle matrici nel calcolo di $A_{1..n}$ è  $A_{1..s[1,n]} A_{s[1,n]+1..n}$. I prodotti prededenti possono essere calcolati ricorsivamente perchè `s[i, s[i,n]]` determina l'ultimo prodotto nel calcolo di $A_{s[1,n]+1..n}$. La seguente procedura ricorsiva produce una parentesizzazione ottima di ($A_i$, $A_{i+1}$,...,$A_j$) dati gli indici $i$ e $j$ e la tabella `s` (calcolata da `Matrix-Chain-Order`). La chiamata iniziale di `Print-Optimal-Parens(s, 1, n)` produce una parentesizzazione ottima di ($A_1$, $A_2$,...,$A_n$).
+Quindi, sappiamo che il prodotto finale delle matrici nel calcolo di $A_{1..n}$ è  $A_{1..s[1,n]} A_{s[1,n]+1..n}$. I prodotti precedenti possono essere calcolati ricorsivamente perchè `s[i, s[i,n]]` determina l'ultimo prodotto nel calcolo di $A_{s[1,n]+1..n}$. La seguente procedura ricorsiva produce una parentesizzazione ottima di ($A_i$, $A_{i+1}$,...,$A_j$) dati gli indici $i$ e $j$ e la tabella `s` (calcolata da `Matrix-Chain-Order`). La chiamata iniziale di `Print-Optimal-Parens(s, 1, n)` produce una parentesizzazione ottima di ($A_1$, $A_2$,...,$A_n$).
 
 #### `Print-Optimal-Parens(s, 1, n)`
 ```pseudocode
@@ -842,9 +848,9 @@ else
 - $m[i,j] = min_{i \le k \lt j} \{ m[i,k] + m[k+1, j] + p_{i-1} p_k p_j\}$
 - spazio necessario:
   ho bisogno di una matrice (triangolare superiore) per ricordarmi i valori calcolati precedentemente, riempita per diagonali.
-- spazio matrice $n \times n$ **SPAZIO =** $O(n^2)$
-- per ogni cella pago n **TEMPO =** $O(n^3)$
-- per ricorstruire la soluzione **SPAZIO** = $O(n^2)$
+- spazio matrice $n \times n$ : **SPAZIO =** $O(n^2)$
+- per ogni cella pago n: **TEMPO =** $O(n^3)$
+- per ricorstruire la soluzione: **SPAZIO** = $O(n^2)$
   uso una matrice dove segno quale $k$ per ogni $(i,j)$ ha dato il risultato migliore
 
 <hr>
