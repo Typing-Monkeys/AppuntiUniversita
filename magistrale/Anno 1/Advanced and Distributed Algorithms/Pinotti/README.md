@@ -1155,7 +1155,7 @@ Il costo per andare da $(0,0)$ a $(n,m)$ posso scomporlo da $(0,0)$ a $(i,j)$ e 
 Nel commino incontrerò per forza la colonna $n/2$ ma non so per quale vertice (riga $q$): 
 - voglio trovare $q$. 
   divido quindi il problema in 2:
-​	  $f((0,0)(n/2,q)) + f((n/2,q)(n,m))$ 
+​	  $f((0,0)(q,n/2)) + f((q,n/2)(m,n))$ 
   - e posso quindi renderlo ricorsivo, 
     - in ogni ricorsione mi ricordo solo $q$.
 
