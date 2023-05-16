@@ -367,11 +367,7 @@ Dopo aver computato il valore ottimo, per trovare la soluzione completa:
 
 prendo come soluzione l'oggetto di inidce $i$ in $OPT(i, w)$ iff $M[i, w] \gt M[i-1, w]$
 
-poi se ho incluso $i$ nella soluzione mi sposto sotto di 1 (j-1) e a sinistra di tante
-celle quanto è il peso dell'oggetto inserito sennò non mi muovo a sinistra e continuo
-solo scendendo di 1. Continuo questa procedura fin quando non arrivo alla riga
-di indice 0.
-Tutto questo è riassunto nel seguente pseudocodice.
+poi se ho incluso $i$ nella soluzione mi sposto sotto di 1 (j-1) e a sinistra di tante celle quanto è il peso dell'oggetto inserito sennò non mi muovo a sinistra e continuo solo scendendo di 1. Continuo questa procedura fin quando non arrivo alla riga di indice 0. Tutto questo è riassunto nel seguente pseudocodice.
 
 
 ```javascript
@@ -786,10 +782,8 @@ Anzichè calcolare la soluzione della ricorrenza ricorsivamente, calcoliamo il c
 Implementiamo quest'ultimo con la procedura `Matrix-Chain-Order` riportata qui di seguito. Questa procedura assume che la matrice $A_i$ abbia dimensione $p_{i-1}$ x $p_i$ per $i=1,2,...n$. L'input è una sequenza $p = p_0, p_1, ..., p_n$, dove `p.length` $= n+1$. 
 La procedura usa una tabella ausiliaria `m[1..n, 1..n]` per memorizzare i costi `m[i,j]` e una tabella ausiliaria `s[1..n, 1..n]` che registra l'indice $k$ cui corrisponde il costo ottimo nel calcolo `m[i,j]`. La tabella `s` sarà poi utilizzata per costruire una soluzione ottima. 
 
-Per implementare correttamente il metodo Bottom-Up dobbiamo determinare
-quali posizioni nella tabella sono utilizzate nel calcolo di `m[i,j]`.
-L'equazione ricorsiva, definita precedentemente, indica che il costo `m[i,j]`
-per calcolare il prodotto di $j-i+1$ matrici dipende soltanto dai costi per calcolare prodotti di sequenze di meno di $j-i+1$ matrici. Ovvero, per $k=i,i+1,...,j-1$, la matrice $A_{i..k}$ è un prodotto di $k-i+1 < j-i+1$  matrici e la matrice $A_{k+1..j}$ è un prodotto di $j-k < j-i+1$ matrici.
+Per implementare correttamente il metodo Bottom-Up dobbiamo determinare quali posizioni nella tabella sono utilizzate nel calcolo di `m[i,j]`.
+L'equazione ricorsiva, definita precedentemente, indica che il costo `m[i,j]` per calcolare il prodotto di $j-i+1$ matrici dipende soltanto dai costi per calcolare prodotti di sequenze di meno di $j-i+1$ matrici. Ovvero, per $k=i,i+1,...,j-1$, la matrice $A_{i..k}$ è un prodotto di $k-i+1 < j-i+1$  matrici e la matrice $A_{k+1..j}$ è un prodotto di $j-k < j-i+1$ matrici.
 
 L'algoritmo dovrebbe riempire la tabella `m` in modo da risolvere il problema della parentesizzazione di sequenze di matrici di lunghezza crescente. Per il sottoproblema della parentesizzazione ottima della sequenza di matrici $A_i A_{i+1} ...A_j$, assumiamo come dimensione del problema la lunghezza $j-i+1$ della sequenza.
 
@@ -859,7 +853,7 @@ else
 Come possiamo organizzare un albero binario di ricerca per minimizzare il numero di nodi visitati in tutte le ricerche, conoscendo le frequenze con cui vengono cercati i nodi? Ciò che fa al caso nostro è un **albero binario di ricerca ottimo**.
 
 ### Descrizione del problema
-> Formalmente, data una sequenza $K = k_1, k_2, ..., k_n$ di $n$ chiavi distinte e ordinate (con $k_1 < k_2 < ... < k_n$), **vogliamo costruire un albero binario di ricerca** con queste chiavi. Per ogni chiave $k_i$, abbiamo una probabilità $p_i$ che una ricerca riguarderà $k_i$. Alcune ricerche potrebbero riguardare valori che non si trovano in $K$, quindi abbiamo anche $n+1$ chiavi fittizie (o **dumy**) $d_0, d_1, ..., d_n$ che rappresentano valori che non appartengono a $K$.
+> Formalmente, data una sequenza $K = k_1, k_2, ..., k_n$ di $n$ chiavi distinte e ordinate (con $k_1 < k_2 < ... < k_n$), **vogliamo costruire un albero binario di ricerca** con queste chiavi. Per ogni chiave $k_i$, abbiamo una probabilità $p_i$ che una ricerca riguarderà $k_i$. Alcune ricerche potrebbero riguardare valori che non si trovano in $K$, quindi abbiamo anche $n+1$ chiavi fittizie (o **dummy**) $d_0, d_1, ..., d_n$ che rappresentano valori che non appartengono a $K$.
 
 $d_0$ rappresenta tutti i valori minori di $k_1$, $d_n$ rappresenta tutti i valori maggiori di $k_n$ e, per $i = 1, 2, ..., n-1$, la chiave fittizia $d_i$ rappresenta tutti i valori fra $k_i$ e $k_{i+1}$. Per ogni chiave fittizia $d_i$, abbiamo una probabilità $q_i$ che una ricerca corrisponderà a $d_i$.
 
@@ -934,7 +928,7 @@ $e[i,j]$ =
 I valori $e[i,j]$ rappresentano i costi attesi di ricerca negli alberi binari di ricerca ottimi. Per tenere traccia della struttura degli alberi binari di ricerca ottimi, definiamo $root[i,j]$, per $i \le i \le j \le n$, come l'indice $r$ per il quale $k_r$ è la radice di un albero binario di ricerca ottimo che contiene le chiavi $k_i , ..., k_j$.
 
 #### 3. Calcolare il costo di ricerca atteso in un albero binario di ricerca ottimo
-Si possono vedere diverse analogie fra la caratterizzazione degli alberi binari di ricerca ottimi e la caratterizzazione della moltiplicazione di una sequenza di matrici. Per entrambi i domini dei problemi, i sottoproblemi sono formati da sottointervalli di indici e cotigui. Una implementazione ricorsiva diretta dell'equazione definita precedentemente potrebbe risultare inefficiente come l'algoritmo ricorsivo diretto della moltiplicazione di una sequenza di matrici. Memorizziamo quindi i valori $e[i,j]$ in una tabella $e[1..n +1, 0..n]$. Il primo indice deve arrivare fino a $n+1$ (anzichè $n$) perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_n$, dobbiamo calcolare e memorizzare $e[n+1,n]$. Il secondo indice deve iniziare da 0 perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_0$, dobbiamo calcolare e memorizzare $e[1,0]$. Utilizzeremo soltanto le posizioni $e[i,j]$ per le quali $j \ge i-$. Utilizzeremo anche una tabella $root[i,j]$ per memoriazzare la radice del sottoalbero che contiene le chiavi $k_i, ..., k_j$ (questa tabella usa soltanto le posizioni per le quali $1 \le i \le j \le n$).
+Si possono vedere diverse analogie fra la caratterizzazione degli alberi binari di ricerca ottimi e la caratterizzazione della moltiplicazione di una sequenza di matrici. Per entrambi i domini dei problemi, i sottoproblemi sono formati da sottointervalli di indici e cotigui. Una implementazione ricorsiva diretta dell'equazione definita precedentemente potrebbe risultare inefficiente come l'algoritmo ricorsivo diretto della moltiplicazione di una sequenza di matrici. Memorizziamo quindi i valori $e[i,j]$ in una tabella $e[1..n +1, 0..n]$. Il primo indice deve arrivare fino a $n+1$ (anzichè $n$) perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_n$, dobbiamo calcolare e memorizzare $e[n+1,n]$. Il secondo indice deve iniziare da 0 perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_0$, dobbiamo calcolare e memorizzare $e[1,0]$. Utilizzeremo soltanto le posizioni $e[i,j]$ per le quali $j \ge i-1$. Utilizzeremo anche una tabella $root[i,j]$ per memoriazzare la radice del sottoalbero che contiene le chiavi $k_i, ..., k_j$ (questa tabella usa soltanto le posizioni per le quali $1 \le i \le j \le n$).
 
 Ovviamente, per migliorare l'efficienza, utilizzeremo un'altra tabella. Anzichè ricominciare da zero il calcolo di $w(i,j)$ ogni volta che calcoliamo $e[i,j]$ (il che richiederebbe $O(j-1)$ addizioni) memorizziamo questi valori in una tabella $w[1..n+1,0..n]$. Per il caso base, calcoliamo $w[i, i-1] = q_{i-1}$ per $ 1 \le i \le n+1$. Per $j \ge i$, calcoliamo $w[i,j] = w[i, j-1] + p_j + q_j$.
 
@@ -1041,7 +1035,8 @@ Dire questo, equivale a riscrivere le due condizioni sopra come tre, dunque **in
 Ora definiamo la funzione di costo minimo $OPT(i,j)$ come costo dell'alignment tra $x_1 x_2 \ldots x_i$ e $y_1 y_2 \ldots y_j$.
 
 - `Nel caso 1`, abbiamo un costo di $a_{x_m y_n}$ e poi si allinea $x_1 x_2 \ldots x_{m-1}$ nel miglior modo possibile con $y_1 y_2 \ldots y_{n-1}$. Si ha quindi che $OPT(m,n) = a_{x_m y_n} + OPT(m-1,n-1)$.
-- `Nel caso 2`, si paga un gap cost $\delta$ dato che la $m^{th}$ posizione di $X$ non è in matching, e poi si allinea $x_1 x_2 \ldots x_{m-1}$ nel miglior modo possibile con $y_1 y_2 \ldots y_{n}$. Si ha quindi che $OPT(m,n) = \delta + OPT(m,n-1)$.
+- `Nel caso 2`, si paga un gap cost $\delta$ dato che la $m^{th}$ posizione di $X$ non è in matching, e poi si allinea $x_1 x_2 \ldots x_{m-1}$ nel miglior modo possibile con $y_1 y_2 \ldots y_{n}$. Si ha quindi che $OPT(m,n) = \delta + OPT(m-1,n)$.
+- Similmente per `il caso 3`, abbiamo $OPT(m,n) = \delta + OPT(m,n-1)$.
 
 Utilizzando dunque gli stessi argomenti per i sottoproblemi, per l'allineamento di costo minimo tra $X$ e $Y$, otteniamo la definizione generale di $OPT(i,j)$:
 
