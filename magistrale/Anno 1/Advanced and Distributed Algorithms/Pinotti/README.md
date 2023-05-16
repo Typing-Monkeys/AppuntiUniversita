@@ -1024,23 +1024,18 @@ occurrEnce
 #### **Goal:** 
 **Date due stringhe, trovare l'allineamento di costo minimo.**
 
-**Esempio**: data le parole `ocurrance` e `occurrence` possiamo individuare vari alignment,
-per esempio:
-
+**Esempio**: data le parole `ocurrance` e `occurrence` possiamo individuare vari alignment:
 ```
 o-currAnce
 occurrEnce
 ```
-
 oppure
-
 ```
 o-curr-ance
 occurre-nce
 ```
 
-Possiamo notare che nel primo abbiamo **1 gap** e **1 mismatch** mentre nel secondo
-abbiamo **3 gap** ma **nessun mismatch**.
+Possiamo notare che nel primo abbiamo **1 gap** e **1 mismatch** mentre nel secondo abbiamo **3 gap** ma **nessun mismatch**.
 
 Vogliamo quindi determinare quale dei due sia il migliore.
 
@@ -1120,7 +1115,7 @@ Quindi il valore dell'allineamento ottimale è la lunghezza dello shortest path 
   - **SPAZIO =** $O(nm)$
   - **TEMPO =** $O(n+m)$
 
-## Hirschberg′s algorithm
+## Hirschberg's algorithm
 ### Sequence Alignment in Spazio Lineare utilizzando la *Dividi et Impera*
 Come abbiamo appena visto l'algoritmo ha sia costo spaziale che temporale uguale a $O(mn)$ e se come input consideriamo le parole della lingua inglese non risulta essere un grande problema, ma se consideriamo genomi con 10 miliardi di caratteri potrebbe verificarsi la situazione di dover lavorare con array anche superiori ai 10 GB, il che renderebbe questo approccio molto costoso o quasi infattibile da applicare. Tuttavia, questo problema può essere risolto utilizzando un approccio **divide et impera** che va a rendere lineare il costo dello spazio, ovvero $\rightarrow$ $O(n + m)$
 
@@ -1151,7 +1146,7 @@ function Space-Efficient-Alignment(X,Y) {
 }
 ```
 
-Esiste, tuttavia, una soluzione a questo problema - saremo in grado di recuperare l'allineamento stesso utilizzando lo spazio $O(m + n)$ - ma richiede un'idea nuova. L'intuizione si basa sull'utilizzo della tecnica *divide et impera* che abbiamo visto in precedenza. Iniziamo con un semplice modo alternativo per implementare la soluzione di programmazione dinamica di base.
+Esiste, tuttavia, una soluzione a questo problema - saremo in grado di recuperare l'allineamento stesso utilizzando lo spazio $O(m + n)$ ma, richiede un'idea nuova. L'intuizione si basa sull'utilizzo della tecnica *divide et impera* che abbiamo visto in precedenza. Iniziamo con un semplice modo alternativo per implementare la soluzione di programmazione dinamica di base.
 
 **A Backward Formulation of the Dynamic Program**: 
 Ricordiamo che usiamo $f(i, j)$ per denotare la lunghezza del cammino minimo da `(0, 0)` a `(i, j)` nel grafo $G_{XY}$. (Come abbiamo mostrato nell'algoritmo di allineamento della sequenza iniziale, $f(i, j)$ ha lo stesso valore di $OPT(i, j)$).
