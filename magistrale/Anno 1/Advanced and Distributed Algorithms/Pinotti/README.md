@@ -1184,9 +1184,9 @@ Possiamo sfruttare questo fatto per provare ad utilizzare lo `Space Efficient Se
   $= min\{ \alpha_{x_i y_j} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)\} =$ <br>
   $= OPT(i,j)$
 
-Per calcolare lo shortest path da un $(i,j)$ a $(n,m)$ posso cambiare la direzione degli archi e calcolare lo shortest path da $(n,m)$ a tutti i vertici $(i,j)$.
+Per calcolare lo shortest path da un $(i,j)$ a $(m,n)$ posso cambiare la direzione degli archi e calcolare lo shortest path da $(m,n)$ a tutti i vertici $(i,j)$.
 
-Il costo per andare da $(0,0)$ a $(n,m)$ posso scomporlo da $(0,0)$ a $(i,j)$ e da $(m,n)$ a $(i,j)$.
+Il costo per andare da $(0,0)$ a $(m,n)$ posso scomporlo da $(0,0)$ a $(i,j)$ e da $(m,n)$ a $(i,j)$.
 
 Nel cammino incontrerò per forza la colonna $n/2$ ma non so per quale vertice (riga $q$): 
 - voglio trovare $q$. 
