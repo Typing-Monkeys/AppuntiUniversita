@@ -1006,14 +1006,43 @@ corrisponde all'alignment `{(2, 1), (3, 2), (4, 3)}`.
 Ora la nostra definizione di similarità si baserà sul **trovare il miglior allineamento**, seguendo questi criteri:
 
 Supponiamo che $M$ sia un dato allineamento tra $X$ e $Y$.
-- C'è un parametro $\delta>0$ che definisce la **gap penalty** , ovvero ogni volta che un simbolo di una parola non corrisponde ad un simbolo dell'altra. Per ogni posizione di $X$ o $Y$ che non trova corrispondenza in $M$ (un gap) sosteniamo un costo di $\delta$.
+- C'è un parametro $\delta>0$ che definisce la **gap penalty** , ovvero ogni volta che bisogna aggiungere un simbolo (-) per far si che le due parole siano
+allineate. Per ognuno di questi simboli aggiunti sosteniamo un costo di $\delta$.
+```
+o-currance
+occurrance
+```
 - Per ogni coppia di lettere $p,q$ del nostro alfabeto, se c'è un accoppiamento errato si paga il corrispondente **mismatch cost** $a_{(p,q)}$.
+```
+occurrAnce
+occurrEnce
+```
 - Il costo di $M$ è la somma del suo gap e mismatch cost, e l'**obiettivo sarà quello di minimizzarlo**.
 
 **N.B.** Le quantità $\delta$ e $a_{(p,q)}$ sono parametri esterni che devono essere inseriti nel software per l'allineamento della sequenza; infatti, molto lavoro va nella scelta delle impostazioni per questi parametri. Dal nostro punto di vista, nel progettare un algoritmo per il sequence alignment, li prenderemo come input.
 
 #### **Goal:** 
 **Date due stringhe, trovare l'allineamento di costo minimo.**
+
+**Esempio**: data le parole `ocurrance` e `occurrence` possiamo individuare vari alignment,
+per esempio:
+
+```
+o-currAnce
+occurrEnce
+```
+
+oppure
+
+```
+o-curr-ance
+occurre-nce
+```
+
+Possiamo notare che nel primo abbiamo **1 gap** e **1 mismatch** mentre nel secondo
+abbiamo **3 gap** ma **nessun mismatch**.
+
+Vogliamo quindi determinare quale dei due sia il migliore.
 
 ### Implementazione dell'algoritmo
 Ora affronteremo il problema di calcolarci questo costo minimo, e l'allineamento ottimale che lo fornisce, date le coppie $X$ e $Y$.
@@ -1066,7 +1095,14 @@ return M[m, n]
 
 C'è un modo pittorico accattivante in cui le persone pensano a questo algoritmo di sequence alignment. Supponiamo di costruire un grafo a griglia $m$ × $n$ bidimensionale $G_{XY}$ , con le righe etichettate da simboli nella stringa $X$, le colonne etichettate da simboli in $Y$ e gli archi orientati come nella *Figura* di seguito.
 
-<img src="./imgs/sa.png" width="50%"/> 
+<img src="./imgs/sa.png" width="50%"/> <img src="./imgs/seqalignmatrix.png" width="40%"/> 
+_Nell'esempio il matching tra `name` e `mean`, con i parametri scelti per questo esempio
+sarà:_
+```
+mean-
+n-ame
+```
+_**NB:** le due immagini fanno riferimento ad esempi diversi_
 
 Numeriamo le righe da 0 a $m$ e le colonne da 0 a $n$; indichiamo il nodo nell'$i$-esima riga e nella $j$-esima colonna con l'etichetta `(i, j)`. Mettiamo i costi sugli archi di $G_{XY}$ : il costo di ogni arco orizzontale e verticale è $\delta$, e il costo dell'arco diagonale da `(i − 1, j − 1)` a `(i, j)` è $a_{x_i y_i}$ .
 Lo scopo di questa immagine emerge ora: la ricorrenza definita precedentemente per $OPT(i, j)$ **è precisamente la ricorrenza che si ottiene per il percorso di costo minimo in $G_{XY}$ da `(0, 0)` a `(i, j)`**. Così possiamo mostrare che:
@@ -1118,7 +1154,7 @@ function Space-Efficient-Alignment(X,Y) {
 Esiste, tuttavia, una soluzione a questo problema - saremo in grado di recuperare l'allineamento stesso utilizzando lo spazio $O(m + n)$ - ma richiede un'idea nuova. L'intuizione si basa sull'utilizzo della tecnica *divide et impera* che abbiamo visto in precedenza. Iniziamo con un semplice modo alternativo per implementare la soluzione di programmazione dinamica di base.
 
 **A Backward Formulation of the Dynamic Program**: 
-Ricordiamo che usiamo $f(i, j)$ per denotare la lunghezza del cammino minimo da `(0, 0)` a `(i, j)` nel grafo $G_{XY}$. (Come abbiamo mostrato nell'algoritmo di allineamento della sequenza iniziale, $f(i, j)$ ha lo stesso valore di $OPT(i, j)$.) 
+Ricordiamo che usiamo $f(i, j)$ per denotare la lunghezza del cammino minimo da `(0, 0)` a `(i, j)` nel grafo $G_{XY}$. (Come abbiamo mostrato nell'algoritmo di allineamento della sequenza iniziale, $f(i, j)$ ha lo stesso valore di $OPT(i, j)$).
 Ora definiamo $g(i, j)$ come la lunghezza del cammino minimo da `(i , j)` a `(m, n)` in $G_{XY}$ . 
 La funzione $g$ fornisce un approccio di programmazione dinamica altrettanto naturale al problema del sequence alignment, tranne per il fatto che **lo costruiamo al contrario**: 
 iniziamo con $g(m, n) = 0$ e la risposta che vogliamo è $g(0, 0)$. Per stretta analogia con la ricorrenza precedente, abbiamo la seguente ricorrenza per $g$:
@@ -1144,15 +1180,15 @@ Possiamo sfruttare questo fatto per provare ad utilizzare lo `Space Efficient Se
 - l'ultimo arco nello shortest path verso $(i,j)$ è $(i-1, j-1)$, $(i, j-1)$ o $(i-1, j)$
 
 - quindi 
-  $f(i,j) = min\{ \alpha_{x_i y_j} + f(i-1, j-1), \delta + f(i-1, j), \delta +f(i, j-1)\} = $
-  $= min\{ \alpha_{x_i y_j} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)\} =$
+  $f(i,j) = min\{ \alpha_{x_i y_j} + f(i-1, j-1), \delta + f(i-1, j), \delta +f(i, j-1)\} =$ <br>
+  $= min\{ \alpha_{x_i y_j} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)\} =$ <br>
   $= OPT(i,j)$
 
 Per calcolare lo shortest path da un $(i,j)$ a $(n,m)$ posso cambiare la direzione degli archi e calcolare lo shortest path da $(n,m)$ a tutti i vertici $(i,j)$.
 
 Il costo per andare da $(0,0)$ a $(n,m)$ posso scomporlo da $(0,0)$ a $(i,j)$ e da $(m,n)$ a $(i,j)$.
 
-Nel commino incontrerò per forza la colonna $n/2$ ma non so per quale vertice (riga $q$): 
+Nel cammino incontrerò per forza la colonna $n/2$ ma non so per quale vertice (riga $q$): 
 - voglio trovare $q$. 
   divido quindi il problema in 2:
 ​	  $f((0,0)(q,n/2)) + f((q,n/2)(m,n))$ 
