@@ -880,7 +880,7 @@ Come nella moltiplicazione di una sequenza di matrici, il controllo esaustivo di
 Iniziamo con una osservazione sui sottoalberi. Consideriamo un sottoalbero qualsiasi di un albero binario di ricerca; le sue chiavi devono essere in un intervallo contiguo $k_i, ..., k_j$, per qualche $1 \le i \le j \le n$. Inoltre, un sottoalbero che contiene le chiavi $k_i, ..., k_j$ deve anche avere come foglie le chiavi fittizie $d_{i-1}, ..., d_j$. Adesso possiamo definire la **sottostruttura ottima**:
 > **se un albero binario di ricerca ottimo $T$ ha un sottoalbero $T'$ che contiene le chiavi $k_i, ..., k_j$, allora questo sottoalberto $T'$ deve essere ottimo anche per il sottoproblema con chiavi $k_i, ..., k_j$ e chiavi fittizie $d_{i-1}, ..., d_j$**.
 
-Date le chiavi $k_i, ..., k_j$, una di queste chiavi, per esempio $k_r$ ($i \le r \le j$), sarà la radice di un sottoalbero ottimo che contine queste chiavi. Il sottoalbero sinistro della radice $k_r$ conterra le chiavi $k_i, ..., k_{r-1}$ (e le chiavi fittizie $d_{i-1}, ..., d_{r-1}$) e il sottoalbero destro conterrà le chiavi $k_{r+1}, ..., k_j$ (e le chiavi fittizie $d_{r}, ..., d_{j}$).
+Date le chiavi $k_i, ..., k_j$, una di queste chiavi, per esempio $k_r$ ($i \le r \le j$), sarà la radice di un sottoalbero ottimo che contine queste chiavi. Il sottoalbero sinistro della radice $k_r$ conterrà le chiavi $k_i, ..., k_{r-1}$ (e le chiavi fittizie $d_{i-1}, ..., d_{r-1}$) e il sottoalbero destro conterrà le chiavi $k_{r+1}, ..., k_j$ (e le chiavi fittizie $d_{r}, ..., d_{j}$).
 
 Se esaminiamo tutte le radici candidate $k_r$ con $i \le r \le j$, e determiniamo tutti gli alberi binari di ricerca ottimi che contengono $k_i, ..., k_{r-1}$ e quelli che contengono $k_{r+1}, ..., k_{j}$, avremo la garanzia di trovare un albero binario di ricerca ottimo.
 
@@ -925,12 +925,12 @@ $e[i,j]$ =
 - $q_{i-1}$ se $j = i-1$
 - $min_{i \le r \le j} \{e[i, r-1] + e[r+1, j] + w(i,j)\}$ se $i \le j$
 
-I valori $e[i,j]$ rappresentano i costi attesi di ricerca negli alberi binari di ricerca ottimi. Per tenere traccia della struttura degli alberi binari di ricerca ottimi, definiamo $root[i,j]$, per $i \le i \le j \le n$, come l'indice $r$ per il quale $k_r$ è la radice di un albero binario di ricerca ottimo che contiene le chiavi $k_i , ..., k_j$.
+I valori $e[i,j]$ rappresentano i costi attesi di ricerca negli alberi binari di ricerca ottimi. Per tenere traccia della struttura degli alberi binari di ricerca ottimi, definiamo $root[i,j]$, per $1 \le i \le j \le n$, come l'indice $r$ per il quale $k_r$ è la radice di un albero binario di ricerca ottimo che contiene le chiavi $k_i , ..., k_j$.
 
 #### 3. Calcolare il costo di ricerca atteso in un albero binario di ricerca ottimo
-Si possono vedere diverse analogie fra la caratterizzazione degli alberi binari di ricerca ottimi e la caratterizzazione della moltiplicazione di una sequenza di matrici. Per entrambi i domini dei problemi, i sottoproblemi sono formati da sottointervalli di indici e cotigui. Una implementazione ricorsiva diretta dell'equazione definita precedentemente potrebbe risultare inefficiente come l'algoritmo ricorsivo diretto della moltiplicazione di una sequenza di matrici. Memorizziamo quindi i valori $e[i,j]$ in una tabella $e[1..n +1, 0..n]$. Il primo indice deve arrivare fino a $n+1$ (anzichè $n$) perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_n$, dobbiamo calcolare e memorizzare $e[n+1,n]$. Il secondo indice deve iniziare da 0 perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_0$, dobbiamo calcolare e memorizzare $e[1,0]$. Utilizzeremo soltanto le posizioni $e[i,j]$ per le quali $j \ge i-1$. Utilizzeremo anche una tabella $root[i,j]$ per memoriazzare la radice del sottoalbero che contiene le chiavi $k_i, ..., k_j$ (questa tabella usa soltanto le posizioni per le quali $1 \le i \le j \le n$).
+Si possono vedere diverse analogie fra la caratterizzazione degli alberi binari di ricerca ottimi e la caratterizzazione della moltiplicazione di una sequenza di matrici. Per entrambi i domini dei problemi, i sottoproblemi sono formati da sottointervalli di indici e contigui. Una implementazione ricorsiva diretta dell'equazione definita precedentemente potrebbe risultare inefficiente come l'algoritmo ricorsivo diretto della moltiplicazione di una sequenza di matrici. Memorizziamo quindi i valori $e[i,j]$ in una tabella $e[1..n +1, 0..n]$. Il primo indice deve arrivare fino a $n+1$ (anzichè $n$) perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_n$, dobbiamo calcolare e memorizzare $e[n+1,n]$. Il secondo indice deve iniziare da 0 perchè, per ottenere un sottoalbero che contiene soltanto la chiave fittizia $d_0$, dobbiamo calcolare e memorizzare $e[1,0]$. Utilizzeremo soltanto le posizioni $e[i,j]$ per le quali $j \ge i-1$. Utilizzeremo anche una tabella $root[i,j]$ per memoriazzare la radice del sottoalbero che contiene le chiavi $k_i, ..., k_j$ (questa tabella usa soltanto le posizioni per le quali $1 \le i \le j \le n$).
 
-Ovviamente, per migliorare l'efficienza, utilizzeremo un'altra tabella. Anzichè ricominciare da zero il calcolo di $w(i,j)$ ogni volta che calcoliamo $e[i,j]$ (il che richiederebbe $O(j-1)$ addizioni) memorizziamo questi valori in una tabella $w[1..n+1,0..n]$. Per il caso base, calcoliamo $w[i, i-1] = q_{i-1}$ per $ 1 \le i \le n+1$. Per $j \ge i$, calcoliamo $w[i,j] = w[i, j-1] + p_j + q_j$.
+Ovviamente, per migliorare l'efficienza, utilizzeremo un'altra tabella. Anzichè ricominciare da zero il calcolo di $w(i,j)$ ogni volta che calcoliamo $e[i,j]$ (il che richiederebbe $O(j-1)$ addizioni) memorizziamo questi valori in una tabella $w[1..n+1,0..n]$. Per il caso base, calcoliamo $w[i, i-1] = q_{i-1}$ per $1 \le i \le n+1$. Per $j \ge i$, calcoliamo $w[i,j] = w[i, j-1] + p_j + q_j$.
 
 Quindi possiamo calcolare ciascuno dei $O(n^2)$ valori di $w[i,j]$ nel tempo $O(1)$.
 
@@ -1271,18 +1271,18 @@ Il teorema precedente implica che ci sono uno o due sottoproblemi da esaminare p
 
 Come nel problema della moltiplicazione di una sequenza di matrici, la nostra soluzione ricorsiva del problema della più lunga sottosequenza comune richiede la definizione di una ricorrenza per il valore di una soluzione ottima. Definiamo $c[i,j]$ come la lunghezza di una LCS delle sequenze $X_i$ e $Y_j$. Se $i = 0$ o $j = 0$, una delle sequenze ha lunghezza 0, quindi la LCS ha lunghezza 0. La sottostruttura ottima del problema della LCS consente di scrivere la formula ricorsiva
 
-$c[i,j] = $:
+$c[i,j]=$:
 - 0 se $i = 0$ o $j = 0$
 - $c[i-1, j-1] + 1$ se $i, j > 0$ e $x_i = y_i$
 - $max(c[i, j-1], c[i-1, j])$ se $i,j > 0$ e $x_i \neq y_j$
 
 ### 3. Calcolare la lunghezza di una LCS
-Utilizzando l'equazione precedente potremmo scrivere facilmente un algoritmo ricorsivo con tempo esponenziale per calcolare la lunghezza di una LCS di due sequenze. Tuttavia, poichè ci sono soltanto $O(mn)$ sottoproblemi distinti, posiamo utilizzare la programmazione dinamica per calcolare le soluzioni con un metodo bottom-up. La procedura `LCS-Length` riceve come input due sequenze $X = <x_1, x_2, ..., x_m>$ e $Y$ = $<y_1, y_2, ..., y_n>$ e memorizza i valori $c[i,j]$ in una tabella $c[o..m, 0..n]$, le cui posizioni sono calcolate secondo l'ordine delle righe (cioè, vengono inseriti i valori nella prima rica di $c$ da sinistra a destra, poi vengono inseriti i valori nella seconda riga e così via).
+Utilizzando l'equazione precedente potremmo scrivere facilmente un algoritmo ricorsivo con tempo esponenziale per calcolare la lunghezza di una LCS di due sequenze. Tuttavia, poichè ci sono soltanto $O(mn)$ sottoproblemi distinti, posiamo utilizzare la programmazione dinamica per calcolare le soluzioni con un metodo bottom-up. La procedura `LCS-Length` riceve come input due sequenze $X = <x_1, x_2, ..., x_m>$ e $Y$ = $<y_1, y_2, ..., y_n>$ e memorizza i valori $c[i,j]$ in una tabella $c[0..m, 0..n]$, le cui posizioni sono calcolate secondo l'ordine delle righe (cioè, vengono inseriti i valori nella prima riga di $c$ da sinistra a destra, poi vengono inseriti i valori nella seconda riga e così via).
 
 La procedura utilizza anche la tabella $b[1..m, 1..n]$ per semplificare la costruzione di una soluzione ottima. Intuitvamente, $b[i, j]$ punta alla posizione della tabella che corrisponde alla soluzione ottima del sottoproblema che è stata scelta per calcolare $c[i,j]$. La procedura restituisce le tabelle $b$ e $c$; la posizione $c[m,n]$ contiene la lunghezza di una LCS di $X$ e $Y$.
 
 #### `LCS-Lenght(X, Y)`
-```pseudocode
+```javascript
 m = X.length
 n = Y.length
 
@@ -1316,16 +1316,19 @@ Il tempo di esecuzione è $O(mn)$, perchè il calcolo di ogni posizione della ta
 La tabella $b$ restituita dalla procedura `LCS-length` può essere utilizzata per costruire rapidamente una LCS delle sequenze $X = <x_1, x_2, ..., x_m>$ e $Y$ = $<y_1, y_2, ..., y_n>$. Iniziamo semplicemente da $b[m,n]$ e, ogni volta che incontriamo una freccia "↖" nella posizione $b[i,j]$, significa che $x_i = y_j$ è un elemento della LCS trovata da `LCS-Length`. In questo modo gli elementi della LCS si incontrano in ordine inverso. La seguente procedura ricorsiva stampa una LCS di $X$ e $Y$ nell'ordine corretto. La chiamata iniziale è `Print-LCS(b, X, X.length, Y.length)`
 
 #### `Print-LCS(b, X, i, j)`
-```pseudocode
-if i == 0 or j == 0
-  return
-if b[i,j] == "↖"
-  Print-LCS(b, X, i-1, j-1)
-  print xi
-elseif b[i,j] == "↑"
-  Print-LCS(b, X, i-1, j)
-else
-  Print-LCS(b, X, i, j-1)
+```javascript
+function Print-LCS(b, X, i, j) {
+  if i == 0 or j == 0
+    return
+
+  if b[i,j] == "↖"
+    Print-LCS(b, X, i-1, j-1)
+    print xi
+  else if b[i,j] == "↑"
+    Print-LCS(b, X, i-1, j)
+  else
+    Print-LCS(b, X, i, j-1)
+}
 ```
 La procedura impiega un tempo $O(m + n)$, perchè a ogni chiamata ricorsiva essa decrementa almeno uno dei due valori $i$ e $j$.
 
