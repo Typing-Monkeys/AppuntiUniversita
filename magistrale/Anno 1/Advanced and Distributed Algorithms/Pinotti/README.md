@@ -1193,7 +1193,7 @@ Nel cammino incontrerò per forza la colonna $n/2$ ma non so per quale vertice (
 ### Funzionamento Algoritmo
 Dividiamo $G_{XY}$ lungo la sua colonna centrale e calcoliamo il valore di $f(i, n/2)$ e $g(i, n/2)$ per ogni valore di $i$, usando i nostri due algoritmi efficienti in termini di spazio. Possiamo quindi determinare il valore minimo di $f(i, n/2) + g(i, n/2)$, e concludere tramite la precedente definizione che esiste un cammino *angolo-angolo* più breve che passa attraverso il nodo `(i, n/2)`. Detto questo, possiamo cercare ricorsivamente il cammino minimo nella porzione di $G_{XY}$ tra `(0, 0)` e `(i, n/2)` e nella porzione tra `(i, n/2)` e `(m, n)`. Il punto cruciale è che applichiamo queste chiamate ricorsive in sequenza e riutilizziamo lo spazio di lavoro da una chiamata all'altra. Pertanto, poiché lavoriamo solo su una chiamata ricorsiva alla volta, l'utilizzo totale dello spazio è $O(m + n)$. La domanda chiave che dobbiamo risolvere è se il tempo di esecuzione di questo algoritmo rimane $O(mn)$.
 Nell'eseguire l'algoritmo, manteniamo un elenco $P$ accessibile a livello globale che manterrà i nodi sul percorso *angolo-angolo* più breve man mano che vengono scoperti.
-Inizialmente $P$ è vuoto. $P$ deve avere solo $m + n$ voci, poiché nessun percorso da angolo a angolo può utilizzare più di questo numero di spigoli. Usiamo anche la seguente notazione:
+Inizialmente $P$ è vuoto. $P$ deve avere solo $m + n$ voci, poiché nessun percorso da angolo a angolo può utilizzare più di questo numero di archi. Usiamo anche la seguente notazione:
 $X[i : j]$, per $1 \le i \le j \le m$, denota la sottostringa di $X$ costituita da $x_i x_{i+1} ... x_j$;
 e definiamo $Y[i : j]$ in modo analogo. Assumeremo per semplicità che $n$ sia una potenza di 2; questo presupposto rende il discorso molto più pulito, anche se può essere facilmente evitato.
 
@@ -1483,7 +1483,7 @@ Lo chiameremo Algoritmo di **Ford-Fulkerson**, dal nome dei due ricercatori che 
 
 
 L'algoritmo Ford-Fulkerson è davvero molto semplice. 
-Per quanto riguarda il modo in cui vengono trovati i path nel grafo residuale, non è stato specificato nell'algoritmo, ma si ha libera scelta sull'utilizzo di algoritmi di esplorazioned dei grafi, un esempio è l'utilizzo della DFS (il costo complessivo dell'algoritmo di Ford-Fulkerson dipenderà anche da questa scelta).
+Per quanto riguarda il modo in cui vengono trovati i path nel grafo residuale, non è stato specificato nell'algoritmo, ma si ha libera scelta sull'utilizzo di algoritmi di esplorazione dei grafi, un esempio è l'utilizzo della DFS (il costo complessivo dell'algoritmo di Ford-Fulkerson dipenderà anche da questa scelta).
 Ciò che non è affatto chiaro è se il suo ciclo `While` centrale termini e se il flusso restituito sia un flusso massimo. Le risposte a entrambe queste domande si rivelano abbastanza sottili.
 
 ### Analyzing the Algorithm: Termination and Running Time
@@ -1532,7 +1532,7 @@ Usiamo ora la nozione di **taglio** per sviluppare un metodo molto più generale
 Lo precisiamo attraverso una sequenza di teoremi e/o definizioni.
 
 ##### **DEF (7.6)**
-S<> ia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) = f^{out}(A) − f^{in}(A)$.
+> Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$. Allora $v(f) = f^{out}(A) − f^{in}(A)$.
 
 Questa affermazione è in realtà molto più forte di un semplice upper bound. Dice che osservando la quantità di flusso che $f$ invia attraverso un taglio, possiamo misurare esattamente il valore del flusso: **è la quantità totale che lascia A, meno la quantità che "torna indietro" in A**.
 
@@ -1562,7 +1562,7 @@ L'algoritmo di Ford-Fulkerson **termina quando il flusso $f$ non ha un cammino $
 #### Dimostrazione
 Dobbiamo identificare un taglio che dimostri la precedente proprietà. A tal fine, indichiamo con $A^∗$ l'insieme di tutti i nodi $v$ in $G$ per i quali esiste un cammino $s-v$ in $G_f$ . Sia $B^∗$ l'insieme di tutti gli altri nodi: $B^∗ = V − A^∗$.
 
-Per prima cosa stabiliamo che $(A^∗ , B^∗)$ è effettivamente un taglio $s-t$. È chiaramente una partizione di $V$. La sorgente $s$ appartiene ad $A^∗$ poiché c'è sempre un cammino da $s$ a $s$. Inoltre, $t \in A^∗$ assumendo che non ci sia cammino $s-t$ nel grafo residuale; quindi $t \in B^∗$ come desiderato.
+Per prima cosa stabiliamo che $(A^∗ , B^∗)$ è effettivamente un taglio $s-t$. È chiaramente una partizione di $V$. La sorgente $s$ appartiene ad $A^∗$ poiché c'è sempre un cammino da $s$ a $s$. Inoltre, $t \notin A^∗$ assumendo che non ci sia cammino $s-t$ nel grafo residuale; quindi $t \in B^∗$ come desiderato.
 
 Supponiamo ora che $e = (u, v)$ sia un arco in $G$ per il quale $u \in A^∗$ e $v \in B^∗$, come mostrato nella Figura seguente. Affermiamo che $f(e) = c_e$ . Infatti, in caso contrario, $e$ sarebbe un arco *forward* nel grafo residuale $G_f$ , e poiché $u \in A^∗$ esiste un cammino $s-u$ in $G_f$ ; aggiungendo $e$ a questo cammino, otterremmo un cammino $s-v$ in $G_f$ , contraddicendo la nostra ipotesi che $v \in B^∗$.
 
