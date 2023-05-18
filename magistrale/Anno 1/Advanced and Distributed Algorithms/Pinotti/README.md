@@ -1392,7 +1392,7 @@ Un flusso $f$ deve soddisfare le seguenti due proprietà:
 
 Qui $\sum_{e \text{ into } v}f(e)$ somma il valore del flusso $f(e)$ su tutti gli archi che entrano nel nodo $v$, mentre $\sum_{e \text{ out of } v}f(e)$ è la somma dei valori di flusso su tutti gli archi che escono dal nodo $v$.
 
-Quindi il flusso su un arco non può superare la capacità dell'arco stesso. Per ogni nodo diverso dalla **source** e dal **sink,**, la quantità di flusso in entrata deve essere uguale alla quantità di flusso in uscita. 
+Quindi il flusso su un arco non può superare la capacità dell'arco stesso. Per ogni nodo diverso dalla **source** e dal **sink**, la quantità di flusso in entrata deve essere uguale alla quantità di flusso in uscita.
 - La sorgente non ha archi entranti (secondo la nostra assunzione), ma le è consentito avere un flusso uscente; in altre parole, può generare flusso. 
 - Simmetricamente, il sink può avere flusso in entrata, anche se non ha archi in uscita. 
 
@@ -1411,7 +1411,7 @@ Data una flow network, l'obiettivo è quello di organizzare il traffico in modo 
 #### **Goal:**
 **Data una rete di flussi, trovare un flusso di massimo valore possibile.**
 
-È utile considerare come la struttura della rete di flusso pone un **upper bounds** al **valore massimo** di un flusso $s-t$.
+È utile considerare come la struttura della rete di flusso pone un **upper bound** al **valore massimo** di un flusso $s-t$.
 Supponiamo quindi di dividere i nodi del grafo in due insiemi, $A$ e $B$, in modo che $s \in A$ e $t \in B$. Allora, intuitivamente, ogni flusso che va da $s$ a $t$ deve passare da $A$ a $B$ ad un certo punto, e quindi consumare parte della capacità degli archi da $A$ a $B$. Ciò suggerisce che ciascuno di questi "***tagli***" del grafo pone un **limite al massimo valore di flusso possibile**. L'algoritmo del flusso massimo che svilupperemo, sarà collegato ad una dimostrazione, la quale afferma che: 
 > **il valore del flusso massimo è uguale alla capacità minima di ciascuna di queste divisioni, chiamata taglio minimo** (*l'algoritmo calcolerà anche il taglio minimo*).
 
