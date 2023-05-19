@@ -1602,7 +1602,7 @@ Nella sezione precedente, abbiamo visto che qualsiasi modo di scegliere un augme
 L'obiettivo di questa sezione è mostrare che con una migliore scelta dei path, possiamo migliorare significativamente questo limite. Una grande mole di lavoro è stata dedicata alla ricerca di metodi per scegliere augmenting path nel problema del flusso massimo in modo da minimizzare il numero di iterazioni. 
 **Ricordiamo che l'augmentation aumenta il valore del flusso del percorso selezionato di un valore che è dato dal bottleneck; quindi, è un buon approccio quello di scegliere percorsi con una grande capacità di bottleneck.**
 
-> **L'approccio migliore è quella di selezionare il percorso che ha il bottleneck di maggiore capacità.**
+> **L'approccio migliore è quello di selezionare il percorso che ha il bottleneck di maggiore capacità.**
 
 Tuttavia, trovare tali percorsi può rallentare di parecchio ogni singola iterazione. Eviteremo questo rallentamento non preoccupandoci di selezionare il percorso che ha esattamente la maggiore capacità di bottleneck. Invece, manterremo un cosiddetto **scaling parameter** $\Delta$ e cercheremo percorsi che abbiano un bottleneck di capacità di almeno $\Delta$.
 Sia $G_f(\Delta)$ il sottoinsieme del grafo residuo costituito solo da archi con capacità residua di almeno $\Delta$. Lavoreremo con valori di $\Delta$ che sono potenze di 2.
