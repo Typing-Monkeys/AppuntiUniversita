@@ -1660,7 +1660,7 @@ Sia $A$ l'insieme di tutti i nodi $v$ in $G$ per i quali esiste un cammino $s-v$
 Sia $B$ l'insieme di tutti gli altri nodi: $B = V − A$. Possiamo vedere che $(A, B)$ è effettivamente un taglio $s-t$ altrimenti la fase non sarebbe terminata.
 
 Consideriamo ora un arco $e = (u, v)$ in $G$ per il quale $u \in A$ e $v \in B$. Affermiamo che $c_e < f(e) + \Delta$ . Infatti, se così non fosse, allora $e$ sarebbe un arco in avanti nel grafo $G_f(\Delta)$, e poiché $u \in A$, esiste un cammino $s-u$ in $G_f(\Delta)$; aggiungendo $e$ a questo cammino, otterremmo un cammino $s-v$ in $G_f(\Delta)$, contraddicendo la nostra ipotesi che $v \in B$. 
-Allo stesso modo, affermiamo che per ogni arco $e' = (u' , v')$ in $G$ per cui $u' \in B$ e $v' \in A$, abbia'mo $f(e') < \Delta$. Infatti, se $f(e') \ge \Delta$, allora $e'$ darebbe luogo ad un arco all'indietro $e'' = (v'' , u'')$ nel grafo $G_f(\Delta)$, e poiché $v' \in A$, esiste un cammino $s-v'$ in $G_f(\Delta)$; aggiungendo $e''$ a questo cammino, otterremmo un cammino $s-u'$ $G_f(\Delta)$, contraddicendo la nostra ipotesi che $'u \in B$.
+Allo stesso modo, affermiamo che per ogni arco $e' = (u' , v')$ in $G$ per cui $u' \in B$ e $v' \in A$, abbia'mo $f(e') < \Delta$. Infatti, se $f(e') \ge \Delta$, allora $e'$ darebbe luogo ad un arco all'indietro $e'' = (v'' , u'')$ nel grafo $G_f(\Delta)$, e poiché $v' \in A$, esiste un cammino $s-v'$ in $G_f(\Delta)$; aggiungendo $e''$ a questo cammino, otterremmo un cammino $s-u'$ $G_f(\Delta)$, contraddicendo la nostra ipotesi che $u' \in B$.
 
 Quindi tutti gli archi $e$ uscenti da $A$ sono quasi saturati (soddisfano $c_e < f(e) + \Delta $) e tutti gli archi entranti in $A$ sono quasi vuoti (soddisfano $f(e) < \Delta$).
 
@@ -1670,7 +1670,7 @@ $$
 v(f) = \sum_{e \text{ out of } A}f(e) - \sum_{e \text{ into } A}f(e) \ge \sum_{e \text{ out of } A}(c_e - \Delta) - \sum_{e \text{ into } A}\Delta = \sum_{e \text{ out of } A}c_e - \sum_{e \text{ out of } A}\Delta - \sum_{e \text{ into } A}\Delta \ge c(A, B) - m\Delta
 $$
 
-Qui la prima disuguaglianza segue dai nostri limiti sui valori di flusso degli archi attraverso il taglio, e la seconda disuguaglianza segue dal semplice fatto che il grafico contiene solo $m$ spigoli in totale.
+Qui la prima disuguaglianza segue dai nostri limiti sui valori di flusso degli archi attraverso il taglio, e la seconda disuguaglianza segue dal semplice fatto che il grafo contiene solo $m$ archi in totale.
 Il valore del flusso massimo è limitato dalla capacità di qualsiasi taglio di (7.8). Usiamo il taglio $(A, B)$ per ottenere il limite dichiarato nella seconda affermazione.
 
 ##### Def. 7.19
