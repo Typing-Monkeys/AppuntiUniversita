@@ -1006,8 +1006,8 @@ corrisponde all'alignment `{(2, 1), (3, 2), (4, 3)}`.
 Ora la nostra definizione di similarità si baserà sul **trovare il miglior allineamento**, seguendo questi criteri:
 
 Supponiamo che $M$ sia un dato allineamento tra $X$ e $Y$.
-- C'è un parametro $\delta>0$ che definisce la **gap penalty** , ovvero ogni volta che bisogna aggiungere un simbolo (-) per far si che le due parole siano
-allineate. Per ognuno di questi simboli aggiunti sosteniamo un costo di $\delta$.
+
+- C'è un parametro $\delta>0$ che definisce la **gap penalty**, che viene sostenuta ogni volta che un carattere di $X$ o $Y$ non è in un matching (ovvero non ha una corrispondenza). Nell'allignment il "***gap***" viene posto con il simbolo '`-`', necessario al fine di allineare le due stringhe (avere uguale *lunghezza*).
 ```
 o-currance
 occurrance
@@ -1674,7 +1674,7 @@ Qui la prima disuguaglianza segue dai nostri limiti sui valori di flusso degli a
 Il valore del flusso massimo è limitato dalla capacità di qualsiasi taglio di (7.8). Usiamo il taglio $(A, B)$ per ottenere il limite dichiarato nella seconda affermazione.
 
 ##### Def. 7.19
-> Il numero di aumenti in una fase di ridimensionamento è al massimo di $2m$.
+> Il numero di aumenti in una fase di ridimensionamento (**scaling**) è al massimo di $2m$.
 
 ##### Dimostrazione
 L'affermazione è chiaramente vera nella prima fase di scaling: possiamo usare ciascuno degli archi di $s$ solo per al massimo un augmentation in quella fase.
@@ -1808,7 +1808,7 @@ Da qui ne deriva un teorema chiamato **Hall's Theorem**, la cui dimostrazione fo
 
 ### Hall's Theorem:
 
-Sia $G=(V, E)$ un grafo bipartito con i due lati $X$ e $Y$, tali per cui $|X| = |Y|$. Allora G ha un perfect matching oppure c'è un sottoinsieme $S \subseteq X$ tale per cui $|N(S)| < |S|$. Un matching perfetto o un appropriato sottoiunsieme $S$ può essere trovato in tempo $O(mn)$.
+Sia $G=(V, E)$ un grafo bipartito con i due lati $X$ e $Y$, tali per cui $|X| = |Y|$. Allora G ha un perfect matching oppure c'è un sottoinsieme $S \subseteq X$ tale per cui $|N(S)| < |S|$. Un matching perfetto o un appropriato sottoinsieme $S$ può essere trovato in tempo $O(mn)$.
 
 **Dimostrazione:**
 $\Rightarrow:$ Ogni nodo in $S$ deve essere collegato ad un nodo al di fuori di $N(S)$ (al di fuori di $S$).
