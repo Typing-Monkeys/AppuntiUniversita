@@ -1660,9 +1660,9 @@ Sia $A$ l'insieme di tutti i nodi $v$ in $G$ per i quali esiste un cammino $s-v$
 Sia $B$ l'insieme di tutti gli altri nodi: $B = V − A$. Possiamo vedere che $(A, B)$ è effettivamente un taglio $s-t$ altrimenti la fase non sarebbe terminata.
 
 Consideriamo ora un arco $e = (u, v)$ in $G$ per il quale $u \in A$ e $v \in B$. Affermiamo che $c_e < f(e) + \Delta$ . Infatti, se così non fosse, allora $e$ sarebbe un arco in avanti nel grafo $G_f(\Delta)$, e poiché $u \in A$, esiste un cammino $s-u$ in $G_f(\Delta)$; aggiungendo $e$ a questo cammino, otterremmo un cammino $s-v$ in $G_f(\Delta)$, contraddicendo la nostra ipotesi che $v \in B$. 
-Allo stesso modo, affermiamo che per ogni arco $e' = (u' , v')$ in $G$ per cui $u' \in B$ e $v' \in A$, abbia'mo $f(e') < \Delta$. Infatti, se $f(e') \ge \Delta$, allora $e'$ darebbe luogo ad un arco all'indietro $e'' = (v'' , u'')$ nel grafo $G_f(\Delta)$, e poiché $v' \in A$, esiste un cammino $s-v'$ in $G_f(\Delta)$; aggiungendo $e''$ a questo cammino, otterremmo un cammino $s-u'$ $G_f(\Delta)$, contraddicendo la nostra ipotesi che $u' \in B$.
+Allo stesso modo, affermiamo che per ogni arco $e' = (u' , v')$ in $G$ per cui $u' \in B$ e $v' \in A$, abbiamo $f(e') < \Delta$. Infatti, se $f(e') \ge \Delta$, allora $e'$ darebbe luogo ad un arco all'indietro $e'' = (v'' , u'')$ nel grafo $G_f(\Delta)$, e poiché $v' \in A$, esiste un cammino $s-v'$ in $G_f(\Delta)$; aggiungendo $e''$ a questo cammino, otterremmo un cammino $s-u'$ $G_f(\Delta)$, contraddicendo la nostra ipotesi che $u' \in B$.
 
-Quindi tutti gli archi $e$ uscenti da $A$ sono quasi saturati (soddisfano $c_e < f(e) + \Delta $) e tutti gli archi entranti in $A$ sono quasi vuoti (soddisfano $f(e) < \Delta$).
+Quindi tutti gli archi $e$ uscenti da $A$ sono quasi saturati (soddisfano $c_e < f(e) + \Delta$) e tutti gli archi entranti in $A$ sono quasi vuoti (soddisfano $f(e) < \Delta$).
 
 Possiamo ora usare (7.6) per raggiungere la conclusione desiderata:
 
@@ -1734,10 +1734,10 @@ Valore del flusso massimo = 200 + 1
 <hr>
 
 ## Matching su Grafi Bipartiti
-Ora che abbiamo visto e sviluppato degli algoritmo potenti ed efficaci per il problema del Flusso Massimo, è ora di vedere le applicazioni di quest'ultimi per alcuni problemi noti. Durante l'introduzione del Problema del Flusso Massimo, abbiamo introdotto il ***Bipartite Matching Problem***, inizieremo quindi con la risoluzione di quest'ultimo e, successivamente, affronteremo il ***Disjoint Paths Problem***.
+Ora che abbiamo visto e sviluppato degli algoritmi potenti ed efficaci per il problema del Flusso Massimo, è ora di vedere le applicazioni di quest'ultimi per alcuni problemi noti. Durante l'introduzione del Problema del Flusso Massimo, abbiamo introdotto il ***Bipartite Matching Problem***, inizieremo quindi con la risoluzione di quest'ultimo e, successivamente, affronteremo il ***Disjoint Paths Problem***.
 
 ### Descrizione del problema
-Ricordando che un *grafo bipartito* $G = (V. E)$ è un grafo indiretto il cui insieme di nodi può essere partizionato come $V = X \cup Y$, con la proprietà che ogni arco $e \in E$ ha una fine in $X$ e l'altra in $Y$ (ogni arco connette un nodo in $X$ e uno in $Y$).
+Ricordando che un *grafo bipartito* $G = (V, E)$ è un grafo non orientato il cui insieme di nodi può essere partizionato come $V = X \cup Y$, con la proprietà che ogni arco $e \in E$ ha una fine in $X$ e l'altra in $Y$ (ogni arco connette un nodo in $X$ e uno in $Y$).
 Un **matching** $M$ in $G$ è un sottoinsieme di archi $M \subseteq E$ tale che ogni nodo appare in al massimo un arco in $M$.
 Il ***Bipartite Matching Problem*** consiste nel trovare il matching in $G$ più grande possibile (matching di **cardinalità massima**).
 
@@ -1757,22 +1757,22 @@ Come si ottiene $G'$ ?
 Si può ora calcolare il massimo flow $s-t$ nella rete $G'$.
 
 Vedremo ora come:
-1. **Il valore del massimo flusso di questa rete ($G'$) è in realtà è uguale alla dimensione del massimo matching in $G$**.
+1. **Il valore del massimo flusso di questa rete ($G'$) in realtà è uguale alla dimensione del massimo matching in $G$**.
 2. Inoltre vederemo come ricostruire il matching utilizzando il flusso della rete.
 
 #### Dimostrazione di 1
 $$
 \leftarrow
 $$
-Si supponga l'esistenza di un matching in $G$ composto da $k$ archi $(x_{i_1}, y_{i_1}), ..., (x_{i_k}, y_{i_k}) $
-Si consideri allora un flusso $f$ che trasporta una un'unità su ogni path dalla struttura $s, x_{i_j}, y_{i_j}, t$ con $f(e) = 1$ per ogni arco per ognuno dei cammini.
+Si supponga l'esistenza di un matching in $G$ composto da $k$ archi $(x_{i_1}, y_{i_1}), ..., (x_{i_k}, y_{i_k})$
+Si consideri allora un flusso $f$ che trasporta un'unità su ogni path dalla struttura $s, x_{i_j}, y_{i_j}, t$ con $f(e) = 1$ per ogni arco per ognuno dei cammini.
 Si può verificare facilmente che le condizioni di capacità e la conservazione sono verificate e che $f$ è un flusso $s-t$ di valore $k$
 
 $$
 \rightarrow
 $$
 Dall'altro lato, si supponga l'esistenza di un flusso $f'$ in $G'$ di valore $k$. Dal teorema dell'integralità del massimo flusso [7.14](#def-714), sappiamo che esiste un flusso $f$ di valore intero $k$; e siccome tutte le capacità sono $1$, questo significa che $f(e)$ è uguale a 0 o 1 per ogni arco $e$.
-Su consideri ora un insieme $M'$ di archi dalla forma $(x, y)$ sui quali il flusso ha valore 1.
+Si consideri ora un insieme $M'$ di archi dalla forma $(x, y)$ sui quali il flusso ha valore 1.
 
 Ecco 3 semplici fatti sull'insieme $M'$:
 - $M'$ contiene $k$ archi 
