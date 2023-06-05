@@ -1838,17 +1838,17 @@ Definiamo come $f^*$ il flusso massimo che è equivalente a $mU$ dove abbiamo:
 1. Posso andare a **scomporre** il flusso in tanti flussi quanti sono gli archi: 
 
 $$
-f__1 + f_2 + f_3 ... + f_n = f^*
+f_1 + f_2 + f_3 ... + f_n = f^*
 $$
 
-da qui possiamo dedurre che $\exist$ almeno un i dove: 
+da qui possiamo dedurre che $\exists$ almeno un i dove: 
 
 $$
 f_i >= \frac{f^*}{m}
 $$
 
 **Dimostrazione:**
-Se tutte le n quantità fosserò <= $\frac{f^*}{m}$ la loro somma non potrebbe essere $f^*$
+Se tutte le n quantità fosserò <= $\frac{f^\*}{m}$ la loro somma non potrebbe essere $f^\*$
 
 2. Se spingo il flusso su $f_i$, mi rimane $f^* - fi$
 
@@ -1862,7 +1862,7 @@ $$
 f^* (1 - \frac{1}{m}) - f*(1-\frac{1}{m}) \frac{1}{m} <= f^*(1 - \frac{1}{m})(1 - \frac{1}{m})
 $$
 
-al passo $k$ mi rimane da coprire $f^*(1 - \frac{1}{m})^k$ e mi andrò a fermare quando $f^*(1 - \frac{1}{m})^k <= 1$. 
+al passo $k$ mi rimane da coprire $f^\*(1 - \frac{1}{m})^k$ e mi andrò a fermare quando $f^\*(1 - \frac{1}{m})^k <= 1$. 
 
 <br>
 
@@ -1875,7 +1875,7 @@ $$
 $$
 
 $$
-(1 - \frac{1}{m})^\frac{k}{m}^m mU = 1
+(1 - \frac{1}{m})^{\frac{km}{m}} mU = 1
 $$
 
 $$
@@ -1887,7 +1887,7 @@ $$
 $$
 
 $$
-k = m\log{e}{mU} #iterazioni 
+k = m\log{e}{mU} 
 $$
 
 4. Per trovare il cammino aumentato applico una variazione di **prim/Dijstra**
@@ -1901,7 +1901,7 @@ Cerca un cammino massimo da $s$ a $t$ $t.c.$ il bottleneck sia il massimo.
 **Inserire spiegazione Grafica(con disegno)**
 
 ### Costo 
-La complessità di questo algoritmo è pari a O$(m\log{e}{mU}) * Prim$ dove **Prim** ha un costo pari a $|v| estrazioni + |t| aggiornamenti$. 
+La complessità di questo algoritmo è pari a $O(m\log{e}{mU}) * Prim$ dove **Prim** ha un costo pari a $|v| estrazioni + |t| aggiornamenti$. 
 L'algoritmo è considerato **debolmente polinomiale**.   
 
 ## Matching su Grafi Bipartiti
