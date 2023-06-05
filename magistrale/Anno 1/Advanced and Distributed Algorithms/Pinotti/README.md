@@ -345,8 +345,9 @@ Come per tutti gli algoritmi dinamici dobbiamo cercare dei **sotto-problemi** e 
 
 - Nella prima parte analizziamo il caso in cui l'elemento che vogliamo aggiungere va a superare il peso massimo residuo $W$, dunque viene **scartato**. 
 - Nella seconda parte andiamo ad analizzare se l'aggiunta o meno del nuovo oggetto va a migliorare la soluzione (viene quindi **selezionato**) di $OPT$ che è definita come:
+
   $$
-      OPT(i, w) = \max_{S} \sum_{j \in S} w_j
+    OPT(i, w) = \max_{S} \sum_{j \in S} w_j
   $$
 
 Possiamo formalizzare il tutto con il seguente pseudo-codice:
@@ -867,7 +868,7 @@ $$
 **Poichè conosciamo le probabilità delle ricerche per ogni chiave e per ogni chiave fittizia, possiamo determinare il costo atteso di una ricerca in un determinato albero binario di ricerca $T$.** Supponiamo che il costo effettivo di una ricerca sia il numero di nodi esaminati, ovvero la profondità del nodo trovato dalla ricerca in $T$, più 1. Allora il costo atteso di una ricerca in $T$ è:
 
 $$
-avgCost(T) = 1 + \sum_{i=1}^{n} \text{profondità}_T (k_i) \cdot p_i + \sum_{i = 0}^{n} \text{profondità}_T (d_i) \cdot q_i
+  avgCost(T) = 1 + \sum_{i=1}^{n} \text{profondità}_T (k_i) \cdot p_i + \sum_{i = 0}^{n} \text{profondità}_T (d_i) \cdot q_i
 $$
 
 - dove $\text{profondità}_T$ indica la profondità di un nodo nell'albero $T$.
@@ -1270,7 +1271,11 @@ Siano $X = <x_1, x_2, ..., x_m>$ e $Y = <y_1, y_2, ..., y_n>$ le sequenze, sia $
 Quindi, il problema della più lunga sottosequenza comune gode della proprietà della sottostruttura ottima. Una soluzione ricorsiva gode anche della proprietà dei sottoproblemi ripetuti.
 
 ### 2. Una Soluzione Ricorsiva
-Il teorema precedente implica che ci sono uno o due sottoproblemi da esaminare per trovare una LCS di $X = <x_1, x_2, ..., x_m>$ e $Y$ = $<y_1, y_2, ..., y_n>$. Se $x_m = y_n$, dobbiamo trovare una LCS di $X_{m-1}$ e $Y_{n-1}$. Accodando $x_m = y_n$ a questa LCS, si ottiene una LCS di $X$ e $Y$. Se $x_m \neq y_n$, allora dobbiamo risolverre due sottoproblemi: trovare una LCS di $X_{m-1}$ e $Y$ e trovare una LCS di $X$ e $Y_{n-1}$. La più lunga di queste due LCS è una LCS di $X$ e $Y$. Poichè questi casi esauriscono tutte le possibilità, sappiamo che all'interno di una LCS di $X$ e $Y$ deve essere utilizzata una delle soluzioni ottime dei sottoproblemi.
+
+Il teorema precedente implica che ci sono uno o due sottoproblemi da esaminare
+per trovare una LCS di $X = \langle x_1, x_2, ..., x_m \rangle$ e
+$Y = \langle y_1, y_2, ..., y_n \rangle$.
+Se $x_m = y_n$, dobbiamo trovare una LCS di $X_{m-1}$ e $Y_{n-1}$. Accodando $x_m = y_n$ a questa LCS, si ottiene una LCS di $X$ e $Y$. Se $x_m \neq y_n$, allora dobbiamo risolverre due sottoproblemi: trovare una LCS di $X_{m-1}$ e $Y$ e trovare una LCS di $X$ e $Y_{n-1}$. La più lunga di queste due LCS è una LCS di $X$ e $Y$. Poichè questi casi esauriscono tutte le possibilità, sappiamo che all'interno di una LCS di $X$ e $Y$ deve essere utilizzata una delle soluzioni ottime dei sottoproblemi.
 
 Come nel problema della moltiplicazione di una sequenza di matrici, la nostra soluzione ricorsiva del problema della più lunga sottosequenza comune richiede la definizione di una ricorrenza per il valore di una soluzione ottima. Definiamo $c[i,j]$ come la lunghezza di una LCS delle sequenze $X_i$ e $Y_j$. Se $i = 0$ o $j = 0$, una delle sequenze ha lunghezza 0, quindi la LCS ha lunghezza 0. La sottostruttura ottima del problema della LCS consente di scrivere la formula ricorsiva
 
@@ -1280,7 +1285,17 @@ $c[i,j]=$:
 - $max(c[i, j-1], c[i-1, j])$ se $i,j > 0$ e $x_i \neq y_j$
 
 ### 3. Calcolare la lunghezza di una LCS
-Utilizzando l'equazione precedente potremmo scrivere facilmente un algoritmo ricorsivo con tempo esponenziale per calcolare la lunghezza di una LCS di due sequenze. Tuttavia, poichè ci sono soltanto $O(mn)$ sottoproblemi distinti, posiamo utilizzare la programmazione dinamica per calcolare le soluzioni con un metodo bottom-up. La procedura `LCS-Length` riceve come input due sequenze $X = <x_1, x_2, ..., x_m>$ e $Y$ = $<y_1, y_2, ..., y_n>$ e memorizza i valori $c[i,j]$ in una tabella $c[0..m, 0..n]$, le cui posizioni sono calcolate secondo l'ordine delle righe (cioè, vengono inseriti i valori nella prima riga di $c$ da sinistra a destra, poi vengono inseriti i valori nella seconda riga e così via).
+
+Utilizzando l'equazione precedente potremmo scrivere facilmente un algoritmo
+ricorsivo con tempo esponenziale per calcolare la lunghezza di una LCS di due
+sequenze. Tuttavia, poichè ci sono soltanto $O(mn)$ sottoproblemi distinti,
+posiamo utilizzare la programmazione dinamica per calcolare le soluzioni con un
+metodo bottom-up. La procedura `LCS-Length` riceve come input due
+sequenze $X = \langle x_1, x_2, ..., x_m \rangle$
+e $Y = \langle y_1, y_2, ..., y_n \rangle$ e memorizza i valori $c[i,j]$ in
+una tabella $c[0..m, 0..n]$, le cui posizioni sono calcolate secondo l'ordine
+delle righe (cioè, vengono inseriti i valori nella prima riga di $c$ da
+sinistra a destra, poi vengono inseriti i valori nella seconda riga e così via).
 
 La procedura utilizza anche la tabella $b[1..m, 1..n]$ per semplificare la costruzione di una soluzione ottima. Intuitvamente, $b[i, j]$ punta alla posizione della tabella che corrisponde alla soluzione ottima del sottoproblema che è stata scelta per calcolare $c[i,j]$. La procedura restituisce le tabelle $b$ e $c$; la posizione $c[m,n]$ contiene la lunghezza di una LCS di $X$ e $Y$.
 
@@ -1316,7 +1331,15 @@ return c e b
 Il tempo di esecuzione è $O(mn)$, perchè il calcolo di ogni posizione della tabella richiede un tempo $O(1)$
 
 ### 4. Costruire una LCS
-La tabella $b$ restituita dalla procedura `LCS-length` può essere utilizzata per costruire rapidamente una LCS delle sequenze $X = <x_1, x_2, ..., x_m>$ e $Y$ = $<y_1, y_2, ..., y_n>$. Iniziamo semplicemente da $b[m,n]$ e, ogni volta che incontriamo una freccia "↖" nella posizione $b[i,j]$, significa che $x_i = y_j$ è un elemento della LCS trovata da `LCS-Length`. In questo modo gli elementi della LCS si incontrano in ordine inverso. La seguente procedura ricorsiva stampa una LCS di $X$ e $Y$ nell'ordine corretto. La chiamata iniziale è `Print-LCS(b, X, X.length, Y.length)`
+La tabella $b$ restituita dalla procedura `LCS-length` può essere utilizzata
+per costruire rapidamente una LCS delle
+sequenze $X = \langle x_1, x_2, ..., x_m \rangle$
+e $Y = \langle y_1, y_2, ..., y_n \rangle$. Iniziamo semplicemente
+da $b[m,n]$ e, ogni volta che incontriamo una freccia "↖" nella
+posizione $b[i,j]$, significa che $x_i = y_j$ è un elemento della LCS trovata
+da `LCS-Length`. In questo modo gli elementi della LCS si incontrano in ordine
+inverso. La seguente procedura ricorsiva stampa una LCS di $X$ e $Y$ nell'ordine
+corretto. La chiamata iniziale è `Print-LCS(b, X, X.length, Y.length)`
 
 #### `Print-LCS(b, X, i, j)`
 ```javascript
@@ -1389,9 +1412,10 @@ Definiamo cosa significa per la nostra rete trasportare traffico, o flusso. Dici
 Un flusso $f$ deve soddisfare le seguenti due proprietà:
 1. (**Capacity conditions**) Per ogni $e \in E$, abbiamo $0 \le f(e) \le c_e$
 2. (**Conservation conditions**) Per ogni nodo $v$ diverso da $s$ e $t$, abbiamo
-  $$
-    \sum_{e \text{ into } v}f(e) = \sum_{e \text{ out of } v}f(e)
-  $$
+
+$$
+  \sum_{e \text{ into } v}f(e) = \sum_{e \text{ out of } v}f(e)
+$$
 
 Qui $\sum_{e \text{ into } v}f(e)$ somma il valore del flusso $f(e)$ su tutti gli archi che entrano nel nodo $v$, mentre $\sum_{e \text{ out of } v}f(e)$ è la somma dei valori di flusso su tutti gli archi che escono dal nodo $v$.
 
@@ -1399,7 +1423,9 @@ Quindi il flusso su un arco non può superare la capacità dell'arco stesso. Per
 - La sorgente non ha archi entranti (secondo la nostra assunzione), ma le è consentito avere un flusso uscente; in altre parole, può generare flusso. 
 - Simmetricamente, il sink può avere flusso in entrata, anche se non ha archi in uscita. 
 
-**Il valore di un flusso** $f$, indicato con $v(f)$, è definito come la quantità di flusso generato alla sorgente:
+**Il valore di un flusso** $f$, indicato con $v(f)$, è definito come la
+quantità di flusso generato alla sorgente:
+
 $$
   v(f) = \sum_{e \text{ out of } s}f(e)
 $$
@@ -1576,7 +1602,7 @@ Affermiamo che $f(e') = 0$. In caso contrario, $e'$ darebbe luogo a un arco *bac
 Quindi tutti gli archi uscenti da $A^∗$ sono completamente saturati di flusso, mentre tutti gli archi entranti in $A^∗$ sono completamente inutilizzati. Possiamo ora usare la (7.6) per raggiungere la conclusione desiderata:
 
 $$
-v(f) = f^{out}(A^*) - f^{in}(A^*) = \sum_{e \text{ out of }A^*} f(e) - \sum_{e \text{ into }A^*}f(e) = \sum_{e \text{ out of }A^*} c_e - 0 = c(A^*, B^*)
+  v(f) = f^{out}(A^*) - f^{in}(A^*) = \sum_{e \text{ out of }A^*} f(e) - \sum_{e \text{ into }A^*}f(e) = \sum_{e \text{ out of }A^*} c_e - 0 = c(A^*, B^*)
 $$
 
 <img src="./imgs/flow4.png" width="70%"/>
@@ -1727,7 +1753,7 @@ Continuo ad aumentare path che passano per (v,w) e per (w,v) alternati, quindi a
 Utilizzando la data sequenza di augmenting paths, dopo $(1+4k)^{th}$ di questi path, il valore del flusso è uguale a
 
 $$
-1 + 2 \sum^{2k}_{i=1}r^i \le 1 + 2 \sum^{\infty}_{i=1}r^i = 3 + 2r < 5
+  1 + 2 \sum^{2k}_{i=1}r^i \le 1 + 2 \sum^{\infty}_{i=1}r^i = 3 + 2r < 5
 $$
 
 Il ***Bipartite Matching Problem*** consiste nel trovare il matching in $G$ più grande possibile (matching di **cardinalità massima**).
@@ -1872,8 +1898,8 @@ $$
 f^* (1 - \frac{1}{m}) - f*(1-\frac{1}{m}) \frac{1}{m} <= f^*(1 - \frac{1}{m})(1 - \frac{1}{m})
 $$
 
-al passo $k$ mi rimane da coprire $f^{*}(1 - \frac{1}{m})^k$ e mi andrò a
-fermare quando $f^{*}(1 - \frac{1}{m})^k <= 1$.
+al passo $k$ mi rimane da coprire $f^* (1 - \frac{1}{m})^k$ e mi andrò a
+fermare quando $f^* (1 - \frac{1}{m})^k <= 1$.
 
 <br>
 
@@ -2026,30 +2052,38 @@ Se w è raggiungibile da v allora $h(v) \leq h(w) + u - 1$, ovvero w si raggiung
 Questo perchè essendo che per ogni arco (a,b) vale che $h(a) \leq h(b) + 1$. Nel caso peggiore, partendo da v si passa sempre per un nodo avente h incrementata di 1, fino ad arrivare a w. Quindi al massimo si possimo incrementare u-1 nodi intermedi. Quindi h(v) può essere al massimo h(w) + u - 1 perchè ogni volta passo per un nodo con etichetta incrementata di 1 e i nodi intermedi sono u - 1.
 
 ### Numero di Relabel
+
 $O(n^2)$
 
 La sorgente ha h(s) = n
 
 Per la proprietà 2 , qualsiasi nodo v avente h(v) può quindi raggiungere s con un cammino al massimo lungo n-1, quindi $h(v) \leq h(s) + u - 1$.
+
 $$
-h(v) \leq n + u - 1 = 2u -1
+  h(v) \leq n + u - 1 = 2u -1
 $$
 
 Ciò significa che un nodo in eccesso v qualsiasi può avere etichetta al massimo 2n-1
 
 Ogni nodo in eccesso v può quindi eseguire al massimo 2u-1 relabel
 
-Il nuemro di relabel totali (essendo che i nodi in eccesso sono n) sono 
+Il nuemro di relabel totali (essendo che i nodi in eccesso sono n) sono
+
 $$
-n(2u-1) = 2n^2 - n = O(n^2)
+  n(2u-1) = 2n^2 - n = O(n^2)
 $$
 
 ### Numero di Push Saturanti
+
 $O(nm)$
 
-Dopo un push saturante su un arco v, l'arco v scompare dalla rete residua e compare l'arco inverso (u,v) e u rimane in eccesso. Dal momento che si è fatta la push saturante su v, per la compatibilità delle etichette si deve avere h(u) = h(v) + 1
+Dopo un push saturante su un arco v, l'arco v scompare dalla rete residua e
+compare l'arco inverso (u,v) e u rimane in eccesso. Dal momento che si è fatta
+la push saturante su v, per la compatibilità delle etichette si deve
+avere h(u) = h(v) + 1
+
 $$
-h(v) = h(u) -1
+  h(v) = h(u) -1
 $$
 
 Per spingere il flusso lungo l'arco inverso (v,u) si devono eseguire 2 relabel su v in modo che diventi h(v) = h(u) + 1. Sappiamo però che la label massima di ogni nodo è 2n-1. Un arco (u,v) e il suo inverso (v,u) possono quindi essere contati al massimo per (2n-1)/2 push saturati. Ogni volta infatti l'etichetta dal nodo che spinge il flusso aumenta di 2.
