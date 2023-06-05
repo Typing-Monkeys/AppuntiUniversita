@@ -1740,11 +1740,14 @@ Valore del flusso massimo = 200 + 1
 <hr>
 
 ## Shortest Path Maximum Flow
-Prendiamo in coniderazione un'altra variante dell'algoritmo di Ford Fulkerson, dove scegliamo come path su cui applicare Augment lo shortest path, ovvero il cammino che passa per meno archi.
+
+Prendiamo in coniderazione un'altra variante dell'algoritmo di Ford Fulkerson,
+dove scegliamo come path su cui applicare Augment lo shortest path, ovvero il
+cammino che passa per meno archi.
 
 Osserviamo che anche questo algoritmo termina quando non ci sono più cammini aumentanti.
 
-```
+```pseudocode
 forEach e in E
   f(e) = 0
 
@@ -1755,11 +1758,15 @@ return f
 ```
 
 ### Correttezza
+
 Dimostriamo che l'algoritmo funziona e restituisce il flusso massimo.
 
-Consideriamo due flussi $f \gt f'$, dove $f'$ è ottenuto tramite la chiamata della funzione Augment sullo shortest path p e su un grafo con flusso $f$. L'algoritmo terminerà perchè le distanze degli shortest path non possono essere infinite.
+Consideriamo due flussi $f \gt f'$, dove $f'$ è ottenuto tramite la chiamata
+della funzione Augment sullo shortest path p e su un grafo con flusso $f$.
+L'algoritmo terminerà perchè le distanze degli shortest path non possono essere infinite.
 
-Dimostriamo che ogni volta che aumentiamo il flusso le distanze tra i nodi nella nuova rete residua aumentano.
+Dimostriamo che ogni volta che aumentiamo il flusso le distanze tra i nodi nella
+nuova rete residua aumentano.
 
 $$
 \delta_{f'}(s,v) \geq \delta_f(s,v)
@@ -1768,6 +1775,7 @@ $$
 dove $\delta_f(s,v)$ è la lunghezza del cammino da s a v nel grado residuo $G_f$.
 
 ### Dimostrazione
+
 supponiamo per assurdo che solamente per un certo $v$ valga $\delta_{f'}(s,v) \lt \delta_f(s,v)$
 ora abbiamo due casi
 	
@@ -1778,7 +1786,7 @@ $\delta_{f'}(s,v) = \delta_{f'}(s,u) + 1$
 Se c'è un cammino minimo da s a v, allora c'è anche un cammino ammissibile che passa per l'arco $(u,v)$ (non per forza minimo). Quindi $\delta_f(s,v) \leq \delta_f(s,u) + 1$. Per l'ipotesi che i cammini aumentano all'aumentare del flusso, questo cammino è più corto del cammino in $f'$, quindi
 
 $$
-$\delta_f(s,v) = \delta_f(s,u) + 1 \leq \delta_{f'}(u,v) + 1 = \delta_{f'}(u,v)
+\delta_f(s,v) = \delta_f(s,u) + 1 \leq \delta_{f'}(u,v) + 1 = \delta_{f'}(u,v)
 $$
 
 è un assurdo. 
@@ -1849,7 +1857,7 @@ f_i >= \frac{f^*}{m}
 $$
 
 **Dimostrazione:**
-Se tutte le n quantità fosserò <= $\frac{f^\*}{m}$ la loro somma non potrebbe essere $f^\*$
+Se tutte le n quantità fosserò <= $\frac{f^*}{m}$ la loro somma non potrebbe essere $f^{*}$
 
 2. Se spingo il flusso su $f_i$, mi rimane $f^* - fi$
 
@@ -1857,13 +1865,15 @@ $$
 f^* - f_i = f^*(1 - \frac{1}{m}) da coprire 
 $$
 
-3. Posso riscomporre il flusso rimanente in flussi e ne esisterà uno $t.c.$ $f_i >= f^*(1-\frac{1}{m}\frac{1}{m}$
+3. Posso riscomporre il flusso rimanente in flussi e ne esisterà
+uno $t.c.$ $f_i >= f^*(1-\frac{1}{m}\frac{1}{m}$
 
 $$
 f^* (1 - \frac{1}{m}) - f*(1-\frac{1}{m}) \frac{1}{m} <= f^*(1 - \frac{1}{m})(1 - \frac{1}{m})
 $$
 
-al passo $k$ mi rimane da coprire $f^\*(1 - \frac{1}{m})^k$ e mi andrò a fermare quando $f^\*(1 - \frac{1}{m})^k <= 1$. 
+al passo $k$ mi rimane da coprire $f^{*}(1 - \frac{1}{m})^k$ e mi andrò a
+fermare quando $f^{*}(1 - \frac{1}{m})^k <= 1$.
 
 <br>
 
@@ -1903,7 +1913,7 @@ Cerca un cammino massimo da $s$ a $t$ $t.c.$ il bottleneck sia il massimo.
 
 ### Costo 
 La complessità di questo algoritmo è pari a $O(m\log{e}{mU}) * Prim$ dove **Prim** ha un costo pari a $|v| estrazioni + |t| aggiornamenti$. 
-L'algoritmo è considerato **debolmente polinomiale**.   
+L'algoritmo è considerato **debolmente polinomiale**.
 
 
 ## Preflow Push
