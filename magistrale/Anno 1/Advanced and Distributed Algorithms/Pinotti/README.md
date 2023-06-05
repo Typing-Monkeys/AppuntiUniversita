@@ -22,6 +22,7 @@
   - [Ford-Fulkerson pathological example](#ford-fulkerson-pathological-example)
   - [Shortest Path Maximum Flow](#shortest-path-maximum-flow)
   - [Fat Algoritmh](#fat-algorithm)
+  - [Preflow Push](#preflow-push)
   - [Matching su Grafi Bipartiti](#matching-su-grafi-bipartiti)
   - [Disjoint Paths](#disjoint-paths)
   - [Network Connectivity](#network-connectivity)
@@ -1903,6 +1904,184 @@ Cerca un cammino massimo da $s$ a $t$ $t.c.$ il bottleneck sia il massimo.
 ### Costo 
 La complessità di questo algoritmo è pari a $O(m\log{e}{mU}) * Prim$ dove **Prim** ha un costo pari a $|v| estrazioni + |t| aggiornamenti$. 
 L'algoritmo è considerato **debolmente polinomiale**.   
+
+
+## Preflow Push
+
+Questo algoritmo si sviluppa rilassando inizialmente la condizione fondamentale del flusso, ovvero la conservazione del flusso: Ogni vertice durante l'algoritmo può quindi avere un flusso in entrata maggiore di quello in uscita.
+
+**Vertice in eccesso:** vertice con flusso entrante maggiore di quello uscente
+
+### Labeling
+Ad ogni vertice è associata una label (intero positivo) tramite la funzione h
+
+$h: V \rightarrow N^+$
+
+per la sorgente s e la destinazione t si hanno label fisse:
+
+$h(s) = n$ 	con $n = |v|-\{s,t\}$
+
+$h(t) = 0$
+
+Inoltre deve essere verificata la seguente condizione:
+
+$$
+\forall e = (v,w) \in E_f \implies h(v) \leq h(w) + 1
+$$
+
+ovvero per ogni arco (v,w) il vertice di origine deve avere label minore o uguale a quella di destinazione più 1.
+
+### Terminazione
+L'algoritmo termina quando non ci sono più vertici in eccesso
+
+### Operazione Push
+È l'operazione che sostanzialmente permette di distribuire il flusso lungo la rete, si applica infatti ad un nodo in eccesso e scarica il flusso in eccesso lungo un arco uscente dal nodo.
+
+Deve valere inoltre la condizione $h(v) = h(w) + 1$, con v nodo in eccesso e (v,w) arco su cui passa il flusso.
+
+Se l'arco (v,w) è forward edge, ovvero un arco in $G_f$ che va in avanti, il flusso aumenta, se è un backward edge, quindi un arco in $G_f$ inverso, allora il flusso diminuisce.
+
+```
+Push(f, h, v, w)
+  v \\ nodo in eccesso e h(v) = h(w+1)
+  
+  if e = (v,w) è un forward edge then
+    
+    \\ ef(v) è il flusso in eccesso
+    S = min{ef(v), c(e) - f(e)}
+    \\ si fa il minimo perchè non è detto che tutto il flusso in eccesso possa essere defluito sull'arco, perchè magari (v,w) ha una capacità residua più piccola
+    
+    f(e) = f(e) + S
+ 
+  if e è un backward edge then
+    
+    S = min{f(e), ef(v)}
+    \\ f(e) è la capacità residua dell'arco inverso
+    
+    f(e) = f(e) - S
+```
+
+**Push Saturante:** quando S = c(e) - f(e)
+Qando il flusso in eccesso satura l'arco portando quindi il flusso f(e) = c(e) (capacità dell'arco)
+
+Il nodo in eccesso v potrebbe quindi rimanere in eccesso.
+
+**Push non Saturante:** quando S = fv(e)
+Quando il flusso in eccesso non satura l'arco mantenendo quindi f(e) < c(e)
+
+Il nodo in eccesso v quindi non è più in eccesso perchè il flusso in eccesso viene scaricato tutto sull'arco
+
+### Operazione Relabel
+Operazione che sostanzialmente incrementa il label di un nodo al fine di poter rendere verificata la condizione h(v) = h(w) + 1 per poter spingere il flusso sull'arco (v,w) tramite la push sul vertice v.
+
+Ogni volta che c'è un nodo in eccesso e le label dei suoi vicini sono maggiori o uguali allora relabel incrementa di 1 la label del nodo, in questo modo si riesce quindi a spingere il flusso da v ai suoi vici tramite push.
+
+```
+Relabel(f, h, v)
+  if ef(v) > 0 && foreach w in adj(v), h(w) >= h(v)
+    h(v) = h(v) + 1
+```
+
+### Operazione Inizialize
+All'iniio:
+- h(s) = n, tutti gli altri nodi hanno h(V) = 0
+- Ogni arco uscente da s in $G_f$ hanno f(e) = c(e), ogni altro arco ha f(e) = 0
+
+```
+Preflow-Push()
+  Inizialize()
+  
+  While esiste v t.c. ef(v) > 0
+    
+    if esiste w t.c. Push(f,h,v,w) è applicabile then
+      Push(f,h,v,w)
+    
+    else
+      Relabel(f,h,v
+```
+
+Ogni volta, finchè esiste un nodo v in eccesso si cerca un arco (v,w) su cui fare Push se è verificata la condizione h(v) = h(w) + 1, altrimenti si chiama Relabel sul nodo v.
+
+L'algoritmo termina quando non ci sono più nodi in eccesso. In questo caso ogni nodo verifica la condizione di conservazione del flusso.
+
+### Complessità
+- Proprietà 1
+se un nodo v è in eccesso allora esiste sempre un cammino da v a s (se c'è flusso c'è anche un arco backward)
+
+- Proprietà 2
+$h(v) \leq h(w) + u - 1$
+
+Se w è raggiungibile da v allora $h(v) \leq h(w) + u - 1$, ovvero w si raggiunge da v dopo u-1 passi, quindi il cammino da v a w è al massimo lungo n-1
+
+Questo perchè essendo che per ogni arco (a,b) vale che $h(a) \leq h(b) + 1$. Nel caso peggiore, partendo da v si passa sempre per un nodo avente h incrementata di 1, fino ad arrivare a w. Quindi al massimo si possimo incrementare u-1 nodi intermedi. Quindi h(v) può essere al massimo h(w) + u - 1 perchè ogni volta passo per un nodo con etichetta incrementata di 1 e i nodi intermedi sono u - 1.
+
+### Numero di Relabel
+$O(n^2)$
+
+La sorgente ha h(s) = n
+
+Per la proprietà 2 , qualsiasi nodo v avente h(v) può quindi raggiungere s con un cammino al massimo lungo n-1, quindi $h(v) \leq h(s) + u - 1$.
+$$
+h(v) \leq n + u - 1 = 2u -1
+$$
+
+Ciò significa che un nodo in eccesso v qualsiasi può avere etichetta al massimo 2n-1
+
+Ogni nodo in eccesso v può quindi eseguire al massimo 2u-1 relabel
+
+Il nuemro di relabel totali (essendo che i nodi in eccesso sono n) sono 
+$$
+n(2u-1) = 2n^2 - n = O(n^2)
+$$
+
+### Numero di Push Saturanti
+$O(nm)$
+
+Dopo un push saturante su un arco v, l'arco v scompare dalla rete residua e compare l'arco inverso (u,v) e u rimane in eccesso. Dal momento che si è fatta la push saturante su v, per la compatibilità delle etichette si deve avere h(u) = h(v) + 1
+$$
+h(v) = h(u) -1
+$$
+
+Per spingere il flusso lungo l'arco inverso (v,u) si devono eseguire 2 relabel su v in modo che diventi h(v) = h(u) + 1. Sappiamo però che la label massima di ogni nodo è 2n-1. Un arco (u,v) e il suo inverso (v,u) possono quindi essere contati al massimo per (2n-1)/2 push saturati. Ogni volta infatti l'etichetta dal nodo che spinge il flusso aumenta di 2.
+
+Gli archi sono m quindi il numero massimo e totale di push saturati è $O(mn)$
+
+### Numero di Push non Saturanti
+$\Phi = \sum_{v in eccesso} h(v)$
+
+$\Phi$ è la somma delle label h di tutti i nodi in eccesso
+
+Quando si fa un push non saturante sull'arco (u,v) il nodo u esce dai nodi in eccesso e v diventa in eccesso (oppure lo era già prima), qui il nuovo $\Phi'$ è: $\Phi' = \Phi + h(u) - 1 - h(u) = \Phi - 1$
+
+Perciò ogni volta che si fa una Push non Saturante $\Phi$ diminuisce di almeno 1.
+
+Ogni push saturante su (u,v) fa invece aumentare di h(v) $\Phi$ dal momento che u rimane in eccesso e v diventa in eccesso, quindi $\Phi' = \Phi + h(v)$
+
+h(v) può essere al massimo 2n-1 quindi $\Phi' = \Phi + h(v) \leq \Phi + 2n-1$
+
+Ogni relabel fa aumentare $\Phi$ di 1, quindi $\Phi' = \Phi + 1$
+
+In conclusione il numero totale di push non saturanti è uguale al massimo $\Phi$, ovvero 
+
+$$
+\Phi \leq (2u-1)2m(u-1) \leq 4n^2m
+$$
+
+Quindi sono $O(4n^2m)$ Push non Saturanti.
+
+$4n^2m$ è upper bound molto alto perchè $\Phi$ cresce ogni volta che si fa un push saturante di altezza che è al massimo 2n-1. Quindi se si potizza che si fanno tutte le push saturanti che aumentano $\Phi$ sempre con h = 2u-1, quindi il numero di push non saturanti sarà al massimo (2u-1)(2u)(u-1)
+
+### Conclusione costi finali
+- Relabel $O(n^2)$
+- Push Saturanti $O(nm)$
+- Push non Saturanti $O(4n^2m)$
+
+possiamo considerare $m = O(n^2)$
+
+totale = $O(n^4)$
+
+strettamente polinomiale
+
 
 ## Matching su Grafi Bipartiti
 Ora che abbiamo visto e sviluppato degli algoritmi potenti ed efficaci per il problema del Flusso Massimo, è ora di vedere le applicazioni di quest'ultimi per alcuni problemi noti. Durante l'introduzione del Problema del Flusso Massimo, abbiamo introdotto il ***Bipartite Matching Problem***, inizieremo quindi con la risoluzione di quest'ultimo e, successivamente, affronteremo il ***Disjoint Paths Problem***.
