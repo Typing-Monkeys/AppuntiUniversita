@@ -20,7 +20,8 @@
   - [Maximum Flows and Minimum Cuts in a Network](#maximum-flows-and-minimum-cuts-in-a-network)
   - [Capacity Scaling Algorithm](#capacity-scaling-algorithm-choosing-good-augmenting-paths)
   - [Ford-Fulkerson pathological example](#ford-fulkerson-pathological-example)
-    - [Fat Algoritmh](#fat-algorithm)
+  - [Shortest Path Maximum Flow](#shortest-path-maximum-flow)
+  - [Fat Algoritmh](#fat-algorithm)
   - [Matching su Grafi Bipartiti](#matching-su-grafi-bipartiti)
   - [Disjoint Paths](#disjoint-paths)
   - [Network Connectivity](#network-connectivity)
@@ -1728,11 +1729,105 @@ $$
 1 + 2 \sum^{2k}_{i=1}r^i \le 1 + 2 \sum^{\infty}_{i=1}r^i = 3 + 2r < 5
 $$
 
+Il ***Bipartite Matching Problem*** consiste nel trovare il matching in $G$ più grande possibile (matching di **cardinalità massima**).
+Il ***Bipartite Matching Problem*** consiste nel trovare il matching in $G$ più grande possibile (matching di **cardinalità massima**).
+Il ***Bipartite Matching Problem*** consiste nel trovare il matching in $G$ più grande possibile (matching di **cardinalità massima**).
 ($r = \frac{\sqrt{5}-1}{2}$)
 
 Valore del flusso massimo = 200 + 1
 
 <hr>
+
+## Shortest Path Maximum Flow
+Prendiamo in coniderazione un'altra variante dell'algoritmo di Ford Fulkerson, dove scegliamo come path su cui applicare Augment lo shortest path, ovvero il cammino che passa per meno archi.
+
+Osserviamo che anche questo algoritmo termina quando non ci sono più cammini aumentanti.
+
+```
+forEach e in E
+  f(e) = 0
+
+While exists shortest s-t path p
+  f = Augment(G,p)
+  
+return f
+```
+
+### Correttezza
+Dimostriamo che l'algoritmo funziona e restituisce il flusso massimo.
+
+Consideriamo due flussi $f \gt f'$, dove $f'$ è ottenuto tramite la chiamata della funzione Augment sullo shortest path p e su un grafo con flusso $f$. L'algoritmo terminerà perchè le distanze degli shortest path non possono essere infinite.
+
+Dimostriamo che ogni volta che aumentiamo il flusso le distanze tra i nodi nella nuova rete residua aumentano.
+
+$$
+\delta_{f'}(s,v) \geq \delta_f(s,v)
+$$
+
+dove $\delta_f(s,v)$ è la lunghezza del cammino da s a v nel grado residuo $G_f$.
+
+### Dimostrazione
+supponiamo per assurdo che solamente per un certo $v$ valga $\delta_{f'}(s,v) \lt \delta_f(s,v)$
+ora abbiamo due casi
+	
+1. $(u,v) \in G_f$ 
+
+$\delta_{f'}(s,v) = \delta_{f'}(s,u) + 1$
+
+Se c'è un cammino minimo da s a v, allora c'è anche un cammino ammissibile che passa per l'arco $(u,v)$ (non per forza minimo). Quindi $\delta_f(s,v) \leq \delta_f(s,u) + 1$. Per l'ipotesi che i cammini aumentano all'aumentare del flusso, questo cammino è più corto del cammino in $f'$, quindi
+
+$$
+$\delta_f(s,v) = \delta_f(s,u) + 1 \leq \delta_{f'}(u,v) + 1 = \delta_{f'}(u,v)
+$$
+
+è un assurdo. 
+
+2. $(u,v) \notin G_f$
+
+consideriamo sempre le ipotesi $\delta_{f'}(s,v) \lt \delta_f(s,v)$ e $\delta_{f'}(s,v) = \delta_{f'}(s,u) + 1$.
+
+L'arco &(u,v)$ appartiene ad $G_{f'}$, e dato che non appartiene a $G_f$ vuol dire che qui viene usato l'arco opposto. $(v,u) \in G_f$. Quindi:
+
+$$
+\delta_{f}(s,u) = \delta_{f}(s,v) + 1 \implies \delta_{f}(s,v) = \delta_{f}(s,u) - 1
+$$
+
+$$
+\delta_{f'}(s,v) = \delta_{f'}(s,u) + 1 \implies \delta_{f'}(s,u) = \delta_{f'}(s,v) -1
+$$
+
+dato che v è il primo nodo che non verifica il fatto che aumentando i flussi aumentano le distanze, questa cosa vale per u
+
+$$
+\delta_{f}(s,u) - 1 \leq \delta_{f'}(s,u) - 1
+$$
+
+e quindi:
+
+$$
+\delta_{f}(s,v) = \delta_{f}(s,u) - 1 \leq \delta_{f'}(s,u) - 1 \leq \delta_{f'}(s,v) - 1 - 1 = \delta_{f'}(s,v) - 2
+$$
+
+$$
+\implies \delta_{f'}(s,v) = \delta_{f}(s,v) + 2
+$$
+
+Abbiamo quindi dimostrato che nel secondo caso la lunghezza del cammino aumenta di 2.
+
+### Costo computazionale
+
+- Numero di iterazioni: $\frac{mn}{2}$
+
+per ogni arco ho al massimo n/2 cammini aumentanti: la lunghezza massima di un cammino è n, ed ogni volta che aumento il flusso su un cammino la sua distanza aumenta di 2. Ci sono m archi
+
+- Trovare lo shortest path: $O(m)$
+
+si può usare un qualsiasi algoritmo capace di trovare shortest path come BFS (Non c'è bisogno di Djkstra perchè non prendo in considerazione il peso degli archi). Il costo può essere maggiorato a O(m)
+
+- Costo totale $O(m^2n)$
+ 
+ costo strettamente polinomiale, non dipende da C, ma solo dal numero di nodi e di archi
+
 
 ## Fat Algorithm
 
