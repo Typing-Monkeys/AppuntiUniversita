@@ -1753,7 +1753,7 @@ Continuo ad aumentare path che passano per (v,w) e per (w,v) alternati, quindi a
 Utilizzando la data sequenza di augmenting paths, dopo $(1+4k)^{th}$ di questi path, il valore del flusso è uguale a
 
 $$
-  1 + 2 \sum^{2k}_{i=1}r^i \le 1 + 2 \sum^{\infty}_{i=1}r^i = 3 + 2r < 5
+1 + 2 \sum^{2k}_{i=1}r^i \le 1 + 2 \sum^{\infty}_{i=1}r^i = 3 + 2r < 5
 $$
 
 Il ***Bipartite Matching Problem*** consiste nel trovare il matching in $G$ più grande possibile (matching di **cardinalità massima**).
