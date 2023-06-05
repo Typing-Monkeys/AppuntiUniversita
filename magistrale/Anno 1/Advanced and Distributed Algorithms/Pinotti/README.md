@@ -20,6 +20,7 @@
   - [Maximum Flows and Minimum Cuts in a Network](#maximum-flows-and-minimum-cuts-in-a-network)
   - [Capacity Scaling Algorithm](#capacity-scaling-algorithm-choosing-good-augmenting-paths)
   - [Ford-Fulkerson pathological example](#ford-fulkerson-pathological-example)
+    - [Fat Algoritmh](#fat-algorithm)
   - [Matching su Grafi Bipartiti](#matching-su-grafi-bipartiti)
   - [Disjoint Paths](#disjoint-paths)
   - [Network Connectivity](#network-connectivity)
@@ -1732,6 +1733,81 @@ $$
 Valore del flusso massimo = 200 + 1
 
 <hr>
+
+## Fat Algorithm
+
+Definiamo come $f^*$ il flusso massimo che è equivalente a $mU$ dove abbiamo: 
+- **U** = massima capacità che possiamo avere su un arco 
+- **m** = numero di archi $\rightarrow$ può essere limitato da n 
+
+1. Posso andare a **scomporre** il flusso in tanti flussi quanti sono gli archi: 
+
+$$
+f__1 + f_2 + f_3 ... + f_n = f^*
+$$
+
+da qui possiamo dedurre che $\exist$ almeno un i dove: 
+
+$$
+f_i >= \frac{f^*}{m}
+$$
+
+**Dimostrazione:**
+Se tutte le n quantità fosserò <= $\frac{f^*}{m}$ la loro somma non potrebbe essere $f^*$
+
+2. Se spingo il flusso su $f_i$, mi rimane $f^* - fi$
+
+$$
+f^* - f_i = f^*(1 - \frac{1}{m}) da coprire 
+$$
+
+3. Posso riscomporre il flusso rimanente in flussi e ne esisterà uno $t.c.$ $f_i >= f^*(1-\frac{1}{m}\frac{1}{m}$
+
+$$
+f^* (1 - \frac{1}{m}) - f*(1-\frac{1}{m}) \frac{1}{m} <= f^*(1 - \frac{1}{m})(1 - \frac{1}{m})
+$$
+
+al passo $k$ mi rimane da coprire $f^*(1 - \frac{1}{m})^k$ e mi andrò a fermare quando $f^*(1 - \frac{1}{m})^k <= 1$. 
+
+<br>
+
+Se la disugualianza è soddisfatta, vuol dire che ho terminato. 
+
+Quindi, quanti passi servono per trovare un flusso resifuo $<= 1$?
+
+$$
+(1 - \frac{1}{m})^k mU <= 1
+$$
+
+$$
+(1 - \frac{1}{m})^\frac{k}{m}^m mU = 1
+$$
+
+$$
+e^\frac{-k}{m} +  \log{e}{mU} <= 0
+$$
+
+$$
+\frac{-k}{m} + m\log{e}{mU} <= 0
+$$
+
+$$
+k = m\log{e}{mU} #iterazioni 
+$$
+
+4. Per trovare il cammino aumentato applico una variazione di **prim/Dijstra**
+
+```
+Algoritmo da trovare
+```
+
+Cerca un cammino massimo da $s$ a $t$ $t.c.$ il bottleneck sia il massimo. 
+
+**Inserire spiegazione Grafica(con disegno)**
+
+### Costo 
+La complessità di questo algoritmo è pari a O$(m\log{e}{mU}) * Prim$ dove **Prim** ha un costo pari a $|v| estrazioni + |t| aggiornamenti$. 
+L'algoritmo è considerato **debolmente polinomiale**.   
 
 ## Matching su Grafi Bipartiti
 Ora che abbiamo visto e sviluppato degli algoritmi potenti ed efficaci per il problema del Flusso Massimo, è ora di vedere le applicazioni di quest'ultimi per alcuni problemi noti. Durante l'introduzione del Problema del Flusso Massimo, abbiamo introdotto il ***Bipartite Matching Problem***, inizieremo quindi con la risoluzione di quest'ultimo e, successivamente, affronteremo il ***Disjoint Paths Problem***.
