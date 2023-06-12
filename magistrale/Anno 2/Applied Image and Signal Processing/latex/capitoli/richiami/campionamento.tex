@@ -6,7 +6,7 @@
 \TODO[inline]{Completare questa parte !!}
 
 Diamo la definizione del classico \textit{WKS-sampling theorem} o
-\textit{Teorema del Campionamento}. Definiamo prim il \textbf{supporto}
+\textit{Teorema del Campionamento}. Definiamo prima il \textbf{supporto}
 di una funzione $f$ come:
 
 $$
@@ -15,15 +15,29 @@ $$
 
 %% TODO: qui ci stanno alcune discrepanze tra Vinti e Fagiolo, va ricontrollato.
 \begin{theorem}
-    Sia $f \in L^2(\mathbb{R})$ una funzione a banda limitata, i.e., tale che
-    $\text{supp } \hat{f} \subset \left[ -\pi w, \ \pi w\right], w > 0$.
+    Sia $f \in L^2(\mathbb{R}) \cap C(\mathbb{R})$ una funzione continua, ad energia finita e
+    a banda limitata, i.e., tale che
+    $\text{supp } \hat{f} \subset \left[ -\pi W, \ \pi W\right], W > 0$.
     Allora vale la seguente formula di interpolazione.
 
     $$
-        S(t) = \sum_{k \in - \infty}^{+\infty} f \left(\frac{k}{W}\right) sinc \left[\right]
+        f(t) = \sum_{k = - \infty}^{+\infty} f \left(\frac{k}{W}\right) sinc \left[ \pi(Wt - k) \right], \text{ con } t \in \mathbb{R}
+    $$
+
+    dove:
+
+    $$
+        sinc(t) :=
+        \left\{ \begin{array}{cl}
+            \frac{sin(\pi t)}{\pi t} & \ t \neq 0 \\
+            1                        & \ t = 0
+        \end{array} \right.
     $$
 \end{theorem}
 
+
+\begin{figure}[H]
+    \centering
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
     %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
 
@@ -40,10 +54,12 @@ $$
     \draw (222.5,191.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle -\pi W$};
     % Text Node
     \draw (316,192) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \pi W$};
-
-
 \end{tikzpicture}
+    \caption{Una funzione a banda limitata}
+\end{figure}
 
+\begin{figure}[H]
+    \centering
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
     %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
 
@@ -72,6 +88,111 @@ $$
     \draw (412.5,243) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize] [align=left] {$\displaystyle \frac{k}{W}$};
     % Text Node
     \draw (435,243) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize] [align=left] {$\displaystyle \frac{k}{W}$};
-
-
 \end{tikzpicture}
+    \caption{Esempio di applicazione del campionamento}
+\end{figure}
+
+In altre parole, il teorema del campionamento ci dice che, da una famiglia discreta di
+valori campione, assunti in modo uniformemente spaziato su tutto l’asse reale, è possibile
+ricostruire in modo esatto, un segnale ad energia finita (ovvero in $L^2(\mathbb{R})$) e a
+banda limitata, mediante la serie interpolante introdotta sopra.
+
+
+$\Delta t = 1/W$ denota l’\textit{intervallo temporale} tra i campioni, $\pi W/ 2\pi = w/2$ denota
+l’\textit{ampiezza di banda} di $f$, che e misurata in cicli per unita di tempo (Hertz) e
+$R = 1 /\Delta t$ denota l’\textit{ordine di campionamento} (\textit{sampling rate}),
+misurato in campioni per unita di tempo. 
+
+H. Nyquist mise in rilievo il significato dell’“intervallo”(numero) $1/W$ nella telegrafia
+e Shannon lo chiamo \textit{intervallo di Nyquist} corrispondente alla frequenza di
+banda $[−\pi W, \pi W]$. L’ordine di campionamento $R$, legato all’intervallo di Nyquist,
+rappresenta un minimo teorico per la ricostruzione del segnale.
+Per essere più precisi, il teorema sampling costituisce un algoritmo che permette di
+rispondere alle due seguenti domande:
+
+\begin{enumerate}
+    \item \textit{Quanti campioni sono necessari per assicurare che l’informazione
+        contenuta nel segnale venga preservata, durante il processo di ricostruzione?}\\
+
+        Se il segnale contiene componenti di alte frequenze, è necessario campionarlo almeno
+        due volte la massima frequenza del segnale per evitare perdite di informazione,
+        cioe $f_s \ge 2 f_H$ , dove $f_s$ e la frequenza sampling, $f_H$ e la piu alta
+        frequenza del segnale e $f_s = 2 f_H$ è la frequenza (ordine) di Nyquist.
+        Campionare ad un ordine più alto di $2 f_H$ significa utilizzare una successione
+        più fine di valori campione, e questo è il caso del cosiddetto sovracampionamento (oversampling).
+        Nella pratica il sovracampionamento deve essere effettuato molto spesso, poichè
+        un fattore correttivo deve essere introdotto per compensare il fatto che il
+        campionamento e l’interpolazione non possono coincidere con i corrispondenti valori
+        teorici; questo è il caso del cosiddetto \textit{round-off error} o \textit{errore di
+        quantizzazione}. Inoltre un altro errore temporale si presenta quando i campioni
+        non possono essere presi esattamente agli istanti temporali $k/W$; questo errore è
+        chiamato \textit{time-jitter error}.
+        Un esempio concreto di sovracampionamento è rappresentato dal un lettore di compact disk.
+        Infatti considerando che la piu alta frequenza
+        udibile è approssimativamente intorno a 18.000 cicli al secondo (Hertz),
+        a seconda dell’ascoltatore, in base alla teoria precedente un segnale audio
+        deve essere campionato almeno 36.000 volte al secondo per far sì che
+        il segnale venga ricostruito completamente. L’ordine di campionamento
+        dei primi lettori di compact disk era di circa 44.000 campioni al secondo.
+        Altre volte capita di non avere a disposizione un numero ragionevole di valori
+        campione per ricostruire il segnale completamente. Questo
+        avviene quando non conosciamo il segnale originale, ma dobbiamo ricostruirlo dalle
+        informazioni che abbiamo a disposizione del segnale (cioè
+        dai suoi valori campione). In questo caso, cioè quando il numero di
+        informazioni (valori campione) è scarso, la distanza tra i nodi è più
+        grande dell’intervallo di Nyquist ed abbiamo il cosiddetto sottocampionamento
+        (undersampling). In questo caso si presenta il fenomeno di
+        aliasing e sostanzialmente cio che succede è che le replicanti spettrali si
+        sovrappongono.
+    \item \textit{Dato un segnale, campionato ad un certo fissato ordine di campionamento,
+        quali frequenze non devono essere contenute nel segnale al fine di preservare
+        l’informazione?}\\
+
+        Questa è la situazione inversa rispetto a quella presentata nella prima
+        domanda. La risposta è che un segnale campionato ad un fissato ordine
+        di campionamento non può contenere componenti a frequenze superiori
+        alla metà dell’ordine di campionamento, cioe: $f_H \leq f_s/2$, dove
+        $f_H$ è la frequenza più alta contenuta nel segnale e $f_s$ è la frequenza
+        sampling. In altre parole, la più alta frequenza che puo essere accuratamente
+        rappresentata è la metà della frequenza sampling. Quindi il teorema
+        sampling fornisce un limite superiore per la più alta frequenza $f_H$.
+        Spieghiamolo con un esempio: supponiamo di utilizzare un CD-rom con un
+        fissato ordine di campionamento di 44.1KHz. Nyquist afferma che la più
+        alta frequenza che può essere riprodotta da questo campionamento è di
+        22.05KHz. Infatti le frequenze superiori a 22.05KHz producono aliasing.
+        Per evitare questo, può essere utilizzato un filtro passa basso per bloccare
+        le frequenze superiori a 22.05KHz. È importante notare che l’aliasing
+        può essere prodotto sia da segnali campionati non correttamente (con
+        un numero di campioni non sufficiente) che da frequenze troppo alte del
+        segnale aventi un fissato ordine di campionamento.
+\end{enumerate}
+
+\subsection{Svantaggi}
+
+Benchè il teorema del campionamento venga laramente impiegato in ambito applicativo
+esso presenta svantaggi o limiti da questo punto di vista.
+
+\begin{itemize}
+    \item Le ipotesi fatte sul segnare da ricostruire $f$, ovvero che sia ad energia finita
+        e a banda limitata, implicano che ci riduciamo a considerare una famiglia di segnali
+        estremamente regolari e ci consente di ricostruire solo sengali appartenenti alla classe
+        $C^{\infty}(\mathbb{R})$. Nelle applicazioni reali, i segnali difficilmente sono così
+        regolari. Per esempio, nelle immagini, forti salti di livello nella scala di grigi
+        (vedi bordi degli oggetti), matematicamente possono essere visti come delle 
+        discontinuità.
+    \item Per ricostruire un segnale $f$ al tempo $t$ è necessario un numero di campioni infinito
+        e il loro valore viene rilevato sia all'istante precedente a $t$ che a quelli successivi.
+        Dal punto di vista applicativo, una prima difficoltà potrebbe essere quella di
+        implementare una formula teorica che prevede infiniti termini.
+        Il problema potrebbe essere risolto troncando la serie; tuttavia, questo introdurrebbe
+        un errore (di troncamento) nella ricostruzione, che non garantirebbe piu
+        l’interpolazione del segnale ma una mera approssimazione.
+        Inoltre, nei problemi reali, i segnali sono noti solo nel “passato”, ovvero i
+        valori campione di $f$ sono noti, in generale, solo negli istanti di tempo $k/W$
+        precedenti a $t$. I valori di $f(k/W)$ nel “futuro”, ovvero quando $k/W > t$,
+        non sono in generale disponibili.
+    \item Per il principio di Hisemberg i segnali non possono essere contemporanemanete 
+        a durata e banda limitata, quindi i segnali nel mondo reale, in generale, non soddisfano
+        le ipotesi del teorema del campionamento.
+\end{itemize}
+

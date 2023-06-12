@@ -212,7 +212,7 @@ Analizziamo ora alcune proprietà della Trasformata di Fourier.
 \end{theorem}
 
 Ricordiamo che le funzioni che sono in $L^1(\mathbb{R})$ non è detto che siano
-continue ! Una funzione può essere integrale anche se ha un numero finito di
+continue ! Una funzione può essere integrabile anche se ha un numero finito di
 punti di discontinuità. Il precedente teorema ci va a dire che se applico la
 Trasformata di Fourier ad una funzione che non è continua (ma comunque
 integrabile), allora il risultato sarà sicuramente una funzione continua e
@@ -269,11 +269,6 @@ derivate di ordine superiore. Infatti:
         \widehat{f^k}(\lambda) = (i \lambda)^k \hat{f}(\lambda), \ \ \lambda \in
         \mathbb{R}.
     $$
-    ed anche che:
-    $$
-        \lim_{ |\lambda| \rightarrow +\infty } \left| \hat{f}^k(\lambda) \right| = 0 \rightarrow
-        \lim_{ |\lambda| \rightarrow +\infty } \left|\lambda\right|^k\left| \hat{f}(\lambda) \right| = 0
-    $$
 \end{theorem}
 
 \paragraph{Note:}
@@ -288,16 +283,23 @@ Vale il seguente corollario.
 
 %% TODO: ricontrollare, differenze tra Vinti e Fagiolo.
 \begin{corollary}
-    Sia $f \in L^1(\mathbb{R}) \cap C^2(\mathbb{R})$ e $f^{\left(j\right)} \in
-        L^1(\mathbb{R})$ per ogni $j = 1, 2$. Allora:
+    Sia $f \in L^1(\mathbb{R}) \cap C^k(\mathbb{R})$ e $f^{\left(j\right)} \in
+        L^1(\mathbb{R})$ per ogni $j = 1, 2, \ldots, k$. Allora:
     
+    $$
+        \lim_{ |\lambda| \rightarrow +\infty } \left| \hat{f}^k(\lambda) \right| = 0 \rightarrow
+        \lim_{ |\lambda| \rightarrow +\infty } \left|\lambda\right|^k\left| \hat{f}(\lambda) \right| = 0
+    $$
+\end{corollary}
+
+Applicando questo corollario ad $f \in L^1(\mathbb{R}) \cap C^2(\mathbb{R})$ si ha che:
+
     $$
         \lim_{\lambda \rightarrow \infty} \left| \lambda \right|^2 \left|
         \hat{f}(\lambda) \right|  = \lim_{\lambda \rightarrow \infty}
         \frac{\left|\hat{f}(\lambda)\right|}{ \frac{1}{ \left| \lambda
                 \right|^2}} = 0.
     $$
-\end{corollary}
 
 Questo ci dice che $\left|\hat{f}(\lambda)\right|$ è un infinitesimo più veloce di
 $\left|\lambda\right|^2$, per $\lambda$ che tende a infinito, perciò sappiamo che $\hat{f}$ è
