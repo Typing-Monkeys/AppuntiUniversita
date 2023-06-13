@@ -1,23 +1,25 @@
 %% TODO: C'è una sezione nelle dispense di Vinti riguardante
 %% la storia del campionamento. Non so se metterla 🤔
+\section{Teoria del Campionamento}
 
-\section{Teorema del Campionamento}
+\subsection{Storia del Campionamento}
+\TODO[inline]{Completare}
 
-\TODO[inline]{Completare questa parte !!}
+\subsection{Teorema del Campionamento}
 
 Diamo la definizione del classico \textit{WKS-sampling theorem} o
 \textit{Teorema del Campionamento}. Definiamo prima il \textbf{supporto}
 di una funzione $f$ come:
 
 $$
-    \text{supp } f = \{ x \in \mathbb{R} : f(x) \neq 0 \}.
+    \sup f = \{ x \in \mathbb{R} : f(x) \neq 0 \}.
 $$
 
 %% TODO: qui ci stanno alcune discrepanze tra Vinti e Fagiolo, va ricontrollato.
 \begin{theorem}
     Sia $f \in L^2(\mathbb{R}) \cap C(\mathbb{R})$ una funzione continua, ad energia finita e
     a banda limitata, i.e., tale che
-    $\text{supp } \hat{f} \subset \left[ -\pi W, \ \pi W\right], W > 0$.
+    $\sup \hat{f} \subset \left[ -\pi W, \ \pi W\right], W > 0$.
     Allora vale la seguente formula di interpolazione.
 
     $$
@@ -38,70 +40,69 @@ $$
 
 \begin{figure}[H]
     \centering
-\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-    %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+    \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+        %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
 
-    %Shape: Axis 2D [id:dp6614397845308091] 
-    \draw  (204,183.5) -- (379,183.5)(291,82) -- (291,196.5) (372,178.5) -- (379,183.5) -- (372,188.5) (286,89) -- (291,82) -- (296,89)  ;
-    %Straight Lines [id:da7696580538613964] 
-    \draw    (250,161.25) -- (250,183.25) ;
-    %Straight Lines [id:da059819649685002974] 
-    \draw    (331,161.25) -- (331,183.25) ;
-    %Straight Lines [id:da32947787237217474] 
-    \draw    (331,161.25) -- (250,161.25) ;
+        %Shape: Axis 2D [id:dp6614397845308091] 
+        \draw  (204,183.5) -- (379,183.5)(291,82) -- (291,196.5) (372,178.5) -- (379,183.5) -- (372,188.5) (286,89) -- (291,82) -- (296,89)  ;
+        %Straight Lines [id:da7696580538613964] 
+        \draw    (250,161.25) -- (250,183.25) ;
+        %Straight Lines [id:da059819649685002974] 
+        \draw    (331,161.25) -- (331,183.25) ;
+        %Straight Lines [id:da32947787237217474] 
+        \draw    (331,161.25) -- (250,161.25) ;
 
-    % Text Node
-    \draw (222.5,191.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle -\pi W$};
-    % Text Node
-    \draw (316,192) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \pi W$};
-\end{tikzpicture}
+        % Text Node
+        \draw (222.5,191.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle -\pi W$};
+        % Text Node
+        \draw (316,192) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \pi W$};
+    \end{tikzpicture}
     \caption{Una funzione a banda limitata}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-    %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+    \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+        %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
 
-    %Shape: Axis 2D [id:dp6614397845308091] 
-    \draw  (204,230.75) -- (542.5,230.75)(306,82) -- (306,250.25) (535.5,225.75) -- (542.5,230.75) -- (535.5,235.75) (301,89) -- (306,82) -- (311,89)  ;
-    %Straight Lines [id:da059819649685002974] 
-    \draw    (421,226.75) -- (421,237.25) ;
-    %Straight Lines [id:da333995992515034] 
-    \draw    (441,226.75) -- (441,237.25) ;
-    %Straight Lines [id:da4908605908983048] 
-    \draw    (461,226.75) -- (461,237.25) ;
-    %Straight Lines [id:da5180908391730039] 
-    \draw    (400,226.75) -- (400,237.25) ;
-    %Curve Lines [id:da6657246696267412] 
-    \draw    (254,118.5) .. controls (269.59,106.81) and (338.93,97.87) .. (337.5,120.75) .. controls (336.07,143.63) and (365.6,210.17) .. (385,212.25) .. controls (404.4,214.33) and (425,145.75) .. (443,135.25) .. controls (461,124.75) and (493.73,190.83) .. (506.5,181.25) ;
-    %Shape: Circle [id:dp878091919683829] 
-    \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (397,202) .. controls (397,200.62) and (398.12,199.5) .. (399.5,199.5) .. controls (400.88,199.5) and (402,200.62) .. (402,202) .. controls (402,203.38) and (400.88,204.5) .. (399.5,204.5) .. controls (398.12,204.5) and (397,203.38) .. (397,202) -- cycle ;
-    %Shape: Circle [id:dp017384754588354534] 
-    \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (417,169.5) .. controls (417,168.12) and (418.12,167) .. (419.5,167) .. controls (420.88,167) and (422,168.12) .. (422,169.5) .. controls (422,170.88) and (420.88,172) .. (419.5,172) .. controls (418.12,172) and (417,170.88) .. (417,169.5) -- cycle ;
-    %Shape: Circle [id:dp3580711979696489] 
-    \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (436,139.5) .. controls (436,138.12) and (437.12,137) .. (438.5,137) .. controls (439.88,137) and (441,138.12) .. (441,139.5) .. controls (441,140.88) and (439.88,142) .. (438.5,142) .. controls (437.12,142) and (436,140.88) .. (436,139.5) -- cycle ;
-    %Shape: Circle [id:dp2482434926915713] 
-    \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (458,141.5) .. controls (458,140.12) and (459.12,139) .. (460.5,139) .. controls (461.88,139) and (463,140.12) .. (463,141.5) .. controls (463,142.88) and (461.88,144) .. (460.5,144) .. controls (459.12,144) and (458,142.88) .. (458,141.5) -- cycle ;
+        %Shape: Axis 2D [id:dp6614397845308091] 
+        \draw  (204,230.75) -- (542.5,230.75)(306,82) -- (306,250.25) (535.5,225.75) -- (542.5,230.75) -- (535.5,235.75) (301,89) -- (306,82) -- (311,89)  ;
+        %Straight Lines [id:da059819649685002974] 
+        \draw    (421,226.75) -- (421,237.25) ;
+        %Straight Lines [id:da333995992515034] 
+        \draw    (441,226.75) -- (441,237.25) ;
+        %Straight Lines [id:da4908605908983048] 
+        \draw    (461,226.75) -- (461,237.25) ;
+        %Straight Lines [id:da5180908391730039] 
+        \draw    (400,226.75) -- (400,237.25) ;
+        %Curve Lines [id:da6657246696267412] 
+        \draw    (254,118.5) .. controls (269.59,106.81) and (338.93,97.87) .. (337.5,120.75) .. controls (336.07,143.63) and (365.6,210.17) .. (385,212.25) .. controls (404.4,214.33) and (425,145.75) .. (443,135.25) .. controls (461,124.75) and (493.73,190.83) .. (506.5,181.25) ;
+        %Shape: Circle [id:dp878091919683829] 
+        \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (397,202) .. controls (397,200.62) and (398.12,199.5) .. (399.5,199.5) .. controls (400.88,199.5) and (402,200.62) .. (402,202) .. controls (402,203.38) and (400.88,204.5) .. (399.5,204.5) .. controls (398.12,204.5) and (397,203.38) .. (397,202) -- cycle ;
+        %Shape: Circle [id:dp017384754588354534] 
+        \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (417,169.5) .. controls (417,168.12) and (418.12,167) .. (419.5,167) .. controls (420.88,167) and (422,168.12) .. (422,169.5) .. controls (422,170.88) and (420.88,172) .. (419.5,172) .. controls (418.12,172) and (417,170.88) .. (417,169.5) -- cycle ;
+        %Shape: Circle [id:dp3580711979696489] 
+        \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (436,139.5) .. controls (436,138.12) and (437.12,137) .. (438.5,137) .. controls (439.88,137) and (441,138.12) .. (441,139.5) .. controls (441,140.88) and (439.88,142) .. (438.5,142) .. controls (437.12,142) and (436,140.88) .. (436,139.5) -- cycle ;
+        %Shape: Circle [id:dp2482434926915713] 
+        \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (458,141.5) .. controls (458,140.12) and (459.12,139) .. (460.5,139) .. controls (461.88,139) and (463,140.12) .. (463,141.5) .. controls (463,142.88) and (461.88,144) .. (460.5,144) .. controls (459.12,144) and (458,142.88) .. (458,141.5) -- cycle ;
 
-    % Text Node
-    \draw (412.5,243) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize] [align=left] {$\displaystyle \frac{k}{W}$};
-    % Text Node
-    \draw (435,243) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize] [align=left] {$\displaystyle \frac{k}{W}$};
-\end{tikzpicture}
+        % Text Node
+        \draw (412.5,243) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize] [align=left] {$\displaystyle \frac{k}{W}$};
+        % Text Node
+        \draw (435,243) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize] [align=left] {$\displaystyle \frac{k}{W}$};
+    \end{tikzpicture}
     \caption{Esempio di applicazione del campionamento}
 \end{figure}
 
 In altre parole, il teorema del campionamento ci dice che, da una famiglia discreta di
 valori campione, assunti in modo uniformemente spaziato su tutto l’asse reale, è possibile
 ricostruire in modo esatto, un segnale ad energia finita (ovvero in $L^2(\mathbb{R})$) e a
-banda limitata, mediante la serie interpolante introdotta sopra.
-
+banda limitata, mediante la serie interpolante introdotta sopra.\\
 
 $\Delta t = 1/W$ denota l’\textit{intervallo temporale} tra i campioni, $\pi W/ 2\pi = w/2$ denota
 l’\textit{ampiezza di banda} di $f$, che e misurata in cicli per unita di tempo (Hertz) e
 $R = 1 /\Delta t$ denota l’\textit{ordine di campionamento} (\textit{sampling rate}),
-misurato in campioni per unita di tempo. 
+misurato in campioni per unita di tempo.
 
 H. Nyquist mise in rilievo il significato dell’“intervallo”(numero) $1/W$ nella telegrafia
 e Shannon lo chiamo \textit{intervallo di Nyquist} corrispondente alla frequenza di
@@ -112,59 +113,66 @@ rispondere alle due seguenti domande:
 
 \begin{enumerate}
     \item \textit{Quanti campioni sono necessari per assicurare che l’informazione
-        contenuta nel segnale venga preservata, durante il processo di ricostruzione?}\\
+              contenuta nel segnale venga preservata, durante il processo di ricostruzione?}\\
 
-        Se il segnale contiene componenti di alte frequenze, è necessario campionarlo almeno
-        due volte la massima frequenza del segnale per evitare perdite di informazione,
-        cioe $f_s \ge 2 f_H$ , dove $f_s$ e la frequenza sampling, $f_H$ e la piu alta
-        frequenza del segnale e $f_s = 2 f_H$ è la frequenza (ordine) di Nyquist.
-        Campionare ad un ordine più alto di $2 f_H$ significa utilizzare una successione
-        più fine di valori campione, e questo è il caso del cosiddetto sovracampionamento (oversampling).
-        Nella pratica il sovracampionamento deve essere effettuato molto spesso, poichè
-        un fattore correttivo deve essere introdotto per compensare il fatto che il
-        campionamento e l’interpolazione non possono coincidere con i corrispondenti valori
-        teorici; questo è il caso del cosiddetto \textit{round-off error} o \textit{errore di
-        quantizzazione}. Inoltre un altro errore temporale si presenta quando i campioni
-        non possono essere presi esattamente agli istanti temporali $k/W$; questo errore è
-        chiamato \textit{time-jitter error}.
-        Un esempio concreto di sovracampionamento è rappresentato dal un lettore di compact disk.
-        Infatti considerando che la piu alta frequenza
-        udibile è approssimativamente intorno a 18.000 cicli al secondo (Hertz),
-        a seconda dell’ascoltatore, in base alla teoria precedente un segnale audio
-        deve essere campionato almeno 36.000 volte al secondo per far sì che
-        il segnale venga ricostruito completamente. L’ordine di campionamento
-        dei primi lettori di compact disk era di circa 44.000 campioni al secondo.
-        Altre volte capita di non avere a disposizione un numero ragionevole di valori
-        campione per ricostruire il segnale completamente. Questo
-        avviene quando non conosciamo il segnale originale, ma dobbiamo ricostruirlo dalle
-        informazioni che abbiamo a disposizione del segnale (cioè
-        dai suoi valori campione). In questo caso, cioè quando il numero di
-        informazioni (valori campione) è scarso, la distanza tra i nodi è più
-        grande dell’intervallo di Nyquist ed abbiamo il cosiddetto sottocampionamento
-        (undersampling). In questo caso si presenta il fenomeno di
-        aliasing e sostanzialmente cio che succede è che le replicanti spettrali si
-        sovrappongono.
+          Se il segnale contiene componenti di alte frequenze, è necessario campionarlo almeno
+          due volte la massima frequenza del segnale per evitare perdite di informazione,
+          cioe $f_s \ge 2 f_H$ , dove $f_s$ e la frequenza sampling, $f_H$ e la piu alta
+          frequenza del segnale e $f_s = 2 f_H$ è la frequenza (ordine) di Nyquist.
+          Campionare ad un ordine più alto di $2 f_H$ significa utilizzare una successione
+          più fine di valori campione, e questo è il caso del cosiddetto sovracampionamento (oversampling).
+          Nella pratica il sovracampionamento deve essere effettuato molto spesso, poichè
+          un fattore correttivo deve essere introdotto per compensare il fatto che il
+          campionamento e l’interpolazione non possono coincidere con i corrispondenti valori
+          teorici; questo è il caso del cosiddetto \textit{round-off error} o \textit{errore di
+              quantizzazione}. Inoltre un altro errore temporale si presenta quando i campioni
+          non possono essere presi esattamente agli istanti temporali $k/W$; questo errore è
+          chiamato \textit{time-jitter error}.
+          Un esempio concreto di sovracampionamento è rappresentato dal un lettore di compact disk.
+          Infatti considerando che la piu alta frequenza
+          udibile è approssimativamente intorno a 18.000 cicli al secondo (Hertz),
+          a seconda dell’ascoltatore, in base alla teoria precedente un segnale audio
+          deve essere campionato almeno 36.000 volte al secondo per far sì che
+          il segnale venga ricostruito completamente. L’ordine di campionamento
+          dei primi lettori di compact disk era di circa 44.000 campioni al secondo.
+          Altre volte capita di non avere a disposizione un numero ragionevole di valori
+          campione per ricostruire il segnale completamente. Questo
+          avviene quando non conosciamo il segnale originale, ma dobbiamo ricostruirlo dalle
+          informazioni che abbiamo a disposizione del segnale (cioè
+          dai suoi valori campione). In questo caso, cioè quando il numero di
+          informazioni (valori campione) è scarso, la distanza tra i nodi è più
+          grande dell’intervallo di Nyquist ed abbiamo il cosiddetto sottocampionamento
+          (undersampling). In questo caso si presenta il fenomeno di
+          aliasing e sostanzialmente cio che succede è che le replicanti spettrali si
+          sovrappongono.
+
+          \begin{figure}[H]
+              \centering
+              \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/aliasing_tajmahal.jpg}
+              \caption{Nella figura possiamo apprezzare un esempio di aliasing.}
+          \end{figure}
+
     \item \textit{Dato un segnale, campionato ad un certo fissato ordine di campionamento,
-        quali frequenze non devono essere contenute nel segnale al fine di preservare
-        l’informazione?}\\
+              quali frequenze non devono essere contenute nel segnale al fine di preservare
+              l’informazione?}\\
 
-        Questa è la situazione inversa rispetto a quella presentata nella prima
-        domanda. La risposta è che un segnale campionato ad un fissato ordine
-        di campionamento non può contenere componenti a frequenze superiori
-        alla metà dell’ordine di campionamento, cioe: $f_H \leq f_s/2$, dove
-        $f_H$ è la frequenza più alta contenuta nel segnale e $f_s$ è la frequenza
-        sampling. In altre parole, la più alta frequenza che puo essere accuratamente
-        rappresentata è la metà della frequenza sampling. Quindi il teorema
-        sampling fornisce un limite superiore per la più alta frequenza $f_H$.
-        Spieghiamolo con un esempio: supponiamo di utilizzare un CD-rom con un
-        fissato ordine di campionamento di 44.1KHz. Nyquist afferma che la più
-        alta frequenza che può essere riprodotta da questo campionamento è di
-        22.05KHz. Infatti le frequenze superiori a 22.05KHz producono aliasing.
-        Per evitare questo, può essere utilizzato un filtro passa basso per bloccare
-        le frequenze superiori a 22.05KHz. È importante notare che l’aliasing
-        può essere prodotto sia da segnali campionati non correttamente (con
-        un numero di campioni non sufficiente) che da frequenze troppo alte del
-        segnale aventi un fissato ordine di campionamento.
+          Questa è la situazione inversa rispetto a quella presentata nella prima
+          domanda. La risposta è che un segnale campionato ad un fissato ordine
+          di campionamento non può contenere componenti a frequenze superiori
+          alla metà dell’ordine di campionamento, cioe: $f_H \leq f_s/2$, dove
+          $f_H$ è la frequenza più alta contenuta nel segnale e $f_s$ è la frequenza
+          sampling. In altre parole, la più alta frequenza che puo essere accuratamente
+          rappresentata è la metà della frequenza sampling. Quindi il teorema
+          sampling fornisce un limite superiore per la più alta frequenza $f_H$.
+          Spieghiamolo con un esempio: supponiamo di utilizzare un CD-rom con un
+          fissato ordine di campionamento di 44.1KHz. Nyquist afferma che la più
+          alta frequenza che può essere riprodotta da questo campionamento è di
+          22.05KHz. Infatti le frequenze superiori a 22.05KHz producono aliasing.
+          Per evitare questo, può essere utilizzato un filtro passa basso per bloccare
+          le frequenze superiori a 22.05KHz. È importante notare che l’aliasing
+          può essere prodotto sia da segnali campionati non correttamente (con
+          un numero di campioni non sufficiente) che da frequenze troppo alte del
+          segnale aventi un fissato ordine di campionamento.
 \end{enumerate}
 
 \subsection{Svantaggi}
@@ -174,25 +182,124 @@ esso presenta svantaggi o limiti da questo punto di vista.
 
 \begin{itemize}
     \item Le ipotesi fatte sul segnare da ricostruire $f$, ovvero che sia ad energia finita
-        e a banda limitata, implicano che ci riduciamo a considerare una famiglia di segnali
-        estremamente regolari e ci consente di ricostruire solo sengali appartenenti alla classe
-        $C^{\infty}(\mathbb{R})$. Nelle applicazioni reali, i segnali difficilmente sono così
-        regolari. Per esempio, nelle immagini, forti salti di livello nella scala di grigi
-        (vedi bordi degli oggetti), matematicamente possono essere visti come delle 
-        discontinuità.
+          e a banda limitata, implicano che ci riduciamo a considerare una famiglia di segnali
+          estremamente regolari e ci consente di ricostruire solo sengali appartenenti alla classe
+          $C^{\infty}(\mathbb{R})$. Nelle applicazioni reali, i segnali difficilmente sono così
+          regolari. Per esempio, nelle immagini, forti salti di livello nella scala di grigi
+          (vedi bordi degli oggetti), matematicamente possono essere visti come delle
+          discontinuità.
     \item Per ricostruire un segnale $f$ al tempo $t$ è necessario un numero di campioni infinito
-        e il loro valore viene rilevato sia all'istante precedente a $t$ che a quelli successivi.
-        Dal punto di vista applicativo, una prima difficoltà potrebbe essere quella di
-        implementare una formula teorica che prevede infiniti termini.
-        Il problema potrebbe essere risolto troncando la serie; tuttavia, questo introdurrebbe
-        un errore (di troncamento) nella ricostruzione, che non garantirebbe piu
-        l’interpolazione del segnale ma una mera approssimazione.
-        Inoltre, nei problemi reali, i segnali sono noti solo nel “passato”, ovvero i
-        valori campione di $f$ sono noti, in generale, solo negli istanti di tempo $k/W$
-        precedenti a $t$. I valori di $f(k/W)$ nel “futuro”, ovvero quando $k/W > t$,
-        non sono in generale disponibili.
-    \item Per il principio di Hisemberg i segnali non possono essere contemporanemanete 
-        a durata e banda limitata, quindi i segnali nel mondo reale, in generale, non soddisfano
-        le ipotesi del teorema del campionamento.
+          e il loro valore viene rilevato sia all'istante precedente a $t$ che a quelli successivi.
+          Dal punto di vista applicativo, una prima difficoltà potrebbe essere quella di
+          implementare una formula teorica che prevede infiniti termini.
+          Il problema potrebbe essere risolto troncando la serie; tuttavia, questo introdurrebbe
+          un errore (di troncamento) nella ricostruzione, che non garantirebbe piu
+          l’interpolazione del segnale ma una mera approssimazione.
+          Inoltre, nei problemi reali, i segnali sono noti solo nel “passato”, ovvero i
+          valori campione di $f$ sono noti, in generale, solo negli istanti di tempo $k/W$
+          precedenti a $t$. I valori di $f(k/W)$ nel “futuro”, ovvero quando $k/W > t$,
+          non sono in generale disponibili.
+    \item Per il principio di Hisemberg i segnali non possono essere contemporanemanete
+          a durata e banda limitata, quindi i segnali nel mondo reale, in generale, non soddisfano
+          le ipotesi del teorema del campionamento.
 \end{itemize}
 
+\subsection{Operatore Sampling Generalizzato}
+
+Per poter rendere applicabile il teorema del campionamento ed evitare le
+problematiche viste in precedenza, è stato studiato un \textit{operatore di tipo
+    Sampling Generalizzato}, con lo scopo di fornire una versione approssimata del
+teorema. L'idea di base è quella di sostituire la funzione $sinc$ con una
+funzione $\varphi$ a supporto continuo e compatto, il che implica che la serie
+si riduce ad una somma finita per ogni $t \in \mathbb{R}$ e dunque, per ricostruire
+un dato segnale in un certo istante di tempo, sono necessari solo un numero
+finito di valori campione.\\
+
+Ora per dimostrare che i campioni possono essere assunti nel passato solo rispetto
+a $t$ forniremo due definizioni:
+
+\begin{definition}
+    Sia $\varphi \in C_c(\mathbb{R})$ e $f \in C(\mathbb{R})$, definiamo la famiglia
+    di operatori $(S_W^{\varphi}f)_{W>0}$ con
+
+    $$
+        (S_W^{\varphi}f)(t) := \sum_{k = - \infty}^{+\infty} f(\frac{k}{W}) \varphi(Wt-k), \ t \in \mathbb{R}
+    $$
+\end{definition}
+
+L'operatore $S_W^{\varphi}$ è detto \textit{Operatore Sampling Generalizzato}, mentre
+$\varphi$ è detta \textit{Nucleo} dell'operatore.
+
+\begin{definition}
+    Data la funzione $\varphi: \ \mathbb{R} \rightarrow \mathbb{R}$ e un numero
+    $\beta > 0$, possiamo definire
+
+    $$
+        m_\beta(\varphi) := \sup_{u \in \mathbb{R}} \sum_{k \in \mathbb{Z}} |u-k|^\beta |\varphi(u-k)|
+    $$
+
+    che prende il nome di \textit{Momento assoluto discreto} di ordine $\beta$ della funzione
+    $\varphi$.
+\end{definition}
+
+Grazie alla definizione appena introdotta otteniamo la seguente stima:
+
+$$
+    |(S_W^{\varphi}f)(t)| \leq \sum_{k = - \infty}^{+\infty} |f(\frac{k}{W})| |\varphi(Wt-k)| \leq ||f||_{\infty} \sum_{k = - \infty}^{+\infty} |\varphi(Wt-k)| \leq ||f||_{\infty} m_0(\varphi)
+$$
+
+$\forall t \in \mathbb{R}$.\\
+
+Poichè $f$ è limitata e il momento $m_0(\varphi) \leq +\infty$ risulta che
+l'operatore di sampling generalizzato risulta ben definito in $C(\mathbb{R})$.
+Vale quindi il seguente risultato di approssimazione.
+
+\begin{theorem}
+    Sia $\varphi \in C_c(\mathbb{R})$ tale che
+
+    \begin{equation}\label{eq:uno}
+        \sum_{k = - \infty}^{+\infty} \varphi(u-k) = 1, \ \forall u \in \mathbb{R}
+    \end{equation}
+
+    Allora, se la funzione limitata $f: \mathbb{R} \rightarrow \mathbb{R}$ è continua
+    in $t_0 \in \mathbb{R}$, risulta:
+
+    $$
+        \lim_{W \rightarrow \infty} (S_W^{\varphi}f)(t_0) = f(t_0)
+    $$
+
+    In particolare, se $f \in C(\mathbb{R})$ si ha:
+
+    $$
+        \lim_{W \rightarrow \infty} ||S_W^{\varphi}f - f||_\infty = 0
+    $$
+\end{theorem}
+
+Da qui deriva il corollario che ci mostra com'è possibile effettuare un processo
+di ricostruzione grazie a campioni rilevati esclusivamente nel passato.
+
+\begin{corollary}
+    Sia $\varphi \in C_c(\mathbb{R})$, con $\sup \varphi \subset \mathbb{R}^+$ e
+    tale che sia soddisfatta la condizione (\ref{eq:uno}), allora per ogni funzione limitata
+    $f: \mathbb{R} \rightarrow \mathbb{R}$, nei punti $t_0$ di continuità si ha:
+
+    $$
+        \lim_{W \rightarrow \infty} (S_W^{\varphi}f)(t_0) = \lim_{W \rightarrow \infty} \sum_{\frac{k}{W} < t_0} f(\frac{k}{W}) \varphi(Wt_0 - k) = f(t_0)
+    $$
+\end{corollary}
+
+\begin{proof}
+    Come conseguenza del fatto che $\varphi(Wt_0-k) = 0$ per $\frac{k}{W} \ge t_0$ risulta che
+
+    $$
+        (S_W^{\varphi}f)(t_0) = \sum_{\frac{k}{W} < t_0} f(\frac{k}{W}) \varphi(Wt_0 - k)
+    $$
+
+    Quindi la tesi segue banalmente per il teorema precedente.
+\end{proof}
+
+\paragraph{Note}
+\begin{itemize}
+    \item $\varphi$ si legge \textit{Phi}.
+    \item $C_c(\mathbb{R})$ \TODO[]{Completare !}
+\end{itemize}
