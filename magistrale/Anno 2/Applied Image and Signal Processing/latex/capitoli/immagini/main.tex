@@ -536,58 +536,7 @@ ad 1 si associa il bianco, mentre a 0 il nero.
     \caption{Esempio di un'immagine in bianco e nero (binaria).}
 \end{figure}
 
-\subsection{Immagini a colori}
-
-Per rappresentare un'\textbf{immagine a colori} è necessario ricorrere ad
-una funzione vettoriale. Un colore infatti può essere sempre
-decomposto come \textbf{somma dei tre colori fondamentali (rosso, verde,
-    blu)}, ciascuno con un'opportuna intensità.
-Un'immagine a colori, dunque, può essere rappresentata da una
-funzione $f: \mathbb{R}^2 \rightarrow \mathbb{R}^3$ del tipo
-
-$$
-    f(x, y) = [R(x, y), G(x, y), B(x, y)]
-$$
-
-Questo tipo di rappresentazione viene detta \textbf{RGB (Red,Green,Blue)}.
-\subsection{Lo spazio RGB}
-
-Lo spazio RGB è uno spazio cartesiano, con tre assi ortogonali.
-Il colore di ciascun pixel viene rappresentato da un vettore
-$[R(x , y), G(x , y), B(x , y)]$ nello spazio RGB; ogni componente
-indica la quantità di rosso, verde e blu, rispettivamente, necessari
-ad ottenere quel colore.
-In base alla rappresentazione RGB, un'immagine a colori viene
-rappresentata da una terna di matrici, ognuna delle quali contiene i
-valori relativi ad un canale di colore.\\
-Ogni canale, preso a sè, non è altro che un'immagine a toni di
-grigio.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=12cm, keepaspectratio]{capitoli/immagini/imgs/canali_RGB_e_grigio.jpg}
-\end{figure}
-
-\subsection{Lo spazio HSV}
-
-Oltre alla RGB esistono anche altri tipi di rappresentazioni (che
-possono essere in genere derivate da essa).
-Una di queste è la rappresentazione \textbf{HSV}. Lo spazio HSV ha un
-sistema di coordinate cilindrico con due assi ortogonali ed un
-angolo di rotazione intorno ad uno dei due assi.
-L'altezza del cono rappresenta la \textbf{luminosità (Value)}, con valori da
-0 (nero) a 1 (bianco). La \textbf{saturazione (Saturation)} indica l'intensità
-e la purezza del colore, con valori da 0 (sull'asse del cono) a 1
-(sulla superficie del cono). La terza coordinata rappresenta la
-\textbf{tonalità di colore (Hue)} e viene misurata da un angolo intorno
-all'asse verticale (rosso a 0 gradi, verde a 120 e blu a 240).
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/cilindro_hsv.jpg}
-\end{figure}
-
-\section{Immagini a toni di grigio}
+\subsection{Immagini a toni di grigio}
 
 Un'immagine a toni di grigio è rappresentata da una matrice le cui
 entrate sono i valori che la funzione $f$ assume in ogni punto.
@@ -608,6 +557,58 @@ nello spazio.
     \centering
     \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/funzione_toni_grigio.jpg}
 \end{figure}
+
+\subsection{Immagini a colori}
+
+Per rappresentare un'\textbf{immagine a colori} è necessario ricorrere ad
+una funzione vettoriale. Un colore infatti può essere sempre
+decomposto come \textbf{somma dei tre colori fondamentali (rosso, verde,
+    blu)}, ciascuno con un'opportuna intensità.
+Un'immagine a colori, dunque, può essere rappresentata da una
+funzione $f: \mathbb{R}^2 \rightarrow \mathbb{R}^3$ del tipo
+
+$$
+    f(x, y) = [R(x, y), G(x, y), B(x, y)]
+$$
+
+Questo tipo di rappresentazione viene detta \textbf{RGB (Red,Green,Blue)}.
+\subsubsection{Lo spazio RGB}
+
+Lo spazio RGB è uno spazio cartesiano, con tre assi ortogonali.
+Il colore di ciascun pixel viene rappresentato da un vettore
+$[R(x , y), G(x , y), B(x , y)]$ nello spazio RGB; ogni componente
+indica la quantità di rosso, verde e blu, rispettivamente, necessari
+ad ottenere quel colore.
+In base alla rappresentazione RGB, un'immagine a colori viene
+rappresentata da una terna di matrici, ognuna delle quali contiene i
+valori relativi ad un canale di colore.\\
+Ogni canale, preso a sè, non è altro che un'immagine a toni di
+grigio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm, keepaspectratio]{capitoli/immagini/imgs/canali_RGB_e_grigio.jpg}
+\end{figure}
+
+\subsubsection{Lo spazio HSV}
+
+Oltre alla RGB esistono anche altri tipi di rappresentazioni (che
+possono essere in genere derivate da essa).
+Una di queste è la rappresentazione \textbf{HSV}. Lo spazio HSV ha un
+sistema di coordinate cilindrico con due assi ortogonali ed un
+angolo di rotazione intorno ad uno dei due assi.
+L'altezza del cono rappresenta la \textbf{luminosità (Value)}, con valori da
+0 (nero) a 1 (bianco). La \textbf{saturazione (Saturation)} indica l'intensità
+e la purezza del colore, con valori da 0 (sull'asse del cono) a 1
+(sulla superficie del cono). La terza coordinata rappresenta la
+\textbf{tonalità di colore (Hue)} e viene misurata da un angolo intorno
+all'asse verticale (rosso a 0 gradi, verde a 120 e blu a 240).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/cilindro_hsv.jpg}
+\end{figure}
+
 
 \section{Relazioni di base fra pixel}
 
@@ -690,7 +691,8 @@ $p, q, z$
 \end{itemize}
 
 \section{Zoom e Shrink}
-
+\TODO[inline]{Questa parte dovrebbe far parte del Chapter Elaborazione Immagini
+    ed essere messa con le elaborazioni locali}
 \subsection{ZOOM}
 
 Si crea una nuova griglia, ovvero delle nuove "locazioni" per i pixel,
@@ -755,7 +757,7 @@ Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di 
     \caption{Esempio di svolgimento di uno shrink.}
 \end{figure}
 
-\section{Elaborazione delle immagini}
+\chapter{Elaborazione delle immagini}
 
 L'elaborazione delle immagini è una disciplina che prevede l'utilizzo
 di algoritmi i quali operano sui pixel che compongono l'immagine
@@ -813,7 +815,7 @@ in particolare, fra: \textbf{elaborazioni puntuali}, \textbf{locali} e \textbf{g
     base dei valori assunti da tutti i pixel dell'immagine.
 \end{definition}
 
-\subsection{Elaborazioni Puntuali}
+\section{Elaborazioni Puntuali}
 
 \begin{definition}
     Un'elaborazione puntuale si dice \textbf{omogenea} se il risultato
@@ -850,7 +852,7 @@ in particolare, fra: \textbf{elaborazioni puntuali}, \textbf{locali} e \textbf{g
 
 \end{itemize}
 
-\paragraph{Esempio 1.} \ \\
+\subsection{Thresholding}
 
 Consideriamo una funzione T a gradino, ottenendo così una
 \textbf{elaborazione threshold (soglia)}.\\
@@ -868,7 +870,7 @@ Questo è un tipico esempio di \textbf{binarizzazione}.
 Si può ottenere una binarizzazione anche scegliendo una qualsiasi
 altra \textbf{funzione di discriminazione}, invece di una soglia costante.
 
-\paragraph{Esempio 2.}\ \\
+\subsection{Stiramento}
 
 Consideriamo una $T$ del tipo:
 
@@ -882,7 +884,7 @@ di sopra di $k$. Si ottiene così uno \textbf{stiramento dell'immagine (image
     stretching)}. L'elaborazione threshold può essere riguardata come
 caso limite di questo tipo di operazione.
 
-\paragraph{Esempio 3.}\ \\
+\subsection{Negazione}
 
 Consideriamo una $T$ del tipo:
 
@@ -898,7 +900,7 @@ la scala di grigi viene invertita, ottenendo così una negazione.
     \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/angiografie_esempio_3.jpg}
 \end{figure}
 
-\paragraph{Esempio 4.}\ \\
+\subsection{Trasformazione Logaritmica}
 
 Consideriamo una $T$ del tipo:
 
@@ -923,7 +925,7 @@ perdere un significativo livello di dettaglio
     }
 \end{figure}
 
-\paragraph{Esempio 5.}\ \\
+\subsection{Trasformazione di Potenza}
 
 Consideriamo una $T$ del tipo:
 
@@ -945,7 +947,7 @@ al contrario, troppo scure.
     \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/foto_esempio_5.jpg}
 \end{figure}
 
-\paragraph{Esempio 6.}\ \\
+\subsection{Lineare a Tratti}
 
 Considerando una $T$ \textbf{lineare a tratti} del tipo si ottiene uno
 stretching del contrasto
@@ -969,18 +971,21 @@ sceglie come $(r_1, s_1) = (r_{min}, 0)$ e $(r_2, s_2) = (r_{max} , L - 1)$
           nei livelli di grigio dell'immagine utilizzata.
 \end{itemize}
 
-\paragraph{Esempio 7.}\ \\
+\subsection{Altre Trasformazioni a Tratti}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/trasformazioni_lineari_esempio_7.jpg}
 \end{figure}
 
-In questo caso prendiamo queste due diverse trasformazioni ed analizziamo il loro effetto sull'immagine.
+In questo caso prendiamo queste due diverse trasformazioni ed analizziamo il
+loro effetto sull'immagine.
 
 \begin{itemize}
-    \item La prima crea una binarizzazione ma in questo caso utilizza due differenti gradazioni di grigio e sono precisamente bianco e nero.
-    \item La seconda mette in \textbf{risalto} una porzione della scala di grigi alzandogli il livello e schiarendoli.
+    \item La prima crea una binarizzazione ma in questo caso utilizza due
+          differenti gradazioni di grigio e sono precisamente bianco e nero.
+    \item La seconda mette in \textbf{risalto} una porzione della scala di grigi
+          alzandogli il livello e schiarendoli.
 \end{itemize}
 
 \begin{figure}[H]
@@ -1199,42 +1204,48 @@ individuato dal minimo e dal massimo livello di grigio che presenta l'immagine.
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/stretch-isto.png}
 \end{figure}
 
-\section{Il rumore}
+\section{Il Rumore}
 
 \begin{definition}
     si intende l'insieme dei segnali indesiderati che si sovrappongono al segnale utile oggetto di studio (ad esempio un'immagine) causandone una degenerazione.
 \end{definition}
-Si possono avere diverse forme di degrado tra cui, ad esempio:
+
+Si possono avere diverse forme di degrado tra cui:
 \begin{itemize}
     \item \textbf{Il rumore di quantizzazione}
     \item \textbf{Il rumore introdotto da condizioni esterne}
     \item \textbf{Il rumore introdotto dal sensore}
-    \item \textbf{Il rumore introdotto dai dispositivi di amplificazione/condizionamento del segnale}
+    \item \textbf{Il rumore introdotto dai dispositivi di
+              amplificazione/condizionamento del segnale}
 \end{itemize}
 
 In base alle sue cause, il rumore si distingue tra:
 \begin{itemize}
     \item \textbf{Rumore indipendente dal segnale} (additivo)
-    \item \textbf{Rumore dipendente dal segnale} (la relazione tra il segnale corrotto e quello originale è non lineare)
+    \item \textbf{Rumore dipendente dal segnale} (la relazione tra il segnale
+          corrotto e quello originale è non lineare)
 \end{itemize}
 
 \begin{trivlist}
-    \item \textbf{Rumore indipendete dal segnale:} (caso più comune) la funzione che descrive il segnale corrotto è:
+    \item \textbf{Rumore indipendente dal segnale:} (caso più comune) la funzione
+    che descrive il segnale corrotto è:
 
-    \begin{center}
-        $f(x,y) = g(x,y)+v(x,y)$
-    \end{center}
+    $$
+        f(x,y) = g(x,y)+v(x,y)
+    $$
+    dove $g(x,y)$ è il segnale e $v(x,y)$ è il rumore, che sarà di tipo
+    \textbf{additivo}
 
-    dove $g(x,y)$ è il segnale e $v(x,y)$ è il rumore $\rightarrow$ \textbf{additivo}
+    \item \textbf{Rumore dipendente dal segnale:} l'intensità del rumore dipende
+    dal segnale. Supponendo anche che esso sia molto più grande del segnale, la
+    funzione è
 
-    \item \textbf{Rumore dipendente dal segnale:} l'intensità del rumore dipende dal
-    segnale. Supponendo anche che esso sia molto più grande del segnale, la funzione è
+    $$
+        f(x,y)=g(x,y)+v(x,y)g(x,y)=g(x,y)(1+v(x,y)) \approx g(x,y)v(x,y)
+    $$
 
-    \begin{center}
-        $f(x,y)=g(x,y)+v(x,y)g(x,y)=g(x,y)(1+v(x,y)) \approx g(x,y)v(x,y)$
-    \end{center}
-
-    dove $g(x,y)$ è il segnale e $v(x,y)$ è il rumore $\rightarrow$ \textbf{moltiplicativo}
+    dove $g(x,y)$ è il segnale e $v(x,y)$ è il rumore, che sarà di tipo
+    \textbf{moltiplicativo}
 \end{trivlist}
 
 Essendo di natura intrinsecamente stocastica, il rumore viene in genere analizzato usando la teoria dei processi stocastici ed è
@@ -1262,85 +1273,104 @@ questo modo un modello del rumore.
           dove $\mu$ è il valor medio e $\sigma$ la deviazione standard.
 \end{itemize}
 
-%Inserire foto funzione
-
-\subsubsection{Esempio}
-
+\TODO[inline]{Allinaeare immagine della campana alla formula!}
+\begin{figure}
+    \centering
+    \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/campana.png}
+\end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-rumore.png}
-    \caption*{Immagine originale e immagine corrotta da rumore gaussiano}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/esempio-rumore.png}
+    \caption{Immagine originale e immagine corrotta da rumore gaussiano}
 \end{figure}
 
-\subsubsection{Il rumore "salt and pepper"}
+\subsubsection{Il rumore Salt and Pepper}
 
-Nel caso in cui il rumore abbia distribuzione spaziale di tipo impulsivo, si parla di rumore salt and pepper (sale e pepe): agisce
-corrompendo in maniera casuale i pixel dell'immagine, portandone il valore a $0=a$ (valore minimo) oppure a $255=b$ (valore massimo).
-\begin{center}
-    $$
-        p(r) = \left\{ \begin{array}{cl}
-            p_a & \ r = a    \\
-            p_b & r = b      \\
-            0   & altrimenti
-        \end{array} \right.
-    $$
-\end{center}
+Nel caso in cui il rumore abbia distribuzione spaziale di tipo impulsivo, si
+parla di rumore salt and pepper (sale e pepe): agisce corrompendo in maniera
+casuale i pixel dell'immagine, portandone il valore a $0$ (valore minimo)
+oppure a $255$ (valore massimo).
+
+\TODO[inline]{L'idea di impaginazione è questa, sistemare!}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/salepepe.png}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \begin{equation}
+            p(r) = \begin{cases}
+                p_a, & r = 0      \\
+                p_b, & r = 255    \\
+                0,   & altrimenti
+            \end{cases}
+        \end{equation}
+    \end{subfigure}
+\end{figure}
+
+
 Ovviamente il rumore impulsivo, pur essendo additivo, \textbf{non è
     lineare.}
 
-%Inserire foto funzione
-
-\subsubsection{Esempio}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-salt-pepper.png}
-    \caption*{Immagine originale e immagine corrotta da rumore salt and pepper}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/esempio-salt-pepper.png}
+    \caption{Immagine originale e immagine corrotta da rumore salt and pepper}
 \end{figure}
 
-\subsubsection{Altre modellizzazioni del rumore: il rumore di Rayleigh}
+\subsubsection{Rumore di Rayleigh}
 Distribuzione del \textbf{rumore di Rayleigh}
-%Inserire foto funzione
-\begin{center}
-    $$
-        p(r) = \left\{ \begin{array}{cl}
-            \frac{2}{b}(r-a)e^{-{r-a}\frac{2}{b}} & \ r >= a \\
-            0                                     & r<a
-        \end{array} \right.
-    $$
-\end{center}
+
+\TODO[inline]{Allinare foto alla formula!}
+\begin{figure}
+    \centering
+    \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/raley.png}
+\end{figure}
+
+$$
+    p(r) = \begin{cases}
+        \frac{2}{b}(r-a)e^{-{r-a}\frac{2}{b}}, & r \ge a \\
+        0,                                     & r<a
+    \end{cases}
+$$
 
 dove il valor medio e la deviazione standard sono dati da:
 
-\begin{center}
-    $\mu = a + \sqrt{\pi b/4}$ $\sigma = \frac{b(4-\pi)}{4}$
-\end{center}
+$$
+    \mu = a + \sqrt{\pi b/4} \ \sigma = \sqrt{\frac{b(4-\pi)}{4}}
+$$
 
 Nel grafico lo scostamento dall'origine e la forma inclinata verso
 destra rende questa densità utile per l'approssimazione di
 istogrammi non simmetrici e può essere utilizzata per rappresentare
 fenomeni di rumori tipici di alcuni sensori di range.
 
-\subsubsection{Esempio}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-rumore.png}
-    \caption*{Immagine originale e immagine corrotta da rumore Rayleigh}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/rumore_raeli.png}
+    \caption{Immagine originale e immagine corrotta da rumore Rayleigh}
 \end{figure}
 
-\subsubsection{Altre modellizzazioni del rumore: il rumore Gamma}
+\subsubsection{Rumore Gamma}
 
 Distribuzione del \textbf{rumore gamma}:
 
-\begin{center}
-    $$
-        p(r) = \left\{ \begin{array}{cl}
-            \frac{a^b r^{b-1}}{(b-1)!}e^-{ar} & \ r >= a \\
-            0                                 & r<a
-        \end{array} \right.
-    $$
-\end{center}
+$$
+    p(r) = \begin{cases}
+        \frac{a^b r^{b-1}}{(b-1)!}e^-{ar}, & r \ge a \\
+        0,                                 & r<a
+    \end{cases}
+$$
+
+\TODO[inline]{Allineare foto alla formula!}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/gamma.png}
+\end{figure}
 
 dove $a > 0$, $b$ è un intero positivo e il valor medio e la deviazione standard sono dati da:
 
@@ -1350,37 +1380,43 @@ dove $a > 0$, $b$ è un intero positivo e il valor medio e la deviazione standar
 
 Questo rumore è presente nelle immagini laser.
 
-\subsubsection{Altre modellizzazioni del rumore: il rumore Esponenziale}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/rumore_gamma.png}
+    \caption{Immagine originale e immagine corrotta da rumore Gamma}
+\end{figure}
+
+\subsubsection{Rumore Esponenziale}
 
 Distribuzione del \textbf{rumore Esponenziale}:
 
-\begin{center}
-    $$
-        p(r) = \left\{ \begin{array}{cl}
-            ae^{-ar} & \ r >= a \\
-            0        & r<0
-        \end{array} \right.
-    $$
-\end{center}
+$$
+    p(r) = \begin{cases}
+        ae^{-ar}, & r \ge a \\
+        0,        & r<0
+    \end{cases}
+$$
 dove $a > 0$, b e il valor medio e la deviazione standard sono dati da:
+\TODO[inline]{Allinare foto a formula!}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/esponenziale.png}
+\end{figure}
 
-%Inserire foto funzione
-
-\begin{center}
-    $\mu = \frac{1}{a}$ $\sigma = \frac{1}{a}$
-\end{center}
+$$
+    \mu = \frac{1}{a} \ \sigma = \frac{1}{a}
+$$
 
 Questo rumore è un caso particolare del rumore di Gamma con $b = 1$.
 
-\subsubsection{Esempio}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-esponenziale.png}
-    \caption*{Immagine originale e immagine corrotta da rumore Esponenziale}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/esempio-esponenziale.png}
+    \caption{Immagine originale e immagine corrotta da rumore Esponenziale}
 \end{figure}
 
-\subsubsection{Signal-Noise Ratio}
+\subsection{Signal-Noise Ratio}
 
 Per avere una valutazione numerica dell'entità del rumore associato ad una data immagine si può ricorrere al \textbf{rapporto segnale-rumore
     (Signal Noise Ratio - SNR)}, definito come:
@@ -1399,16 +1435,18 @@ variare di tutti i pixel $(x, y)$ dell'immagine.
 \begin{definition}
     Il rumore può essere corretto applicando opportune trasformazioni ai pixel dell'immagine, dette filtri.
 \end{definition}
-Per ogni tipo di rumore esiste un filtraggio differente, che risulterà il più adatto ad attenuare o eliminare quel particolare rumore.
-In genere, la scelta del filtro dipende dalla linearità o meno della relazione fra l'immagine corrotta e quella originale.
-E' possibile combinare più filtri, in modo da avere effetti più complessi.
+Per ogni tipo di rumore esiste un filtraggio differente, che risulterà il più
+adatto ad attenuare o eliminare quel particolare rumore. In genere, la scelta
+del filtro dipende dalla linearità o meno della relazione fra l'immagine
+corrotta e quella originale. È possibile combinare più filtri, in modo da avere
+effetti più complessi.
 
 \subsection{Il filtraggio spaziale}
 
 Un filtro spaziale è caratterizzato da:
 
 \begin{itemize}
-    \item Un intorno (\textbf{machera}), in genere di dimensioni dispari;
+    \item Un intorno (\textbf{maschera}), in genere di dimensioni dispari;
     \item Un'operazione predefinita che viene applicata ai pixel nell'intorno
 \end{itemize}
 se l'operazione è lineare si parla di \textbf{filtro lineare}.
@@ -1419,7 +1457,7 @@ L'intensità dell'immagine filtrata nel pixel (x,y) sarà:
     $g(x,y) = \sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x+s,y+t)$,
 \end{center}
 
-$x=0,..,M-1$, $y=0,...,N-1$ (\textbf{correlazione di f e w}), dove i valori $w$ sono i \textbf{coefficienti della maschera}
+con $x=0,..,M-1$, $y=0,...,N-1$ (\textbf{correlazione di f e w}), dove i valori $w$ sono i \textbf{coefficienti della maschera}
 avente dimensione $m$ x $n$, con $m = 2a+1$ e $n = 2b+1$
 \\\\
 Ad esempio, se la maschera ha dimensione 3 x 3, l'intensità dell'immagine filtrata nel pixel ($x,y$) sarà:
@@ -1429,121 +1467,83 @@ Ad esempio, se la maschera ha dimensione 3 x 3, l'intensità dell'immagine filtr
 
 \subsection{Filtri lineari}
 
-I filtri maggiormente utilizzati per la rimozione del rumore sono i cosidetti \textbf{filtri di smoothing}, i quali eliminano picchi e increspature (passa-basso)
-\\\\
-\textbf{Esempio}
-
-\begin{itemize}
-    \item \textbf{Filtro medio:} sostituisce il valore di ogni pixel prefissato con il
-          valor medio dei pixel in un suo intorno di dimensioni fissate.
-    \item \textbf{Filtro media ponderata:} sostituisce il valore di ogni pixel prefissato con la media ponderata dei pixel in un suo
-          intorno di dimensioni fissate.
-    \item \textbf{Filtro gaussiano:} sostituisce al valore di ogni pixel prefissato la
-          media pesata dei valori dei pixel in un suo intorno. I pesi sono distribuiti secondo una funzione gaussiana.
-\end{itemize}
+I filtri maggiormente utilizzati per la rimozione del rumore sono i cosiddetti
+\textbf{filtri di smoothing}, i quali eliminano picchi e increspature
+(passa-basso).
 
 \subsubsection{Filtro medio}
+Il filtro medio sostituisce il valore di ogni pixel prefissato con il
+valor medio dei pixel in un suo intorno di dimensioni fissate.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/filtro-medio.png}
 \end{figure}
 
+Il \textbf{filtro medio} è molto utilizzato ad esempio per correggere il
+\textbf{rumore gaussiano.}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/filtro-medio-esempio2.png}
+    \caption{Immagine originale, immagine corrotta da rumore gaussiano e immagine filtrata con filtro medio}
+\end{figure}
+
 \subsubsection{Filtro di media ponderata}
+Il filtro media ponderata sostituisce il valore di ogni pixel prefissato con la media ponderata dei pixel in un suo
+intorno di dimensioni fissate.
 
 \begin{center}
     $g(x,y)=\frac{\sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x+s,y+t)}{\sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)}$
 \end{center}
 
 \subsubsection{Filtro Gaussiano}
+Il filtro gaussiano: sostituisce al valore di ogni pixel prefissato la
+media pesata dei valori dei pixel in un suo intorno. I pesi sono distribuiti secondo una funzione gaussiana.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/filtro-gaussiano.png}
 \end{figure}
 
-\textbf{Esempio}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/filtri-l-esempio.png}
+    \caption{Possiamo vedere l'applicazione della sfocatura con filtro medio
+        tramite maschere di dimensioni 3, 5, 9, 15, 35 su un immagine di $500 \times 500$ pixel.}
 \end{figure}
 
-\begin{enumerate}
-    \item [a.] Immagine originale di 500 x 500 pixel.
-    \item [b.f.] Risultato della sfocatura con filtro medio tramite maschere di
-          dimensione 3, 5, 9, 15, 35.
-\end{enumerate}
-\textbf{Esempio}
-\\\\
-Esempio di applicazione del filtro medio
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/filtro-l-esempio2.png}
-\end{figure}
-
-\begin{enumerate}
-    \item [a.] Immagine originale di 528 x 485 pixel.
-    \item [b.] Risultato della sfocatura con filtro medio tramite maschera di dimensione 15
-    \item [c.]  Risultato dell'applicazione di una soglia.
-\end{enumerate}
+\subsection{Filtri non lineari}
 I rumori non lineari (ad esempio quello impulsivo) non possono essere corretti con i filtri lineari.
 Possono essere trattati invece efficacemente con \textbf{filtri non lineari}
-\\\\
-\textbf{Esempio:}
-\begin{trivlist}
-    \item \textbf{Filtro mediano:}  sostituisce al valore di ogni pixel prefissato la
-    mediana (valore centrale della lista ordinata) dei
-    valori dei pixel nell'intorno fissato.
-\end{trivlist}
+\subsubsection{Filtro mediano}
+Il filtro Mediano sostituisce al valore di ogni pixel prefissato la
+mediana (valore centrale della lista ordinata) dei
+valori dei pixel nell'intorno fissato.
+
 Il filtro mediano risulta particolarmente adatto a correggere il rumore \textbf{salt and pepper}, a differenza del filtro medio che, come si
 vede dall'esempio seguente, non risulta invece particolarmente efficace.
 
-\subsubsection{Esempio: Filtro medio}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-filtro-medio.png}
-    \caption*{Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e immagine filtrata con \textbf{filtro medio}}
+    \includegraphics[keepaspectratio]{capitoli/immagini/imgs/esempio-filtro-mediano.png}
+    \caption{Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e immagine filtrata con \textbf{filtro mediano}}
 \end{figure}
-
-\subsubsection{Esempio: Filtro medinao}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/esempio-filtro-mediano.png}
-    \caption*{Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e immagine filtrata con \textbf{filtro mediano}}
+    \includegraphics[keepaspectratio]{capitoli/immagini/imgs/esempio-filtro-medio.png}
+    \caption{Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e immagine filtrata con \textbf{filtro medio}}
 \end{figure}
-
-\newpage
-\subsubsection{Esempio: Filtro medio}
-
-Il \textbf{filtro medio} è invece molto utilizzato ad esempio per correggere il
-\textbf{rumore gaussiano.}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/filtro-medio-esempio2.png}
-    \caption*{Immagine originale, immagine corrotta da rumore gaussiano e immagine filtrata con filtro medio}
-\end{figure}
-
-
-\subsection{Altri filtri (non lineari) basati sulle statistiche d'ordine}
-\begin{itemize}
-    \item \textbf{Filtro di massimo}
-    \item \textbf{Filtro di minimo}
-    \item \textbf{Filtro di punto medio}
-    \item \textbf{Filtro medio di alpha-trimmed}
-\end{itemize}
 
 \subsubsection{Filtro di massimo}
 
 Sia $S_p$ una maschera di dimensioni $m $ x $n$, dove $p = (x,y)$ è il pixel centrale della maschera.
 Il filtro di massimo sostituisce a p il massimo dei valori dei pixel in $S_p$, cioè
 
-\begin{center}
-    $g_{max}(x,y)=max f(x,y)$ dove $(x,y) \in S_p$
-\end{center}
+$$
+    g_{max}(x,y)= \max_{(x,y) \in S_p} f(x,y)
+$$
 
 Questo filtro è utile per \textbf{diminuire il rumore di tipo "pepper"}.
 
@@ -1551,51 +1551,65 @@ Questo filtro è utile per \textbf{diminuire il rumore di tipo "pepper"}.
 
 Il \textbf{filtro di minimo} sostituisce a $p$ il minimo dei valori dei pixel in $S_p$ cioè:
 
-\begin{center}
-    $g_{min}(x,y) = min f(x,y)$ dove $(x,y) \in S_p$
-\end{center}
+$$
+    g_{min}(x,y) = \min_{(x,y) \in S_p} f(x,y)
+$$
 
 Questo filtro è utile \textbf{per diminuire il rumore di tipo "salt"}
 
+\subsubsection{Filtro di Punto Medio}
+
+Il filtro di punto medio sostituisce a $p$ il punto medio tra il massimo ed il minimo
+dei valori dei pixel in $S_p$, cioè
+
+$$
+    g(x,y) = \frac{1}{2} \left[\max_{(x,y) \in S_p} f(x) + \min_{(x,y) \in S_p} f(x)\right]
+$$
+
 \subsubsection{Filtro medio alpha-trimmed}
 
-Fissato un valore $0 <= d <= mn − 1$, supponiamo di cancellare in $S_p$ i $d/2$ valori più chiari e i $d/2$ valori più scuri; delle
+Fissato un valore $0 \le d \le mn - 1$, supponiamo di cancellare in $S_p$ i $d/2$ valori più chiari e i $d/2$ valori più scuri; delle
 restanti intensità ne calcoliamo la media aritmetica, cioè:
 
-\begin{center}
-    $g(x,y) = \frac{1}{mn-d}$ $\sum_{(x,y) \in \bar{S_p}}^{max} f(x,y)$
-\end{center}
+$$
+    g(x,y) = \frac{1}{mn-d} \sum_{(x,y) \in \bar{S_p}} f(x,y)
+$$
 
 dove $\bar{S_p}$ è l'insieme dei pixel $S_p$ rimanenti.
 Questo filtro risulta utile in situazioni in cui \textbf{si sovrappongono diversi tipi di rumore}, ad esempio nel caso di una combinazione tra
 rumore salt an pepper e rumore gaussiano.
 
-\section{Filtri di sharpering}
+\section{Filtri di Sharpening}
 
-L'obiettivo di questi filtri è quello di \textbf{marcare i bordi (edge detection)}, attribuendo meno importanza alle aree che hanno variazione lenta a livello di intensità.
-Si basano sull'operatore di derivazione ed hanno l'effetto di evidenziare soltanto i bordi dell'immagine. In forma discreta, se f rappresenta l'intensità associata a ogni pixel
-$(x,y)$, le derivate possono essere espresse come differenze finite:
+L'obiettivo di questi filtri è quello di \textbf{marcare i bordi (edge
+    detection)}, attribuendo meno importanza alle aree che hanno variazione lenta a
+livello di intensità. Si basano sull'operatore di derivazione ed hanno l'effetto
+di evidenziare soltanto i bordi dell'immagine. In forma discreta, se $f$
+rappresenta l'intensità associata a ogni pixel $(x,y)$, le derivate possono
+essere espresse come differenze finite:
 
 \begin{center}
-    $\frac{\partial{f}}{\partial{x}}(x,y) \sim f(x+1, y) − f(x, y)$, $\frac{\partial{f}}{\partial{y}} \sim f(x,y+1) − f(x,y)$
+    $\frac{\partial{f}}{\partial{x}}(x,y) \sim f(x+1, y) - f(x, y)$, $\frac{\partial{f}}{\partial{y}} \sim f(x,y+1) - f(x,y)$
     \\
     $\frac{\partial{f^2}}{\partial{x^2}}(x,y) \sim f(x+1,y) + f(x-1, y) - 2f(x,y)$
     \\
     $\frac{\partial{f^2}}{\partial{y^2}}(x,y) \sim f(x,y+1) + f(x, y-1) - 2f(x,y)$
 \end{center}
 
+Il filtro di sharpening ha l'effetto di evidenziare soltanto i bordi dell'immagine.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sharpening.png}
-    \caption*{Il filtro di sharpening ha l'effetto di evidenziare soltanto i bordi dell'immagine.}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/sharpening.png}
+    \caption{Applicazione di un filtro di sharpening}
 \end{figure}
 
+\TODO[inline]{Da ricontrollare e aggiungere spiegazioni}
 \begin{figure}[H]
     \centering
     \includegraphics[width=11cm, keepaspectratio]{capitoli/immagini/imgs/sharpering2.png}
 \end{figure}
 
-\subsubsection{Filtro del Gradiente}
+\subsection{Filtro del Gradiente}
 
 Operatore Gradiente:
 
@@ -1626,21 +1640,24 @@ Maschere:
     \]
 \end{center}
 
-\textbf{Esempio}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/gradiente.png}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/gradiente.png}
+    \caption{Applicazione del Filtro del Gradiente}
 \end{figure}
 
 \subsection{Filtro di Sobel}
 Un'altra approssimazione discreta del gradiente è data da:
-$\nabla f(x,y) \sim \frac{\partial{f}}{\partial{x}} + \frac{\partial{f}}{\partial{y}}$
-\\$\sim  |[f(x+1,y-1) + 2f(x+1,y) + f(x+1 y+1)]+$
-    \\$ - |[f(x-1, y-1)+2f(x-1,y) + f(x-1, y+1)]|+$
-\\$ + |[f(x-1, y+1) + 2f(x,y+1)+f(x+1,y+1)]+$
-    \\$ - [f(x-1,y -1) + 2f(x,y-1) + f(x+1,y-1)]|$
-\\\\Maschere:
+\TODO[inline]{Sistemare formula}
+$$
+    \nabla f(x,y) \sim \frac{\partial{f}}{\partial{x}} + \frac{\partial{f}}{\partial{y}}
+    \\\sim  |[f(x+1,y-1) + 2f(x+1,y) + f(x+1 y+1)]+
+    \\- |[f(x-1, y-1)+2f(x-1,y) + f(x-1, y+1)]|+
+    \\ + |[f(x-1, y+1) + 2f(x,y+1)+f(x+1,y+1)]+
+    \\- [f(x-1,y -1) + 2f(x,y-1) + f(x+1,y-1)]|
+$$
+
+Maschere:
 
 \begin{center}
     \[
@@ -1658,17 +1675,14 @@ $\nabla f(x,y) \sim \frac{\partial{f}}{\partial{x}} + \frac{\partial{f}}{\partia
 \end{center}
 
 che sono detti \textbf{operatori di Sobel.}
-\\\\
-\textbf{Esempio}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/sobel.png}
-    \caption*{Immagine originale e immagine filtrata tramite il gradiente di Sobel.}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/sobel.png}
+    \caption{Immagine originale e immagine filtrata tramite il gradiente di Sobel.}
 \end{figure}
 
-\newpage
-\subsubsection{Filtro di Prewitt}
+\subsection{Filtro di Prewitt}
 Analogo a quello di Sobel eccetto per le maschere di convoluzione
 che in questo caso sono:
 \begin{center}
@@ -1676,31 +1690,29 @@ che in questo caso sono:
         \begin{bmatrix}
             -1 & 0 & 1 \\
             -1 & 0 & 1 \\
-            -1 & 1 & 1
+            -1 & 0 & 1
         \end{bmatrix}
         \begin{bmatrix}
-            -1 & - & -1 \\
-            0  & 0 & 0  \\
-            1  & 1 & 1
+            -1 & -1 & -1 \\
+            0  & 0  & 0  \\
+            1  & 1  & 1
         \end{bmatrix}
     \]
 \end{center}
 
-\textbf{Esempio}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/prewitt.png}
-    \caption*{Immagine originale e immagine filtrata tramite il gradiente
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/prewitt.png}
+    \caption{Immagine originale e immagine filtrata tramite il gradiente
         di Prewitt.}
 \end{figure}
 
-\newpage
-\subsubsection{Filtro di Roberts}
+\subsection{Filtro di Roberts}
 Si ottiene mediante la seguente approssimazione del gradiente:
 
 \begin{center}
-    $|\nabla f(x,y)| \sim |\frac{\partial{f}}{\partial{x}}| + \frac{\partial{f}}{\partial{y}}$
+    $|\nabla f(x,y)| \sim |\frac{\partial{f}}{\partial{x}}| + |\frac{\partial{f}}{\partial{y}}|$
     \\ $\sim |f(x,y) - f(x+1, y+1)| + |f(x+1, y) - f(x,y+1)|$
 \end{center}
 
@@ -1723,14 +1735,12 @@ Maschere:
     \]
 \end{center}
 
-\textbf{Esempio}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/roberts.png}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/roberts.png}
+    \caption{Nella figura possiamo osservare l'applicazione delle singole matrici $\nabla x$, $\nabla y$ e poi l'applicazione di tutte e due in contemporanea (filtro di Roberts).}
 \end{figure}
 
-\newpage
 \subsubsection{Filtro Laplaciano}
 
 Operatore Laplaciano:
@@ -1762,18 +1772,16 @@ oppure, tenendo conto delle direzioni diagonali:
     \]
 \end{center}
 
-\textbf{Esempio}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/laplaciano.png}
-    \caption*{(a) Immagine originale, (b) con laplaciano, (c) con laplaciano con
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/laplaciano.png}
+    \caption{(a) Immagine originale, (b) con laplaciano, (c) con laplaciano con
         diagonali.}
 \end{figure}
 
 \subsection{Filtro Differenziale}
 
-Sfruttare la proprietà di attraversamento dello zero della derivata seconda nelle varie direzioni, coordinate e diagonali, che ha come effetto quello di evidenziare direzionalmente i bordi di un'immagine lungo di esse.
+Sfrutta la proprietà di attraversamento dello zero della derivata seconda nelle varie direzioni, coordinate e diagonali, che ha come effetto quello di evidenziare direzionalmente i bordi di un'immagine lungo di esse.
 \\Dalle approssimazioni:
 
 \begin{center}
@@ -1786,7 +1794,7 @@ $\frac{\partial^2{f}}{\partial{x,y}}(x,y) \sim \frac{1}{4}[f(x-1,y-1)-f(x-1,y+1)
 \begin{center}
     \[
         \begin{bmatrix}
-            0 & 0  & 0 \\
+            0 & 1  & 0 \\
             0 & -2 & 0 \\
             0 & 1  & 0
         \end{bmatrix}
@@ -1796,17 +1804,17 @@ $\frac{\partial^2{f}}{\partial{x,y}}(x,y) \sim \frac{1}{4}[f(x-1,y-1)-f(x-1,y+1)
             0 & 0  & 0
         \end{bmatrix}
         \begin{bmatrix}
-            \frac{1}{4}  & 0 & \frac{-1}{4} \\
-            0            & 0 & -1           \\
-            \frac{-1}{4} & 0 & \frac{1}{4}
+            \frac{1}{4}  & 0 & -\frac{1}{4} \\
+            0            & 0 & 0            \\
+            -\frac{1}{4} & 0 & \frac{1}{4}
         \end{bmatrix}
     \]
 \end{center}
 
-\textbf{Esempio di Applicazione: Digital Composting}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/digital-composing.png}
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/digital-composing.png}
+    \caption{Possiamo utilizzare il filtro differenziale per effettuare il Digital Compositing.}
 \end{figure}
 
 \section{Operazioni aritmetiche e Image Enhancement}
