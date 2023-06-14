@@ -1262,22 +1262,21 @@ caratterizzato in base alla:
 
 Per poter caratterizzare e studiare il rumore in un'immagine si fanno in genere delle ipotesi semplificative, in modo che il rumore abbia una qualche distribuzione di probabilità: si costruisce in
 questo modo un modello del rumore.
-\\Una modellizazione tipica prevede che:
+\\Una modellizzazione tipica prevede che:
 
 \begin{itemize}
     \item \textbf{lo spettro abbia distribuzione uniforme (rumore bianco)}
     \item \textbf{il rumore abbia distribuzione gaussiana, cioè}
-          \begin{center}
-              $p(r)=\frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{(r-\mu)^2}{2\sigma^2}}$
-          \end{center}
+          \begin{equation*}
+              p(r)=\frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{(r-\mu)^2}{2\sigma^2}}
+              \qquad
+              \begin{gathered}
+                  \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/campana.png}
+              \end{gathered}
+          \end{equation*}
           dove $\mu$ è il valor medio e $\sigma$ la deviazione standard.
 \end{itemize}
 
-\TODO[inline]{Allinaeare immagine della campana alla formula!}
-\begin{figure}
-    \centering
-    \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/campana.png}
-\end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/esempio-rumore.png}
@@ -1291,26 +1290,17 @@ parla di rumore salt and pepper (sale e pepe): agisce corrompendo in maniera
 casuale i pixel dell'immagine, portandone il valore a $0$ (valore minimo)
 oppure a $255$ (valore massimo).
 
-\TODO[inline]{L'idea di impaginazione è questa, sistemare!}
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[b]{0.45\linewidth}
-        \centering
-        \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/salepepe.png}
-        \caption{}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\linewidth}
-        \centering
-        \begin{equation}
-            p(r) = \begin{cases}
-                p_a, & r = 0      \\
-                p_b, & r = 255    \\
-                0,   & altrimenti
-            \end{cases}
-        \end{equation}
-    \end{subfigure}
-\end{figure}
-
+\begin{equation*}
+    p(r) = \begin{cases}
+        p_a, & r = 0      \\
+        p_b, & r = 255    \\
+        0,   & altrimenti
+    \end{cases}
+    \qquad
+    \begin{gathered}
+        \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/salepepe.png}
+    \end{gathered}
+\end{equation*}
 
 Ovviamente il rumore impulsivo, pur essendo additivo, \textbf{non è
     lineare.}
@@ -1324,18 +1314,16 @@ Ovviamente il rumore impulsivo, pur essendo additivo, \textbf{non è
 \subsubsection{Rumore di Rayleigh}
 Distribuzione del \textbf{rumore di Rayleigh}
 
-\TODO[inline]{Allinare foto alla formula!}
-\begin{figure}
-    \centering
-    \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/raley.png}
-\end{figure}
-
-$$
+\begin{equation*}
     p(r) = \begin{cases}
         \frac{2}{b}(r-a)e^{-{r-a}\frac{2}{b}}, & r \ge a \\
         0,                                     & r<a
     \end{cases}
-$$
+    \qquad
+    \begin{gathered}
+        \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/raley.png}
+    \end{gathered}
+\end{equation*}
 
 dove il valor medio e la deviazione standard sono dati da:
 
@@ -1358,19 +1346,16 @@ fenomeni di rumori tipici di alcuni sensori di range.
 
 Distribuzione del \textbf{rumore gamma}:
 
-$$
+\begin{equation*}
     p(r) = \begin{cases}
         \frac{a^b r^{b-1}}{(b-1)!}e^-{ar}, & r \ge a \\
         0,                                 & r<a
     \end{cases}
-$$
-
-\TODO[inline]{Allineare foto alla formula!}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/gamma.png}
-\end{figure}
+    \qquad
+    \begin{gathered}
+        \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/gamma.png}
+    \end{gathered}
+\end{equation*}
 
 dove $a > 0$, $b$ è un intero positivo e il valor medio e la deviazione standard sono dati da:
 
@@ -1390,21 +1375,21 @@ Questo rumore è presente nelle immagini laser.
 
 Distribuzione del \textbf{rumore Esponenziale}:
 
-$$
+\begin{equation*}
     p(r) = \begin{cases}
         ae^{-ar}, & r \ge a \\
         0,        & r<0
     \end{cases}
-$$
+    \qquad
+    \begin{gathered}
+        \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/esponenziale.png}
+    \end{gathered}
+\end{equation*}
+
 dove $a > 0$, b e il valor medio e la deviazione standard sono dati da:
-\TODO[inline]{Allinare foto a formula!}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=4cm, keepaspectratio]{capitoli/immagini/imgs/esponenziale.png}
-\end{figure}
 
 $$
-    \mu = \frac{1}{a} \ \sigma = \frac{1}{a}
+    \mu = \frac{1}{a} \ \ \sigma = \frac{1}{a}
 $$
 
 Questo rumore è un caso particolare del rumore di Gamma con $b = 1$.
@@ -1475,10 +1460,14 @@ I filtri maggiormente utilizzati per la rimozione del rumore sono i cosiddetti
 Il filtro medio sostituisce il valore di ogni pixel prefissato con il
 valor medio dei pixel in un suo intorno di dimensioni fissate.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/filtro-medio.png}
-\end{figure}
+\[
+    \frac{1}{mn} \times
+    \begin{bmatrix}
+        1      & \ldots & 1      \\
+        \vdots & \ddots & \vdots \\
+        1      & \ldots & 1
+    \end{bmatrix}
+\]
 
 Il \textbf{filtro medio} è molto utilizzato ad esempio per correggere il
 \textbf{rumore gaussiano.}
@@ -1501,11 +1490,14 @@ intorno di dimensioni fissate.
 Il filtro gaussiano: sostituisce al valore di ogni pixel prefissato la
 media pesata dei valori dei pixel in un suo intorno. I pesi sono distribuiti secondo una funzione gaussiana.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=5cm, keepaspectratio]{capitoli/immagini/imgs/filtro-gaussiano.png}
-\end{figure}
-
+\[
+    \frac{1}{16} \times
+    \begin{bmatrix}
+        1 & 2 & 1 \\
+        2 & 4 & 2 \\
+        1 & 2 & 1
+    \end{bmatrix}
+\]
 
 \begin{figure}[H]
     \centering
@@ -1589,7 +1581,7 @@ rappresenta l'intensità associata a ogni pixel $(x,y)$, le derivate possono
 essere espresse come differenze finite:
 
 \begin{center}
-    $\frac{\partial{f}}{\partial{x}}(x,y) \sim f(x+1, y) - f(x, y)$, $\frac{\partial{f}}{\partial{y}} \sim f(x,y+1) - f(x,y)$
+    $\frac{\partial{f}}{\partial{x}}(x,y) \sim f(x+1, y) - f(x, y)$, $\frac{\partial{f}}{\partial{y}}(x,y) \sim f(x,y+1) - f(x,y)$
     \\
     $\frac{\partial{f^2}}{\partial{x^2}}(x,y) \sim f(x+1,y) + f(x-1, y) - 2f(x,y)$
     \\
@@ -1648,14 +1640,14 @@ Maschere:
 
 \subsection{Filtro di Sobel}
 Un'altra approssimazione discreta del gradiente è data da:
-\TODO[inline]{Sistemare formula}
-$$
-    \nabla f(x,y) \sim \frac{\partial{f}}{\partial{x}} + \frac{\partial{f}}{\partial{y}}
-    \\\sim  |[f(x+1,y-1) + 2f(x+1,y) + f(x+1 y+1)]+
-    \\- |[f(x-1, y-1)+2f(x-1,y) + f(x-1, y+1)]|+
-    \\ + |[f(x-1, y+1) + 2f(x,y+1)+f(x+1,y+1)]+
-    \\- [f(x-1,y -1) + 2f(x,y-1) + f(x+1,y-1)]|
-$$
+
+\begin{align*}
+    \nabla f(x,y) & \sim \frac{\partial{f}}{\partial{x}} + \frac{\partial{f}}{\partial{y}} \sim \\
+                  & \sim  |[f(x+1,y-1) + 2f(x+1,y) + f(x+1 y+1)]  \ +                           \\
+                  & - |[f(x-1, y-1)+2f(x-1,y) + f(x-1, y+1)]|     \ +                           \\
+                  & + |[f(x-1, y+1) + 2f(x,y+1)+f(x+1,y+1)]       \ +                           \\
+                  & - [f(x-1,y -1) + 2f(x,y-1) + f(x+1,y-1)]|
+\end{align*}
 
 Maschere:
 
@@ -1711,10 +1703,10 @@ che in questo caso sono:
 \subsection{Filtro di Roberts}
 Si ottiene mediante la seguente approssimazione del gradiente:
 
-\begin{center}
-    $|\nabla f(x,y)| \sim |\frac{\partial{f}}{\partial{x}}| + |\frac{\partial{f}}{\partial{y}}|$
-    \\ $\sim |f(x,y) - f(x+1, y+1)| + |f(x+1, y) - f(x,y+1)|$
-\end{center}
+\begin{align*}
+    |\nabla f(x,y)| & \sim |\frac{\partial{f}}{\partial{x}}| + |\frac{\partial{f}}{\partial{y}}| \sim \\
+                    & \sim |f(x,y) - f(x+1, y+1)| + |f(x+1, y) - f(x,y+1)|
+\end{align*}
 
 Calcola il gradiente lungo le direzioni diagonali.
 \\\\
@@ -1745,11 +1737,13 @@ Maschere:
 
 Operatore Laplaciano:
 
-\begin{center}
-    $\nabla^2 f = \frac{\partial^2{f}}{\partial{x^2}} + \frac{\partial^2{f}}{\partial{y^2}}$
-    \\$\sim f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)$
-\end{center}
+\begin{align*}
+    \nabla^2 f & = \frac{\partial^2{f}}{\partial{x^2}} + \frac{\partial^2{f}}{\partial{y^2}} \sim \\
+               & \sim f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)
+\end{align*}
+
 Maschera:
+
 \begin{center}
     \[
         \begin{bmatrix}
@@ -1784,13 +1778,13 @@ oppure, tenendo conto delle direzioni diagonali:
 Sfrutta la proprietà di attraversamento dello zero della derivata seconda nelle varie direzioni, coordinate e diagonali, che ha come effetto quello di evidenziare direzionalmente i bordi di un'immagine lungo di esse.
 \\Dalle approssimazioni:
 
-\begin{center}
-    $\frac{\partial^2{f}}{\partial{x}^2}(x,y) \sim f(x+1,y)+f(x-1,y)-2f(x,y),$
-    \\$\frac{\partial^2{f}}{\partial{y}^2}(x,y) \sim f(x,y+1)+f(x,y-1)-2f(x,y)$
-\end{center}
+\begin{align*}
+    \frac{\partial^2{f}}{\partial{x}^2}(x,y) & \sim f(x+1,y)+f(x-1,y)-2f(x,y),                                \\
+    \frac{\partial^2{f}}{\partial{y}^2}(x,y) & \sim f(x,y+1)+f(x,y-1)-2f(x,y),                                \\
+    \frac{\partial^2{f}}{\partial{x,y}}(x,y) & \sim \frac{1}{4}[f(x-1,y-1)-f(x-1,y+1)-f(x+1,y-1)+f(x+1, y+1)]
+\end{align*}
 
-$\frac{\partial^2{f}}{\partial{x,y}}(x,y) \sim \frac{1}{4}[f(x-1,y-1)-f(x-1,y+1)-f(x+1,y-1)+f(x+1, y+1)]$
-\\\\Si ottengono le maschere:
+Si ottengono le maschere:
 \begin{center}
     \[
         \begin{bmatrix}
