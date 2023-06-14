@@ -1124,82 +1124,80 @@ Qualora le caratteristiche della distribuzione dei toni di grigio nell'immagine 
 all'istogramma opportune trasformazioni, basate su sistemi stocastici.
 \\Tra queste:
 
-\begin{itemize}
-    \item \textbf{Equalizzazione dell'istogramma}
+\paragraph{Equalizzazione dell'istogramma}
 
-          \begin{definition}
-              Ha lo scopo di uniformare l'istogramma dell'immagine lungo tutto
-              il suo dominio.
-          \end{definition}
-          Il risultato è un nuovo istogramma in cui il numero di pixel ad ogni
-          tono di grigio è il più possibile costante. \\\\
-          \textbf{Algoritmo:}
+\begin{definition}
+    Ha lo scopo di uniformare l'istogramma dell'immagine lungo tutto
+    il suo dominio.
+\end{definition}
+Il risultato è un nuovo istogramma in cui il numero di pixel ad ogni
+tono di grigio è il più possibile costante. \\\\
+\textbf{Algoritmo:}
 
-          $$
-              T(r_k) = (L-1)\sum_{j=0}^{k}p(r_j)=\frac{L-1}{n} \sum_{j=0}^{k}n_j = \frac{L-1}{MN}\sum_{j=0}^{k}n_j
-          $$
+$$
+    T(r_k) = (L-1)\sum_{j=0}^{k}p(r_j)=\frac{L-1}{n} \sum_{j=0}^{k}n_j = \frac{L-1}{MN}\sum_{j=0}^{k}n_j
+$$
 
-          con $k=0,...,L-1$.
-          \\\\
-          \textbf{Il risultato} è l'aumento del contrasto.
+con $k=0,...,L-1$.
+\\\\
+\textbf{Il risultato} è l'aumento del contrasto.
 
-          \begin{figure}[H]
-              \centering
-              \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/eq-istogramma.png}
-              \caption{L'immagine mostra il risultato dell'equalizzazione dell'istogramma.}
-          \end{figure}
-    \item \textbf{Shift dell'istogramma}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/eq-istogramma.png}
+    \caption{L'immagine mostra il risultato dell'equalizzazione dell'istogramma.}
+\end{figure}
+\paragraph{Shift dell'istogramma}
 
-          \begin{definition}
-              Lo Shift dell'istogramma consiste nel traslare i valori dell’istogramma.
-          \end{definition}
-          \textbf{Algoritmo:}
+\begin{definition}
+    Lo Shift dell'istogramma consiste nel traslare i valori dell’istogramma.
+\end{definition}
+\textbf{Algoritmo:}
 
-          \begin{center}
-              $T(r) = \alpha r$  $ \ \ \ \  0 < \alpha < 1$
-              \\
-              $T(r) = \alpha r + (L-1)(1-\alpha)$ $\ \ \ \ 0<\alpha<1$
-          \end{center}
+\begin{center}
+    $T(r) = \alpha r$  $ \ \ \ \  0 < \alpha < 1$
+    \\
+    $T(r) = \alpha r + (L-1)(1-\alpha)$ $\ \ \ \ 0<\alpha<1$
+\end{center}
 
-          Andrò quindi a shiftare verso sinistra o verso destra l'istogramma schiarendo o scurendo la mia immagine.
-          \\\\
-          Il \textbf{risultato} è un immagine più scura o schiarita.
+Andrò quindi a shiftare verso sinistra o verso destra l'istogramma schiarendo o scurendo la mia immagine.
+\\\\
+Il \textbf{risultato} è un immagine più scura o schiarita.
 
-          \begin{figure}[H]
-              \centering
-              \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/shift-isto.png}
-              \caption{L'immagine mostra il risultato dello Shift dell'isogramma.}
-          \end{figure}
-    \item \textbf{Stretching dell'istogramma}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/shift-isto.png}
+    \caption{L'immagine mostra il risultato dello Shift dell'isogramma.}
+\end{figure}
 
-          \begin{definition}
-              Lo Stretching dell'istogramma consiste in uno $stiramento$ dell'istogramma, in modo da distanziarne i picchi.
-          \end{definition}
+\paragraph{Stretching dell'istogramma}
 
-          Si usa quando l'istogramma presenta dei picchi abbastanza ravvicinati, provocando un'immagine
-          piuttosto uniforme.
-          \\\\
-          \textbf{Algoritmo:}
-          \TODO[inline]{Ricontrollare formula !}
-          $$
-              T(r) = \left\{
-              \begin{array}{l}
-                  0                                         \ \le r \le r_{min}         \\
-                  (r - r_{min}) \frac{L-1}{r_{max}-r_{min}} \ r_{min} \le r \le r_{max} \\
-                  L-1                                       \ r_{max} \le r \le L-1
-              \end{array} \right.
-          $$
+\begin{definition}
+    Lo Stretching dell'istogramma consiste in uno $stiramento$ dell'istogramma, in modo da distanziarne i picchi.
+\end{definition}
 
-          dove $[r_{min}, r_{max} ]$ è il range osservato nell'immagine originale,
-          individuato dal minimo e dal massimo livello di grigio che presenta l'immagine.
-          \\Il risultato è \textbf{l'aumento di contrasto}
+Si usa quando l'istogramma presenta dei picchi abbastanza ravvicinati, provocando un'immagine
+piuttosto uniforme.
+\\\\
+\textbf{Algoritmo:}
 
-          \begin{figure}[H]
-              \centering
-              \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/stretch-isto.png}
-          \end{figure}
-\end{itemize}
+$$
+    T(r) =
+    \begin{cases}
+        0,                                         & 0 \le r \le r_{min}       \\
+        (r - r_{min}) \frac{L-1}{r_{max}-r_{min}}, & r_{min} \le r \le r_{max} \\
+        L-1,                                       & r_{max} \le r \le L-1
+    \end{cases}
+$$
 
+dove $[r_{min}, r_{max} ]$ è il range osservato nell'immagine originale,
+individuato dal minimo e dal massimo livello di grigio che presenta l'immagine.
+\\Il risultato è \textbf{l'aumento di contrasto}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/stretch-isto.png}
+\end{figure}
 
 \section{Il rumore}
 
