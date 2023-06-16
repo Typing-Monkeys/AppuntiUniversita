@@ -1,0 +1,75 @@
+Premessa:
+	- Ambiente di lavoro Windows con editor TeXstudio e distribuzione LaTex MiKTeX 
+	- Tecnicamente MiKTeX, dopo aver installato LuaTex, dovrebbe avere già al proprio interno tutto ciò che serve per poter
+	  modificare il file LaTex in questione ma a me ha dato problemi e questa è la procedura per risolverli... Voi magari fate una prova di compilazione subito dopo aver installato LuaTex che magari vi va di lusso
+
+
+1) Scarica LuaTex da qua:
+		
+		https://distribution.contextgarden.net/setup/
+
+2) Estrai i file in una cartella a tuo piacere. Nel mio caso io ho creato:
+
+		C:\Portable\LuaTeX\
+
+3) Da powershell eseguire il file batch nella cartella "context" con il flag --platform=all
+   
+   		.\first-setup.bat --platform=all
+
+
+4) Scarica questo repository GitHub nella stessa cartella "LuaTeX" creata prima ( C:\Portable\LuaTeX\ ):
+
+		https://github.com/latex3/fontspec
+
+5) Estrai la repo così da ottenere il path:
+
+		C:\Portable\LuaTeX\fontspec-develop\
+
+6) Modifica il file "C:\Portable\LuaTeX\context-setup-win64\context\tex\texmf\web2c\texmf.cnf" inserendo a riga 49, 
+   dopo "OSFONTDIR = " il path della directory appena salvata da github, così da ottenere:
+
+   		OSFONTDIR = C:\Portable\LuaTeX\fontspec-develop\
+
+7) Scaricati dove vuoi la directory GitHub che contiene il file LaTex da modificare (nel mio caso Santini):
+
+		https://github.com/Typing-Monkeys/AppuntiUniversita/tree/master/magistrale/Anno%201/Cybersecurity/latex/santini
+
+8) Estraila. Nel mio caso io avrò:
+
+		C:\Users\path\to\file\Typing-Monkeys-Latex-Santini
+
+9) In questa directory crea la cartella "fonts":
+
+		C:\Users\path\to\file\Typing-Monkeys-Latex-Santini\fonts
+
+10) Scarica il font che ci serve ("NotoColorEmoji.ttf") da questo repository GitHub:
+
+		https://github.com/googlefonts/noto-emoji/tree/main/fonts
+
+	e salvala nella cartella fonts appena creata così da ottenere:
+
+		C:\Users\path\to\file\Typing-Monkeys-Latex-Santini\fonts\NotoColorEmoji.ttf
+
+11) Per modificare e compilare il file "main.tex" io uso l'editor "TeXstudio" e in questo caso dobbiamo modificare alcuni
+    parametri per compilare correttamente. In particolare dobbiamo:
+
+    1) Aprire il file "main.tex" con "TeXstudio"
+    2) Aprire il menù "Opzioni > Configura TeXstudio... > Comandi"
+    3) Scrolla in basso fino a trovare "latexmk"
+    4) Modifica quella voce con: 
+
+    		latexmk.exe -lualatex -silent -synctex=1 %  
+
+       Per più dettagli su questo passaggio guarda qua: 
+
+       		https://tex.stackexchange.com/questions/351711/texstudio-with-lualatex-and-latexmk-is-this-possible
+
+    5) Apri il menù "Compila" (sotto al menù "Comandi")
+    6) Modifica il "Compilatore predefinito" in "Latexmk"
+    7) Salva le modifiche cliccando su "Ok"
+    8) Vai sul file "main.tex" e cercca la riga "\setemojifont{NotoColorEmoji.ttf}[Path=fonts/]"
+    9) Se serve modifica il "Path" che vedi verso la cartella in cui hai salvato il font "NotoColorEmoji.ttf" 
+    10) Clicca su "Compila e visualizza"
+    11) Conferma il download di tutti i package che ti richiede
+
+    12) Prega che funzioni sennò non so che ditte
