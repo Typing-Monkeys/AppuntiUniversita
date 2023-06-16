@@ -690,73 +690,6 @@ $p, q, z$
     \item Distanza $D_8$, o a scacchiera: $D_s(p,q) = max\{|x_1 - x_2|, |y_1 - y_2|\}$
 \end{itemize}
 
-\section{Zoom e Shrink}
-\TODO[inline]{Questa parte dovrebbe far parte del Chapter Elaborazione Immagini
-    ed essere messa con le elaborazioni locali}
-\subsection{ZOOM}
-
-Si crea una nuova griglia, ovvero delle nuove "locazioni" per i pixel,
-sovrapponendola a quella originale; si assegnano poi i livelli di grigio a
-queste nuove locazioni.
-
-\begin{itemize}
-    \item \textbf{Nearest Neighbor:} assegna ad ogni nuova locazione l'intensità
-          del pixel più vicino dell'immagine originale
-
-    \item \textbf{Interpolazione bilineare:} prevede l'utilizzo dei quattro
-          pixel più vicini per stimare l'intensità da assegnare ad ogni nuova
-          locazione
-
-          \begin{figure}[H]
-              \centering
-              \includegraphics[width=3cm, keepaspectratio]{capitoli/immagini/imgs/esempio-interpolazione.png}
-          \end{figure}
-
-          $$
-              f(x,y)=ax+by+cxy+d
-          $$
-
-          dove i coefficienti $a, b, c, d$ sono determinati dal seguente sistema
-          lineare di 4 equazioni in 4 incognite:
-
-          $$
-              \left\{\begin{array}{l}
-                  f\left(x_0, y_0\right)=a x_0+b y_0+c x_0 y_0+d \\
-                  f\left(x_0, y_1\right)=a x_0+b y_1+c x_0 y_1+d \\
-                  f\left(x_1, y_0\right)=a x_1+b y_0+c x_1 y_0+d \\
-                  f\left(x_1, y_1\right)=a x_1+b y_1+c x_1 y_1+d
-              \end{array}\right.
-          $$
-
-          \begin{figure}[H]
-              \centering
-              \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/calcolo_bilineare.png}
-              \caption{Esempio di svolgimento di uno zoom con interpolazione bilineare.}
-          \end{figure}
-
-    \item \textbf{Interpolazione bicubica:} prevede l'utilizzo dei sedici pixel
-          più vicini per stimare l'intensità da assegnare ad ogni nuova
-          locazione.
-
-          \begin{figure}[H]
-              \centering
-              \includegraphics[width=3cm, keepaspectratio]{capitoli/immagini/imgs/interpolazione-bicubica.png}
-          \end{figure}
-
-\end{itemize}
-
-
-\subsection{SHRINK}
-
-Lo stesso procedimento dello zoom, con una griglia immaginaria di dimensioni inferiori all'originale.
-Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di righe e colonne.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/calcolo_shrink.png}
-    \caption{Esempio di svolgimento di uno shrink.}
-\end{figure}
-
 \chapter{Elaborazione con Filtri}
 
 L'elaborazione delle immagini è una disciplina che prevede l'utilizzo
@@ -814,6 +747,72 @@ in particolare, fra: \textbf{elaborazioni puntuali}, \textbf{locali} e \textbf{g
     Le elaborazioni \textbf{globali} trasformano il valore di un pixel sulla
     base dei valori assunti da tutti i pixel dell'immagine.
 \end{definition}
+
+\section{Elaborazioni Locali}
+
+\subsection{Zoom}
+
+Si crea una nuova griglia, ovvero delle nuove "locazioni" per i pixel,
+sovrapponendola a quella originale; si assegnano poi i livelli di grigio a
+queste nuove locazioni.
+
+\begin{itemize}
+    \item \textbf{Nearest Neighbor:} assegna ad ogni nuova locazione l'intensità
+          del pixel più vicino dell'immagine originale
+
+    \item \textbf{Interpolazione bilineare:} prevede l'utilizzo dei quattro
+          pixel più vicini per stimare l'intensità da assegnare ad ogni nuova
+          locazione
+
+          \begin{figure}[H]
+              \centering
+              \includegraphics[width=3cm, keepaspectratio]{capitoli/immagini/imgs/esempio-interpolazione.png}
+          \end{figure}
+
+          $$
+              f(x,y)=ax+by+cxy+d
+          $$
+
+          dove i coefficienti $a, b, c, d$ sono determinati dal seguente sistema
+          lineare di 4 equazioni in 4 incognite:
+
+          $$
+              \left\{\begin{array}{l}
+                  f\left(x_0, y_0\right)=a x_0+b y_0+c x_0 y_0+d \\
+                  f\left(x_0, y_1\right)=a x_0+b y_1+c x_0 y_1+d \\
+                  f\left(x_1, y_0\right)=a x_1+b y_0+c x_1 y_0+d \\
+                  f\left(x_1, y_1\right)=a x_1+b y_1+c x_1 y_1+d
+              \end{array}\right.
+          $$
+
+          \begin{figure}[H]
+              \centering
+              \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/calcolo_bilineare.png}
+              \caption{Esempio di svolgimento di uno zoom con interpolazione bilineare.}
+          \end{figure}
+
+    \item \textbf{Interpolazione bicubica:} prevede l'utilizzo dei sedici pixel
+          più vicini per stimare l'intensità da assegnare ad ogni nuova
+          locazione.
+
+          \begin{figure}[H]
+              \centering
+              \includegraphics[width=3cm, keepaspectratio]{capitoli/immagini/imgs/interpolazione-bicubica.png}
+          \end{figure}
+
+\end{itemize}
+
+
+\subsection{Shrink}
+
+Lo stesso procedimento dello zoom, con una griglia immaginaria di dimensioni inferiori all'originale.
+Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di righe e colonne.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/calcolo_shrink.png}
+    \caption{Esempio di svolgimento di uno shrink.}
+\end{figure}
 
 \section{Elaborazioni Puntuali}
 
@@ -2540,6 +2539,307 @@ Una classificazione dei metodi di registratura si basa su nove criteri:
     \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/tipi-trasformazione.png}
 \end{figure}
 
+\chapter{Tomografia Computerizzata}
+
+La \textbf{Tomografia Computerizzata (TC)} è una tecnica radiologica, non
+invasiva, che fornisce una serie di immagini in sezione del corpo
+consentendo di distinguere i vari organi e tessuti in base alla loro
+densita. Effettua una misurazione dell'attenuazione di un fascio di raggi X
+fatto ruotare in diverse traiettorie attraverso lo strato corporeo in studio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/tc1.png}
+\end{figure}
+
+I raggi X vengono generati dal \textbf{Tubo Radiogeno}, un tubo di vetro al
+cui interno c'è il vuoto. È
+formato da \textit{catodo} che emette elettroni
+per effetto termoionico, e \textit{anodo}, un disco di
+tungsteno ruotante. Gli elettroni vengono accelerati e, impattando
+contro il disco di tungsteno, subiscono una brusca decelerazione: in
+questo passaggio si producono fotoni ad elevata frequenza (\textbf{raggi
+    X}), la cui energia dipenda dalla differenza di potenziale fra anodo e
+catodo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/tubo.png}
+\end{figure}
+
+\section{Processo di formazione dell'immagine}
+
+L'immagine del corpo del paziente viene creata misurando
+l'attenuazione $\mu$ di un fascio di raggi X che lo attraversa. Questa
+varia in modo proporzionale alla densità elettronica dei tessuti.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/ossascala.png}
+    \caption{Esempio di diverse densità elettroniche degli organi.}
+\end{figure}
+
+La scala di questi valori è detta \textit{Scala di Hounsfield}.
+Questa scala comprende più di mille valori e quindi va normalizzata per
+essere rappresentata in un'immagine a scala di grigi (valori da 0 a 255).
+L'unità di Hounsfiled per il singolo tessuto è calcolata come segue:
+
+$$
+    HU(\mu) = 1000 \times \frac{\mu - \mu_{acqua}}{\mu_{acqua} - \mu_{aria}}
+$$
+
+dove $\mu$ è il coefficiente di attenuazione del tessuto di cui si vuole calcolare il valore,
+$\mu_{acqua}$ è il coefficiente di attenuazione dell'acqua (0) e $\mu_{aria}$ è
+quello dell'aria (-1000).\\
+
+Per convenzione i valori che può assumere variano da $-1000$ fino a $3071$. Vengono
+visualizzati con appositi formati a 12 bit. Per essere visualizzabili in formato
+immagine standard, è necessario effettuare un'operazione di \textbf{Windowing} prendendo in
+considerazione solo una parte della scala di Hounsfield.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/hunsfield.png}
+\end{figure}
+
+\subsection{Assorbimento e Scattering}
+
+Durante l'attraversamento dei tessuti, i raggi X, subiscono questi due fenomeni:
+
+\begin{itemize}
+    \item \textit{Assorbimento:} il fotone del raggio X incide con gli elettroni
+          all'interno dei tessuti e viene parzialmente assorbito (attenuato).
+          Questo fenomeno dipende dalla densità elettronica del tessuto.
+    \item  \textit{Scattering:} il fotone del raggio X incidente trasferisce parte della
+          sua energia all'elettrone e di conseguenza la sua traiettoria viene deviata.
+\end{itemize}
+
+Il primo fenomeno ci permette di andare a costruire le immagini tomografiche,
+mentre il secondo è un fenomeno indesiderato che va eliminato, e per farlo si
+usano dei collimatori centrati sul punto focale dei raggi X.
+
+\subsection{Trasformata di Radon}
+
+Per ricostruire l'immagine tomografica completa si può sfruttare la teoria
+sviluppata da Radon, la quale afferma che:
+
+\begin{definition}
+    Un oggetto a due o tre dimensioni, può essere ricostruito mediante la serie
+    di tutte le sue proiezioni (nel nostro caso 4).
+\end{definition}
+
+Essendo che il gantry \TODO[]{descrivere cos'è il gantry!} gira vogliamo convertire le coordinate del sistema
+di riferimento del gantry a quelle di un immagine, quindi definiamo la seguente
+trasformazione:
+
+$$
+    \begin{cases}
+        x = r \cos \theta - s \sin \theta \\
+        y = r \sin \theta + s \cos \theta
+    \end{cases}
+$$
+
+dove:
+\begin{itemize}
+    \item $\theta$ è l'angolo che il fascio forma con l'asse delle $y$,
+    \item $s$ e $r$ sono le coordinate del sistema di riferimento del gantry.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/gantryref.png}
+    \caption{Dall'immagine si vede chiaramente come le coordinate s-r grazie a $\theta$ vengono convertite in x-y.}
+\end{figure}
+
+Per calcolarci il coefficiente di attenuazione, partimo dalla misura dell'intensità
+che è definita come:
+
+$$
+    I_\theta(r) = I_0 e^{-\int_{L_{r,\theta}} \mu(x,y) ds}
+$$
+
+dove $I_0$ è l'intensità all'ingresso del corpo e $\mu$ è il coefficiente di assorbimento lineare.\\
+
+Dopo aver sostituito con le opportune trasformazioni definite sopra $x$ e $y$ ed aver
+trascurato l'energia $E$ (si presuppone che il fascio sia monocromatico), possiamo
+ottenerci il profilo di attenuazione che è definito come segue:
+
+$$
+    p_\theta(r) = -\ln \frac{I_\theta(r)}{I_0} = \int_{L_{r, \theta}} \mu(r \cos \theta - s \sin \theta, r \sin \theta + s \cos \theta) ds
+$$
+
+Quindi, $p_\theta(r)$ rappresenta la proeizione di $\mu(x,y)$ nella direzione
+dell'angolo $\theta$. Per esprimere questa proiezione in funzione della variazione
+dell'angolo, andremo a definire il suo \textbf{sinogramma} che matematicamente si
+ottiene utilizzando la trasformata di Radon:
+
+$$
+    p(r, \theta) = \Re \{ f(x,y) \} = \int_{- \infty}^{+ \infty} f(r \cos \theta - s \sin \theta, r \sin \theta + s \cos \theta) ds
+$$
+
+Dato che noi partiamo dal sinogramma vogliamo essere in grado di ricostruirci la
+funzione $f(x,y)$ dunque definiamo la procedura di \textbf{Retroproiezione}:
+
+$$
+    b(x,y) = \mathfrak{B} \{p(r, \theta)\} = \int_{0}^{\pi} p(x \cos \theta + y \sin \theta, \theta) d\theta
+$$
+
+Questo valore risulta essere continuo e quindi andrà discretizzato. Dunque è necessaria
+un'interpolazione. Si usano due trasformate di Fourier, una unidimensionale e una bidimensionale espresse in
+coordinate polari.
+
+\section{Mezzo di contrasto}
+
+A volte abbiamo la necessità di dover osservare alcuni organi o tessuti che non
+risultano essere visibili tramite i raggi X. Possiamo risolvere questo problema iniettando
+nel paziente un \textbf{Mezzo di Contrasto}. Questo, generalmente iodio o bario,
+serve proprio per rendere radiopachi i vasi sanguigni e altri tessuti che altrimenti
+risulterebbero essere invisibili alla Tomografica Computerizzata.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/angiografia.png}
+\end{figure}
+
+\chapter{Termocamera}
+
+La Termografia è una tecnica di analisi non invasiva che si basa
+sull'acquisizione di immagini nell'infrarosso (IR). La termocamera IR è un
+dispositivo che rileva l'energia termica emessa da un qualsiasi corpo.
+Il suo funzionamento si basa sull'idea che tutti i corpi (solidi, liquidi, gas)
+con una temperatura superiore a $-273,15$ C°, emettono energia termica sotto
+forma di radiazione elettromagnetica (radiazione termica).
+
+\section{Radiazione Incidente}
+
+Quando l'energia termica, chiamata “incidente” ($W_{inc}$) colpisce la
+superficie del soggetto posso verificarsi 3 situazioni:
+
+\begin{itemize}
+    \item Una parte $W_\alpha$ viene \textit{assorbita} trasmettendo energia all'oggetto,
+    \item Una parte $W_\tau$ viene \textit{trasmessa} attraversando l'oggetto,
+    \item Una parte $W_\rho$ viene \textit{riflessa}.
+\end{itemize}
+
+Vale quindi la seguente:
+
+$$
+    W_\alpha + W_\tau + W_\rho = W_{inc}
+$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/termocamera.png}
+\end{figure}
+
+Ad ognuna di queste componenti è associato un parametro che corrisponde al
+rapporto tra l'energia termica del parametro in questione fratto quella incidente.
+Dunque abbaimo:
+
+\begin{itemize}
+    \item \textbf{L'assorbività:} $\alpha = \frac{W_\alpha}{W_{inc}}$ e indica la
+          capacità del corpo di assorbire calore,
+    \item \textbf{La riflessività:} $\rho = \frac{W_\rho}{W_{inc}}$ e indica la capacità
+          del corpo di riflettere calore,
+    \item \textbf{La trasmittività:} $\tau = \frac{W_\tau}{W_{inc}}$ e indica
+          la capacità del corpo di trasmettere calore.
+\end{itemize}
+
+Quindi vale la seguente relazione:
+
+$$
+    \alpha + \rho + \tau = 1
+$$
+
+\section{Tipi di Copri}
+
+In fisica esistono vari tipi di corpi ideali:
+
+\begin{itemize}
+    \item \textbf{Corpi neri:} sono materiali per cui $\alpha = 1$ e quindi assorbono
+          tutta l'energia incidente.
+    \item \textbf{Corpi trasparenti:} sono quelli per cui $\tau = 1$ e quindi non sono
+          rilevabili dalla termocamera.
+    \item \textbf{Copri completamente riflettenti:} sono quelli per cui $\rho = 1$.
+    \item \textbf{Corpi opachi:} sono quelli per cui $\tau = 0$.
+    \item \textbf{Corpi grigi:} sono quelli che emettono per ogni lunghezza
+          d'onda, ad una temperatura uguale a quella del corpo nero,
+          una frazione costante dell'energia emessa dal corpo nero.
+\end{itemize}
+
+Ovviamente, tutti questi corpi nel mondo reale non esistono ma avremmo altri copri
+che presentano caratteristiche intermedie.
+
+\section{Emissività}
+
+L'energia emessa dai corpi reali può essere valutata introducendo
+una proprietà nota come emissività $\epsilon$, definita come rapporto fra
+l'energia emessa da una superficie e quella che, a parità di
+condizioni, viene emessa da un corpo nero.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/corpogrigio.png}
+\end{figure}
+
+L'emissività è compresa tra 0 e 1 ed è determinata principalmente dal materiale
+e dalla struttura superficiale.
+Dato che, quando si vanno a fare rilevazioni con la termocamera, la radiazione
+che fuoriesce da un corpo non è composta solo dall'emissività ma anche dalla radiazione
+riflessa, è importante inserire come parametro (specifico per ogni materiale) il corretto valore di emissività
+affinchè il ruore della radiazione ambientale e di quella riflessa venga ridotto il
+più possibile.\\
+
+I fattori che influiscono maggiormente sull'emissività di un corpo sono:
+
+\begin{itemize}
+    \item \textbf{Geometria dell'oggetto:} gli oggetti concavi e le pareti forate hanno
+          emissività maggiore.
+    \item \textbf{Angolo di vista:} più la termocamera è perpendicolare all'oggetto, più
+          alta sarà l'emissività
+    \item \textbf{Rugosità superficiale:} la texture superficiale dell'oggetto. Può rendere più
+          uniforme la radiazione dell'oggetto.
+    \item \textbf{Temperatura:} a parità di temperatura o a temperature molto vicine,
+          l'emissività e l'assorbività sono equivalenti.
+    \item \textbf{Lunghezza d'onda}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/temptemp.png}
+\end{figure}
+
+\section{Utilizzo della Termocamera}
+
+Per effettuare delle misurazioni con la termocamera è importante impstare o la
+temperatura dell'oggetto corretta o la giusta emissività. Per ricavarsi questi
+parametri si possono usare le seguenti tecniche:
+
+\begin{enumerate}
+    \item \textit{Misurazione della radiazione riflessa (temperatura):} si prende
+          un foglio di alluminio spiegazzato e nuovamente lisciato (ha un alto fattore di riflessione e
+          grazie all'accartocciamento la radiazione diffusa è quasi perfetta), si pone
+          sopra l'oggetto da misurare e si misura la temperatura impostando $\epsilon = 1$.
+          La termocamera calcolerà la temperatura della radiazione incidente che sarà
+          utilizzata come temperatura riflessa.
+    \item \textit{Misurazione dell'emissività:} si incolla un pezzo di nastro
+          isolante sull'oggetto da misurare, si aspetta che i due raggiungano l'equilbrio
+          termico, si misura poi la temperatura del nastro con valore di emissività
+          pari a $0,95$ (valore di emissività del nastro). Si punta poi la termocamera
+          sull'oggetto regolando l'emissività fino a quando non raggiunge la temperatura
+          di riferimento.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/termoesempio1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/termoesempio2.png}
+\end{figure}
+
 \chapter{Approfondimenti}
 In questo capitolo sono contenuti alcuni approfondimenti che possono essere ignorati in quando non necessari per sostenere l'esame.\\
 
@@ -2669,3 +2969,4 @@ Nel processo di compressione, l'immagine originale viene compressa
 attraverso un \textbf{coder}, il quale elimina in genere la ridondanza spaziale.
 I dati ottenuti vengono trasmessi poi ad un \textbf{decoder} che
 ricostruisce l'immagine di partenza, riaggiungendo alcuni dati ridondanti che risultano significativi.
+
