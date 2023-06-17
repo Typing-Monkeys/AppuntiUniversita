@@ -307,20 +307,28 @@ di ricostruzione grazie a campioni rilevati esclusivamente nel passato.
 
 \section{Sampling Kantorovich}
 
-Spesso per la modellizzazione di problemi fisici non si usano sempre funzioni continue
-o anche per mettere in evidenza i bordi nelle figure digitali in cui si hanno dei
-forti sbalzi di livelli di grigio, tutti questi fatti si traducono in discontinuità.
+Spesso per la modellizzazione di problemi fisici o anche per mettere in evidenza
+i bordi nelle figure digitali in cui si hanno dei forti sbalzi di livelli di
+grigio, non si usano sempre funzioni continue e quindi, tutti questi fatti si
+traducono in discontinuità.
 È necessario estendere la teoria definita precedentemente per poter farlo non
 considereremo più il valore della funzione $f$ nei punti $\frac{k}{W}$ ma i
 valori di $f$ in un intervallo vicino al punto. Questo ci porterà a ridefinire
 la serie del campionamento come segue:
 
 $$
-    (S_Wf)(x) = \sum_{k = - \infty}^{+ \infty} \{ W \int_{\frac{k}{W}}^{\frac{k+1}{W}} f(u) \ du \} \chi  (Wx-k)
+    (S_Wf)(x) = \sum_{k = - \infty}^{+ \infty} \left[ W \int_{\frac{k}{W}}^{\frac{k+1}{W}} f(u) \ du \right] \chi  (Wx-k)
 $$
 
 con $x \in \mathbb{R}$ e sotto opportune ipotesi sul nucleo $\chi$.
 Questi operatori prendono il nome di \textit{Operatori Sampling Kantorovich}.
 Visto che nel mondo reale si conoscono sempre più informazioni sull'intorno di
 un punto che sul punto stesso, questo porta ad avere migliori risultati, primo dei
-quali è quello della riduzione dell'errore di \textit{time-jitter}.
+quali è quello della riduzione dell'errore di \textit{time-jitter}.\\
+
+Questi operatori si possono usare anche per effettuare zoom o per la ricostruzione
+di immagini. Nell'ultimo caso, si utilizza l'algoritmo Sampling Kantorovitch con
+un nucleo di Jackson $J_3^2$ e si ottiene così un contenuto informativo più
+elevato. Questo algoritmo risulta essere migliore degli altri algoritmi di
+ricostruzione perchè ha una minor perdita di informazione ed ha un indice
+PSNR migliore.
