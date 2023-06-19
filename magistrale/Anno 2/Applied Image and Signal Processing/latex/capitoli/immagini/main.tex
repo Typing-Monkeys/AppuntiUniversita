@@ -11,11 +11,11 @@ variabili (spaziali) $x$ e $y$ sono valori reali che definiscono la posizione
 dei punti nell'immagine e $f(x,y)$ è in genere un valore reale che definisce
 l'intensità dell'immagine nel punto $(x,y)$.\\
 Ad ogni punto che andiamo a definire con le coordinare $(x,y)$ viene associata,
-a seconda del tipo dell'immagine, una tonalità di grigio o i livelli di intensità
-dei tre colori principali: Rosso, Verde e Blu.
+a seconda del tipo dell'immagine, una tonalità di grigio o i livelli di
+intensità dei tre colori principali: Rosso, Verde e Blu.
 
-Tutti i colori rappresentati dal calcolatore possono essere scomposti
-in combinazioni di 3 colori principali: \textbf{Rosso}, \textbf{Verde} e
+Tutti i colori rappresentati dal calcolatore possono essere scomposti in
+combinazioni di 3 colori principali: \textbf{Rosso}, \textbf{Verde} e
 \textbf{Blu} (\textbf{RGB}). Dove:
 
 $$
@@ -25,8 +25,8 @@ $$
 \paragraph{Note:}
 \begin{itemize}
     \item In natura i tutti i colori si ottengono a partire da \textbf{Rosso},
-          \textbf{Giallo} e \textbf{Blu} (\textbf{RYB}), ma al computer possiamo ottenere
-          un \textit{"giallo sintetico"} partendo dal Verde.
+          \textbf{Giallo} e \textbf{Blu} (\textbf{RYB}), ma al computer possiamo
+          ottenere un \textit{"giallo sintetico"} partendo dal Verde.
 \end{itemize}
 
 \section{Rappresentazione di un'immagine}
@@ -34,10 +34,10 @@ La funzione $f$ che rappresenta l'immagine può essere a valori in $\mathbb{R}$,
 in $\mathbb{R}^2$ o in $\mathbb{R}^3$, a seconda del tipo di immagine.
 
 \begin{itemize}
-    \item \textbf{Immagine in scala di grigi:} $f:\mathbb{R}^2 \rightarrow \mathbb{R}$ (funzione
-          scalare)
-    \item \textbf{Immagine a colori:} $f:\mathbb{R}^2 \rightarrow \mathbb{R}^3$ (funzione
-          vettoriale)
+    \item \textbf{Immagine in scala di grigi:} $f:\mathbb{R}^2 \rightarrow
+              \mathbb{R}$ (funzione scalare)
+    \item \textbf{Immagine a colori:} $f:\mathbb{R}^2 \rightarrow \mathbb{R}^3$
+          (funzione vettoriale)
 \end{itemize}
 
 Ovvero:
@@ -47,8 +47,8 @@ Ovvero:
 dove le componenti $f_i$, con $i = 1,2,3$ si dicono canali. \\\\Se vogliamo
 rappresentare una scena in movimento, ottenendo cioè un' \textbf{immagine
     dinamica}, è necessario introdurre una terza variabile, quella
-\textbf{temporale} ($t$), per cui si lavora con una funzione $f: \mathbb{R}^3 \rightarrow
-    \mathbb{R}^3$.
+\textbf{temporale} ($t$), per cui si lavora con una funzione $f: \mathbb{R}^3
+    \rightarrow \mathbb{R}^3$.
 
 $$
     f(x,y,t) = [f_1(x,y,t), f_2(x ,y,t), f_3(x,y,t)].
@@ -123,13 +123,11 @@ andamento \textbf{pulsante}.
 
 \TODO[inline]{Ricontrollare le seguenti rihe!}
 \begin{itemize}
-    \item Il segnale \textbf{non va mai letto}
-          quando $x$ cade nel nodo della funzione in quanto non si sarebbe in
-          grado di leggerlo.
-    \item Il segnale \textbf{va letto}
-          soltanto in $\frac{j}{w}$ ovvero la funzione campionante parallela ai
-          campioni.
-          \TODO[]{Ricontrollare questi 2 punti.}
+    \item Il segnale \textbf{non va mai letto} quando $x$ cade nel nodo della
+          funzione in quanto non si sarebbe in grado di leggerlo.
+    \item Il segnale \textbf{va letto} soltanto in $\frac{j}{w}$ ovvero la
+          funzione campionante parallela ai campioni. \TODO[]{Ricontrollare
+              questi 2 punti.}
 \end{itemize}
 
 \begin{figure}[H]
@@ -150,8 +148,8 @@ Per le immagini a toni di grigio si parla di \textbf{grey level quantization},
 mentre per le immagini a colori si parla di \textbf{color depth}, in riferimento
 al numero di bit utilizzati per ciascun canale di colore (8, 16, 24, 32 bit).
 \begin{itemize}
-    \item \textbf{Esempio 1:} Le immagini che siamo abituati a vedere tutti i giorni sui nostri cellulari
-          sono immagini a colori a 8bit.
+    \item \textbf{Esempio 1:} Le immagini che siamo abituati a vedere tutti i
+          giorni sui nostri cellulari sono immagini a colori a 8bit.
     \item \textbf{Esempio 2:} Nelle immagini mediche, di solito in formato
           \textbf{DICOM}, le immagini vengono rappresentate a 16bit ma gli
           ultimi 4 bit dell'immagine sono riservati ad informazioni personali
@@ -165,9 +163,10 @@ digitale come segue:
     immagine, detti anche pixel (pixel = picture elements). Dove
 
     \begin{itemize}
-        \item Il \textbf{pixel} costituisce la componente elementare della matrice,
-              dove gli indici di riga e colonna indicano i valori delle due
-              variabili spaziali, cioè la posizione di un punto nell'immagine.
+        \item Il \textbf{pixel} costituisce la componente elementare della
+              matrice, dove gli indici di riga e colonna indicano i valori delle
+              due variabili spaziali, cioè la posizione di un punto
+              nell'immagine.
         \item Ogni elemento della matrice contiene i valori che rappresentano
               l'intensità dei corrispondenti punti nell'immagine, anche detta
               \textbf{luminanza}.
@@ -192,7 +191,8 @@ importante assumere che lo spettro del segnale $f$ sia \textbf{a banda
 $$
     \hat{f}(\omega_x, \omega_y)=0 \text{ per } |\omega_x| > \bar{\omega}_x \text{ e } |\omega_y| > \bar{\omega}_y
 $$
-dove $\bar{\omega}_x$ e $\bar{\omega}_y$ definiscono la banda rettangolare dell'immagine.\\
+dove $\bar{\omega}_x$ e $\bar{\omega}_y$ definiscono la banda rettangolare
+dell'immagine.\\
 
 Così lo spettro dell'immagine campionata consiste nello spettro dell'immagine
 continua infinitamente ripetuta nel piano delle frequenze, in una griglia di
@@ -204,14 +204,13 @@ $$
 
 sono le \textbf{frequenze Sampling}.\\
 
-Per ricostruire esattamente un segnale
-campionato, la frequenza del campionamento non deve essere inferiore ad una
-\textbf{frequenza minima (ovvero frequenza sampling)}, che corrisponde ad un
-valore massimo per ciascuno degli intervalli $\Delta x$ , $\Delta y$.\\
+Per ricostruire esattamente un segnale campionato, la frequenza del
+campionamento non deve essere inferiore ad una \textbf{frequenza minima (ovvero
+    frequenza sampling)}, che corrisponde ad un valore massimo per ciascuno degli
+intervalli $\Delta x$ , $\Delta y$.\\
 
-Tale
-valore minimo deve essere almeno pari al doppio della banda massima di $f$ ,
-cioè:
+Tale valore minimo deve essere almeno pari al doppio della banda massima di $f$
+, cioè:
 
 \begin{equation}\label{eq:launo}
     \omega_{xc} \geq 2 \bar{\omega}_x \text{ e } \omega_{yc} \geq 2 \bar{\omega}_y
@@ -226,9 +225,9 @@ $$
 Se nella (\ref{eq:launo}) vale l'uguaglianza, allora si dice che l'immagine è
 \textbf{campionata alla sua frequenza di Nyquist.}\\
 
-Se $\Delta x$ e $\Delta y$ sono più piccoli del richiesto criterio di
-Nyquist, l'immagine risulta sovracampionata \textbf{(oversampling)}. Nel caso
-contrario, l'immagine non può essere ricostruita esattamente: si parla di
+Se $\Delta x$ e $\Delta y$ sono più piccoli del richiesto criterio di Nyquist,
+l'immagine risulta sovracampionata \textbf{(oversampling)}. Nel caso contrario,
+l'immagine non può essere ricostruita esattamente: si parla di
 sottocampionamento \textbf{(undersampling)} e si presenta un fenomeno di
 distorsione detto \textbf{aliasing.}
 
@@ -236,8 +235,8 @@ distorsione detto \textbf{aliasing.}
 \begin{itemize}
     \item il valore minimo è un valore puramente teorico. Nella pratica, non
           potendo in generale determinare con precisione la banda massima del
-          segnale, si utilizzano frequenze di campionamento più alte. Spesso
-          si campiona con una frequenza pari a 4 volte quella misurata.
+          segnale, si utilizzano frequenze di campionamento più alte. Spesso si
+          campiona con una frequenza pari a 4 volte quella misurata.
 \end{itemize}
 
 \begin{theorem}[Teorema del Campionamento per Immagini]
@@ -248,8 +247,8 @@ distorsione detto \textbf{aliasing.}
                   \hat{f}(\omega_x,\omega_y) = 0 \text{ per } | \omega_x | >
                   \bar{\omega}_x \text{ e } | \omega_y | > \bar{\omega}_y;
               $$
-        \item con $f$ uniformemente campionata in una
-              griglia rettangolare con intervalli spaziali $\Delta x$, $\Delta y$,
+        \item con $f$ uniformemente campionata in una griglia rettangolare con
+              intervalli spaziali $\Delta x$, $\Delta y$,
         \item che abbia l'ordine di campionamento più grande dell'ordine di
               Nyquist, cioè
               $$
@@ -257,10 +256,9 @@ distorsione detto \textbf{aliasing.}
               $$
     \end{itemize}
 
-    allora
-    la $f$ può essere ricostruita dai suoi valori campione $f(j \Delta x, k
-        \Delta y)$. Inoltre, l'immagine ricostruita è data dalla seguente formula di
-    interpolazione:
+    allora la $f$ può essere ricostruita dai suoi valori campione $f(j \Delta x,
+        k \Delta y)$. Inoltre, l'immagine ricostruita è data dalla seguente formula
+    di interpolazione:
 \end{theorem}
 
 $$
@@ -281,129 +279,228 @@ ricostruzione. L'effetto che si ottiene è chiamato aliasing.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-        %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+        %uncomment if require: \path (0,300); %set diagram left start at 0, and
+        %has height of 300
 
         %Shape: Axis 2D [id:dp6614397845308091] 
-        \draw  (204,230.75) -- (542.5,230.75)(306,82) -- (306,250.25) (535.5,225.75) -- (542.5,230.75) -- (535.5,235.75) (301,89) -- (306,82) -- (311,89)  ;
+        \draw  (204,230.75) -- (542.5,230.75)(306,82) -- (306,250.25)
+        (535.5,225.75) -- (542.5,230.75) -- (535.5,235.75) (301,89) -- (306,82)
+        -- (311,89)  ;
         %Straight Lines [id:da059819649685002974] 
         \draw    (424.6,225.95) -- (424.6,236.45) ;
         %Curve Lines [id:da1873728797992431] 
-        \draw    (269.8,230.2) .. controls (290.2,149.8) and (320.6,150.6) .. (339.4,231) ;
+        \draw    (269.8,230.2) .. controls (290.2,149.8) and (320.6,150.6) ..
+        (339.4,231) ;
         %Curve Lines [id:da5724817335486379] 
-        \draw    (329.4,229.8) .. controls (349.8,149.4) and (380.2,150.2) .. (399,230.6) ;
+        \draw    (329.4,229.8) .. controls (349.8,149.4) and (380.2,150.2) ..
+        (399,230.6) ;
         %Curve Lines [id:da36708092911214907] 
-        \draw    (388.2,230.6) .. controls (408.6,150.2) and (439,151) .. (457.8,231.4) ;
+        \draw    (388.2,230.6) .. controls (408.6,150.2) and (439,151) ..
+        (457.8,231.4) ;
         %Curve Lines [id:da8399376612652416] 
-        \draw    (211,229.8) .. controls (231.4,149.4) and (261.8,150.2) .. (280.6,230.6) ;
+        \draw    (211,229.8) .. controls (231.4,149.4) and (261.8,150.2) ..
+        (280.6,230.6) ;
         %Straight Lines [id:da03322400871511211] 
-        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (365,170.2) -- (364.8,230.35) ;
+        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (365,170.2) --
+        (364.8,230.35) ;
         %Straight Lines [id:da4711905178599287] 
-        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (424.6,171) -- (424.4,231.15) ;
+        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (424.6,171) --
+        (424.4,231.15) ;
         %Straight Lines [id:da6104769152801106] 
-        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (246.2,170.6) -- (246,230.75) ;
+        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (246.2,170.6) --
+        (246,230.75) ;
         %Straight Lines [id:da17157099933830633] 
         \draw    (364.8,225.15) -- (364.8,235.65) ;
         %Straight Lines [id:da303351675318031] 
         \draw    (246.2,224.75) -- (246.2,235.25) ;
         %Shape: Free Drawing [id:dp8099197566718934] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (275.67,216.17) .. controls (275.67,216.17) and (275.67,216.17) .. (275.67,216.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (275.67,216.17)
+        .. controls (275.67,216.17) and (275.67,216.17) .. (275.67,216.17) ;
         %Shape: Free Drawing [id:dp2110659887332691] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (275,218.17) .. controls (275,218.28) and (275,218.39) .. (275,218.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (275,218.17) ..
+        controls (275,218.28) and (275,218.39) .. (275,218.5) ;
         %Shape: Free Drawing [id:dp06278082285778552] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (275.33,218.83) .. controls (275.44,218.94) and (275.56,219.06) .. (275.67,219.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (275.33,218.83)
+        .. controls (275.44,218.94) and (275.56,219.06) .. (275.67,219.17) ;
         %Shape: Free Drawing [id:dp19051968150897824] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (275.33,219.17) .. controls (275.56,219.83) and (275.78,220.5) .. (276,221.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (275.33,219.17)
+        .. controls (275.56,219.83) and (275.78,220.5) .. (276,221.17) ;
         %Shape: Free Drawing [id:dp6214978798746364] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (275.67,219.83) .. controls (276.11,220.39) and (276.56,220.94) .. (277,221.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (275.67,219.83)
+        .. controls (276.11,220.39) and (276.56,220.94) .. (277,221.5) ;
         %Shape: Free Drawing [id:dp9117399273678792] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (277.33,221.5) .. controls (278.33,222.17) and (278.86,223.4) .. (279.33,224.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (277.33,221.5)
+        .. controls (278.33,222.17) and (278.86,223.4) .. (279.33,224.5) ;
         %Shape: Free Drawing [id:dp9439140035486251] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (277.33,223.17) .. controls (277.22,223.17) and (277.11,223.17) .. (277,223.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (277.33,223.17)
+        .. controls (277.22,223.17) and (277.11,223.17) .. (277,223.17) ;
         %Shape: Free Drawing [id:dp30388898253809615] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (275,221.83) .. controls (274.89,222.72) and (274.78,223.61) .. (274.67,224.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (275,221.83) ..
+        controls (274.89,222.72) and (274.78,223.61) .. (274.67,224.5) ;
         %Shape: Free Drawing [id:dp1381324474200707] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (275.67,223.17) .. controls (276.22,223.72) and (276.78,224.28) .. (277.33,224.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (275.67,223.17)
+        .. controls (276.22,223.72) and (276.78,224.28) .. (277.33,224.83) ;
         %Shape: Free Drawing [id:dp8005021491573696] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (277.67,225.5) .. controls (277.67,226.61) and (277.67,227.72) .. (277.67,228.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (277.67,225.5)
+        .. controls (277.67,226.61) and (277.67,227.72) .. (277.67,228.83) ;
         %Shape: Free Drawing [id:dp2674763078018507] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (276.67,228.17) .. controls (276.33,227.83) and (276,227.5) .. (275.67,227.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (276.67,228.17)
+        .. controls (276.33,227.83) and (276,227.5) .. (275.67,227.17) ;
         %Shape: Free Drawing [id:dp7006529540548063] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (274.33,226.17) .. controls (274.33,225.94) and (274.33,225.72) .. (274.33,225.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (274.33,226.17)
+        .. controls (274.33,225.94) and (274.33,225.72) .. (274.33,225.5) ;
         %Shape: Free Drawing [id:dp12114685025543515] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (274.33,222.83) .. controls (274.33,222.94) and (274.33,223.06) .. (274.33,223.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (274.33,222.83)
+        .. controls (274.33,222.94) and (274.33,223.06) .. (274.33,223.17) ;
         %Shape: Free Drawing [id:dp11181613935726564] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (272.33,227.5) .. controls (272.44,227.61) and (272.56,227.72) .. (272.67,227.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (272.33,227.5)
+        .. controls (272.44,227.61) and (272.56,227.72) .. (272.67,227.83) ;
         %Shape: Free Drawing [id:dp21874941104891454] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (276.33,226.5) .. controls (276.33,226.5) and (276.33,226.5) .. (276.33,226.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (276.33,226.5)
+        .. controls (276.33,226.5) and (276.33,226.5) .. (276.33,226.5) ;
         %Shape: Free Drawing [id:dp1551213334904571] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (336,225.5) .. controls (336,225.5) and (336,225.5) .. (336,225.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (336,225.5) ..
+        controls (336,225.5) and (336,225.5) .. (336,225.5) ;
         %Shape: Free Drawing [id:dp5552556558692121] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (335.67,223.83) .. controls (335.44,223.61) and (335.22,223.39) .. (335,223.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (335.67,223.83)
+        .. controls (335.44,223.61) and (335.22,223.39) .. (335,223.17) ;
         %Shape: Free Drawing [id:dp2680712522684394] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (335,222.5) .. controls (334.78,222.06) and (334.56,221.61) .. (334.33,221.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (335,222.5) ..
+        controls (334.78,222.06) and (334.56,221.61) .. (334.33,221.17) ;
         %Shape: Free Drawing [id:dp7973466921888765] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (334,223.17) .. controls (333.67,223.72) and (333.33,224.28) .. (333,224.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (334,223.17) ..
+        controls (333.67,223.72) and (333.33,224.28) .. (333,224.83) ;
         %Shape: Free Drawing [id:dp4217427243501193] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (331.67,227.83) .. controls (331.67,227.83) and (331.67,227.83) .. (331.67,227.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (331.67,227.83)
+        .. controls (331.67,227.83) and (331.67,227.83) .. (331.67,227.83) ;
         %Shape: Free Drawing [id:dp7263061231203432] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (334,227.83) .. controls (334,227.83) and (334,227.83) .. (334,227.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (334,227.83) ..
+        controls (334,227.83) and (334,227.83) .. (334,227.83) ;
         %Shape: Free Drawing [id:dp5942130285250151] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (334.33,227.83) .. controls (334.33,227.83) and (334.33,227.83) .. (334.33,227.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (334.33,227.83)
+        .. controls (334.33,227.83) and (334.33,227.83) .. (334.33,227.83) ;
         %Shape: Free Drawing [id:dp15743052029399962] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (335.33,227.83) .. controls (335.78,228.06) and (336.22,228.28) .. (336.67,228.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (335.33,227.83)
+        .. controls (335.78,228.06) and (336.22,228.28) .. (336.67,228.5) ;
         %Shape: Free Drawing [id:dp22495918083215116] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (334.67,226.5) .. controls (334.67,226.5) and (334.67,226.5) .. (334.67,226.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (334.67,226.5)
+        .. controls (334.67,226.5) and (334.67,226.5) .. (334.67,226.5) ;
         %Shape: Free Drawing [id:dp2784909236606581] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (336.33,220.83) .. controls (336.33,220.94) and (336.33,221.06) .. (336.33,221.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (336.33,220.83)
+        .. controls (336.33,220.94) and (336.33,221.06) .. (336.33,221.17) ;
         %Shape: Free Drawing [id:dp8706240640891032] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (335.33,220.5) .. controls (335.22,220.5) and (335.11,220.5) .. (335,220.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (335.33,220.5)
+        .. controls (335.22,220.5) and (335.11,220.5) .. (335,220.5) ;
         %Shape: Free Drawing [id:dp9329750308424989] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (392.67,227.83) .. controls (393,228.06) and (393.33,228.28) .. (393.67,228.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (392.67,227.83)
+        .. controls (393,228.06) and (393.33,228.28) .. (393.67,228.5) ;
         %Shape: Free Drawing [id:dp3882317480429962] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (395,228.17) .. controls (395.63,228.8) and (395.3,228.46) .. (394.67,227.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (395,228.17) ..
+        controls (395.63,228.8) and (395.3,228.46) .. (394.67,227.83) ;
         %Shape: Free Drawing [id:dp4131517984324593] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (394.33,224.5) .. controls (395,224.83) and (395.67,225.17) .. (396.33,225.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (394.33,224.5)
+        .. controls (395,224.83) and (395.67,225.17) .. (396.33,225.5) ;
         %Shape: Free Drawing [id:dp37363169850637656] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (394,227.83) .. controls (393.78,227.5) and (393.56,227.17) .. (393.33,226.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (394,227.83) ..
+        controls (393.78,227.5) and (393.56,227.17) .. (393.33,226.83) ;
         %Shape: Free Drawing [id:dp11367818680791109] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (393,219.83) .. controls (392.89,219.5) and (392.78,219.17) .. (392.67,218.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (393,219.83) ..
+        controls (392.89,219.5) and (392.78,219.17) .. (392.67,218.83) ;
         %Shape: Free Drawing [id:dp0009232964570280444] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (394.33,220.5) .. controls (394.67,221.17) and (395,221.83) .. (395.33,222.5) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (394.33,220.5)
+        .. controls (394.67,221.17) and (395,221.83) .. (395.33,222.5) ;
         %Shape: Free Drawing [id:dp980765288470274] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (392.33,219.83) .. controls (392.33,221.28) and (392.33,222.72) .. (392.33,224.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (392.33,219.83)
+        .. controls (392.33,221.28) and (392.33,222.72) .. (392.33,224.17) ;
         %Shape: Free Drawing [id:dp18690833347628333] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (394,224.17) .. controls (394.11,224.17) and (394.22,224.17) .. (394.33,224.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (394,224.17) ..
+        controls (394.11,224.17) and (394.22,224.17) .. (394.33,224.17) ;
         %Shape: Free Drawing [id:dp5757936876425502] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (392.67,225.17) .. controls (392.67,225.17) and (392.67,225.17) .. (392.67,225.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (392.67,225.17)
+        .. controls (392.67,225.17) and (392.67,225.17) .. (392.67,225.17) ;
         %Shape: Free Drawing [id:dp3612108432226979] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (392.67,226.5) .. controls (392.89,226.61) and (393.11,226.72) .. (393.33,226.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (392.67,226.5)
+        .. controls (392.89,226.61) and (393.11,226.72) .. (393.33,226.83) ;
         %Shape: Free Drawing [id:dp7648800367951516] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (394.67,218.83) .. controls (394.67,218.83) and (394.67,218.83) .. (394.67,218.83) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (394.67,218.83)
+        .. controls (394.67,218.83) and (394.67,218.83) .. (394.67,218.83) ;
         %Shape: Free Drawing [id:dp1400767539639749] 
-        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75] [line join = round][line cap = round] (397.67,226.17) .. controls (397.67,226.5) and (397.67,226.83) .. (397.67,227.17) ;
+        \draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1
+        ][line width=0.75] [line join = round][line cap = round] (397.67,226.17)
+        .. controls (397.67,226.5) and (397.67,226.83) .. (397.67,227.17) ;
         %Straight Lines [id:da9749345597918087] 
-        \draw [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=1 ]   (394.33,138.5) -- (394.33,197.83) ;
-        \draw [shift={(394.33,199.83)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+        \draw [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=1 ]
+        (394.33,138.5) -- (394.33,197.83) ; \draw [shift={(394.33,199.83)},
+            rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw
+            opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4)
+        and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) ..
+        (10.93,3.29)   ;
         %Straight Lines [id:da9406931472834237] 
         \draw    (394.33,138.5) -- (450.67,138.83) ;
         %Straight Lines [id:da7746905723182127] 
-        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (339.07,151) -- (339.4,231) ;
+        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (339.07,151) --
+        (339.4,231) ;
         %Straight Lines [id:da7675893385629211] 
-        \draw    (305.67,150.17) -- (337.07,150.95) ;
-        \draw [shift={(339.07,151)}, rotate = 181.43] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+        \draw    (305.67,150.17) -- (337.07,150.95) ; \draw
+        [shift={(339.07,151)}, rotate = 181.43] [color={rgb, 255:red, 0; green,
+                    0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls
+        (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and
+        (6.95,1.4) .. (10.93,3.29)   ;
 
         % Text Node
-        \draw (308.8,231.8) node [anchor=north west][inner sep=0.75pt]   [align=left] {0};
+        \draw (308.8,231.8) node [anchor=north west][inner sep=0.75pt]
+        [align=left] {0};
         % Text Node
-        \draw (356,239.4) node [anchor=north west][inner sep=0.75pt]    {$f_{S}$};
+        \draw (356,239.4) node [anchor=north west][inner sep=0.75pt] {$f_{S}$};
         % Text Node
-        \draw (411.2,240.6) node [anchor=north west][inner sep=0.75pt]    {$2f_{S}$};
+        \draw (411.2,240.6) node [anchor=north west][inner sep=0.75pt]
+        {$2f_{S}$};
         % Text Node
-        \draw (230.4,240.2) node [anchor=north west][inner sep=0.75pt]    {$-f_{S}$};
+        \draw (230.4,240.2) node [anchor=north west][inner sep=0.75pt]
+        {$-f_{S}$};
         % Text Node
-        \draw (398.67,119.67) node [anchor=north west][inner sep=0.75pt]   [align=left] {Aliasing};
+        \draw (398.67,119.67) node [anchor=north west][inner sep=0.75pt]
+        [align=left] {Aliasing};
         % Text Node
-        \draw (309.67,128.73) node [anchor=north west][inner sep=0.75pt]    {$f_{m}$};
+        \draw (309.67,128.73) node [anchor=north west][inner sep=0.75pt]
+        {$f_{m}$};
     \end{tikzpicture}
     \caption{Visualizzazione della sovrapposizione degli spettri che genera aliasing}
 \end{figure}
@@ -449,28 +546,27 @@ dell'immagine campionata (effetto scacchiera).
 Il campionamento e la quantizzazione determinano la \textbf{risoluzione}
 dell'immagine. \\
 
-La \textbf{risoluzione} di un segnale è un indice del grado
-di qualità dell'immagine: misura il grado di oggetti distinguibili
-nell'immagine. Esistono differenti definizione di risoluzione:
+La \textbf{risoluzione} di un segnale è un indice del grado di qualità
+dell'immagine: misura il grado di oggetti distinguibili nell'immagine. Esistono
+differenti definizione di risoluzione:
 
 \begin{definition}
-    La \textbf{Risoluzione Spaziale} indica la densità dei campioni, ovvero è data dal numero di campioni
-    per unità di area.
+    La \textbf{Risoluzione Spaziale} indica la densità dei campioni, ovvero è
+    data dal numero di campioni per unità di area.
 \end{definition}
 
-Spesso è espressa come numero di pixel
-nell'unità di lunghezza e viene misurata in pixel per pollice (ppi).
-\\Un'immagine ad alta risoluzione contiene più pixel di una delle
-stesse dimensioni con una risoluzione inferiore, quindi è in grado di
-riprodurre un maggior numero di dettagli. Un'elevata risoluzione
-comporta tuttavia un aumento considerevole delle dimensioni (quantità
-di dati) dell'immagine.
+Spesso è espressa come numero di pixel nell'unità di lunghezza e viene misurata
+in pixel per pollice (ppi). \\Un'immagine ad alta risoluzione contiene più pixel
+di una delle stesse dimensioni con una risoluzione inferiore, quindi è in grado
+di riprodurre un maggior numero di dettagli. Un'elevata risoluzione comporta
+tuttavia un aumento considerevole delle dimensioni (quantità di dati)
+dell'immagine.
 
 \paragraph{Esempio:}
 
-Un'immagine di $1cm \times 1cm$ con una risoluzione di 72 ppi
-contiene 5184 pixel ($72 \times 72$). La stessa immagine di $1 cm \times
-    1 cm$ a 300 ppi conterrebbe 90.000 pixel.
+Un'immagine di $1cm \times 1cm$ con una risoluzione di 72 ppi contiene 5184
+pixel ($72 \times 72$). La stessa immagine di $1 cm \times 1 cm$ a 300 ppi
+conterrebbe 90.000 pixel.
 
 \begin{definition}
     La \textbf{Risoluzione spettrale} indica la banda passante del sensore.
@@ -479,14 +575,15 @@ contiene 5184 pixel ($72 \times 72$). La stessa immagine di $1 cm \times
 
 
 \begin{definition}
-    \textbf{Risoluzione radiometrica} indica il numero di livelli di quantizzazione.
+    \textbf{Risoluzione radiometrica} indica il numero di livelli di
+    quantizzazione.
 
 \end{definition}
 
 
 \begin{definition}
-    \textbf{Risoluzione temporale} indica la frequenza di acquisizione dei frames di un'immagine in
-    movimento.
+    \textbf{Risoluzione temporale} indica la frequenza di acquisizione dei
+    frames di un'immagine in movimento.
 \end{definition}
 
 \section{Alterazioni della risoluzione}
@@ -526,9 +623,9 @@ diverso tipo di distorsione.
 \subsection{Immagini in bianco e nero}
 
 Un'\textbf{immagine in bianco e nero (b/w)} è caratterizzata da una
-rappresentazione binaria, ovvero la funzione che la rappresenta in
-ogni punto ($x$ , $y$) può assumere solo due valori: 0 e 1. In genere,
-ad 1 si associa il bianco, mentre a 0 il nero.
+rappresentazione binaria, ovvero la funzione che la rappresenta in ogni punto
+($x$ , $y$) può assumere solo due valori: 0 e 1. In genere, ad 1 si associa il
+bianco, mentre a 0 il nero.
 
 \begin{figure}[H]
     \centering
@@ -538,8 +635,8 @@ ad 1 si associa il bianco, mentre a 0 il nero.
 
 \subsection{Immagini a toni di grigio}
 
-Un'immagine a toni di grigio è rappresentata da una matrice le cui
-entrate sono i valori che la funzione $f$ assume in ogni punto.
+Un'immagine a toni di grigio è rappresentata da una matrice le cui entrate sono
+i valori che la funzione $f$ assume in ogni punto.
 
 \begin{figure}[H]
     \centering
@@ -548,10 +645,9 @@ entrate sono i valori che la funzione $f$ assume in ogni punto.
 
 In genere, si assume che i \textbf{livelli di grigio} siano discreti ed
 equispaziati in un intervallo di valori normalmente \textbf{tra 0 e 255}:
-esistono allora un massimo di 256 livelli di grigio.
-\\
-La funzione $f (x , y)$ può essere rappresentata come una superficie
-nello spazio.
+esistono allora un massimo di 256 livelli di grigio. \\
+La funzione $f (x , y)$ può essere rappresentata come una superficie nello
+spazio.
 
 \begin{figure}[H]
     \centering
@@ -560,12 +656,11 @@ nello spazio.
 
 \subsection{Immagini a colori}
 
-Per rappresentare un'\textbf{immagine a colori} è necessario ricorrere ad
-una funzione vettoriale. Un colore infatti può essere sempre
-decomposto come \textbf{somma dei tre colori fondamentali (rosso, verde,
-    blu)}, ciascuno con un'opportuna intensità.
-Un'immagine a colori, dunque, può essere rappresentata da una
-funzione $f: \mathbb{R}^2 \rightarrow \mathbb{R}^3$ del tipo
+Per rappresentare un'\textbf{immagine a colori} è necessario ricorrere ad una
+funzione vettoriale. Un colore infatti può essere sempre decomposto come
+\textbf{somma dei tre colori fondamentali (rosso, verde, blu)}, ciascuno con
+un'opportuna intensità. Un'immagine a colori, dunque, può essere rappresentata
+da una funzione $f: \mathbb{R}^2 \rightarrow \mathbb{R}^3$ del tipo
 
 $$
     f(x, y) = [R(x, y), G(x, y), B(x, y)]
@@ -574,16 +669,13 @@ $$
 Questo tipo di rappresentazione viene detta \textbf{RGB (Red,Green,Blue)}.
 \subsubsection{Lo spazio RGB}
 
-Lo spazio RGB è uno spazio cartesiano, con tre assi ortogonali.
-Il colore di ciascun pixel viene rappresentato da un vettore
-$[R(x , y), G(x , y), B(x , y)]$ nello spazio RGB; ogni componente
-indica la quantità di rosso, verde e blu, rispettivamente, necessari
-ad ottenere quel colore.
-In base alla rappresentazione RGB, un'immagine a colori viene
-rappresentata da una terna di matrici, ognuna delle quali contiene i
-valori relativi ad un canale di colore.\\
-Ogni canale, preso a sè, non è altro che un'immagine a toni di
-grigio.
+Lo spazio RGB è uno spazio cartesiano, con tre assi ortogonali. Il colore di
+ciascun pixel viene rappresentato da un vettore $[R(x , y), G(x , y), B(x , y)]$
+nello spazio RGB; ogni componente indica la quantità di rosso, verde e blu,
+rispettivamente, necessari ad ottenere quel colore. In base alla
+rappresentazione RGB, un'immagine a colori viene rappresentata da una terna di
+matrici, ognuna delle quali contiene i valori relativi ad un canale di colore.\\
+Ogni canale, preso a sè, non è altro che un'immagine a toni di grigio.
 
 \begin{figure}[H]
     \centering
@@ -592,17 +684,15 @@ grigio.
 
 \subsubsection{Lo spazio HSV}
 
-Oltre alla RGB esistono anche altri tipi di rappresentazioni (che
-possono essere in genere derivate da essa).
-Una di queste è la rappresentazione \textbf{HSV}. Lo spazio HSV ha un
-sistema di coordinate cilindrico con due assi ortogonali ed un
-angolo di rotazione intorno ad uno dei due assi.
-L'altezza del cono rappresenta la \textbf{luminosità (Value)}, con valori da
-0 (nero) a 1 (bianco). La \textbf{saturazione (Saturation)} indica l'intensità
-e la purezza del colore, con valori da 0 (sull'asse del cono) a 1
-(sulla superficie del cono). La terza coordinata rappresenta la
-\textbf{tonalità di colore (Hue)} e viene misurata da un angolo intorno
-all'asse verticale (rosso a 0 gradi, verde a 120 e blu a 240).
+Oltre alla RGB esistono anche altri tipi di rappresentazioni (che possono essere
+in genere derivate da essa). Una di queste è la rappresentazione \textbf{HSV}.
+Lo spazio HSV ha un sistema di coordinate cilindrico con due assi ortogonali ed
+un angolo di rotazione intorno ad uno dei due assi. L'altezza del cono
+rappresenta la \textbf{luminosità (Value)}, con valori da 0 (nero) a 1 (bianco).
+La \textbf{saturazione (Saturation)} indica l'intensità e la purezza del colore,
+con valori da 0 (sull'asse del cono) a 1 (sulla superficie del cono). La terza
+coordinata rappresenta la \textbf{tonalità di colore (Hue)} e viene misurata da
+un angolo intorno all'asse verticale (rosso a 0 gradi, verde a 120 e blu a 240).
 
 \begin{figure}[H]
     \centering
@@ -614,30 +704,38 @@ all'asse verticale (rosso a 0 gradi, verde a 120 e blu a 240).
 
 \subsection{Intorni}
 
-Un pixel $p$ di coordinate $(x,y)$ ha quattro \textbf{neighbors} (vicini) orizzontali e verticali:
+Un pixel $p$ di coordinate $(x,y)$ ha quattro \textbf{neighbors} (vicini)
+orizzontali e verticali:
 
 \begin{center}
     $(x+1, y), (x-1, y), (x, y-1), (x, y+1)$
 \end{center}
 
-Questi punti formano il \textbf{4-intorno (4-neighboor)} di $(x,y)$ che indicheremo con $N_4(p)$
-\\I quattro \textbf{neighbors (vicini) diagonali} di $p$ $(N_D(p))$ hanno invece coordinate
+Questi punti formano il \textbf{4-intorno (4-neighboor)} di $(x,y)$ che
+indicheremo con $N_4(p)$ \\I quattro \textbf{neighbors (vicini) diagonali} di
+$p$ $(N_D(p))$ hanno invece coordinate
 
 \begin{center}
     $(x+1, y+1), (x+1,y-1), (x-1, y+1), (x-1, y-1)$
 \end{center}
 
-I vicini diagonali, insieme a quelli orizzontali e verticali, formano l'\textbf{8-intorno (8-neighbor)} di $(x,y)$  che indicheremo con $N_8(p)$
+I vicini diagonali, insieme a quelli orizzontali e verticali, formano
+l'\textbf{8-intorno (8-neighbor)} di $(x,y)$  che indicheremo con $N_8(p)$
 
 \subsection{Connettività e adiacenza}
 
-Due pixel sono connessi se sono vicini e presentano livelli di intensità con una certa relazione (ad esempio hanno lo stesso livello di grigio).
-Fissato un insieme V di valori di intensità, due pixel $p$ e $q$ si dicono
+Due pixel sono connessi se sono vicini e presentano livelli di intensità con una
+certa relazione (ad esempio hanno lo stesso livello di grigio). Fissato un
+insieme V di valori di intensità, due pixel $p$ e $q$ si dicono
 
 \begin{itemize}
-    \item \textbf{4-adiacenti} se i valori di entrambi appartengono a $V$ e $q \in N_4(p)$
-    \item \textbf{8-adiacenti} se i valori di entrambi appartengono a $V$ e $q \in N_8(p)$
-    \item \textbf{m-adiacenti} (adiacenza mista) se i valori di entrambi appartengono a $V$ e $q \in N_4(p)$ oppure $q \in N_D(p)$ e l'insieme $N_4(p) \cap N_4(q)$ non contiene pixel a valori in V.
+    \item \textbf{4-adiacenti} se i valori di entrambi appartengono a $V$ e $q
+              \in N_4(p)$
+    \item \textbf{8-adiacenti} se i valori di entrambi appartengono a $V$ e $q
+              \in N_8(p)$
+    \item \textbf{m-adiacenti} (adiacenza mista) se i valori di entrambi
+          appartengono a $V$ e $q \in N_4(p)$ oppure $q \in N_D(p)$ e l'insieme
+          $N_4(p) \cap N_4(q)$ non contiene pixel a valori in V.
 \end{itemize}
 
 \subsection{Cammini}
@@ -646,20 +744,20 @@ Un \textbf{cammino (path) digitale} dal pixel $p = (x,y)$ al pixel $q = (x',
     y')$ è una sequenza di pixel
 
 \begin{center}
-    $(x0, y0), (x1, y1), ... ,(x_n, y_n)$
+    $(x_0, y_0), (x_1, y_1), ... ,(x_n, y_n)$
 \end{center}
 
 dove $(x_0, y_0) = (x,y)$, $(x_n, y_n) = (x', y')$ e i pixel $(x_i, y_i)$,
 $(x_{i+1}, y_{i+1})$ sono adiacenti per ogni $i=0, ... , n-1$, dove $n$ è la
 \textbf{lunghezza del cammino}. $Se (x_0, y_0) = (x_n, y_n)$ si parla di
-\textbf{cammino chiuso}. Si puo' definire in particolare un $4-$, $8-$, o
-$m-$ cammino restringendo l'adiacenza alla corrispondente tipologia.
+\textbf{cammino chiuso}. Si puo' definire in particolare un $4-$, $8-$, o $m-$
+cammino restringendo l'adiacenza alla corrispondente tipologia.
 
 \subsection{Cammini e regioni}
 
-Fissato un sottoinsieme $S$ di pixel di un'immagine digitale, due pixel p e q si
-dicono \textbf{connessi} se esiste un cammino tra $p$ e $q$ che consiste di
-pixel tutti contenuti in $S$. \\Se tutti i pixel di $S$ sono connessi, $S$ si
+Fissato un sottoinsieme $S$ di pixel di un'immagine digitale, due pixel $p$ e
+$q$ si dicono \textbf{connessi} se esiste un cammino tra $p$ e $q$ che consiste
+di pixel tutti contenuti in $S$. \\Se tutti i pixel di $S$ sono connessi, $S$ si
 dice un insieme connesso: in tal caso diciamo che $S$ è una regione
 dell'immagine. Il \textbf{bordo (boundary, border, contour)} di una regione $R$
 è l'insieme dei pixel di $R$ che hanno uno o più vicini che non appartengono ad
@@ -685,40 +783,42 @@ $p, q, z$
 \textbf{Esempi}
 
 \begin{itemize}
-    \item Distanza euclidea: $D_e(p, q) = \{(x_1 - x_2)^2 + (y_1 - y_2)^2\}^{\frac{1}{2}}$, se $p = (x_1, y_1), q=(x_2, y_2)$
+    \item Distanza euclidea: $D_e(p, q) = \{(x_1 - x_2)^2 + (y_1 -
+              y_2)^2\}^{\frac{1}{2}}$, se $p = (x_1, y_1), q=(x_2, y_2)$
     \item Distanza $D_4$, o city-block: $D_4(p, q) = |x_1 - x_2| + |y_1 - y_2|$.
-    \item Distanza $D_8$, o a scacchiera: $D_s(p,q) = max\{|x_1 - x_2|, |y_1 - y_2|\}$
+    \item Distanza $D_8$, o a scacchiera: $D_s(p,q) = max\{|x_1 - x_2|, |y_1 -
+              y_2|\}$
 \end{itemize}
 
 \chapter{Elaborazione con Filtri}
 
-L'elaborazione delle immagini è una disciplina che prevede l'utilizzo
-di algoritmi i quali operano sui pixel che compongono l'immagine
-e, applicando trasformazioni numeriche, restituiscono un'immagine
-modificata.\\
+L'elaborazione delle immagini è una disciplina che prevede l'utilizzo di
+algoritmi i quali operano sui pixel che compongono l'immagine e, applicando
+trasformazioni numeriche, restituiscono un'immagine modificata.\\
 Le tecniche di elaborazione delle immagini hanno vari scopi, fra cui:
 
 \begin{itemize}
-    \item il miglioramento della qualità dell'immagine (\textbf{image enhancement})
+    \item il miglioramento della qualità dell'immagine (\textbf{image
+              enhancement})
     \item il ripristino della qualità dell'immagine (\textbf{image restoration})
-    \item l'estrazione di informazioni sul contenuto dell'immagine (\textbf{image analysis})
+    \item l'estrazione di informazioni sul contenuto dell'immagine
+          (\textbf{image analysis})
 \end{itemize}
 
 \paragraph{Note:}
 
 \begin{itemize}
-    \item L'\textbf{image analysis} è una parte fondamentale della computer vision e
-          precede l'\textbf{image recognition}.\\
+    \item L'\textbf{image analysis} è una parte fondamentale della computer
+          vision e precede l'\textbf{image recognition}.\\
           Essa può richiedere elaborazioni differenti a seconda del tipo di
           informazione che si vuole estrarre: tra queste, le elaborazioni nel
-          dominio spaziale, nel dominio delle frequenze, con riduzione dei
-          dati tra ingresso e uscita (compressione), etc.
+          dominio spaziale, nel dominio delle frequenze, con riduzione dei dati
+          tra ingresso e uscita (compressione), etc.
 \end{itemize}
 
 \paragraph{Esempio:}
 
-Un'elaborazione nel dominio spaziale, può essere
-espressa come
+Un'elaborazione nel dominio spaziale, può essere espressa come
 
 $$
     g(x , y) = T(f (x , y))
@@ -730,8 +830,9 @@ $$
     \item $T$ è un operatore su f, definito in un intorno di $(x , y)$.
 \end{itemize}
 
-La natura dell'intorno definisce il tipo di elaborazione e si distingue,
-in particolare, fra: \textbf{elaborazioni puntuali}, \textbf{locali} e \textbf{globali}.
+La natura dell'intorno definisce il tipo di elaborazione e si distingue, in
+particolare, fra: \textbf{elaborazioni puntuali}, \textbf{locali} e
+\textbf{globali}.
 
 \begin{definition}
     Le elaborazioni \textbf{puntuali} trasformano il valore di un pixel sulla
@@ -739,8 +840,8 @@ in particolare, fra: \textbf{elaborazioni puntuali}, \textbf{locali} e \textbf{g
 \end{definition}
 
 \begin{definition}
-    Le elaborazioni \textbf{locali} lavorano sulla base dei valori assunti dai pixel in
-    un intorno di quello preso in esame.
+    Le elaborazioni \textbf{locali} lavorano sulla base dei valori assunti dai
+    pixel in un intorno di quello preso in esame.
 \end{definition}
 
 \begin{definition}
@@ -805,8 +906,9 @@ queste nuove locazioni.
 
 \subsection{Shrink}
 
-Lo stesso procedimento dello zoom, con una griglia immaginaria di dimensioni inferiori all'originale.
-Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di righe e colonne.
+Lo stesso procedimento dello zoom, con una griglia immaginaria di dimensioni
+inferiori all'originale. Per fattori interi si procede come nel caso dello zoom,
+ma per cancellazione di righe e colonne.
 
 \begin{figure}[H]
     \centering
@@ -817,8 +919,8 @@ Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di 
 \section{Elaborazioni Puntuali}
 
 \begin{definition}
-    Un'elaborazione puntuale si dice \textbf{omogenea} se il risultato
-    dipende solo dal valore (in scala di grigi) del pixel a cui è applicata.\\
+    Un'elaborazione puntuale si dice \textbf{omogenea} se il risultato dipende
+    solo dal valore (in scala di grigi) del pixel a cui è applicata.\\
     Se invece il risultato dipende anche dalla posizione del pixel,
     l'elaborazione puntuale è \textbf{non omogenea}.
 \end{definition}
@@ -826,10 +928,10 @@ Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di 
 \paragraph{Note:}
 
 \begin{itemize}
-    \item Elaborazioni puntuali sono anche dette \textbf{manipolazioni della scala dei
-              grigi}\\
-          Un'elaborazione puntuale omogenea può essere rappresentata da
-          una trasformazione
+    \item Elaborazioni puntuali sono anche dette \textbf{manipolazioni della
+              scala dei grigi}\\
+          Un'elaborazione puntuale omogenea può essere rappresentata da una
+          trasformazione
 
           $$
               s = T(r)
@@ -853,11 +955,11 @@ Per fattori interi si procede come nel caso dello zoom, ma per cancellazione di 
 
 \subsection{Thresholding}
 
-Consideriamo una funzione T a gradino, ottenendo così una
-\textbf{elaborazione threshold (soglia)}.\\
-Tale elaborazione fa sì che i valori dei pixel che non superano la
-soglia fissata vengano portati a 0, mentre i valori dei pixel che
-superano la soglia siano posti pari a 1.\\
+Consideriamo una funzione T a gradino, ottenendo così una \textbf{elaborazione
+    threshold (soglia)}.\\
+Tale elaborazione fa sì che i valori dei pixel che non superano la soglia
+fissata vengano portati a 0, mentre i valori dei pixel che superano la soglia
+siano posti pari a 1.\\
 Si produce così un'immagine \textbf{binaria}.
 
 \begin{figure}[H]
@@ -865,9 +967,9 @@ Si produce così un'immagine \textbf{binaria}.
     \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/foto_esempio_1.jpg}
 \end{figure}
 
-Questo è un tipico esempio di \textbf{binarizzazione}.
-Si può ottenere una binarizzazione anche scegliendo una qualsiasi
-altra \textbf{funzione di discriminazione}, invece di una soglia costante.
+Questo è un tipico esempio di \textbf{binarizzazione}. Si può ottenere una
+binarizzazione anche scegliendo una qualsiasi altra \textbf{funzione di
+    discriminazione}, invece di una soglia costante.
 
 \subsection{Stiramento}
 
@@ -878,10 +980,10 @@ Consideriamo una $T$ del tipo:
     \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/trasformazione_esempio_2.jpg}
 \end{figure}
 
-Vengono scuriti i livelli di grigio al di sotto di $k$ e schiariti quelli al
-di sopra di $k$. Si ottiene così uno \textbf{stiramento dell'immagine (image
-    stretching)}. L'elaborazione threshold può essere riguardata come
-caso limite di questo tipo di operazione.
+Vengono scuriti i livelli di grigio al di sotto di $k$ e schiariti quelli al di
+sopra di $k$. Si ottiene così uno \textbf{stiramento dell'immagine (image
+    stretching)}. L'elaborazione threshold può essere riguardata come caso limite di
+questo tipo di operazione.
 
 \subsection{Negazione}
 
@@ -891,8 +993,8 @@ $$
     T(r) = L - 1 - r
 $$
 
-se il range dinamico dell'immagine è $[0, L - 1]$
-la scala di grigi viene invertita, ottenendo così una negazione.
+se il range dinamico dell'immagine è $[0, L - 1]$ la scala di grigi viene
+invertita, ottenendo così una negazione.
 
 \begin{figure}[H]
     \centering
@@ -908,20 +1010,21 @@ $$
 $$
 
 che prende il nome di \textbf{trasformazione logaritmica}: associa ad una
-stretta gamma di valori a bassa intensità dell'immagine originale
-una più ampia gamma nell'immagine in output.\\
+stretta gamma di valori a bassa intensità dell'immagine originale una più ampia
+gamma nell'immagine in output.\\
 Per livelli ad alta intensità, invece, si verifica il contrario.\\
 Un tipico caso in cui è utile applicare questa trasformazione è per
-rappresentare la trasformata di Fourier, che spesso presenta una
-gamma molto ampia di intensità, difficilmente riproducibile senza
-perdere un significativo livello di dettaglio
+rappresentare la trasformata di Fourier, che spesso presenta una gamma molto
+ampia di intensità, difficilmente riproducibile senza perdere un significativo
+livello di dettaglio
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/trasformazione_logaritmica_esempio_4.jpg}
-    \caption{Nella figura sinistra viene mostrato lo spettro di Fourier con valori in $[0, 1.5 \times 10^6]$. Mentre in quella di destra il risultato dell'applicazione della trasformazione logaritmica
-        con $c = 1$ (valori in $[0, 6.2]$).
-    }
+    \caption{Nella figura sinistra viene mostrato lo spettro di Fourier con
+        valori in $[0, 1.5 \times 10^6]$. Mentre in quella di destra il
+        risultato dell'applicazione della trasformazione logaritmica con $c = 1$
+        (valori in $[0, 6.2]$). }
 \end{figure}
 
 \subsection{Trasformazione di Potenza}
@@ -932,14 +1035,13 @@ $$
     T(r) = cr^\gamma, c, \gamma > 0,
 $$
 
-che prende il nome di \textbf{trasformazione di potenza (gamma)}
-Se $\gamma < 1$ le curve potenza corrispondenti trasformano una stretta
-gamma di valori scuri in una gamma più ampia di valori in output,
-mentre se $\gamma > 1$, si verifica la trasformazione opposta.\\
+che prende il nome di \textbf{trasformazione di potenza (gamma)} Se $\gamma < 1$
+le curve potenza corrispondenti trasformano una stretta gamma di valori scuri in
+una gamma più ampia di valori in output, mentre se $\gamma > 1$, si verifica la
+trasformazione opposta.\\
 La correzione tramite il fattore $\gamma$ è importante per la corretta
-visualizzazione di immagini sullo schermo di un computer:
-immagini non corrette nel modo giusto possono apparire sbiadite o,
-al contrario, troppo scure.
+visualizzazione di immagini sullo schermo di un computer: immagini non corrette
+nel modo giusto possono apparire sbiadite o, al contrario, troppo scure.
 
 \begin{figure}[H]
     \centering
@@ -966,8 +1068,8 @@ sceglie come $(r_1, s_1) = (r_{min}, 0)$ e $(r_2, s_2) = (r_{max} , L - 1)$
 
 \paragraph{Note:}
 \begin{itemize}
-    \item In questo caso $r_{min}$ e $r_{max}$ stanno ad indicare il più basso e alto valore
-          nei livelli di grigio dell'immagine utilizzata.
+    \item In questo caso $r_{min}$ e $r_{max}$ stanno ad indicare il più basso e
+          alto valore nei livelli di grigio dell'immagine utilizzata.
 \end{itemize}
 
 \subsection{Altre Trasformazioni a Tratti}
@@ -994,17 +1096,19 @@ loro effetto sull'immagine.
 
 \begin{itemize}
     \item Nella prima immagine vediamo una normale Angiografia aortica.
-    \item Nella seconda abbiamo il risultato della selezione di intensità del primo tipo (banda di
-          interesse $[A, B]$ selezionata sulla parte alta della scala di grigi).
-    \item Nella terza abbiamo il risultato della selezione di intensità del secondo tipo (banda
-          $[A, B]$ sulle tonalità medio-grigie impostata sul nero, così da
-          preservare le tonalità di grigio dei vasi e dei reni).
+    \item Nella seconda abbiamo il risultato della selezione di intensità del
+          primo tipo (banda di interesse $[A, B]$ selezionata sulla parte alta
+          della scala di grigi).
+    \item Nella terza abbiamo il risultato della selezione di intensità del
+          secondo tipo (banda $[A, B]$ sulle tonalità medio-grigie impostata sul
+          nero, così da preservare le tonalità di grigio dei vasi e dei reni).
 \end{itemize}
 
 \subsection{Finestramento - Windowing}
 
 \begin{definition}
-    \textbf{Il windowing} consiste nel mostrare solo una parte del range dei valori di grigio dell'immagine.
+    \textbf{Il windowing} consiste nel mostrare solo una parte del range dei
+    valori di grigio dell'immagine.
 \end{definition}
 
 \begin{figure}[H]
@@ -1012,10 +1116,10 @@ loro effetto sull'immagine.
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/win1.png}
 \end{figure}
 
-\textbf{Applicazione:} in molte immagini mediche il numero di valori della
-scala dei grigi utili dal punto di vista diagnostico è sensibilmente
-minore di tutti quelli disponibili. Usando sul monitor tutto il range
-possibile si diminuisce il contrasto visibile nella zona di interesse.
+\textbf{Applicazione:} in molte immagini mediche il numero di valori della scala
+dei grigi utili dal punto di vista diagnostico è sensibilmente minore di tutti
+quelli disponibili. Usando sul monitor tutto il range possibile si diminuisce il
+contrasto visibile nella zona di interesse.
 
 \begin{figure}[H]
     \centering
@@ -1030,7 +1134,8 @@ possibile si diminuisce il contrasto visibile nella zona di interesse.
 
 \section{Modelli delle Immagini}
 
-In base al tipo di elaborazione che si vuole effettuare, può essere conveniente adottare diversi modelli per le immagini. Ad esempio:
+In base al tipo di elaborazione che si vuole effettuare, può essere conveniente
+adottare diversi modelli per le immagini. Ad esempio:
 
 \begin{itemize}
     \item \textbf{Modello Deterministico}
@@ -1062,16 +1167,20 @@ del calcolo stocastico. Un esempio di questo processo è \textbf{l'analisi
     dai pixel), il numero di volte che tale valore compare nell'immagine.
 \end{definition}
 
-Il grafico che si ricava è un istogramma, cioè un grafico a barre dove l'asse delle ascisse è suddiviso in tanti punti quanti sono i
-possibili toni di grigio dell'immagine.\\
+Il grafico che si ricava è un istogramma, cioè un grafico a barre dove l'asse
+delle ascisse è suddiviso in tanti punti quanti sono i possibili toni di grigio
+dell'immagine.\\
 
-In termini probabilistici, l'istogramma rappresenta la distribuzione di probabilità della variabile
-aleatoria $r$ ed indica il valore di grigio di un pixel, e quindi può essere visto come
-la \textbf{carta d'identità di un'immagine}. Saper leggere l'istogramma ci
-da un valore \textbf{qualitativo} dell'Immagine.
+In termini probabilistici, l'istogramma rappresenta la distribuzione di
+probabilità della variabile aleatoria $r$ ed indica il valore di grigio di un
+pixel, e quindi può essere visto come la \textbf{carta d'identità di
+    un'immagine}. Saper leggere l'istogramma ci da un valore \textbf{qualitativo}
+dell'Immagine.
 
 \begin{trivlist}
-    \item \textbf{Esempio}: il codominio di un'immagine a 256 toni di grigio sarà formato da tutti i numeri interi da 0 a 255 $\rightarrow$ l'asse orizzontale sarà suddiviso in 256 parti.
+    \item \textbf{Esempio}: il codominio di un'immagine a 256 toni di grigio
+    sarà formato da tutti i numeri interi da 0 a 255 $\rightarrow$ l'asse
+    orizzontale sarà suddiviso in 256 parti.
 \end{trivlist}
 
 \begin{figure}[H]
@@ -1093,28 +1202,30 @@ da un valore \textbf{qualitativo} dell'Immagine.
     totale di pixel dell'immagine.
 \end{definition}
 
-L'istogramma quindi fornisce una raffigurazione sintetica del contenuto cromatico o di luminosità dell'immagine, dunque una descrizione
-della qualità dell'immagine.
+L'istogramma quindi fornisce una raffigurazione sintetica del contenuto
+cromatico o di luminosità dell'immagine, dunque una descrizione della qualità
+dell'immagine.
 
 \begin{itemize}
-    \item \textbf{Immagine troppo scura}
-          la distribuzione è concentrata su toni bassi di grigio
+    \item \textbf{Immagine troppo scura} la distribuzione è concentrata su toni
+          bassi di grigio
 
           \begin{figure}[H]
               \centering
               \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/isto-scuro.png}
           \end{figure}
 
-    \item \textbf{Immagine troppo chiara}
-          la distribuzione è concentrata su toni alti di grigio
+    \item \textbf{Immagine troppo chiara} la distribuzione è concentrata su toni
+          alti di grigio
 
           \begin{figure}[H]
               \centering
               \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/isto-chiaro.png}
           \end{figure}
 
-    \item \textbf{Immagine con alto contrasto}
-          la distribuzione è concentrata su valori vicini a 0 e a 255. L'alto contrasto dell'immagine è quindi dovuto all'uniformità dell'istogramma.
+    \item \textbf{Immagine con alto contrasto} la distribuzione è concentrata su
+          valori vicini a 0 e a 255. L'alto contrasto dell'immagine è quindi
+          dovuto all'uniformità dell'istogramma.
 
           \begin{figure}[H]
               \centering
@@ -1124,26 +1235,25 @@ della qualità dell'immagine.
 
 \subsubsection{Interventi sull'istogramma}
 
-Qualora le caratteristiche della distribuzione dei toni di grigio nell'immagine non siano ottimali, è consigliabile applicare
-all'istogramma opportune trasformazioni, basate su sistemi stocastici.
-\\Tra queste:
+Qualora le caratteristiche della distribuzione dei toni di grigio nell'immagine
+non siano ottimali, è consigliabile applicare all'istogramma opportune
+trasformazioni, basate su sistemi stocastici. \\Tra queste:
 
 \paragraph{Equalizzazione dell'istogramma}
 
 \begin{definition}
-    Ha lo scopo di uniformare l'istogramma dell'immagine lungo tutto
-    il suo dominio.
+    Ha lo scopo di uniformare l'istogramma dell'immagine lungo tutto il suo
+    dominio.
 \end{definition}
-Il risultato è un nuovo istogramma in cui il numero di pixel ad ogni
-tono di grigio è il più possibile costante. \\\\
+Il risultato è un nuovo istogramma in cui il numero di pixel ad ogni tono di
+grigio è il più possibile costante. \\\\
 \textbf{Algoritmo:}
 
 $$
     T(r_k) = (L-1)\sum_{j=0}^{k}p(r_j)=\frac{L-1}{n} \sum_{j=0}^{k}n_j = \frac{L-1}{MN}\sum_{j=0}^{k}n_j
 $$
 
-con $k=0,...,L-1$.
-\\\\
+con $k=0,...,L-1$. \\\\
 \textbf{Il risultato} è l'aumento del contrasto.
 
 \begin{figure}[H]
@@ -1159,13 +1269,12 @@ con $k=0,...,L-1$.
 \textbf{Algoritmo:}
 
 \begin{center}
-    $T(r) = \alpha r$  $ \ \ \ \  0 < \alpha < 1$
-    \\
+    $T(r) = \alpha r$  $ \ \ \ \  0 < \alpha < 1$ \\
     $T(r) = \alpha r + (L-1)(1-\alpha)$ $\ \ \ \ 0<\alpha<1$
 \end{center}
 
-Andrò quindi a shiftare verso sinistra o verso destra l'istogramma schiarendo o scurendo la mia immagine.
-\\\\
+Andrò quindi a shiftare verso sinistra o verso destra l'istogramma schiarendo o
+scurendo la mia immagine. \\\\
 Il \textbf{risultato} è un immagine più scura o schiarita.
 
 \begin{figure}[H]
@@ -1177,12 +1286,12 @@ Il \textbf{risultato} è un immagine più scura o schiarita.
 \paragraph{Stretching dell'istogramma}
 
 \begin{definition}
-    Lo Stretching dell'istogramma consiste in uno $stiramento$ dell'istogramma, in modo da distanziarne i picchi.
+    Lo Stretching dell'istogramma consiste in uno $stiramento$ dell'istogramma,
+    in modo da distanziarne i picchi.
 \end{definition}
 
-Si usa quando l'istogramma presenta dei picchi abbastanza ravvicinati, provocando un'immagine
-piuttosto uniforme.
-\\\\
+Si usa quando l'istogramma presenta dei picchi abbastanza ravvicinati,
+provocando un'immagine piuttosto uniforme. \\\\
 \textbf{Algoritmo:}
 
 $$
@@ -1206,7 +1315,9 @@ individuato dal minimo e dal massimo livello di grigio che presenta l'immagine.
 \section{Il Rumore}
 
 \begin{definition}
-    si intende l'insieme dei segnali indesiderati che si sovrappongono al segnale utile oggetto di studio (ad esempio un'immagine) causandone una degenerazione.
+    si intende l'insieme dei segnali indesiderati che si sovrappongono al
+    segnale utile oggetto di studio (ad esempio un'immagine) causandone una
+    degenerazione.
 \end{definition}
 
 Si possono avere diverse forme di degrado tra cui:
@@ -1226,8 +1337,8 @@ In base alle sue cause, il rumore si distingue tra:
 \end{itemize}
 
 \begin{trivlist}
-    \item \textbf{Rumore indipendente dal segnale:} (caso più comune) la funzione
-    che descrive il segnale corrotto è:
+    \item \textbf{Rumore indipendente dal segnale:} (caso più comune) la
+    funzione che descrive il segnale corrotto è:
 
     $$
         f(x,y) = g(x,y)+v(x,y)
@@ -1247,8 +1358,9 @@ In base alle sue cause, il rumore si distingue tra:
     \textbf{moltiplicativo}
 \end{trivlist}
 
-Essendo di natura intrinsecamente stocastica, il rumore viene in genere analizzato usando la teoria dei processi stocastici ed è
-caratterizzato in base alla:
+Essendo di natura intrinsecamente stocastica, il rumore viene in genere
+analizzato usando la teoria dei processi stocastici ed è caratterizzato in base
+alla:
 
 \begin{itemize}
     \item \textbf{Distribuzione:} descrive la probabilità che il rumore assuma
@@ -1259,9 +1371,10 @@ caratterizzato in base alla:
 
 \subsection{Il modello del rumore}
 
-Per poter caratterizzare e studiare il rumore in un'immagine si fanno in genere delle ipotesi semplificative, in modo che il rumore abbia una qualche distribuzione di probabilità: si costruisce in
-questo modo un modello del rumore.
-\\Una modellizzazione tipica prevede che:
+Per poter caratterizzare e studiare il rumore in un'immagine si fanno in genere
+delle ipotesi semplificative, in modo che il rumore abbia una qualche
+distribuzione di probabilità: si costruisce in questo modo un modello del
+rumore. \\Una modellizzazione tipica prevede che:
 
 \begin{itemize}
     \item \textbf{lo spettro abbia distribuzione uniforme (rumore bianco)}
@@ -1286,8 +1399,8 @@ questo modo un modello del rumore.
 
 Nel caso in cui il rumore abbia distribuzione spaziale di tipo impulsivo, si
 parla di rumore salt and pepper (sale e pepe): agisce corrompendo in maniera
-casuale i pixel dell'immagine, portandone il valore a $0$ (valore minimo)
-oppure a $255$ (valore massimo).
+casuale i pixel dell'immagine, portandone il valore a $0$ (valore minimo) oppure
+a $255$ (valore massimo).
 
 \begin{equation*}
     p(r) = \begin{cases}
@@ -1301,8 +1414,7 @@ oppure a $255$ (valore massimo).
     \end{gathered}
 \end{equation*}
 
-Ovviamente il rumore impulsivo, pur essendo additivo, \textbf{non è
-    lineare.}
+Ovviamente il rumore impulsivo, pur essendo additivo, \textbf{non è lineare.}
 
 \begin{figure}[H]
     \centering
@@ -1330,10 +1442,10 @@ $$
     \mu = a + \sqrt{\pi b/4} \ \sigma = \sqrt{\frac{b(4-\pi)}{4}}
 $$
 
-Nel grafico lo scostamento dall'origine e la forma inclinata verso
-destra rende questa densità utile per l'approssimazione di
-istogrammi non simmetrici e può essere utilizzata per rappresentare
-fenomeni di rumori tipici di alcuni sensori di range.
+Nel grafico lo scostamento dall'origine e la forma inclinata verso destra rende
+questa densità utile per l'approssimazione di istogrammi non simmetrici e può
+essere utilizzata per rappresentare fenomeni di rumori tipici di alcuni sensori
+di range.
 
 \begin{figure}[H]
     \centering
@@ -1356,7 +1468,8 @@ Distribuzione del \textbf{rumore gamma}:
     \end{gathered}
 \end{equation*}
 
-dove $a > 0$, $b$ è un intero positivo e il valor medio e la deviazione standard sono dati da:
+dove $a > 0$, $b$ è un intero positivo e il valor medio e la deviazione standard
+sono dati da:
 
 \begin{center}
     $\mu=\frac{b}{a}$ $\sigma=\frac{\sqrt{b}}{a}$
@@ -1402,8 +1515,9 @@ Questo rumore è un caso particolare del rumore di Gamma con $b = 1$.
 
 \subsection{Signal-Noise Ratio}
 
-Per avere una valutazione numerica dell'entità del rumore associato ad una data immagine si può ricorrere al \textbf{rapporto segnale-rumore
-    (Signal Noise Ratio - SNR)}, definito come:
+Per avere una valutazione numerica dell'entità del rumore associato ad una data
+immagine si può ricorrere al \textbf{rapporto segnale-rumore (Signal Noise
+    Ratio - SNR)}, definito come:
 
 \begin{center}
     $
@@ -1411,13 +1525,15 @@ Per avere una valutazione numerica dell'entità del rumore associato ad una data
     $
 \end{center}
 
-dove $f(x, y)$ è l'intensità del pixel $(x, y)$ dell'immagine (già corrotta dal rumore), $v(x, y)$ è il rumore e le sommatorie sono al
-variare di tutti i pixel $(x, y)$ dell'immagine.
+dove $f(x, y)$ è l'intensità del pixel $(x, y)$ dell'immagine (già corrotta dal
+rumore), $v(x, y)$ è il rumore e le sommatorie sono al variare di tutti i pixel
+$(x, y)$ dell'immagine.
 
 \section{Filtri}
 
 \begin{definition}
-    Il rumore può essere corretto applicando opportune trasformazioni ai pixel dell'immagine, dette filtri.
+    Il rumore può essere corretto applicando opportune trasformazioni ai pixel
+    dell'immagine, dette filtri.
 \end{definition}
 Per ogni tipo di rumore esiste un filtraggio differente, che risulterà il più
 adatto ad attenuare o eliminare quel particolare rumore. In genere, la scelta
@@ -1433,20 +1549,21 @@ Un filtro spaziale è caratterizzato da:
     \item Un intorno (\textbf{maschera}), in genere di dimensioni dispari;
     \item Un'operazione predefinita che viene applicata ai pixel nell'intorno
 \end{itemize}
-se l'operazione è lineare si parla di \textbf{filtro lineare}.
-\\\\
+se l'operazione è lineare si parla di \textbf{filtro lineare}. \\\\
 L'intensità dell'immagine filtrata nel pixel (x,y) sarà:
 
 \begin{center}
     $g(x,y) = \sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x+s,y+t)$,
 \end{center}
 
-con $x=0,..,M-1$, $y=0,...,N-1$ (\textbf{correlazione di f e w}), dove i valori $w$ sono i \textbf{coefficienti della maschera}
-avente dimensione $m$ x $n$, con $m = 2a+1$ e $n = 2b+1$
-\\\\
-Ad esempio, se la maschera ha dimensione 3 x 3, l'intensità dell'immagine filtrata nel pixel ($x,y$) sarà:
+con $x=0,..,M-1$, $y=0,...,N-1$ (\textbf{correlazione di f e w}), dove i valori
+$w$ sono i \textbf{coefficienti della maschera} avente dimensione $m$ x $n$, con
+$m = 2a+1$ e $n = 2b+1$ \\\\
+Ad esempio, se la maschera ha dimensione 3 x 3, l'intensità dell'immagine
+filtrata nel pixel ($x,y$) sarà:
 \begin{itemize}
-    \item $g(x,y)=w(-1,-1)f(x-1,y-1)+w(-1,0)f(x-1,y)+...+w(0,0)f(x,y)+...+w(1,1)f(x+1,y+1)$
+    \item
+          $g(x,y)=w(-1,-1)f(x-1,y-1)+w(-1,0)f(x-1,y)+...+w(0,0)f(x,y)+...+w(1,1)f(x+1,y+1)$
 \end{itemize}
 
 \subsection{Filtri lineari}
@@ -1456,8 +1573,8 @@ I filtri maggiormente utilizzati per la rimozione del rumore sono i cosiddetti
 (passa-basso).
 
 \subsubsection{Filtro medio}
-Il filtro medio sostituisce il valore di ogni pixel prefissato con il
-valor medio dei pixel in un suo intorno di dimensioni fissate.
+Il filtro medio sostituisce il valore di ogni pixel prefissato con il valor
+medio dei pixel in un suo intorno di dimensioni fissate.
 
 \[
     \frac{1}{mn} \times
@@ -1478,16 +1595,17 @@ Il \textbf{filtro medio} è molto utilizzato ad esempio per correggere il
 \end{figure}
 
 \subsubsection{Filtro di media ponderata}
-Il filtro media ponderata sostituisce il valore di ogni pixel prefissato con la media ponderata dei pixel in un suo
-intorno di dimensioni fissate.
+Il filtro media ponderata sostituisce il valore di ogni pixel prefissato con la
+media ponderata dei pixel in un suo intorno di dimensioni fissate.
 
 \begin{center}
     $g(x,y)=\frac{\sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)f(x+s,y+t)}{\sum_{s=-a}^{a}\sum_{t=-b}^{b}w(s,t)}$
 \end{center}
 
 \subsubsection{Filtro Gaussiano}
-Il filtro gaussiano: sostituisce al valore di ogni pixel prefissato la
-media pesata dei valori dei pixel in un suo intorno. I pesi sono distribuiti secondo una funzione gaussiana.
+Il filtro gaussiano: sostituisce al valore di ogni pixel prefissato la media
+pesata dei valori dei pixel in un suo intorno. I pesi sono distribuiti secondo
+una funzione gaussiana.
 
 \[
     \frac{1}{16} \times
@@ -1502,35 +1620,41 @@ media pesata dei valori dei pixel in un suo intorno. I pesi sono distribuiti sec
     \centering
     \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/filtri-l-esempio.png}
     \caption{Possiamo vedere l'applicazione della sfocatura con filtro medio
-        tramite maschere di dimensioni 3, 5, 9, 15, 35 su un immagine di $500 \times 500$ pixel.}
+        tramite maschere di dimensioni 3, 5, 9, 15, 35 su un immagine di $500
+            \times 500$ pixel.}
 \end{figure}
 
 \subsection{Filtri non lineari}
-I rumori non lineari (ad esempio quello impulsivo) non possono essere corretti con i filtri lineari.
-Possono essere trattati invece efficacemente con \textbf{filtri non lineari}
+I rumori non lineari (ad esempio quello impulsivo) non possono essere corretti
+con i filtri lineari. Possono essere trattati invece efficacemente con
+\textbf{filtri non lineari}
 \subsubsection{Filtro mediano}
-Il filtro Mediano sostituisce al valore di ogni pixel prefissato la
-mediana (valore centrale della lista ordinata) dei
-valori dei pixel nell'intorno fissato.
+Il filtro Mediano sostituisce al valore di ogni pixel prefissato la mediana
+(valore centrale della lista ordinata) dei valori dei pixel nell'intorno
+fissato.
 
-Il filtro mediano risulta particolarmente adatto a correggere il rumore \textbf{salt and pepper}, a differenza del filtro medio che, come si
-vede dall'esempio seguente, non risulta invece particolarmente efficace.
+Il filtro mediano risulta particolarmente adatto a correggere il rumore
+\textbf{salt and pepper}, a differenza del filtro medio che, come si vede
+dall'esempio seguente, non risulta invece particolarmente efficace.
 
 \begin{figure}[H]
     \centering
     \includegraphics[keepaspectratio]{capitoli/immagini/imgs/esempio-filtro-mediano.png}
-    \caption{Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e immagine filtrata con \textbf{filtro mediano}}
+    \caption{Immagine originale, immagine corrotta da rumore \textbf{salt and
+            pepper} e immagine filtrata con \textbf{filtro mediano}}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[keepaspectratio]{capitoli/immagini/imgs/esempio-filtro-medio.png}
-    \caption{Immagine originale, immagine corrotta da rumore \textbf{salt and pepper} e immagine filtrata con \textbf{filtro medio}}
+    \caption{Immagine originale, immagine corrotta da rumore \textbf{salt and
+            pepper} e immagine filtrata con \textbf{filtro medio}}
 \end{figure}
 
 \subsubsection{Filtro di massimo}
 
-Sia $S_p$ una maschera di dimensioni $m $ x $n$, dove $p = (x,y)$ è il pixel centrale della maschera.
-Il filtro di massimo sostituisce a p il massimo dei valori dei pixel in $S_p$, cioè
+Sia $S_p$ una maschera di dimensioni $m $ x $n$, dove $p = (x,y)$ è il pixel
+centrale della maschera. Il filtro di massimo sostituisce a p il massimo dei
+valori dei pixel in $S_p$, cioè
 
 $$
     g_{max}(x,y)= \max_{(x,y) \in S_p} f(x,y)
@@ -1540,7 +1664,8 @@ Questo filtro è utile per \textbf{diminuire il rumore di tipo "pepper"}.
 
 \subsubsection{Filtro di minimo}
 
-Il \textbf{filtro di minimo} sostituisce a $p$ il minimo dei valori dei pixel in $S_p$ cioè:
+Il \textbf{filtro di minimo} sostituisce a $p$ il minimo dei valori dei pixel in
+$S_p$ cioè:
 
 $$
     g_{min}(x,y) = \min_{(x,y) \in S_p} f(x,y)
@@ -1550,8 +1675,8 @@ Questo filtro è utile \textbf{per diminuire il rumore di tipo "salt"}
 
 \subsubsection{Filtro di Punto Medio}
 
-Il filtro di punto medio sostituisce a $p$ il punto medio tra il massimo ed il minimo
-dei valori dei pixel in $S_p$, cioè
+Il filtro di punto medio sostituisce a $p$ il punto medio tra il massimo ed il
+minimo dei valori dei pixel in $S_p$, cioè
 
 $$
     g(x,y) = \frac{1}{2} \left[\max_{(x,y) \in S_p} f(x) + \min_{(x,y) \in S_p} f(x)\right]
@@ -1559,35 +1684,39 @@ $$
 
 \subsubsection{Filtro medio alpha-trimmed}
 
-Fissato un valore $0 \le d \le mn - 1$, supponiamo di cancellare in $S_p$ i $d/2$ valori più chiari e i $d/2$ valori più scuri; delle
-restanti intensità ne calcoliamo la media aritmetica, cioè:
+Fissato un valore $0 \le d \le mn - 1$, supponiamo di cancellare in $S_p$ i
+$d/2$ valori più chiari e i $d/2$ valori più scuri; delle restanti intensità ne
+calcoliamo la media aritmetica, cioè:
 
 $$
     g(x,y) = \frac{1}{mn-d} \sum_{(x,y) \in \bar{S_p}} f(x,y)
 $$
 
-dove $\bar{S_p}$ è l'insieme dei pixel $S_p$ rimanenti.
-Questo filtro risulta utile in situazioni in cui \textbf{si sovrappongono diversi tipi di rumore}, ad esempio nel caso di una combinazione tra
-rumore salt an pepper e rumore gaussiano.
+dove $\bar{S_p}$ è l'insieme dei pixel $S_p$ rimanenti. Questo filtro risulta
+utile in situazioni in cui \textbf{si sovrappongono diversi tipi di rumore}, ad
+esempio nel caso di una combinazione tra rumore salt an pepper e rumore
+gaussiano.
 
 \section{Filtri di Sharpening}
 
 L'obiettivo di questi filtri è quello di \textbf{marcare i bordi (edge
-    detection)}, attribuendo meno importanza alle aree che hanno variazione lenta a
-livello di intensità. Si basano sull'operatore di derivazione ed hanno l'effetto
-di evidenziare soltanto i bordi dell'immagine. In forma discreta, se $f$
-rappresenta l'intensità associata a ogni pixel $(x,y)$, le derivate possono
-essere espresse come differenze finite:
+    detection)}, attribuendo meno importanza alle aree che hanno variazione
+lenta a livello di intensità. Si basano sull'operatore di derivazione ed
+hanno l'effetto di evidenziare soltanto i bordi dell'immagine. In forma
+discreta, se $f$ rappresenta l'intensità associata a ogni pixel $(x,y)$, le
+derivate possono essere espresse come differenze finite:
 
 \begin{center}
-    $\frac{\partial{f}}{\partial{x}}(x,y) \sim f(x+1, y) - f(x, y)$, $\frac{\partial{f}}{\partial{y}}(x,y) \sim f(x,y+1) - f(x,y)$
-    \\
-    $\frac{\partial{f^2}}{\partial{x^2}}(x,y) \sim f(x+1,y) + f(x-1, y) - 2f(x,y)$
-    \\
-    $\frac{\partial{f^2}}{\partial{y^2}}(x,y) \sim f(x,y+1) + f(x, y-1) - 2f(x,y)$
+    $\frac{\partial{f}}{\partial{x}}(x,y) \sim f(x+1, y) - f(x, y)$,
+    $\frac{\partial{f}}{\partial{y}}(x,y) \sim f(x,y+1) - f(x,y)$ \\
+    $\frac{\partial{f^2}}{\partial{x^2}}(x,y) \sim f(x+1,y) + f(x-1, y) -
+        2f(x,y)$ \\
+    $\frac{\partial{f^2}}{\partial{y^2}}(x,y) \sim f(x,y+1) + f(x, y-1) -
+        2f(x,y)$
 \end{center}
 
-Il filtro di sharpening ha l'effetto di evidenziare soltanto i bordi dell'immagine.
+Il filtro di sharpening ha l'effetto di evidenziare soltanto i bordi
+dell'immagine.
 \begin{figure}[H]
     \centering
     \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/sharpening.png}
@@ -1605,13 +1734,16 @@ Il filtro di sharpening ha l'effetto di evidenziare soltanto i bordi dell'immagi
 Operatore Gradiente:
 
 \begin{center}
-    $\nabla f=(\frac{\partial{f}}{\partial{x}}, \frac{\partial{f}}{\partial{y}})$,
+    $\nabla f=(\frac{\partial{f}}{\partial{x}},
+        \frac{\partial{f}}{\partial{y}})$,
 \end{center}
 
-Una comune implementazione della derivata prima nell'ambito dell'image processing è costituita dal modulo del gradiente
+Una comune implementazione della derivata prima nell'ambito dell'image
+processing è costituita dal modulo del gradiente
 
 \begin{center}
-    $| \nabla f(x,y) |$ $\sim$ $|\frac{\partial{f}}{\partial{x}}|$ $+$ $|\frac{\partial{f}}{\partial{y}}|$
+    $| \nabla f(x,y) |$ $\sim$ $|\frac{\partial{f}}{\partial{x}}|$ $+$
+    $|\frac{\partial{f}}{\partial{y}}|$
 \end{center}
 
 Maschere:
@@ -1674,8 +1806,8 @@ che sono detti \textbf{operatori di Sobel.}
 \end{figure}
 
 \subsection{Filtro di Prewitt}
-Analogo a quello di Sobel eccetto per le maschere di convoluzione
-che in questo caso sono:
+Analogo a quello di Sobel eccetto per le maschere di convoluzione che in questo
+caso sono:
 \begin{center}
     \[
         \begin{bmatrix}
@@ -1695,8 +1827,7 @@ che in questo caso sono:
 \begin{figure}[H]
     \centering
     \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/prewitt.png}
-    \caption{Immagine originale e immagine filtrata tramite il gradiente
-        di Prewitt.}
+    \caption{Immagine originale e immagine filtrata tramite il gradiente di Prewitt.}
 \end{figure}
 
 \subsection{Filtro di Roberts}
@@ -1707,8 +1838,7 @@ Si ottiene mediante la seguente approssimazione del gradiente:
                     & \sim |f(x,y) - f(x+1, y+1)| + |f(x+1, y) - f(x,y+1)|
 \end{align*}
 
-Calcola il gradiente lungo le direzioni diagonali.
-\\\\
+Calcola il gradiente lungo le direzioni diagonali. \\\\
 Maschere:
 
 \begin{center}
@@ -1768,14 +1898,15 @@ oppure, tenendo conto delle direzioni diagonali:
 \begin{figure}[H]
     \centering
     \includegraphics[width=8cm, keepaspectratio]{capitoli/immagini/imgs/laplaciano.png}
-    \caption{(a) Immagine originale, (b) con laplaciano, (c) con laplaciano con
-        diagonali.}
+    \caption{(a) Immagine originale, (b) con laplaciano, (c) con laplaciano con diagonali.}
 \end{figure}
 
 \subsection{Filtro Differenziale}
 
-Sfrutta la proprietà di attraversamento dello zero della derivata seconda nelle varie direzioni, coordinate e diagonali, che ha come effetto quello di evidenziare direzionalmente i bordi di un'immagine lungo di esse.
-\\Dalle approssimazioni:
+Sfrutta la proprietà di attraversamento dello zero della derivata seconda nelle
+varie direzioni, coordinate e diagonali, che ha come effetto quello di
+evidenziare direzionalmente i bordi di un'immagine lungo di esse. \\Dalle
+approssimazioni:
 
 \begin{align*}
     \frac{\partial^2{f}}{\partial{x}^2}(x,y) & \sim f(x+1,y)+f(x-1,y)-2f(x,y),                                \\
@@ -1815,16 +1946,13 @@ Si ottengono le maschere:
 Date due immagini digitali $f(x,y)$ e $g(x,y)$ della stessa dimensione, si
 possono definire le seguenti operazioni:
 
-% \begin{align*}
-%     s(x,y) = f(x,y) + g(x,y),
-%     t(x,y) = f(x,y)-g(x,y),
-%     p(x,y)=f(x,y) \cdot g(x,y),
-%     d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).
-% \end{align*}
+% \begin{align*} s(x,y) = f(x,y) + g(x,y), t(x,y) = f(x,y)-g(x,y), p(x,y)=f(x,y)
+%     \cdot g(x,y), d(x,y) = f(x,y)/g(x,y), (g(x,y) \neq 0, \forall(x,y)).
+%     \end{align*}
 
 \begin{itemize}
-    \item \textbf{Sommatoria di immagini:}
-          date due immagini è possibile definire la loro somma come:
+    \item \textbf{Sommatoria di immagini:} date due immagini è possibile
+          definire la loro somma come:
 
           $$
               s(x,y) = f(x,y) + g(x,y)
@@ -1833,8 +1961,8 @@ possono definire le seguenti operazioni:
           Questa operazione è utile per effettuare l'enhancement con
           un'operazione di sommatoria.\\
 
-          Siano $g_i(x,y)$ $K$ immagini corrotte da rumore additivo $\eta_i$ (eta),
-          ovvero
+          Siano $g_i(x,y)$ $K$ immagini corrotte da rumore additivo $\eta_i$
+          (eta), ovvero
 
           $$
               g_i(x,y) = f(x,y) + \eta_i(x,y), \ i=...K,
@@ -1856,8 +1984,8 @@ possono definire le seguenti operazioni:
           \begin{figure}[H]
               \centering
               \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/sommatoria-immagini.png}
-              \caption{a) Immagine originale affetta da rumore gaussiano
-                  b)-f) Risultato della media di 5, 10, 20, 50 e 100 immagini
+              \caption{a) Immagine originale affetta da rumore gaussiano b)-f)
+                  Risultato della media di 5, 10, 20, 50 e 100 immagini
                   rumorose.}
           \end{figure}
 
@@ -1869,8 +1997,8 @@ possono definire le seguenti operazioni:
 
           Si utilizza, ad esempio, quando si vogliono evidenziare le differenze
           fra due immagini, dove $h(x,y)$, detta maschera, è un'immagine della
-          regione di interesse. Un esempio è la \textbf{Digital
-              Subtraction Angiography (DSA)}.
+          regione di interesse. Un esempio è la \textbf{Digital Subtraction
+              Angiography (DSA)}.
           \begin{figure}[H]
               \centering
               \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/sottrazione.png}
@@ -1900,8 +2028,10 @@ La segmentazione di un'immagine nell'elaborazione digitale è un processo di
 partizione dell'immagine in regioni significative.
 
 \begin{definition}
-    E' il processo con il quale si classificano i pixel dell'immagine che hanno caratteristiche comuni: pertanto ciascun pixel in una regione
-    è simile agli altri della stessa regione per una qualche proprietà o caratteristica (colore, intensità o texture).
+    E' il processo con il quale si classificano i pixel dell'immagine che hanno
+    caratteristiche comuni: pertanto ciascun pixel in una regione è simile agli
+    altri della stessa regione per una qualche proprietà o caratteristica
+    (colore, intensità o texture).
 \end{definition}
 
 Matematicamente, il processo di segmentazione di un'immagine $f(x,y)$ in regioni
@@ -1912,11 +2042,12 @@ $R_1,...,R_n$ deve soddisfare le seguenti condizioni:
     \item Ogni regione $R_i$ con $i=1,...,n$ è connessa;
     \item $R_i \cap R_j = \emptyset$ con $i \neq j$;
     \item Se $P(\cdot)$ è un predicato che indica la conformità di tutti i pixel
-          di una regione $R_i$ ad un particolare modello della regione
-          stessa, allora devono valere:
+          di una regione $R_i$ ad un particolare modello della regione stessa,
+          allora devono valere:
           \begin{itemize}
               \item $P(R_i) = vero$ $\forall i = 1...n$
-              \item $P(R_i \cup R_j) = falso$ $\forall R_i, R_j$ regioni adiacenti
+              \item $P(R_i \cup R_j) = falso$ $\forall R_i, R_j$ regioni
+                    adiacenti
           \end{itemize}
 \end{itemize}
 
@@ -1945,8 +2076,7 @@ La segmentazione dell'immagine ha molte applicazioni:
 
 Le fondamentali metodologie di segmentazione sono:
 \begin{itemize}
-    \item \textbf{Thresholding Segmentation:} segmentazione mediante
-          sogliatura;
+    \item \textbf{Thresholding Segmentation:} segmentazione mediante sogliatura;
     \item \textbf{Edge Segmentation:} edge based segmentation - localizzazione
           dei bordi;
     \item \textbf{Region Based Segmentation:} operatori morfologici;
@@ -1964,10 +2094,11 @@ sotto la soglia. L'immagine binaria in uscita ha valore pari a 1 per ogni pixel
 dell'oggetto e pari a 0 per lo sfondo.
 
 \begin{trivlist}
-    \item \textbf{Problema:} individuare il valore ottimo che minimizza l'errore dovuto all'oversegmentation (troppi oggetti) e
-    all'undersegmentation (pochi oggetti).
-    \item \textbf{Soluzione:} sogliatura locale $\rightarrow$ scelta di un valore di soglia diverso,
-    adatto ad ogni regione esaminata.
+    \item \textbf{Problema:} individuare il valore ottimo che minimizza l'errore
+    dovuto all'oversegmentation (troppi oggetti) e all'undersegmentation (pochi
+    oggetti).
+    \item \textbf{Soluzione:} sogliatura locale $\rightarrow$ scelta di un
+    valore di soglia diverso, adatto ad ogni regione esaminata.
 \end{trivlist}
 
 \subsection{Thresholding manuale}
@@ -1983,7 +2114,8 @@ dell'oggetto e pari a 0 per lo sfondo.
 
 \subsection{Thresholding automatico basilare}
 
-Separazione dei picchi negli istogrammi che rappresentano oggetti diversi nell'immagine.
+Separazione dei picchi negli istogrammi che rappresentano oggetti diversi
+nell'immagine.
 
 \begin{figure}[H]
     \centering
@@ -2000,8 +2132,8 @@ Separazione dei picchi negli istogrammi che rappresentano oggetti diversi nell'i
 \subsection{Metodo di Otsu (1979)}
 
 \textbf{Idea:} trovare la soglia ottimale massimizzando \textbf{la varianza
-    interclasse} o, equivalentemente, minimizzando \textbf{la varianza intraclasse}.
-\\\\\textbf{Vantaggi:}
+    interclasse} o, equivalentemente, minimizzando \textbf{la varianza
+    intraclasse}. \\\\\textbf{Vantaggi:}
 
 \begin{itemize}
     \item procedura non parametrica;
@@ -2045,8 +2177,7 @@ $$
     \omega_1(k) = \sum_{i=k+1}^{L-1}p_i=1-\omega_0(k)
 $$
 
-Il valore medio (valore atteso) di intensità dei pixel appartenenti a
-$C_0$ è
+Il valore medio (valore atteso) di intensità dei pixel appartenenti a $C_0$ è
 
 $$
     \mu_0(k)=\frac{1}{\omega_0(k)} \sum_{i=0}^{k}ip_i
@@ -2092,7 +2223,9 @@ ovvero la somma pesata delle varianze delle due classi.
 \\\\Mentre la \textbf{varianza interclasse} è data da
 
 $$
-    \sigma^2_B = \omega_0(\mu_0 - \mu_T)^2 + \omega_1(\mu_1 - \mu_T)^2 = \omega_0\omega_1(\mu_1-\mu_0)^2 = \frac{\left[\mu_T \omega_k - \mu(k)\right]^2}{\omega(k)(1-\omega(k))}
+    \sigma^2_B = \omega_0(\mu_0 - \mu_T)^2 + \omega_1(\mu_1 - \mu_T)^2 =
+    \omega_0\omega_1(\mu_1-\mu_0)^2 =
+    \frac{\left[\mu_T \omega_k - \mu(k)\right]^2}{\omega(k)(1-\omega(k))}
 $$
 
 Da notare che $\sigma^2_B$  cresce all'aumentare della distanza tra i due valori medi $\mu_0$ e $\mu_1$, mettendo in evidenza che la varianza interclasse è la misura della separabilità tra le classi.
@@ -2106,9 +2239,8 @@ $$
 Una volta che è stato trovato $k^*$ l'immagine viene segmentata nel modo seguente:
 
 $$
-    g(x,y) = \begin{cases}
-        1 & \ \text{ se } f(x,y) > k^*   \\
-        0 & \ \text{ se } f(x,y) \le k^*
+    g(x,y) = \begin{cases} 1 & \ \text{ se } f(x,y) > k^*   \\
+              0 & \ \text{ se } f(x,y) \le k^*
     \end{cases}
 $$
 
@@ -2665,7 +2797,8 @@ trascurato l'energia $E$ (si presuppone che il fascio sia monocromatico), possia
 ottenerci il profilo di attenuazione che è definito come segue:
 
 $$
-    p_\theta(r) = -\ln \frac{I_\theta(r)}{I_0} = \int_{L_{r, \theta}} \mu(r \cos \theta - s \sin \theta, r \sin \theta + s \cos \theta) ds
+    p_\theta(r) = -\ln \frac{I_\theta(r)}{I_0} = \int_{L_{r, \theta}} \mu(r \cos
+    \theta - s \sin \theta, r \sin \theta + s \cos \theta) ds
 $$
 
 Quindi, $p_\theta(r)$ rappresenta la proeizione di $\mu(x,y)$ nella direzione
@@ -2674,14 +2807,16 @@ dell'angolo, andremo a definire il suo \textbf{sinogramma} che matematicamente s
 ottiene utilizzando la trasformata di Radon:
 
 $$
-    p(r, \theta) = \Re \{ f(x,y) \} = \int_{- \infty}^{+ \infty} f(r \cos \theta - s \sin \theta, r \sin \theta + s \cos \theta) ds
+    p(r, \theta) = \Re \{ f(x,y) \} = \int_{- \infty}^{+ \infty} f(r \cos \theta
+    - s \sin \theta, r \sin \theta + s \cos \theta) ds
 $$
 
 Dato che noi partiamo dal sinogramma vogliamo essere in grado di ricostruirci la
 funzione $f(x,y)$ dunque definiamo la procedura di \textbf{Retroproiezione}:
 
 $$
-    b(x,y) = \mathfrak{B} \{p(r, \theta)\} = \int_{0}^{\pi} p(x \cos \theta + y \sin \theta, \theta) d\theta
+    b(x,y) = \mathfrak{B} \{p(r, \theta)\} = \int_{0}^{\pi} p(x \cos \theta + y
+    \sin \theta, \theta) d\theta
 $$
 
 Questo valore risulta essere continuo e quindi andrà discretizzato. Dunque è necessaria

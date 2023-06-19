@@ -100,13 +100,13 @@ ricostruire in modo esatto, un segnale ad energia finita (ovvero in $L^2(\mathbb
 banda limitata, mediante la serie interpolante introdotta sopra.\\
 
 $\Delta t = 1/W$ denota l’\textit{intervallo temporale} tra i campioni, $\pi W/ 2\pi = w/2$ denota
-l’\textit{ampiezza di banda} di $f$, che e misurata in cicli per unita di tempo (Hertz) e
+l’\textit{ampiezza di banda} di $f$, che è misurata in cicli per unita di tempo (Hertz) e
 $R = 1 /\Delta t$ denota l’\textit{ordine di campionamento} (\textit{sampling rate}),
 misurato in campioni per unita di tempo.
 
 H. Nyquist mise in rilievo il significato dell’“intervallo”(numero) $1/W$ nella telegrafia
-e Shannon lo chiamo \textit{intervallo di Nyquist} corrispondente alla frequenza di
-banda $[−\pi W, \pi W]$. L’ordine di campionamento $R$, legato all’intervallo di Nyquist,
+e Shannon lo chiamò \textit{intervallo di Nyquist} corrispondente alla frequenza di
+banda $[-\pi W, \pi W]$. L’ordine di campionamento $R$, legato all’intervallo di Nyquist,
 rappresenta un minimo teorico per la ricostruzione del segnale.
 Per essere più precisi, il teorema sampling costituisce un algoritmo che permette di
 rispondere alle due seguenti domande:
@@ -117,7 +117,7 @@ rispondere alle due seguenti domande:
 
           Se il segnale contiene componenti di alte frequenze, è necessario campionarlo almeno
           due volte la massima frequenza del segnale per evitare perdite di informazione,
-          cioe $f_s \ge 2 f_H$ , dove $f_s$ e la frequenza sampling, $f_H$ e la piu alta
+          cioe $f_s \ge 2 f_H$ , dove $f_s$ è la frequenza sampling, $f_H$ è la piu alta
           frequenza del segnale e $f_s = 2 f_H$ è la frequenza (ordine) di Nyquist.
           Campionare ad un ordine più alto di $2 f_H$ significa utilizzare una successione
           più fine di valori campione, e questo è il caso del cosiddetto sovracampionamento (oversampling).
