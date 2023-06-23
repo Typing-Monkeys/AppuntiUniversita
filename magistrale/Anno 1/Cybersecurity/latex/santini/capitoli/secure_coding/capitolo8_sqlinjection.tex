@@ -1,25 +1,12 @@
 \chapter{SQL Injection}
 
-SQL injection è una tecnica di \textit{code injection}, usata per attaccare
-applicazioni di gestione
-dati, con la quale vengono inserite delle stringhe di codice SQL malevole
-all'interno di campi
-di input in modo che queste ultime vengano poi eseguite
-(ad esempio per fare inviare il contenuto del database all'attaccante).
+SQL injection è una tecnica di \textit{code injection}, usata per attaccare applicazioni di gestione dati, con la quale vengono inserite delle stringhe di codice SQL malevole all'interno di campi di input in modo che queste ultime vengano poi eseguite (ad esempio per fare inviare il contenuto del database all'attaccante).
 Sfrutta quindi le vulnerabilità di sicurezza del codice
-di un'applicazione. Un classico esempio è un'applicazione che si interfaccia
-con un database
-e che prende in input dati provenienti da una form web.
-SQL Injection è comune con PHP e ASP (ormai abbandonato) a causa della
-prevalenza di
-vecchie interfacce funzionali.
-Per quanto sia estremamente semplice evitare questo tipo di problemi,
-molte applicazioni
-commerciali (e non) sono soggette a questa vulnerabilità
-(che può portare ad accessi non
-autorizzati e alla distruzione di database aziendali) dovuta all'eccessiva
-fiducia negli input
-degli utenti.\\
+di un'applicazione. Un classico esempio è un'applicazione che si interfaccia con un database e che prende in input dati provenienti da una form web.
+SQL Injection è comune con PHP e ASP (ormai abbandonato) a causa della prevalenza di
+vecchie interfacce funzionali. Per quanto sia estremamente semplice evitare questo tipo di problemi,
+molte applicazioni commerciali (e non) sono soggette a questa vulnerabilità (che può portare ad accessi non
+autorizzati e alla distruzione di database aziendali) dovuta all'eccessiva fiducia negli input degli utenti.\\
 
 Potenziali vulnerabilità ad SQL injection si verificano quando:
 
@@ -74,7 +61,7 @@ Prendiamo in esame il seguente codice SQL:
     WHERE firstname = $input1 AND lastname = $input2
 \end{lstlisting}
 
-Assumiamo che il valore delle due variabili \verb|\$input1| \verb|\$input2|
+Assumiamo che il valore delle due variabili \verb|$input1| \verb|$input2|
 sia:
 
 \begin{lstlisting}[language=PHP]
@@ -82,7 +69,7 @@ sia:
     $input2 = "Newman"
 \end{lstlisting}
 
-La query quindi risulterà essere la seguente:
+La query risulterà essere la seguente:
 
 \begin{lstlisting}[language=Sql]
     SELECT id, firstname, lastname
@@ -90,8 +77,9 @@ La query quindi risulterà essere la seguente:
     WHERE firstname = 'evil'ex' AND lastname = 'Newman'
 \end{lstlisting}
 
-Avremo quindi un errore, in quanto il database tenterà di eseguire \verb|evil|
-come un comando SQL (\verb|Incorrect syntax near il'|).
+Avremo quindi un errore in quanto il singolo apice inserito in \verb|$input1| va a chiudere e troncare la stringa in input. Il database tenterà poi di eseguire \verb|ex| come un comando SQL ma genererà un errore (\verb|Incorrect syntax near il'|).
+
+\newpage
 
 \subsection{Esempio 2}
 
@@ -109,11 +97,11 @@ Prendiamo in esame il seguente codice \verb|C#|:
 \end{lstlisting}
 
 Se l'utente \verb|wiley| imposta il valore dell'attributo\\
-\verb|ItemName.Text| a \verb|name' OR 'a'='a'|, la query risulterà essere:
+\verb|ItemName.Text| a \verb|name' OR 'a'='a|, la query risulterà essere:
 
 \begin{lstlisting}[language=SQL]
     SELECT * FROM items
-    WHERE (owner = 'wiley' AND itemname = 'name')
+    WHERE owner = 'wiley' AND itemname = 'name'
         OR 'a'='a';
 \end{lstlisting}
 
@@ -129,7 +117,7 @@ Facciamo sempre riferimento al codice dell'esempio precedente.
 Mettiamo che l'utente \verb|hacker| inserisca come input la stringa:
 
 \begin{lstlisting}[language=SQL]
-    "name'); DELETE FROM items; --"
+    name'; DELETE FROM items; --
 \end{lstlisting}
 
 La query risulterà essere:
@@ -145,9 +133,10 @@ La query risulterà essere:
 
 Siamo quindi riusciti ad eliminare l'intera tabella !\\
 Questo accade perché molti database (incluso Microsoft SQL Server 2000)
-permettono l'esecuzione consecutiva di più query separata da un \verb|;|.
-Per esempio, questo non funzionerebbe in Oracle DB in quanto non permette questo
-comportamento.
+permettono l'esecuzione consecutiva di più query separate da un ``\verb|;|''.
+Per esempio, questo non funzionerebbe in Oracle DB in quanto non permette tale comportamento.
+
+\newpage
 
 \section{Mitigation}
 
@@ -173,18 +162,11 @@ contro SQL Injection.
 
 \subsection{Dichiarazioni Preparate}
 
-Tutti i linguaggi garantiscono la possibilità di “preparare” dei comandi.
+Tutti i linguaggi garantiscono la possibilità di ``preparare'' dei comandi.
 L'uso di dichiarazioni preparate con vincoli variabili, anche dette
-\textit{query parametrizzate}, è il
-modo corretto con cui tutti gli sviluppatori dovrebbero prima essere istruiti su
-come scrivere
-le query del database.
-Le query parametrizzate costringono lo sviluppatore a definire prima tutto il
-codice SQL, per
-poi passare ogni parametro alla query in secondo momento.
-Le istruzioni preparate assicurano che un aggressore non sia in grado di
-modificare l'intento
-di una query, anche se vengono passati come input dei comandi SQL.\\
+\textit{query parametrizzate}, è il modo corretto con cui tutti gli sviluppatori dovrebbero prima essere istruiti su come scrivere le query del database.
+Le query parametrizzate costringono lo sviluppatore a definire prima tutto il codice SQL, per poi passare ogni parametro alla query in un secondo momento.
+Le istruzioni preparate assicurano che un aggressore non sia in grado di modificare l'intento di una query, anche se vengono passati come input dei comandi SQL.\\
 
 Alcuni esempi pratici:
 
@@ -215,10 +197,10 @@ Alcuni esempi pratici:
     ";
 
     // qui viene effettuato il binding e reso sicuro l'input
-    PreparedStatement pstmt = connection.prepareStatement( query );
-    pstmt.setString( 1, custname);
+    PreparedStatement pstm = connection.prepareStatement(query);
+    pstm.setString(1, custname);
 
-    ResultSet results = pstmt.executeQuery( );
+    ResultSet results = pstm.executeQuery();
 \end{lstlisting}
 
 \subsection{Procedura Memorizzata}
@@ -289,7 +271,8 @@ al database.
 \begin{lstlisting}[language=Php]
     $mysqli = new mysqli(
         'hostname', 
-        'db_username', 'db_password', 
+        'db_username', 
+        'db_password', 
         'db_name'
         );
     $query = sprintf(
@@ -307,33 +290,15 @@ effettuando quindi operazioni di escaping: \verb|\\x00|, \verb|\\n|, \verb|\\r|,
 
 \subsection{Altre Difese Aggiuntive}
 
-Oltre ad adottare una delle quattro difese primarie (quelle elencate in precedenza),
-è raccomandato anche di adottare tutte
-queste tecniche per assicurare una difesa migliore.
+Oltre ad adottare una delle quattro difese primarie (quelle elencate in precedenza), è raccomandato anche adottare tutte queste tecniche per assicurare una difesa migliore.
 
 \paragraph{Least Privilege.}
-Per ridurre i potenziali danni di un attacco SQL injection, è necessario ridurre
-al minimo i
-privilegi assegnati ad ogni account. Non assegnate diritti di accesso di tipo DBA
-o admin agli
-account dell'applicazione. È meglio partire da zero per determinare quali diritti
-di accesso
-richiedono gli account piuttosto che cercare di capire quali diritti di accesso
-si devono togliere.
-In breve:
+Per ridurre i potenziali danni di un attacco SQL injection, è necessario ridurre al minimo i privilegi assegnati ad ogni account. Non assegnate diritti di accesso di tipo DBA o admin agli account dell'applicazione. È meglio partire da zero per determinare quali diritti di accesso richiedono gli account piuttosto che cercare di capire quali diritti di accesso si devono togliere. In breve:
 
 \begin{itemize}
-    \item Assicuratevi che agli account che necessitano solo di un accesso in
-          lettura sia
-          concesso solo l'accesso in lettura alle tabelle a cui hanno bisogno di accedere;
-    \item Se un account ha bisogno di accedere solo ad alcune porzioni di una
-          tabella,
-          considerare la possibilità di creare una vista che limiti l'accesso a quella
-          porzione di
-          dati e di assegnare invece l'accesso dell'account alla vista, piuttosto che
-          alla tabella sottostante;
-    \item Raramente, se non mai, concedere l'accesso totale agli account del
-          database.
+    \item Assicuratevi che agli account che necessitano solo di un accesso in lettura sia concesso solo l'accesso in lettura alle tabelle a cui hanno bisogno di accedere;
+    \item Se un account ha bisogno di accedere solo ad alcune porzioni di una tabella, considerare la possibilità di creare una vista che limiti l'accesso a quella porzione di dati e di assegnare invece l'accesso dell'account alla vista, piuttosto che alla tabella sottostante;
+    \item Raramente, se non mai, concedere l'accesso totale agli account del database.
 \end{itemize}
 
 \paragraph{Multiple DB users.}

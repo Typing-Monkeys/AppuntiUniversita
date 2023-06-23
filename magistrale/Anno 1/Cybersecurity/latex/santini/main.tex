@@ -1,4 +1,5 @@
 \documentclass[a4paper,12 pt]{report}
+\usepackage[italian]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
@@ -92,7 +93,7 @@
 % Resetta la numerazione dei chapter quando
 % una nuova part viene creata
 \makeatletter
-\@addtoreset{chapter}{part}
+\@addtoreset{chapter}{part} 
 \makeatother
 
 % Rimuove l'indentazione quando si crea un nuovo paragrafo
@@ -110,7 +111,8 @@
 % configurazione emoji
 \usepackage{fontspec}
 \usepackage{emoji}
-\setemojifont{NotoColorEmoji.ttf}[Path=/usr/share/fonts/truetype/noto/]
+% \setemojifont{NotoColorEmoji.ttf}[Path=/usr/share/fonts/truetype/noto/]
+\setemojifont{NotoColorEmoji.ttf}[Path=fonts/]
 
 \begin{document}
 \include{frontmatter/main.tex}
