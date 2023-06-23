@@ -2,7 +2,7 @@
 Ethereum è un piattaforma di calcolo decentralizzata che permette di eseguire programmi
 chiamati \textit{Smart Contracts},
 sfruttando la blockchain per sincronizzare e salvare i cambiamenti di stato del sistema.
-Spesso viene denotata con "World Computer".
+Spesso viene denotata con ``World Computer''.
 Oltre ai contratti, ethereum sfrutta anche una criptovaluta chiamata \textit{Ether} per
 misurare e vincolare le risorse per l'esecuzione dei contratti.
 
@@ -20,7 +20,6 @@ possiamo notare le seguenti caratteristiche comuni:
 \begin{itemize}
       \item P2P,
       \item Un algoritmo di consenso per sincronizzare gli stati,
-      \item Concetto simile alla PoW (Proof of Work),
       \item Utilizzo di funzioni crittografiche (hash, firme digitali, ...),
       \item Criptovaluta.
 \end{itemize}
@@ -38,6 +37,7 @@ Tuttavia presenta anche molte differenze sostanziali:
             non è quindi Turing-Completo e risulta molto più sicuro.
       \item La disponibilità massima di Bitcoin è pari a 21 milioni di unità, mentre gli
             Ether sono illimitati.
+      \item Bitcoin = PoW (Proof of Work), Ethereum = PoS (Proof of Stake)
 \end{itemize}
 
 \section{Componenti della Blockchain}
@@ -73,13 +73,7 @@ Nello specifico in Ethereum abbiamo:
       \item \textbf{Data Structure}: lo stato di Ethereum è salvato localmente su ogni nodo come
             un database contenente transazioni e stato del sistema in una struttura dati chiamata
             \textit{Merker Patricia Tree}.
-      \item \textbf{Algoritmo del Consenso}: Ethereum utilizza lo stesso metodo dei Bitcoin
-            (Nakamoto Consensus) che utilizza la PoW per approvare le transazioni,
-            determinando così lo stato attuale in base a qual'è la catena più lunga.
-            Ci sono piani per passare alla PoS (Proof of Stake) che verranno introdotti dal
-            progetto Casper.
-      \item \textbf{Economic Security}: Ethereum utilizza un algoritmo di PoW chiamato \textit{Ethash},
-            ma verrà abbandonato quando si passerà alla PoS.
+      \item \textbf{Algoritmo del Consenso}: Ethereum usa la PoS (Proof of Stake) in cui la sicurezza della rete è data da una serie di ricompense e sanzioni applicate al capitale bloccato degli staker. Questa struttura di incentivi incoraggia i singoli staker a validare onestamente le transazioni e punisce coloro che non lo fanno.
       \item \textbf{Clients}: Ethereum ha diverse implementazioni di vari client,
             tutte quante valide ed intercambiabili, tra cui Go-Ethereum (Geth) e Parity.
 \end{itemize}
@@ -114,7 +108,7 @@ Sono composti sempre da:
 
 \begin{itemize}
       \item uno smart contract
-      \item alcune interfacce utenti web
+      \item alcune interfacce utente web
 \end{itemize}
 
 Ma possono anche presentare:
@@ -133,7 +127,7 @@ A tale scopo, ogni client di Ethereum implementa una specifica di JSON-RPC, in m
 sia una serie uniforme di metodi su cui si basano le applicazioni.
 JSON-RPC è un protocollo di chiamata della procedura remota (RPC) leggero e privo di stato.
 Principalmente, la specifica definisce diverse strutture di dati e le regole intorno alla loro
-elaborazione. È indipendente dal trasporto, poiché i concetti sono utilizzabili entro lo stesso
+elaborazione. È indipendente dal trasporto poiché i concetti sono utilizzabili entro lo stesso
 processo, su prese, via HTTP o in svariati ambienti di passaggio dei messaggi. Usa JSON (RFC 4627)
 come formato dei dati.
 Di solito, l'accesso alle RPC è fornito da un servizio HTTP sulla porta 8584 che
@@ -173,12 +167,14 @@ funzione del suo codice da eseguire. Questo tipo di account, non avendo una chia
 non può iniziare transazioni, ma può solo reagire a transazioni chiamando altri contratti o
 spostando ether.
 
+\vspace{-2em}
+
 \section{Proof of Stake (PoS)}
 Come il PoW, il PoS (Proof of Stake) è un modo per validare e dare consenso alle
 transazioni. Il PoW paga miner che risolvono problemi matematici con lo scopo di
 creare e validare nuovi blocchi per far crescere la blockchain.
 Con il PoS, il creatore  di un nuovo blocco viene scelto in base alla quantità
-di moneta che possiede, quanto "stake" ha quella persona nella determinata moneta
+di moneta che possiede, quanto ``stake'' ha quella persona nella determinata moneta
 (currency). \textit{More stake, more power}.
 Lo stake non è solo definito come la quantità di moneta posseduta ma è importante
 anche da quanto tempo questa persona possiede la valuta.
@@ -191,6 +187,8 @@ Il principale vantaggio di questo sistema è il risparmio energetico,
 non servono immense potenze di calcolo per risolvere complesse operazioni matematiche.
 Alcune cryptocurrencies che sfruttano il PoS sono:
 
+\vspace{-0.5em}
+
 \begin{itemize}
       \item ShadowCash
       \item Nxt
@@ -198,34 +196,26 @@ Alcune cryptocurrencies che sfruttano il PoS sono:
       \item Nav Coin
 \end{itemize}
 
+\vspace{-1em}
+
 \section{Smart Contracts}
 
-Il termine Smart Contract è stato coniato da Nick Szabo ed è definito come:
-"un insieme di promesse, specificato in forma digitale che includono protocolli,
-all'interno dei quali le due parti coinvolte adempiono alle loro promesse
-contrattuali".
-Il concetto di Smart Contract quando usato in riferimento ad Ethereum può essere
-fuorviante in quanto
-non si riferisce a contratti legali ma ad un programma software che viene eseguito
-dalla EVM sull'Ethereum
+Il termine Smart Contract è stato coniato da Nick Szabo ed è definito come: ``un insieme di promesse, specificato in forma digitale che includono protocolli, all'interno dei quali le due parti coinvolte adempiono alle loro promesse contrattuali.''
+Il concetto di Smart Contract quando usato in ù riferimento ad Ethereum può essere fuorviante in quanto
+non si riferisce a contratti legali ma ad un programma software che viene eseguito dalla EVM sull'Ethereum
 World Computer. Gli Smart Contract hanno 2 caratteristiche:
 
+\vspace{-0.5em}
+
 \begin{itemize}
-      \item Sono \textbf{immutabili}: una volta mandato in esecuzione il
-            codice di uno smart contract esso non potrà cambiare.
-            L'unico modo per modificarne il codice è quello di effettuare un
-            nuovo deployment.
-      \item Sono \textbf{deterministici}: l'output di uno smart contract sarà
-            sempre lo stesso su ogni macchina che lo esegue dato il contesto della
-            transazione che lo ha inizializzato e lo stato della blockchain nel momento
-            dell'esecuzione.
+      \item Sono \textbf{immutabili}: una volta mandato in esecuzione il codice di uno smart contract esso non potrà cambiare. L'unico modo per modificarne il codice è quello di  effettuare un nuovo deployment.
+      \item Sono \textbf{deterministici}: l'output di uno smart contract sarà sempre lo stesso su ogni macchina che lo esegue dato il contesto della transazione che lo ha inizializzato e lo stato della blockchain nel momento dell'esecuzione.
 \end{itemize}
 
 \section{Coins and Tokens}
 In questo paragrafo andremo ad analizzare brevemente le differenze tra Coin e Token.
 
-\paragraph{Coins:}
-un Coin può essere definito tale se rispetta le seguenti caratteristiche:
+\paragraph{Coins:} un Coin può essere definito tale se rispetta le seguenti caratteristiche:
 
 \begin{enumerate}
       \item Opera all'interno della sua blockchain
@@ -234,13 +224,8 @@ un Coin può essere definito tale se rispetta le seguenti caratteristiche:
 \end{enumerate}
 
 \paragraph{Tokens:}
-la principale differenza con i Coin è che un Token non ha una sua propria blockchain
-ma si appoggia ad altre già esistenti, come per esempio ERC20, BAT e BNT che
-sfruttano Ethereum. Un'altra sostanziale differenza è che le transazioni di Coins
-sono gestite dalla blockchain mentre quelle di token sono governate da Smart Contract.
-Quando un token viene "speso" viene fisicamente spostato da un posto ad un altro,
-a differenza dei Coin, quando un coin viene speso viene solo aggiornato il saldo
-delle due parti. Un esempio di token sono gli NFT (Non Fungible Tokens).
+la principale differenza con i Coin è che un Token non ha una sua propria blockchain ma si appoggia ad altre già esistenti, come per esempio ERC20, BAT e BNT che sfruttano Ethereum. Un'altra sostanziale differenza è che le transazioni di Coins sono gestite dalla blockchain mentre quelle di token sono governate da Smart Contract.
+A differenza dei Coin, quando un token viene ``speso'', viene fisicamente spostato da un posto ad un altro mentre, quando un coin viene speso viene solo aggiornato il saldo delle due parti. Un esempio di token sono gli NFT (Non Fungible Tokens).
 
 \section{Hard Fork}
 

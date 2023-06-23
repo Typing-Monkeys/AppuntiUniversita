@@ -23,10 +23,12 @@ come \textit{executable space protection}
 e \textit{code signing}
 \footnote{La firma del codice è il processo di firma digitale di eseguibili e script
     per confermare l'autore del software e garantire che
-    il codice non sia stato alterato o danneggiato da quando è stato firmato.}
+    il codice non sia stato alterato o danneggiato da quando è stato firmato.}.
+
+\newpage
 
 \paragraph{Esempio gadget.} Il gadget che vediamo in questo esempio
-è \verb|pop %ebx; ret;|, costituito da due istruzioni. A sinistra possiamo vedere
+è costituito da due istruzioni: \verb|pop %ebx; ret;| . A sinistra possiamo vedere
 il suo corrispettivo nel linguaggio assembly il quale copia il valore
 costante \verb|$0xdeadbeef| nel registro ebx e poi passa all'istruzione successiva
 grazie al puntatore eip, mentre la parte destra mostra il gadget equivalente.
@@ -51,8 +53,8 @@ Il gadget funziona nel seguente modo:
 
 \paragraph{Esempio di attacco.}
 L'obiettivo dell'attacco è di invocare la chiamata di sistema \\
-\verb|ssize_t sys_write(unsigned int fd, const char * buf, size_t count)|
-in modo da stampare a schermo “xxxHACKEDxxx”. Questa istruzione prende in input
+\verb|size_t sys_write(unsigned int fd, const char * buf, size_t count)|
+in modo da stampare a schermo ``xxxHACKEDxxx''. Questa istruzione prende in input
 un \textit{file descriptor} in questo caso un stdout, una stringa e la dimensione
 della stringa da stampare.
 
@@ -62,7 +64,7 @@ della stringa da stampare.
     \caption{Esempio attacco ROP.}\label{fig:es_attacco_rop}
 \end{figure}
 
-Vediamo nel dettaglio come funziona, per inserire il codice nello stack possiamo
+Vediamo nel dettaglio come funziona. Per inserire il codice nello stack possiamo
 fare un buffer overflow come abbiamo visto nell'esempio del code injection:
 
 \begin{enumerate}
@@ -73,7 +75,7 @@ fare un buffer overflow come abbiamo visto nell'esempio del code injection:
     \item \verb|movl str_addr, %ecx|: copia l'indirizzo della stringa nel registro ecx;
     \item \verb|movl $13, %edx|: inserisce la grandezza della
           stringa nel registro edx, in questo modo abbiamo caricato nella
-          CPU tutto quello che ci serve. Per prima mette la chiamata di
+          CPU tutto quello che ci serve. Per prima  mette la chiamata di
           sistema sys\_write e poi tutti i suoi parametri che abbiamo visto in
           precedenza;
     \item \verb|int $0x80|: int interrompe l'esecuzione della CPU e salta al
@@ -93,11 +95,11 @@ trovare, all'interno della \textbf{libc} ad esempio, dei gadget equivalenti alle
 istruzioni viste in precedenza.
 Come si può vedere in Figura \ref{fig:es_attacco_rop_gadget} partendo dal basso verso
 l'alto dove il buff ha un indirizzo più basso rispetto
-alla stringa “xxxHACKEDxxx”, abbiamo i primi due spazi di memoria dedicati al main
+alla stringa ``xxxHACKEDxxx'', abbiamo i primi due spazi di memoria dedicati al main
 frame con l'ebp e il buffer,
 successivamente la prima istruzione da effettuare è la \textbf{ret} del Gadget1.
-La ret permette di eliminare tutto quello che ci stava prima di "0x4" compreso il
-"return addr to gadget1" per poi passare a eseguire la prossima
+La ret permette di eliminare tutto quello che ci stava prima di ``0x4'' compreso il
+``return addr to gadget1'' per poi passare a eseguire la prossima
 istruzione del gadget1 che è \textbf{pop \%eax}.
 Questa operazione è simile al funzionamento di eip ovvero esso contiene l'istruzione
 successiva da eseguire senza eliminare quello che è salvato prima.
@@ -114,9 +116,9 @@ di "return addr: to gadget 4".
 In generale se il file eseguibile è più grande di 3 MB c'è una buona probabilità
 che si può trovare un insieme di gadget per ogni exploit, più il file è piccolo più
 diminuisce la probabilità di trovare dei gadget. Inoltre non è sempre necessario usare
-la ret ma possiamo usare anche il jump o altre, i ROP possono lavorare anche
+la ret ma possiamo usare anche il jump o altre; i ROP possono lavorare anche
 senza \textbf{libc} ma utilizzando il codice fornito. La tecnica ROP fornisce un
-"linguaggio" (Turing complete) completamente funzionale che un utente malintenzionato
+``linguaggio'' (Turing complete) completamente funzionale che un utente malintenzionato
 può utilizzare
 in modo da far eseguire  qualsiasi operazione desiderata a una macchina compromessa.
 
@@ -127,9 +129,8 @@ il processo di individuazione dei gadget e costruzione di un attacco contro un f
 binario. Esso ricerca all'interno del file binario dei potenziali gadget utili e
 tenta di assemblarli in un payload di attacco che produce una shell. Un altro modo
 semplice di creare un attacco ROP è tramite il framework
-CTF(Capture The Flag) \textbf{pwtools} \footnote{http://docs.pwntools.com/en/stable/rop/rop.html},
-scritto in Python è stato progettato per la prototipazione rapida e per rendere
-la scrittura di exploit il più semplice possibile.
+CTF(Capture The Flag) \textbf{pwtools} \footnote{http://docs.pwntools.com/en/stable/rop/rop.html} (scritto in Python e progettato per la prototipazione rapida così da rendere
+la scrittura di exploit il più semplice possibile).
 
 
 \newpage

@@ -21,21 +21,20 @@ prima volta nella
 programmazione di uno Smart Contract, gli sviluppatori sono spesso tentati di
 provare a scrivere codice molto complesso ed articolato.
 Invece, si dovrebbe trovare il modo per fare meno, con meno linee di
-codice, meno complessità e meno "features".
-Se esiste già una libreria o un contratto che fa gran parte del necessario,
-riutilizzatela.
-All'interno del codice, seguite il principio \textit{DRY}: Don't Repeat Yourself.
-Attenzione alla sindrome del "Not Invented Here", dove si è tentati di
-"migliorare" una caratteristica o un componente costruendola da zero.
+codice, meno complessità e meno ``features''.
+Se esiste già una libreria o un contratto che fa gran parte del necessario, utilizzatela.
+All'interno del codice, seguite il principio \textit{DRY}: ``Don't Repeat Yourself''.
+Attenzione alla sindrome del ``Not Invented Here'', dove si è tentati di
+``migliorare'' una caratteristica o un componente costruendola da zero.
 Non si dovrebbe trattare la programmazione a Smart Contract allo stesso modo della
 programmazione generale. Piuttosto, si dovrebbero applicare rigorose metodologie di
 ingegneria e di sviluppo software.
-Una volta "lanciato" il vostro codice, c'è poco da fare per risolvere eventuali
+Una volta ``lanciato'' il vostro codice, c'è poco da fare per risolvere eventuali
 problemi.
 Il vostro codice deve essere chiaro e facile da comprendere.
 Più è facile da leggere, più è
 facile da controllare.
-I contratti intelligenti sono pubblici, poiché tutti possono leggere il bytecode
+Gli Smart Contract sono pubblici, poiché tutti possono leggere il bytecode
 e chiunque può
 invertirlo e modificarlo. Pertanto, è utile sviluppare il proprio lavoro in
 pubblico, utilizzando
@@ -65,7 +64,7 @@ Quindi, se questa condizione non
 \paragraph{REQURIE.}
 Controlla sempre una condizione ma,
 se non si avvera, la transazione viene abortita e
-ripristinata. Viene rimborsato anche il gas.
+ripristinata. Viene rimborsato anche il gas non ancora utilizzato.
 \ \\
 \paragraph{Esempio.}\
 
@@ -82,12 +81,11 @@ function some_state_changing_fn(uint256 _input) public
 \end{lstlisting}
 
 \verb|sender| è l'indirizzo di chi chiama la transazione e spedisce denaro.
-Il corpo della funzione salva in \verb|sender| l'indirizzo \verb|msg.sender|.
+Il corpo della funzione salva in \verb|sender| l'indirizzo \verb|msg.sender|.\\
 \verb|msg| è il messaggio che viene
-mandato al contratto. \verb|require| richiede che l'input passato sia $ > 100$.
-Se il valore passato \verb|_input| nella transazione è $ > 100$,
-allora si aggiorna la variabile \verb|input|.
-Altrimenti fallisce. Aggiornando \verb|input| si aggiorna lo stato del contratto.
+mandato al contratto.\\
+\verb|require| richiede che l'input passato sia $ >= 100$.
+Se il valore passato \verb|_input| nella transazione è $ >= 100$, allora si aggiorna la variabile \verb|input|, altrimenti fallisce. Aggiornando \verb|input| si aggiorna lo stato del contratto.
 
 \section{DAO Attack}
 
@@ -103,7 +101,7 @@ costringere i contratti ad eseguire ulteriori codici
 (attraverso una funzione di fallback). Attacchi di questo
 tipo sono stati utilizzati nel famigerato hack DAO.
 Il 17 giugno 2016 il DAO è stato violato e $3,6$ milioni di ether ($658.002.709$ euro)
-sono stati rubati con quello che viene considerato i primo attacco di reentrancy.
+sono stati rubati con quello che viene considerato il primo attacco di reentrancy.
 
 \subsection{Attacco}
 
@@ -121,8 +119,8 @@ si fa in modo che le chiamate a funzioni dei contratti siano limitate, è un mod
 per proteggere la blockchain.
 Se la transazione fallisce, viene effettuata un'operazione di ripristino (revert)
 automatico, cioè si ritorna allo stato originale.\\
-A differenza delle due precedenti, \verb|someAddress.call.value(y)()| non ha questo
-tipo di protezione, invocandola verrà inviato
+A differenza delle due precedenti, \verb|someAddress.call.value(y)| non ha questo
+tipo di protezione. Invocandola verrà inviato
 l'ether specificato e farà scattare
 l'esecuzione di una specifica parte di codice del contratto chiamante
 (funzione di \textit{fallback}).
@@ -130,6 +128,8 @@ Il codice eseguito viene fornito con tutto il gas
 disponibile per l'esecuzione, rendendo
 questo tipo di trasferimento di valori unsafe contro il reentrancy.
 Non ci sono quindi limiti, si può andare anche oltre $2300$ gas.
+
+\newpage
 
 \paragraph{ESEMPIO.}\ \\
 \verb|contract.sol|\\
@@ -255,17 +255,12 @@ Per cercare di arginare questa falla si usa una combinazione di più accorgiment
 \begin{figure}[H]
       \centering
       \includegraphics[width=10cm, keepaspectratio]{capitoli/ethereum/imgs/aritmetic.png}
-      \caption{Esempio di codice dove vulnerabile ad Arithmetic underflow/overflow.}
+      \caption{Esempio di codice vulnerabile ad Arithmetic underflow/overflow.}
 \end{figure}
 
-La keyword \verb|mapping| fungono da tabelle di hash che consistono in coppia
-\verb|chiave-valore|. In questo caso abbiamo 2 mapping: \verb|balances| e \verb|lockTime|,
-il primo associa ogni indirizzo ethereum di chi chiama questo contratto ad un numero
-che rappresenta il saldo di quell'indirizzo; il secondo associa ad ogni indirizzo
-un numero che rappresenta il lock-time (quanto deve passare da un ritiro all'altro).
-La funzione \verb|deposit| incrementa il saldo dell'indirizzo chiamante (\verb|msg.sender|)
-di quanto ha versato (\verb|msg.value|) (riga 7). Viene anche impostato il lockTime
-dello specifico indirizzo ad 1 settimana (riga 8): tra 1 settimana sarà possibile ritirare i fondi.
+La keyword \verb|mapping| funge da tabelle di hash che consistono in coppie \verb|chiave-valore|. In questo caso abbiamo 2 mapping: \verb|balances| e \verb|lockTime|, il primo associa ogni indirizzo ethereum di chi chiama questo contratto ad un numero
+che rappresenta il saldo di quell'indirizzo; il secondo associa ad ogni indirizzo un numero che rappresenta il lock-time (quanto deve passare da un ritiro all'altro).
+La funzione \verb|deposit| incrementa il saldo dell'indirizzo chiamante (\verb|msg.sender|) di quanto ha versato (\verb|msg.value|) (riga 7). Viene anche impostato il lockTime dello specifico indirizzo ad 1 settimana (riga 8): tra 1 settimana sarà possibile ritirare i fondi.
 La funzione \verb|increaseLockTime| permette di allungare il \verb|lockTime|, specificando
 il numero di secondi.
 La funzione \verb|withdraw|, dopo aver controllato se abbiamo abbastanza denaro
@@ -283,6 +278,8 @@ Da notare che la stessa cosa vale per l'underflow: sottrarre a $0$ una certa
 quantità porterà ad avere il massimo numero rappresentabile in uint.
 Così facendo posso andare a resettare il limite di tempo imposto da \verb|lockTime|.
 
+\vspace{-1.5em}
+
 \subsection{Mitigation}
 
 La tecnica normalmente utilizzata per proteggersi dalle vulnerabilità di
@@ -292,6 +289,8 @@ operatori matematici
 standard di addizione, sottrazione e moltiplicazione.
 Per esempio, OpenZeppelin è una
 libreria per lo sviluppo sicuro di un Smart Contract.
+
+\vspace{-1.5em}
 
 \section{Unexpected Ether}
 
@@ -421,7 +420,7 @@ noti (hash, timestamp, numeri di blocco o gas limit).
 Questi valori però sono controllati dal miner che
 estrae il blocco e pertanto non sono del tutto casuali.
 
-\paragraph{Esempio.}\ \\
+\paragraph{Esempio.}\
 
 Si consideri uno Smart Contract di roulette che restituisce un numero nero se il
 blocco successivo termina con un numero pari.
@@ -434,6 +433,8 @@ fino a quando non trova una
 soluzione con l'hash del blocco come numero pari (supponendo comunque che la
 ricompensa del blocco e le tasse siano meno di 1 milione di dollari).
 
+\vspace{-1em}
+
 \subsection{Mitigation}
 
 Per i motivi elencati prima, le block variables non dovrebbero essere usate per
@@ -443,7 +444,7 @@ La sorgente dell'entropia (casualità) dovrebbe essere esterna alla blockchain.
 Ciò può
 essere ottenuto cambiando il modello di trust in un gruppo di partecipanti,
 come avviene in
-\verb|RandDAO|. Viene creata infatti una sorta di “terza parte” che si fa garante
+\verb|RandDAO|. Viene creata infatti una sorta di ``terza parte'' che si fa garante
 della creazione di
 variabili casuali ma ciò allo stesso tempo avviene in modo distribuito.
 Le regole quindi sono riassunte in un contratto: abbiamo pegno, invio di una parte
@@ -451,13 +452,19 @@ del seed,
 generazione di un numero aleatorio, restituzione del pegno più parte delle tasse.
 Questo è un DAO: Organizzazione Anonima Decentrata.
 
+\vspace{-1em}
+
 \section{Manipolazione dei Time Blockstamp}
 
 I minatori hanno la possibilità di regolare leggermente i timestamp,
 il che può rivelarsi
 pericoloso se essi venissero utilizzati in modo scorretto.
 
-\paragraph{Esempio.}\ \\
+\vspace{-1em}
+
+\paragraph{Esempio.}\
+
+\vspace{-0.5em}
 
 \begin{figure}[H]
       \centering
@@ -465,32 +472,21 @@ pericoloso se essi venissero utilizzati in modo scorretto.
       \caption{Sezione di codice vulnerabile alla Timestamp Manipulation.}
 \end{figure}
 
-Prendiamo in considerazione in precedente codice di un contratto che simula
-una roulette.
+Prendiamo in considerazione il precedente codice di un contratto che simula una roulette.
 Chiunque può puntare 10 ether (riga 8).
-Il secondo \verb|require| (riga 9) controlla che ci sia una
-sola transazione nel nuovo blocco;
-poi questa verrà aggiornata subito,
-per indicare il fatto che qualcuno ha già giocato.
-Supponiamo che qualcuno ha
-esattamente puntato in questo
-momento, ovvero quando si
-verifica la condizione $now \%15 ==  0$ (riga 11); allora lui sarà
-il vincitore e con la \verb|transfer| (riga 12)
-riceverà tutto il denaro che è stato versato dagli altri giocatori nelle
+Il secondo \verb|require| (riga 9) controlla che ci sia una sola transazione nel nuovo blocco;
+poi questa verrà aggiornata subito, per indicare il fatto che qualcuno ha già giocato.
+Supponiamo che qualcuno ha esattamente puntato in questo
+momento, ovvero quando si verifica la condizione $now \%15 ==  0$ (riga 11); allora lui sarà il vincitore e con la \verb|transfer| (riga 12) riceverà tutto il denaro che è stato versato dagli altri giocatori nelle
 transazioni precedenti.
 In realtà, \verb|now| è leggermente modificabile.
-Di conseguenza, potrebbe accadere che il
-miner aggiusti il tempo in cui punta e in cui mina il blocco,
-in modo che la condizione si
-verifichi (parliamo sempre di una modifica molto piccola).
+Di conseguenza, potrebbe accadere che il miner aggiusti il tempo in cui punta e in cui mina il blocco,
+in modo che la condizione si verifichi (parliamo sempre di una modifica molto piccola).
 
 \section{Delegate Call}
 
-Gli opcode \verb|CALL| e \verb|DELEGATECALL| permettono lo sviluppo modulare
-del codice di un contratto di Ethereum.
-Tuttavia con \verb|DELEGATECALL| l'esecuzione del codice specificato
-nell'indirizzo viene eseguita utilizzando il contesto del contratto chiamante,
+Gli opcode \verb|CALL| e \verb|DELEGATECALL| permettono lo sviluppo modulare del codice di un contratto di Ethereum.
+Tuttavia con \verb|DELEGATECALL| l'esecuzione del codice specificato nell'indirizzo viene eseguita utilizzando il contesto del contratto chiamante,
 cosa che non si verifica con \verb|CALL|.
 Questo può causare delle vulnerabilità che vedremo ora con un esempio.
 
@@ -525,7 +521,7 @@ che parte dalla posizione $0$ ed è relativa al contesto del contratto,
 dunque se nella libreria abbiamo la variabile nella posizione $0$ (\verb|slot[0]|)
 che corrisponde a \verb|start| (riga 4 di a) e chiamiamo la funzione
 \verb|setStart| con \verb|delegatecall|, non utilizzeremo la variabile in
-posizione $0$ nella libreria me quella del contratto chiamante,
+posizione $0$ nella libreria ma utilizzeremo quella del contratto chiamante,
 che nel nostro caso corrisponde all'indirizzo del contratto (libreria).
 Questo permette ad un utente malevolo di
 cambiare l'indirizzo della libreria a piacimento, dirottando l'esecuzione
@@ -566,7 +562,7 @@ Prendendo in considerazione il precedente contratto, in cui andiamo a simulare
 la Lotteria: viene scelto un utente vincitore che può ritirare la somma vincente,
 mentre viene lasciata a disposizione una piccola quantità di denaro ritirabile
 dagli altri utenti solo dopo la riscossione della vincita.
-La vulnerabilità è presenta alla riga 11, dove la funzione \verb|send| viene
+La vulnerabilità è presente alla riga 11, dove la funzione \verb|send| viene
 invocata senza controllare il suo valore di ritorno. Se fallisce l'invio della
 vincita, per colpa del numero insufficiente di gas o per via dell'account del
 vincitore, tutta la vincita viene lasciata a disposizione della funzione
