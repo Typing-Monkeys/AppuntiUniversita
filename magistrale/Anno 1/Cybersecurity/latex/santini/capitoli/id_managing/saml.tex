@@ -23,7 +23,7 @@ l'utente deve ricordarsi e tenere al sicuro. Per un'azienda questo potrebbe esse
 un problema molto importante in quanto dovrebbe trovarsi a gestire un grandissimo
 numero di account. \saml{} permette alle applicazioni di delegare la fase dell'autenticazione
 dell'utente ad un'entità remota chiamata Identity Provider.
-Questa identità autentica l'utente e ritorna all'applicazione informazioni riguardanti
+Questo provider autentica l'utente e ritorna all'applicazione informazioni riguardanti
 l'utente autenticato e la fase di autenticazione. Se l'utente accede ad una seconda
 applicazione che delega l'autenticazione allo stesso Identity Provider,
 non gli verrà richiesto di effettuare nuovamente il login ma potrà utilizzare
@@ -57,7 +57,7 @@ condiviso per un utente in modo da scambiare informazioni riguardo questo.
             ricevute dall'Identity Provider.
       \item \textbf{SAML Protocol Binding}: una descrizione di come gli elementi
             dei messaggi \saml{} sono mappati in protocolli di comunicazione standard,
-            come HTTP, per trasmetter informazioni tra il Service Provider e l'Identity
+            come HTTP, per trasmettere informazioni tra il Service Provider e l'Identity
             Provider. In pratica, le richieste e risposte \saml{} sono inviate utilizzando
             il protocollo HTTPS tramite HTTP-Redirect o HTTP-POST, usando i relativi
             bindings, HTTP-Redirect Binding e HTTP-POST binding.
@@ -80,7 +80,7 @@ possono scambiarsi messaggi poiché, grazie ai meta-dati, è possibile configura
 una relazione di fiducia tra il Service Provider e l'Identity Provider, questo è
 necessario che avvenga affinché l'Identity Provider possa autenticare un utente
 per il Service Provider. Una volta che questa configurazione mutuale dei provider
-è impostata, quando un utente prova ad accedere al Server Provider, il suo
+è impostata, quando un utente prova ad accedere al Service Provider, il suo
 browser viene indirizzato all'identity provider con un \saml{} Authentication Request
 Message. L'Identity Provider autenticherà l'utente per poi reindirizzarlo
 all'applicazione con un \saml{} Authentication Response Message. Questa risposta
@@ -129,7 +129,7 @@ di phishing poiché si assicura che ogni applicazione abbia il corretto URL.
 
 \begin{enumerate}
       \item L'utente visita il portale della corporazione.
-      \item Il portare reindirizza l'utente all'Identity Provider con una \saml{}
+      \item Il portale reindirizza l'utente all'Identity Provider con una \saml{}
             Authentication Request.
       \item L'Identity Provider interagisce con l'utente per l'autenticazione.
       \item L'utente si autentica e l'Identity Provider valida le credenziali.
@@ -155,7 +155,7 @@ l'Identity Provider ed il Service Provider che permetta di identificare l'utente
 Questo viene deciso quando gli amministratori del Service Provider scambiano
 meta-dati riguardo i loro ambienti e li utilizzano per creare
 la \textit{Federation Information} tra la loro applicazione e l'Identity Provider.
-L'Identity Provider dovrà poi essere in gradi di fornire i corretti dati relativi
+L'Identity Provider dovrà poi essere in grado di fornire i corretti dati relativi
 ad ogni potenziale Service Provider.
 
 \begin{figure}[H]
@@ -189,7 +189,7 @@ comunicazione con un Identity Provider tramite dei protocolli.
       \item \textbf{Phishing Prevention}: se non hai una password per l'app non
             verrai ingannato per entrare in una fake login page.
       \item \textbf{IT Friendly}: \saml{} semplifica la vita per IT perché centralizza
-            l'autenticazione, fornisce grande visibilità e render la
+            l'autenticazione, fornisce grande visibilità e rende la
             directory integration
             più facile.
 \end{itemize}

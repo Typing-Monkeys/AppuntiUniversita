@@ -19,6 +19,8 @@ oggetto o una funzione, il comportamento dell'operatore unario * non è definito
 
 \paragraph{Double free.} Consiste nel liberare lo stesso blocco di memoria più di una volta.
 
+\newpage
+
 \section{Heap overflow}
 
 \subsection{Dlmalloc}
@@ -54,7 +56,7 @@ Quando la lista è vuota, i puntatori della testa fanno riferimento alla testa s
 Ogni bin ha una \textit{head}(testa) che contiene il puntatore in avanti e indietro
 che puntano rispettivamente al primo e all'ultimo blocco nella lista. Sia il chunk
 allocato che quello libero fanno uso di un bit \verb|PREV_INUSE|
-(rappresentato da P \ref{fig:bin}) che indica se il chunk precedente è allocato o
+(rappresentato da P in Figura \ref{fig:chunk_lib_alloc}) che indica se il chunk precedente è allocato o
 meno.
 
 \begin{figure}[H]
@@ -62,6 +64,7 @@ meno.
     \includegraphics[width=12cm, keepaspectratio]{capitoli/secure_coding/img/cap_4/bin.png}
     \caption{Esempio di un bin.}\label{fig:bin}
 \end{figure}
+
 
 \subsubsection{UNLINK}
 
@@ -77,6 +80,7 @@ lista libera perché è stato allocato da un utente.
         BK -> fd = FD;
     }
 \end{verbatim}
+
 
 \paragraph{Funzionamento macro.}
 Dalla Figura \ref{fig:ulink} si può capire bene il funzionamento della macro,
@@ -136,7 +140,7 @@ eseguire codice malevolo. L'attaccante può sovrascrivere i boundary tag associa
 con il secondo chunk della memoria, perché questo tag di confine è collocato
 immediatamente dopo la fine del primo blocco. La grandezza del primo chunk (672 byte)
 è il risultato della grandezza richiesta di 666 byte, più 4 byte per la grandezza,
-arrotondato al multiplo più vicino a 8 poiché tutti chunk devono essere divisibili
+arrotondato al multiplo più vicino a 8 poiché tutti i chunk devono essere divisibili
 per 8 byte.
 
 \begin{figure}[H]
