@@ -9,7 +9,7 @@ ruoli di appartenenza (usato in ambienti commerciali come SAP).
 
 \subsection{Chinese Wall}
 
-La politica della “\textit{muraglia cinese}” è stata introdotta da Brewer e Nash
+La politica della ``\textit{muraglia cinese}'' è stata introdotta da Brewer e Nash
 nel 1989 per evitare che informazioni sensibili, concernenti una certa compagnia,
 vengano passate a compagnie rivali per mezzo di consulenti finanziari.
 Si stabiliscono dinamicamente i diritti di accesso degli utenti in base
@@ -22,7 +22,7 @@ caso il controllo viene fatto su tutte le classi per avere la certezza che
 l'informazione non violi le
 regole sui conflitti di interesse. Per ogni classe di conflitto di interesse
 saranno definite delle
-informazioni visibili a tutti chiamate “\textbf{Sanitized Data}”
+informazioni visibili a tutti chiamate ``\textbf{Sanitized Data}''
 (informazioni prive di dati sensibili).
 Occorre definire tre elementi:
 
@@ -46,7 +46,7 @@ Prendiamo in esame la seguente immagine:
     \includegraphics[width=10cm, keepaspectratio]{capitoli/policy/imgs/chinese1.png}
 \end{figure}
 
-Gli oggetti \textit{O} solo le “Info”. I \textit{CD} sono \verb|Bank A|
+Gli oggetti \textit{O} sono le ``Info''. I \textit{CD} sono \verb|Bank A|
 e \verb|Bank B|, \verb|Gas A|, \verb|Oil A| e \verb|Oil B|.
 Le banche \verb|A| e \verb|B| sono
 in conflitto tra loro e per questo nella
@@ -60,7 +60,7 @@ Quindi, se un consulente legge un oggetto appartenente ad un \textit{CD} in una
 data \textit{CoI}, non può più
 leggere oggetti di altri \textit{CD} in quella \textit{CoI}.
 È possibile che le informazioni apprese prima possano consentirgli di prendere
-decisioni “migliori” dopo (ovviamente in modo sleale).
+decisioni ``migliori'' dopo (ovviamente in modo sleale).
 Indichiamo con \(PR(S)\) l'insieme degli oggetti che \textit{S} ha già letto.
 Una semplice condizione di sicurezza in fase di lettura, prevede che un soggetto
 \textit{S} può leggere un
@@ -94,10 +94,7 @@ Si noti che la Chinese Wall può essere combinata con le politiche DAC.
 Anthony e Susan lavorano per la stessa azienda di consulenza.
 Anthony può leggere i \textit{CD} di \verb|Bank A| e di \verb|Gas A| e Susan
 può leggere i \textit{CD} di \verb|Bank B| e di \verb|Gas A|. Se Anthony potesse
-scrivere sul \textit{CD} di \verb|Gas A|, Susan potrebbe leggerlo. Perciò,
-indirettamente, potrebbe acquisire informazioni su
-\verb|Bank B|, un chiaro conflitto di interesse. La regola così descritta per la
-lettura non è in grado di prevenire “fughe di notizie”.\\
+scrivere sul \textit{CD} di \verb|Gas A|, Susan potrebbe leggerlo. Perciò se i due si coalizzano per condividere i dati dall'azienda, Antony può scrivere su \verb|Gas A| (che ha in comune con Susan) i dati della \verb|Bank A|. Così Susan, che può leggere \verb|Gas A| leggerà invece i dati di \verb|Bank A| nonostante sia un rivale perchè lavora con \verb|Bank B|, un chiaro conflitto di interesse. La regola così descritta per la lettura non è in grado di prevenire ``fughe di notizie''.\\
 
 Quindi, in fase di scrittura, il modello deve stabilire che un soggetto \textit{S}
 può scrivere un oggetto \(o\) se e solo se:
@@ -149,7 +146,7 @@ termini di sicurezza di integrità.
 
 Il modello ORCON stabilisce che i diritti di accesso vengono definiti
 dall'utente che ha creato l'oggetto. Il diritto di lettura di un dato non è
-concesso al possessore del dato ma a colui che l'ha
+concesso dal possessore del dato ma da colui che l'ha
 originato.
 
 \begin{enumerate}
@@ -192,7 +189,7 @@ dell'amministrazione della sicurezza.
 Quando il numero dei soggetti e degli oggetti è alto, il numero di autorizzazioni
 può diventare molto grande.
 Inoltre, se l'utenza è dinamica, il numero di concessioni e di revoche di permessi
-diventa davvero elevato. Gli utenti finali spesso non “possiedono” le informazioni
+diventa davvero elevato. Gli utenti finali spesso non ``possiedono'' le informazioni
 a cui hanno accesso. Le aziende o gli enti sono i reali possessori degli oggetti.
 Il controllo di accesso è quindi basato sulle mansioni delle persone e non sul
 semplice possesso.
@@ -208,7 +205,7 @@ Poiché i ruoli rappresentano le funzioni dell'organizzazione, un modello RBAC p
 direttamente supportare le politiche di sicurezza proprie dell'organizzazione.
 La concessione e la revoca delle
 autorizzazioni alle categorie di utenti è estremamente semplificata.
-I modelli RBAC sono anche detti “\textbf{policy-neutral}”.
+I modelli RBAC sono anche detti ``\textbf{policy-neutral}''.
 
 \subsubsection{Modello RBAC-NIST}
 
@@ -240,7 +237,7 @@ Formalmente, RBAC definisce:
           sessione
 \end{itemize}
 
-\paragraph{RBAC Float.}
+\paragraph{RBAC Flat.}
 
 In questo primo modello vengono definiti solo gli elementi essenziali senza i
 quali non è possibile implementare un controllo d'accesso.
@@ -272,8 +269,8 @@ gerarchicamente più importante, saranno assegnate le stesse azioni di un ruolo
 meno importante più alcune specifiche, ovvero:
 
 \[
-    (\forall s \in S)[ \ r' \in authr(s) \wedge r' > r \rightarrow r \in authr(S) \ ]
-\]\footnote{È inutile ed incomprensibile, ma era carina da vedere.}
+    (\forall s \in S)[ \ r' \in authr(s) \wedge r' > r \rightarrow r \in authr(S) \ ]\footnote{È inutile ed incomprensibile, ma era carina da vedere.}
+\]
 
 In tale modello è applicabile il principio di ereditarietà:
 
@@ -303,8 +300,8 @@ compiti.
 
 \[
     (\forall r_1, r_2 \in R) [ \ r_2 \in meauth(r_1) \rightarrow
-            [ \ (\forall s \in S) [ \ r_1 \in authr(s) \rightarrow r_2 \notin authr(s) \ ] \ ] \ ]
-\] \footnote{Anche questa è inutile ed incomprensibile, ma carina da vedere.}
+            [ \ (\forall s \in S) [ \ r_1 \in authr(s) \rightarrow r_2 \notin authr(s) \ ] \ ] \ ]\footnote{Anche questa è inutile ed incomprensibile, ma carina da vedere.}
+\] 
 
 In pratica, la \textit{Separation of Duty} stabilisce che
 se un ruolo \(r_2\) è in conflitto con un ruolo \(r_1\),

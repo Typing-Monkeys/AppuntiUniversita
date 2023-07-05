@@ -1,6 +1,6 @@
 \section{Confidentiality Policies}
 
-Una politica di riservatezza, chiamata anche “information flow policy”,
+Una politica di riservatezza, chiamata anche ``information flow policy'',
 impedisce la divulgazione
 non autorizzata di informazioni. Il suo obiettivo è quello di specificare quali
 dati devono essere
@@ -17,17 +17,14 @@ Distinguiamo tra:
           gli oggetti (persone o processi).
 \end{itemize}
 
-Un modello di sicurezza definisce i soggetti, gli oggetti ai quali i soggetti
+Un modello di sicurezza definisce i soggetti e gli oggetti ai quali i soggetti
 hanno accesso ed i diritti
 di accesso, che non sono altro che le operazioni con le quali è possibile
 operare. Un soggetto può
 avere diritti di accesso sia per gli oggetti che per altri soggetti.
 Esistono due tipi di modelli di sicurezza:
 \begin{itemize}
-    \item \textit{Discretionary access control} (\textbf{DAC}): meccanismo
-          attraverso il quale gli utenti possono
-          liberamente decidere di garantire o revocare l'accesso a determinati
-          oggetti.
+    \item \textit{Discretionary access control} (\textbf{DAC}): meccanismo attraverso il quale i proprietari di un file possono liberamente decidere di garantire o revocare l'accesso ad altri utenti per quel file. In particolare si ha che:
           \begin{itemize}
               \item Gli utenti amministrano i dati che possiedono (vengono
                     detti proprietari);
@@ -60,20 +57,20 @@ Esistono due tipi di modelli di sicurezza:
 rafforzare i
 controlli ai possibili accessi alle applicazioni militari (corrisponde, infatti,
 alle classificazioni
-stile-militare). Viene anche chiamato modello “\textit{a multi-livelli}”.
+stile-militare). Viene anche chiamato modello ``\textit{a multi-livelli}''.
 Nelle applicazioni i soggetti e gli oggetti vengono partizionati in differenti
 livelli di sicurezza. Un
 soggetto può solo accedere ad oggetti a certi livelli, i quali dipendono
 strettamente dal loro
 livello di sicurezza. Per esempio, i seguenti sono due tipici specificazioni di
-accessi: “una persona
-\verb|UNCLASSIFIED| non può leggere informazioni a livello \verb|CONFIDENTIAL|” e
-“informazioni \verb|TOP SECRET| non possono essere scritte in files di livello
-\verb|UNCLASSIFIED|”.
+accessi: ``una persona
+\verb|UNCLASSIFIED| non può leggere informazioni a livello \verb|CONFIDENTIAL|'' e
+``informazioni \verb|TOP SECRET| non possono essere scritte in files di livello
+\verb|UNCLASSIFIED|''.
 Gli oggetti sono classificati in 4 diversi livelli di sensibilità, cioè di
 confidentiality. Ciascun oggetto
 può essere associato a uno o più livelli, detti compartments.
-Ad ogni soggetto, invece, viene associata una “\textit{clearance}” ovvero
+Ad ogni soggetto, invece, viene associata una ``\textit{clearance}'' ovvero
 un'autorizzazione. Una
 clearance non è altro che una coppia del tipo \verb|<rank, compartments>|
 dove \verb|rank| è il massimo livello di sensibilità dell'informazione a cui
@@ -82,8 +79,8 @@ cui il soggetto può accedere.
 A tutte le entità vengono assegnati dei livelli di sicurezza. In particolare:
 
 \begin{itemize}
-    \item Un soggetto S possiede “\textit{security clearance}” \(L(S)=l_s\);
-    \item Un oggetto O possiede “\textit{security classification}” \(L(O)=l_o\);
+    \item Un soggetto S possiede ``\textit{security clearance}'' \(L(S)=l_s\);
+    \item Un oggetto O possiede ``\textit{security classification}'' \(L(O)=l_o\);
 \end{itemize}
 
 Per ogni classificazione di sicurezza \(l_i, \ i=0,...,k-1 \ con \ l_i<l_i+1\),
@@ -96,14 +93,14 @@ Il modello definisce due regole obbligatorie del controllo accessi (MAC):
 \begin{itemize}
     \item \textbf{Simple Security Condition:} S può leggere O se e solo se
           \(l_o \le l_s\) e S ha discrezione
-          nell'accesso in lettura a O. Questa regola viene anche detta “No Read Up”
+          nell'accesso in lettura a O. Questa regola viene anche detta ``No Read Up''
           e impedisce ai
           soggetti di leggere oggetti a livelli superiori. Il proprietario può
           aggiungere anche dei diritti di
           tipo DAC, ovvero può restringere ulteriormente l'accesso.
     \item \textbf{* Property} (Star property): S può scrivere su O se e solo
           se \(l_s \le l_o\) e S ha discrezione
-          nell'accesso alla scrittura su O. La regola è anche detta “No Write Down”
+          nell'accesso alla scrittura su O. La regola è anche detta ``No Write Down''
           e impedisce ai
           soggetti di scrivere su oggetti di livello inferiore. Questo perché se no
           un utente potrebbe declassificare
@@ -114,7 +111,7 @@ Il modello definisce due regole obbligatorie del controllo accessi (MAC):
 Si potrebbe estendere il modello addizionando un gruppo di categorie per ogni
 classificazione di
 sicurezza. Ogni categoria descrive un tipo di informazioni.
-Tali categorie risultano dal principio del “Need To know”: limito l'accesso alle
+Tali categorie risultano dal principio del ``Need To know'': limito l'accesso alle
 sole informazioni per
 le quali l'utente ha necessità di accedere.
 
@@ -130,7 +127,7 @@ ad alcuni dei livelli inferiori.
 \end{figure}
 
 \subsection{Multilevel Security}
-Il concetto viene trattato per la prima volta nel “Red Book”nel 1987.
+Il concetto viene trattato per la prima volta nel ``Red Book'' nel 1987.
 La sicurezza multilivello o più livelli di sicurezza (\textbf{MLS}) è
 l'applicazione di un sistema di computer
 per elaborare le informazioni con incompatibili classificazioni (cioè, a diversi
@@ -147,10 +144,10 @@ garantite dal sistema.
 L'ente definisce delle regole in merito a chi può accedere e anche a che cosa;
 queste regole non
 possono essere modificate dai singoli utenti.
-I sistemi MLS ci assicurano diversi livelli di sicurezza L che definiscono la
+I sistemi MLS ci assicurano diversi livelli di sicurezza, L, che definiscono la
 classificazione dei
 soggetti (processi) e degli oggetti. I livelli di affidabilità, cioè di
-“assurance”, vengono stabiliti in
+``assurance'', vengono stabiliti in
 base a vari criteri di valutazione:
 \[
     (worst) \ D<C1<C2<C3<B1<B2<B3<A1 \ (best)
@@ -187,7 +184,7 @@ I livelli di sicurezza delle macchine sono B1, B2 e B3. Lo
 sforzo (l'effort) viene effettuato da un attaccante, il quale
 cerca di penetrare una macchina con un determinato livello
 di sicurezza.
-Il “\textbf{cascade attack}” si ha quando una sola macchina viene attaccata ad
+Il ``\textbf{cascade attack}'' si ha quando una sola macchina viene attaccata ad
 un certo livello, ma anche
 le altre vengono coinvolte conseguentemente.
 L'informazione tra i sistemi è condivisa, quindi può fluire tra le macchine.
@@ -197,19 +194,19 @@ l'informazione da TS a U, che
 equivale a dire di aver buttato giù un sistema B3. Quindi, a partire da B2,
 si riesce a buttar giù
 anche B1 e B3.
-Si dice “attacco a cascata” perché grazie ad uno sforzo relativamente piccolo
+Si dice ``attacco a cascata'' perché grazie ad uno sforzo relativamente piccolo
 (nel nostro caso
 effettuato su B2) si possono attaccare anche sistemi più grandi e sicuri,
 poiché sono interconnessi.
 In generale quindi, se l'attacco ha successo, il livello di segretezza può
 essere abbassato da
 TopSecret a Secret, fino a Unclassified.
-Si ha un “cascading attack” se esiste un “cascading path”, ovvero un cammino
+Si ha un ``cascading attack'' se esiste un ``cascading path'', ovvero un cammino
 tra sistemi che
 costa meno dello sforzo necessario a rompere i singoli sistemi.
 Ricordiamo che eliminare i cascade path è un problema che rientra in NP.
 
-\paragraph{Come eliminate il Cascade Path}
+\paragraph{Come eliminare il Cascade Path}
 \begin{itemize}
     \item  Si possono disconnettere le macchine. Più c'è condivisione,
           più si alza la possibilità di
@@ -224,8 +221,7 @@ guadagno).
     \centering
     \includegraphics[width=8cm, keepaspectratio]{capitoli/policy/imgs/cascade3.png}
 \end{figure}
-Questo invece è un cascading path (quando il livello dell'attacco è più
-grande dello sforzo).
+Questo invece è un cascading path perchè, nonostante sembra che paghiamo il prezzo massimo dovendo rompere B2 per avere le informazioni TS, in realtà portiamo le informazioni non solo da TS a S ma poi, sempre al prezzo di B2, riusciamo a portarle fino ad U in B1. Quindi effettivamente guadagniamo qualcosa perchè il livello dell'attacco è più grande dello sforzo.
 \begin{figure}[H]
     \centering
     \includegraphics[width=8cm, keepaspectratio]{capitoli/policy/imgs/cascade2.png}
@@ -238,15 +234,7 @@ grande dello sforzo).
     \includegraphics[width=10cm, keepaspectratio]{capitoli/policy/imgs/secure_interoperation.png}
 \end{figure}
 
-Supponiamo di avere due sistemi all'interno ad un'azienda, uno per le Vendite e
-uno per
-l'Amministrazione. Ognuno ha la propria policy che chiaramente definisce i
-diritti degli utenti.
-Alice lavora su entrambi i sistemi e vorrebbe che i filesystem venissero
-connessi (I sistemi sono
-sicuri individualmente). Se ciò avvenisse, allora anche Clare avrebbe accesso
-ai file dell'Admin
-System. Ciò rappresenta a tutti gli effetti un attacco al sistema.
+Supponiamo di avere due sistemi all'interno ad un'azienda, uno per le Vendite e uno per l'Amministrazione. Ognuno ha la propria policy che chiaramente definisce i diritti degli utenti. Alice e Claire lavorano su entrambi i sistemi ma Alice ha anche accesso ai file di Bob (Clare no). Entrambe vorrebbero che i filesystem venissero connessi (i sistemi sono sicuri individualmente). Se ciò avvenisse però, allora anche Clare avrebbe accesso ai file di Bob (transitività, passando per Alice) per i quali non è autorizzata. Ciò rappresenta a tutti gli effetti un attacco al sistema.\\
 
 Le possibili soluzioni sono:
 
@@ -255,9 +243,7 @@ Le possibili soluzioni sono:
     \item togliere ad Alice l'accesso ai file di Bob.
 \end{itemize}
 
-In generale quindi è necessario riconfigurare il sistema in modo da eliminare
-alcune connessioni e
-di conseguenza ridurre i diritti degli utenti.
+In generale quindi è necessario riconfigurare il sistema in modo da eliminare alcune connessioni e di conseguenza ridurre i diritti degli utenti.
 
 \subsection{Access Interoperation}
 
@@ -284,12 +270,7 @@ Eventuali soluzioni potrebbero essere:
     \item Esplicitare soltanto ciò che è permesso (linee verdi) e quindi il
           resto è default deny.
 \end{itemize}
-Va ricordato che la riconfigurazione deve essere safe: ciò che viene stabilito
-con la nuova
-configurazione deve
-essere un sottoinsieme di ciò che era permesso anche prima: non dobbiamo andare
-ad escludere per errore flussi già esistenti. La policy deve essere rispettata
-sempre, anche dopo la riconfigurazione.
+Va ricordato che la riconfigurazione deve essere safe. Ciò che viene stabilito con la nuova configurazione deve essere un sottoinsieme di ciò che era permesso anche prima. Non dobbiamo andare ad escludere per errore flussi già esistenti. La policy deve essere rispettata sempre, anche dopo la riconfigurazione.
 
 \subsection{Secure Reconfiguration}
 

@@ -1,6 +1,6 @@
 \section{Funzioni Hash}
 
-Una funzione di hash è una funzione matematica che permette di ridurre una
+Una funzione hash è una funzione matematica che permette di ridurre una
 qualunque stringa di
 testo (indipendentemente dalla sua lunghezza) in una nuova stringa avente
 precise caratteristiche
@@ -17,9 +17,9 @@ A prescindere dal tipo di funzione di hashing tutte hanno dei punti in comune:
           output;
     \item \textbf{Irreversibilità}: mentre è sempre possibile riprodurre
           l'output conoscendo l'input originario
-          col quale l'output è stato generato non è però possibile fare
-          il percorso inverso, non si può
-          quindi a partire da una stringa alfanumerica risalire al contenuto
+          col quale l'output è stato generato, non è però possibile fare
+          il percorso inverso. Non si può
+          quindi, a partire da una stringa alfanumerica (output), risalire al contenuto
           iniziale dell'input;
     \item \textbf{Determinismo}: indipendentemente da quanto sia lungo l'input,
           la funzione di hash restituirà
@@ -29,3 +29,5 @@ A prescindere dal tipo di funzione di hashing tutte hanno dei punti in comune:
           variazione infinitesimale dell'input per generare un output
           completamente differente;
 \end{itemize}
+
+Alcune funzioni hash (come MD5 e SHA1) sono notoriamente conosciute a causa della loro vulnerabilità ai ``Rainbow  Table Attack'' \emoji{rainbow}, ovvero attacchi in cui sono stati creati dizionari che riportano la corrispondenza tra una parola e  relativo hash. Così facendo un attaccante può comodamente usare uno dei molteplici siti web\footnote{Uno dei più famosi è sicuramente \href{https://crackstation.net/}{CrackStation}.} o scaricare direttamente un dizionario\footnote{Esistono rainbow table da svariati Tb scaricabili gratuitamente su \href{https://freerainbowtables.com/}{Free Rainbow Tables}.} per verificare se l'hash di una password che ha trovato è stato già craccato, senza doversi preoccupare di dover effettuare un bruteforce sull'hash.

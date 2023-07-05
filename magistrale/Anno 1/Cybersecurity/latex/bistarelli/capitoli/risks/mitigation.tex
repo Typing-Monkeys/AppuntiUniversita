@@ -1,10 +1,10 @@
 \section{Risk Mitigation}
 
-Nel processo di “\textit{Risk Mitigation}” vengono analizzate le contromisure
+Nel processo di ``\textit{Risk Mitigation}'' vengono analizzate le contromisure
 raccomandate dal team di
 assessment e poi selezionate e implementate quelle che presentano il
 miglior rapporto costi/benefici.
-Solitamente si adotta la modalità degli “\textbf{Attack Tree}”
+Solitamente si adotta la modalità degli ``\textbf{Attack Tree}''
 (approcci qualitativi).
 Più nel dettaglio distinguiamo:
 
@@ -13,7 +13,7 @@ Più nel dettaglio distinguiamo:
           realizzarsi all'interno di un sistema.
           Lo scopo è quello di individuare le possibili minacce e il livello di
           rischio associato ad ogni
-          risorsa che compone il sistema. Vengono chiamati “Attack Tree” perché
+          risorsa che compone il sistema. Vengono chiamati ``Attack Tree'' perché
           l'analisi dei
           possibili attacchi viene effettuata per mezzo della costruzione di alberi.
     \item Approcci \textbf{quantitativi} (Indici economici): Quantificazione di
@@ -57,7 +57,7 @@ Abbiamo quindi:
     \caption{Questa immagine rappresenta un Attack Tree.}
 \end{figure}
 
-Gli alberi di difesa (\textbf{Defense Tree}) sono un'estensione degli
+Gli alberi di difesa (\textbf{defence Tree}) sono un'estensione degli
 Attack Trees (nodi quadrati). Si costruiscono per capire
 quali sono le possibili contromisure da adottare.
 Considerando tutte queste possibilità di un eventuale attacco,
@@ -71,7 +71,37 @@ alla pericolosità, al costo, ecc.
 \begin{figure}[H]
     \centering
     \includegraphics[width=8cm, keepaspectratio]{capitoli/risks/imgs/dtree.png}
-    \caption{Questa immagine rappresenta un Defense Tree.}
+    \caption{Questa immagine rappresenta un defence Tree.}
+\end{figure}
+
+\subsection{Cp-nets}
+Le conditional preference networks, dette anche cp-nets, sono delle rappresentazioni grafiche usate per esprime un ordine di preferenza.\\ 
+
+Per capire meglio il concetto riporto subito un esempio (Figura~\ref{fig:cp-nets_example}). Poniamo il caso che siamo in un ristorante e che non sappiamo quali piatti sono disponibili e ci vogliamo affidare al cameriere su cosa mangiare. Utilizzando solo una frase siamo in grado di esprimere una preferenza condizionale su due variabili, in questo caso il piatto D e il vino W. Per ogni variabile dell'insieme di variabili, l'utente può specificare la variabile genitore che può influenzare la sua preferenza: nel nostro esempio D è genitore di W perché il tipo di piatto influenza la scelta del vino.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=11cm, keepaspectratio]{capitoli/risks/imgs/cp-nets_example.png}
+	\caption{Esempio utilizzo cp-nets.}
+	\label{fig:cp-nets_example}
+\end{figure}
+
+Come visto in Figura~\ref{fig:cp-nets_example}, la preferenza va dalla condizione ``meno preferita'' a quella ``preferita'' seguendo un ordine o da sinistra verso destra o dall'alto verso il basso.\\
+
+Sfruttando lo stesso concetto le cp-nets vengono usate in combinazione ai defence tree in maniera tale che:
+\begin{itemize}
+	\item I \emph{defence tree} ci permettono di determinare, in modo qualitativo, le strategie di attacco che un attaccante può seguire per danneggiare 
+	un sistema, le diverse azioni che compongono ogni attacco e le misure di sicurezza che possono essere adottate nel sistema.
+	\item Le \emph{cp-nets} vengono poi usate per determinare l'ordine di preferenza dell'amministratore di sistema nella selezione delle contromisure da adottare per ogni singolo nodo di attacco nel defence tree.
+\end{itemize}
+
+Di seguito possiamo vedere un reale esempio di utilizzo delle cp-nets con i defence tree. In questo caso l'attacco  \emph{\textbf{$a_4$}} è meno pericoloso dell'attacco \emph{\textbf{$a_3$}} che è meno pericoloso dell'attacco \emph{\textbf{$a_5$}} e così via. Poi, per ogni attacco, andiamo a dare un ordine di preferenza alle relative contromisure adottabili. Ad esempio, per l'attacco \emph{\textbf{$a_1$}} avremo che la contromisura \emph{\textbf{$c_1$}} sarà meno preferita rispetto alla contromisura \emph{\textbf{$c_2$}} ma che a sua volta sarà meno preferita della contromisura \emph{\textbf{$c_3$}}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm, keepaspectratio]{capitoli/risks/imgs/cp-nets_con_defence_tree.png}
+	\caption{Esempio utilizzo cp-nets con defence tree.}
+	\label{fig:cp-nets_con_defence_tree}
 \end{figure}
 
 \subsection{Indici Economici}

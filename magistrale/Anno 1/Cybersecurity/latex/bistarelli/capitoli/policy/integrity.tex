@@ -9,7 +9,7 @@ Possiamo distinguere due diversi tipi di integrità:
             avere una maggiore integrità rispetto al freeware
             scaricato da internet.
       \item \textbf{Il livello di integrità di un oggetto} descrive il grado
-            di “affidabilità” dell'informazione
+            di ``affidabilità'' dell'informazione
             contenuta in quell'oggetto.
 \end{itemize}
 
@@ -27,7 +27,7 @@ che:
 \'{E} importante precisare che avere un alto livello di integrità non significa
 avere un alto livello di
 confidenzialità e viceversa.
-In generale se P è un processo con un grado X di “affidabilità”
+In generale se P è un processo con un grado X di ``affidabilità''
 (\textbf{trustworthiness}) non può
 modificare dati ad un livello più alto di lui perché è certificato solo fino
 a quel punto; quindi può
@@ -71,16 +71,16 @@ particolare vuole:
             rispecchino il mondo reale).
 \end{itemize}
 
+\newpage
+
 Implementa le protezioni definendo una serie ordinata di livelli di integrità
 per i soggetti e gli
 oggetti, rispettando le regole:
 
 \begin{itemize}
-      \item \textbf{Read Up:} Questo significa che
-            un soggetto che si trova al livello di integrità X può leggere
-            solo oggetti allo stesso livello o
-            superiore (“assioma di integrità semplice”);
-      \item \textbf{Write Down:} un soggetto al livello di integrità X può
+      \item \textbf{No Read Down:} Questo significa che
+            un soggetto che si trova al livello di integrità X può leggere solo oggetti allo stesso livello o superiore (``assioma di integrità semplice'');
+      \item \textbf{No Write Up} un soggetto al livello di integrità X può
             scrivere solo oggetti allo stesso livello
             o di livello più basso (assioma di integrità * o Proprietà di
             semplice sicurezza);
@@ -89,8 +89,7 @@ Un esempio è quello della gerarchia militare: un generale può solo ricevere
 ordini dai suoi superiori o parigrado e può imporre ordini solo ai suoi
 sottoposti o parigrado per evitare un cambiamento/danneggiamento
 nella missione da svolgere.
-Da notare che \textit{Read Up} e \textit{Wite Down} sono l'opposto delle regole
-\textit{Read Down}, \textit{Write Up} del modello Bell-LaPadula.\\
+Da notare che \textit{No Read Down} e \textit{No Write Up} sono l'opposto delle regole \textit{No Read Up}, \textit{No Write Down} del modello Bell-LaPadula.\\
 
 È impossibile trasformare informazioni meno trusted in più trusted.
 L'obiettivo di tale modello è quello di evitare che il grado di fiducia di
@@ -165,14 +164,14 @@ I tasselli alla base del modello CW sono quindi:
             così l'integrità;
 \end{itemize}
 
-\paragraph{Esempio.}\ \\
+\paragraph{Esempio.}\
 
 \begin{figure}[H]
       \centering
       \includegraphics[width=\textwidth, keepaspectratio]{capitoli/policy/imgs/clark_wilson.png}
 \end{figure}
 
-Consideriamo il momento in cui il fornitore consegna la merce ad una specifica e
+Consideriamo il momento in cui il fornitore consegna la merce ad una azienda e
 ciò è testimoniato dalla shipnote, ovvero la bolla di consegna. Una possibile
 organizzazione dell'impresa prevede che vi sia una persona addetta al magazzino
 che verifica se la merce ricevuta corrisponde a quella specificata nella bolla.
@@ -311,11 +310,7 @@ solo da WFT per
 risultare CDI.
 Il minimo di sicurezza richiesta comprende:
 \begin{itemize}
-      \item Integrità: i vincoli d'integrità esistono per proteggere IS da
-            maligni o accidentali modifiche
-            dei dati. Le regole possono essere definite su stati statici del db
-            o su transazioni (es. prima
-            di poter effettuare un modifica);
+      \item Integrità: i vincoli d'integrità esistono per proteggere IS da modifiche maligne o accidentali dei dati. Le regole possono essere definite su stati statici del db o su transazioni (es. prima di poter effettuare un modifica);
       \item Identificazione, autenticazione: prima di accedere a un sistema ogni
             utente deve essere
             identificato e autenticato per mantenerne traccia e per dargli
@@ -333,7 +328,7 @@ regole di certificazione:
       \item \textbf{CR2} una TP deve trasformare un insieme di CDI da uno stato
             valido ad uno valido
             \begin{itemize}
-                  \item CR2 definisce come “certificata” una relazione che
+                  \item CR2 definisce come ``certificata'' una relazione che
                         associa un insieme di CDI ad
                         una TP;
                   \item CR2 implica che una TP può corrompere una CDI se non è
@@ -383,8 +378,7 @@ regole di rinforzo
 \begin{itemize}
       \item \textbf{CR3} Le relazioni di permesso devono essere basate sulla
             separazione dei compiti.
-      \item \textbf{ER3} Il sistema deve autenticare ogni utente che vuole
-            utilizzare una TP.
+      \item \textbf{ER3} Il sistema deve autenticare ogni utente che utilizza una TP.
 \end{itemize}
 
 \subsubsection{Uso dei Log}
@@ -407,14 +401,13 @@ regole di rinforzo
       \item \textbf{CR5} Ogni TP che prende in input un UDI può eseguire solo
             trasformazioni valide, oppure
             nessuna trasformazione, per ogni possibile valore dell'UDI.
-            La trasformazione può quindi rifiutare il
-            UDI o trasformarlo in un CDI.
+            La trasformazione può quindi rifiutare l'UDI o trasformarlo in un CDI.
             \begin{itemize}
                   \item Un possibile esempio: in un banca i numeri inseriti
                         da tastiera sono UDI, i quali non possono essere dati in input
                         ad una TP. Un'apposita TP deve validare tali numeri
                         (rendendoli un CDI) prima di usarli; se
-                        la validazione fallisce, la TP rigetta il UDI.
+                        la validazione fallisce, la TP rigetta l'UDI.
             \end{itemize}
 \end{itemize}
 

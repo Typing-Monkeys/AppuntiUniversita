@@ -2,15 +2,15 @@
 
 \subsection{Blockchain}
 
-La \textit{blockchain} (letteralmente "catena di blocchi") è una struttura dati
-\textbf{condivisa} e "\textbf{immutabile}". È definita come un \textit{registro
-    digitale} le cui voci sono raggruppate in "\textbf{blocchi}", concatenati in
+La \textit{blockchain} (letteralmente ``catena di blocchi'') è una struttura dati
+\textbf{condivisa} e ``\textbf{immutabile}''. È definita come un \textit{registro
+    digitale} le cui voci sono raggruppate in ``\textbf{blocchi}'', concatenati in
 ordine cronologico, e la cui integrità è garantita dall'uso della
 \textbf{crittografia}. Sebbene la sua dimensione sia destinata a crescere nel
 tempo, è immutabile in quanto, di norma, il suo contenuto una volta scritto non
 è più né modificabile né eliminabile, a meno di non invalidare l'intera
 struttura. Tali tecnologie sono incluse nella più ampia famiglia delle
-“\textit{Distributed Ledger}”, ossia sistemi che si basano su un registro
+``\textit{Distributed Ledger}'', ossia sistemi che si basano su un registro
 distribuito, che può essere letto e modificato da più nodi di una rete. Non è
 richiesto che i nodi coinvolti conoscano l'identità reciproca o si fidino l'uno
 dell'altro. Difatti, per garantire la coerenza tra le varie copie, l'aggiunta di
@@ -29,12 +29,12 @@ avviene tramite collaborazione di massa ed è alimentata da interessi collettivi
 L'utilizzo di questa tecnologia consente anche di superare il problema
 dell'infinita riproducibilità di un bene digitale e della doppia spesa, senza
 l'utilizzo di un server centrale o di un'autorità. Talvolta risulta possibile
-che alcuni nodi della rete producano simultaneamente più blocchi "concorrenti"
+che alcuni nodi della rete producano simultaneamente più blocchi ``concorrenti''
 (ossia collegati a uno stesso blocco già esistente, ma diversi tra loro nel
 contenuto): ciò dà origine a una biforcazione (fork) nella catena. Il protocollo
 di aggiornamento specifica quale regola i nodi debbano adottare per selezionare
 il blocco da accettare, tra quelli concorrenti. I blocchi non selezionati per
-l'inclusione nella catena sono chiamati "\textit{blocchi orfani}".
+l'inclusione nella catena sono chiamati ``\textit{blocchi orfani}''.
 
 \begin{figure}[H]
     \centering
@@ -44,7 +44,7 @@ l'inclusione nella catena sono chiamati "\textit{blocchi orfani}".
 
 \subsection{Bitcoin}
 
-Il bitcoin si comporta più come “\textit{oro}” che come “moneta” perché il
+Il bitcoin si comporta più come ``\textit{oro}'' che come ``moneta'' perché il
 valore cambia nel tempo. Più che proprietà o possesso di bitcoin/monete si parla
 di \textit{diritto di spesa}, che si ottiene conoscendo una determinata chiave
 di cifratura. Si possono inviare e ricevere bitcoin sfruttando una exchange
@@ -69,11 +69,13 @@ Nella precedente immagine possiamo distinguere:
     \item Gli \textbf{utenti} che voglio partecipare all'ecosistema devo essere
           dotati di un Wallet,
     \item Un \textbf{wallet} è un software che permette
-          di gestire in maniera facile le copie di chiavi private-pubbliche, che
+          di gestire in maniera facile le coppie di chiavi private-pubbliche, che
           servono per ricevere o dare diritti di spesa/transazioni,
     \item Le \textbf{transazioni} vengono salvate sui database distribuiti e
           vengono replicate su tutti i nodi della rete.
 \end{itemize}
+
+\newpage
 
 \subsubsection{Bitcoin Core}
 
@@ -93,7 +95,7 @@ implementano:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=15cm, keepaspectratio]{capitoli/bitcoin/imgs/bit33.png}
+    \includegraphics[width=14cm, keepaspectratio]{capitoli/bitcoin/imgs/bit33.png}
 \end{figure}
 
 \begin{itemize}
@@ -105,7 +107,7 @@ implementano:
     \item \textit{Miner} (\emoji{black-circle}): in genere le transazioni da inserire su un blocco sono
           tantissime, il miner ha il compito di selezionarle e metterle in un
           blocco (nelle blockchain si può inserire solo un blocco di transazioni
-          per volta, e non una transazione alla volta ), per poi comunicare le
+          per volta, e non una transazione alla volta), per poi comunicare le
           operazioni portate a termine agli altri nodi in modo che tutti
           aggiornino le informazioni.
 \end{itemize}
@@ -131,20 +133,9 @@ protocolli, i più comuni nell'ambito delle criptovalute sono il \textbf{Proof o
     Work} e il \textbf{Proof of Stake}.
 
 \paragraph{PoW:}
-nel proof of work la ricompensa non viene data a tutti i nodi ma al primo che
-riesce a risolvere un problema crittografico, questo si aggiudicherà il diritto
-di scegliere quale transazione inserire nel blocco. Per risolvere il problema il
-miner dovrà trovare una stringa che aggiunta alle transazioni del blocco dia
-come risultato \verb|00000xxxxxxxxxxx| una volta hashata. L'unico modo per
-ottenere la stringa è facendo dei tentativi per indovinarla. Una volta
-verificata la correttezza della stringa dagli altri nodi l'operazione sarà
-approvata. La difficoltà per i miner varia in base al numero di \verb|0|
-iniziali contenuti nella stringa finale, questi \verb|0| possono essere
-aumentati o diminuiti in base al tempo di risoluzione medio impiegato dai miner
-(che dovrebbe sempre aggirarsi intorno ai 10 minuti). Infine, prima di
-aggiungere definitivamente il blocco, viene inserita una transazione fittizia in
-più, chiamata \textbf{Coinbase}, dove viene registrato il fatto che il miner riceve
-il suo compenso di nuovi bitcoin.
+nel proof of work la ricompensa non viene data a tutti i nodi ma al primo che riesce a minare un blocco (risolvendo un problema crittografico) e ad aggiungerlo alla blockchain. Per risolvere il problema il
+miner dovrà prendere un insieme di transazioni non verificate, mettere prima di queste l'hash dell'ultimo blocco presente nella blockchain e inserire in fondo un \emph{nonce}, ovvero un numero randomico. Dovrà poi calcolare l'hash dell'intero blocco, cambiando di volta in volta il nonce, finchè non otterrà un hash che inizi con tanti \verb|0| quanti sono quelli richiesti dal sistema della blockchain in quel momento, \verb|00000xxxxxxxxxxx|. Tale quantità di \verb|0| viene infatti incrementata e decrementata dal sistema affinchè il tempo medio di mining di un blocco rimanga intorno ai 10 minuti. Una volta
+verificata la correttezza dell'hash dagli altri nodi l'operazione sarà approvata. Infine, prima di aggiungere definitivamente il blocco, viene inserita una transazione fittizia in più, chiamata \textbf{Coinbase}, dove viene registrato il fatto che il miner riceve il suo compenso di nuovi bitcoin.
 
 \subsubsection{Escrow Contracts}
 

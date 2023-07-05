@@ -35,17 +35,17 @@ Ad una CA sono assegnati 10 compiti:
 
 Il formato più comune per i certificati di chiave pubblica è definito da X.509, raccomandato dalla
 ITU (International Telecommunication Union).
-Il certificato viene firmato da chi lo emette. “Codice identificativo
-dell'emittente” è univoco per ogni
+Il certificato viene firmato da chi lo emette. ``Codice identificativo
+dell'emittente'' è univoco per ogni
 CA esistente. La firma garantisce il fatto che il documento è autentico,
 cioè che è stato scritto dal
-“nome soggetto” e che è stato verificato da “ente emettitore”.
-E' importante specificare il “periodo di validità” poiché la stessa firma
+``nome soggetto'' e che è stato verificato da ``ente emettitore''.
+E' importante specificare il ``periodo di validità'' poiché la stessa firma
 (e la coppia chiave
 pubblica-privata) ha una validità temporale. Se questa dovesse scadere,
 il certificato va riemesso.
 Ciò viene fatto anche nel momento in cui i ruoli (specificati nel campo
-“estensioni”) di chi partecipa
+``estensioni'') di chi partecipa
 alla sottoscrizione cambiano.
 Viene anche specificato l'elenco degli algoritmi utilizzati per
 l'apposizione della firma con i relativi
@@ -79,7 +79,7 @@ struttura minima prevede la presenza di una CA ed un LVP; in generale
 sono ammessi più LVP.
 Una PKI può avere una struttura gerarchica in cui alcune CA certificano
 altre CA, ottenendo una
-“catena di fiducia”. Secondo tale struttura: la “Root CA” certifica le
+``catena di fiducia''. Secondo tale struttura: la ``Root CA'' certifica le
 CA di primo livello; le CA di
 primo livello certificano le CA di secondo livello; le CA di ultimo
 livello certificano il singolo utente.
