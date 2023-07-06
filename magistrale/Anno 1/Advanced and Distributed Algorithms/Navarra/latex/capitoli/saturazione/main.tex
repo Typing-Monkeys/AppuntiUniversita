@@ -77,8 +77,8 @@ quest'ultimi.
 %quest'ultimo. Prendiamo ad esempio un nodo $x$ che invierà un messaggio M nel
 %link che lo collega al suo parent. Prima o poi, dato che non sono presenti
 %cicli, il messaggio arriverà ad un nodo SATURATED $s_1$. Questo nodo è
-%diventato SATURATED perchè ha ricevuto un messaggio M dal suo parent $s_2$;
-%poichè s2 ha inviato un messaggio M ad s1, s2 deve essere stato in PROCESSING
+%diventato SATURATED perché ha ricevuto un messaggio M dal suo parent $s_2$;
+%poiché s2 ha inviato un messaggio M ad s1, s2 deve essere stato in PROCESSING
 %e deve aver considerato s1 suo padre. Quindi quando il messaggio M di s1
 %arriverà su s2, anche s2 diventa saturo. Pertanto esistono almeno due nodi
 %che diventano saturi.
@@ -138,8 +138,8 @@ quest'ultimi.
                   \includegraphics[scale=0.5]{images/n_41}
               \end{center}
 
-              In questo caso affinchè $x$ ed $y$ fossero nodi saturi $z$ dovrebbe
-              aver mandato due messaggi di tipo M, ma questo è assurdo, perchè va
+              In questo caso affinché $x$ ed $y$ fossero nodi saturi $z$ dovrebbe
+              aver mandato due messaggi di tipo M, ma questo è assurdo, perché va
               contro le ipotesi del protocollo (non può esistere $z$ che manda due M
               nelle due direzioni: ogni nodo manda un solo M, questo è assurdo). Se
               ne conclude quindi che i due nodi saturi sono sicuramente vicini tra
@@ -171,7 +171,7 @@ $M[$\texttt{SatureTree,R,treee}$] \leq 2(n-1) + (n-1+1) = 3n - 2$
 \end{itemize}
 Supponiamo di avere $K^*$ iniziatori:
 \begin{center}
-    $M[$\texttt{SatureTree,R,treee}$] = n + K^* - 2 + (n-1+1) = 2n + K^* -2$\\
+    $M[$\texttt{SatureTree,R,tree}$] = n + K^* - 2 + (n-1+1) = 2n + K^* -2$\\
 \end{center}
 Dove:
 \begin{itemize}
@@ -230,25 +230,25 @@ Quindi il costo totale è:
 \section{Esempio di applicazione: Protocollo MinFind}
 
 $$P_{INIT} = < \forall x \in \xi, value(x) \in \mathbb{R}, status(x) =
-    Avaiable>$$
+    Available>$$
 $$
     P_{FINAL} =   <
     \forall x \in \xi, status(x)= MIN \; if \; value(x) = min
     \{value(y), y \in \xi \}$$$$ \&\&  status(x) = LARGE \;altrimenti >$$
 Vediamo ora un esempio di applicazione della Saturazione per trovare il più
 piccolo valore all'interno di un sistema. Ogni entità $x$ ha un certo valore
-$v(x)$ ed è in uno stato uguale a tutte le altre (AVAIABLE). L'obiettivo è
+$v(x)$ ed è in uno stato uguale a tutte le altre (AVAILABLE). L'obiettivo è
 quello di trovare il minimo tra tutti i valori $v(x)$ delle entità, e fare in
 modo che in terminazione ognuna di esse conosca se è o no il minimo all'interno
 del sistema, ed entrare rispettivamente nello stato di MINIMUM o LARGE.\\
 \textbf{Attenzione:} L'insieme delle restrizioni sulle quali ci basiamo resta
 comunque $R$. Più di un'entità all'interno del sistema può avere il minimo
-valore poichè sono ammessi valori uguali tra più entità. Si assume un albero non
+valore poiché sono ammessi valori uguali tra più entità. Si assume un albero non
 radicato come grafo.\\
 Si assume sempre rete ad Albero.
 \begin{itemize}
     \item Se l'albero fosse radicato, allora il problema sarebbe più semplice,
-          poichè in questa tipologia, è presente sia un nodo speciale (la radice) sia un
+          poiché in questa tipologia, è presente sia un nodo speciale (la radice) sia un
           orientamento logico dei link, infatti ogni nodo può capire quale link è "up",
           ovvero che lo porta alla radice, e quale link è "down", ovvero che lo
           allontana da quest'ultima. In questa tipologia, per trovare il minimo, la
@@ -272,7 +272,7 @@ semplicemente il loro id, mentre un nodo interno terrà contro del minimo locale
 del suo sotto albero ed invierà a suo padre solamente questo. Ne segue che
 quando i due nodi saturi saranno eletti, sapranno il valore minimo del proprio
 sotto albero, che invieranno in broadcast nello stadio di Risoluzione.
-%Nell'algoritmo tutte le entità partono dallo stato di Avaiable (che è lo stesso
+%Nell'algoritmo tutte le entità partono dallo stato di Available (che è lo stesso
 %di ASLEEP), tramite impulso spontaneo un'entità inizia la propria esecuzione ed
 %invia un messaggio a tutti i suoi vicini per fare in modo che tutte le entità,
 %quando inizia lo stadio di Saturazione siano nello stato di ACTIVE. Un nodo
@@ -298,7 +298,7 @@ $M[$\texttt{MinFind,R,tree}$] \leq 3n - 2 + n - 2 = 4n - 4$
 \end{itemize}
 
 \begin{center}
-    $M[$\texttt{MINFIND,R,treee}$] = n + K^* - 2 + (n-1+1) + (n-2) = 3n + K^* -
+    $M[$\texttt{MINFIND,R,tree}$] = n + K^* - 2 + (n-1+1) + (n-2) = 3n + K^* -
         4$\\
 \end{center}
 Dove:
@@ -306,7 +306,7 @@ Dove:
     \item $(n + K^* - 2)$ Costo del wake-up con $k^*$ iniziatori.
     \item $(n-1+1)$ uguale a sopra.
     \item $n-2$ costo del broadcast che viene avviato dai nodi saturi, risparmiamo
-          due messaggi perchè i nodi saturi già conoscono il minimo globale.
+          due messaggi perché i nodi saturi già conoscono il minimo globale.
 \end{itemize}
 Possiamo vedere che al costo della \textit{FullSaturation}, sono stati aggiunti
 $n-2$ messaggi utilizzati nel terzo stadio (\texttt{Broadcast} su albero
@@ -322,7 +322,7 @@ $T[$\texttt{SatureTree,R,tree}$] \leq 3d$
 \end{itemize}
 
 
-Il costo di T ed M è ottimo asintoticamente, poichè è obbligatorio che tutti i
+Il costo di T ed M è ottimo asintoticamente, poiché è obbligatorio che tutti i
 nodi del grafo siano presi in considerazione [Vedere quaderno di Carpi, in
         fondo, per disegni].\\
 \underline{Tempo [Studenti]:}
@@ -372,7 +372,7 @@ facendo questo si colleziona la massima distanza dagli altri nodi.\\
     \item n-1 è per il Convergecast
 \end{itemize}
 Se volessi utilizzare questo metodo per il calcolo dell'eccentricità di ogni
-nodo, si spenderebbe $n(2(n-1))$ poichè ogni nodo effettua un numero di messaggi
+nodo, si spenderebbe $n(2(n-1))$ poiché ogni nodo effettua un numero di messaggi
 pari a $2(n-1)$.\\
 
 \textbf{Il costo per il calcolo dell'eccentricità di ogni nodo con il metodo
@@ -389,7 +389,7 @@ sappiamo a propri quali nodi diventeranno saturi, ma basta sapere che quando ci
 diventano sapranno sicuramente la loro eccentricità. Per far questo è necessario
 includere nel messaggio M inviato da un'entità $x$ al parent $y$ la
 \textbf{massima} distanza di $x$ dai nodi del suo sotto albero $T[x-y]$ (che non
-contiene y)+ 1, poichè deve arrivare ad $y$. In questo modo un nodo saturo $s$
+contiene y)+ 1, poiché deve arrivare ad $y$. In questo modo un nodo saturo $s$
 saprà la distanza $d[s,y]$ per ogni vicino $y$; quindi potrà calcolare la sua
 eccentricità. \\
 Il nostro obiettivo però è calcolare l'eccentricità di ogni nodo, non solo
@@ -427,7 +427,7 @@ calcolerà la sua eccentricità e fornirà le informazioni mancanti a tutti gli
 altri suoi vicini.\\
 
 \textbf{ATTENZIONE:} Nello stadio di Risoluzione l'informazione che viene
-propagata non è una notifica, poichè è diversa per ogni vicino che la riceve, ma
+propagata non è una notifica, poiché è diversa per ogni vicino che la riceve, ma
 resta comunque un singolo messaggio.
 
 Gli algoritmi utilizzati nelle tre fasi quindi sono:
@@ -532,11 +532,11 @@ Il centro di un albero ha interessanti proprietà tra le quali:\\
     \begin{itemize}
         \item Se $d_1[x]-d_2[x] > 1$: Se così fosse, il nodo $y$ che determina
               $d_1[x]$ avrebbe distanza minore di $x$ da tutti gli altri e perciò sarebbe
-              lui il centro. Ma questo è assurdo perchè $x$ è centro per supposizione.
+              lui il centro. Ma questo è assurdo perché $x$ è centro per supposizione.
         \item Se $d_1[x]-d_2[x] = 1$: Allora anche il nodo $y$ che determina $d_1[x]$
-              sarà un centro perchè avrà le stesse distanze di $x$ dagli altri nodi. Ma per
+              sarà un centro perché avrà le stesse distanze di $x$ dagli altri nodi. Ma per
               supposizione $x$ era l'unico centro.
-        \item Se $d_1[x]-d_2[x] = 0$: Il lemma vale, perchè $x$ è l'unico centro,
+        \item Se $d_1[x]-d_2[x] = 0$: Il lemma vale, perché $x$ è l'unico centro,
               qualunque altro nodo diverso da $x$ andassi a scegliere sarebbe più lontano da
               tutti gli altri nodi.
     \end{itemize}
