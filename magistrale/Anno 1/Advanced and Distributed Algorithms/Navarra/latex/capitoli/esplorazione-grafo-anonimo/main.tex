@@ -42,7 +42,7 @@ stiamo considerando, in questo caso la lunghezza ($\Pi$) sarebbe $\Pi(n) =
     \item 2 indica il dover scendere e risalire il grafo (stiamo attuando una DFS)
     \item n-1 indica il numero dei nodi dell'albero
 \end{itemize}
-\textbf{Perchè il lower buond del problema è n?}\\
+\textbf{Perché il lower bound del problema è n?}\\
 L'OverBound del problema dovrebbe essere esattamente $\Omega(n)$ e non $2n$,
 ovvero si devono necessariamente attraversare tutti i nodi. Troviamo un percorso
 di lunghezza $\Pi$ pari ad $n$ su un Anello, per esempio, o se esiste nel grafo
@@ -55,8 +55,8 @@ tocchi tutti i nodi del grafo G passando solamente una volta per ogni arco e che
 ritorni al nodo di partenza.\\
 Dato che questa strada è complessa scelgo di costruire prima uno Spanning Tree
 del grafo e poi far muovere l'automa li dentro, anche se passa più volte per
-arco. \\\textbf{Un esempio di un grafo che non ammette ciclo emiltoniano è un
-    qualsiasi grafo avente almeno un nodo con grado uno.} Poichè arrivati in quel
+arco. \\\textbf{Un esempio di un grafo che non ammette ciclo hemiltoniano è un
+    qualsiasi grafo avente almeno un nodo con grado uno.} Poiché arrivati in quel
 nodo si deve necessariamente tornare indietro e quindi passare per un arco due
 volte. Dato che si vuole costruire uno Spanning Tree, ci sarà necessariamente un
 nodo di grado uno. Quindi è necessario tenere $2(n-1)$ come lowerBound e non
@@ -79,7 +79,7 @@ L'automa quindi uscirà su porta 1 quando la i è pari al grado (d) del nodo.
 %Abbiamo esplorato tutti i nodi ed il robot torna nel nodo di partenza, uscendo
 %dalla porta di partenza. Nel nostro caso 
 Consideriamo che l'automa abbia \textbf{memoria finita} nella quale non sono
-memorizzati i numeri di porta, poichè in un grafo qualsiasi non conosciamo il
+memorizzati i numeri di porta, poiché in un grafo qualsiasi non conosciamo il
 deg massimo.
 
 Il periodo trovato è:
@@ -259,7 +259,7 @@ Se esco da $a$ su una porta diversa da 1 vado in stato $T$. Se trovo un valore
 \end{itemize}
 
 \subsection{Complessità}
-\textbf{Perchè è $\Pi(n) \leq 4n$ il costo?} Questo equivale a chiedersi quanto
+\textbf{Perché è $\Pi(n) \leq 4n$ il costo?} Questo equivale a chiedersi quanto
 vale il periodo $\Pi(n)$\\
 
 L'automa deve esplorare in profondità tutto T andata e ritorno, spendendo quindi
@@ -267,17 +267,17 @@ $2(n-1)$, a cui poi devo sommare i vari errori commessi dall'automa; può
 commettere 1 errore su ogni nodo ma può sbagliare su tutti, quindi $n$.
 Sbagliando deve anche tornare indietro, che è un altra aggiunta di $n$ errori.
 Quindi si avrebbe in totale: $2(n-1)+n+n = O(4n) $ o anche $\leq 4n$. Se il
-grafo è un \textbf{albero} siamo ottimi, poichè il lower bound è anch'esso
+grafo è un \textbf{albero} siamo ottimi, poiché il lower bound è anch'esso
 $n$.\\
 In caso di \textbf{grafo completo} non posso esplorare l'albero convenientemente
 a meno che non si parta dalla radice, in quel caso usando solo 2 stati si
 avrebbe costo = $2n-2$. Potrei però costruire un grafo $G'$ ring, in quel caso
 sempre con 2 stati si avrebbe un costo = $n$. Purtroppo l'idea del ring si può
-applicare solo su grafi che siano Hamiltoniani (dotati di un cammino che tocca
-tutti i nodi una e una sola volta), ma sapere se un grafo è Hamiltoniano è un
+applicare solo su grafi che siano Hemiltoniani (dotati di un cammino che tocca
+tutti i nodi una e una sola volta), ma sapere se un grafo è Hemiltoniano è un
 problema NP-completo.
 
-Concludiamo quindi che il lower-bound è $2n-2$, esclusi i grafi Hamiltoniani.
+Concludiamo quindi che il lower-bound è $2n-2$, esclusi i grafi Hemiltoniani.
 
 \section{Prova formale della correttezza}
 \textbf{Enunciato: } Sia G un grafo di dimensione $n$ con orientamento locale
@@ -312,7 +312,7 @@ nodi di G.
                       \item Se v è una foglia anche su G, allora l'automa lascia
                             automaticamente la foglia $v$ attraverso porta 1 in
                             stato N ed il claim è dimostrato. Questo avviene
-                            perchè $d=i$ quindi si va sullo stato N.
+                            perché $d=i$ quindi si va sullo stato N.
                       \item Se invece il $d(v)>1$ su G, l'automa entra in $v$ in
                             testing $(T, i+1)$ ed attraverserà l'arco con
                             etichetta 2. $v$ è una foglia su T, e dato che $e$ è
@@ -327,7 +327,7 @@ nodi di G.
                             una volta posizionato su $v$, ci conduce ad una
                             porta "1". Se andiamo a considerare il sotto albero
                             $T_2$ radicato in questo nodo avremo:\\
-                            $h(T_2) \leq h(T_1) -1$, poichè si effettua uno step
+                            $h(T_2) \leq h(T_1) -1$, poiché si effettua uno step
                             in profondità dal nodo v al sottoalbero ottenuto
                             tagliando l'arco con etichetta 1. Possiamo quindi
                             applicare l'ipotesi induttiva e avremo che in
@@ -377,15 +377,15 @@ nodi di G.
 
         % Dove:
         % \begin{itemize}
-        %     \item $\sum_{i=2}^{p} n_i = (n'-1)$ fa quel valore perchè sono tutti i
+        %     \item $\sum_{i=2}^{p} n_i = (n'-1)$ fa quel valore perché sono tutti i
         %           nodi nei rispettivi sotto alberi, che vengono chiamati $n'$ -1 invece è
-        %           perchè la sommatoria inizia da 2 e quel -1 è esattamente il nodo $v$.
+        %           perché la sommatoria inizia da 2 e quel -1 è esattamente il nodo $v$.
         %     \item La sommatoria indica tutti quelli che hanno porta 1 alla fine del
         %           link (nell'esempio sul quaderno erano $T_i, T_j, T_p$)
         %     \item $4n_i - 2$ Indica tutti quelli dentro al sottografo (numero di passi
         %           per attraversare tutti i nodi)
         %     \item $2(P-1)$ Tutti i passi da V ai sottografi (quelli tagliati) e
-        %           viceversa. P indica tutti i vicini di V e -1 poichè è l'arco in entrata
+        %           viceversa. P indica tutti i vicini di V e -1 poiché è l'arco in entrata
         %           "dall'alto".
         %     \item +2 Se c'è qualche altro link oltre a P che non ha dall'altra parte
         %           etichetta 1, ed indica andare in Testing e tornare indietro con Backward.
@@ -429,7 +429,7 @@ nodi di G.
                         nell'altro nodo, cambia stato in B e ritorna nel nodo
                         $v$ attraverso $e$ commettendo esattamente due errori.
                         Successivamente lascerà $v$ tramite porta 1 in stato N
-                        poichè siamo in stato B ed entrerà nel ciclo infinito.
+                        poiché siamo in stato B ed entrerà nel ciclo infinito.
                             [2 step]
               \end{enumerate}
               %mero di porta che non è in $T$.
@@ -527,7 +527,7 @@ Ovvero, più è piccola l'etichetta e maggiore sarà l'altezza del sotto albero.
 foglie quindi avranno tutte la stessa etichetta, quindi l'automa sbaglia nella
 prima o poi non sbaglia più. Questo funziona anche con le altre strutture della
 stessa altezza, dato che avranno lo stesso numero di porta, l'automa sbaglia una
-volta e poi finchè il numero di porta resta quello non sbaglia più.
+volta e poi finché il numero di porta resta quello non sbaglia più.
 
 \subsection{Descrizione delle strutture possibili}
 Avendo questo ordinamento, la struttura più piccola che può stare nel
@@ -535,7 +535,7 @@ sottoalbero è una foglia, che quindi avrà etichetta più grande di tutte le
 altre. Le foglie quindi avranno etichettamento consecutivo e quindi è possibile
 sbagliare nel primo arco, ma successivamente l'automa saprà che da li in poi
 saranno tutte foglie, e quindi non sbaglia più. Questo metodo si applica anche
-qualora ci fossero più strutture con la stessa etichetta, poichè potrò sempre
+qualora ci fossero più strutture con la stessa etichetta, poiché potrò sempre
 risparmiare errori una volta aver sbagliato nella prima. Elenchiamone alcune:\\
 Struttura prima di trovare una foglia: Un albero con altezza uno, ovvero due
 nodi messi a fila.\\
@@ -555,7 +555,7 @@ Procedure Color(node v)
 	all nodes at distance 1 from v become GREEN
 	all not yet colored nodes at distance 2 from v become BLUE
 	
-Procedure Backbone-Construnction(G) -> Tree
+Procedure Backbone-Construction(G) -> Tree
 	pick an arbitrary node $v \in V$
 	Color(v)
 	$V_B = \{ v \}$ //nodi della backbone (all'inizio solo v)
@@ -568,7 +568,7 @@ Procedure Backbone-Construnction(G) -> Tree
 		$E_B = E_B \cup \{ (v',w_2), (w_2, w_1), (w_1, v)\}$
 		node $w_1$ and $w_2$ becomes YELLOW
 		
-Procedure Tree-Construnction (G, B /*Backbone di G*/) -> ST
+Procedure Tree-Construction (G, B /*Backbone di G*/) -> ST
 	$V_T = V_B$
 	$E_T = E_B$
 	
@@ -659,9 +659,9 @@ nodo v) :
 Sia $n$ il numero di nodi e $p$ il numero di errori che possono commettere.
 \paragraph{Calcolo di n}\ \\
 Avremmo: $n \geq 3 S_A + 2 S_E + S_L + S_O + 2 S_Y + S_R$\\
-Poichè 3 sono il numero di nodi che creano un sottoalbero di tipo A, 2 $S_e$
-indica il numero di nodi se l'albero è una foglia estesa e 2 $S_y$ poichè i nodi
-gialli sono al più 2??? I nodi yellow che non sono diventati Orange è perchè
+Poiché 3 sono il numero di nodi che creano un sottoalbero di tipo A, 2 $S_e$
+indica il numero di nodi se l'albero è una foglia estesa e 2 $S_y$ poiché i nodi
+gialli sono al più 2??? I nodi yellow che non sono diventati Orange è perché
 hanno dei vicini Blue.
 \paragraph{Calcolo della Penalty [Vedere quaderno per i disegni su dove commetto
             errori]:}\ \\
@@ -679,7 +679,7 @@ $n \geq 3 S_A + 2 S_E + S_L + S_O + 2 S_Y + S_R$\\
 Sfruttiamo le seguenti proprietà per stimare il rapporto $p/n$\\
 \vspace{-10mm}
 \begin{itemize}
-    \item $S_Y + S_O = 2 S_R - 2$ Poichè $S_Y + S_O$ sono intermedi ai nodi rossi,
+    \item $S_Y + S_O = 2 S_R - 2$ Poiché $S_Y + S_O$ sono intermedi ai nodi rossi,
           se li sommo tutti ottengo due volte il numero dei rossi. (vedere quaderno per
           disegno)
     \item $S_E \leq S_R$, $S_L \leq S_R$
@@ -691,7 +691,7 @@ $$\frac{2 S_A + 2 S_E + S_L + 2(S_Y + S_O)}{3 S_A + 2 S_E + S_L + 2(S_O + S_Y) +
     \frac{2 S_A + 7 S_R}{3 S_A + 8 S_R} $$
 
 Vediamo quindi il costo di questo algoritmo:\\
-$$ 2n - 2 + 2p < 2n -2 + 2 \frac{7}{8} n = 3.75n -2 $$ Si ha 2P poichè commetto
+$$ 2n - 2 + 2p < 2n -2 + 2 \frac{7}{8} n = 3.75n -2 $$ Si ha 2P poiché commetto
 l'errore e torno indietro.\\
 Risposta : SI, si può fare di meglio.\\
 
