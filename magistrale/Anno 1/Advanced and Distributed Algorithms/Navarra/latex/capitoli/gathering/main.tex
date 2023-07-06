@@ -53,7 +53,7 @@ Vediamo in dettaglio le fasi che compongono il ciclo LCM:
           Fa una foto della configurazione del sistema. In questa fase un
           determinato robot, grazie alla fotografia, riesce a vedere tutto il ring
           e la sua configurazione, ovvero quali nodi sono liberi e quelli sono
-          occupati. Notare bene che la foto è instantanea, ovvero i robot che
+          occupati. Notare bene che la foto è istantanea, ovvero i robot che
           vengono visti sono solamente quelli sui nodi e non sugli archi (mentre
           si stanno spostando). (Dal momento in cui un robot fa la foto al momento
           in cui si muove altri robot potrebbero già aver cambiato posizione)
@@ -87,7 +87,7 @@ Look.\\
     robot di non muoversi allora si fallisce. Se gli dice di muoversi allora
     l'avversario effettuerà le operazioni dei due robot in maniera simultanea e
     non permetterà mai il Gathering, farà in modo quindi che i robot saranno
-    sempre a distanza dispari, perchè l'avversario effettuerà sempre lo swapping
+    sempre a distanza dispari, perché l'avversario effettuerà sempre lo swapping
     dei due.\\
     \textbf{Mio:} Data una qualunque configurazione, ci si troverà prima o poi
     nella situazione in cui i due robot saranno su due nodi adiacenti, da qui
@@ -127,7 +127,7 @@ problema.
     %qualunque cosa faccia l'algoritmo prima o poi dovrà far incontrare i robot, e
     %creare quindi una molteplicità. Nello specifico, la molteplicità nel nodo dove
     %finalizzare il gathering verrà prima o poi creata. Assumiamo che questa
-    %molteplicità venga creata step by step, ovvero un robot alla volta; poichè
+    %molteplicità venga creata step by step, ovvero un robot alla volta; poiché
     %siamo in un sistema asincrono, anche se il nostro algoritmo volesse far
     %convogliare più robot su un solo nodo nel medesimo istante l'avversario potrà
     %sempre dilungare i tempi per fare in modo che su un nodo ci arrivi solo un
@@ -199,7 +199,7 @@ problema.
     \includegraphics[scale=0.7]{images/n_48}
 \end{figure}
 
-Nelle prime due immagini effettuare il Gathering è possibile, poichè abbiamo
+Nelle prime due immagini effettuare il Gathering è possibile, poiché abbiamo
 almeno un nodo su cui effettuarlo (quello tagliato dall'asse), nella terza
 invece è impossibile, non abbiamo nodi candidati su cui effettuare gathering.
 
@@ -245,7 +245,7 @@ Gathering è la seguente:
 \end{lemma}
 
 \begin{proof}
-    Questo è vero perchè un robot si muove solamente se il segmento
+    Questo è vero perché un robot si muove solamente se il segmento
     tra lui e la molteplicità è libero, ed in questo caso il robot si muove
     solamente sui nodi liberi del ring. Questo implica che nessun altra molteplicità
     oltre quella esistente verrà creata. Dato che per ogni configurazione con una
@@ -260,7 +260,7 @@ Gathering è la seguente:
 Abbiamo dedotto quindi che per finalizzare il gathering in qualsiasi
 configurazione rigida, indipendentemente dal numero di robots è necessario
 creare una singola molteplicità. \textbf{L'idea principale è quella di eleggere
-    un singolo robot e muoverlo finchè non ne incontra un altro su un nodo,
+    un singolo robot e muoverlo finché non ne incontra un altro su un nodo,
     riuscendo quindi a creare una molteplicità e permettendo di finalizzare il
     gathering.} Fondamentale il fatto però che l'elezione di questo robot deve fare
 in modo che durante il suo cammino non crei una configurazione in cui il
@@ -270,7 +270,7 @@ seguente modo:\\
 \textbf{Elezione del robot:} Quello che distingue i robot sono le distanze che
 hanno tra di loro. Da questa distanza posso ottenere due stringhe binarie
 analizzando entrambi le direzioni. Devo tenere conto di entrambe le direzioni
-perchè pur avendo la Asimmetria, dato che i robot non concordano sul verso, se
+perché pur avendo la Asimmetria, dato che i robot non concordano sul verso, se
 uno computa la stringa a sinistra, ed un altro robot computa una stringa a desta
 è possibile che queste due siano uguali. Inserirò 0 se il nodo è vuoto, inserirò
 1 se il nodo ha un robot sopra. (\textbf{Esempio:} 110111100). Ogni stringa
@@ -278,7 +278,7 @@ calcolata sarà chiamata Vista. \\ Poiché la configurazione è asimmetrica
 necessariamente queste stringhe saranno tutte diverse, quindi è un po' come se i
 robot adesso avessero degli ID. Di queste due viste, un robot sceglie quella
 \textbf{minore}. Ogni robot può inoltre computare le stringhe di tutti gli altri
-durante la fase di Look.\\ \'E fondamentale poter distinguere i robot perchè
+durante la fase di Look.\\ \'E fondamentale poter distinguere i robot perché
 così riusciamo a distinguere quello con vista minima, ovvero quella che ha il
 valore più piccolo. Questo robot sarà quello che è più vicino all'intervallo di
 nodi vuoti più lungo, e sarà lui il robot designato per effettuare lo
@@ -290,7 +290,7 @@ vuoti e ora possono accadere due cose:
           dei nodi vuoti
 \end{enumerate}
 Se ricadiamo sul secondo punto è necessario muovere nuovamente un altro robot,
-ma siamo sicuri che si muoverà sempre quello perchè la sua vista sarà ancora la
+ma siamo sicuri che si muoverà sempre quello perché la sua vista sarà ancora la
 più piccola di tutti, dato che avrà i bit ad 1 nelle posizioni \textbf{meno}
 significative della vista, mentre l'altro robot che sta nella parte opposta
 dell'intervallo dei nodi vuoti avrà gli 1 in posizioni più significative, e
@@ -311,10 +311,10 @@ questo determina una grandezza maggiore della vista.
 
 
 A questo punto \textbf{si muove il robot con vista minima rispetto a tutti
-    perchè sarà accanto alla serie più lunga di nodi vuoti, e si muove verso la
+    perché sarà accanto alla serie più lunga di nodi vuoti, e si muove verso la
     parte opposta a quella con i nodi vuoti, allargando ulteriormente questo
     intervallo.} Questo significa che al prossimo passo il robot che sarà elettro
-per lo spostamento sarà sempre lui, perchè ha comunque stringa più piccola di
+per lo spostamento sarà sempre lui, perché ha comunque stringa più piccola di
 tutti. Si continua così fin quando non si crea la prima molteplicità e
 successivamente si applica la procedura per fare in modo che i nodi nella
 molteplicità non si muovano ed i restanti si muovano verso di essa.\\
@@ -328,8 +328,8 @@ fino a quando non andrò a scontrarmi con un altro robot creando una
 molteplicità.\\
 \textbf{Come garantisco che si muova sempre lo stesso robot?} Se io allargo da
 un estremo allora restringo dall'altro, e si muoverà quindi il robot con la
-stringa massima. Poichè la configurazione è asimmetrica necessariamente queste
-stringhe saranno tutte diverse, ma ci potrebbero essere stringhe uguali perchè i
+stringa massima. Poiché la configurazione è asimmetrica necessariamente queste
+stringhe saranno tutte diverse, ma ci potrebbero essere stringhe uguali perché i
 robot non concordano su uno stesso verso. Quello che succede è che se uno legge
 una stringa in un verso e l'altro la legge dall'altro è possibile che le due
 stringhe siano uguali.\\
@@ -348,11 +348,11 @@ eletti per lo spostamento. Supponiamo che la distanza $a$ (la stringa) tra M ed
 M' sia minore della distanza $b$ tra N ed N'. Il robot M si muoverà verso il
 robot M'. Dopo questa mossa la distanza tra M ed N diventa Max + 1 e la distanza
 tra M ed M' diventa $a-1$. Nessun altra distanza viene modificata. La
-configurazione è ancora una volta rigida, perchè M ed N sono l'unica coppia di
-vicini a distanza Max+1 e la distanza $a-1$ tra M ed M' è pioù piccola della
-distanza $b$ tra N ed N'. I robot M ed N sono quindi nuovamente eletti perchè
-ora c'è solo un singolo vbicino a distanza b tra N ed N' e quindi sarà ancora il
-robot M che si muoverà verso M'. Ne segue che fino a quando una moltepclità non
+configurazione è ancora una volta rigida, perché M ed N sono l'unica coppia di
+vicini a distanza Max+1 e la distanza $a-1$ tra M ed M' è più piccola della
+distanza $b$ tra N ed N'. I robot M ed N sono quindi nuovamente eletti perché
+ora c'è solo un singolo vicino a distanza b tra N ed N' e quindi sarà ancora il
+robot M che si muoverà verso M'. Ne segue che fino a quando una molteplicità non
 viene creata un solo robot alla volta si muoverà sempre nella stessa
 direzione.\\
 In partenza la configurazione è asimmetrica, quindi di tutte le sequenze di
@@ -363,7 +363,7 @@ fin quando non creerò una molteplicità. Questo significa che se io allargo da 
 estremo allora restringo e si stringe fino a quando non viene creata una
 molteplicità Il protocollo da applicare potrebbe quindi essere quello di
 spostare il robot con la stringa massima. Questo pur muovendosi manterrà la
-stringa massima finchè non creerà una molteplicità. Da li in poi tutti gli altri
+stringa massima finché non creerà una molteplicità. Da li in poi tutti gli altri
 robot possono unirsi a quella.
 
 \begin{theorem}
@@ -413,13 +413,13 @@ che la durata di ogni ciclo di LCM può durare in maniera diversa per ogni robot
 Può succedere quindi che un robot si svegli, effettui la Look e nello stesso
 momento si sveglia un altro robot che effettua un ciclo completo di LCM prima
 che il primo robot effettui la Compute. Questo poteva creare dei problemi,
-poichè, nell'esatto caso sopra descritto, il primo robot effettuerà la sua Move
+poiché, nell'esatto caso sopra descritto, il primo robot effettuerà la sua Move
 su una foto \textbf{obsoleta} del sistema. Vediamo quindi cosa succede con altri
 sistemi:\\
 
 \textbf{Modello Fully Synchronous (FSYNC):} Ogni ciclo di LCM ha la stessa
-durata per ogni robot; la mossa avverà esattamente dopo n cicli di clock e per
-tutti i robot, poichè si svegliano tutti allo stesso momento.\\
+durata per ogni robot; la mossa avverrà esattamente dopo n cicli di clock e per
+tutti i robot, poiché si svegliano tutti allo stesso momento.\\
 Riassumendo, in questo modello avremo:\\
 |L|C|M|L|C|M|L|C|M|\\
 |L|C|M|L|C|M|L|C|M|\\
@@ -440,7 +440,7 @@ simmetrica nodo-arco. Dato il modello in cui siamo (SSYNC), abbiamo la certezza
 che prima o poi entrambi si sveglieranno. Nel ciclo di LCM scelgo un nodo e
 tutti si muoveranno verso il nodo scelto come finalizzatore del gathering,
 quindi in questi sistemi è risolvibile. Nel mondo Asincrono questo non sarebbe
-possibile, poichè se ne sposterebbe solo uno alla volta, e l'avversario potrebbe
+possibile, poiché se ne sposterebbe solo uno alla volta, e l'avversario potrebbe
 fare in modo che l'esecuzione sia speculare, non finalizzando ma il gathering.\\
 Possiamo parlare di una gerarchia tra i livelli: \textbf{FSYNC $>$ SSYNC}, due
 robot gatherabili nel mondo FSYNC sono gatherabili anche nel mondo SSYNC ma non
@@ -475,7 +475,7 @@ mondo asincrono le mosse sono:
           spostare di conseguenza l'asse di simmetria. La configurazione diventa
           periodica e non è possibile finalizzare il gathering.
     \item L'avversario crea 2 molteplicità mandando i robot uno sopra l'altro ed
-          il gathering non è risolubile perchè si crea una configurazione periodica.
+          il gathering non è risolubile perché si crea una configurazione periodica.
     \item Uguale alla precedente ma con l'altra coppia di nodi.
     \item Mossa di Swap tra i 4 nodi aventi il robot sopra, si crea sempre la
           stessa configurazione.
@@ -495,7 +495,7 @@ gathering.
 
 \section{Mondo SSYNC (Semisincrono)}
 \textbf{Le SP4 su mondo semisincrono sono risolubili tranne la SP4 su 5 nodi.}
-In questo mondo sono risolvibili perchè non esistono alcune configurazioni che
+In questo mondo sono risolvibili perché non esistono alcune configurazioni che
 sono esattamente quelle che danno problemi nel mondo del FSYNC, ovvero quelle
 che fanno sovrapporre le mosse di Look e Move.
 
@@ -511,10 +511,10 @@ finalizzeranno il gathering proprio nel centro. Le mosse quindi vanno effettuate
 in maniera tale da non far spostare il centro del cerchio.\\
 
 \properties{I punti fondamentali che determinano il cerchio o sono due sul diametro oppure sono 3 robot.}
-In sostanza questa proprità dice di non far muovere i robot che potrebbero
+In sostanza questa proprietà dice di non far muovere i robot che potrebbero
 spostare il centro. Supponiamo tutti i robot posizionati sul diametro
 perfettamente stabili, essi avranno tutti la stessa vista e quindi la mossa la
 possono fare tutti, in questa configurazioni non è possibile lasciare 3 robot o
 2 sul diametro, l'unica soluzione è muoverli tutti assieme verso il centro.
-Siamo però in un sistema asincorno, quindi non tutti si svegliano insieme.
+Siamo però in un sistema asincrono, quindi non tutti si svegliano insieme.
 
