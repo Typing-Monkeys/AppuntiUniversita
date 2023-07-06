@@ -135,7 +135,7 @@ VISITED
 
 Notiamo che nell'insieme degli stati c'è anche \textbf{Done.} Un'entità entra in
 questo stato quando ha finito di esplorare il suo vicinato. Non è possibile
-quindi che gli venga inviato un token, poichè anche il suo vicinato sà che ha
+quindi che gli venga inviato un token, poiché anche il suo vicinato sà che ha
 finito. I nodi Done quindi sono rimossi da tutti gli insiemi degli Unvisited.
 
 \subsection{Costo dell'algoritmo}
@@ -161,7 +161,7 @@ di Messaggi inviati.
 Dato che ogni nodo viene visitato sequenzialmente partendo dall'unico
 iniziatore, la complessità del tempo è almeno il numero di nodi, questo accade
 quando si invia il token sempre al nodo corretto. \underline{Non} è ottimo per
-il tempo. poichè si aveva un Upper Bound di O(m), che può essere di più ordini
+il tempo. poiché si aveva un Upper Bound di O(m), che può essere di più ordini
 di grandezza maggiore del lower bound n-1. Possiamo trovare un esempio in un
 grafo completo, il cui costo salirebbe a $2m=n^2-n$.
 
@@ -178,7 +178,7 @@ tutti i vicini (e quindi non il sottografo), poi si sceglie un vicino e si
 effettua la stessa cosa, e così via fin quando tutti i token che inviamo non ci
 tornano indietro come Backedge.
 
-Questo risulta sicuramente in un costo peggiore della DFS, poichè i messaggi
+Questo risulta sicuramente in un costo peggiore della DFS, poiché i messaggi
 saranno sicuramente più di due per arco.
 
 Tutto lo scambio dei messaggi avviene in modo sequenziale quindi per ridurre il
@@ -195,20 +195,20 @@ avvisa tutti i vicini (in parallelo) che è stato visitata (con messaggio di
 VISITED) ed aspetta da tutti un messaggio di ACK prima di spedire il token.
 Questo comporta che l'entità che spedisce il token sappia quale dei suoi vicini
 è già stato visitato e non potrà sbagliare. Viene aggiunto un nuovo stato,
-\textbf{"Avaiable"}; un'entità entra in questo stato quando, trovandosi nello
+\textbf{"Available"}; un'entità entra in questo stato quando, trovandosi nello
 stato di "Idle" riceve un messaggio di VISITED.\\
 
 \textbf{A cosa servono nello specifico i messaggi di VISITED?}\\
-Servono a far cambiare stato all'entità che lo riceve in AVAIABLE, ovvero che
-non ha ancora ricevuto il token. Se un'entità in stato AVAIABLE riceve un altro
+Servono a far cambiare stato all'entità che lo riceve in AVAILABLE, ovvero che
+non ha ancora ricevuto il token. Se un'entità in stato AVAILABLE riceve un altro
 messaggio di VISITED allora elimina l'entità che glielo ha inviato da sul
-vicinato, poichè è sicura che quell'entità ha già ricevuto il token. Si può
+vicinato, poiché è sicura che quell'entità ha già ricevuto il token. Si può
 vedere dal codice del protocollo.\\
 \textbf{Quindi, l'insieme degli Unvisited viene aggiornato quando:}
 \begin{itemize}
     \item Un'entità manda il token
     \item Un'entità riceve un messaggio di VISITED. In questo caso cambia stato in
-          Avaiable. In questo stato eliminerà tutti i suoi vicini dall'insieme degli
+          Available. In questo stato eliminerà tutti i suoi vicini dall'insieme degli
           Unvisited se questi gli mandano a loro volta messaggi di VISITED.
 \end{itemize}
 
@@ -288,7 +288,7 @@ Quindi il protocollo funziona anche senza i messaggi di "ACK", ma ammettiamo la
 possibilità di inviare T ad un nodo che lo ha già ricevuto, quindi la
 possibilità di sbagliare.\\
 In questo caso $z$ se avesse ricevuto il VISITED da $x$ avrebbe cambiato stato
-in Avaiable ed avrebbe eliminato $x$ dal suo insieme degli Unvisited. A questo
+in Available ed avrebbe eliminato $x$ dal suo insieme degli Unvisited. A questo
 punto in ricezione del messaggio $T$ di $y$ avrebbe avuto l'insieme degli
 Unvisited Vuoto, e quindi avrebbe inviato un RETURN verso $y$.
 
@@ -298,7 +298,7 @@ Unvisited Vuoto, e quindi avrebbe inviato un RETURN verso $y$.
     \item \#$T$ e \#RETURN corretti = $2(n-1)$
           \begin{itemize}
               \item 2 è per i messaggi di T e RETURN
-              \item $n-1$ indica tutti i nodi tranne l'iniziatore, poichè
+              \item $n-1$ indica tutti i nodi tranne l'iniziatore, poiché
                     l'iniziatore non riceverà nessun messaggio di T e non invia nessun
                     RETURN.
           \end{itemize}
@@ -339,7 +339,7 @@ Dove:
     \item il primo $-n$ è degli ACK tolti;
     \item il secondo $-n$ è dei VISITED che posso inviare in parallelo con $T$ o
           con $RETURN$, nel caso in cui l'entità che riceve $T-V$ abbia l'insieme degli
-          UNVISITED vuoto. Faccio questo perchè non devo aspettare niente di ritorno
+          UNVISITED vuoto. Faccio questo perché non devo aspettare niente di ritorno
           dalle entità in quanto gli ACK non ci sono più.
 \end{itemize}
 Se non invio i Visited in parallelo allora il costo del tempo nel caso peggiore
@@ -352,7 +352,7 @@ Se non invio i Visited in parallelo allora il costo del tempo nel caso peggiore
 Dove:
 \begin{itemize}
     \item $n-1$ sono i messaggi di T sia corretti che non. Non contiamo poi i
-          Visited perchè vengono inviati in parallelo con T.
+          Visited perché vengono inviati in parallelo con T.
     \item $(n-1)$ sono i messaggi di Return
 \end{itemize}
 
@@ -398,7 +398,7 @@ Al costo del protocollo precedente aggiungo un $-n+f^*$.
     \item Caso migliore: grafo completo (ne risparmio $n-1$);
     \item Caso peggiore: stella (ne risparmio solo $1$).
 \end{itemize}
-Tra gli stati del protocollo c'è anche Avaiable.
+Tra gli stati del protocollo c'è anche Available.
 
 Descrizione del protocollo a parole:
 \begin{itemize}
@@ -410,7 +410,7 @@ Descrizione del protocollo a parole:
           TUTTI i miei vicini (anche il sender), poi richiamo First-Visit. Se
           invece ricevo VISITED allora creo l'insieme degli unvisited che è
           composto da tutti i miei vicini meno il sender. Successivamente divento
-          AVAIABLE.
+          AVAILABLE.
     \item First-Visit: Elimino il sender dal mio insieme degli UNVISITED. Se
           quest'ultimo diventa vuoto, allora \textbf{invio RETURN al mio sender ed allo
               stesso tempo invio VISITED a tutto il mio vicinato meno il sender (a cui ho
@@ -420,7 +420,7 @@ Descrizione del protocollo a parole:
           il Token; successivamente divento VISITED. Altrimenti invio Return a mio
           "padre" ed allo stesso tempo invio il VISITED a tutti i miei vicini meno
           quello a cui ho inviato RETURN.
-    \item AVAIABLE: Se ricevo T effettuo la first-visit. Altrimenti se ricevo
+    \item AVAILABLE: Se ricevo T effettuo la first-visit. Altrimenti se ricevo
           VISITED aggiorno il mio insieme degli unvisited eliminando il vicino che mi ha
           inviato questo messaggio.
     \item VISITED: Se ricevo Visited allora aggiorno il mio insieme degli
@@ -430,7 +430,7 @@ Descrizione del protocollo a parole:
 
 \section{Traversal in reti specifiche}
 \subsection{Alberi}
-In un albero la DFS è particolarmente efficente in termini di messaggi e non ha
+In un albero la DFS è particolarmente efficiente in termini di messaggi e non ha
 bisogno di nessuna miglioria. Infatti in un esecuzione del DF\_TRAVERSAL (il
 primo protocollo visto che aveva i messaggi di BackEdge) in un albero, nessun
 messaggio di BACKEDGE sarà inviato non essendo presenti cicli. Quindi il numero
