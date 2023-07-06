@@ -60,7 +60,7 @@ aspetti che possiamo sfruttare:
     \item L'allarme.
     \item Il silenzio: se un'entità non riceve nulla da un certo Edge (arco) per
           un certo periodo di tempo, può effettuare delle assunzioni. Questo non poteva
-          accadere nel sistema asincrono poichè come restrizione avevamo che "prima o
+          accadere nel sistema asincrono poiché come restrizione avevamo che "prima o
           poi" un certo messaggio sarebbe sicuramente arrivato.  In un sistema sincrono
           invece, o il messaggio arriva ad un determinato tempo di clock o non arriverà
           mai.
@@ -81,7 +81,7 @@ sincrono.\\
           %di comunicazione subiti da un messaggio in assenza di errori. Ovvero
           %che posso fare delle assunzioni se il messaggio non arriva dopo un
           %certo tempo.
-    \item \textbf{Boundend Message}: Esiste una costante $c$ tale per cui ogni
+    \item \textbf{Bounded Message}: Esiste una costante $c$ tale per cui ogni
           messaggio conterrà \textbf{al più $c$ bits}. Se non si riesce a spedire un
           messaggio in un singolo tick di clock allora si deve necessariamente
           suddividere in pacchetti.
@@ -124,7 +124,7 @@ all'interno di un singolo messaggio, e che quindi non ci preoccupiamo della
 suddivisione in pacchetti. La risposta è la seguente:
 \begin{itemize}
     \item Quando un'entità x riceve un messaggio con un valore $i$ minore di tutti
-          gli altri visti fino ad ora (\textbf{perchè ci basiamo sull'AsFar quindi ogni
+          gli altri visti fino ad ora (\textbf{perché ci basiamo sull'AsFar quindi ogni
               entità manda l'id solamente se è minore del suo comunque)}, invece che
           effettuare immediatamente il forwarding del messaggio sul ring, $x$ trattiene
           questo messaggio per un certo periodo di tempo (ovvero per un certo numero di
@@ -165,7 +165,7 @@ quell'entità quindi diventerà LEADER.
 Le performance generali del protocollo descritto dipendono dalla funzione $f$
 che si sceglie, bisogna quindi stimare il numeri di messaggi inviati in funzione
 di quest'ultima. Innanzitutto, il numero di messaggi generati dall'entità con id
-minimo saranno $2n$, poichè serve un $n$ per tutto il giro e serve un $n$ per il
+minimo saranno $2n$, poiché serve un $n$ per tutto il giro e serve un $n$ per il
 messaggio di notifica di "vittoria".\\
 \textbf{Supponiamo adesso che siano tutti iniziatori e tutti in stato di
     "CANDIDATE"} e come funzione scegliamo \textbf{$f(id) = id$}. Calcoliamo quanti
@@ -190,7 +190,7 @@ limitati da $2^c$. Infatti all'interno dell'insieme delle restrizioni era
 presente anche \textbf{InputSize($2^c$).}\\
 
 \textbf{Domanda di Francesco:}
-\'E buono come costo? SI! perchè il lower bound per la leader election su Ring
+\'E buono come costo? SI! perché il lower bound per la leader election su Ring
 sotto le restrizioni di R ed ID era $\Omega(n \log n)$, mentre con la
 restrizione del $Sync$ siamo riusciti ad abbassare il lower bound.\\
 
@@ -221,7 +221,7 @@ piccolo a generare questo tempo: $$O(n 2^{id})$$
 
 \textbf{Numero di bit:} $$B[speed] = O(n \log(id))$$ Dove:
 \begin{itemize}
-    \item Poichè ogni entità ($n$) contiene un $id$ che è rappresentato nel
+    \item Poiché ogni entità ($n$) contiene un $id$ che è rappresentato nel
           sistema come $\log(id)$. Le dimensioni dell'input sono $\log(id)$ come nel
           protocollo TwoBits. Dato che di $id$ ne ho $n$ allora avrò quel numero.
 \end{itemize}
@@ -233,7 +233,7 @@ più) è $log^{id}$, che rispetto a quello $log(id)$ è pessimo.
 
 
 Ricordiamoci che abbiamo assunto che tutte le entità si svegliano allo stesso
-momento, ma questa assunzione non è fondamentale, poichè possiamo effettuare un
+momento, ma questa assunzione non è fondamentale, poiché possiamo effettuare un
 wake-up ed eleggere il leader solamente tra gli iniziatori spontanei del
 protocollo.
 
@@ -293,7 +293,7 @@ non partecipano attivamente al protocollo.
               \end{enumerate}
         \item Entità $y$:
               \begin{enumerate}
-                  \item Alla ricezione del primo bit con "Start-Couting" come messaggio,
+                  \item Alla ricezione del primo bit con "Start-Counting" come messaggio,
                         salva il valore corrente $c_1$ del suo clock.
                   \item Alla ricezione del secondo bit con "Stop-Counting" come
                         messaggio, salva il valore corrente $c_2$ del suo clock e calcola $c_2
@@ -318,9 +318,9 @@ tempo sarà necessario per l'invio, perciò \textbf{il tempo è esponenziale
 
 \textbf{Domande del professore:}\\
 Posso fare meglio per il numero dei messaggi? No, siamo ottimi.\\
-Perchè il tempo è $2^{|\alpha|}$? Intanto $|\alpha|$ è la dimensione dell'input.
+Perché il tempo è $2^{|\alpha|}$? Intanto $|\alpha|$ è la dimensione dell'input.
 Il tempo d'attesa è esattamente $I(1\alpha)$, ma all'interno del sistema il
 tempo è $log(I(1\alpha))$ quindi per ottenerlo devo elevarlo al quadrato.\\
-(Dalla ragistrazione:) Mentre nei sistemi Asincroni il tempo che siamo è una
+(Dalla registrazione:) Mentre nei sistemi Asincroni il tempo che siamo è una
 stima, nei sistemi Sincroni il tempo che diamo è esattamente il tempo che ci
 mette il protocollo a terminare correttamente.
