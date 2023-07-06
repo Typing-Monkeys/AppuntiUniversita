@@ -103,7 +103,7 @@ radicato sul nodo iniziatore.
               può esistere.\\
               (Prof) Se per assurdo così non fosse, significherebbe che $x$ non
               ha mai inviato un "SI" ma ciò è assurdo per la correttezza del
-              Flooding, poichè $x$ ha ricevuto sicuramente Q, e quindi ha
+              Flooding, poiché $x$ ha ricevuto sicuramente Q, e quindi ha
               inviato un \texttt{SI}. Quindi l'albero ottenuto dopo l'esecuzione
               sarà sicuramente connesso
               \begin{center}
@@ -153,7 +153,7 @@ Dove:
           sono appunto (n-1) + (n-1).
 \end{itemize}
 
-Questo perchè, se a seguito di una domanda rispondo "SI", sull'arco passano 2
+Questo perché, se a seguito di una domanda rispondo "SI", sull'arco passano 2
 messaggi, ma se invio "NO", per i ritardi di comunicazione, posso avere fino a
 quattro messaggi. Quindi ho 4 messaggi per arco, a cui sottraggo però gli 2(n-1)
 archi su cui passano (n-1) "SI" e (n-1) "Q".
@@ -183,7 +183,7 @@ Restrictions = RI
 INITIATOR 
     Spontaneously
     begin
-        Tree-neighbours = $\emptyset$
+        Tree-neighbors = $\emptyset$
         send(Q) to N(x)
         counter = 0
         become ACTIVE
@@ -192,7 +192,7 @@ INITIATOR
 IDLE
     Receiving(Q)
     begin
-        Tree-neighbours = {sender}
+        Tree-neighbors = {sender}
         send(YES) to sender
         counter = 1
         if counter = |N(x)| then
@@ -210,7 +210,7 @@ ACTIVE
     
     Receiving(YES)
         begin
-            Tree-neighbours =  Tree-neighbours $\cup$ {sender}
+            Tree-neighbors =  Tree-neighbors $\cup$ {sender}
             counter = counter + 1
             if counter = |N(x)| then 
                 become DONE        
@@ -243,12 +243,12 @@ ottenuto rimuovendo l'arco $e$ ed aggiungendo un nuovo nodo $z$ e due nuovi
 archi $e_1=(x,z)$ e $e_2=(y,z)$. Assumiamo che $z$ non sia iniziatore del
 protocollo. Eseguiamo ora la stessa identica esecuzione di A nel nuovo grafo G',
 dato che non transitavano messaggi tra x ed y è possibile eseguire la stessa
-esecuzione, poichè su G' il link tra x ed y nemmeno è presente. Però dato che
+esecuzione, poiché su G' il link tra x ed y nemmeno è presente. Però dato che
 nessun messaggio transitava tra x ed y, in G' nessun messaggio transita tra x e
 z e y e z, ma dato che z non è iniziatore e non riceve nessun messaggio, non
 invierà mai una risposta. Questo significa che in tempo finito il protocollo A
 termina, affermando che ha costruito una spanning tree di G' ma in questo caso z
-non è conneesso all'albero costruito, quindi A non termina correttamente.
+non è connesso all'albero costruito, quindi A non termina correttamente.
 
 \underline{Tempo:}
 \begin{center}
@@ -264,7 +264,7 @@ Possiamo ridurre il numero di messaggi inviati rimuovendo i messaggi di tipo
 messaggio di tipo Q su un nodo che stà aspettando una risposta funzioni come
 "NO" implicito.\\
 Prendiamo ad esempio un nodo $x$ che ha appena inviato un messaggio Q al suo
-vicino $y$.\\ Perchè $y$ potrebbe rispondere NO? \\Risponderà così solo se ha
+vicino $y$.\\ Perché $y$ potrebbe rispondere NO? \\Risponderà così solo se ha
 già ricevuto una domanda Q e quindi già risposto SI a qualche altra entità, in
 questo caso $y$ ha già inviato Q allo stesso tempo a tutti gli altri vicini,
 incluso $x$. Se $y$ risponde NO ad $x$, deve aver già inviato Q ad x. Possiamo
@@ -332,11 +332,11 @@ ST. \\
     identiche. Se A da soluzione al protocollo, deve terminare in tempo finito.
     Nel nostro caso A dovrà solamente eliminare un arco per far si che si
     ottenga uno Spanning Tree; prendiamo per esempio l'arco (x,y). In questo
-    caso la variabile Tree-neigbors sarà la porta con la label 2 dell'entità x e
-    la porta 1 dell'entità y, invece z ha come Tree-neigbors porta \{1,2\}. In
+    caso la variabile Tree-neighbors sarà la porta con la label 2 dell'entità x e
+    la porta 1 dell'entità y, invece z ha come Tree-neighbors porta \{1,2\}. In
     altri termini, quando il protocolli termina, tutte le entità hanno
     differenti valori per la variabile locale "Tree-Neighbors" ma questo è
-    impossibile poichè per supposizione gli stati delle entità devono essere
+    impossibile poiché per supposizione gli stati delle entità devono essere
     necessariamente identici.\\
 
     %Siccome $x, y, z$ hanno la stessa esecuzione e partono dallo stesso stato,
@@ -372,7 +372,7 @@ cooperare per la costruzione di un singolo spanning tree, si avranno
 contemporaneamente più spanning tree indipendentemente costruiti. Questo implica
 che  tutti i messaggi del protocollo (Ovvero messaggi di "Q" e messaggi di "Yes"
 nel protocollo Shout+) abbiano l'id dell'iniziatore. Sono richieste inoltre
-variabili addizionali poichè in ogni entità saranno presenti più istanze della
+variabili addizionali poiché in ogni entità saranno presenti più istanze della
 variabile $TREE\_NEIGHBORS$, ovvero uno per ogni spanning tree che sta venendo
 costruito. Inoltre, ogni entità sarà in un differente stato per ognuna di queste
 costruzioni. Ricordiamoci che il numero di iniziatori non è noto a priori e può
@@ -381,7 +381,7 @@ numero di iniziatori. Siccome \texttt{Shout+} ci costa $2m$, il costo è:
 
 $$2m K^* = O(n^3)$$
 
-poiché $1 \leq K^* \leq n$. %e poichè si sta costruendo non uno ma ma K* ST.
+poiché $1 \leq K^* \leq n$. %e poiché si sta costruendo non uno ma ma K* ST.
 
 Ogni nodo può distinguere a quanti ST sta partecipando in base all'id dei
 messaggi.
@@ -469,7 +469,7 @@ spanning tree radicato in lui. Assumiamo adesso che prima che il messaggio $Q$
 di $x_2$ arrivi nel grafo completamente connesso, la computazione di $x_1$
 dentro il suddetto grafo sia conclusa, pagando quindi $O(n-k^*)^2$. Quando $Q$
 di $x_2$ arriva nel grafo completamente connesso, tutto il lavoro
-precedentemente svolto da $x_1$ è da buttare via, poichè tutti i nodi adesso
+precedentemente svolto da $x_1$ è da buttare via, poiché tutti i nodi adesso
 devono seguire la sua costruzione dello ST, avendo id più piccolo di $x_1$. Se
 si continuasse in questo modo, $O(n-k^*)^2$ verrebbe ripetuto per $K^*$ volte,
 per un totale di:
@@ -478,7 +478,7 @@ per un totale di:
 %$k_{n-K^*}$ pagando $2m = O(n^2)$. Assumiamo adesso che la costruzione dello ST
 %radicato in $x_1$ sia conclusa (pagando quindi $O(n-k^*)^2$) prima che il
 %messaggio Q di $x_2$ venga spedito all'interno del suddetto grafo. Tutto il
-%lavoro fatto da $x_1$ è da buttare, poichè adesso i nodi dovranno seguire la
+%lavoro fatto da $x_1$ è da buttare, poiché adesso i nodi dovranno seguire la
 %costruzione dello spanning tree radicato in $x_2$. Si va avanti così fino a
 %$x_{K^*}$, disfacendo di volta in volta il lavoro precedente.
 
@@ -515,7 +515,7 @@ Sappiamo che l'applicazione del protocollo $DF$ costruisce già effettivamente
 uno Spanning Tree del grafo che stiamo considerando. Questo è ottenuto
 rimuovendo gli archi dove transita un messaggio di BACKEDGE da G. In altre
 parole, l'insieme Tree\_Neighbors di un'entità $x$ saranno tutte le entità dalle
-quali riceverà un messaggio di RETURN, e se $x$ non l'iniziatore (poichè siamo
+quali riceverà un messaggio di RETURN, e se $x$ non l'iniziatore (poiché siamo
 su Iniziatore Unico come Restrizione), l' entità dalla quale $x$ ha ricevuto T
 per la prima volta.
 
