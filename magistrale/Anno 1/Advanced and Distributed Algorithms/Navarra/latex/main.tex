@@ -1,6 +1,7 @@
 \documentclass[a4paper,12 pt]{report}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
 \usepackage{lmodern}
 \usepackage{listings}
 \usepackage{graphicx}
@@ -51,7 +52,27 @@
      showspaces=false,                
      showstringspaces=false,
      showtabs=false,                  
-     tabsize=2
+     tabsize=2,
+%     mathescape=true,
+     morekeywords={
+        begin,
+        end,
+        if,
+        then,
+        else,
+        to,
+        endif,
+        Procedure,
+        while,
+        do,
+        return,
+        true,
+        false,
+        set,
+        for,
+        repeat,
+        until
+        foreach},
  }
 
  \lstset{style=mystyle}

@@ -7,6 +7,7 @@ RUN tlmgr update --self
 RUN tlmgr install \
             listings caption xcolor float wrapfig \ 
             footmisc emoji fontspec emptypage pgf \ 
+            babel-italian etoolbox \ 
             && texhash
 
 # installo font emoji
