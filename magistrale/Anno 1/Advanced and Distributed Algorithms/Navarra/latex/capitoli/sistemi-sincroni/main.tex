@@ -1,0 +1,326 @@
+\chapter{Sistemi Sincroni}
+\TODO[inline]{Ricontrollare stile Limitazioni}
+Negli ambienti di calcolo distribuito che abbiamo considerato finora, non
+abbiamo fatto alcuna ipotesi sul tempo. Infatti, dal modello sappiamo solo che
+in assenza di guasto, un messaggio trasmesso da un'entità alla fine arriverà al
+suo vicino: l'\textbf{assioma dei Ritardi Finiti}. Non viene specificato altro,
+quindi non sappiamo ad esempio quanto tempo impiegherà una comunicazione. Nel
+nostro ambiente ogni entità è dotata di un orologio locale; ancora non viene
+fatta alcuna ipotesi sul funzionamento di questi orologi, sulla loro velocità e
+su come si relazionano tra loro o ai ritardi di comunicazione. Per questi
+motivi, gli ambienti di calcolo distribuito descritti dal modello di base sono
+comunemente indicati come \textbf{sistemi completamente asincroni}.
+Rappresentano un estremo nello spettro dei sistemi di scambio di messaggi
+rispetto al tempo.\\
+Non appena aggiungiamo restrizioni temporali, facendo ipotesi sugli orologi
+locali e/o sui ritardi di comunicazione, descriviamo diversi sistemi all'interno
+di questo spettro.\\
+All'estremo opposto ci sono i \textbf{sistemi completamente sincroni, ambienti
+    di elaborazione distribuiti in cui vi sono forti ipotesi sia sugli orologi
+    locali che sui ritardi di comunicazione}. Questi sistemi sono definiti dalle
+seguenti due restrizioni sul tempo: \textbf{clock sincronizzati e ritardi di
+    trasmissione limitati}.\\
+
+\textbf{Limitazione 6.1.1 Orologi sincronizzati} Tutti gli orologi locali
+vengono incrementati di un'unità contemporaneamente.\\
+In altre parole, tutti gli orologi locali "ticchettano" simultaneamente. Si noti
+che questa ipotesi non significa che gli orologi abbiano lo stesso valore, ma
+solo che il loro valore viene incrementato allo stesso tempo. Si noti inoltre
+che l'intervallo di tempo tra incrementi consecutivi in generale non deve essere
+costante.\\
+Per semplicità, nel seguito assumeremo che sia così e indicheremo con $\delta$
+tale costante.\\
+
+\textbf{Per convenzione},
+\begin{enumerate}
+    \item le entità trasmetteranno i messaggi (se necessario) ai loro vicini solo
+          allo scoccare del ticchettio dell'orologio;
+    \item ad ogni tick dell'orologio, un'entità invierà al massimo un messaggio
+          allo stesso vicino.
+\end{enumerate}
+
+\textbf{Limitazione 6.1.2 Ritardi di comunicazione limitati} Esiste un limite
+superiore noto sui ritardi di comunicazione subiti da un messaggio in assenza di
+errori.\\
+In altre parole, esiste una costante $\Delta$ tale che, in assenza di guasti,
+ogni messaggio inviato all'istante $T$ arriverà e sarà elaborato all'istante $T
+    + \Delta$. In termini di tick dell'orologio, ciò significa che in assenza di
+errori, ogni messaggio inviato al tick dell'orologio locale $t$ arriverà e sarà
+elaborato dal tick dell'orologio $t + \lceil \frac{\Delta}{\delta} \rceil$ (ora
+del mittente).\\
+
+Riassumendo, un sistema completamente sincrono è un ambiente informatico
+distribuito in cui valgono entrambe le restrizioni di cui sopra. Si noti che la
+conoscenza di $\Delta$ può essere sostituita dalla conoscenza di $\lceil
+    \frac{\Delta}{\delta} \rceil$.
+
+Il caso sincrono è quindi un caso particolare del caso asincrono, ma avrà due
+aspetti che possiamo sfruttare:
+\begin{enumerate}
+    \item L'allarme.
+    \item Il silenzio: se un'entità non riceve nulla da un certo Edge (arco) per
+          un certo periodo di tempo, può effettuare delle assunzioni. Questo non poteva
+          accadere nel sistema asincrono poichè come restrizione avevamo che "prima o
+          poi" un certo messaggio sarebbe sicuramente arrivato.  In un sistema sincrono
+          invece, o il messaggio arriva ad un determinato tempo di clock o non arriverà
+          mai.
+\end{enumerate}
+
+\section{Leader Election su Ring sincrono}
+Prendiamo adesso in esempio il problema della Leader Election su un ring
+sincrono.\\
+\textbf{Restrizioni:} Insieme Standard per L'elezione (IR) e Sync:
+\begin{itemize}
+    \item \textbf{Synchronized Clocks}: Tutti i clock sono incrementati di
+          un'unità simultaneamente. Da notare che questo non significa che tutte le
+          entità hanno lo stesso valore di clock, ma che il loro valore sarà
+          incrementato allo stesso momento per tutte.
+    \item \textbf{Unitary Communication Delays}: In assenza di fallimenti, un
+          messaggio trasmesso arriverà e sarà elaborato al massimo in un tick di clock.
+          %\item Bounded Communication Delays: Esiste un upperbound per i ritardi
+          %di comunicazione subiti da un messaggio in assenza di errori. Ovvero
+          %che posso fare delle assunzioni se il messaggio non arriva dopo un
+          %certo tempo.
+    \item \textbf{Boundend Message}: Esiste una costante $c$ tale per cui ogni
+          messaggio conterrà \textbf{al più $c$ bits}. Se non si riesce a spedire un
+          messaggio in un singolo tick di clock allora si deve necessariamente
+          suddividere in pacchetti.
+\end{itemize}
+
+
+\section{Protocollo Speed}
+In questo protocollo viene eletto il LEADER solamente tra gli iniziatori. Tutte
+le entità che non ricevono un impulso spontaneo appena gli arriva un messaggio
+diventano RELAYER. Queste non origineranno nessun messaggio ma saranno comunque
+partecipi della leader election facendo aspettare i messaggi su di loro ed
+eliminandoli qualora ricevessero messaggi aventi id minori. Assumiamo poi che
+tutti gli id delle entità siano abbastanza piccoli da essere contenuti
+all'interno di un singolo pacchetto. Stati del protocollo:
+\begin{itemize}
+    \item Stati: S = ASLEEP, CANDIDATE, FOLLOWER, LEADER, RELAYER
+    \item        $S_{INIT}$ = ASLEEP
+    \item        $S_{FINAL}$ = FOLLOWER, LEADER
+\end{itemize}
+Il protocollo che vedremo si basa sul protocollo \textbf{AsFar} con la
+caratteristica che i messaggi viaggiano a velocità differenti in maniera
+direttamente proporzionale rispetto alla grandezza del loro id. I messaggi con
+id minori quindi viaggiano a velocità maggiori, mentre i messaggi con id
+maggiore saranno "rallentati". Questo rallentamento è ottenibile sfruttando il
+sistema sincrono; possiamo fermare un messaggio su un'entità per quanto tempo
+vogliamo.\\
+In questo nuovo protocollo un id verrà scartato se:
+\begin{itemize}
+    \item Incontra id più piccolo su un'entità.
+    \item Viene "sorpassato" da un messaggio avente id più piccolo.
+\end{itemize}
+In un sistema sincrono però, ogni trasmissione di un messaggio prende al più una
+singola unità di tempo; quindi, tutti i messaggi verranno spediti alla stessa
+velocità.\\
+
+\textbf{Come possiamo implementare le diverse velocità nei messaggi
+    in base agli id?}\\
+Assumiamo innanzitutto che la dimensione di un messaggio possa essere contenuta
+all'interno di un singolo messaggio, e che quindi non ci preoccupiamo della
+suddivisione in pacchetti. La risposta è la seguente:
+\begin{itemize}
+    \item Quando un'entità x riceve un messaggio con un valore $i$ minore di tutti
+          gli altri visti fino ad ora (\textbf{perchè ci basiamo sull'AsFar quindi ogni
+              entità manda l'id solamente se è minore del suo comunque)}, invece che
+          effettuare immediatamente il forwarding del messaggio sul ring, $x$ trattiene
+          questo messaggio per un certo periodo di tempo (ovvero per un certo numero di
+          tick di clock). \textbf{Questo tempo d'attesa è tanto grande quanto più grande
+              è l'id del messaggio}, ovvero in simboli, $f(i)$ (ovvero il tempo che aspetta,
+          in tick di clock) è direttamente proporzionale ad $i$ (ovvero il valore
+          dell'id).
+    \item Se un messaggio con un id minore arriva a $x$ durante questo tempo d'
+          attesa, $x$ rimuove $i$ dalle sue considerazioni ed effettua il processing del
+          nuovo valore. Altrimenti, dopo aver trattenuto $i$ per $f(i)$ tick di clock, x
+          effettua il forwarding del messaggio nel ring.
+\end{itemize}
+
+\paragraph{FONDAMENTALE:}\ \\
+\begin{center}
+    Queste regole faranno in modo che un messaggio con valore $i$ viaggi
+    all'interno del ring ad una velocità di $1+f(i)$.
+\end{center}
+
+\paragraph{Esempi:} Se un messaggio arriva a tempo $0$ su un'entità, allora sarà
+rinviato dopo $1+f(i)$ tempo alla prossima entità, poi a tempo $2+2f(i)$,
+$3+3f(i)$ e si continua fin quando o viene scartato oppure completa il giro di
+tutto il ring. All'interno del codice questo è implementato tramite
+$c(x)+f(id).$
+
+Più grande è il valore di un messaggio, ovvero $i$, più tempo aspetterà su una
+determinata entità. In conclusione, soltanto l'entità con id minimo passerà
+tutto il ring, tutte le altre invece, o incontreranno direttamente l'entità con
+l'id minimo, o verranno sorpassate da quest'ultimo; se così fosse l'entità che
+in quel momento riceve l'id più piccolo, uccide quello che aveva e si mette ad
+aspettare $1+f(i)$ tick di clock di quello che gli è appena arrivato. La
+correttezza del protocollo segue dal fatto che l'id più piccolo non verrà mai
+scartato da nessuna entità e ritornerà quindi all'entità che lo ha generato,
+quell'entità quindi diventerà LEADER.
+
+\subsection{Calcolo del costo:}
+\subsubsection{Numero di messaggi}
+Le performance generali del protocollo descritto dipendono dalla funzione $f$
+che si sceglie, bisogna quindi stimare il numeri di messaggi inviati in funzione
+di quest'ultima. Innanzitutto, il numero di messaggi generati dall'entità con id
+minimo saranno $2n$, poichè serve un $n$ per tutto il giro e serve un $n$ per il
+messaggio di notifica di "vittoria".\\
+\textbf{Supponiamo adesso che siano tutti iniziatori e tutti in stato di
+    "CANDIDATE"} e come funzione scegliamo \textbf{$f(id) = id$}. Calcoliamo quanti
+messaggi si avrebbero nel caso peggiore:\\
+Quante entità riesce a superare il messaggio con id minimo? $n$\\
+Quante entità riesce a superare il messaggio con il secondo id minimo? $n/2$\\
+Quante entità riesce a superare il messaggio con il terzo id minimo? $n/3$\\
+e così via, in totale quindi avremo: $$\sum_{i=1}^{n}\frac{n}{i} + n = O(n \log
+    n)$$ questa serie è uguale al calcolo del costo di quella sulla territory
+acquisition. Scegliendo quindi la funzione $f(id) = id$ abbiamo migliorato il
+costo dell'AsFar da $n^2$ a $n \log n$. Intuitivamente più aumentiamo il ritardo
+e più il costo diminuisce, vediamo quindi un altra funzione.\\
+$f(id) = 2^i$\\
+Quante entità riesce a superare il messaggio con id minimo? $n$\\
+Quante entità riesce a superare il messaggio con il secondo id minimo? $n/2$\\
+Quante entità riesce a superare il messaggio con il terzo id minimo? $n/4$\\
+In generale quindi si ha:
+$$\sum_{i=1}^{n}\frac{n}{2^{i-1}}  +n = O(n)$$ Questo è possibile però se si
+assume che l'informazione dell'$id$ sia abbastanza piccola da essere contenuta
+in un singolo pacchetto. Ciò è corretto solamente se i valori in input sono
+limitati da $2^c$. Infatti all'interno dell'insieme delle restrizioni era
+presente anche \textbf{InputSize($2^c$).}\\
+
+\textbf{Domanda di Francesco:}
+\'E buono come costo? SI! perchè il lower bound per la leader election su Ring
+sotto le restrizioni di R ed ID era $\Omega(n \log n)$, mentre con la
+restrizione del $Sync$ siamo riusciti ad abbassare il lower bound.\\
+
+\textbf{Tempo:}\\
+Il costo del tempo in questo caso è esponenziale e sarà l'entità che ha id più
+piccolo a generare questo tempo: $$O(n 2^{id})$$
+
+\TODO[inline]{Dove finisce la dimostrazione}
+\begin{proof}
+    Consideriamo
+    un'entità $x$ che diventerà Leader. Il suo messaggio ha viaggiato all'interno di
+    tutto il ring alla velocità di $f(id)+1 = 2^{id}+1$ dove l'id è il valore
+    dell'entità $x$. Questo messaggio torna a lei dopo $(n-1)(2^{id}+1)$ unità di
+    tempo. A questo va aggiunto un $n$ per la notifica.\\
+    Il tempo è Super Esponenziale, ovvero che non è esponenziale in $n$ ma nel range
+    dei valori di input $id$.\\
+
+    \begin{center}
+        Lower Bound per la Leader Election su sistema \textbf{Asincrono} è:
+        $$Messaggi: \Omega(n \log n) $$ $$Tempo: \Omega(n)$$
+    \end{center}
+
+    Si devono però confrontare i due casi peggiori. Quindi il caso peggiore gli
+    ($O$). Nella leader election Asincrona si aveva che era $O(n \log n)$ qui invece
+    siamo $O(n)$ quindi abbiamo migliorato. Per il tempo invece avevamo $O(n)$ ma
+    qui siamo esponenziali e non va bene.
+\end{proof}
+
+\textbf{Numero di bit:} $$B[speed] = O(n \log(id))$$ Dove:
+\begin{itemize}
+    \item Poichè ogni entità ($n$) contiene un $id$ che è rappresentato nel
+          sistema come $\log(id)$. Le dimensioni dell'input sono $\log(id)$ come nel
+          protocollo TwoBits. Dato che di $id$ ne ho $n$ allora avrò quel numero.
+\end{itemize}
+
+\textbf{Confronto tra i Bound [Numero di Bit credo]:}
+Il costo peggiore della Leader Election è $log(valore)$, ma su speed abbiamo
+$log(id)$. Il tempo nel caso dell'id Massimo (Ovvero quello ci metterà sempre di
+più) è $log^{id}$, che rispetto a quello $log(id)$ è pessimo.
+
+
+Ricordiamoci che abbiamo assunto che tutte le entità si svegliano allo stesso
+momento, ma questa assunzione non è fondamentale, poichè possiamo effettuare un
+wake-up ed eleggere il leader solamente tra gli iniziatori spontanei del
+protocollo.
+
+\subsection{Informazioni Aggiuntive sul protocollo}
+\textbf{Partecipano alla leader election solo gli iniziatori}, quindi i restanti
+non partecipano attivamente al protocollo.
+
+\begin{itemize}
+    \item ASLEEP: Se ricevi impulso spontaneo allora invia il messaggio contenente
+          il tuo id verso destra e diventa CANDIDATE.\\
+          Se invece da questo stato ricevi un altro messaggio allora salvati il
+          suo id e propaga questo messaggio dalla direzione opposta in cui l'hai
+          ricevuto, poi diventa RELAYER.
+    \item CANDIDATE: Se in questo stato ricevi un messaggio contenente un certo
+          id, controlla se è più piccolo di quello conosciuto a te fino a quel momento.
+          Se così fosse allora aggiorna il minimo e mettiti ad aspettare il tempo
+          necessario per quel messaggio. Successivamente diventa RELAYER (quando il
+          tempo è terminato rispedirai il messaggio nella direzione opposta in quello in
+          cui l'hai ricevuto).\\
+          Se invece l'id che ti è arrivato è proprio uguale al tuo allora diventa
+          LEADER e notificalo tramite 1 singolo giro di ring scegliendo una
+          direzione.\\
+          Se il tempo che hai atteso per un messaggio è terminato allora propagalo
+          nella direzione opposta di quella in cui l'hai ricevuto.\\
+          Se ricevi la notifica diventa FOLLOWER.
+    \item RELAYER: Se ricevi un messaggio avente un certo id, controlla se è più
+          piccolo di quelli visti fino ad adesso. Se così fosse allora aggiorna il
+          minimo locale e mettiti ad aspettare $c(x)+f(id)$ tick di clock. Quando questi
+          sono passati allora invia il messaggio nella direzione opposta di quella in
+          cui l'hai ricevuto.\\
+          Se ricevi la notifica diventa FOLLOWER.
+
+\end{itemize}
+
+\section{Protocollo TwoBits}
+
+\begin{theorem}
+    In assenza di guasti, ogni sequenza finita di bit (che chiameremo
+    messaggio $\alpha$) può essere comunicata trasmettendo 2 messaggi
+    indipendentemente dalla grandezza di questi.
+\end{theorem}
+
+\begin{proof}
+    Supponiamo
+    sistema sincrono e due entità, x ed y; x deve inviare un messaggio $\alpha$ in
+    binario a y. Indichiamo con $I()$ il casting in base 10 (intera) del
+    messaggio. Prima dell'invio, a questo viene aggiunto un 1 davanti poiché se
+    questo iniziasse con 0 ci sarebbe il rischio di perdere dati. Sia $I(1\alpha)$
+    il cast ad intero del messaggio $1\alpha$ (che sarebbe la sequenza binaria di
+    $\alpha$ e l'1 davanti) consideriamo il seguente protocollo:
+    \begin{enumerate}
+        \item Entità $x$:
+              \begin{enumerate}
+                  \item Manda un messaggio (1 bit) a y con "Start-Counting".
+                  \item Aspetta $I(1\alpha)$ tick di click e poi:
+                  \item Manda un messaggio (1 bit) ad y come "Stop-Counting".
+              \end{enumerate}
+        \item Entità $y$:
+              \begin{enumerate}
+                  \item Alla ricezione del primo bit con "Start-Couting" come messaggio,
+                        salva il valore corrente $c_1$ del suo clock.
+                  \item Alla ricezione del secondo bit con "Stop-Counting" come
+                        messaggio, salva il valore corrente $c_2$ del suo clock e calcola $c_2
+                            - c_1$ che restituisce $I(1\alpha)$. A questo punto lo trasforma in
+                        binario, butta via il primo uno e ottiene nuovamente $\alpha$.
+              \end{enumerate}
+    \end{enumerate}
+    Concludiamo affermando che è possibile spedire qualsiasi messaggio di qualsiasi
+    dimensione tramite la trasmissione di soli 2 bits.\\
+\end{proof}
+
+\textbf{Calcolo del costo:}\\
+Precisamente, il "costo della comunicazione" di un protocollo P completamente
+sincrono è una coppia formata da $<P,T>$ dove P denota il numero di pacchetti, e
+T denota il numero di unità di tempo. La complessità quindi del protocollo Speed
+è la seguente:$$Cost[Speed(i)] = <O(n \log i), O(n 2^{id})>$$ mentre del
+protocollo 2bits è $$C[TwoBits(\alpha)] = <2, O(2^{|\alpha|})>$$
+$$|\alpha|=\log_2(I(1\alpha))$$ Il tempo di attesa è $I(1\alpha)$ e la
+dimensione dell'input è $log_2 I(1\alpha)$, però più cresce $1\alpha$ e più
+tempo sarà necessario per l'invio, perciò \textbf{il tempo è esponenziale
+    rispetto la dimensione dell'input.} \\
+
+\textbf{Domande del professore:}\\
+Posso fare meglio per il numero dei messaggi? No, siamo ottimi.\\
+Perchè il tempo è $2^{|\alpha|}$? Intanto $|\alpha|$ è la dimensione dell'input.
+Il tempo d'attesa è esattamente $I(1\alpha)$, ma all'interno del sistema il
+tempo è $log(I(1\alpha))$ quindi per ottenerlo devo elevarlo al quadrato.\\
+(Dalla ragistrazione:) Mentre nei sistemi Asincroni il tempo che siamo è una
+stima, nei sistemi Sincroni il tempo che diamo è esattamente il tempo che ci
+mette il protocollo a terminare correttamente.
