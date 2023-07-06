@@ -276,4 +276,4 @@ TSWLatexianTemp*
 *.lpz
 
 #vscode settings
-.vscore/
+.vscode/
