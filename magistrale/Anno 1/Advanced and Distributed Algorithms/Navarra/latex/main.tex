@@ -4,6 +4,7 @@
 \usepackage[italian]{babel}
 \usepackage{lmodern}
 \usepackage{listings}
+\usepackage{latexsym}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{subcaption}
@@ -12,6 +13,7 @@
 \usepackage{fancyhdr}
 \usepackage{amsthm}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{cancel}
 
@@ -39,7 +41,7 @@
  \lstdefinestyle{mystyle}{
      backgroundcolor=\color{backcolour},   
      commentstyle=\color{codegreen},
-     keywordstyle=\color{magenta},
+     keywordstyle=\bfseries\color{black},
      numberstyle=\tiny\color{codegray},
      stringstyle=\color{codepurple},
      basicstyle=\ttfamily\footnotesize,
@@ -53,7 +55,8 @@
      showstringspaces=false,
      showtabs=false,                  
      tabsize=2,
-%     mathescape=true,
+     mathescape=true,
+     escapeinside={\%*}{*)},
      morekeywords={
         begin,
         end,

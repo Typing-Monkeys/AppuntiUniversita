@@ -51,15 +51,18 @@ $S_{TERM}$ = $S_{FINAL}$ = {AWAKE}
 
 Restrictions = R
 
-ASLEEP Spontaneously begin 
-    send(W) to N(x)
-    become AWAKE
-end
+ASLEEP
+    Spontaneously
+    begin 
+        send(W) to N(x)
+        become AWAKE
+    end
 
-Receiving(W) begin
-    become AWAKE
-    send(W) to N(x) - sender
-end
+    Receiving(W)
+    begin
+        become AWAKE
+        send(W) to N(x) - sender
+    end
 \end{lstlisting}
 
 \textbf{Descrizione del protocollo (codice)}: $P_{init}$ ci dice che tutte le
