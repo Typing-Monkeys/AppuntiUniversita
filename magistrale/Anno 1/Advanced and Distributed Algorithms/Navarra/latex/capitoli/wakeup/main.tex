@@ -111,7 +111,7 @@ esecuzione del protocollo A che aveva su G in G' ovvero:
     \item Tutti i tempi ed i ritardi di comunicazione che abbiamo osservato su G
           li riportiamo su G', ovvero che se un messaggio inviato ad un generico nodo ci
           metteva 30 secondi ad arrivare in G allora ci mette 30 secondi anche su G'.
-    \item Possiamo eseguire la stessa esecuzione di A perchè in G l'arco in cui
+    \item Possiamo eseguire la stessa esecuzione di A perché in G l'arco in cui
           non transitavano messaggi è proprio $e$ ed in G' $e$ nemmeno è presente quindi
           sicuramente non verranno scambiati messaggi su quell'arco
     \item in poche parole forziamo la stessa identica esecuzione su G'.
@@ -164,7 +164,7 @@ Supponiamo di avere $k^*$ iniziatori con $k^* \leq n$:
 \subsection{Ipercubi}
 Nelle precedenti sezioni abbiamo trovato un modo per far scendere il costo del
 Broadcast su ipercubi da $O(nlogn)$ a $O(n)$. Nel caso del Wake-up però non è
-possibile abbassare il costo, poichè essendoci più iniziatori non vale la regola
+possibile abbassare il costo, poiché essendoci più iniziatori non vale la regola
 del mandare il messaggio a tutte le etichette minori di quella in cui un'entità
 ha ricevuto un messaggio. Quindi:
 \begin{center}
@@ -178,7 +178,7 @@ Il tempo quindi rimane lo stesso.
 \begin{center}
     $T[$\texttt{WFlood}$/R;H_k] \leq d = k = \log n$ \\
 \end{center}
-Dove $k$ è l'eccentricità di un nodo all'interno dell'hypercubo
+Dove $k$ è l'eccentricità di un nodo all'interno dell'ipercubo
 
 \subsection{Grafi completi}
 Tramite l'utilizzo del generico protocollo WFlood il costo sarà il seguente:
@@ -192,7 +192,7 @@ peggiore sarebbe comunque O($n^2$).
 \begin{center}
     $M[$\texttt{KBcast}$/R] = k^*(n-1) = O(n^2)$
 \end{center}
-Questo perchè ogni $k^*$ iniziatore invia un messaggio a tutto il suo vicinato
+Questo perché ogni $k^*$ iniziatore invia un messaggio a tutto il suo vicinato
 che è $n-1$. Però $1\leq K^* \leq n$ quindi il bound resta comunque O($n^2)$
 
 Quindi con il \texttt{WFlood} siamo ottimi, anche se il costo è alto e non è
@@ -415,7 +415,7 @@ attivo, si ha:
 
 $$\mu(i) \geq 2\mu(i-1)+2^{i-1} \geq i2^{i-1}$$
 
-Il numero totale di stage $i$ è esattamente $log(n)$ poichè il numero delle
+Il numero totale di stage $i$ è esattamente $log(n)$ poiché il numero delle
 entità sveglie raddoppia ad ogni stage. Quindi, con questa strategia,
 l'avversario può forzare qualsiasi protocollo a trasmettere almeno $\mu(\log n)$
 messaggi. Sostituendo otteniamo che:
