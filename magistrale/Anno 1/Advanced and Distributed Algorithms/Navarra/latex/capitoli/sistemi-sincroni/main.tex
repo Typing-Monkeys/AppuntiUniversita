@@ -1,5 +1,5 @@
 \chapter{Sistemi Sincroni}
-\TODO[inline]{Ricontrollare stile Limitazioni}
+
 Negli ambienti di calcolo distribuito che abbiamo considerato finora, non
 abbiamo fatto alcuna ipotesi sul tempo. Infatti, dal modello sappiamo solo che
 in assenza di guasto, un messaggio trasmesso da un'entità alla fine arriverà al
@@ -21,8 +21,11 @@ All'estremo opposto ci sono i \textbf{sistemi completamente sincroni, ambienti
 seguenti due restrizioni sul tempo: \textbf{clock sincronizzati e ritardi di
     trasmissione limitati}.\\
 
-\textbf{Limitazione 6.1.1 Orologi sincronizzati} Tutti gli orologi locali
-vengono incrementati di un'unità contemporaneamente.\\
+\begin{limit}[Orologi sincronizzati]
+    Tutti gli orologi locali
+    vengono incrementati di un'unità contemporaneamente.
+\end{limit}
+
 In altre parole, tutti gli orologi locali "ticchettano" simultaneamente. Si noti
 che questa ipotesi non significa che gli orologi abbiano lo stesso valore, ma
 solo che il loro valore viene incrementato allo stesso tempo. Si noti inoltre
@@ -35,13 +38,15 @@ tale costante.\\
 \begin{enumerate}
     \item le entità trasmetteranno i messaggi (se necessario) ai loro vicini solo
           allo scoccare del ticchettio dell'orologio;
-    \item ad ogni tick dell'orologio, un'entità invierà al massimo un messaggio
-          allo stesso vicino.
+    \item ad ogni tick dell'orologio, un'entità invierà al massimo un messaggio allo stesso vicino.
 \end{enumerate}
 
-\textbf{Limitazione 6.1.2 Ritardi di comunicazione limitati} Esiste un limite
-superiore noto sui ritardi di comunicazione subiti da un messaggio in assenza di
-errori.\\
+\begin{limit}[Ritardi di comunicazione limitati]
+    Esiste un limite
+    superiore noto sui ritardi di comunicazione subiti da un messaggio in assenza di
+    errori.
+\end{limit}
+
 In altre parole, esiste una costante $\Delta$ tale che, in assenza di guasti,
 ogni messaggio inviato all'istante $T$ arriverà e sarà elaborato all'istante $T
     + \Delta$. In termini di tick dell'orologio, ciò significa che in assenza di
