@@ -67,7 +67,7 @@ $B(x)$ = set di regole (uguali per tutte le entità):
 \end{enumerate}
 dove \textbf{$i$} corrisponde agli impulsi spontanei (eventi).\\
 
-Il protocollo non termina poichè quando un'entità riceve I la propaga sempre a
+Il protocollo non termina poiché quando un'entità riceve I la propaga sempre a
 tutto il vicinato. L'obiettivo è comunque raggiunto. Non è possibile effettuare
 una stima dei costi in quanto il protocollo non termina.
 
@@ -117,7 +117,7 @@ iniziatore $UI+$.
 \section{Protocollo Flooding: Miglioramento del Broadcasts}
 Nel normale protocollo di Broadcast quando un'entità con stato "Idle" riceve un
 messaggio effettua il broadcast a tutti i suoi vicini. Questo non è necessario
-poichè, per l'assioma della Local Orientation, un'entità può distinguere tra i
+poiché, per l'assioma della Local Orientation, un'entità può distinguere tra i
 suoi vicini. In particolare, quando effettua il processing di un messaggio, può
 identificare da quale porta lo ha ricevuto e quindi evitare di rispedirlo su
 quest'ultima.\\
@@ -215,10 +215,10 @@ bound più accurato.
     comunicazione avvenga, ovvero che quando x riceveva un messaggio su G lo
     riceve nello stesso momento anche su G') per fare in modo che sia sempre lo
     stesso arco in cui non transitino messaggi. \'E possibile eseguire la stessa
-    identica esecuzione di A perchè nessun messaggio viene inviato sull'arco
+    identica esecuzione di A perché nessun messaggio viene inviato sull'arco
     (x,y) (su G' nemmeno c'è questo arco).\\
     Se cosi fosse in G' nello stato finale c'è un nodo, lo $z$, che non viene
-    raggiunto dall'informazione $I$, poichè negli archi che abbiamo creato non
+    raggiunto dall'informazione $I$, poiché negli archi che abbiamo creato non
     viene spedito nessun messaggio. Ciò è assurdo e questo implica che $A$ non è
     un protocollo di broadcasting corretto.
 
@@ -255,10 +255,10 @@ bound più accurato.
 %     comunicazione avvenga, ovvero che quando x riceveva un messaggio su G lo
 %     riceve nello stesso momento anche su G') per fare in modo che sia sempre lo
 %     stesso arco in cui non transitino messaggi. \'E possibile eseguire la stessa
-%     identica esecuzione di A perchè nessun messaggio viene inviato sull'arco
+%     identica esecuzione di A perché nessun messaggio viene inviato sull'arco
 %     (x,y) (su G' nemmeno c'è questo arco).\\
 %     Se cosi fosse in G' nello stato finale c'è un nodo, lo $z$, che non viene
-%     raggiunto dall'informazione $I$, poichè negli archi che abbiamo creato non
+%     raggiunto dall'informazione $I$, poiché negli archi che abbiamo creato non
 %     viene spedito nessun messaggio. Ciò è assurdo e questo implica che $A$ non è
 %     un protocollo di broadcasting corretto.
 %     \begin{center}
@@ -312,8 +312,8 @@ In pratica abbiamo messo a NIL questa istruzione: \texttt{idle x, receiving(I)}
     \item Un Ipercubo Orientato $H_k$ è ottenuto connettendo i due ipercubi di
           dimensione $k-1$ chiamati $H'_{k-1}$ e $H''_{k-1}$ e collegando i nodi con lo
           stesso nome con un link di etichetta $k$ in entrambi i nodi. Quando si va a
-          creare un nuovo Hypercubo, si aggiunge uno 0 davanti alle etichette
-          dell'hyperubo già presente e in quello nuovo creato si aggiunge un 1 davanti.
+          creare un nuovo Ipercubo, si aggiunge uno 0 davanti alle etichette
+          dell'Ipercubo già presente e in quello nuovo creato si aggiunge un 1 davanti.
 \end{itemize}
 
 \begin{itemize}
@@ -331,13 +331,13 @@ In pratica abbiamo messo a NIL questa istruzione: \texttt{idle x, receiving(I)}
           bit di prefisso ad ogni ``nome'' di nodo. Il valore $k$ è l'etichetta
           massima che si inserisce sugli archi. Per esempio se fossero presenti 8
           nodi, ovvero il prossimo passo della figura sopra, il k sarebbe 3,
-          poichè $k = \log_2{n}$; log in base 2 di 8 fa proprio 3.
+          poiché $k = \log_2{n}$; log in base 2 di 8 fa proprio 3.
 \end{itemize}
 
 Un ipercubo di dimensione $k$ ($H_k$) avrà:
 \begin{itemize}
     \item $n = 2^k$ nodi, quindi $k = \log_2{n}$;
-    \item $m = n \frac{k}{2} = \frac{n}{2} \log n$ Perchè ogni nodo ha $k$
+    \item $m = n \frac{k}{2} = \frac{n}{2} \log n$ Perché ogni nodo ha $k$
           collegamenti etichettati $1,2,..,k$. Dato che abbiamo archi in comune viene
           $\frac{n}{2}$
 \end{itemize}
@@ -461,7 +461,7 @@ protocollo \texttt{HyperFlood} è \textbf{corretto}.
 \paragraph{Dimostrazione del Bound per i messaggi:}
 Per provare che solo $n-1$ messaggi vengano inviati durante il broadcast
 \textbf{bisogna mostrare che ogni entità riceverà l'informazione solamente una
-    volta.} Questo è vero perchè, per ogni entità $x$, $H_k(x)$ non contiene cicli
+    volta.} Questo è vero perché, per ogni entità $x$, $H_k(x)$ non contiene cicli
 se si utilizza il protocollo HyperFlood.\\
 Per avere $M[$\texttt{HyperFlood}$ / H_k] = n -1$ dobbiamo dimostrare che
 $H_k(x)$ è un albero, ovvero che non ci sono cicli
@@ -489,13 +489,13 @@ $H_k(x)$ è un albero, ovvero che non ci sono cicli
 \end{proof}
 
 \textbf{Costo del Tempo:}\\
-Il diametro di un Hypercubo è proprio $k$, infatti per qualunque coppia di nodi
+Il diametro di un Ipercubo è proprio $k$, infatti per qualunque coppia di nodi
 esiste sempre un cammino con etichette decrescenti tra i due nodi, e la
 lunghezza di questa commino è al più $k$.
 \begin{center}
     $T[$\texttt{HyperFlood}$ / H_k] = k = \log(n) $
 \end{center}
-$k=\log(n)$ perchè abbiamo dimostrato che $H_k(x)$ è un albero.
+$k=\log(n)$ perché abbiamo dimostrato che $H_k(x)$ è un albero.
 
 
 \begin{prop}
