@@ -7,9 +7,9 @@ stato di FOLLOWER tranne una che sarà nello stato di LEADER.
 %Qualche volta è necessario che una determinata entità in un ambiente
 %distribuito diventi temporaneamente il controller centrale di tutto il sistema.
 %Per far questo, esistono protocolli che fanno in modo che tutte le entità
-%partono da uno stesso stato AVAIABLE e al termine del protocollo tutte le
+%partono da uno stesso stato AVAILABLE e al termine del protocollo tutte le
 %entità saranno nello stato di FOLLOWER ed uno solo è nello stato di LEADER.\\
-LEADER può diventarci qualsiasi entità, poichè non sono presenti restrizioni sul
+LEADER può diventarci qualsiasi entità, poiché non sono presenti restrizioni sul
 quale entità deve diventare leader oppure quante entità iniziano la
 computazione.
 $$P_{INIT}=< \forall x \in \xi, status(x)=AVAILABLE >$$
@@ -91,7 +91,7 @@ minore:
 \end{itemize}
 
 Entrambi i protocolli funzionano \underline{solo} sotto le restrizioni IR,
-quindi da qui in avanti prendermo questo determinato set di restizioni. Il
+quindi da qui in avanti prenderemo questo determinato set di restrizioni. Il
 problema della leader election dipende dal sistema su cui si stiamo basando.
 
 \section{Election su alberi: utilizzo del protocollo Saturation}
@@ -196,7 +196,7 @@ cambia stato in FOLLOWER.
 \paragraph{Attenzione:} In questo protocollo non è presente la notifica finale,
 un'entità una volta che capisce quante altre entità stanno partecipando al
 protocollo (è il valore $n$) saprà se ha ricevuto il messaggio da tutte le
-altre. Finchè questo non accade non può terminare la sua esecuzione. Quando
+altre. Finché questo non accade non può terminare la sua esecuzione. Quando
 invece ha ricevuto un messaggio da tutte le altre può cambiare stato o in LEADER
 o in FOLLOWER in base al suo id.
 
@@ -215,7 +215,7 @@ avrà al più 2n. \textbf{Il caso pessimo è quando c'è un unico iniziatore.}\\
     $B[$\texttt{AllTheWay}$] = n^2*\log_2(id+n)$
 \end{center}
 
-Perchè ognuno degli $n^2$ messaggi contiene un contatore ed un id. Il contatore
+Perché ognuno degli $n^2$ messaggi contiene un contatore ed un id. Il contatore
 al massimo arriverà ad $n$.
 
 %poiché codifichiamo insieme $id$ (al massimo $n$) e $cont$ (al massimo è $n$).
@@ -238,7 +238,7 @@ al massimo arriverà ad $n$.
 trovare il valore minimo tra tutti gli initiator. In questo caso tutte le
 \textbf{altre} entità non invieranno nessun messaggio, ma si limiteranno a
 propagare solamente il messaggio contenente l'id più piccolo che hanno ricevuto,
-non originando quindi nessun messaggio. Bisogna stare attenti però, perchè va
+non originando quindi nessun messaggio. Bisogna stare attenti però, perché va
 modificata la parte del contatore, in quanto non tutte le entità che propagano
 possono essere iniziatori. Quindi si ha un problema sulla terminazione. Per come
 abbiamo definito il protocollo però, solamente l'effettiva entità che ha $id$
@@ -263,15 +263,15 @@ metodo.
 \subsection{As far as it can}\label{asfar}
 
 Il protocollo inizia con tutte le
-entità in stato di AVAIABLE. Queste, quando ricevono un impulso spontaneo
+entità in stato di AVAILABLE. Queste, quando ricevono un impulso spontaneo
 inviano tutte nella stessa direzione il loro messaggio di election che contiene
-il loro $id$ e cambiano stato in AWAKE. Un'entità in stato di AVAIABLE riceve il
+il loro $id$ e cambiano stato in AWAKE. Un'entità in stato di AVAILABLE riceve il
 messaggio di election invia il suo messaggio e controlla se ripropagare anche
 quello che gli è arrivato. Se un'entità riceve un ID più grande di quello che ha
 visto fino ad adesso non effettua il forwarding di tale messaggio. Tutti gli
 iniziatori che iniziano tramite impulso spontaneo scelgono la stessa direzione
 nella quale inviare i messaggi, in questo caso \textbf{right}. Se un'entità è in
-stato di AVAIABLE = ASLEEP riceve un messaggio di Election allora:
+stato di AVAILABLE = ASLEEP riceve un messaggio di Election allora:
 
 \begin{itemize}
     \item Invia il suo messaggio contenente il suo id all'interno della rete e
@@ -284,14 +284,14 @@ stato di AVAIABLE = ASLEEP riceve un messaggio di Election allora:
           valore più piccolo di tutti quelli visti fino a quel momento.
 \end{itemize}
 
-\paragraph{Terminazione:} Siamo sicuri che il protocollo termina poichè solo il
+\paragraph{Terminazione:} Siamo sicuri che il protocollo termina poiché solo il
 messaggio con ID minimo finisce il giro e solo l'entità con quell'ID saprà di
 essere il leader. A questo punto l'unica entità a conoscenza del fatto che il
 protocollo può terminare lo comunica agli altri con un singolo messaggio di
 notifica ed il protocollo termina essendo eletto il LEADER.
 
 \paragraph{Quando un'entità termina la propria esecuzione?}\ \\
-Il messaggio avente id minimo attraverserà sempre tutto il ring, perchè nessuna
+Il messaggio avente id minimo attraverserà sempre tutto il ring, perché nessuna
 entità lo fermerà, e quindi sarà l'unico che ritorna al suo mittente. Questo
 fatto ci da la possibilità di costruire un meccanismo per far terminare il
 protocollo. Se un'entità riceve un messaggio con il suo stesso id, allora sa di
@@ -354,12 +354,12 @@ Way.
 
 \newpage
 \begin{lstlisting} [caption={\textit{Protocollo AsFarAsItCan.}}]
-Stati: S = {AVAIABLE, AWAKE, FOLLOWER, LEADER}
-$S_{INIT}$ = {AVAIABLE}
+Stati: S = {AVAILABLE, AWAKE, FOLLOWER, LEADER}
+$S_{INIT}$ = {AVAILABLE}
 $S_{FINAL}$ = {FOLLOWER, LEADER}
 Restrictions = R, id, ring
 
-AVAIABLE
+AVAILABLE
     Spontaneously // evento spontaneo
     begin
         send("Election", id(x)) to right
@@ -532,7 +532,7 @@ utilizzata per determinare la massima distanza in cui viene inviato un messaggio
 \textbf{con $i>1$}\\
 %Per avere una stima dei messaggi invece useremo il parametro $n_i$ che indica
 %le entità sopravvissute allo stadio $i-1$, cioè le entità che erano candidate e
-%sono arrivate allo stadio i-esimo. Vediamo perchè questo valore è: $n_i \leq
+%sono arrivate allo stadio i-esimo. Vediamo perché questo valore è: $n_i \leq
 %\big\lfloor \frac{n}{dis(i-1)+1} \big\rfloor$\\
 \textbf{Calcoliamo il massimo numero di entità candidate ad arrivare allo stage $i-esimo$ $n_i$:}
 Queste entità sono tutte quelle che hanno superato lo stage $i-1$. Per essere
@@ -565,23 +565,23 @@ di messaggi di "BACK" saranno al più $2n_{i+1}dis(i) + (n_i - n_{i+1})dis(i)$.
 \begin{center}
     \includegraphics[scale=0.6]{aa/bb.png}
 \end{center}
-Posso mettere il $<$ perchè tolgo il $+1$ sotto, questo mi permette di
+Posso mettere il $<$ perché tolgo il $+1$ sotto, questo mi permette di
 semplificare ed infatti viene sempre solamente $+1$.
 
 
 \subsection{Numero di messaggi inviati al primo Stage (quindi i = 1)}
-Il primo stage è differente, poichè ogni entità può essere CANDIDATE; le $n_2$
+Il primo stage è differente, poiché ogni entità può essere CANDIDATE; le $n_2$
 entità che sono sopravvissute a questo stage avranno causato che i messaggi
 contenenti il loro id avranno viaggiato a distanza $dis(1)$ sia per i messaggi
 di FORTH che per i messaggi di BACK, causando $4n_2dis(1)$ messaggi. Le $n-n_2$
 entità che non sopravvivranno a  questo stage causeranno un costo di al più 3
-messaggi ognuno, poichè avremo 2 messaggi di FORTH ed uno solo di BACK nel
+messaggi ognuno, poiché avremo 2 messaggi di FORTH ed uno solo di BACK nel
 peggiore dei casi, quindi avremo $3(n - n_2)dis(1)$ messaggi. Quindi il primo
 stage costa:
 \begin{center}
     \includegraphics[scale=0.6]{aa/cc.png}
 \end{center}
-Perchè in questo caso $n_2 = n_i$ e quindi il valore può essere sostituito
+Perché in questo caso $n_2 = n_i$ e quindi il valore può essere sostituito
 tenendo conto del $dis(1)$.
 
 \paragraph{Calcolo finale:}
@@ -674,7 +674,7 @@ In una griglia rettangolare si avranno sempre:
 \end{center}
 
 La simmetria di una griglia può essere utilizzata a nostro vantaggio per il
-problema della Leader Election. Poichè non importa quale entità diventi leader,
+problema della Leader Election. Poiché non importa quale entità diventi leader,
 possiamo eleggere uno dei quattro angoli. In questo caso, il problema dello
 scegliere il leader su n entità si riduce a trovare il leader tra 4 entità.
 L'idea quindi è quella di restringerci alla candidatura solo per gli angoli e
@@ -737,13 +737,13 @@ mandare messaggi inutili.
           $n'$ i nodi posti solamente sul ring; essi sono un numero pari a $2(a+b-2)$.
           Considerando anche in questo caso gli errori che vengono commessi, un costo
           addizionale di $2(a+b-4)$ messaggi saranno inviati dal bordo verso i nodi
-          interni, che dovranno rispondere un "Non mandarmi più messaggi perchè hai
+          interni, che dovranno rispondere un "Non mandarmi più messaggi perché hai
           sbagliato" e quindi la risposta costa altri $2(a+b-4)$ messaggi. In
           conclusione il numero di messaggi che verranno inviati in questa fase sono:
           $$4(a+b-2)+2(a+b-4) = 6(a+b)-16$$
     \item Broadcast della notifica: Dato che sappiamo che l'UI è esattamente un
           angolo, esso invierà sempre 2 messaggi. un nodo generico manda la notifica in
-          broadcast sempre su due link poichè i nodi interni aspettano esattamente due
+          broadcast sempre su due link poiché i nodi interni aspettano esattamente due
           notifiche, ogni nodo quindi manda esattamente due messaggi. Così facendo il
           costo del broadcast è esattamente $2n$.\\\\La notifica costa: $2m - n +1 = 2
               (2ab -b-a) -ab +1 = 3ab-2a-2b+1 \approx 3n$\\
@@ -854,15 +854,15 @@ Questo metodo risolve quindi il problema dell'elezione sui grafi completi.
 \subsection{Descrizione a parole del protocollo}
 
 \begin{itemize}
-    \item \textbf{AVAIABLE:} Se ricevi impulso spontaneo allora fissa lo stage =
+    \item \textbf{AVAILABLE:} Se ricevi impulso spontaneo allora fissa lo stage =
           1, il valore = id(x) e crea l'insieme "others" che contiene tutto il tuo
           vicinato. Scegli un nodo dentro questo insieme ed invia il messaggio di
           Capture a quest'ultimo allegando il suo stage ed il tuo id. Successivamente
           diventa CANDIDATE.\\
           Se invece non ti svegli tramite impulso spontaneo ma ricevi un messaggio
-          di Capture da Avaiable allora invia immediatamente il messaggio di
+          di Capture da Available allora invia immediatamente il messaggio di
           accettazione salvando l'entità che è tua "padrona", il tuo stage che è =
-          1 e lo stage del tuo padrone +1 (puoi vedere questo valore perchè te lo
+          1 e lo stage del tuo padrone +1 (puoi vedere questo valore perché te lo
           ha inviato all'interno del messaggio). Successivamente cambia stato in
           CAPTURED.
     \item \textbf{CANDIDATE:} Se ricevi un messaggio di tipo "Capture" allora fai
@@ -967,7 +967,7 @@ crescente, che ha come risultato $nlogn$, credo che sia questo il $H_{n/2}$
 sulla foto del libro.\\
 
 \textbf{Siamo ottimi per i messaggi?}
-SI! perchè il lower bound per QUALSIASI protocollo di Leader Election su grafo
+SI! perché il lower bound per QUALSIASI protocollo di Leader Election su grafo
 completo è $\Omega(n \log n)$ messaggi, dato che ha come sotto problema quello
 del Wake-Up, ovvero che tutte le entità, prima di eleggere il Leader devono
 necessariamente essere sveglie. Abbiamo visto tramite la tecnica dell'avversario
@@ -977,12 +977,12 @@ che il Lower Bound per il Wake-up è $\frac{1}{2}n \log n$.\\
 \textbf{Tempo:}\\ $$T[CompleteElection, R, id, K_n] \leq 4 \frac{n}{2} + 1 \leq
     2 n$$
 \begin{itemize}
-    \item $ 4 \frac{n}{2} $ Perchè abbiamo 4 messaggi per stage nel caso peggiore.
+    \item $ 4 \frac{n}{2} $ Perché abbiamo 4 messaggi per stage nel caso peggiore.
     \item + 1 indica la notifica finale che, essendo in un grafo completo, costa
           una singola unità di tempo.
 \end{itemize}
 
-\paragraph{Siamo ottimi per il tempo?} NO! perchè è possibile sviluppare un
+\paragraph{Siamo ottimi per il tempo?} NO! perché è possibile sviluppare un
 protocollo che ogni entità invia l'id a tutti i suoi vicini (che sono n-1 in un
 grafo completo) e poi tutti rispondono con un messaggio contenente il loro ID,
 così che ogni entità possa determinare se il suo è l'id minimo oppure no. In
