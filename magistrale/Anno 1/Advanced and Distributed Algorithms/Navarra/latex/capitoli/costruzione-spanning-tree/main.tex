@@ -68,7 +68,7 @@ Il protocollo Shout infatti può essere visto come:
 \begin{figure}[H]
     \centering
     \hspace*{-0.75in}
-    \includegraphics[width=15cm, keepaspectratio]{images/dddd.png}
+    \includegraphics[width=15cm, keepaspectratio]{capitoli/costruzione-spanning-tree/imgs/dddd.png}
 \end{figure}
 
 \subsection{Correttezza del protocollo}
@@ -107,7 +107,7 @@ radicato sul nodo iniziatore.
               inviato un \texttt{SI}. Quindi l'albero ottenuto dopo l'esecuzione
               sarà sicuramente connesso
               \begin{center}
-                  \includegraphics[scale=1]{images/n_21}
+                  \includegraphics[scale=1]{capitoli/costruzione-spanning-tree/imgs/n_21}
               \end{center}
         \item \textbf{Non contiene Cicli:} Ogni $x \neq $ \texttt{initiator}
               manda esattamente un solo messaggio ``\texttt{SI}''; se così non
@@ -160,7 +160,7 @@ archi su cui passano (n-1) "SI" e (n-1) "Q".
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{aa/hh}
+    \includegraphics[width=\linewidth, keepaspectratio]{capitoli/costruzione-spanning-tree/imgs/hh}
 \end{figure}
 
 \underline{Tempo:}
@@ -172,7 +172,7 @@ Mandiamo i ``\texttt{SI}'' contemporaneamente ai $Q$; inoltre il $+1$ è per il
 ricevuto la domanda Q da un'altra entità.
 
 \begin{center}
-    \includegraphics[scale=1]{images/n_22}
+    \includegraphics[scale=1]{capitoli/costruzione-spanning-tree/imgs/n_22}
 \end{center}
 
 \subsection{Protocollo Shout}
@@ -275,7 +275,7 @@ In altre parole, quando un messaggio Q arriva ad un nodo che sta aspettando una
 risposta può essere inteso come una risposta negativa, quindi concludiamo che è
 possibile non inviare messaggi di NO.
 \begin{center}
-    \includegraphics[scale=1.4]{images/n_23}
+    \includegraphics[scale=1.4]{capitoli/costruzione-spanning-tree/imgs/n_23}
 \end{center}
 \underline{Messaggi:}\\
 Su ogni arco viaggiano quindi le coppie di messaggi ($Q$,\texttt{SI}) o
@@ -296,7 +296,7 @@ attendere un'unità di tempo per ricevere i \texttt{NO} (non ci sono).
 Abbiamo assunto fino ad ora che tutti i protocolli avevano iniziatore unico, ma
 come si comporterebbe il protocollo \texttt{Shout+} con più iniziatori?
 \begin{center}
-    \includegraphics[scale=0.8]{images/n_36}
+    \includegraphics[scale=0.8]{capitoli/costruzione-spanning-tree/imgs/n_36}
 \end{center}
 Quando su un arco viaggiano due domande, l'arco \underline{non} appartiene allo
 ST. \\
@@ -314,7 +314,7 @@ ST. \\
     segue in figura.\\
     Supponiamo di avere un algoritmo deterministico A e più iniziatori:
     \begin{center}
-        \includegraphics[scale=0.8]{images/n_37}
+        \includegraphics[scale=0.8]{capitoli/costruzione-spanning-tree/imgs/n_37}
     \end{center}
 
     Supponiamo che $x, y, z$ siano tutti e tre iniziatori, che siano nello
@@ -362,7 +362,7 @@ dalle altre. Quando un'entità invia un messaggio invia anche l'id dell'
 iniziatore.
 
 \begin{center}
-    \includegraphics[scale=0.8]{images/n_38}
+    \includegraphics[scale=0.8]{capitoli/costruzione-spanning-tree/imgs/n_38}
 \end{center}
 
 L'applicazione di questo approccio risulta nell'avere ogni iniziatore che
@@ -457,7 +457,7 @@ $$
 Supponiamo di avere $K^*$ iniziatori connessi ognuno con un solo nodo nel sotto
 grafo $k_{n-K^*}$ completamente connesso (completo).
 \begin{center}
-    \includegraphics[scale=0.9]{images/n_39}
+    \includegraphics[scale=0.9]{capitoli/costruzione-spanning-tree/imgs/n_39}
 \end{center}
 Inoltre, con $id_{x_1} > id_{x_2} > \cdots > id_{x_{K^*}}$.
 
@@ -554,7 +554,7 @@ strategia.
 \end{enumerate}
 
 \begin{center}
-    \includegraphics[scale=1]{images/n_24}
+    \includegraphics[scale=1]{capitoli/costruzione-spanning-tree/imgs/n_24}
 \end{center}
 
 \subsubsection{Eccentricità}

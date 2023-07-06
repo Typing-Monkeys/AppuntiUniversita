@@ -31,7 +31,7 @@ restrizioni sono solo quelle di R:
     stessi numeri di porta e con lo stesso stato (stesso valore iniziale).
 
     \begin{center}
-        \includegraphics[scale=0.3]{images/n_42}
+        \includegraphics[scale=0.3]{capitoli/leader-election/imgs/n_42}
     \end{center}
     Sia P un protocollo che risolve il problema della Leader Election sotto R,
     questo protocollo deve risolvere il problema sotto qualsiasi circostanza.
@@ -162,7 +162,7 @@ L'etichettamento \underline{non} è ordinato (è arbitrario) quindi globalmente 
 entità \underline{non} hanno la stessa destra e sinistra ma localmente
 distinguono le due direzioni.
 \begin{center}
-    \includegraphics[scale=0.5]{images/n_43}
+    \includegraphics[scale=0.5]{capitoli/leader-election/imgs/n_43}
 \end{center}
 Consideriamo adesso il problema della Leader Election in un ring chiamato R
 sotto le restrizioni IR \{\textit{Bidirectional Links, Connectivity, Total
@@ -231,7 +231,7 @@ al massimo arriverà ad $n$.
 \end{itemize}
 
 \begin{center}
-    \includegraphics[scale=0.5]{images/n_44}
+    \includegraphics[scale=0.5]{capitoli/leader-election/imgs/n_44}
 \end{center}
 
 \paragraph{Risoluzione dell'Elect Minimum Initiator tramite All The Way:} Si deve
@@ -349,7 +349,7 @@ l'aggiunta di $n-1$ messaggi per la notifica, che non era presente nell'All the
 Way.
 
 \begin{center}
-    \includegraphics[scale=0.5]{images/asFar.png}
+    \includegraphics[scale=0.5]{capitoli/leader-election/imgs/asFar.png}
 \end{center}
 
 \newpage
@@ -471,7 +471,7 @@ riuscirà a diventare LEADER e tutte le altre saranno Defeated.
 %allungare la distanza possibile. \item Spedisco e verifico su entrambi i versi
 %\end{itemize}
 \begin{center}
-    \includegraphics[scale=0.5]{images/controlled.png}
+    \includegraphics[scale=0.5]{capitoli/leader-election/imgs/controlled.png}
 \end{center}
 Se si inizia un nuovo Stage, il numero delle entità prese in considerazione sarà
 sicuramente maggiore di quelle dello stage precedente, quindi la funzione è
@@ -563,7 +563,7 @@ di messaggi di "BACK" saranno al più $2n_{i+1}dis(i) + (n_i - n_{i+1})dis(i)$.
 \paragraph{Riassumendo:} il numero totale di messaggi inviati allo $stage(i) > 1$
 è:
 \begin{center}
-    \includegraphics[scale=0.6]{aa/bb.png}
+    \includegraphics[scale=0.6]{capitoli/leader-election/imgs/bb.png}
 \end{center}
 Posso mettere il $<$ perché tolgo il $+1$ sotto, questo mi permette di
 semplificare ed infatti viene sempre solamente $+1$.
@@ -579,7 +579,7 @@ messaggi ognuno, poiché avremo 2 messaggi di FORTH ed uno solo di BACK nel
 peggiore dei casi, quindi avremo $3(n - n_2)dis(1)$ messaggi. Quindi il primo
 stage costa:
 \begin{center}
-    \includegraphics[scale=0.6]{aa/cc.png}
+    \includegraphics[scale=0.6]{capitoli/leader-election/imgs/cc.png}
 \end{center}
 Perché in questo caso $n_2 = n_i$ e quindi il valore può essere sostituito
 tenendo conto del $dis(1)$.
@@ -593,7 +593,7 @@ intero è chiamato pseudo-inverso di n ed è denotato da $dis^{-1}(n)$. Quindi i
 numero totale di messaggi utilizzati dal protocollo \textbf{Control\_Distance} è
 al più:
 \begin{center}
-    \includegraphics[scale=0.6]{aa/dd.png}
+    \includegraphics[scale=0.6]{capitoli/leader-election/imgs/dd.png}
 \end{center}
 Dove:
 \begin{itemize}
@@ -620,7 +620,7 @@ necessarie. Un addizionale $n$ va aggiungo sia per la notifica finale, sia per
 il wake-up iniziale dell'entità avente il minimo id. Questo quindi comporta che
 il tempo totale del protocollo è:
 \begin{center}
-    \includegraphics[scale=0.6]{aa/ee.png}
+    \includegraphics[scale=0.6]{capitoli/leader-election/imgs/ee.png}
 \end{center}
 Anche qui dipende dalla scelta della funzione $dis$.
 
@@ -670,7 +670,7 @@ In una griglia rettangolare si avranno sempre:
     \item (a-2)(b-2) entità interne aventi grado 4
 \end{itemize}
 \begin{center}
-    \includegraphics[scale=0.7]{images/griglia.png}
+    \includegraphics[scale=0.7]{capitoli/leader-election/imgs/griglia.png}
 \end{center}
 
 La simmetria di una griglia può essere utilizzata a nostro vantaggio per il
@@ -961,7 +961,7 @@ $$ n-1 + \sum_{i=1}^{\#stadi} 4 n_i \leq n-1 + 4 \sum_{i=1}^{n/2} n_i = 4 n
 Che da un costo complessivo di:
 $$M[CompleteElection, R, id, K_n] \leq 2.76 n log n - 1.76 n + 1$$ Il costo del
 libro è il seguente:\\
-\includegraphics[]{images/fff.png}
+\includegraphics[]{capitoli/leader-election/imgs/fff.png}
 Dal libro e dagli appunti presi a lezione, ne risulta che la serie è un'armonica
 crescente, che ha come risultato $nlogn$, credo che sia questo il $H_{n/2}$
 sulla foto del libro.\\

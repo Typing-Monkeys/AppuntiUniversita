@@ -17,7 +17,7 @@ valori:
 \begin{center}
     $1, \cdots, d_v = \deg (v)$\end{center}
 \begin{center}
-    \includegraphics[scale=0.3]{images/n_25}
+    \includegraphics[scale=0.3]{capitoli/esplorazione-grafo-anonimo/imgs/n_25}
 \end{center}
 
 Per il robot dobbiamo specificare la \textbf{funzione di transizione}:\\\\
@@ -154,7 +154,7 @@ dei suoi archi uscenti è quello appartenente allo ST.
 
 \example{
     \begin{center}
-        \includegraphics[scale=0.6]{images/n_26}
+        \includegraphics[scale=0.6]{capitoli/esplorazione-grafo-anonimo/imgs/n_26}
     \end{center}
 }
 
@@ -182,7 +182,7 @@ su tre stati:
 \end{itemize}
 \subsection{N: Normal}
 \begin{center}
-    \includegraphics[scale=0.7]{images/n_27}
+    \includegraphics[scale=0.7]{capitoli/esplorazione-grafo-anonimo/imgs/n_27}
 \end{center}
 %Per la regola numero 2 definita precedentemente (quella dell'inserire etichetta
 %1 sempre nell'arco che va verso la radice), se esco da $a$ su porta 1, allora
@@ -215,7 +215,7 @@ su tre stati:
 
 \subsection{T: Test}
 \begin{center}
-    \includegraphics[scale=0.7]{images/n_28}
+    \includegraphics[scale=0.7]{capitoli/esplorazione-grafo-anonimo/imgs/n_28}
 \end{center}
 
 Se esco da $a$ su una porta diversa da 1 vado in stato $T$. Se trovo un valore
@@ -245,7 +245,7 @@ Se esco da $a$ su una porta diversa da 1 vado in stato $T$. Se trovo un valore
 
 \subsection{B: Backtrack}
 \begin{center}
-    \includegraphics[scale=0.7]{images/n_28-2}
+    \includegraphics[scale=0.7]{capitoli/esplorazione-grafo-anonimo/imgs/n_28-2}
 \end{center}
 
 \begin{center}
@@ -487,7 +487,7 @@ aspetta la risposta \texttt{SI}/\texttt{NO}. Possiamo eliminare i messaggi
 
 
 \begin{center}
-    \includegraphics[scale=0.75]{images/n_32}
+    \includegraphics[scale=0.75]{capitoli/esplorazione-grafo-anonimo/imgs/n_32}
 \end{center}
 
 \begin{theorem}
@@ -500,19 +500,19 @@ Si adatta a reti dinamiche:
 \begin{itemize}
     \item se appare un arco nuovo, non lo consideriamo nell'esplorazione:
           \begin{center}
-              \includegraphics[scale=0.75]{images/n_33}
+              \includegraphics[scale=0.75]{capitoli/esplorazione-grafo-anonimo/imgs/n_33}
           \end{center}
     \item se appare un nuovo nodo con dei nuovi archi, scelgo un arco e metto
           \#porta 1 nell'arco che conduce al padre, mentre nel nodo raggiunto devo
           ``riaggiustare'' le numerazioni.
           \begin{center}
-              \includegraphics[scale=0.75]{images/n_34}
+              \includegraphics[scale=0.75]{capitoli/esplorazione-grafo-anonimo/imgs/n_34}
           \end{center}
     \item cancellazione di un arco non in ST: devo compattare i numeri di porta;
     \item cancellazione di un arco nello ST: devo sostituire integralmente lo ST;
     \item se cancelliamo un nodo di grado 1 (foglia nello ST) basta rinumerare:
           \begin{center}
-              \includegraphics[scale=0.75]{images/n_35}
+              \includegraphics[scale=0.75]{capitoli/esplorazione-grafo-anonimo/imgs/n_35}
           \end{center}
     \item se cancelliamo un nodo di grado $> 1$, dobbiamo ricostruire lo ST.
 \end{itemize}
@@ -621,7 +621,7 @@ decrescente di size dei sottoalberi, più a destra possibile si avranno le fogli
 generici sottoalberi (gruppo A)
 
 \begin{center}
-    \includegraphics[scale=0.15]{images/automa1}
+    \includegraphics[scale=0.15]{capitoli/esplorazione-grafo-anonimo/imgs/automa1.png}
 \end{center}
 
 Consideriamo le tre tipologie in maniera separata, nel gruppo L l'automa farà al
@@ -695,7 +695,7 @@ $$ 2n - 2 + 2p < 2n -2 + 2 \frac{7}{8} n = 3.75n -2 $$ Si ha 2P poiché commetto
 l'errore e torno indietro.\\
 Risposta : SI, si può fare di meglio.\\
 
-\includegraphics[]{images/66.png}\\
+\includegraphics[]{capitoli/esplorazione-grafo-anonimo/imgs/66.png}\\
 \textbf{Osservazione}: Senza stati, quindi senza memoria, il bound corrente è
 4n-2.\\
 $$O(2.8n) \leq Senza memoria (senza stati) \leq 4n-2$$
