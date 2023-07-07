@@ -97,6 +97,7 @@ $300$ infatti non ci sta in 8 bit.
 Nel mentre però arriva il thread 1 che setta solo la parte bassa, quella meno significativa, a $100$.
 Alla fine la variabile \verb|x| conterrà il valore $100+256=356$. \\
 In big endian, con short int, si ha:\\
+
 \verb|300=44+256= 00101100| || \verb|100=100+0= 01100100| || \verb|Dopo        01100100 = 356|\\
 \verb|            00000001| || \verb|           00000000| || \verb|esecuzione  00000001 = 100+256|
 
@@ -292,7 +293,7 @@ in un ambiente con più thread che concorrono tra di loro.
 
 \subsection{Memory Fencing}
 
-``Fencin'' vuol dire \textbf{barriera}, cancello.
+``Fencing'' vuol dire \textbf{barriera}, cancello.
 In questo esempio la scrittura e la lettura vengono riorganizzate dal compilatore.
 È possibile che sia \verb|r1| che \verb|r2| siano settati a 0.
 Infatti, nel thread 2 (se nel primo \verb|x| non è ancora stata scritta) \verb|r2|

@@ -75,7 +75,7 @@ fare un buffer overflow come abbiamo visto nell'esempio del code injection:
     \item \verb|movl str_addr, %ecx|: copia l'indirizzo della stringa nel registro ecx;
     \item \verb|movl $13, %edx|: inserisce la grandezza della
           stringa nel registro edx, in questo modo abbiamo caricato nella
-          CPU tutto quello che ci serve. Per prima  mette la chiamata di
+          CPU tutto quello che ci serve. Per prima mette la chiamata di
           sistema sys\_write e poi tutti i suoi parametri che abbiamo visto in
           precedenza;
     \item \verb|int $0x80|: int interrompe l'esecuzione della CPU e salta al

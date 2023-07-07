@@ -121,7 +121,7 @@ Analizziamo il seguente schema:
       \item ...viene eseguito il codice javascript malevolo.
 \end{enumerate}
 
-L'attacco viene detto "\textit{reflected}" perché il server web ha riflesso la domanda. Il sito è giusto,
+L'attacco viene detto ``\textit{reflected}'' perché il server web ha riflesso la domanda. Il sito è giusto,
 il server web è lecito (fa solo da veicolo), ma la keyword è stata scritta in modo da far eseguire il codice malevolo nel browser.
 
 \subsection{DOM Based}
@@ -231,15 +231,11 @@ Questo viene fatto utilizzando JavaScript.
 
 Vediamo ora una lista di suggerimenti utili per prevenire attacchi XSS.
 
-\vspace{-0.5em}
-
 \paragraph{Rule \#0:} non inserire mai dati non attendibili, se non in posizioni
 consentite.
 La prima regola è quella di negare tutto (deny all), non inserire dati non
 attendibili nel documento HTML a meno che non si trovino all'interno di uno degli
-slot definiti dalla Rule \#0 alla Rule \#4.
-
-\vspace{-0.5em}
+slot definiti dalla Rule \#1 alla Rule \#4.
 
 \paragraph{Rule \#1:} : \textit{effettuare \textbf{escaping} del codice HTML
       prima di inserire dati non attendibili nell'HTML}.
@@ -261,8 +257,6 @@ per i caratteri descritti di seguito.
       \item \verb|/| $\rightarrow$ \verb|&#x2F;|
 \end{itemize}
 
-\vspace{-0.5em}
-
 \paragraph{Rule \#2:} \textit{escaping degli attributi prima di inserire dati non
       attendibili negli attributi comuni HTML}.
 Regola per inserire dati non attendibili in valori tipici degli attributi come
@@ -271,13 +265,9 @@ valore, ecc. Questo non dovrebbe essere usato per attributi complessi come
 \verb|href|, \verb|src|, \verb|style|,
 o qualsiasi gestore di eventi come \verb|onmouseover|.
 
-\vspace{-0.5em}
-
 \paragraph{Rule \#3:} \textit{javascript escape prima di inserire dati non attendibili
       nei valori dei dati javascript}.
 Riguarda il codice JavaScript generato dinamicamente.
-
-\vspace{-0.5em}
 
 \paragraph{Rule \#4:} \textit{css escape e validare rigorosamente prima di inserire
       dati non attendibili nei valori delle proprietà di stile HTML}.

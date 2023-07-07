@@ -278,8 +278,6 @@ Da notare che la stessa cosa vale per l'underflow: sottrarre a $0$ una certa
 quantità porterà ad avere il massimo numero rappresentabile in uint.
 Così facendo posso andare a resettare il limite di tempo imposto da \verb|lockTime|.
 
-\vspace{-1.5em}
-
 \subsection{Mitigation}
 
 La tecnica normalmente utilizzata per proteggersi dalle vulnerabilità di
@@ -289,8 +287,6 @@ operatori matematici
 standard di addizione, sottrazione e moltiplicazione.
 Per esempio, OpenZeppelin è una
 libreria per lo sviluppo sicuro di un Smart Contract.
-
-\vspace{-1.5em}
 
 \section{Unexpected Ether}
 
@@ -433,8 +429,6 @@ fino a quando non trova una
 soluzione con l'hash del blocco come numero pari (supponendo comunque che la
 ricompensa del blocco e le tasse siano meno di 1 milione di dollari).
 
-\vspace{-1em}
-
 \subsection{Mitigation}
 
 Per i motivi elencati prima, le block variables non dovrebbero essere usate per
@@ -452,27 +446,13 @@ del seed,
 generazione di un numero aleatorio, restituzione del pegno più parte delle tasse.
 Questo è un DAO: Organizzazione Anonima Decentrata.
 
-\vspace{-1em}
-
 \section{Manipolazione dei Time Blockstamp}
 
-I minatori hanno la possibilità di regolare leggermente i timestamp,
-il che può rivelarsi
-pericoloso se essi venissero utilizzati in modo scorretto.
-
-\vspace{-1em}
+I minatori hanno la possibilità di regolare leggermente i timestamp, il che può rivelarsi pericoloso se essi venissero utilizzati in modo scorretto.
 
 \paragraph{Esempio.}\
 
-\vspace{-0.5em}
-
-\begin{figure}[H]
-      \centering
-      \includegraphics[width=12cm, keepaspectratio]{capitoli/ethereum/imgs/timestamp.png}
-      \caption{Sezione di codice vulnerabile alla Timestamp Manipulation.}
-\end{figure}
-
-Prendiamo in considerazione il precedente codice di un contratto che simula una roulette.
+Prendiamo in considerazione il codice (Figura~\ref{fig:timestamp}) di un contratto che simula una roulette.
 Chiunque può puntare 10 ether (riga 8).
 Il secondo \verb|require| (riga 9) controlla che ci sia una sola transazione nel nuovo blocco;
 poi questa verrà aggiornata subito, per indicare il fatto che qualcuno ha già giocato.
@@ -482,6 +462,13 @@ transazioni precedenti.
 In realtà, \verb|now| è leggermente modificabile.
 Di conseguenza, potrebbe accadere che il miner aggiusti il tempo in cui punta e in cui mina il blocco,
 in modo che la condizione si verifichi (parliamo sempre di una modifica molto piccola).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm, keepaspectratio]{capitoli/ethereum/imgs/timestamp.png}
+	\caption{Sezione di codice vulnerabile alla Timestamp Manipulation.}
+	\label{fig:timestamp}
+\end{figure}
 
 \section{Delegate Call}
 

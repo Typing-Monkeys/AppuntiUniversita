@@ -7,7 +7,7 @@ molti parser XML li accettano come input.\\
 
 Il funzionamento di un attacco XXE risiede nel fatto che la specifica XML permette l'importazione di file esterni. Questa direttiva speciale, chiamata ``\textbf{external entity}'', viene interpretata dalla macchina su cui viene valutato il file XML. Ciò significa che un payload XML appositamente
 realizzato e inviato al parser XML di un server potrebbe
-comprometterne i file locali (come ad esempio /etc/shadow che memorizza credenziali importanti).
+comprometterne i file locali (come ad esempio \verb|/etc/shadow| che memorizza credenziali importanti).
 
 \newpage
 
@@ -51,7 +51,7 @@ Immaginiamo che mega-bank.com abbia un'utilità di screenshot che ci permette di
 	\label{fig:xxe_banca_4}
 \end{figure}
 
-Come possiamo vedere, questo codice presenta più di un problema ma il più importante sicuramente è che potremmo chiamare noi stessi la funzione sendScreenshotToSupport() con le nostre immagini. Potremmo quindi falsificare la richiesta di rete e inviare al server il nostro payload personalizzato in cui cerchiamo di ottenere il file ``/etc/passwd'':
+Come possiamo vedere, questo codice presenta più di un problema ma il più importante sicuramente è che potremmo chiamare noi stessi la funzione \verb|sendScreenshotToSupport()| con le nostre immagini. Potremmo quindi falsificare la richiesta di rete e inviare al server il nostro payload personalizzato in cui cerchiamo di ottenere il file ``\verb|/etc/passwd|'':
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=12cm, keepaspectratio]{capitoli/web_security/imgs/xxe_banca_5.png}
@@ -86,4 +86,4 @@ Si consideri il seguente caso d'uso. Uno sviluppatore sta scrivendo un'applicazi
 
 L'azienda CRM potrebbe aspettarsi payload XML per la sua API (Microsoft Dynamics CRM), il che significa che, sebbene l'endpoint esposto pubblicamente non accetti XML, per far sì che il server comunichi correttamente con il pacchetto software CRM, il payload dell'utente deve essere convertito in un oggetto XML tramite il server REST e quindi inviato al software CRM.\\
 
-N.B. Per un hacker è facile capire se un'azienda usa XML o meno e la maggior parte delle volte lo usa. Questo perchè quando le aziende di software aziendale crescono, spesso aggiornano il loro software in modo frammentario piuttosto che costruirlo tutto da zero. Ciò significa che spesso le moderne API JSON/REST si interfacciano in un punto o nell'altro con un'API XML/SOAP.
+\textbf{Nota:} Per un hacker è facile capire se un'azienda usa XML o meno e la maggior parte delle volte lo usa. Questo perchè quando le aziende di software aziendale crescono, spesso aggiornano il loro software in modo frammentario piuttosto che costruirlo tutto da zero. Ciò significa che spesso le moderne API JSON/REST si interfacciano in un punto o nell'altro con un'API XML/SOAP.
