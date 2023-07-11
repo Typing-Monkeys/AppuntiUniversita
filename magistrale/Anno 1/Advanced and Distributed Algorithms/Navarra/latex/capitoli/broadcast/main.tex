@@ -82,7 +82,7 @@ Nuove regole:
 \begin{enumerate}
     \item (\texttt{initiator x i}) $\rightarrow \lbrace$ \texttt{send(I) to N(x);
               become(done)} $\rbrace$
-    \item \texttt{idle x receiving(I)}) $\rightarrow \lbrace$ \texttt{process(I);
+    \item (\texttt{idle x receiving(I)}) $\rightarrow \lbrace$ \texttt{process(I);
               become(done); send(I) to N(X)} $\rbrace$
     \item (\texttt{initiator x receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
           $\rbrace$
@@ -92,7 +92,7 @@ Nuove regole:
     \item (\texttt{done x i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
 \end{enumerate}
 
-(dove "became" indica il cambiamento di stato)\\
+(dove \verb|became()| indica il cambiamento di stato)\\
 
 \colorbox{yellow}{L'idea è quella di inviare ai vicini l'informazione una sola
     volta}, quando questo accade, tutti quelli raggiunti da questa informazione
@@ -117,7 +117,7 @@ iniziatore $UI+$.
 \section{Protocollo Flooding: Miglioramento del Broadcasts}
 Nel normale protocollo di Broadcast quando un'entità con stato "Idle" riceve un
 messaggio effettua il broadcast a tutti i suoi vicini. Questo non è necessario
-poiché, per l'assioma della Local Orientation, un'entità può distinguere tra i
+poiché, per l'assioma della Local Orientation (\ref{axch:local-orientation}), un'entità può distinguere tra i
 suoi vicini. In particolare, quando effettua il processing di un messaggio, può
 identificare da quale porta lo ha ricevuto e quindi evitare di rispedirlo su
 quest'ultima.\\
@@ -230,8 +230,11 @@ bound più accurato.
 
 \begin{theorem}
     Il minimo numero di messaggi richiesti dal broadcasting sotto $RI+$
-    è $\Theta(m)$. \\ Il \texttt{Flooding} è \textbf{ottimo asintoticamente}.
+    è $\Theta(m)$.
 \end{theorem}
+
+Il \texttt{Flooding} è \textbf{ottimo asintoticamente}.
+
 
 %% vecchia parte riscritta sopra
 % \theorem{ $M[$ \texttt{Broadcast, RI+} $] \geq m$
@@ -274,32 +277,36 @@ bound più accurato.
 \subsection{Alberi}
 Se $G$ è un albero, allora $m=n-1$.
 
-\begin{center}
-    $M[$ \texttt{Flooding, RI+} $] = 2m -n+1 = 2(n-1) -n+1 =  2n-2-n+1 = n-1 =
-        O(n)$
-\end{center}
+\begin{equation*}
+    \begin{split}
+        M \left[ \text{ \texttt{Flooding, RI+} } \right]  & = 2m -n+1 = 2(n-1) -n+1\\
+        &=  2n-2-n+1 = n-1\\
+        &= O(n)
+    \end{split}
+\end{equation*}
 
 Possiamo considerare il lower bound $\Omega(n)$: \texttt{Flooding} è ottimo.
 
 \subsection{Grafi completi}
 Se $G$ è un grafo completo, allora $m = \frac{n(n-1)}{2} = O(n^2)$.
-
-\begin{center}
-    $M[$ \texttt{Flooding, RI+} $] = 2m-n+1 = O(n^2)$
-
-    $T[$ \texttt{Flooding, RI+} $] = d = O(1)$
-\end{center}
+\begin{equation*}
+    \begin{split}
+        M \left[ \text{ \texttt{Flooding, RI+} } \right] & = 2m-n+1 = O(n^2)\\
+        T \left[ \text{ \texttt{Flooding, RI+} } \right] & = d = O(1)
+    \end{split}
+\end{equation*}
 
 Considerando il lower bound $\Omega(n)$ allora Flooding \textbf{non} è ottimo.
 
 Nel caso in cui $G$ sia completo, possiamo progettare un algoritmo
 (\texttt{KBcast}) ottimo in cui l'initiator, semplicemente, manda un messaggio
 ai suoi vicini che sono $n-1$, ottenendo quindi i seguenti costi:
-\begin{center}
-    $M[$ \texttt{KBcast, RI+} $] = n-1$
-
-    $T[$ \texttt{KBcast, RI+} $] = 1$
-\end{center}
+\begin{equation*}
+    \begin{split}
+        M \left[ \text{ \texttt{KBcast, RI+} } \right] & = n-1\\
+        T \left[ \text{ \texttt{KBcast, RI+} } \right] & = 1
+    \end{split}
+\end{equation*}
 
 In pratica abbiamo messo a NIL questa istruzione: \texttt{idle x, receiving(I)}
 
@@ -343,10 +350,15 @@ Un ipercubo di dimensione $k$ ($H_k$) avrà:
 \end{itemize}
 
 Quindi, il costo del \texttt{Flooding} è il seguente:
-
-$M \left[ \texttt{Flooding, RI+} \right] = 2m-n+1 =
-    \cancel{2}(\frac{n}{\cancel{2}} \log n)-n+1 = n(\log n -1) +1 = n(\log n -\log
-    2) +1 = n\log{\frac{n}{2}}+1 = O(n \log n)$
+\begin{equation*}
+    \begin{split}
+        M \left[ \text{ \texttt{Flooding, RI+}} \right] & = 2m-n+1
+        = \cancel{2}(\frac{n}{\cancel{2}} \log n)-n+1\\
+        & = n(\log n -1) +1
+        = n(\log n -\log 2) +1\\
+        & = n\log{\frac{n}{2}}+1 = O(n \log n)
+    \end{split}
+\end{equation*}
 
 Possiamo vedere che il costo del \texttt{Flooding} su ipercubi non è $O(n)$ e
 quindi non siamo ottimi. Vediamo ora un miglioramento di tale algoritmo adatto a
