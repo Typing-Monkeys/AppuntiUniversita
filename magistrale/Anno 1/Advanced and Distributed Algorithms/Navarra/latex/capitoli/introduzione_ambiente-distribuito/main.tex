@@ -88,7 +88,7 @@ L'insieme di regole $B(x)$ è anche chiamato \textbf{protocollo} o
 La specifica comportamentale dell'intero ambiente di calcolo distribuito è solo
 l'insieme dei comportamenti individuali delle entità. Più precisamente, il
 \textbf{comportamento collettivo $B(\xi)$} di un insieme $\xi$ di entità è
-l'insieme $B(\xi) = {B(x): x \in \xi}$.\\
+l'insieme $B(\xi) = \{B(x): x \in \xi\}$.\\
 Quindi, in un ambiente con comportamento collettivo $B(\xi)$, ogni entità $x$
 agirà (si comporta) secondo il suo algoritmo e protocollo distribuito (insieme
 di regole) $B(x)$.
@@ -99,9 +99,13 @@ Questo significa che per specificare un comportamento collettivo omogeneo è
 sufficiente specificare il comportamento di una singola entità, in questo caso,
 indicheremo il comportamento semplicemente con B.
 
-Un fatto interessante e importante è il seguente:\\
-\textbf{Proprietà 1.1.1} Ogni comportamento collettivo può essere reso
-omogeneo.\\
+Un fatto interessante e importante è il seguente:
+
+\begin{prop}
+    Ogni comportamento collettivo può essere reso
+    omogeneo.
+\end{prop}
+
 Questo significa che se ci troviamo in un sistema in cui entità diverse hanno
 comportamenti diversi, possiamo scrivere un nuovo insieme di regole, uguale per
 tutte, che le farà continuare a comportarsi come prima.
@@ -159,16 +163,14 @@ trasmissione, ricezione ed elaborazione.\\
 L'insieme dei ritardi incontrati da un messaggio sarà chiamato ritardo di
 comunicazione di quel messaggio.
 
-\begin{axch}
-    Ritardo di comunicazione finito\\
+\begin{axch}[\textbf{Ritardo di comunicazione finito}]
     In assenza di guasti, i ritardi di comunicazione sono finiti.
-
-    In altre parole, in assenza di guasti, un messaggio inviato a un out-neighbor
-    finirà per arrivare nella sua integrità ed essere elaborato.
 \end{axch}
 
-\begin{axch}
-    \textbf{(Local Orientation)}
+In altre parole, in assenza di guasti, un messaggio inviato a un out-neighbor
+finirà per arrivare nella sua integrità ed essere elaborato.
+
+\begin{axch}[\textbf{Local Orientation}]
     Un'entità può comunicare direttamente con un sottoinsieme di altre entità: i
     suoi vicini. L'unico altro assioma del modello è che un'entità può distinguere
     tra i suoi vicini.
@@ -197,8 +199,8 @@ Si noti che per ogni arco $(x, y) \in \overrightarrow{E}$, ci sono due
 etichette: $\lambda_x (x, y)$ locale a $x$ e $\lambda_y (x, y)$ locale a $y$ (si
 veda la Figura 1.1).\\
 A causa di questo assioma, avremo sempre a che fare con \textbf{grafi con archi
-    etichettati} $(\overrightarrow{G}, \lambda)$, dove $\lambda = {\lambda_x : x \in
-    V }$ è l'insieme di queste etichette iniettive.
+    etichettati} $(\overrightarrow{G}, \lambda)$, dove $\lambda = \{\lambda_x : x \in
+    V \}$ è l'insieme di queste etichette iniettive.
 
 \begin{figure}[H]
     \centering
@@ -369,7 +371,7 @@ Possiamo misurare il tempo di esecuzione in particolari condizioni:
               Transmission Delays}" e "\textit{Synchronized Clocks}"; il sistema è sincrono
           e impiega un'unità di tempo per trasmettere un messaggio ed elaborarlo
     \item \textbf{$T_{Casual}$}: \textit{Casual time complexity}, è la lunghezza
-          della catena più lunga di trasmissioni casuali di messaggi affidabilit, fra
+          della catena più lunga di trasmissioni casuali di messaggi affidabili, fra
           tutte le possibili esecuzioni.
 \end{itemize}
 
@@ -381,7 +383,7 @@ innanzitutto specificando la \textbf{condizione iniziale} di tutte le entità:\\
 Il contenuto iniziale di tutti i registri dell'entità $x$ e il valore iniziale
 della sua sveglia $c_x$ all'istante $t$ costituisce lo \textbf{stato interno
     iniziale} $\sigma (x, 0)$ di $x$.\\
-Sia $\sum(0) = {\sigma (x, 0) : x \in \xi}$ l'insieme di tutti gli stati interni
+Sia $\sum(0) = \{\sigma (x, 0) : x \in \xi\}$ l'insieme di tutti gli stati interni
 iniziali.\\
 Una volta definito $\sum(0)$, abbiamo completato la \textbf{specifica statica
     dell'ambiente}: la descrizione del sistema prima che si verifichi qualsiasi
@@ -433,7 +435,7 @@ dal'esecuzione fino a quel momento.
 \subsection*{Time Event Diagram (TED)}
 Un'esecuzione è descritta dalla sequenza degli eventi che accadono. Per piccoli
 sistemi, un'esecuzione può essere visualizzata dal diagramma TED. Questo è
-composta da una linea temporale per ogni entità in $\xi$, su cui indichiamo gli
+composto da una linea temporale per ogni entità in $\xi$, su cui indichiamo gli
 istanti temporali in cui avvengono gli eventi.
 \begin{center}
     \includegraphics[scale=0.8]{capitoli/introduzione_ambiente-distribuito/imgs/n_07}
@@ -483,7 +485,6 @@ casi e il suo stato interno continuerà ad essere lo stesso in entrambe le
 situazioni.
 
 \begin{prop}
-
     Assumendo che lo stesso evento si verifica in $x \in  \xi$
     al tempo $t$ in due differenti esecuzioni, e siano $\sigma_1$ e $\sigma_2$ gli
     stati interni di $x$ quando ciò si verifica, allora se $\sigma_1 = \sigma_2$,
@@ -606,12 +607,12 @@ configurazioni il predicato
         \texttt{Future(t)} = \emptyset) \;$ vale per qualche \; $t>0$,
 \end{center}
 cioè tutte le entità entrano in uno stato terminale dopo un tempo finito e tutti
-gli eventi generati si sono verificati.Quindi se tutte le entità entrano in uno
+gli eventi generati si sono verificati. Quindi se tutte le entità entrano in uno
 stato terminale dopo un certo tempo finito $t$ e tutti gli eventi generati si
 sono verificati.\\
 Un'entità non è a conoscenza di quando la terminazione avviene, in generale
 vorremmo che ogni entità conosca almeno la terminazione locale. Questa
-situazione è chiamata Explicit\_Termination e si verifica quando il predicato
+situazione è chiamata \verb|Explicit_Termination| e si verifica quando il predicato
 
 \begin{center}
     $\texttt{Explicit\_Terminate(t)} \equiv (\{STATUS_t\} \subseteq S_{FINAL}) \;$
