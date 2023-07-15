@@ -1,0 +1,39 @@
+name: Run Chktex Linter on PR
+
+# Questa action esegue il linter Chktex (linter di LaTex)
+# su ogni Pull Request (anche proveniente da Fork)
+# Vengono prima controllati i file modificiati e, se sono 
+# presenti file LaTex, fa eseguire il linter su quei file.
+
+on:
+  pull_request:
+    branches: [master, main]
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    name: Run Linter
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v37
+        with:
+          files: "**.tex"
+
+      # - run: echo "${{ steps.changed-files.outputs.all_changed_files }}"
+
+      - name: Install Chktex
+        run: sudo apt-get install chktex -y
+
+      - name: Run Chktex
+        id: chktex
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: chktex ${{ steps.changed-files.outputs.all_changed_files }}
