@@ -11,7 +11,7 @@ jobs:
     outputs:
       newtag: ${{ steps.tag.outputs.new-tag }}
     steps:
-      - Auto Tag
+      - name: Auto Tag
         uses: phish108/autotag-action@v1.1.64
         id: tag
         with:
