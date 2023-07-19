@@ -1,7 +1,7 @@
 \chapter{Introduzione Ambiente distribuito}
 
 L'universo in cui opereremo sarà chiamato \textbf{ambiente di calcolo
-    distribuito}. È costituito da un insieme finito $\epsilon$ di \textbf{entità}
+    distribuito}. È costituito da un insieme finito $\xi$ di \textbf{entità}
 computazionali che comunicano per mezzo di \textbf{messaggi}. Le entità
 comunicano con altre entità per raggiungere un obiettivo comune; ad esempio,
 per eseguire un determinato compito, per calcolare la soluzione di un problema
@@ -59,7 +59,7 @@ A differenza degli altri due tipi di eventi, un \textbf{impulso spontaneo è
 
 \subsection{Azioni}
 Quando si verifica un evento esterno $e$, un'entità $x \in \xi$ reagisce a $e$
-compiendo una sequenza finita, indivisibile e terminante chiamata
+compiendo una sequenza di operazioni finita, indivisibile e terminante chiamata
 \textbf{azione}. Un'azione è indivisibile (o atomica) nel senso che le sue
 operazioni vengono eseguite \textbf{senza interruzione}; in altre parole, una
 volta iniziata un'azione, non si fermerà finché non sarà terminata (in un tempo
@@ -172,16 +172,10 @@ finirà per arrivare nella sua integrità ed essere elaborato.
 
 \begin{axch}[\textbf{Local Orientation}]\label{axch:local-orientation}
     Un'entità può comunicare direttamente con un sottoinsieme di altre entità: i
-    suoi vicini. L'unico altro assioma del modello è che un'entità può distinguere
-    tra i suoi vicini.
-\end{axch}
-
-\begin{axch}
-    Orientamento locale
-
+    suoi vicini. In particolare, un'entità può:
     \begin{itemize}
-        \item Un'entità può distinguere tra i suoi in-neighbors.
-        \item Un'entità può distinguere tra i suoi out-neighbors.
+        \item distinguere tra i suoi in-neighbors.
+        \item distinguere tra i suoi out-neighbors.
     \end{itemize}
 \end{axch}
 
@@ -279,8 +273,8 @@ tutte le entità è caratterizzato dalla seguente restrizione:
 
 \begin{itemize}
     \item \textbf{ Connettività:} La topologia di comunicazione del grafo G è
-          fortemente connessa. Questo significa che ogni entità è possibile raggiungere
-          qualsiasi altro vertice.
+          fortemente connessa. Questo significa che per ogni entità è possibile
+          raggiungere qualsiasi altro vertice.
 \end{itemize}
 
 \subsubsection{Restrizioni sul tempo}
@@ -427,7 +421,7 @@ verificano i primi impulsi spontanei; per convenzione, questo sarà il tempo $t 
 \textbf{IMPORTANTE}: Si noti che il "tempo" è qui considerato come visto da un
 osservatore esterno ed è visto come tempo reale. Ogni istante in tempo reale t
 separa l'asse del tempo in tre parti: passato (cioè {$t' < t$}), presente (cioè
-$t$) e futuro (cioè {$t' > t$}). Tutti gli eventi generati prima di $t$ che
+$t$) e futuro (cioè {$t'' > t$}). Tutti gli eventi generati prima di $t$ che
 accadranno dopo $t$ sono chiamati \textit{future at t} e denotati da
 \textbf{Future(t)}; rappresenta l'insieme di eventi futuri determinati
 dal'esecuzione fino a quel momento.
