@@ -30,8 +30,8 @@ Sia $\xi$ l'insieme delle entità e $G$ la topologia di comunicazione.\\
 L'insieme delle restrizioni $R$ è così composto:
 \begin{itemize}
     \item \colorbox{yellow}{Link bidirezionali:} grafo non orientato;
-    \item \colorbox{yellow}{Affidabilità totale:} non consideriamo guasti di link
-          e/o nodi;
+    \item \colorbox{yellow}{Affidabilità totale:} non ammettiamo l'esistenza di
+          guasti di link e/o nodi;
     \item \colorbox{yellow}{Connettività:} grafo connesso, e quindi tutti possono
           raggiungere tutti;
 \end{itemize}
@@ -49,7 +49,7 @@ L'idea è quella che \colorbox{yellow}{se un'entità ha l'informazione $I$, allo
 \end{eqnarray}
 \begin{itemize}
     \item $S=\lbrace$ \texttt{initiator}, \texttt{idle} $\rbrace$
-    \item $E=\lbrace$ \texttt{receiving}, \texttt{alarm}, \texttt{spontaneously=I}
+    \item $E=\lbrace$ \texttt{receiving}, \texttt{alarm}, \texttt{spontaneously=i}
           $\rbrace$
 \end{itemize}
 
@@ -57,15 +57,15 @@ L'insieme A sono sostanzialmente i protocolli che vanno scritti.
 
 $B(x)$ = set di regole (uguali per tutte le entità):
 \begin{enumerate}
-    \item (\texttt{initiator x i}) $\rightarrow \lbrace$ \texttt{send(I) to N(x)}
+    \item (\texttt{initiator $\times$ i}) $\rightarrow \lbrace$ \texttt{send(I) to N(x)}
           $\rbrace$
-    \item (\texttt{idle x receiving(I)}) $\rightarrow \lbrace$ \texttt{process(I),
+    \item (\texttt{idle $\times$ receiving(I)}) $\rightarrow \lbrace$ \texttt{process(I),
               send(I) to N(X)} $\rbrace$
-    \item (\texttt{initiator x receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
+    \item (\texttt{initiator $\times$ receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
           $\rbrace$
-    \item (\texttt{idle x i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
+    \item (\texttt{idle $\times$ i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
 \end{enumerate}
-dove \textbf{$i$} corrisponde agli impulsi spontanei (eventi).\\
+dove \texttt{i} corrisponde agli impulsi spontanei (eventi).\\
 
 Il protocollo non termina poiché quando un'entità riceve I la propaga sempre a
 tutto il vicinato. L'obiettivo è comunque raggiunto. Non è possibile effettuare
@@ -80,16 +80,16 @@ Per quanto riguarda la \textbf{terminazione}, abbiamo che: $S' = S \cup \lbrace$
 
 Nuove regole:
 \begin{enumerate}
-    \item (\texttt{initiator x i}) $\rightarrow \lbrace$ \texttt{send(I) to N(x);
+    \item (\texttt{initiator $\times$ i}) $\rightarrow \lbrace$ \texttt{send(I) to N(x);
               become(done)} $\rbrace$
-    \item (\texttt{idle x receiving(I)}) $\rightarrow \lbrace$ \texttt{process(I);
+    \item (\texttt{idle $\times$ receiving(I)}) $\rightarrow \lbrace$ \texttt{process(I);
               become(done); send(I) to N(X)} $\rbrace$
-    \item (\texttt{initiator x receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
+    \item (\texttt{initiator $\times$ receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
           $\rbrace$
-    \item (\texttt{idle x i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
-    \item (\texttt{done x receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
+    \item (\texttt{idle $\times$ i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
+    \item (\texttt{done $\times$ receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
           $\rbrace$
-    \item (\texttt{done x i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
+    \item (\texttt{done $\times$ i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
 \end{enumerate}
 
 (dove \verb|became()| indica il cambiamento di stato)\\
@@ -124,16 +124,16 @@ quest'ultima.\\
 L'istruzione quindi diventa:
 
 \begin{enumerate}
-    \item (\texttt{initiator x I}) $\rightarrow \lbrace$ \texttt{send(I) to N(x);
+    \item (\texttt{initiator $\times$ i}) $\rightarrow \lbrace$ \texttt{send(I) to N(x);
               become(done)} $\rbrace$
-    \item (\texttt{idle x receiving(I)}) $\rightarrow \lbrace$ \texttt{process(I),
+    \item (\texttt{idle $\times$ receiving(I)}) $\rightarrow \lbrace$ \texttt{process(I),
               become(done), send(I) to $N(X) -$ {sender}}$\rbrace$
-    \item (\texttt{initiator x receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
+    \item (\texttt{initiator $\times$ receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
           $\rbrace$
-    \item (\texttt{idle x i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
-    \item (\texttt{done x receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
+    \item (\texttt{idle $\times$ i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
+    \item (\texttt{done $\times$ receiving(I)}) $\rightarrow \lbrace$ \texttt{nil}
           $\rbrace$
-    \item (\texttt{done x i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
+    \item (\texttt{done $\times$ i}) $\rightarrow \lbrace$ \texttt{nil} $\rbrace$
 \end{enumerate}
 Dove \textbf{sender} è il vicino che ha inviato l'informazione.\\
 Con questo miglioramento, tutti risparmiano un messaggio (diretto al sender)
@@ -147,7 +147,7 @@ Chiaramente il messaggio contenente l'informazione I deve necessariamente
 raggiungere anche l'entità più lontana dall'iniziatore, quindi il costo del
 tempo è dato dall'\textbf{eccentricità dell'iniziatore}.
 \begin{center}
-    $T[$\texttt{Flooding}$, RI+] \geq \max \lbrace d(x,y) : x, y \in \xi \rbrace =
+    $T[$\texttt{Flooding}$, RI+] \leq \max \lbrace d(x,y) : x, y \in \xi \rbrace =
         d$
 \end{center}
 dove: $d$ è il diametro del grafo, il quale può anche essere visto come:
@@ -164,9 +164,9 @@ minimo tra due nodi all'interno del grafo.
 Ogni entità deve necessariamente ricevere l'informazione indipendentemente dalla
 sua distanza dall'Initiator, quindi:
 
-\begin{center}
-    $T($ \texttt{Broadcast, RI+} $) = \Omega(d(G))$
-\end{center}
+$$
+    T \left[ \text{ \texttt{Broadcast, RI+} } \right] = \Omega(d(G))
+$$
 
 Visto che nel \texttt{Flooding} avevamo un $O(d(G))$, allora siamo ottimi in
 Tempo.
@@ -178,9 +178,9 @@ Tempo.
 
 \underline{Messaggi:}
 
-\begin{center}
-    $M($ \texttt{Broadcast, RI+} $) \geq n-1 =  \Omega(n)$
-\end{center}
+$$
+    M \left[ \text{ \texttt{Broadcast, RI+} } \right] \geq n-1 = \Omega(n)
+$$
 
 in quanto almeno tutte le entità che non hanno l'informazione $I$ (che sono
 $n-1$), devono ricevere tale informazione. Possiamo tuttavia trovare un lower

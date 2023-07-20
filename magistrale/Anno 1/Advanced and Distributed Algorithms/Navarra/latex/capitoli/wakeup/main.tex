@@ -185,9 +185,11 @@ Dove $k$ è l'eccentricità di un nodo all'interno dell'ipercubo
 
 \subsection{Grafi completi}
 Tramite l'utilizzo del generico protocollo WFlood il costo sarà il seguente:
+
+\TODO[inline]{Allineare bene}
 \begin{center}
-    Caso Peggiore: $M[$\texttt{WFlood}$/R] = O(m) = O(n^2)$ \\
-    Caso Migliore: $M[$\texttt{Wake-Up}$/R;k] = \Omega(n^2)$
+    Caso Peggiore ($n$ iniziatori): $M[$\texttt{WFlood}$;R] = O(m) = O(n^2)$ \\
+    Caso Migliore ($1$ iniziatore): $M[$\texttt{WFlood}$;R] = \Omega(n^2)$
 \end{center}
 Utilizzando il protocollo del KBcast e se si svegliassero $k^*$ entità il costo
 sarebbe $k^*(n-1)$, ma nel caso peggiore $k^*$ è proprio $n$ quindi il caso
@@ -226,8 +228,8 @@ consideriamo un gioco tra le entità ed un avversario. Le entità devono obbedir
 alle regole del protocollo, mentre l'avversario cercherà di creare lo scenario
 peggiore possibile, forzando le entità ad inviare il maggior numero di messaggi.
 
-\paragraph{Assunzioni:} assumiamo che $n$ sia una potenza di due: $n = 2^p$, ovvero
-che le entità che si svegliano sono una potenza di due.
+\paragraph{Assunzioni:} assumiamo che $n$ sia una potenza di due: $n = 2^i$ e che
+le entità che si svegliano sono una potenza di due.
 
 \paragraph{Poteri dell'avversario: [SIAMO SU GRAFO COMPLETO]}
 \begin{enumerate}
@@ -243,8 +245,9 @@ che le entità che si svegliano sono una potenza di due.
 
 L'invio di un messaggio a più di una porta verrà trattato come l'invio del
 messaggio a ciascuna di tali porte una alla volta (in un ordine arbitrario).\\
-Qualunque cosa decida l'avversario, può accadere in una vera esecuzione. Vediamo
-quanto male può creare un caso l'avversario per A.\\
+Qualunque cosa decida l'avversario, può accadere in una vera esecuzione.
+Vediamo quale sarà il peggiore dei casi che riesce a creare l'avversario per A.\\
+
 Due insiemi di entità si diranno \textbf{connessi all'istante $t$} se almeno un
 messaggio è stato trasmesso da un'entità di un insieme a un'entità dell'altro.
 
@@ -283,7 +286,7 @@ messaggio è stato trasmesso da un'entità di un insieme a un'entità dell'altro
                                   y$). L'avversario eseguirà la seguente funzione:
                               scegliere $k$ nodi inattivi $z_0 , . . . ,
                                   z_{k-1}$ ; stabilire una corrispondenza logica tra
-                              $x_j e z_j$ ; assegnare i valori iniziali alle
+                              $x_j$ e $z_j$ ; assegnare i valori iniziali alle
                               nuove entità in modo che l'ordine tra esse sia
                               uguale a quello tra i valori delle entità
                               corrispondenti; svegliare queste entità e
@@ -323,13 +326,13 @@ messaggio è stato trasmesso da un'entità di un insieme a un'entità dell'altro
                     arrivino contemporaneamente. \\\textbf{[Quindi ci si basa
                                 sulla "stessa esecuzione"]}\\
                     Successivamente ripeterà sempre le stesse esecuzioni, ovvero
-                    farà in modo che entità sveglie invino messaggi ad altre
+                    farà in modo che entità sveglie inviino messaggi ad altre
                     entità sveglie fin quando può.
           \end{enumerate}
 \end{enumerate}
 
 \paragraph{Riassunto:} L'avversario cercherà di forzare il protocollo per far si
-che si invino messaggi sempre ad entità già sveglie e consegnerà i messaggi
+che si inviino messaggi sempre ad entità già sveglie e consegnerà i messaggi
 solamente quando non può fare altrimenti. Il numero delle entità che
 l'avversario sveglia è uguale al numero di quelle già sveglie e queste saranno
 forzate ad avere la stessa esecuzione di quelle già sveglie. Quando tutti i
@@ -377,58 +380,17 @@ $$\mu(i) \geq 2\mu(i-1)+2^{i-1}$$ Proviamo a svolgere adesso $\mu(i-1)$:
 $$\mu(i) \geq 2\mu(i-1)+2^{i-1} \geq 2(2\mu(i-2))+2^{i-2})+2^{i-1}$$ Ma si
 arriverà ad un punto nel quale si avrà $i-i$ quindi questo si può maggiorare
 con:
-$$\mu(i) \geq i2^{i-1}$$ Essendo che abbiamo scelto una potenza di $n=2^p$
+$$\mu(i) \geq i2^{i-1}$$ Essendo che abbiamo scelto una potenza di $n=2^i$
 Allora il numero totale di stage è esattamente $\log n$
-$$i \cdot 2^{i-1} = \log n \cdot 2^{\log n-1} = {\frac{1}{2}} n \log n$$
-
-\textbf{Analisi del costo presa dal Libro:}\\
-%\textbf{Ovvero: }Abbiamo collegato due set, quanti messaggi vengono scambiati
-%in questo caso prima che questo set venga collegato con un altro? (cioè inizi
-%un nuovo stage?)\\
-Il numero esatto dipenderà dal protocollo A, ma indipendentemente da questo,
-l'avversario non inizierà lo stage $i+1$ fin quando non sarà forzato a farlo,
-ovvero quando un'entità $x$ che esegue un comando di "Invia a porta l" (dove $l$
-è una porta che non è già stata utilizzata) non ha più vicini disponibili a cui
-inviare un messaggio. Questo significa che $x$ deve aver ricevuto o inviato
-messaggi da tutte le altre entità sveglie allo stage(i), ovvero quelle in
-$Active(i) = Active(i-1) \cup New (i)$.
-
-\begin{itemize}
-    \item Assumiamo che $x \in Active(i-1)$, allora tra tutti questi i messaggi,
-          quelli tra $x$ e $New(i)$ sono stati inviati allo stage(i), dato che queste
-          entità non erano sveglie prima. Questo significa che almeno
-          $|New(i)|=|active(i-1)|$ messaggi sono stati inviati prima dello stage $i+1$.
-    \item Se invece $x \in New(i)$ (quindi $x$ non era sveglia fino ad adesso),
-          questi messaggi saranno trasmessi tutti in questo stage. Anche in questo caso
-          $|New(i)|=|active(i-1)|$ messaggi sono stati inviati prima dello stage $i+1$.
-\end{itemize}
-
-Quindi, il costo totale $\mu(i-1)$ prima dello stage(i) è raddoppiato ed almeno
-$|active(i-1)|$ messaggi sono stati inviati prima dello stage (i+1). In simboli:
-
-%Il numero di messaggi inviati allo $stage(i)$ è sicuramente maggiore uguale a
-%due volte il numero di messaggi scambiati allo stage precedente più il numero
-%delle entità che l'avversario sveglia nello $stage(i)$. Quindi abbiamo:
-
-$$\mu(i) \geq 2\mu(i-1) + |Active(i-1)|$$
-
-Dato che il numero delle entità sveglie raddoppia ad ogni stage: $|Active(i-1)|
-    = 2^{i-1}$ ed osservando che $\mu(0) = 0$ e che inizialmente solamente il seed è
-attivo, si ha:
-
-$$\mu(i) \geq 2\mu(i-1)+2^{i-1} \geq i2^{i-1}$$
-
-Il numero totale di stage $i$ è esattamente $log(n)$ poiché il numero delle
-entità sveglie raddoppia ad ogni stage. Quindi, con questa strategia,
-l'avversario può forzare qualsiasi protocollo a trasmettere almeno $\mu(\log n)$
-messaggi. Sostituendo otteniamo che:
 
 $$i \cdot 2^{i-1} = \log n \cdot 2^{\log n-1} = {\frac{1}{2}} n \log n$$
 
-Ne segue quindi che ogni protocollo di wake-up trasmette $\omega(n \log n)$
-messaggi nel peggiore dei casi, anche se le entità hanno id distinti. :
-$M[$\texttt{Wake-Up}$/R;k;id] = \Omega(n \log n)$
+Ne segue quindi che ogni protocollo wake-up trasmette $\Omega(n \log n)$
+messaggi nel peggiore dei casi, anche se le entità hanno id distinti.
 
+\begin{center}
+    $M[$\texttt{Wake-Up}$/R;k;id] = \Omega(n \log n)$
+\end{center}
 %DA QUI IN POI è VECCHIO\\
 % \begin{comment}
 % \begin{itemize}

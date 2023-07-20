@@ -1,6 +1,6 @@
 \chapter{Attraversamento}
 
-\paragraph{Problema:} Il problema dell'attraversamento consiste nell'avere una
+Il problema dell'attraversamento consiste nell'avere una
 configurazione iniziale dove tutte le entità sono nello stesso stato (IDLE)
 eccetto una che sarà l'unico iniziatore. L'obiettivo è quello di visitare una
 alla volta tutte le entità in maniera sequenziale. Il messaggio che dovrà
@@ -148,13 +148,13 @@ di Messaggi inviati.
 
 \begin{center}
     $M[$\texttt{DFT}$,R,UI] = 2m ~~$\\
-    $M[DFTraversal] \geq m$
+    $M[\text{\texttt{DFT}}, R, UI] \geq m$
 \end{center}
 
 \paragraph{Costo del Tempo:}
 
 \begin{center}
-    $T[DFTraversal] = 2m$\\
+    $T[\text{\texttt{DFT}}, R, UI] = 2m$\\
     $T[$\texttt{DFT}$,R,UI] \geq n-1 $
 \end{center}
 
@@ -162,11 +162,11 @@ Dato che ogni nodo viene visitato sequenzialmente partendo dall'unico
 iniziatore, la complessità del tempo è almeno il numero di nodi, questo accade
 quando si invia il token sempre al nodo corretto. \underline{Non} è ottimo per
 il tempo. poiché si aveva un Upper Bound di O(m), che può essere di più ordini
-di grandezza maggiore del lower bound n-1. Possiamo trovare un esempio in un
+di grandezza maggiore del lower bound $n-1$. Possiamo trovare un esempio in un
 grafo completo, il cui costo salirebbe a $2m=n^2-n$.
 
 \begin{center}
-    $\mu(DFT/R) \geq m$
+    $M[DFT/R] \geq m$
 \end{center}
 Il numero di messaggi inviati è almeno $m$, è quindi $\Theta(m)$ per i messaggi
 e la dimostrazione è uguale a quella del broadcast.
@@ -475,7 +475,4 @@ dei messaggi e del tempo sarebbe $2(n-1)$.
 Un'altra metodologia sarebbe quella di organizzare il grafo a stella:
 \begin{center}
     \includegraphics[scale=1]{capitoli/attraversamento/imgs/n_20}
-\end{center}
-\begin{center}
-    \includegraphics[scale=0.6]{capitoli/attraversamento/imgs/asd.png}
 \end{center}

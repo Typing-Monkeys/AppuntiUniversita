@@ -1,7 +1,7 @@
 \chapter{Esplorazione di un grafo anonimo}
 
-Per questo capitolo si fa riferimento al seguente paper: \emph{D. Ilcinkas -
-    Setting Port Number For Fast Graph Exploration}
+\emph{D. Ilcinkas -
+    Setting Port Number For Fast Graph Exploration}\\
 
 Affrontiamo adesso il seguente problema: \textbf{Vogliamo inserire dei numeri di
     porta in modo tale che un robot esplori sequenzialmente un grafo in modo
@@ -43,16 +43,16 @@ stiamo considerando, in questo caso la lunghezza ($\Pi$) sarebbe $\Pi(n) =
     \item n-1 indica il numero dei nodi dell'albero
 \end{itemize}
 \textbf{Perché il lower bound del problema è n?}\\
-L'OverBound del problema dovrebbe essere esattamente $\Omega(n)$ e non $2n$,
+Il LowerBound del problema dovrebbe essere esattamente $\Omega(n)$ e non $2n$,
 ovvero si devono necessariamente attraversare tutti i nodi. Troviamo un percorso
 di lunghezza $\Pi$ pari ad $n$ su un Anello, per esempio, o se esiste nel grafo
 considerato un sottografo che è un anello, per poi etichettarlo in maniera tale
 da entrare sempre da porta 1 ed uscire sempre da porta 2. Il problema è che non
 sono sicuro che questo ciclo esista sempre. I grafi in cui è presente un ciclo
-al loro interno sono detti Hemiltoniani, ma sapere se un grafo è Hemiltoniano è
-un problema NP-completo. Ovvero:\\ Dato un grafo G trovare un sotto ciclo che
-tocchi tutti i nodi del grafo G passando solamente una volta per ogni arco e che
-ritorni al nodo di partenza.\\
+di questo tipo al loro interno sono detti Hemiltoniani, ma sapere se un grafo è
+Hemiltoniano è un problema NP-completo. Ovvero:\\ Dato un grafo G trovare un
+sotto ciclo che tocchi tutti i nodi del grafo G passando solamente una volta per
+ogni arco e che ritorni al nodo di partenza.\\
 Dato che questa strada è complessa scelgo di costruire prima uno Spanning Tree
 del grafo e poi far muovere l'automa li dentro, anche se passa più volte per
 arco. \\\textbf{Un esempio di un grafo che non ammette ciclo hemiltoniano è un
@@ -136,9 +136,9 @@ ad inizio capitolo.
           se esistono.
     \item Infine $\forall v$, assegna arbitrariamente i numeri di porta da
           $|F_v|+1$ a $d_v$, agli archi a cui non sono ancora stati assegnati dei numeri
-          di porta, se esistono.% quindi i rimanenti archi non appartenenti a T, se
-          esistono.
+          di porta, se esistono.
 \end{enumerate}
+
 \textbf{Spiegazione dei punti precedenti a parole:} I primi due punti sono
 intuitivi, il terzo invece fa sempre riferimento al fatto che vanno assegnati i
 numeri di porta più piccoli agli archi dove nell'altra estremità c'è porta 1,
@@ -151,10 +151,10 @@ allora siamo sicuri che si è attraversato un arco appartenente allo ST. Se cos�
 fosse però molto probabilmente ( a meno che il nodo su cui andiamo non abbia
 cardinalità = 1) non avrà anch'esso porta 1, e quindi bisognerà testare quale
 dei suoi archi uscenti è quello appartenente allo ST.
-
+\newpage
 \example{
     \begin{center}
-        \includegraphics[scale=0.6]{capitoli/esplorazione-grafo-anonimo/imgs/n_26}
+        \includegraphics[scale=1.0]{capitoli/esplorazione-grafo-anonimo/imgs/n_26.png}
     \end{center}
 }
 

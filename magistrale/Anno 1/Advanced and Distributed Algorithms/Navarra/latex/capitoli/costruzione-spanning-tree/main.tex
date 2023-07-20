@@ -118,8 +118,8 @@ radicato sul nodo iniziatore.
 
 Date queste supposizioni, il sottoinsieme $G'$ definito da tutti i
 $TREE\_NEIGHBORS$ contiene tutte le entità, è connesso e non contiene cicli. È
-possibile affermare che è uno Spanning Tree di G.\\
-Si noti che G è in realtà un albero radicato nell'iniziatore. Ricordiamo che, in
+possibile affermare che è uno Spanning Tree di $G$.\\
+Si noti che $G'$ è in realtà un albero radicato nell'iniziatore. Ricordiamo che, in
 un albero radicato, ogni nodo (tranne la radice) ha un genitore: il vicino più
 vicino alla radice; tutti gli altri suoi vicini sono chiamati children. Il
 vicino a cui $x$ invia un $Si$ è il suo $genitore$; tutti i vicini da cui riceve
@@ -230,7 +230,7 @@ Vediamo ora quanto ci costa, in generale, la costruzione di uno Spanning Tree:
 
 \underline{Messaggi:}
 \begin{center}
-    $M(ST/RI) \geq m = \Omega(m)$
+    $M[ST/RI] \geq m = \Omega(m)$
 \end{center}
 \textbf{Dim del Lower Bound:}
 Assumiamo che esista un protocollo A corretto che, in ogni esecuzione sotto le
@@ -252,11 +252,11 @@ non è connesso all'albero costruito, quindi A non termina correttamente.
 
 \underline{Tempo:}
 \begin{center}
-    $T($\texttt{ST}$/RI) \geq d(G) = \Omega(d)$
+    $T[$\texttt{ST}$/RI] \geq d(G) = \Omega(d)$
 \end{center}
 Per raggiungere il nodo più lontano abbiamo bisogno di $d$ step. Abbiamo quindi
-che Shout è ottimo sia in termini di messaggi ($\Theta(m)$, sia in termini di
-tempo $\Theta(d)$).
+che Shout è ottimo sia in termini di messaggi $\Theta(m)$, sia in termini di
+tempo $\Theta(d)$.
 
 \section{Shout+ miglioramento di Shout}
 Possiamo ridurre il numero di messaggi inviati rimuovendo i messaggi di tipo
@@ -334,7 +334,7 @@ ST. \\
     ottenga uno Spanning Tree; prendiamo per esempio l'arco (x,y). In questo
     caso la variabile Tree-neighbors sarà la porta con la label 2 dell'entità x e
     la porta 1 dell'entità y, invece z ha come Tree-neighbors porta \{1,2\}. In
-    altri termini, quando il protocolli termina, tutte le entità hanno
+    altri termini, quando il protocollo termina, tutte le entità hanno
     differenti valori per la variabile locale "Tree-Neighbors" ma questo è
     impossibile poiché per supposizione gli stati delle entità devono essere
     necessariamente identici.\\
@@ -345,6 +345,10 @@ ST. \\
     %appartengono a ST, o nessuno. Ciò è \textbf{assurdo}.
 
 \end{proof}
+
+\begin{center}
+    \includegraphics[scale=0.6]{capitoli/attraversamento/imgs/asd.png}
+\end{center}
 
 \textbf{Causa del fallimento}\\
 La causa per cui il protocollo Shout con più iniziatori fallisce è che un'entità
@@ -403,16 +407,17 @@ Gli stati di questo protocollo sono IDLE, ACTIVE e DONE. Tutte le entità
 iniziano in stato di IDLE ed in terminazione tutte le entità saranno in stato di
 DONE.
 
-Riassumendo quindi, quando un nodo x avente $id_x$ riceve un messaggio con
-$id_y$ tale che:
+Riassumendo quindi, quando un nodo $x$ che sta portando avanti la costruzione di
+un albero radicato in $z$ con $id_z$ (il nodo $z$ può essere anche $x$ stesso)
+riceve un messaggio con $id_y$ tale che:
 
 $$
-    id_y < id_x
+    id_y < id_z
 $$
 
-Allora x smette di lavorare per l'entità a cui stava portando avanti la
+Allora $x$ smette di lavorare per l'entità a cui stava portando avanti la
 costruzione dello spanning tree e porta avanti la costruzione dello spanning
-tree radicato in y. Il punto fondamentale di questo approccio è che solo lo ST
+tree radicato in $y$. Il punto fondamentale di questo approccio è che solo lo ST
 con id minimo viene portato a termine tra gli iniziatori, quindi
 \texttt{MultiShout} costruisce un albero radicato sull'iniziatore con id minimo.
 Di conseguenza, i nodi conservano solo i dati relativi ad un singolo ST.\\
@@ -515,9 +520,8 @@ Sappiamo che l'applicazione del protocollo $DF$ costruisce già effettivamente
 uno Spanning Tree del grafo che stiamo considerando. Questo è ottenuto
 rimuovendo gli archi dove transita un messaggio di BACKEDGE da G. In altre
 parole, l'insieme Tree\_Neighbors di un'entità $x$ saranno tutte le entità dalle
-quali riceverà un messaggio di RETURN, e se $x$ non l'iniziatore (poiché siamo
-su Iniziatore Unico come Restrizione), l' entità dalla quale $x$ ha ricevuto T
-per la prima volta.
+quali riceverà un messaggio di RETURN, e se $x$ non è l'iniziatore, l' entità
+dalla quale $x$ ha ricevuto T per la prima volta.
 
 \subsection{ST con Traversal normale DF*}
 Il protocollo utilizza una visita in \textit{profondità}, quindi se ad esempio
@@ -533,8 +537,8 @@ $4m$).
 \subsection{ST con Broadcasting}
 
 \begin{theorem}
-    L'esecuzione di qualsiasi protocollo di Broadcasting costruisce uno Spanning
-    Tree.
+    L'esecuzione di qualsiasi protocollo di Broadcasting può essere modificata
+    per costruire uno Spanning Tree.
 \end{theorem}
 
 Prendiamo un qualsiasi protocollo di broadcasting B. Da come abbiamo definito il
