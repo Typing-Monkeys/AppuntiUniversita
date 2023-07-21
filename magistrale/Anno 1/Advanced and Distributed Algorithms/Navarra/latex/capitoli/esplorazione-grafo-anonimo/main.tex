@@ -285,8 +285,7 @@ compatibile con uno spanning-tree T. Se l'automa A inizia da un qualunque nodo
 in un qualunque stato, dopo al più 2 step A entra in un cammino chiuso P e lo
 percorre per sempre. Inoltre P è di lunghezza al più $4n-2$ e contiene tutti i
 nodi di G.
-\begin{proof}
-    \_
+\begin{proof}\
     \begin{itemize}
         \item Sia G un grafo con n nodi;
         \item Sia $v$ un nodo arbitrario di G;
@@ -464,7 +463,7 @@ algoritmo che ci permetterà di costruire uno ST con orientamento locale. Questo
               \item Quando il nodo $r$ (radice) riceve un \texttt{SI}, ordina i
                     \texttt{SI} da $1$ a $|F_v|$, e le restanti risposte li
                     ordina da $|F_v|+1$ a $d_v$.
-              \item Quando un nodo $v != r$ riceve un 'Si' assegna i numeri di
+              \item Quando un nodo $v \neq r$ riceve un 'Si' assegna i numeri di
                     porta da 2 al $|F_v|$. Infine assegna i rimanenti numeri di
                     porta agli archi rimanenti.
           \end{itemize}
@@ -516,7 +515,12 @@ Si adatta a reti dinamiche:
           \end{center}
     \item se cancelliamo un nodo di grado $> 1$, dobbiamo ricostruire lo ST.
 \end{itemize}
+
 \section{Miglioramento del Bound di 4n: Ci si basa sul numero di etichetta inserito}
+
+\emph{Fast Periodic Graph Exploration
+    with Constant Memory, L. Gasieniec, R. Klasing, R. Martin, A. Navarra, X.
+    Zhang}\\
 
 Si può fare di meglio? Si!\\ \textbf{Facciamo in modo che all'etichetta più
     bassa corrisponde il sottoalbero più alto.} In pratica l'automa avendo una
@@ -676,8 +680,7 @@ Mettiamoli in corrispondenza: \\
 $p \leq 2 S_A + 2 S_E + S_L + S_O + 2 S_Y$\\
 $n \geq 3 S_A + 2 S_E + S_L + S_O + 2 S_Y + S_R$\\
 
-Sfruttiamo le seguenti proprietà per stimare il rapporto $p/n$\\
-\vspace{-10mm}
+Sfruttiamo le seguenti proprietà per stimare il rapporto $p/n$
 \begin{itemize}
     \item $S_Y + S_O = 2 S_R - 2$ Poiché $S_Y + S_O$ sono intermedi ai nodi rossi,
           se li sommo tutti ottengo due volte il numero dei rossi. (vedere quaderno per
@@ -701,6 +704,3 @@ Risposta : SI, si può fare di meglio.\\
 $$O(2.8n) \leq Senza memoria (senza stati) \leq 4n-2$$
 $$2n-2 \leq Con memoria \leq 3.5n -2 $$
 
-Questo ultimo algoritmo fa riferimento a: \emph{Fast Periodic Graph Exploration
-    with Constant Memory, L. Gasieniec, R. Klasing, R. Martin, A. Navarra, X.
-    Zhang}

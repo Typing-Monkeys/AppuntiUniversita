@@ -32,8 +32,7 @@ stato di PROCESSING. Per il funzionamento si assume come grafo un \textbf{albero
     T} non radicato e l'insieme delle restrizioni in cui si lavora è solo \textbf{R,
     si possono avere quindi più iniziatori.} Questa permetterà di trovare
 esattamente $2$ nodi vicini tra di loro e la tecnica consiste in tre stadi:
-%Permetterà di trovare esattamente $2$ iniziatori vicini tra loro ed assume come
-grafo un albero $T$ non radicato costruito sotto le restrizioni $R$.
+
 \begin{enumerate}
     \item \textbf{Stadio di attivazione (Wake-Up)}: L'obiettivo è quello di
           eseguire il Wake-up. Viene svolto dagli iniziatori che, una volta diventati
@@ -55,16 +54,13 @@ grafo un albero $T$ non radicato costruito sotto le restrizioni $R$.
 Ripetiamo come funziona lo stadio di saturazione:
 \begin{itemize}
     \item Una foglia manda un messaggio M al proprio padre.
-    \item Un entità non foglia aspetta di ricevere $|N(x)-1|$ messaggi di tipo M.
+    \item Un entità non foglia aspetta di ricevere $|N(x)|-1$ messaggi di tipo M.
           Quando questo avviene manda M sull'unico link da cui non lo ha ricevuto.
 \end{itemize}
 Quindi si avranno: $\#msg(M) = n$, poiché ci sarà un arco in cui transitano due
 messaggi, la coppia di nodi di questo arco sarà la \textbf{coppia di nodi
     saturi}, viene infatti definita come tecnica \textbf{Edge-election}, perché è
-stato selezionato un arco.\\
-\textbf{MIO:} Dato che si hanno n nodi e n-1 archi, trattandosi di un albero, ci
-sarà un singolo arco in cui vengono scambiati due messaggi M, i nodi che
-congiunge quell'arco saranno quelli SATURATED. Una volta che sono stati
+stato selezionato un arco. Una volta che sono stati
 "scoperti" i nodi saturi inizia la fase di Risoluzione, che viene cominciata da
 quest'ultimi.
 
@@ -83,77 +79,75 @@ quest'ultimi.
 %arriverà su s2, anche s2 diventa saturo. Pertanto esistono almeno due nodi
 %che diventano saturi.
 
-\begin{proof}
-    \ \\
+\begin{proof}[Dimostrazione. \textbf{(Solo due nodi Saturi)} \textit{[Modo 1]}]\
     \begin{figure}[H]
         \centering
         \includegraphics[scale=0.5]{capitoli/saturazione/imgs/n_40}
     \end{figure}
 
-    \begin{itemize}
-        \item \textbf{Dimostro che esattamente due nodi diventano Saturated:}
-              \begin{enumerate}
-                  \item Supponiamo che $x$ nodo foglia invia un messaggio M a suo
-                        padre.
-                  \item Dato che ci troviamo su un albero non ci saranno cicli, quindi
-                        prima o poi questo messaggio raggiungerà un nodo $s_1$ in stato di
-                        SATURATED.
-                  \item
+    \textbf{Dimostro che esattamente due nodi diventano Saturated:}
+    \begin{enumerate}
+        \item Supponiamo che $x$ nodo foglia invia un messaggio M a suo
+              padre.
+        \item Dato che ci troviamo su un albero non ci saranno cicli, quindi
+              prima o poi questo messaggio raggiungerà un nodo $s_1$ in stato di
+              SATURATED.
+        \item
 
-                        Questo nodo per essere diventato SATURATED deve aver ricevuto
-                        M da suo padre $s_2$, ma se $s_2$ ha inviato M allora è
-                        sicuramente in stato di PROCESSING e deve aver considerato
-                        $s_1$ suo padre.
-                  \item Quando M inviato da $x$ arriva ad $s_1$, questo lo invia a suo
-                        padre, che è $s_2$ ma questo è in stato di PROCESSING e riceve M,
-                        quindi diventa SATURATED.% tramite $s_1$ diventerà per forza anche
-                        lui SATURATED.
-              \end{enumerate}
+              Questo nodo per essere diventato SATURATED deve aver ricevuto
+              M da suo padre $s_2$, ma se $s_2$ ha inviato M allora è
+              sicuramente in stato di PROCESSING e deve aver considerato
+              $s_1$ suo padre.
+        \item Quando M inviato da $x$ arriva ad $s_1$, questo lo invia a suo
+              padre, che è $s_2$ ma questo è in stato di PROCESSING e riceve M,
+              quindi diventa SATURATED.
+    \end{enumerate}
 
 
-              %\\ Nel percorso fatto dai messaggi M, prima o poi arriviamo ad un
-              %nodo SATURATED poiché siamo in un albero (non abbiamo cicli). In
-              %particolare, quando arriviamo al nodo SATURATED, esso invia il
-              %messaggio M a suo padre, ma dato che è Saturated allora suo padre è
-              %sicuramente in stato di Processing, ovvero ha già inviato un
-              %messaggio M. e quindi il nodo prima di lui avrà considerato il
-              %messaggio M, 
-              Se me conclude che anche il nodo prima diventa SATURATED. Almeno due
-              nodi diventano SATURATED.
-
-              \textbf{Altra possibile dimostrazione:} Si può confermare che i nodi
-              saturi sono 2 per la correttezza del Convergecast. Durante questo
-              protocollo, ogni entità manda esattamente un messaggio, ma dato che le
-              entità sono $n$ e gli archi in un albero sono $n-1$, ci sarà per forza
-              un arco in cui transiteranno due messaggi M, e quell'arco è proprio
-              quello che congiunge i due nodi saturi.
-
-
-        \item \textbf{Dimostro che i nodi Saturated sono uno il padre dell'altro
-                  (sono vicini):}\\  Assumiamo, per assurdo, $\exists x,y$ SATURATED con la
-              distanza tra di loro maggiore di 2.
-              \begin{center}
-                  $d(x,y) \geq 2$
-
-                  \includegraphics[scale=0.5]{capitoli/saturazione/imgs/n_41}
-              \end{center}
-
-              In questo caso affinché $x$ ed $y$ fossero nodi saturi $z$ dovrebbe
-              aver mandato due messaggi di tipo M, ma questo è assurdo, perché va
-              contro le ipotesi del protocollo (non può esistere $z$ che manda due M
-              nelle due direzioni: ogni nodo manda un solo M, questo è assurdo). Se
-              ne conclude quindi che i due nodi saturi sono sicuramente vicini tra
-              di loro.
-              %Non può esistere $z$ che manda due M nelle due direzioni: ogni nodo
-              %manda un solo M, questo è assurdo. Contraddice che il nodo centrale
-              %dovrebbe inviare due messaggi M, la contraddizione è che tra X ed Y
-              %non ci deve essere nessuno se ci fosse, allora quel nodo dovrebbe
-              %aver mandato 2 messaggi Min in entrambe le direzioni
-
-    \end{itemize}
+    %\\ Nel percorso fatto dai messaggi M, prima o poi arriviamo ad un
+    %nodo SATURATED poiché siamo in un albero (non abbiamo cicli). In
+    %particolare, quando arriviamo al nodo SATURATED, esso invia il
+    %messaggio M a suo padre, ma dato che è Saturated allora suo padre è
+    %sicuramente in stato di Processing, ovvero ha già inviato un
+    %messaggio M. e quindi il nodo prima di lui avrà considerato il
+    %messaggio M, 
+    Se ne conclude che anche il nodo prima diventa SATURATED. Almeno due
+    nodi diventano SATURATED.
 \end{proof}
 
+\begin{proof}[Dimostrazione. \textbf{(Solo due nodi Saturi)} \textit{[Modo 2]}]\
 
+    Si può confermare che i nodi
+    saturi sono 2 per la correttezza del Convergecast. Durante questo
+    protocollo, ogni entità manda esattamente un messaggio, ma dato che le
+    entità sono $n$ e gli archi in un albero sono $n-1$, ci sarà per forza
+    un arco in cui transiteranno due messaggi M, e quell'arco è proprio
+    quello che congiunge i due nodi saturi.
+\end{proof}
+\begin{proof}[Dimostrazione. \textbf{(I nodi Satured sono Vicini)}]\
+
+    \textbf{Dimostro che i nodi Saturated sono uno il padre dell'altro
+        (sono vicini):}\\  Assumiamo, per assurdo, $\exists x,y$ SATURATED con la
+    distanza tra di loro maggiore di 2.
+    \begin{center}
+        $d(x,y) \geq 2$
+
+        \includegraphics[scale=0.5]{capitoli/saturazione/imgs/n_41}
+    \end{center}
+
+    In questo caso affinché $x$ ed $y$ fossero nodi saturi $z$ dovrebbe
+    aver mandato due messaggi di tipo M, ma questo è assurdo, perché va
+    contro le ipotesi del protocollo (non può esistere $z$ che manda due M
+    nelle due direzioni: ogni nodo manda un solo M, questo è assurdo). Se
+    ne conclude quindi che i due nodi saturi sono sicuramente vicini tra
+    di loro.
+    %Non può esistere $z$ che manda due M nelle due direzioni: ogni nodo
+    %manda un solo M, questo è assurdo. Contraddice che il nodo centrale
+    %dovrebbe inviare due messaggi M, la contraddizione è che tra X ed Y
+    %non ci deve essere nessuno se ci fosse, allora quel nodo dovrebbe
+    %aver mandato 2 messaggi Min in entrambe le direzioni
+
+\end{proof}
 
 \textbf{Importante:} Quali nodi diventano saturi dipende strettamente dal
 ritardo di comunicazione e quindi è totalmente imprevedibile. Esecuzioni
@@ -164,7 +158,7 @@ diverse ad ogni esecuzione.
 \underline{Messaggi [Prof]:}
 $M[$\texttt{SatureTree,R,treee}$] \leq 2(n-1) + (n-1+1) = 3n - 2$
 \begin{itemize}
-    \item $2(n-1)$ è il costo della prima fase del Wake-Up
+    \item $2(n-1)$ è il costo della prima fase del Wake-Up (con $n$ iniziatori, caso peggiore)
     \item $(n-1+1)$ è un singolo messaggio per arco, che in un albero sono $n-1$
           mentre l'unico arco in cui transiteranno due messaggi è quello che connette i
           due nodi saturi, che quindi abbiamo un $+1$.
@@ -254,7 +248,7 @@ Si assume sempre rete ad Albero.
           allontana da quest'ultima. In questa tipologia, per trovare il minimo, la
           radice effettua un broadcast di richiesta "down" per richiedere la
           computazione del minimo valore dell'albero. Le entità poi effettueranno quello
-          che è il convergecast iniziato dalle foglie. I nodo determineranno il minimo
+          che è il convergecast iniziato dalle foglie. I nodi determineranno il minimo
           valore del proprio sotto albero e lo rispediranno nell'arco "up". Ne risulta
           che il minimo valore è computato alla radice, che effettuerà poi il broadcast
           di questo a tutti. \textbf{Il convergecast} può essere utilizzato solamente in
@@ -268,7 +262,7 @@ L'algoritmo inizia sempre con lo stadio di Attivazione, che farà in modo che
 tutte le entità siano ACTIVE. A questo punto quando inizia lo stadio di
 Saturazione, all'interno del messaggio M che parte dalle foglie, le entità
 inseriscono il valore minimo a loro conosciuto, quindi le foglie invieranno
-semplicemente il loro id, mentre un nodo interno terrà contro del minimo locale
+semplicemente il loro \textit{value}, mentre un nodo interno terrà contro del minimo locale
 del suo sotto albero ed invierà a suo padre solamente questo. Ne segue che
 quando i due nodi saturi saranno eletti, sapranno il valore minimo del proprio
 sotto albero, che invieranno in broadcast nello stadio di Risoluzione.
