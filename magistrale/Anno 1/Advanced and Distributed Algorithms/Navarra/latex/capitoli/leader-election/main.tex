@@ -13,7 +13,7 @@ LEADER può diventarci qualsiasi entità, poiché non sono presenti restrizioni 
 quale entità deve diventare leader oppure quante entità iniziano la
 computazione.
 $$P_{INIT}=< \forall x \in \xi, status(x)=AVAILABLE >$$
-$$P_{FINAL}=< \exists x \in \xi, status(x)=LEADER \text{ \& } \forall y \neq x
+$$P_{FINAL}=< \exists x \in \xi, status(x)=LEADER \ \wedge \ \forall y \neq x
     \text{ , } status(y)=FOLLOWER >$$ La scelta del Leader può essere vista come un
 modo per ``forzare'' l'iniziatore unico in tutti i protocolli visti. Esiste,
 tuttavia, un risultato di \textbf{impossibilità} sotto R (link bidirezionali,
@@ -65,32 +65,30 @@ Chiameremo questo nuovo set di restrizioni: Insieme standard per l'elezione:
 Come possiamo utilizzare questa nuova restrizione per rompere la simmetria ed
 eleggere quindi un leader? Analizzando il problema della Leader Election, non
 importa quale delle entità diventi Leader, basta che ce ne è una, quindi
-utilizzando il fatto che i valori iniziali sono distinti per ogni entità, una
-possibile soluzione potrebbe essere quella di scegliere l'entità con il valore
-minore:
+utilizzando il fatto che i valori iniziali sono distinti per ogni entità, alcune
+possibili soluzioni potrebbero essere le seguenti:
 \begin{itemize}
     \item \texttt{Elect Minimum}
           \begin{enumerate}
               \item Trova il valore più piccolo;
               \item Eleggi come LEADER l'entità con tale valore.
           \end{enumerate}
-          Altro approccio:
     \item \texttt{Elect Minimum Initiator}
           \begin{enumerate}
               \item Trova il valore più piccolo tra gli iniziatori;
               \item Elegge come LEADER l'entità con tale valore.
           \end{enumerate}
-          Altro approccio ancora potrebbe essere quello di utilizzare i valori
+    \item \texttt{Elect Root} utilizzare i valori
           distinti delle entità per costruire uno spanning tree della rete ed
           eleggere la radice come nodo Leader:
-    \item \texttt{Elect Root}
+
           \begin{enumerate}
               \item Costruisce uno ST radicato;
               \item Elegge come LEADER la radice.
           \end{enumerate}
 \end{itemize}
 
-Entrambi i protocolli funzionano \underline{solo} sotto le restrizioni IR,
+Tutti i precedenti protocolli funzionano \underline{solo} sotto le restrizioni IR,
 quindi da qui in avanti prenderemo questo determinato set di restrizioni. Il
 problema della leader election dipende dal sistema su cui si stiamo basando.
 
@@ -144,6 +142,7 @@ tutti gli altri solo segnali. Quindi il numero totale di bit trasmessi sarà:
         n + n) = O(n \log n)$\\
     %Dove id denota il valore maggiore inviato in un messaggio e c = O(1) denota
     %il numero di bit richiesti per distinguere tra differenti messaggi. 
+    \TODO[inline]{ricontrollare. dovrebbe essere 2n+k-2}
     $B[$\texttt{TreeElectRoot}$] = 2(c + \log_2 id) + c(3n + k^* - 2) = O(\log n +
         n) = O(n)$
 \end{center}
@@ -414,7 +413,7 @@ nell'ordine di $n^2$, come tempo invece siamo scesi a $n/2 + n$.
 
 \paragraph{Costo del numero di Messaggi:} Il caso peggiore è uguale all'All The Way
 asintoticamente, ma si risparmiano alcuni messaggi.
-$$\sum_{i=1}^{n} i = \frac{n(n+1)}{2} =  \in O(n^2)$$
+$$\sum_{i=1}^{n} i = \frac{n(n+1)}{2} = O(n^2)$$
 
 \paragraph{Costo del Tempo:} $n/2 + n$\\
 
@@ -498,7 +497,7 @@ Riassumendo:
           Forth, allora si cambia stato in CANDIDATE, e si inizia il protocollo.
     \item Se un'entità è in stato di ASLEEP e riceve un messaggio di FORTH da
           un'altra entità ma il suo $id$ è MAGGIORE di quello all'interno del messaggio
-          di Forth, allora si cambia stato in PASSIVE, e l'unica cosa che si fa è che si
+          di Forth, allora si cambia stato in DEFEATED, e l'unica cosa che si fa è che si
           inoltrano i messaggi che arrivano.
 
 \end{itemize}
@@ -540,7 +539,7 @@ sopravvissute, l'id dell'entità $x$ deve essere minore di tutti i suoi vicini a
 distanza $dis(i)$ in entrambe le parti del ring. Quindi in ogni gruppo di
 $dis(i) + 1$ entità consecutive, al più una sopravvivrà lo stage $i-1$ ed
 inizierà lo $stage(i)$. Fondamentale che tra due entità in stato di Candidate ci
-sono esattamente $dis(i)$ entità comuni. [VEDERE DISEGNO SUL QUADERNO] \\
+sono esattamente $dis(i)$ entità comuni.\\
 Ora, quanti insiemi posso avere in un ring? n proprio come il numero delle
 entità quindi disequazione:
 
