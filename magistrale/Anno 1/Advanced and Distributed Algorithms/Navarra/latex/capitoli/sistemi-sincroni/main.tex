@@ -168,7 +168,7 @@ quell'entità quindi diventerà LEADER.
 \subsection{Calcolo del costo:}
 \subsubsection{Numero di messaggi}
 Le performance generali del protocollo descritto dipendono dalla funzione $f$
-che si sceglie, bisogna quindi stimare il numeri di messaggi inviati in funzione
+che si sceglie, bisogna quindi stimare il numero di messaggi inviati in funzione
 di quest'ultima. Innanzitutto, il numero di messaggi generati dall'entità con id
 minimo saranno $2n$, poiché serve un $n$ per tutto il giro e serve un $n$ per il
 messaggio di notifica di "vittoria".\\
@@ -183,7 +183,7 @@ e così via, in totale quindi avremo: $$\sum_{i=1}^{n}\frac{n}{i} + n = O(n \log
 acquisition. Scegliendo quindi la funzione $f(id) = id$ abbiamo migliorato il
 costo dell'AsFar da $n^2$ a $n \log n$. Intuitivamente più aumentiamo il ritardo
 e più il costo diminuisce, vediamo quindi un altra funzione.\\
-$f(id) = 2^i$\\
+$f(id) = 2^{id}$\\
 Quante entità riesce a superare il messaggio con id minimo? $n$\\
 Quante entità riesce a superare il messaggio con il secondo id minimo? $n/2$\\
 Quante entità riesce a superare il messaggio con il terzo id minimo? $n/4$\\

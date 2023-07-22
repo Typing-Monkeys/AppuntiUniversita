@@ -662,11 +662,11 @@ quelli ai bordi che ne hanno 3 e quelli negli angoli che ne hanno 2.\\
 In una griglia rettangolare si avranno sempre:
 \begin{itemize}
     \item 4 angoli: entità con grado 2
-    \item $2(a+b-4)$ entità di bordo con grado 3. Dove a sono le colonne mentre b
+    \item $2(a+b-4)$: entità di bordo con grado 3. Dove a sono le colonne mentre b
           sono le righe. il 4 non sono i 4 angoli della griglia, ma sono i 2 angoli
           della prima colonna e i 2 angoli della prima riga, nella figura sottostante
           $x_{1,1}$ viene presa in considerazione quindi due volte.
-    \item (a-2)(b-2) entità interne aventi grado 4
+    \item $(a-2)(b-2)$: entità interne aventi grado 4
 \end{itemize}
 \begin{center}
     \includegraphics[scale=0.7]{capitoli/leader-election/imgs/griglia.png}
@@ -715,10 +715,11 @@ interno e che quindi non mi verranno più inviati messaggi.\\
 \end{enumerate}
 Da notare che l'azione più dispendiosa è il wake up iniziale.
 
-\subsection{Calcolo del corso dei Messaggi}
+\subsection{Calcolo del costo dei Messaggi}
 Il numero di Collegamenti all'interno di una griglia è:
 $$m=a(b-1)+b(a-1)$$ $M[grid\_leader,R,id,grid] \leq $ wake\_up + elezione +
 messaggi sbagliati verso l'interno + notifica in broadcast\\
+
 Mettiamoci nel caso peggiore, ovvero che a svegliarsi sia un nodo interno e che
 vengano anche spediti messaggi ai nodi interni dal ring esterno, così da appunto
 mandare messaggi inutili.
@@ -856,7 +857,7 @@ Questo metodo risolve quindi il problema dell'elezione sui grafi completi.
     \item \textbf{AVAILABLE:} Se ricevi impulso spontaneo allora fissa lo stage =
           1, il valore = id(x) e crea l'insieme "others" che contiene tutto il tuo
           vicinato. Scegli un nodo dentro questo insieme ed invia il messaggio di
-          Capture a quest'ultimo allegando il suo stage ed il tuo id. Successivamente
+          Capture a quest'ultimo allegando il tuo stage ed il tuo id. Successivamente
           diventa CANDIDATE.\\
           Se invece non ti svegli tramite impulso spontaneo ma ricevi un messaggio
           di Capture da Available allora invia immediatamente il messaggio di
@@ -904,7 +905,7 @@ y.\\
 \subsubsection{Risoluzione del problema:}
 Possiamo ovviare a questo problema mettendo un buffer nelle entità. Facciamo in
 modo che i messaggi di Warning siano inviati uno alla volta e solamente al vero
-padre dell'entità che sta venendo conquistata Facciamo in modo un'entità aspetti
+padre dell'entità che sta venendo conquistata Facciamo in modo che un'entità aspetti
 dopo un WARNING quale sia la risposta ricevuta, così nello stesso caso di sopra
 la nuova domanda (di y) sarebbe stata mandata al vero candidato, cioè x.\\
 Apportiamo le seguenti modifiche:
@@ -946,24 +947,22 @@ nodi).\\
 In conclusione, il numero totale di messaggi, incluso $n-1$ messaggi per la
 notifica finale in broadcast è il seguente:
 
-$$ n-1 + \sum_{i=1}^{\#stadi} 4 n_i \leq n-1 + 4 \sum_{i=1}^{n/2} n_i = 4 n
+$$ n-1 + \sum_{i=1}^{\#stadi} 4 n_i \leq n-1 + 4n \sum_{i=1}^{n/2} \frac{1}{i} = 4 n
     H_{n/2} + n + 1$$ Dove:
 \begin{itemize}
-    \item (n-1) è il costo della notifica in broadcast su un grafo completo,
+    \item $n-1$ è il costo della notifica in broadcast su un grafo completo,
           ovvero l'entità LEADER invia un messaggio a tutti i suoi vicini che sono
           $n-1$.
     \item La sommatoria indica i messaggi inviati dalle entità candidate allo
           stage(i) che sono appunto al più 4 per ognuna di esse.
+    \item $H_{n/2}$ è una la serie armonica
+          crescente, che ha come risultato $nlogn$.
 
 \end{itemize}
 
 Che da un costo complessivo di:
-$$M[CompleteElection, R, id, K_n] \leq 2.76 n log n - 1.76 n + 1$$ Il costo del
-libro è il seguente:\\
-\includegraphics[]{capitoli/leader-election/imgs/fff.png}
-Dal libro e dagli appunti presi a lezione, ne risulta che la serie è un'armonica
-crescente, che ha come risultato $nlogn$, credo che sia questo il $H_{n/2}$
-sulla foto del libro.\\
+
+$$M[CompleteElection, R, id, K_n] \leq 2.76 n log n - 1.76 n + 1$$
 
 \textbf{Siamo ottimi per i messaggi?}
 SI! perché il lower bound per QUALSIASI protocollo di Leader Election su grafo
