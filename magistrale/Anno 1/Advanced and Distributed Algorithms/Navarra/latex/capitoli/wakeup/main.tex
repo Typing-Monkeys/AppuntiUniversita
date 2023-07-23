@@ -97,33 +97,35 @@ Il caso peggiore accade quando tutte le entità si svegliano con l'impulso
 spontaneo ($n$ initiator).
 
 \subsubsection{Dimostrazione del Lower Bound pari ad m}
-Sia A un algoritmo che permette di risolvere il problema del Wake-up con un
-numero di messaggi minori di M. Questo significa che se applicassimo A su un
-generico grafo G allora ci sarebbe almeno un arco nel quale non vengono
+Sia $A$ un algoritmo che permette di risolvere il problema del Wake-up con un
+numero di messaggi minori di $m(G)$. Questo significa che se applicassimo $A$ su un
+generico grafo $G$ allora ci sarebbe almeno un arco nel quale non vengono
 scambiati messaggi. Supponiamo che sia proprio l'arco tra $x$ ed $y$ denominato
 $e$. Andiamo adesso a costruire un nuovo grafo, chiamato $G'$ ottenuto
-rimuovendo l'arco $e$ tra x ed y e spostando le sue porte tra i nodi $x$ e $z$ e
+rimuovendo l'arco $e$ tra $x$ ed $y$ e spostando le sue porte tra i nodi $x$ e $z$ e
 $y$ e $z$. A per essere un algoritmo che risolve il problema in oggetto deve
 dare soluzione su tutte le esecuzioni ed indipendentemente dalla configurazione
-iniziale. Vogliamo quindi dimostrare che esiste almeno un esecuzione di A tale
+iniziale. Vogliamo quindi dimostrare che esiste almeno un esecuzione di $A$ tale
 per cui l'algoritmo fallisce. Andiamo quindi ad applicare la stessa identica
-esecuzione del protocollo A che aveva su G in G' ovvero:
+esecuzione del protocollo $A$ che aveva su $G$ in $G'$ ovvero:
 \begin{itemize}
-    \item Tutti gli iniziatori che abbiamo avuto su G li ritroviamo su G', su G
-          $z$ nemmeno era presente quindi non può essere iniziatore.
-    \item Tutti i tempi ed i ritardi di comunicazione che abbiamo osservato su G
-          li riportiamo su G', ovvero che se un messaggio inviato ad un generico nodo ci
-          metteva 30 secondi ad arrivare in G allora ci mette 30 secondi anche su G'.
-    \item Possiamo eseguire la stessa esecuzione di A perché in G l'arco in cui
-          non transitavano messaggi è proprio $e$ ed in G' $e$ nemmeno è presente quindi
-          sicuramente non verranno scambiati messaggi su quell'arco
-    \item in poche parole forziamo la stessa identica esecuzione su G'.
+    \item Tutti gli iniziatori che abbiamo avuto su $G$ li ritroviamo su $G'$,
+          su $G$ $z$ nemmeno era presente quindi non può essere iniziatore.
+    \item Tutti i tempi ed i ritardi di comunicazione che abbiamo osservato su
+          $G$ li riportiamo su $G'$, ovvero che se un messaggio inviato ad un
+          generico nodo ci metteva 30 secondi ad arrivare in $G$ allora ci mette
+          30 secondi anche su $G'$.
+    \item Possiamo eseguire la stessa esecuzione di $A$ perché in $G$ l'arco in
+          cui non transitavano messaggi è proprio $e$ ed in $G'$ $e$ nemmeno è
+          presente quindi sicuramente non verranno scambiati messaggi su
+          quell'arco
+    \item in poche parole forziamo la stessa identica esecuzione su $G'$.
 \end{itemize}
 Dato che in quella specifica esecuzione $x$ ed $y$ non inviavano messaggi sulle
 porta dell'arco $e$, in questo caso non invieranno i messaggi al nodo $z$.
 Quindi quando il protocollo termina tutti i nodi avranno raggiunto uno stato
 terminale, tranne $z$ che è ancora in stato di Asleep. Abbiamo quindi
-individuato un esecuzione in cui l'algoritmo A fallisce. Se fallisce per UN
+individuato un esecuzione in cui l'algoritmo $A$ fallisce. Se fallisce per UN
 esecuzione non possiamo dire che l'algoritmo da soluzione al problema, e quindi
 si contraddice l'ipotesi.\\
 
@@ -186,11 +188,13 @@ Dove $k$ è l'eccentricità di un nodo all'interno dell'ipercubo
 \subsection{Grafi completi}
 Tramite l'utilizzo del generico protocollo WFlood il costo sarà il seguente:
 
-\TODO[inline]{Allineare bene}
-\begin{center}
-    Caso Peggiore ($n$ iniziatori): $M[$\texttt{WFlood}$;R] = O(m) = O(n^2)$ \\
-    Caso Migliore ($1$ iniziatore): $M[$\texttt{WFlood}$;R] = \Omega(n^2)$
-\end{center}
+\begin{equation*}
+    \begin{split}
+        \text{Caso Peggiore } (n \text{ iniziatori})&: M\left[\texttt{WFlood};R\right] = O(m) = O(n^2) \\
+        \text{Caso Migliore } (1 \text{ iniziatore})&: M\left[\texttt{WFlood};R\right] = \Omega(n^2)
+    \end{split}
+\end{equation*}
+
 Utilizzando il protocollo del KBcast e se si svegliassero $k^*$ entità il costo
 sarebbe $k^*(n-1)$, ma nel caso peggiore $k^*$ è proprio $n$ quindi il caso
 peggiore sarebbe comunque O($n^2$).
@@ -198,7 +202,7 @@ peggiore sarebbe comunque O($n^2$).
     $M[$\texttt{KBcast}$/R] = k^*(n-1) = O(n^2)$
 \end{center}
 Questo perché ogni $k^*$ iniziatore invia un messaggio a tutto il suo vicinato
-che è $n-1$. Però $1\leq K^* \leq n$ quindi il bound resta comunque O($n^2)$
+che è $n-1$. Però $1\leq k^* \leq n$ quindi il bound resta comunque O($n^2)$
 
 Quindi con il \texttt{WFlood} siamo ottimi, anche se il costo è alto e non è
 possibile usare il \texttt{KBcast} visto nel problema del \texttt{Broadcast} su
@@ -206,7 +210,7 @@ grafi completi in quanto non si ottengono migliorie di nessun tipo.
 
 \subsection{Grafi completi con identificatori}
 Dato che non si riesce a diminuire il costo del protocollo tramite l'utilizzo
-del KBcast, andiamo ad aumentare il numero di restrizioni all'insieme R.
+del KBcast, andiamo ad aumentare il numero di restrizioni all'insieme $R$.
 Aggiungiamo quindi la restrizione \textbf{Restriction Initial Distinct Values
     (ID)}: ogni nodo adesso ha associato un identificatore unico che lo distingue
 dagli altri. In questo caso possiamo creare un protocollo, che chiameremo
@@ -234,7 +238,7 @@ le entità che si svegliano sono una potenza di due.
 \paragraph{Poteri dell'avversario: [SIAMO SU GRAFO COMPLETO]}
 \begin{enumerate}
     \item Decide i valori iniziali delle entità (id), purché siano tutti distinti;
-    \item Decide quale entità spontaneamente inizia l'esecuzione di A e quando;
+    \item Decide quale entità spontaneamente inizia l'esecuzione di $A$ e quando;
     \item Decide quando un messaggio spedito arriva (in tempo comunque finito);
     \item Decide il matching tra gli archi e le etichette (porte). Durante
           l'esecuzione, quando $x$ effettua l'operazione "Invia messaggio alla porta
@@ -246,17 +250,17 @@ le entità che si svegliano sono una potenza di due.
 L'invio di un messaggio a più di una porta verrà trattato come l'invio del
 messaggio a ciascuna di tali porte una alla volta (in un ordine arbitrario).\\
 Qualunque cosa decida l'avversario, può accadere in una vera esecuzione.
-Vediamo quale sarà il peggiore dei casi che riesce a creare l'avversario per A.\\
+Vediamo quale sarà il peggiore dei casi che riesce a creare l'avversario per $A$.\\
 
 Due insiemi di entità si diranno \textbf{connessi all'istante $t$} se almeno un
 messaggio è stato trasmesso da un'entità di un insieme a un'entità dell'altro.
 
 \textbf{Sviluppo del peggior scenario possibile:}
 \begin{enumerate}
-    \item Inizialmente l'avversario sveglia una sola entità s, che chiameremo
-          Seed, che inizierà l'esecuzione del protocollo. Quando s decide di
-          inviare un messaggio ad una certa porta l, l'avversario sveglierà
-          un'altra entità $y$ e assegnerà porta l all'arco tra s e y.
+    \item Inizialmente l'avversario sveglia una sola entità $s$, che chiameremo
+          Seed, che inizierà l'esecuzione del protocollo. Quando $s$ decide di
+          inviare un messaggio ad una certa porta $l$, l'avversario sveglierà
+          un'altra entità $y$ e assegnerà porta $l$ all'arco tra $s$ e $y$.
           Successivamente ritarda la trasmissione del messaggio fin quando $y$
           non decide di inviare un messaggio ad un'altra porta $l'$;
           l'avversario assegnerà porta $l'$ al collegamento tra $y$ ed $s$ e
@@ -294,9 +298,9 @@ messaggio è stato trasmesso da un'entità di un insieme a un'entità dell'altro
                               esecuzione (stessa programmazione e stessi
                               ritardi) come già avevano le corrispondenti.
                               (Quindi, $z_0$ verrà svegliato per primo, il suo
-                              primo messaggio verrà inviato a $z_1$ , che verrà
+                              primo messaggio verrà inviato a $z_1$, che verrà
                               svegliato successivamente e invierà un messaggio a
-                              $z_0$ , e così via)
+                              $z_0$, e così via)
                         \item L'avversario assegnerà quindi l'etichetta $a$ al
                               collegamento che collega $x$ alla sua
                               corrispondente entità $z$ nel nuovo set; il
