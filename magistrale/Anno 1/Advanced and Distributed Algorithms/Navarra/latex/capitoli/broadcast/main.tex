@@ -67,7 +67,7 @@ $B(x)$ = set di regole (uguali per tutte le entità):
 \end{enumerate}
 dove \texttt{i} corrisponde agli impulsi spontanei (eventi).\\
 
-Il protocollo non termina poiché quando un'entità riceve I la propaga sempre a
+Il protocollo non termina poiché quando un'entità riceve $I$ la propaga sempre a
 tutto il vicinato. L'obiettivo è comunque raggiunto. Non è possibile effettuare
 una stima dei costi in quanto il protocollo non termina.
 
@@ -96,8 +96,8 @@ Nuove regole:
 
 \colorbox{yellow}{L'idea è quella di inviare ai vicini l'informazione una sola
     volta}, quando questo accade, tutti quelli raggiunti da questa informazione
-cambiano stato in \colorbox{yellow}{"Done"}. Così facendo la comunicazione
-termina in tempo finito, ovvero quando tutte le entità diventano "Done".
+cambiano stato in \colorbox{yellow}{"\texttt{done}"}. Così facendo la comunicazione
+termina in tempo finito, ovvero quando tutte le entità diventano \texttt{done}.
 
 \section{Complessità}
 \subsection{Numero di Messaggi trasmessi}
@@ -115,12 +115,12 @@ di restrizioni $R$ e si ha la versione del problema in cui si ha un unico
 iniziatore $UI+$.
 
 \section{Protocollo Flooding: Miglioramento del Broadcasts}
-Nel normale protocollo di Broadcast quando un'entità con stato "Idle" riceve un
-messaggio effettua il broadcast a tutti i suoi vicini. Questo non è necessario
-poiché, per l'assioma della Local Orientation (\ref{axch:local-orientation}), un'entità può distinguere tra i
-suoi vicini. In particolare, quando effettua il processing di un messaggio, può
-identificare da quale porta lo ha ricevuto e quindi evitare di rispedirlo su
-quest'ultima.\\
+Nel normale protocollo di Broadcast quando un'entità con stato "\texttt{idle}"
+riceve un messaggio effettua il broadcast a tutti i suoi vicini. Questo non è
+necessario poiché, per l'assioma della Local Orientation
+(\ref{axch:local-orientation}), un'entità può distinguere tra i suoi vicini. In
+particolare, quando effettua il processing di un messaggio, può identificare da
+quale porta lo ha ricevuto e quindi evitare di rispedirlo su quest'ultima.\\
 L'istruzione quindi diventa:
 
 \begin{enumerate}
@@ -192,7 +192,7 @@ bound più accurato.
 
 \begin{proof}
     Assumiamo che esista un protocollo $A$ di broadcasting che in ogni
-    esecuzione, sotto $R$ e $UI$, in ogni G, utilizzi un numero di messaggi:
+    esecuzione, sotto $R$ e $UI$, in ogni $G$, utilizzi un numero di messaggi:
 
     \begin{center}
         \#messaggi $< m(G)$
@@ -212,12 +212,12 @@ bound più accurato.
     due archi $(x, z)$ e $(y, z)$ le porte dell'arco $e$. Assumiamo che   $z$
     non sia l'iniziatore del protocollo. Ripetiamo la \underline{stessa
         esecuzione} di $A$ su $G'$ (supponendo quindi che lo stesso ritardo di
-    comunicazione avvenga, ovvero che quando x riceveva un messaggio su G lo
-    riceve nello stesso momento anche su G') per fare in modo che sia sempre lo
+    comunicazione avvenga, ovvero che quando $x$ riceveva un messaggio su $G$ lo
+    riceve nello stesso momento anche su $G'$) per fare in modo che sia sempre lo
     stesso arco in cui non transitino messaggi. \'E possibile eseguire la stessa
-    identica esecuzione di A perché nessun messaggio viene inviato sull'arco
-    (x,y) (su G' nemmeno c'è questo arco).\\
-    Se cosi fosse in G' nello stato finale c'è un nodo, lo $z$, che non viene
+    identica esecuzione di $A$ perché nessun messaggio viene inviato sull'arco
+    $(x,y)$ (su $G'$ nemmeno c'è questo arco).\\
+    Se cosi fosse in $G'$ nello stato finale c'è un nodo, $z$, che non viene
     raggiunto dall'informazione $I$, poiché negli archi che abbiamo creato non
     viene spedito nessun messaggio. Ciò è assurdo e questo implica che $A$ non è
     un protocollo di broadcasting corretto.
@@ -308,19 +308,21 @@ ai suoi vicini che sono $n-1$, ottenendo quindi i seguenti costi:
     \end{split}
 \end{equation*}
 
-In pratica abbiamo messo a NIL questa istruzione: \texttt{idle x, receiving(I)}
+In pratica abbiamo messo a \textit{nil} questa istruzione: \texttt{idle $\times$
+    receiving(I)}.
 
 \subsection{Ipercubi}
 \begin{itemize}
     \item Un Ipercubo Orientato $H_1$ di dimensione $k=1$ è una coppia di nodi
-          chiamati in binario 0 ed 1 connessi da un singolo arco la cui porta è 1 in
-          entrambe le parti. Da notare che K è anche il valore nel pedice dell' H,
-          quindi è sia i numeri di porta sia nel pedice.
+          chiamati in binario $0$ ed $1$ connessi da un singolo arco la cui
+          porta è $1$ in entrambe le parti. Da notare che $k$ è anche il valore nel
+          pedice dell' $H$, quindi è sia i numeri di porta sia nel pedice.
     \item Un Ipercubo Orientato $H_k$ è ottenuto connettendo i due ipercubi di
-          dimensione $k-1$ chiamati $H'_{k-1}$ e $H''_{k-1}$ e collegando i nodi con lo
-          stesso nome con un link di etichetta $k$ in entrambi i nodi. Quando si va a
-          creare un nuovo Ipercubo, si aggiunge uno 0 davanti alle etichette
-          dell'Ipercubo già presente e in quello nuovo creato si aggiunge un 1 davanti.
+          dimensione $k-1$ chiamati $H'_{k-1}$ e $H''_{k-1}$ e collegando i nodi
+          con lo stesso nome con un link di etichetta $k$ in entrambi i nodi.
+          Quando si va a creare un nuovo Ipercubo, si aggiunge uno $0$ davanti
+          alle etichette dell'Ipercubo già presente e in quello nuovo creato si
+          aggiunge un $1$ davanti.
 \end{itemize}
 
 \begin{itemize}
@@ -337,8 +339,8 @@ In pratica abbiamo messo a NIL questa istruzione: \texttt{idle x, receiving(I)}
           Due nodi adiacenti differiscono di uno ed un solo bit. Aggiungiamo un
           bit di prefisso ad ogni ``nome'' di nodo. Il valore $k$ è l'etichetta
           massima che si inserisce sugli archi. Per esempio se fossero presenti 8
-          nodi, ovvero il prossimo passo della figura sopra, il k sarebbe 3,
-          poiché $k = \log_2{n}$; log in base 2 di 8 fa proprio 3.
+          nodi, ovvero il prossimo passo della figura sopra, il $k$ sarebbe 3,
+          poiché $k = \log_2{n}$; il logaritmo in base 2 di 8 fa proprio 3.
 \end{itemize}
 
 Un ipercubo di dimensione $k$ ($H_k$) avrà:
@@ -455,7 +457,7 @@ protocollo \texttt{HyperFlood} è \textbf{corretto}.
     dall'arco con etichetta $j_1$. Ma ancora per costruzione, $v_1$ sarà
     collegato a $v_2$ con l'etichetta $j_2$ e così via. Questa sequenza di nodi
     fa si che $v_t =  y$, ma questo significa che $<v_0, v_1, \ldots ,v_t>$\ è
-    un cammino tra x ed y e la sequenza di etichette in questo cammino $<j_1,
+    un cammino tra $x$ ed $y$ e la sequenza di etichette in questo cammino $<j_1,
         ..., j_t>$ è decrescente. Quindi $H_k(x)$ è connesso e contiene tutti i nodi
     di $H_k$ indipendentemente da $x$.\\
     In altre parole, entro un tempo finito, ogni entità avrà le informazioni.
