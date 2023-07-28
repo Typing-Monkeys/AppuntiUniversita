@@ -111,7 +111,7 @@ matrice dei valori campionati dell'immagine. Infine possiamo dare le seguenti
     L'\textbf{immagine campionata} è
     \begin{equation}
         \begin{aligned}
-            s_c(x,y,t) & = f(x,y,t)s_c(x,y,t) =                                                                                         \\
+            f_c(x,y,t) & = f(x,y,t)s_c(x,y,t) =                                                                                         \\
                        & = f(x,y,t) \sum_{j=1}^{M} \sum_{k=1}^{N}\sum_{h=1}^{T} \delta (x-j \Delta x, y - k \Delta y, t - h  \Delta t )
         \end{aligned}
     \end{equation}
@@ -121,13 +121,11 @@ Lo scopo della funzione campionante $s_c(x , y, t)$ è di prelevare i valori
 campionati dal segnale continuo di partenza e pertanto ha un caratteristico
 andamento \textbf{pulsante}.
 
-\TODO[inline]{Ricontrollare le seguenti rihe!}
 \begin{itemize}
     \item Il segnale \textbf{non va mai letto} quando $x$ cade nel nodo della
           funzione in quanto non si sarebbe in grado di leggerlo.
     \item Il segnale \textbf{va letto} soltanto in $\frac{j}{w}$ ovvero la
-          funzione campionante parallela ai campioni. \TODO[]{Ricontrollare
-              questi 2 punti.}
+          funzione campionante parallela ai campioni.
 \end{itemize}
 
 \begin{figure}[H]
@@ -182,7 +180,7 @@ $$
 $$
 
 dove $s_c(x,y)$ è \textbf{la funzione campionante} e $\delta$ rappresenta
-funzione \textbf{delta di Dirac} \TODO[]{Definire funzione di Dirac}.\\
+funzione \textbf{delta di Dirac}.\\
 
 Si può provare che c'è una relazione tra $\hat{f}_c$ e $\hat{f}$. Per questo è
 importante assumere che lo spettro del segnale $f$ sia \textbf{a banda
@@ -1723,7 +1721,6 @@ dell'immagine.
     \caption{Applicazione di un filtro di sharpening}
 \end{figure}
 
-\TODO[inline]{Da ricontrollare e aggiungere spiegazioni}
 \begin{figure}[H]
     \centering
     \includegraphics[width=11cm, keepaspectratio]{capitoli/immagini/imgs/sharpering2.png}
@@ -2005,15 +2002,16 @@ possono definire le seguenti operazioni:
           \end{figure}
 
     \item \textbf{Moltiplicazione e divisione di immagini}
-          \TODO[inline]{Ricontrollare ed ampliare!}
-          $$
-              g(x,y) = f(x,y) \cdot h(x,y)
-          $$
-          \textbf{Esempi:}
+          \textbf{Viene utilizzata per applicazioni come:}
           \begin{itemize}
               \item Correzzione dell'ombreggiatura(shading)
               \item Selezione di una ROI (Region of Interest)
           \end{itemize}
+          È definita come:
+          $$
+              g(x,y) = f(x,y) \cdot h(x,y)
+          $$
+
 
           \begin{figure}[H]
               \centering
@@ -2052,9 +2050,6 @@ $R_1,...,R_n$ deve soddisfare le seguenti condizioni:
 \end{itemize}
 
 La segmentazione dell'immagine ha molte applicazioni:
-
-\TODO[inline]{Riorganizzare la visualizzazione delle immagini!}
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm, keepaspectratio]{capitoli/immagini/imgs/biologia.png}
@@ -2265,10 +2260,9 @@ Esiste un'estensione del metodo di Otsu che prende il nome di metodo di \textbf{
 \end{figure}
 
 \subsection{Edge-Gray Levels Histogram method (1977)}
-\TODO[inline]{Da integrare!}
 Testato per la prima volta su immagini
-termografiche (FLIR Forward-Looking Infra Red). Sfrutta un vettore
-multidimensionale di criteri piuttosto che un solo parametro
+termografiche (FLIR Forward-Looking Infra Red). Sfrutta un \textbf{vettore
+    multidimensionale di criteri} piuttosto che un solo parametro
 caratterizzante come il livello di grigio.
 
 \begin{figure}[H]
@@ -2380,15 +2374,6 @@ $$
     I \oplus SE = \max\{I(z) \ | \ z \in SE\}
 $$
 
-%% TODO: sembra essere inutile, ricontrollare !
-% \textbf{Dilatazione - Applicazione: riempimento}
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/dilatazione-applicazione.png}
-% \end{figure}
-
-
 \subsubsection{Apertura}
 L'apertura è una erosione seguita da una dilatazione, dove si considera sempre lo stesso elemento strutturante e non è commutativa.
 È definita come:
@@ -2476,7 +2461,6 @@ Se si sceglie un SE circolare con diametro pari alla metà della distanza fra du
 otterranno “buchi” in corrispondenza delle strutture dentate uscenti come in figura (g). Infine, un altro elemento strutturante di diametro superiore a
 quello della distanza interdentale viene utilizzato per evidenziare i denti mancanti (h).
 
-\TODO[inline]{Riscrivere caption!}
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/orologi5.png}
@@ -2508,9 +2492,9 @@ $$
     PSNR_{AB} = 10 \log(\frac{255^2}{MSE_{AB}})
 $$
 
-Può anche essere espresso come:
+Può anche essere espresso come (semplicemente ricavandola dalla precedente
+portando fuori la potenza di 2):
 
-\TODO[inline]{Ricontrollare se la formula seguente è vera !}
 $$
     PSNR_{AB} = 20 \log(\frac{255}{\sqrt{MSE}})
 $$
@@ -2664,11 +2648,14 @@ Una classificazione dei metodi di registratura si basa su nove criteri:
           \end{itemize}
 \end{enumerate}
 
-\TODO[inline]{Allineare e sistemare le immagini !}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/dominio.png}
-    \includegraphics[width=6cm, keepaspectratio]{capitoli/immagini/imgs/tipi-trasformazione.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/dominio.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/immagini/imgs/tipi-trasformazione.png}
 \end{figure}
 
 \chapter{Tomografia Computerizzata}
@@ -2760,7 +2747,7 @@ sviluppata da Radon, la quale afferma che:
     di tutte le sue proiezioni (nel nostro caso 4).
 \end{definition}
 
-Essendo che il gantry \TODO[]{descrivere cos'è il gantry!} gira vogliamo convertire le coordinate del sistema
+Essendo che il gantry gira vogliamo convertire le coordinate del sistema
 di riferimento del gantry a quelle di un immagine, quindi definiamo la seguente
 trasformazione:
 
