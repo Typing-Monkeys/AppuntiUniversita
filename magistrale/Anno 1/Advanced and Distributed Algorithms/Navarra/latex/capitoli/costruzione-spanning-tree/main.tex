@@ -6,14 +6,14 @@
 %velocizzare il nostro sistema. L'idea è quindi quella di costruire uno Spanning
 %Tree (Albero di copertura) e sfruttarlo poi in tutte le istanze dei nostri
 %protocolli.
-In un ambiente distribuito, costruire uno Spanning Tree di un grafo G significa
+In un ambiente distribuito, costruire uno Spanning Tree di un grafo $G$ significa
 muovere il sistema da una configurazione iniziale dove ogni entità è solo a
 conoscenza dei suoi vicini $N$, ad una configurazione dove:
 
 \begin{enumerate}
     \item Ogni entità $x$ sceglie un sottoinsieme dei suoi vicini $N(x)$ come
-          vicinato nello ST, chiamato TREE\_NEIGHBORS(x);
-    \item L'insieme dei link corrispondenti forma uno ST di G.
+          vicinato nello ST, chiamato $TREE\_NEIGHBORS(x)$;
+    \item L'insieme dei link corrispondenti forma uno ST di $G$.
 \end{enumerate}
 
 Quello che si vuole quindi è un algoritmo che, una volta eseguito, garantisce la
@@ -23,7 +23,7 @@ Si noti che T non è noto a priori alle entità e potrebbe non esserlo dopo che 
 stato costruito: un'entità deve solo sapere quali dei suoi vicini sono anche
 suoi vicini nello spanning tree T.\\
 %Formalmente: Quaderno
-$P_{INIT} = $ Inizialmente nessun arco appartiene allo ST di un'entità x.\\
+$P_{INIT} = $ Inizialmente nessun arco appartiene allo ST di un'entità $x$.\\
 $P_{FINAL}$ = Per il suo calcolo si fanno riferimento ai tre punti successivi:
 \begin{itemize}
     \item Per ogni entità, l'insieme degli archi che formano parte dell'albero
@@ -55,9 +55,9 @@ costruiamo un algoritmo per il calcolo dello ST attraverso i seguenti passi:
     \item Ogni entità termina la propria esecuzione quando ha ricevuto una
           risposta da tutti i vicini a cui ha inviato $Q$.
 \end{enumerate}
-Per un' entità x quindi, il suo vicinato nello ST sono i suoi vicini che hanno
-risposto SI, mentre per l'iniziatore sono tutti i nodi ai quali è stato inviato
-il messaggio Q.\\
+Per un' entità $x$ quindi, il suo vicinato nello ST sono i suoi vicini che hanno
+risposto \texttt{SI}, mentre per l'iniziatore sono tutti i nodi ai quali è stato
+inviato il messaggio $Q$.\\
 Si ha quindi un \texttt{Broadcast} di $Q$ con una risposta per ogni $Q$ inviato.
 Il protocollo Shout infatti può essere visto come:
 
@@ -67,7 +67,6 @@ Il protocollo Shout infatti può essere visto come:
 
 \begin{figure}[H]
     \centering
-    \hspace*{-0.75in}
     \includegraphics[width=15cm, keepaspectratio]{capitoli/costruzione-spanning-tree/imgs/dddd.png}
 \end{figure}
 
@@ -80,35 +79,40 @@ radicato sul nodo iniziatore.
 \end{theorem}
 
 \begin{proof}
-    Questo protocollo consiste nel Flooding del messaggio Q. Data la correttezza
-    del Flooding, è garantito che ogni nodo riceverà la domanda, e che quindi
-    risponderà SI o NO ad ogni Q che riceve. La terminazione segue proprio da
-    questo. Per provare la sua correttezza bisogna dimostrare che il sotto grafo
-    $G'$ definito dall'insieme $TREE\_NEIGHBORS$ è uno spanning tree di G, ossia
-    è \textbf{Connesso}, \textbf{Contiene tutte le entità} e \textbf{Non
-        contiene Cicli}. Osserviamo i seguenti tre punti:
+    Questo protocollo consiste nel Flooding del messaggio $Q$. Data la
+    correttezza del Flooding, è garantito che ogni nodo riceverà la domanda, e
+    che quindi risponderà \texttt{SI} o \texttt{NO} ad ogni $Q$ che riceve. La terminazione segue
+    proprio da questo. Per provare la sua correttezza bisogna dimostrare che il
+    sotto grafo $G'$ definito dall'insieme $TREE\_NEIGHBORS$ è uno spanning tree
+    di $G$, ossia è \textbf{Connesso}, \textbf{Contiene tutte le entità} e
+    \textbf{Non contiene Cicli}. Osserviamo i seguenti tre punti:
     \begin{enumerate}
         \item \textbf{Connesso:} Se $x \in$ $T_N(y)$ allora $y \in$ $T_N(x)$
               (poiché all'invio di un ``\texttt{SI}'' un'entità accetta di
               essere figlia e l'altra apprende di essere padre).
-        \item \textbf{Contiene tutte le entità:} Se un'entità $x$ invia un "SI"
+        \item \textbf{Contiene tutte le entità:} Se un'entità $x$ invia un ``\texttt{SI}''
               ad $y$, allora $x \in T_N(y)$; inoltre è connessa all'iniziatore s
-              da un cammino dove "SI" è stato inviato su ogni link. \\
-              \textbf{Dim:} Supponiamo un nodo $x$ non raggiungibile
-              dall'iniziatore $s$ dal grafo T indotto dalla relazione con il
-              "padre". Questo significa che $x$ non ha mai inviato un messaggio
-              di SI, ma questo implicherebbe che $x$ non ha mai ricevuto la
-              domanda Q. Ma questo è impossibile per la correttezza del
-              flooding, ogni entità ha per forza ricevuto il Q e quindi $x$ non
-              può esistere.\\
-              (Prof) Se per assurdo così non fosse, significherebbe che $x$ non
-              ha mai inviato un "SI" ma ciò è assurdo per la correttezza del
-              Flooding, poiché $x$ ha ricevuto sicuramente Q, e quindi ha
-              inviato un \texttt{SI}. Quindi l'albero ottenuto dopo l'esecuzione
-              sarà sicuramente connesso
-              \begin{center}
-                  \includegraphics[scale=1]{capitoli/costruzione-spanning-tree/imgs/n_21}
-              \end{center}
+              da un cammino dove ``\texttt{SI}'' è stato inviato su ogni link.
+              \begin{proof}[Dimostrazione. \textit{[Modo 1]}]
+                  Supponiamo un nodo $x$ non raggiungibile dall'iniziatore $s$
+                  dal grafo T indotto dalla relazione con il "padre". Questo
+                  significa che $x$ non ha mai inviato un messaggio di \texttt{SI}, ma
+                  questo implicherebbe che $x$ non ha mai ricevuto la domanda
+                  $Q$. Ma questo è impossibile per la correttezza del flooding,
+                  ogni entità ha per forza ricevuto il $Q$ e quindi $x$ non può
+                  esistere.\\
+
+                  In altre parole, se per assurdo
+                  così non fosse, significherebbe che $x$ non ha mai inviato un
+                  ``\texttt{SI}'' ma ciò è assurdo per la correttezza del
+                  Flooding, poiché $x$ ha ricevuto sicuramente Q, e quindi ha
+                  inviato un \texttt{SI}. Quindi l'albero ottenuto dopo
+                  l'esecuzione sarà sicuramente connesso
+
+                  \begin{center}
+                      \includegraphics[scale=1]{capitoli/costruzione-spanning-tree/imgs/n_21}
+                  \end{center}
+              \end{proof}
         \item \textbf{Non contiene Cicli:} Ogni $x \neq $ \texttt{initiator}
               manda esattamente un solo messaggio ``\texttt{SI}''; se così non
               fosse, potrebbero essere presenti dei cicli che in un albero non
@@ -119,11 +123,11 @@ radicato sul nodo iniziatore.
 Date queste supposizioni, il sottoinsieme $G'$ definito da tutti i
 $TREE\_NEIGHBORS$ contiene tutte le entità, è connesso e non contiene cicli. È
 possibile affermare che è uno Spanning Tree di $G$.\\
-Si noti che $G'$ è in realtà un albero radicato nell'iniziatore. Ricordiamo che, in
-un albero radicato, ogni nodo (tranne la radice) ha un genitore: il vicino più
-vicino alla radice; tutti gli altri suoi vicini sono chiamati children. Il
-vicino a cui $x$ invia un $Si$ è il suo $genitore$; tutti i vicini da cui riceve
-un $Si$ sono suoi figli. Questo fatto può essere utile nelle operazioni
+Si noti che $G'$ è in realtà un albero radicato nell'iniziatore. Ricordiamo che,
+in un albero radicato, ogni nodo (tranne la radice) ha un genitore: il vicino
+più vicino alla radice; tutti gli altri suoi vicini sono chiamati children. Il
+vicino a cui $x$ invia un \texttt{SI} è il suo $genitore$; tutti i vicini da cui
+riceve un \texttt{SI} sono suoi figli. Questo fatto può essere utile nelle operazioni
 successive.\\
 L'esecuzione del protocollo Shout termina con la terminazione locale: ogni
 entità sa quando la propria esecuzione è terminata; questo si verifica quando
@@ -148,15 +152,15 @@ Andiamo ora ad analizzare i costi del protocollo:
 \end{center}
 Dove:
 \begin{itemize}
-    \item 4m sono i 4 messaggi per arco dati i ritardi di comunicazione
-    \item Ai 4m messaggi sottraggo tutti gli archi in cui passa un Q ed un SI, che
-          sono appunto (n-1) + (n-1).
+    \item $4m$ sono i 4 messaggi per arco dati i ritardi di comunicazione
+    \item Ai $4m$ messaggi sottraggo tutti gli archi in cui passa un $Q$ ed un
+          \texttt{SI}, che sono appunto $(n-1) + (n-1)$.
 \end{itemize}
 
-Questo perché, se a seguito di una domanda rispondo "SI", sull'arco passano 2
-messaggi, ma se invio "NO", per i ritardi di comunicazione, posso avere fino a
-quattro messaggi. Quindi ho 4 messaggi per arco, a cui sottraggo però gli 2(n-1)
-archi su cui passano (n-1) "SI" e (n-1) "Q".
+Questo perché, se a seguito di una domanda rispondo ``\texttt{SI}'', sull'arco
+passano 2 messaggi, ma se invio ``\texttt{NO}'', per i ritardi di comunicazione, posso
+avere fino a quattro messaggi. Quindi ho 4 messaggi per arco, a cui sottraggo
+però gli $2(n-1)$ archi su cui passano $(n-1)$ ``\texttt{SI}'' e $(n-1)$ $Q$.
 
 \begin{figure}[H]
     \centering
@@ -232,23 +236,27 @@ Vediamo ora quanto ci costa, in generale, la costruzione di uno Spanning Tree:
 \begin{center}
     $M[ST/RI] \geq m = \Omega(m)$
 \end{center}
-\textbf{Dim del Lower Bound:}
-Assumiamo che esista un protocollo A corretto che, in ogni esecuzione sotto le
-restrizioni R ed UI, in ogni Grafo utilizza un numero di messaggi $<m$ per
-risolvere il problema della costruzione di uno spanning tree. Se cosi fosse ci
-sarebbe un arco in G dove non transitano messaggi in nessuna direzione durante
-un esecuzione di A. Consideriamo l'esecuzione di A in G e sia e=(x,y) l'arco
-dove non vengono trasmessi messaggi. Costruiamo ora un nuovo grafo G' da G
-ottenuto rimuovendo l'arco $e$ ed aggiungendo un nuovo nodo $z$ e due nuovi
-archi $e_1=(x,z)$ e $e_2=(y,z)$. Assumiamo che $z$ non sia iniziatore del
-protocollo. Eseguiamo ora la stessa identica esecuzione di A nel nuovo grafo G',
-dato che non transitavano messaggi tra x ed y è possibile eseguire la stessa
-esecuzione, poiché su G' il link tra x ed y nemmeno è presente. Però dato che
-nessun messaggio transitava tra x ed y, in G' nessun messaggio transita tra x e
-z e y e z, ma dato che z non è iniziatore e non riceve nessun messaggio, non
-invierà mai una risposta. Questo significa che in tempo finito il protocollo A
-termina, affermando che ha costruito una spanning tree di G' ma in questo caso z
-non è connesso all'albero costruito, quindi A non termina correttamente.
+
+\begin{proof}
+    Assumiamo che esista un protocollo $A$ corretto che, in ogni esecuzione
+    sotto le restrizioni $R$ ed $UI$, in ogni Grafo utilizza un numero di
+    messaggi $<m(G)$ per risolvere il problema della costruzione di uno spanning
+    tree. Se cosi fosse ci sarebbe un arco in $G$ dove non transitano messaggi
+    in nessuna direzione durante un esecuzione di $A$. Consideriamo l'esecuzione
+    di $A$ in $G$ e sia $e=(x,y)$ l'arco dove non vengono trasmessi messaggi.
+    Costruiamo ora un nuovo grafo $G'$ da $G$ ottenuto rimuovendo l'arco $e$ ed
+    aggiungendo un nuovo nodo $z$ e due nuovi archi $e_1=(x,z)$ e $e_2=(y,z)$.
+    Assumiamo che $z$ non sia iniziatore del protocollo. Eseguiamo ora la stessa
+    identica esecuzione di $A$ nel nuovo grafo $G'$, dato che non transitavano
+    messaggi tra $x$ ed $y$ è possibile eseguire la stessa esecuzione, poiché su
+    $G'$ il link tra $x$ ed $y$ nemmeno è presente. Però dato che nessun
+    messaggio transitava tra $x$ ed $y$, in $G'$ nessun messaggio transita tra
+    $x$ e $z$ e $y$ e $z$, ma dato che $z$ non è iniziatore e non riceve nessun
+    messaggio, non invierà mai una risposta. Questo significa che in tempo
+    finito il protocollo $A$ termina, affermando che ha costruito una spanning
+    tree di $G'$ ma in questo caso $z$ non è connesso all'albero costruito, quindi $A$
+    non termina correttamente.
+\end{proof}
 
 \underline{Tempo:}
 \begin{center}
@@ -261,19 +269,19 @@ tempo $\Theta(d)$.
 \section{Shout+ miglioramento di Shout}
 Possiamo ridurre il numero di messaggi inviati rimuovendo i messaggi di tipo
 \texttt{NO}. Per ottenere questo possiamo fare in modo che la ricezione di un
-messaggio di tipo Q su un nodo che stà aspettando una risposta funzioni come
-"NO" implicito.\\
-Prendiamo ad esempio un nodo $x$ che ha appena inviato un messaggio Q al suo
-vicino $y$.\\ Perché $y$ potrebbe rispondere NO? \\Risponderà così solo se ha
-già ricevuto una domanda Q e quindi già risposto SI a qualche altra entità, in
-questo caso $y$ ha già inviato Q allo stesso tempo a tutti gli altri vicini,
-incluso $x$. Se $y$ risponde NO ad $x$, deve aver già inviato Q ad x. Possiamo
-ovviamente usare questa caratteristica a nostro vantaggio, dopo che $x$ invia Q
-ad $y$, se riceve SI sa che $y$ è un suo vicino, se invece riceve Q, dedurrà che
-$y$ ha risposto NO.\\
-In altre parole, quando un messaggio Q arriva ad un nodo che sta aspettando una
+messaggio di tipo $Q$ su un nodo che stà aspettando una risposta funzioni come
+``\texttt{NO}'' implicito.\\
+Prendiamo ad esempio un nodo $x$ che ha appena inviato un messaggio $Q$ al suo
+vicino $y$.\\ Perché $y$ potrebbe rispondere \texttt{NO}? \\Risponderà così solo
+se ha già ricevuto una domanda $Q$ e quindi già risposto \texttt{SI} a qualche
+altra entità, in questo caso $y$ ha già inviato $Q$ allo stesso tempo a tutti
+gli altri vicini, incluso $x$. Se $y$ risponde \texttt{NO} ad $x$, deve aver già
+inviato $Q$ ad $x$. Possiamo ovviamente usare questa caratteristica a nostro
+vantaggio, dopo che $x$ invia $Q$ ad $y$, se riceve \texttt{SI} sa che $y$ è un
+suo vicino, se invece riceve $Q$, dedurrà che $y$ ha risposto \texttt{NO}.\\
+In altre parole, quando un messaggio $Q$ arriva ad un nodo che sta aspettando una
 risposta può essere inteso come una risposta negativa, quindi concludiamo che è
-possibile non inviare messaggi di NO.
+possibile non inviare messaggi di \texttt{NO}.
 \begin{center}
     \includegraphics[scale=1.4]{capitoli/costruzione-spanning-tree/imgs/n_23}
 \end{center}
@@ -312,32 +320,32 @@ ST. \\
 \begin{proof}
     Per dimostrarlo prendiamo un grafo completo con 3 nodi ed etichettato come
     segue in figura.\\
-    Supponiamo di avere un algoritmo deterministico A e più iniziatori:
+    Supponiamo di avere un algoritmo deterministico $A$ e più iniziatori:
     \begin{center}
         \includegraphics[scale=0.8]{capitoli/costruzione-spanning-tree/imgs/n_37}
     \end{center}
 
     Supponiamo che $x, y, z$ siano tutti e tre iniziatori, che siano nello
     stesso stato, che inizino contemporaneamente il protocollo e che abbiano
-    tutti valori identici. Se A è un protocollo che da soluzione al problema,
+    tutti valori identici. Se $A$ è un protocollo che da soluzione al problema,
     dovrà funzionare sotto ogni condizioni di ritardo di messaggi e
     indipendentemente dal numero di iniziatori. Supponiamo di avere ritardo di
     comunicazione unitario, che sia presente la sincronia di Clock e che tutte
-    le entità inizino contemporaneamente l'esecuzione del protocollo A. Dato che
-    sono in stati identici (stessi valori iniziali e stessi numeri di porta), le
-    entità eseguiranno le stesse computazioni, ottenendo gli stessi risultati
-    (continuando ad avere gli stessi valori locali), inviare gli stessi messaggi
-    agli stessi numeri di porta ed entrare eventualmente nel nuovo stato tutte
-    insieme. In pratica tutte le entità continueranno ad essere completamente
-    identiche. Se A da soluzione al protocollo, deve terminare in tempo finito.
-    Nel nostro caso A dovrà solamente eliminare un arco per far si che si
-    ottenga uno Spanning Tree; prendiamo per esempio l'arco (x,y). In questo
-    caso la variabile Tree-neighbors sarà la porta con la label 2 dell'entità x e
-    la porta 1 dell'entità y, invece z ha come Tree-neighbors porta \{1,2\}. In
-    altri termini, quando il protocollo termina, tutte le entità hanno
-    differenti valori per la variabile locale "Tree-Neighbors" ma questo è
-    impossibile poiché per supposizione gli stati delle entità devono essere
-    necessariamente identici.\\
+    le entità inizino contemporaneamente l'esecuzione del protocollo $A$. Dato
+    che sono in stati identici (stessi valori iniziali e stessi numeri di
+    porta), le entità eseguiranno le stesse computazioni, ottenendo gli stessi
+    risultati (continuando ad avere gli stessi valori locali), inviare gli
+    stessi messaggi agli stessi numeri di porta ed entrare eventualmente nel
+    nuovo stato tutte insieme. In pratica tutte le entità continueranno ad
+    essere completamente identiche. Se $A$ da soluzione al protocollo, deve
+    terminare in tempo finito. Nel nostro caso $A$ dovrà solamente eliminare un
+    arco per far si che si ottenga uno Spanning Tree; prendiamo per esempio
+    l'arco $(x,y)$. In questo caso la variabile $TREE\_NEIGHBORS$ sarà la porta
+    con la label 2 dell'entità $x$ e la porta 1 dell'entità $y$, invece $z$ ha come
+    $TREE\_NEIGHBORS$ porta \{1, 2\}. In altri termini, quando il protocollo
+    termina, tutte le entità hanno differenti valori per la variabile locale
+    $TREE\_NEIGHBORS$ ma questo è impossibile poiché per supposizione gli stati
+    delle entità devono essere necessariamente identici.
 
     %Siccome $x, y, z$ hanno la stessa esecuzione e partono dallo stesso stato,
     %in ogni momento, calcoleranno sempre lo stesso risultato e saranno quindi
@@ -351,17 +359,17 @@ ST. \\
 \end{center}
 
 \textbf{Causa del fallimento}\\
-La causa per cui il protocollo Shout con più iniziatori fallisce è che un'entità
-non riesce a distinguere tra le varie richieste che gli vengono inviate. Quindi
-il più semplice approccio sarebbe quello di aggiungere un id ad ogni messaggio
-di "Q" e "Yes" così da identificarle.
+La causa per cui il protocollo \texttt{Shout} con più iniziatori fallisce è che
+un'entità non riesce a distinguere tra le varie richieste che gli vengono
+inviate. Quindi il più semplice approccio sarebbe quello di aggiungere un id ad
+ogni messaggio di ``$Q$'' e ``\texttt{SI}'' così da identificarle.
 
-Dobbiamo trovare l'insieme di restrizioni "minimo" (oltre a R) che ci permetta
+Dobbiamo trovare l'insieme di restrizioni "minimo" (oltre a $R$) che ci permetta
 di costruire correttamente lo ST con più iniziatori.
 
 \section{Spanning Tree con valori iniziali delle entità distinti}
 Possiamo risolvere il problema aggiungendo una singola restrizione all'insieme
-R: ogni entità ha un valore iniziale unico (id) che permette di distinguerla
+$R$: ogni entità ha un valore iniziale unico (id) che permette di distinguerla
 dalle altre. Quando un'entità invia un messaggio invia anche l'id dell'
 iniziatore.
 
@@ -374,14 +382,15 @@ costruisce il proprio spanning tree radicato in lui e che utilizza l'id degli
 altri iniziatori per distinguere tra le diverse costruzioni. Quindi invece che
 cooperare per la costruzione di un singolo spanning tree, si avranno
 contemporaneamente più spanning tree indipendentemente costruiti. Questo implica
-che  tutti i messaggi del protocollo (Ovvero messaggi di "Q" e messaggi di "Yes"
-nel protocollo Shout+) abbiano l'id dell'iniziatore. Sono richieste inoltre
-variabili addizionali poiché in ogni entità saranno presenti più istanze della
-variabile $TREE\_NEIGHBORS$, ovvero uno per ogni spanning tree che sta venendo
-costruito. Inoltre, ogni entità sarà in un differente stato per ognuna di queste
-costruzioni. Ricordiamoci che il numero di iniziatori non è noto a priori e può
-cambiare ad ogni esecuzione. In questo modo costruiamo $K^*$ ST con $K^*=$
-numero di iniziatori. Siccome \texttt{Shout+} ci costa $2m$, il costo è:
+che  tutti i messaggi del protocollo (Ovvero messaggi di ``$Q$'' e messaggi di
+``\texttt{SI}'' nel protocollo \texttt{Shout+}) abbiano l'id dell'iniziatore. Sono
+richieste inoltre variabili addizionali poiché in ogni entità saranno presenti
+più istanze della variabile $TREE\_NEIGHBORS$, ovvero uno per ogni spanning tree
+che sta venendo costruito. Inoltre, ogni entità sarà in un differente stato per
+ognuna di queste costruzioni. Ricordiamoci che il numero di iniziatori non è
+noto a priori e può cambiare ad ogni esecuzione. In questo modo costruiamo $K^*$
+ST con $K^*=$ numero di iniziatori. Siccome \texttt{Shout+} ci costa $2m$, il
+costo è:
 
 $$2m K^* = O(n^3)$$
 
@@ -444,17 +453,18 @@ $$
 \end{theorem}
 
 \begin{proof}
-    Sia s l'inizializzatore con id minore, consideriamo un altro iniziatore x
-    diverso da s. Da x verrà costruito quindi lo spanning tree radicato in lui,
+    Sia $s$ l'inizializzatore con id minore, consideriamo un altro iniziatore $x$
+    diverso da $s$. Da $x$ verrà costruito quindi lo spanning tree radicato in lui,
     che chiameremo $T_x$. Dimostriamo due punti fondamentali:
     \begin{enumerate}
-        \item \textbf{La costruzione di $T_x$ non verrà completata:} Osserviamo che
-              $T_x$ deve contenere tutti i nodi, incluso s, ma quando s riceve un
-              messaggio relativo alla costruzione di un altro ST, avendo id minore di
-              tutti, ignorerà il messaggio uccidendo la costruzione di quell'albero.
-        \item \textbf{La costruzione di $T_s$ verrà completata:} Dato che l'id di s
-              è il minore di tutti, nessuna entità ignorerà il messaggio e quindi lo ST
-              sarà completato.
+        \item \textbf{La costruzione di $T_x$ non verrà completata:} Osserviamo
+              che $T_x$ deve contenere tutti i nodi, incluso $s$, ma quando $s$
+              riceve un messaggio relativo alla costruzione di un altro ST,
+              avendo id minore di tutti, ignorerà il messaggio uccidendo la
+              costruzione di quell'albero.
+        \item \textbf{La costruzione di $T_s$ verrà completata:} Dato che l'id
+              di $s$ è il minore di tutti, nessuna entità ignorerà il messaggio
+              e quindi lo ST sarà completato.
     \end{enumerate}
 \end{proof}
 
@@ -466,7 +476,7 @@ grafo $k_{n-K^*}$ completamente connesso (completo).
 \end{center}
 Inoltre, con $id_{x_1} > id_{x_2} > \cdots > id_{x_{K^*}}$.
 
-Supponiamo adesso un'esecuzione dove i messaggi Q che inviano i $K^*$ iniziatori
+Supponiamo adesso un'esecuzione dove i messaggi $Q$ che inviano i $K^*$ iniziatori
 arrivano sul grafo completo in un ordine in base al loro indice, quindi $x_1$
 arriva per primo, poi $x_2$ arriva per secondo e così via. Quando il messaggio
 $Q$ di $x_1$ arriva negli $n-K^*$ nodi, si genererà la costruzione dello
@@ -493,7 +503,7 @@ per un totale di:
     con $k$ frazione lineare rispetto ad $n$, ad esempio $k=\frac{n}{2}$
 \end{center}
 $k^*$ volte invio un messaggio in un grafo completo (archi = $m^2$) dato che
-$m=n-k^*$. E (n-1), (n-1) è per Convergecast e Broadcast in un albero (un
+$m=n-k^*$. E $(n-1)$, $(n-1)$ è per Convergecast e Broadcast in un albero (un
 messaggio per nodo).
 
 \underline{Tempo:}
@@ -516,12 +526,12 @@ Possiamo costruire uno Spanning Tree usando protocolli che risolvono il problema
 del Broadcast o dell'Attraversamento, opportunamente modificati.
 
 \subsection{ST con Traversal normale DF}
-Sappiamo che l'applicazione del protocollo $DF$ costruisce già effettivamente
+Sappiamo che l'applicazione del protocollo \texttt{DF} costruisce già effettivamente
 uno Spanning Tree del grafo che stiamo considerando. Questo è ottenuto
-rimuovendo gli archi dove transita un messaggio di BACKEDGE da G. In altre
-parole, l'insieme Tree\_Neighbors di un'entità $x$ saranno tutte le entità dalle
+rimuovendo gli archi dove transita un messaggio di BACKEDGE da $G$. In altre
+parole, l'insieme $TREE\_NEIGHOBRS$ di un'entità $x$ saranno tutte le entità dalle
 quali riceverà un messaggio di RETURN, e se $x$ non è l'iniziatore, l' entità
-dalla quale $x$ ha ricevuto T per la prima volta.
+dalla quale $x$ ha ricevuto $T$ per la prima volta.
 
 \subsection{ST con Traversal normale DF*}
 Il protocollo utilizza una visita in \textit{profondità}, quindi se ad esempio
@@ -541,7 +551,7 @@ $4m$).
     per costruire uno Spanning Tree.
 \end{theorem}
 
-Prendiamo un qualsiasi protocollo di broadcasting B. Da come abbiamo definito il
+Prendiamo un qualsiasi protocollo di broadcasting $B$. Da come abbiamo definito il
 broadcast, tutte le entità riceveranno l'informazione $I$ che inizialmente ha
 solo l'iniziatore.
 Visto che i protocolli che utilizzano la DFS ci costruivano alberi ``alti'',
@@ -562,27 +572,38 @@ strategia.
 \end{center}
 
 \subsubsection{Eccentricità}
-In un nodo x: $r_G(x) = max\{ \delta_G(x,y), y \in V(G) \}$ [ECCENTRICITÀ
-        DEL NODO]\\
-In un grafo: $r(G) = min \{ r_G(x), x \in V \}$. Il nodo \emph{x} con
-eccentricità minima in G è detto \textbf{centro di G} (in un grafo completo sono
-tutti centri).\\
+L'eccentricità di un qualunque nodo $x$ è definita come:
+$$
+    r_G(x) = \max\{\delta_G(x,y), y \in V(G)\}
+$$
+Quella di un grafo invece:
+$$
+    r(G) = \min \{ r_G(x), x \in V \}
+$$
+
+Il nodo \emph{x} con eccentricità minima in $G$ è detto \textbf{centro di $G$}
+(in un grafo completo sono tutti centri).\\
 
 Se si fa una BFS partendo da un centro (possono essere molteplici) otteniamo lo
-ST più basso possibile.\\
-Infatti tale albero avrà altezza $r(G)$, possiamo quindi dire che: $2 d_G \geq
-    d_{BFS} \geq d_G$.
+ST più basso possibile. Infatti tale albero avrà altezza $r(G)$, possiamo quindi
+dire che: $2 d_G \geq d_{BFS} \geq d_G$.
 %Ove $d_G$ è il diametro del grafo [\ref{def_diametro}].
 
 Per costruire uno ST con BFS, sotto restrizioni di iniziatore unico si può fare
-nel seguente modo:\\
-Iniziatore manda un messaggio in broadcast ai vicini e attende la risposta\\
-Quando l'iniziatore ha avuto tutte le risposte rinvia un messaggio (tipo
-TOKEN)\\
-L'entità che lo riceve fa partire la costruzione nel nuovo livello come visto
-sopra e poi rinvia il TOKEN all'iniziatore che lo invierà al fratello.
+nel seguente modo:
 
-Il costo è $\mathcal{O}(n^2)$, considerando i seguenti tipi di messaggio:\\
-$Q \leftarrow 2m - n +1$\\
-$YES, NO \leftarrow 2m -n +1$\\
-$T \leftarrow 2n r(g)$
+\begin{enumerate}
+    \item Iniziatore manda un messaggio in broadcast ai vicini e attende la risposta
+    \item Quando l'iniziatore ha avuto tutte le risposte rinvia un messaggio (tipo
+          TOKEN)
+    \item L'entità che lo riceve fa partire la costruzione nel nuovo livello
+          come visto sopra e poi rinvia il TOKEN all'iniziatore che lo invierà
+          al fratello.
+\end{enumerate}
+
+Il costo è $\mathcal{O}(n^2)$, considerando i seguenti tipi di messaggio:
+\begin{itemize}
+    \item $Q = 2m - n +1$
+    \item $\text{\texttt{SI}, \texttt{NO}} = 2m -n +1$
+    \item $T = 2n r(g)$
+\end{itemize}

@@ -38,7 +38,7 @@ esattamente $2$ nodi vicini tra di loro e la tecnica consiste in tre stadi:
           eseguire il Wake-up. Viene svolto dagli iniziatori che, una volta diventati
           attivi, mandano un messaggio d'attivazione a tutti i loro vicini che
           diventeranno quindi Active. A loro volta attiveranno i loro vicini. Lo scopo è
-          quello di avere tutti i nodi 'Active' (\texttt{Wake-Up}).
+          quello di avere tutti i nodi Active (\texttt{Wake-Up}).
     \item \textbf{Stadio di saturazione (Convergecast)}: Viene iniziato dalle
           foglie dello ST. Queste inviano un messaggio $M$ al padre e passano allo stato
           di PROCESSING. Un nodo interno $x$ non appena riceve il messaggio $M$ da
@@ -53,9 +53,9 @@ esattamente $2$ nodi vicini tra di loro e la tecnica consiste in tre stadi:
 \end{enumerate}
 Ripetiamo come funziona lo stadio di saturazione:
 \begin{itemize}
-    \item Una foglia manda un messaggio M al proprio padre.
+    \item Una foglia manda un messaggio $M$ al proprio padre.
     \item Un entità non foglia aspetta di ricevere $|N(x)|-1$ messaggi di tipo M.
-          Quando questo avviene manda M sull'unico link da cui non lo ha ricevuto.
+          Quando questo avviene manda $M$ sull'unico link da cui non lo ha ricevuto.
 \end{itemize}
 Quindi si avranno: $\#msg(M) = n$, poiché ci sarà un arco in cui transitano due
 messaggi, la coppia di nodi di questo arco sarà la \textbf{coppia di nodi
@@ -87,22 +87,19 @@ quest'ultimi.
 
     \textbf{Dimostro che esattamente due nodi diventano Saturated:}
     \begin{enumerate}
-        \item Supponiamo che $x$ nodo foglia invia un messaggio M a suo
+        \item Supponiamo che $x$ nodo foglia invia un messaggio $M$ a suo
               padre.
         \item Dato che ci troviamo su un albero non ci saranno cicli, quindi
               prima o poi questo messaggio raggiungerà un nodo $s_1$ in stato di
               SATURATED.
-        \item
-
-              Questo nodo per essere diventato SATURATED deve aver ricevuto
-              M da suo padre $s_2$, ma se $s_2$ ha inviato M allora è
+        \item Questo nodo per essere diventato SATURATED deve aver ricevuto
+              $M$ da suo padre $s_2$, ma se $s_2$ ha inviato $M$ allora è
               sicuramente in stato di PROCESSING e deve aver considerato
               $s_1$ suo padre.
-        \item Quando M inviato da $x$ arriva ad $s_1$, questo lo invia a suo
-              padre, che è $s_2$ ma questo è in stato di PROCESSING e riceve M,
+        \item Quando $M$ inviato da $x$ arriva ad $s_1$, questo lo invia a suo
+              padre, che è $s_2$ ma questo è in stato di PROCESSING e riceve $M$,
               quindi diventa SATURATED.
     \end{enumerate}
-
 
     %\\ Nel percorso fatto dai messaggi M, prima o poi arriviamo ad un
     %nodo SATURATED poiché siamo in un albero (non abbiamo cicli). In
@@ -121,13 +118,12 @@ quest'ultimi.
     saturi sono 2 per la correttezza del Convergecast. Durante questo
     protocollo, ogni entità manda esattamente un messaggio, ma dato che le
     entità sono $n$ e gli archi in un albero sono $n-1$, ci sarà per forza
-    un arco in cui transiteranno due messaggi M, e quell'arco è proprio
+    un arco in cui transiteranno due messaggi $M$, e quell'arco è proprio
     quello che congiunge i due nodi saturi.
 \end{proof}
 \begin{proof}[Dimostrazione. \textbf{(I nodi Satured sono Vicini)}]\
 
-    \textbf{Dimostro che i nodi Saturated sono uno il padre dell'altro
-        (sono vicini):}\\  Assumiamo, per assurdo, $\exists x,y$ SATURATED con la
+    Assumiamo, per assurdo, $\exists x,y$ SATURATED con la
     distanza tra di loro maggiore di 2.
     \begin{center}
         $d(x,y) \geq 2$
@@ -136,9 +132,9 @@ quest'ultimi.
     \end{center}
 
     In questo caso affinché $x$ ed $y$ fossero nodi saturi $z$ dovrebbe
-    aver mandato due messaggi di tipo M, ma questo è assurdo, perché va
-    contro le ipotesi del protocollo (non può esistere $z$ che manda due M
-    nelle due direzioni: ogni nodo manda un solo M, questo è assurdo). Se
+    aver mandato due messaggi di tipo $M$, ma questo è assurdo, perché va
+    contro le ipotesi del protocollo (non può esistere $z$ che manda due $M$
+    nelle due direzioni: ogni nodo manda un solo $M$, questo è assurdo). Se
     ne conclude quindi che i due nodi saturi sono sicuramente vicini tra
     di loro.
     %Non può esistere $z$ che manda due M nelle due direzioni: ogni nodo
@@ -146,7 +142,6 @@ quest'ultimi.
     %dovrebbe inviare due messaggi M, la contraddizione è che tra X ed Y
     %non ci deve essere nessuno se ci fosse, allora quel nodo dovrebbe
     %aver mandato 2 messaggi Min in entrambe le direzioni
-
 \end{proof}
 
 \textbf{Importante:} Quali nodi diventano saturi dipende strettamente dal
@@ -158,10 +153,11 @@ diverse ad ogni esecuzione.
 \underline{Messaggi [Prof]:}
 $M[$\texttt{SatureTree,R,treee}$] \leq 2(n-1) + (n-1+1) = 3n - 2$
 \begin{itemize}
-    \item $2(n-1)$ è il costo della prima fase del Wake-Up (con $n$ iniziatori, caso peggiore)
+    \item $2(n-1)$ è il costo della prima fase del Wake-Up (con $n$ iniziatori,
+          caso peggiore)
     \item $(n-1+1)$ è un singolo messaggio per arco, che in un albero sono $n-1$
-          mentre l'unico arco in cui transiteranno due messaggi è quello che connette i
-          due nodi saturi, che quindi abbiamo un $+1$.
+          mentre l'unico arco in cui transiteranno due messaggi è quello che
+          connette i due nodi saturi, che quindi abbiamo un $+1$.
 \end{itemize}
 Supponiamo di avere $K^*$ iniziatori:
 \begin{center}
@@ -174,14 +170,13 @@ Dove:
 \end{itemize}
 
 Durante il processo di saturazione, esattamente un messaggio viene trasmesso su
-ogni arco, tranne quello che connette i due nodi saturi, dove M viene inviato
+ogni arco, tranne quello che connette i due nodi saturi, dove $M$ viene inviato
 due volte, quindi il totale è $n-1+1 = n$ messaggi.
-
 
 \underline{Tempo [Prof]:}
 $T[$\texttt{SatureTree,R,tree}$] \leq d + d$
 \begin{itemize}
-    \item Il Primo d è il costo in tempo del Wake-up
+    \item Il Primo $d$ è il costo in tempo del Wake-up
     \item Il Secondo è del ConvergeCast (risalita del messaggio dalle foglie)
 \end{itemize}
 \underline{Tempo:}
@@ -194,7 +189,7 @@ Per determinare il tempo ideale siano:
 \end{itemize}
 
 Un nodo SATURED $s$ deve aspettare che tutte le foglie siano ACTIVE e che i
-messaggi M generati da esse lo raggiungano, quindi deve aver aspettato:
+messaggi $M$ generati da esse lo raggiungano, quindi deve aver aspettato:
 \begin{center}
     $\max \lbrace t(l) + d(l,s) : l \in L \rbrace$
 \end{center}
@@ -219,8 +214,6 @@ Quindi il costo totale è:
           dai suoi figli e successivamente invia un messaggio al proprio padre.
 \end{enumerate}
 
-
-
 \section{Esempio di applicazione: Protocollo MinFind}
 
 $$P_{INIT} = < \forall x \in \xi, value(x) \in \mathbb{R}, status(x) =
@@ -228,7 +221,7 @@ $$P_{INIT} = < \forall x \in \xi, value(x) \in \mathbb{R}, status(x) =
 $$
     P_{FINAL} =   <
     \forall x \in \xi, status(x)= MIN \; if \; value(x) = min
-    \{value(y), y \in \xi \}$$$$ \&\&  status(x) = LARGE \;altrimenti >$$
+    \{value(y), y \in \xi \}$$$$ \wedge status(x) = LARGE \;altrimenti >$$
 Vediamo ora un esempio di applicazione della Saturazione per trovare il più
 piccolo valore all'interno di un sistema. Ogni entità $x$ ha un certo valore
 $v(x)$ ed è in uno stato uguale a tutte le altre (AVAILABLE). L'obiettivo è
@@ -259,7 +252,7 @@ radicato come grafo.\\
 
 L'algoritmo inizia sempre con lo stadio di Attivazione, che farà in modo che
 tutte le entità siano ACTIVE. A questo punto quando inizia lo stadio di
-Saturazione, all'interno del messaggio M che parte dalle foglie, le entità
+Saturazione, all'interno del messaggio $M$ che parte dalle foglie, le entità
 inseriscono il valore minimo a loro conosciuto, quindi le foglie invieranno
 semplicemente il loro \textit{value}, mentre un nodo interno terrà contro del minimo locale
 del suo sotto albero ed invierà a suo padre solamente questo. Ne segue che
@@ -284,9 +277,9 @@ sotto albero, che invieranno in broadcast nello stadio di Risoluzione.
 \underline{Messaggi:}\\
 $M[$\texttt{MinFind,R,tree}$] \leq 3n - 2 + n - 2 = 4n - 4$
 \begin{itemize}
-    \item 3n - 2 è il costo della saturazione.
-    \item n è il costo del broadcast.
-    \item -2 sono i messaggi risparmiati sull'arco saturato, dove i nodi già
+    \item $3n - 2$ è il costo della saturazione.
+    \item $n$ è il costo del broadcast.
+    \item $-2$ sono i messaggi risparmiati sull'arco saturato, dove i nodi già
           conoscono il minimo globale.
 \end{itemize}
 
@@ -309,15 +302,14 @@ partendo da due radici).
 \underline{Tempo:}
 $T[$\texttt{SatureTree,R,tree}$] \leq 3d$
 \begin{itemize}
-    \item d nel sottografo del primo nodo saturato
-    \item d nel sottografo del secondo nodo saturato
-    \item d Broadcast del messaggio
+    \item $d$ nel sottografo del primo nodo saturato
+    \item $d$ nel sottografo del secondo nodo saturato
+    \item $d$ Broadcast del messaggio
 \end{itemize}
 
 
-Il costo di T ed M è ottimo asintoticamente, poiché è obbligatorio che tutti i
-nodi del grafo siano presi in considerazione [Vedere quaderno di Carpi, in
-        fondo, per disegni].\\
+Il costo di $T$ ed $M$ è ottimo asintoticamente, poiché è obbligatorio che tutti i
+nodi del grafo siano presi in considerazione.\\
 \underline{Tempo [Studenti]:}
 \begin{center}
     $T[$\texttt{TreeElectMin}$] = T[$\texttt{FullSaturation}$] + \max \{ d(s, x) :
@@ -361,8 +353,8 @@ dell'albero, si utilizza poi il convergecast sull'albero radicato in $x$;
 facendo questo si colleziona la massima distanza dagli altri nodi.\\
 \textbf{Costo messaggi:} $2(n-1)$ dove:
 \begin{itemize}
-    \item n-1 è  per il Broadcast
-    \item n-1 è per il Convergecast
+    \item $n-1$ è  per il Broadcast
+    \item $n-1$ è per il Convergecast
 \end{itemize}
 Se volessi utilizzare questo metodo per il calcolo dell'eccentricità di ogni
 nodo, si spenderebbe $n(2(n-1))$ poiché ogni nodo effettua un numero di messaggi
@@ -372,7 +364,8 @@ pari a $2(n-1)$.\\
     precedentemente descritto è O($n^2$). Mostreremo adesso che tramite la
     saturazione il costo scende a O($n$)}\\
 
-\textbf{Possiamo usare la saturazione per rilevare l'eccentricità di tutti i nodi aggiungendo al messaggio M un valore di "altezza".}
+\textbf{Possiamo usare la saturazione per rilevare l'eccentricità di tutti i
+    nodi aggiungendo al messaggio $M$ un valore di "altezza".}
 
 \subsection{Calcolo dell'eccentricità di ogni nodo tramite Saturazione: Protocollo Eccentricity}
 Il nostro obiettivo è quello di determinare l'eccentricità di ogni nodo. Il
@@ -380,7 +373,7 @@ primo passo per la risoluzione del problema consiste nell'applicare la
 Saturazione per calcolare l'eccentricità dei due nodi saturi. Da notare che non
 sappiamo a propri quali nodi diventeranno saturi, ma basta sapere che quando ci
 diventano sapranno sicuramente la loro eccentricità. Per far questo è necessario
-includere nel messaggio M inviato da un'entità $x$ al parent $y$ la
+includere nel messaggio $M$ inviato da un'entità $x$ al parent $y$ la
 \textbf{massima} distanza di $x$ dai nodi del suo sotto albero $T[x-y]$ (che non
 contiene y)+ 1, poiché deve arrivare ad $y$. In questo modo un nodo saturo $s$
 saprà la distanza $d[s,y]$ per ogni vicino $y$; quindi potrà calcolare la sua

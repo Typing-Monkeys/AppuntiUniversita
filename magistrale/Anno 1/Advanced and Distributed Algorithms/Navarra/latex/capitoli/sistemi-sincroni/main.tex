@@ -128,22 +128,23 @@ Assumiamo innanzitutto che la dimensione di un messaggio possa essere contenuta
 all'interno di un singolo messaggio, e che quindi non ci preoccupiamo della
 suddivisione in pacchetti. La risposta è la seguente:
 \begin{itemize}
-    \item Quando un'entità x riceve un messaggio con un valore $i$ minore di tutti
-          gli altri visti fino ad ora (\textbf{perché ci basiamo sull'AsFar quindi ogni
-              entità manda l'id solamente se è minore del suo comunque)}, invece che
-          effettuare immediatamente il forwarding del messaggio sul ring, $x$ trattiene
-          questo messaggio per un certo periodo di tempo (ovvero per un certo numero di
-          tick di clock). \textbf{Questo tempo d'attesa è tanto grande quanto più grande
-              è l'id del messaggio}, ovvero in simboli, $f(i)$ (ovvero il tempo che aspetta,
-          in tick di clock) è direttamente proporzionale ad $i$ (ovvero il valore
-          dell'id).
+    \item Quando un'entità $x$ riceve un messaggio con un valore $i$ minore di
+          tutti gli altri visti fino ad ora (\textbf{perché ci basiamo
+              sull'AsFar quindi ogni entità manda l'id solamente se è minore del suo
+              comunque)}, invece che effettuare immediatamente il forwarding del
+          messaggio sul ring, $x$ trattiene questo messaggio per un certo
+          periodo di tempo (ovvero per un certo numero di tick di clock).
+          \textbf{Questo tempo d'attesa è tanto grande quanto più grande è l'id
+              del messaggio}, ovvero in simboli, $f(i)$ (ovvero il tempo che
+          aspetta, in tick di clock) è direttamente proporzionale ad $i$ (ovvero
+          il valore dell'id).
     \item Se un messaggio con un id minore arriva a $x$ durante questo tempo d'
-          attesa, $x$ rimuove $i$ dalle sue considerazioni ed effettua il processing del
-          nuovo valore. Altrimenti, dopo aver trattenuto $i$ per $f(i)$ tick di clock, x
-          effettua il forwarding del messaggio nel ring.
+          attesa, $x$ rimuove $i$ dalle sue considerazioni ed effettua il
+          processing del nuovo valore. Altrimenti, dopo aver trattenuto $i$ per
+          $f(i)$ tick di clock, $x$ effettua il forwarding del messaggio nel ring.
 \end{itemize}
 
-\paragraph{FONDAMENTALE:}\ \\
+\paragraph{FONDAMENTALE:}
 \begin{center}
     Queste regole faranno in modo che un messaggio con valore $i$ viaggi
     all'interno del ring ad una velocità di $1+f(i)$.
@@ -195,7 +196,7 @@ limitati da $2^c$. Infatti all'interno dell'insieme delle restrizioni era
 presente anche \textbf{InputSize($2^c$).}\\
 
 \textbf{Domanda di Francesco:}
-\'E buono come costo? SI! perché il lower bound per la leader election su Ring
+È buono come costo? SI! perché il lower bound per la leader election su Ring
 sotto le restrizioni di R ed ID era $\Omega(n \log n)$, mentre con la
 restrizione del $Sync$ siamo riusciti ad abbassare il lower bound.\\
 
@@ -214,7 +215,12 @@ piccolo a generare questo tempo: $$O(n 2^{id})$$
 
     \begin{center}
         Lower Bound per la Leader Election su sistema \textbf{Asincrono} è:
-        $$Messaggi: \Omega(n \log n) $$ $$Tempo: \Omega(n)$$
+        \begin{equation*}
+            \begin{split}
+                \text{Messaggi: } & \Omega(n \log n)\\
+                \text{Tempo: } & \Omega(n)
+            \end{split}
+        \end{equation*}
     \end{center}
 
     Si devono però confrontare i due casi peggiori. Quindi il caso peggiore gli
@@ -281,28 +287,29 @@ non partecipano attivamente al protocollo.
 \end{theorem}
 
 \begin{proof}
-    Supponiamo
-    sistema sincrono e due entità, x ed y; x deve inviare un messaggio $\alpha$ in
-    binario a y. Indichiamo con $I()$ il casting in base 10 (intera) del
-    messaggio. Prima dell'invio, a questo viene aggiunto un 1 davanti poiché se
-    questo iniziasse con 0 ci sarebbe il rischio di perdere dati. Sia $I(1\alpha)$
-    il cast ad intero del messaggio $1\alpha$ (che sarebbe la sequenza binaria di
-    $\alpha$ e l'1 davanti) consideriamo il seguente protocollo:
+    Supponiamo sistema sincrono e due entità, $x$ ed $y$; $x$ deve inviare un
+    messaggio $\alpha$ in binario a $y$. Indichiamo con $I()$ il casting in base
+    10 (intera) del messaggio. Prima dell'invio, a questo viene aggiunto un 1
+    davanti poiché se questo iniziasse con 0 ci sarebbe il rischio di perdere
+    dati. Sia $I(1\alpha)$ il cast ad intero del messaggio $1\alpha$ (che
+    sarebbe la sequenza binaria di $\alpha$ e l'1 davanti) consideriamo il
+    seguente protocollo:
     \begin{enumerate}
         \item Entità $x$:
               \begin{enumerate}
-                  \item Manda un messaggio (1 bit) a y con "Start-Counting".
+                  \item Manda un messaggio (1 bit) a $y$ con "Start-Counting".
                   \item Aspetta $I(1\alpha)$ tick di click e poi:
-                  \item Manda un messaggio (1 bit) ad y come "Stop-Counting".
+                  \item Manda un messaggio (1 bit) ad $y$ come "Stop-Counting".
               \end{enumerate}
         \item Entità $y$:
               \begin{enumerate}
                   \item Alla ricezione del primo bit con "Start-Counting" come messaggio,
                         salva il valore corrente $c_1$ del suo clock.
                   \item Alla ricezione del secondo bit con "Stop-Counting" come
-                        messaggio, salva il valore corrente $c_2$ del suo clock e calcola $c_2
-                            - c_1$ che restituisce $I(1\alpha)$. A questo punto lo trasforma in
-                        binario, butta via il primo uno e ottiene nuovamente $\alpha$.
+                        messaggio, salva il valore corrente $c_2$ del suo clock
+                        e calcola $c_2 - c_1$ che restituisce $I(1\alpha)$. A
+                        questo punto lo trasforma in binario, butta via il primo
+                        uno e ottiene nuovamente $\alpha$.
               \end{enumerate}
     \end{enumerate}
     Concludiamo affermando che è possibile spedire qualsiasi messaggio di qualsiasi
@@ -310,9 +317,9 @@ non partecipano attivamente al protocollo.
 \end{proof}
 
 \textbf{Calcolo del costo:}\\
-Precisamente, il "costo della comunicazione" di un protocollo P completamente
-sincrono è una coppia formata da $<P,T>$ dove P denota il numero di pacchetti, e
-T denota il numero di unità di tempo. La complessità quindi del protocollo Speed
+Precisamente, il "costo della comunicazione" di un protocollo $P$ completamente
+sincrono è una coppia formata da $<P,T>$ dove $P$ denota il numero di pacchetti, e
+$T$ denota il numero di unità di tempo. La complessità quindi del protocollo Speed
 è la seguente:$$Cost[Speed(i)] = <O(n \log i), O(n 2^{id})>$$ mentre del
 protocollo 2bits è $$C[TwoBits(\alpha)] = <2, O(2^{|\alpha|})>$$
 $$|\alpha|=\log_2(I(1\alpha))$$ Il tempo di attesa è $I(1\alpha)$ e la

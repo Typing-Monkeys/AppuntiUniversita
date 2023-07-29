@@ -105,20 +105,20 @@ problema.
 \end{theorem}
 
 \begin{proof}
-    Provo per induzione sul numero di robot (k):\\
+    Provo per induzione sul numero di robot ($k$):\\
     $k = 2 \rightarrow $ impossibile dal teorema precedente\\
     Supponiamo vero per un generico $k'< k$ e consideriamo il gathering di $k$
     robots.:\\
-    Consideriamo una configurazione C subito prima che la prima molteplicità venga
-    creata. In questa configurazione almeno un robot R si deve muovere su un nodo
-    adiacente occupato da un altro robot per creare la molteplicità. Consideriamo
-    adesso l'avversario che computa la Look e Move del robot R e solo dopo computa
-    la prossima operazione di Look per i restanti robot. Il robot R creerà una
-    molteplicità, riducendo quindi il numero di nodi occupati dai robot a k-1. Tutte
-    le altre operazioni di Look saranno effettuate da al più $k-1$ nodi occupati dai
-    robots. Dato che la multiplicity detection non è disponibile, la percezione dei
-    robots sarà la stessa come nel caso $k'<k$ e quindi per ipotesi induttiva il
-    gathering è impossibile.
+    Consideriamo una configurazione C subito prima che la prima molteplicità
+    venga creata. In questa configurazione almeno un robot R si deve muovere su
+    un nodo adiacente occupato da un altro robot per creare la molteplicità.
+    Consideriamo adesso l'avversario che computa la Look e Move del robot R e
+    solo dopo computa la prossima operazione di Look per i restanti robot. Il
+    robot R creerà una molteplicità, riducendo quindi il numero di nodi occupati
+    dai robot a $k-1$. Tutte le altre operazioni di Look saranno effettuate da
+    al più $k-1$ nodi occupati dai robots. Dato che la multiplicity detection
+    non è disponibile, la percezione dei robots sarà la stessa come nel caso
+    $k'<k$ e quindi per ipotesi induttiva il gathering è impossibile.
 
     %Tutte le altre operazioni di Look faranno in modo che i robot vedano al più k-1
     %nodi occupati dai robot. Dato che la molteplicity detection non è disponibile,

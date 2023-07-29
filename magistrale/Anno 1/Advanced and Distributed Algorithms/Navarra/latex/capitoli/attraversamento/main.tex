@@ -4,7 +4,7 @@ Il problema dell'attraversamento consiste nell'avere una
 configurazione iniziale dove tutte le entità sono nello stesso stato (IDLE)
 eccetto una che sarà l'unico iniziatore. L'obiettivo è quello di visitare una
 alla volta tutte le entità in maniera sequenziale. Il messaggio che dovrà
-transitare tra le entità si chiama TOKEN (T).
+transitare tra le entità si chiama TOKEN ($T$).
 
 \paragraph{Formalmente:}
 
@@ -12,27 +12,27 @@ $$
     P_{INIT} = <\exists ! x \in \xi | Value(x) = T \;>
 $$
 
-OVVERO: Esiste una sola entità all'interno del sistema che possiede il
-Token T, tutte le altre saranno in stato di Idle.
+\textit{Ovvero}: Esiste una sola entità all'interno del sistema che possiede il
+Token $T$, tutte le altre saranno in stato di Idle.
 
 $$
     P_{FINAL} = <\exists t>0 | \forall x \in \xi \exists t' \leq t | value_{t'}(x)
-    = T \text{ and } value_{t'}(y) \neq T, \forall y \neq x >
+    = T  \wedge value_{t'}(y) \neq T, \forall y \neq x >
 $$
 
-\textit{Ovvero:} Esiste un tempo t maggiore di 0 tale per cui per ogni $t' \leq
+\textit{Ovvero}: Esiste un tempo $t$ maggiore di 0 tale per cui per ogni $t' \leq
     t$ c'è una sola entità che detiene il token e per ogni entità esiste un tempo
-$t'' \leq t$ nel quale X è proprio la detentrice del token e nessun altra lo
+$t'' \leq t$ nel quale $x$ è proprio la detentrice del token e nessun altra lo
 possiede.
 
 \paragraph{Restrizioni:} R, UI (iniziatore unico che detiene il Token).
 
 \paragraph{Tipologie di messaggi inviati:}
 \begin{itemize}
-    \item T : Messaggio di Token
+    \item $T$: Messaggio di Token
     \item Return: Inviato da un nodo per avvertire il padre che il sottografo è
           stato completamente esplorato.
-    \item Back\_Edge : T viene inviato ad un nodo che è già stato visitato,
+    \item Back\_Edge: $T$ viene inviato ad un nodo che è già stato visitato,
           quell'arco viene catalogato come Back\_edge e da li non passeranno mai più
           token.
 \end{itemize}
@@ -47,22 +47,24 @@ possiede.
 
 \paragraph{Caratteristica dell'algoritmo e differenza con il Broadcast:} Si
 effettua una visita sequenziale delle entità. Ovvero un'entità alla volta può
-possedere il Token T, quando un nodo riceve T, esso è marcato come "Visited".
+possedere il Token $T$, quando un nodo riceve $T$, esso è marcato come "Visited".
 
 \section{Funzionamento dell' algoritmo tramite DFS}
 \begin{enumerate}
     \item Quando un'entità riceve per la prima volta il TOKEN, cambia stato in
-          VISITED e crea l'insieme "Unvisited" che contiene tutti i suoi vicini tranne
-          l'entità che gli ha spedito il token. Manda poi il TOKEN verso un nodo
-          nell'insieme, lo rimuove da quest'ultimo e aspetta il messaggio di RETURN.
+          VISITED e crea l'insieme "Unvisited" che contiene tutti i suoi vicini
+          tranne l'entità che gli ha spedito il token. Manda poi il TOKEN verso
+          un nodo nell'insieme, lo rimuove da quest'ultimo e aspetta il
+          messaggio di RETURN.
     \item Quando uno dei vicini riceve il TOKEN:
           \begin{itemize}
-              \item Se è già stato visitato (VISITED), manda indietro un messaggio
-                    di BACK\_EDGE per poi rimuove il sender dal suo vicinato (così che non
-                    potrà inviargli T nemmeno per sbaglio).
+              \item Se è già stato visitato (VISITED), manda indietro un
+                    messaggio di BACK\_EDGE per poi rimuove il sender dal suo
+                    vicinato (così che non potrà inviargli $T$ nemmeno per
+                    sbaglio).
               \item Altrimenti cambia stato in VISITED e spedisce il TOKEN
-                    sequenzialmente ad ogni suo vicino non visitato e successivamente
-                    manda il messaggio di RETURN verso il padre.
+                    sequenzialmente ad ogni suo vicino non visitato e
+                    successivamente manda il messaggio di RETURN verso il padre.
           \end{itemize}
     \item Dopo la ricezione del RETURN, un'entità manda il TOKEN ad un altro
           vicino localmente non visitato.
@@ -72,8 +74,8 @@ possedere il Token T, quando un nodo riceve T, esso è marcato come "Visited".
 Quindi, l'insieme degli Unvisited viene aggiornato quando:
 \begin{itemize}
     \item Un'entità manda il token
-    \item Viene inviato un Backedge (ho sbagliato strada ma aggiorno comunque il
-          mio insieme degli Unvisited per non sbagliare nuovamente).
+    \item Viene inviato un BACK\_EDGE (ho sbagliato strada ma aggiorno comunque
+          il mio insieme degli Unvisited per non sbagliare nuovamente).
 \end{itemize}
 
 \subsection{Protocollo DFTraversal}
@@ -146,22 +148,26 @@ di Messaggi inviati.
 
 \paragraph{Costo dei Messaggi:}
 
-\begin{center}
-    $M[$\texttt{DFT}$,R,UI] = 2m ~~$\\
-    $M[\text{\texttt{DFT}}, R, UI] \geq m$
-\end{center}
+\begin{equation*}
+    \begin{split}
+        M\left[\text{\texttt{DFT}}, R, UI\right] & = 2m\\
+        M\left[\text{\texttt{DFT}}, R, UI\right] & \geq m
+    \end{split}
+\end{equation*}
 
 \paragraph{Costo del Tempo:}
 
-\begin{center}
-    $T[\text{\texttt{DFT}}, R, UI] = 2m$\\
-    $T[$\texttt{DFT}$,R,UI] \geq n-1 $
-\end{center}
+\begin{equation*}
+    \begin{split}
+        T\left[\text{\texttt{DFT}}, R, UI\right] & = 2m\\
+        T\left[\text{\texttt{DFT}}, R, UI\right] & \geq n-1
+    \end{split}
+\end{equation*}
 
 Dato che ogni nodo viene visitato sequenzialmente partendo dall'unico
 iniziatore, la complessità del tempo è almeno il numero di nodi, questo accade
 quando si invia il token sempre al nodo corretto. \underline{Non} è ottimo per
-il tempo. poiché si aveva un Upper Bound di O(m), che può essere di più ordini
+il tempo. poiché si aveva un Upper Bound di $O(m)$, che può essere di più ordini
 di grandezza maggiore del lower bound $n-1$. Possiamo trovare un esempio in un
 grafo completo, il cui costo salirebbe a $2m=n^2-n$.
 
@@ -240,7 +246,7 @@ RETURN $(n-1)$
           \textbf{Tempo} per Messaggi VISITED ed ACK = $2n$ in quanto ogni nodo
           manda VISITED ai suoi vicini in una sola unità di tempo (parallelo) e
           tutti rispondono con un' ACK anch'esso parallelo, quindi il costo in
-          tempo si incrementa di 2n. In questo caso i visited vengono inviati a
+          tempo si incrementa di $2n$. In questo caso i visited vengono inviati a
           tutti i vicini meno il sender, ma dato che vengono inviati in parallelo
           non conta QUANTI ne vengono mandati, basta sapere che ogni entità, per
           quanto riguarda il tempo, utilizza 1 singola unità per inviare Visited
@@ -251,7 +257,7 @@ RETURN $(n-1)$
           \end{center}
 \end{itemize}
 
-Riassumendo, siamo riusciti a ridurre il costo del TEMPO da O(m) a O(n). Al
+Riassumendo, siamo riusciti a ridurre il costo del TEMPO da $O(m)$ a $O(n)$. Al
 prezzo di raddoppiare il numero di messaggi.
 
 \begin{prop}
@@ -276,16 +282,18 @@ così fosse avremmo per esempio la seguente computazione:
           disponibile, ossia $z$ (il Visited spedito da $x$ verso $z$ non è ancora
           arrivato);
     \item $z$ riceve il Token da $y$ e manda il Token e Visited verso $x$, dato
-          che ancora non ha ricevuto il Visited da $x$. A questo punto $x$ riceve il
-          Token da $z$ e capisce che $z$ ha commesso un errore, ignorerà quindi il Token
-          ed elimina $z$ dalla lista dei suoi vicini. Nel momento in cui $z$ riceve il
-          Visited di $x$, capisce che quello è un vecchio Visited (se $x$ era la prima
-          volta che riceveva il Token, non avrebbe mandato un Visited a $z$), a questo
-          punto $z$ capisce che ha inviato T al link sbagliato e quindi invia il Token
-          ad un'altra strada (se disponibile), altrimenti manda RETURN verso $y$.
+          che ancora non ha ricevuto il Visited da $x$. A questo punto $x$
+          riceve il Token da $z$ e capisce che $z$ ha commesso un errore,
+          ignorerà quindi il Token ed elimina $z$ dalla lista dei suoi vicini.
+          Nel momento in cui $z$ riceve il Visited di $x$, capisce che quello è
+          un vecchio Visited (se $x$ era la prima volta che riceveva il Token,
+          non avrebbe mandato un Visited a $z$), a questo punto $z$ capisce che
+          ha inviato $T$ al link sbagliato e quindi invia il Token ad un'altra
+          strada (se disponibile), altrimenti manda RETURN verso $y$.
 \end{enumerate}
+
 Quindi il protocollo funziona anche senza i messaggi di "ACK", ma ammettiamo la
-possibilità di inviare T ad un nodo che lo ha già ricevuto, quindi la
+possibilità di inviare $T$ ad un nodo che lo ha già ricevuto, quindi la
 possibilità di sbagliare.\\
 In questo caso $z$ se avesse ricevuto il VISITED da $x$ avrebbe cambiato stato
 in Available ed avrebbe eliminato $x$ dal suo insieme degli Unvisited. A questo
@@ -299,17 +307,15 @@ Unvisited Vuoto, e quindi avrebbe inviato un RETURN verso $y$.
           \begin{itemize}
               \item 2 è per i messaggi di T e RETURN
               \item $n-1$ indica tutti i nodi tranne l'iniziatore, poiché
-                    l'iniziatore non riceverà nessun messaggio di T e non invia nessun
-                    RETURN.
+                    l'iniziatore non riceverà nessun messaggio di T e non invia
+                    nessun RETURN.
           \end{itemize}
     \item \#$T$ non corretti $\leq 2(m-n+1)$
           \begin{itemize}
               \item Ogni errore costa 1 messaggio, ma nel peggiore dei casi, il
-                    ritardo di comunicazione può forzare gli errori ad accadere in ogni
-                    arco che conduce al "sender" (back-edge), in alcuni ci possono essere
-                    anche due errori, uno in ogni direzione.
-
-
+                    ritardo di comunicazione può forzare gli errori ad accadere
+                    in ogni arco che conduce al "sender" (Back\_Edge), in alcuni
+                    ci possono essere anche due errori, uno in ogni direzione.
                     %In ogni Arco $m$ posso sbagliare ma sicuramente non sbaglierò
                     %ad inviarlo al sender, quindi risparmio $-n+1$. Negli archi è
                     %possibile che si commettano due errori, uno in ogni direzione e
@@ -366,7 +372,7 @@ stesso link, questo non accade nella miglioria apportata.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=4cm, keepaspectratio]{capitoli/attraversamento/imgs/n_19}
+    \includegraphics[width=5cm, keepaspectratio]{capitoli/attraversamento/imgs/n_19}
 \end{figure}
 
 Il risparmio avverrà su tutte le entità \textbf{tranne} quelle che, quando
@@ -387,12 +393,14 @@ salviamo è $n-f^*$ quindi:
           corretti, i T non corretti, i VISITED ed i RETURN.
     \item $n-f^*$ si ha un risparmio su tutti i nodi tranne esattamente $f^*$.
 \end{itemize}
-\begin{center}
-    $T[$\texttt{DF*}$/R] = 2n - 2$
-\end{center}
-\begin{center}
-    $M[$\texttt{DF*}$/R] = 4m - 2n + f^* + 1$
-\end{center}
+
+\begin{equation*}
+    \begin{split}
+        T\left[\text{\texttt{DF*}}/R\right] & = 2n - 2\\
+        M\left[\text{\texttt{DF*}}/R\right] & = 4m - 2n + f^* + 1
+    \end{split}
+\end{equation*}
+
 Al costo del protocollo precedente aggiungo un $-n+f^*$.
 \begin{itemize}
     \item Caso migliore: grafo completo (ne risparmio $n-1$);
@@ -433,30 +441,37 @@ Descrizione del protocollo a parole:
 In un albero la DFS è particolarmente efficiente in termini di messaggi e non ha
 bisogno di nessuna miglioria. Infatti in un esecuzione del DF\_TRAVERSAL (il
 primo protocollo visto che aveva i messaggi di BackEdge) in un albero, nessun
-messaggio di BACKEDGE sarà inviato non essendo presenti cicli. Quindi il numero
+messaggio di BACK\_EDGE sarà inviato non essendo presenti cicli. Quindi il numero
 totale di messaggi è esattamente $2(n-1)$, stessa cosa per il tempo essendo
 sequenziale.
 \begin{itemize}
     \item $m = n -1$
 \end{itemize}
-\begin{center}
-    $T[$\texttt{DF}$/R] = 2(n-1) = O(n)$\\
-    $M[$\texttt{DF}$/R] = 2(n-1) = O(n)$
-\end{center}
+
+\begin{equation*}
+    \begin{split}
+        T\left[\text{\texttt{DF}}/R\right] & = 2(n-1) = O(n)\\
+        M\left[\text{\texttt{DF}}/R\right] & = 2(n-1) = O(n)
+    \end{split}
+\end{equation*}
+
 %Essendo un albero aciclico, nessun messaggio di BACKEDGE verrà inviato, e non
 %c'è bisogno di nessun miglioramento per il costo di entrambi.
 \subsection{Anello}
 In un anello, ogni nodo ha esattamente due vicini. La DFS in queste reti può
 essere applicata tramite la scelta di una direzione da parte dell'iniziatore,
 una volta che il messaggio di T ritorna indietro a lui il protocollo termina.
-Quindi ogni entità riceve un singolo messaggio di T; il costo sarà O(n).
+Quindi ogni entità riceve un singolo messaggio di T; il costo sarà $O(n)$.
 \begin{itemize}
     \item $m = n$
 \end{itemize}
-\begin{center}
-    $T[$\texttt{DF}$/R] = O(n)$ \\
-    $M[$\texttt{DF}$/R] = O(n)$
-\end{center}
+\begin{equation*}
+    \begin{split}
+        T\left[\text{\texttt{DF}}/R\right] & = O(n) \\
+        M\left[\text{\texttt{DF}}/R\right] & = O(n)
+    \end{split}
+\end{equation*}
+
 Si può ottimizzare l'algoritmo scegliendo una direzione di invio.
 
 \subsection{Grafi completi}
@@ -468,10 +483,13 @@ protocollo potrebbe essere quello di fare in modo che l'initiator invii il token
 t sequenzialmente a tutti i suoi vicini uno alla volta; ogni entità ritorna poi
 il token all'initiator senza propagarlo a nessun altro. In questo caso il costo
 dei messaggi e del tempo sarebbe $2(n-1)$.
-\begin{center}
-    $T[$\texttt{DF}$/R] = 2(n-1)$\\
-    $M[$\texttt{DF}$/R] = 2(n-1)$
-\end{center}
+\begin{equation*}
+    \begin{split}
+        T\left[\text{\texttt{DF}}/R\right] & = 2(n-1)\\
+        M\left[\text{\texttt{DF}}/R\right] & = 2(n-1)
+    \end{split}
+\end{equation*}
+
 Un'altra metodologia sarebbe quella di organizzare il grafo a stella:
 \begin{center}
     \includegraphics[scale=1]{capitoli/attraversamento/imgs/n_20}

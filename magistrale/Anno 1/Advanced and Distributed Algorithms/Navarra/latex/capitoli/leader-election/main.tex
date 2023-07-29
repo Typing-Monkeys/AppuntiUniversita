@@ -16,14 +16,14 @@ $$P_{INIT}=< \forall x \in \xi, status(x)=AVAILABLE >$$
 $$P_{FINAL}=< \exists x \in \xi, status(x)=LEADER \ \wedge \ \forall y \neq x
     \text{ , } status(y)=FOLLOWER >$$ La scelta del Leader può essere vista come un
 modo per ``forzare'' l'iniziatore unico in tutti i protocolli visti. Esiste,
-tuttavia, un risultato di \textbf{impossibilità} sotto R (link bidirezionali,
+tuttavia, un risultato di \textbf{impossibilità} sotto $R$ (link bidirezionali,
 connettività, e affidabilità totale), ovvero che non esiste un protocollo
 deterministico che termina sempre correttamente in tempo finito se le
-restrizioni sono solo quelle di R:
+restrizioni sono solo quelle di $R$:
 
 \begin{theorem}
     Il problema della Leader Election è deterministicamente non
-    risolvibile sotto R.
+    risolvibile sotto $R$.
 \end{theorem}
 
 \begin{proof}
@@ -33,19 +33,19 @@ restrizioni sono solo quelle di R:
     \begin{center}
         \includegraphics[scale=0.3]{capitoli/leader-election/imgs/n_42}
     \end{center}
-    Sia P un protocollo che risolve il problema della Leader Election sotto R,
+    Sia $P$ un protocollo che risolve il problema della Leader Election sotto $R$,
     questo protocollo deve risolvere il problema sotto qualsiasi circostanza.
-    Consideriamo uno scenario in cui le due entità iniziano il protocollo P
+    Consideriamo uno scenario in cui le due entità iniziano il protocollo $P$
     simultaneamente e abbiamo un ritardo di comunicazione unitario. Le due
     entità essendo identiche avranno la stessa esecuzione, se una riceve il
     messaggio anche l'altra lo riceverà e così via, se una diventa Leader anche
     l'altra diventa Leader, ma questo va contro la richiesta, ovvero quella che
-    ci deve essere un solo leader, quindi P non è un protocollo che risolve il
+    ci deve essere un solo leader, quindi $P$ non è un protocollo che risolve il
     problema.
 \end{proof}
 
 La conseguenza di questo teorema è che bisogna rompere la simmetria, ma sotto
-R questa simmetria non si riesce a rompere. Il primo approccio sarebbe quello di
+$R$ questa simmetria non si riesce a rompere. Il primo approccio sarebbe quello di
 aggiungere la restrizione di Inizializzatore Unico, ma in questo caso avremmo
 già il leader, e quindi sarebbe inutile applicare il protocollo. Dobbiamo quindi
 scartare questa possibilità e modificare le restrizioni in modo tale da
@@ -135,26 +135,26 @@ Supponiamo di lavorare su una topologia ad albero, quindi dove $m = n-1$:
 Dei due metodi è preferibile il secondo se consideriamo la lunghezza in bit dei
 messaggi:
 
-In questo approccio solo n messaggi nella Saturazione portano un valore, mentre
+In questo approccio solo $n$ messaggi nella Saturazione portano un valore, mentre
 tutti gli altri solo segnali. Quindi il numero totale di bit trasmessi sarà:
-\begin{center}
-    $B[$\texttt{TreeElectMin}$] = n (c + \log_2 id) + c (2n + k^* - 2) = O(n \log
-        n + n) = O(n \log n)$\\
-    %Dove id denota il valore maggiore inviato in un messaggio e c = O(1) denota
-    %il numero di bit richiesti per distinguere tra differenti messaggi. 
-    \TODO[inline]{ricontrollare. dovrebbe essere 2n+k-2}
-    $B[$\texttt{TreeElectRoot}$] = 2(c + \log_2 id) + c(3n + k^* - 2) = O(\log n +
-        n) = O(n)$
-\end{center}
+\TODO[inline]{ricontrollare. Il primo dovrebbe essere n+k-2}
+\begin{equation*}
+    \begin{split}
+        B\left[\text{\texttt{TreeElectMin}}\right] & = n (c + \log_2 id) + c (2n + k^* - 2) = O(n \log n + n) = O(n \log n)\\
+        B\left[\text{\texttt{TreeElectRoot}}\right] & = 2(c + \log_2 id) + c(3n + k^* - 2) = O(\log n + n) = O(n)
+    \end{split}
+\end{equation*}
+
 Nell'elezione tramite la radice, solamente il messaggio di Election porta un ID
 di un nodo. Dove:
 \begin{itemize}
-    \item $c$: bit per rappresentare i segnali (O(1));
+    \item $c$: bit per rappresentare i segnali ($O(1)$);
     \item $id$: ID più grande da inviare in un messaggio.
 \end{itemize}
 Quindi in termini di numero di bit, Elect Root è migliore di Elect Minimum.
+
 \section{Election su ring}
-Un ring consiste in un ciclo di lunghezza n, dove ogni entità possiede
+Un ring consiste in un ciclo di lunghezza $n$, dove ogni entità possiede
 esattamente due vicini; a livello topologico c'è una totale simmetria delle
 entità.\\
 L'etichettamento \underline{non} è ordinato (è arbitrario) quindi globalmente le
@@ -204,7 +204,7 @@ o in FOLLOWER in base al suo id.
     viaggerà attraverso tutto il ring esattamente una volta.} Quindi si avranno
 esattamente $n^2$ messaggi in totale, ognuno contenente un contatore e un valore
 per un totale di $n^2log(id+n)$ bits, per quanto riguarda il tempo invece si
-avrà al più 2n. \textbf{Il caso pessimo è quando c'è un unico iniziatore.}\\
+avrà al più $2n$. \textbf{Il caso pessimo è quando c'è un unico iniziatore.}\\
 \underline{Messaggi:}
 \begin{center}
     $M[$\texttt{AllTheWay}$] = n^2$ (è effettivamente =)
@@ -224,9 +224,9 @@ al massimo arriverà ad $n$.
     $T[$\texttt{AllTheWay}$] \leq (n - 1) + n   = 2n - 1$
 \end{center}
 \begin{itemize}
-    \item (n-1) indica il dover passare tutte le entità meno una per svegliare il
+    \item $(n-1)$ indica il dover passare tutte le entità meno una per svegliare il
           minimo qualora non fosse già sveglio (caso peggiore).
-    \item n invece sono i messaggi inviati dal minimo quando si sveglia.
+    \item $n$ invece sono i messaggi inviati dal minimo quando si sveglia.
 \end{itemize}
 
 \begin{center}
@@ -315,17 +315,16 @@ come sono posti gli id all'interno del ring.\\
 verso l'entita con id 2. Esso attraverserà sempre tutto il ring, costando n
 messaggi. L'id \#2 si fermerà solamente all'entità con id \#1, quindi il costo
 nel worst case è $n-1$, ottenibile se l'id \#2 è collocato immediatamente dopo
-l'id \#1 nella stessa direzione. In generale quindi l'id \#(i+1) verrà
+l'id \#1 nella stessa direzione. In generale quindi l'id \#$(i+1)$ verrà
 interrotto da chiunque abbia un id minore e quindi il costo è al più $n-i$
 messaggi. Questo succederà se tutte le entità con questi id sono una accanto
-all'altra e l'id \#(i+1) è collocato immediatamente dopo la direzione in cui sta
+all'altra e l'id \#$(i+1)$ è collocato immediatamente dopo la direzione in cui sta
 viaggiando il messaggio. Infatti il worst case è \textbf{quando le entità sono
     simultaneamente attivate in ordine "crescente".} Questo implica che il messaggio
-con id 1 attraversa n nodi, quello con id 2 ne attraversa n-1 e cosi via
-costando $O(N^2)$
+con id 1 attraversa n nodi, quello con id 2 ne attraversa $n-1$ e cosi via
+costando $O(n^2)$.
 \begin{center}
-    $M[\texttt{AsFarAsItCan}] = \sum_{i=1}^{n} i + n = \frac{n(n+3)}{2} + n = \in
-        O(n^2)$
+    $M[\texttt{AsFarAsItCan}] = \sum_{i=1}^{n} i + n = \frac{n(n+3)}{2} + n = O(n^2)$
 \end{center}
 Dove $n$ è il numero di messaggi per la notifica. $n^2$ lo paghiamo quando siano
 particolarmente sfortunati,nel caso medio infatti, con un generico ordinamento,
@@ -513,7 +512,7 @@ Tipi di messaggio:
 Stati possibili delle entità nel protocollo:
 
 \begin{itemize}
-    \item ASLEEP (in p\_{init} tutte le entità sono in questo stato)
+    \item ASLEEP (in $P_{init}$ tutte le entità sono in questo stato)
     \item CANDIDATE
     \item DEFEATED
     \item FOLLOWER
@@ -804,38 +803,41 @@ ed il collegamento al suo "possessore", ovvero l'entità che l'ha catturata. Le
 entità che sono CANDIDATE lo diventano tramite impulso spontaneo in stato di
 ASLEEP. Di seguito le \textbf{regole formali:}
 \begin{enumerate}
-    \item Un entità candidata x manda un messaggio di CAPTURE ad un suo vicino y
-          (che non fa già parte del territorio di x)
-    \item Se y è passivo o Asleep l'attacco ha successo. x incrementa il suo stage
-          ed y diventa Captured.
-    \item Se y è "CANDIDATE", il risultato dell'attacco dipende dallo stage e
+    \item Un'entità candidata $x$ manda un messaggio di CAPTURE ad un suo vicino
+          $y$ (che non fa già parte del territorio di $x$)
+    \item Se $y$ è passivo o Asleep l'attacco ha successo. $x$ incrementa il suo
+          stage ed $y$ diventa Captured.
+    \item Se $y$ è "CANDIDATE", il risultato dell'attacco dipende dallo stage e
           dall'id delle due entità:
           \begin{itemize}
-              \item Se $stage(x) > stage(y)$, l'attacco ha successo. x incrementa il
-                    suo stage ed y diventa Captured.
+              \item Se $stage(x) > stage(y)$, l'attacco ha successo. $x$
+                    incrementa il suo stage ed $y$ diventa Captured.
               \item Se $stage(x) = stage(y)$, l'attacco ha successo se $id(x) <
                         id(y)$ altrimenti $x$ diventa passivo.
-              \item Se $stage(x) < stage(y)$, x diventa passivo.
+              \item Se $stage(x) < stage(y)$, $x$ diventa passivo.
           \end{itemize}
-    \item Se y è "CAPTURED" allora x deve sconfiggere il padrone di y, che
-          chiameremo z, prima di poter catturare y. Se così fosse, y manda a z un
-          messaggio di WARNING con stage(x) e l'id(x) e:
+    \item Se $y$ è "CAPTURED" allora $x$ deve sconfiggere il padrone di $y$, che
+          chiameremo $z$, prima di poter catturare $y$. Se così fosse, $y$ manda
+          a $z$ un messaggio di WARNING con $stage(x)$ e l'$id(x)$ e:
           \begin{itemize}
-              \item Se z è candidato in uno stage più alto o nello stesso stage di x
-                    ma $id(z) < id(x)$ allora l'attacco a y da parte di x non ha successo.
-                    z quindi lo notifica a y che lo notifica a x.
-              \item In tutti gli altri casi (ovvero se z è già stato a sua volta
-                    catturato, se z è passivo, se z è un "Candidate" in uno stage più
-                    piccolo o ha lo stesso stage di x ma con id più grande di x) l'attacco
-                    ha successo; z lo notifica a y che lo notifica a x e se z era
-                    candidato diventa passivo (dato che z poteva già essere "Passivo").
+              \item Se $z$ è candidato in uno stage più alto o nello stesso
+                    stage di $x$ ma $id(z) < id(x)$ allora l'attacco a $y$ da parte
+                    di $x$ non ha successo. $z$ quindi lo notifica a $y$ che lo
+                    notifica a $x$.
+              \item In tutti gli altri casi (ovvero se $z$ è già stato a sua
+                    volta catturato, se $z$ è passivo, se $z$ è un "Candidate"
+                    in uno stage più piccolo o ha lo stesso stage di $x$ ma con id
+                    più grande di $x$) l'attacco ha successo; $z$ lo notifica a $y$
+                    che lo notifica a $x$ e se $z$ era candidato diventa passivo
+                    (dato che $z$ poteva già essere "Passivo").
           \end{itemize}
-    \item Se l'attacco ha successo, y è catturata da x, x incrementa il suo
+    \item Se l'attacco ha successo, $y$ è catturata da $x$, $x$ incrementa il suo
           $stage(x)$ e continua l'esecuzione della sua conquista.
           %\item Quando una delle entità diventa il leader, lo notifica tramite
           %broadcast a tutte le altre.
 \end{enumerate}
-Al protocollo va aggiunta poi la notifica finale. \\
+Al protocollo va aggiunta poi la notifica finale.
+
 \subsection{Costo dei Messaggi}
 Da notare che ogni tentativo effettuato da un Candidato ad un vicino anch'esso
 "Candidato" o "Passivo" costa esattamente due messaggi:
@@ -854,11 +856,11 @@ Questo metodo risolve quindi il problema dell'elezione sui grafi completi.
 \subsection{Descrizione a parole del protocollo}
 
 \begin{itemize}
-    \item \textbf{AVAILABLE:} Se ricevi impulso spontaneo allora fissa lo stage =
-          1, il valore = id(x) e crea l'insieme "others" che contiene tutto il tuo
-          vicinato. Scegli un nodo dentro questo insieme ed invia il messaggio di
-          Capture a quest'ultimo allegando il tuo stage ed il tuo id. Successivamente
-          diventa CANDIDATE.\\
+    \item \textbf{AVAILABLE:} Se ricevi impulso spontaneo allora fissa lo stage
+          = 1, il valore = $id(x)$ e crea l'insieme "others" che contiene tutto
+          il tuo vicinato. Scegli un nodo dentro questo insieme ed invia il
+          messaggio di Capture a quest'ultimo allegando il tuo stage ed il tuo
+          id. Successivamente diventa CANDIDATE.\\
           Se invece non ti svegli tramite impulso spontaneo ma ricevi un messaggio
           di Capture da Available allora invia immediatamente il messaggio di
           accettazione salvando l'entità che è tua "padrona", il tuo stage che è =
@@ -893,48 +895,49 @@ $stage(i)$. Rappresentiamo questo valore con $n_i$. Per calcolare questo valore
 però è necessario assicurare che un nodo venga catturato da al più 1 candidato
 nello stesso stage.\\
 \textbf{Vediamo un esempio del problema del protocollo appena enunciato:}\\
-Supponiamo quattro entità x, y, z, w; x e y sono nello stesso stage e z è
-catturata da w.\\
-Se sia x che y mandano un messaggio di candidatura a z, questa allora manderà un
-WARNING a w e verrà poi notificata la risposta, supponiamo poi che prima che
-arrivi il messaggio di notifica, z processa anche y e manda quindi un altro
-WARNING a w, a questo punto abbiamo 2 notifiche da parte di w, queste possono
-essere entrambe positive. Ci ritroveremmo quindi che sia x che y hanno
-conquistato z, ma secondo z essa è legato solo all'ultima processata, quindi
-y.\\
-\subsubsection{Risoluzione del problema:}
+Supponiamo quattro entità $x$, $y$, $z$, $w$; $x$ e $y$ sono nello stesso stage
+e $z$ è catturata da $w$.\\
+Se sia $x$ che $y$ mandano un messaggio di candidatura a $z$, questa allora
+manderà un WARNING a $w$ e verrà poi notificata la risposta, supponiamo poi che
+prima che arrivi il messaggio di notifica, $z$ processa anche $y$ e manda quindi un
+altro WARNING a $w$, a questo punto abbiamo 2 notifiche da parte di $w$, queste
+possono essere entrambe positive. Ci ritroveremmo quindi che sia $x$ che $y$ hanno
+conquistato $z$, ma secondo $z$ essa è legato solo all'ultima processata, quindi
+$y$.
+
+\subsubsection{Risoluzione del problema}
 Possiamo ovviare a questo problema mettendo un buffer nelle entità. Facciamo in
 modo che i messaggi di Warning siano inviati uno alla volta e solamente al vero
 padre dell'entità che sta venendo conquistata Facciamo in modo che un'entità aspetti
 dopo un WARNING quale sia la risposta ricevuta, così nello stesso caso di sopra
-la nuova domanda (di y) sarebbe stata mandata al vero candidato, cioè x.\\
+la nuova domanda (di $y$) sarebbe stata mandata al vero candidato, cioè $x$.\\
 Apportiamo le seguenti modifiche:
-%S\vspace{-5mm}
 \begin{enumerate}
-    \item Se un nodo catturato y riceve un messaggio di CAPTURE da un candidato x
-          che è in uno stadio più piccolo di quello conosciuto da y, allora y notifica
-          immediatamente a x che l'attacco non ha avuto successo (x diventa passivo). Di
-          conseguenza, un nodo y catturato invierà solo WARNING per un attacco che ha
-          stage più alto del suo.
-    \item Se un nodo y manda un WARNING al suo padrone z riguardante un attacco di
-          x, allora y aspetta la risposta da z prima di mandare eventuali altri WARNING.
+    \item Se un nodo catturato $y$ riceve un messaggio di CAPTURE da un
+          candidato $x$ che è in uno stadio più piccolo di quello conosciuto da
+          $y$, allora $y$ notifica immediatamente a $x$ che l'attacco non ha avuto
+          successo ($x$ diventa passivo). Di conseguenza, un nodo $y$ catturato
+          invierà solo WARNING per un attacco che ha stage più alto del suo.
+    \item Se un nodo $y$ manda un WARNING al suo padrone $z$ riguardante un
+          attacco di $x$, allora $y$ aspetta la risposta da $z$ prima di mandare
+          eventuali altri WARNING.
 \end{enumerate}
-La conseguenza di questo secondo punto è che se un attacco da x ha successo (e
-quindi il suo stage viene incrementato) y invierà al nuovo padrone x qualsiasi
+La conseguenza di questo secondo punto è che se un attacco da $x$ ha successo (e
+quindi il suo stage viene incrementato) $y$ invierà al nuovo padrone $x$ qualsiasi
 WARNING successivo generato dall'elaborazione dei messaggi di cattura accodati.
 Dopo questa modifica, è garantito che il territorio di due candidati nello
 stesso stage non abbia nodi in comune.\\
 
 \colorbox{yellow}{\textbf{Quanti candidati possono essere presenti allo stage
-        i?}}\\
-Ogni candidato ha un territorio di grandezza i e questi territori sono
+        $i$?}}\\
+Ogni candidato ha un territorio di grandezza $i$ e questi territori sono
 disgiunti, quindi non possono esserci più di $$n_i \leq \frac{n}{i}$$ candidati
 (Le entità vengono conquistate una alla volta, il protocollo è sequenziale). \\
 
 \colorbox{yellow}{\textbf{Quanti messaggi inviano $n_i$ candidati allo
         $stage(i)$?}}\\
 Ognuno darà origine ad un attacco che costerà al massimo 4 messaggi; quindi,
-nello stage i, ci saranno al più $$\frac{4n}{i}$$ messaggi. \\
+nello stage $i$, ci saranno al più $$\frac{4n}{i}$$ messaggi.\\
 
 \colorbox{yellow}{\textbf{Determiniamo ora il numero di Stage necessari per la
         terminazione del protocollo.}} \\
@@ -954,9 +957,9 @@ $$ n-1 + \sum_{i=1}^{\#stadi} 4 n_i \leq n-1 + 4n \sum_{i=1}^{n/2} \frac{1}{i} =
           ovvero l'entità LEADER invia un messaggio a tutti i suoi vicini che sono
           $n-1$.
     \item La sommatoria indica i messaggi inviati dalle entità candidate allo
-          stage(i) che sono appunto al più 4 per ognuna di esse.
+          $stage(i)$ che sono appunto al più 4 per ognuna di esse.
     \item $H_{n/2}$ è una la serie armonica
-          crescente, che ha come risultato $nlogn$.
+          crescente, che ha come risultato $n\log n$.
 
 \end{itemize}
 
@@ -976,12 +979,12 @@ che il Lower Bound per il Wake-up è $\frac{1}{2}n \log n$.\\
     2 n$$
 \begin{itemize}
     \item $ 4 \frac{n}{2} $ Perché abbiamo 4 messaggi per stage nel caso peggiore.
-    \item + 1 indica la notifica finale che, essendo in un grafo completo, costa
+    \item $+1$ indica la notifica finale che, essendo in un grafo completo, costa
           una singola unità di tempo.
 \end{itemize}
 
 \paragraph{Siamo ottimi per il tempo?} NO! perché è possibile sviluppare un
-protocollo che ogni entità invia l'id a tutti i suoi vicini (che sono n-1 in un
+protocollo che ogni entità invia l'id a tutti i suoi vicini (che sono $n-1$ in un
 grafo completo) e poi tutti rispondono con un messaggio contenente il loro ID,
 così che ogni entità possa determinare se il suo è l'id minimo oppure no. In
 questo caso spediamo $O(1)$ tempo ma il costo dei messaggi va a $O(n^2)$.
@@ -1006,12 +1009,15 @@ Facendo riferimento alle domande poste durante lo sviluppo del precedente
 protocollo:\\
 
 \textbf{Quanto è il numero delle entità candidate contemporaneamente allora
-    stage i-esimo?}: Esattamente $n_i$. Se allora stage i-esimo si conquistano $2^i$
-entità allora $n_i = \frac{n}{2^i}$. Così facendo il numero di messaggi inviati
-raddoppia ma il numero delle entità che li mandano dimezza, e quindi siamo
-restati sulla stessa complessità. Al più la metà delle entità che si sveglia
-passa allo stage successivo.
-\begin{center}
-    Costo dei Messaggi: $O(n \log n)$\\
-    Costo del tempo: $O(\log(n))$
-\end{center}
+    stage $i$-esimo?}: Esattamente $n_i$. Se allora stage $i$-esimo si
+conquistano $2^i$ entità allora $n_i = \frac{n}{2^i}$. Così facendo il
+numero di messaggi inviati raddoppia ma il numero delle entità che li
+mandano dimezza, e quindi siamo restati sulla stessa complessità. Al più la
+metà delle entità che si sveglia passa allo stage successivo.
+
+\begin{equation*}
+    \begin{split}
+        \text{Costo dei Messaggi: } & O(n \log n)\\
+        \text{Costo del tempo: } & O(\log(n))
+    \end{split}
+\end{equation*}
