@@ -684,7 +684,7 @@ sono però alcune accortezze da considerare:
           nodi compresi gli angoli, che poi faranno le loro candidature tramite l'All
           the Way o l'As\_far o protocollo Stage.
 \end{enumerate}
-\section{Costruzione del protocollo per Leader Election su Griglia}
+\subsection{Costruzione del protocollo per Leader Election su Griglia}
 Date queste accortezze il protocollo consisterà in:
 \begin{itemize}
     \item wake-up che parte dagli iniziatori.
@@ -695,7 +695,8 @@ Nella fase di election gli angoli spediscono in entrambe le direzioni, se chi
 riceve è un'entità di grado 2 o 3 allora continua il protocollo, se invece ho
 grado 4 (sono interno) o ignoro il messaggio o gli rispondo che sono un nodo
 interno e che quindi non mi verranno più inviati messaggi.\\
-\subsection{Sviluppo del protocollo}
+
+\subsubsection{Sviluppo del protocollo}
 \begin{enumerate}
     \item Wake-up: Ogni $k^*$ iniziatore invierà un messaggio di Wake-up a tutti i
           suoi vicini, un nodo generico invece che riceverà un messaggio di sveglia da
