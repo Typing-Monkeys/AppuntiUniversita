@@ -1,24 +1,18 @@
-name: Auto Tag and Release
+name: Auto Tag and Release 🦧
 
 on:
   push:
-    branches:
-      - master
-
-permissions:
-  id-token: write
-  contents: write
-  packages: write
-  pull-requests: read
+    branches: [main, master]
 
 jobs:
   tag:
+    name: Bumb Tag Version 🚀
     runs-on: ubuntu-latest
     outputs:
       newtag: ${{ steps.tag.outputs.new-tag }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: phish108/autotag-action@v1.1.64
+      - name: Auto Tag
+        uses: phish108/autotag-action@v1.1.64
         id: tag
         with:
           github-token: ${{ secrets.GITHUB_TOKEN}}
@@ -28,13 +22,34 @@ jobs:
           release-branch: master
           dry-run: "true"
 
-  release:
-    runs-on: ubuntu-latest
+  releasse:
+    name: Create GitHub Release 📰
     needs: tag
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "v${{needs.tag.outputs.newtag}}"
-          prerelease: false
+          fetch-depth: 0
+
+      - name: Generate changelog
+        uses: orhun/git-cliff-action@v2
+        id: git-cliff
+        with:
+          config: .github/workflows/configs/conf.toml
+          args: -vv --latest --unreleased --strip header --tag v${{needs.tag.outputs.newtag}}
+        env:
+          OUTPUT: CHANGES.md
+
+      - name: Cat Changelog
+        run: cat ${{ steps.git-cliff.outputs.changelog }}
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v${{needs.tag.outputs.newtag}}"
+          release_name: "v${{needs.tag.outputs.newtag}}"
+          body: ${{ steps.git-cliff.outputs.content }}
+ 
