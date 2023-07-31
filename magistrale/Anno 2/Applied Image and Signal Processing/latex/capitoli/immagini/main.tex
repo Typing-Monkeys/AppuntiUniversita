@@ -709,7 +709,7 @@ orizzontali e verticali:
     $(x+1, y), (x-1, y), (x, y-1), (x, y+1)$
 \end{center}
 
-Questi punti formano il \textbf{4-intorno (4-neighboor)} di $(x,y)$ che
+Questi punti formano il \textbf{4-intorno (4-neighbor)} di $(x,y)$ che
 indicheremo con $N_4(p)$ \\I quattro \textbf{neighbors (vicini) diagonali} di
 $p$ $(N_D(p))$ hanno invece coordinate
 
@@ -1151,7 +1151,7 @@ adottare diversi modelli per le immagini. Ad esempio:
 
 Nel modello probabilistico per i pixel, i valori assunti nei vari pixel ($N$ x
 $M$) di un'immagine vengono considerati come valori assunti da una variabile
-aleatoria in una successione di $N$ x $M$ esperimenti. Vado quini a modificare i
+aleatoria in una successione di $N$ x $M$ esperimenti. Vado quindi a modificare i
 pixel in base ad un valore di probabilità. \\È dunque possibile analizzare ed
 elaborare l'immagine utilizzando gli strumenti del calcolo delle probabilità e
 del calcolo stocastico. Un esempio di questo processo è \textbf{l'analisi
@@ -1278,7 +1278,7 @@ Il \textbf{risultato} è un immagine più scura o schiarita.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{capitoli/immagini/imgs/shift-isto.png}
-    \caption{L'immagine mostra il risultato dello Shift dell'isogramma.}
+    \caption{L'immagine mostra il risultato dello Shift dell'istogramma.}
 \end{figure}
 
 \paragraph{Stretching dell'istogramma}
@@ -2004,7 +2004,7 @@ possono definire le seguenti operazioni:
     \item \textbf{Moltiplicazione e divisione di immagini}
           \textbf{Viene utilizzata per applicazioni come:}
           \begin{itemize}
-              \item Correzzione dell'ombreggiatura(shading)
+              \item Correzione dell'ombreggiatura(shading)
               \item Selezione di una ROI (Region of Interest)
           \end{itemize}
           È definita come:
@@ -2486,7 +2486,7 @@ le immagini sia numericamente in termini di bit, sia in termini di qualità visi
 
 Per quantificare l'entità del suddetto errore secondo un termine di paragone, viene introdotto un ulteriore indice di qualità delle
 immagini. Si definisce come \textbf{Peak Signal to Noise Ratio (PSNR)}, il rapporto
-tra la massima potenza ammisibile di un segnale e l'MSE.
+tra la massima potenza ammissibile di un segnale e l'MSE.
 
 $$
     PSNR_{AB} = 10 \log(\frac{255^2}{MSE_{AB}})
@@ -2606,7 +2606,7 @@ Una classificazione dei metodi di registratura si basa su nove criteri:
                     dell'immagine.
               \item \textbf{Interattiva:} l'utente effettua personalmente la registrazione,
                     assistito da software.
-              \item \textbf{Semi-autimatica:} l'utente deve inizializzare l'algoritmo, ad esempio, segmentando i dati o guidando l'algoritmo a rifiutare
+              \item \textbf{Semi-automatica:} l'utente deve inizializzare l'algoritmo, ad esempio, segmentando i dati o guidando l'algoritmo a rifiutare
                     o accettare le ipotesi di registrazione suggerite.
           \end{itemize}
 
@@ -2697,7 +2697,7 @@ varia in modo proporzionale alla densità elettronica dei tessuti.
 La scala di questi valori è detta \textit{Scala di Hounsfield}.
 Questa scala comprende più di mille valori e quindi va normalizzata per
 essere rappresentata in un'immagine a scala di grigi (valori da 0 a 255).
-L'unità di Hounsfiled per il singolo tessuto è calcolata come segue:
+L'unità di Hounsfield per il singolo tessuto è calcolata come segue:
 
 $$
     HU(\mu) = 1000 \times \frac{\mu - \mu_{acqua}}{\mu_{acqua} - \mu_{aria}}
@@ -2766,7 +2766,7 @@ dove:
     \caption{Dall'immagine si vede chiaramente come le coordinate s-r grazie a $\theta$ vengono convertite in x-y.}
 \end{figure}
 
-Per calcolarci il coefficiente di attenuazione, partimo dalla misura dell'intensità
+Per calcolarci il coefficiente di attenuazione, partiamo dalla misura dell'intensità
 che è definita come:
 
 $$
@@ -2784,7 +2784,7 @@ $$
     \theta - s \sin \theta, r \sin \theta + s \cos \theta) ds
 $$
 
-Quindi, $p_\theta(r)$ rappresenta la proeizione di $\mu(x,y)$ nella direzione
+Quindi, $p_\theta(r)$ rappresenta la proiezione di $\mu(x,y)$ nella direzione
 dell'angolo $\theta$. Per esprimere questa proiezione in funzione della variazione
 dell'angolo, andremo a definire il suo \textbf{sinogramma} che matematicamente si
 ottiene utilizzando la trasformata di Radon:
@@ -2852,7 +2852,7 @@ $$
 
 Ad ognuna di queste componenti è associato un parametro che corrisponde al
 rapporto tra l'energia termica del parametro in questione fratto quella incidente.
-Dunque abbaimo:
+Dunque abbiamo:
 
 \begin{itemize}
     \item \textbf{L'assorbività:} $\alpha = \frac{W_\alpha}{W_{inc}}$ e indica la
@@ -2905,7 +2905,7 @@ e dalla struttura superficiale.
 Dato che, quando si vanno a fare rilevazioni con la termocamera, la radiazione
 che fuoriesce da un corpo non è composta solo dall'emissività ma anche dalla radiazione
 riflessa, è importante inserire come parametro (specifico per ogni materiale) il corretto valore di emissività
-affinchè il ruore della radiazione ambientale e di quella riflessa venga ridotto il
+affinché il rumore della radiazione ambientale e di quella riflessa venga ridotto il
 più possibile.\\
 
 I fattori che influiscono maggiormente sull'emissività di un corpo sono:
@@ -2929,7 +2929,7 @@ I fattori che influiscono maggiormente sull'emissività di un corpo sono:
 
 \section{Utilizzo della Termocamera}
 
-Per effettuare delle misurazioni con la termocamera è importante impstare o la
+Per effettuare delle misurazioni con la termocamera è importante impostare o la
 temperatura dell'oggetto corretta o la giusta emissività. Per ricavarsi questi
 parametri si possono usare le seguenti tecniche:
 
@@ -2941,7 +2941,7 @@ parametri si possono usare le seguenti tecniche:
           La termocamera calcolerà la temperatura della radiazione incidente che sarà
           utilizzata come temperatura riflessa.
     \item \textit{Misurazione dell'emissività:} si incolla un pezzo di nastro
-          isolante sull'oggetto da misurare, si aspetta che i due raggiungano l'equilbrio
+          isolante sull'oggetto da misurare, si aspetta che i due raggiungano l'equilibrio
           termico, si misura poi la temperatura del nastro con valore di emissività
           pari a $0,95$ (valore di emissività del nastro). Si punta poi la termocamera
           sull'oggetto regolando l'emissività fino a quando non raggiunge la temperatura

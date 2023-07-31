@@ -115,7 +115,7 @@ rispondere alle due seguenti domande:
           frequenza del segnale e $f_s = 2 f_H$ è la frequenza (ordine) di Nyquist.
           Campionare ad un ordine più alto di $2 f_H$ significa utilizzare una successione
           più fine di valori campione, e questo è il caso del cosiddetto sovracampionamento (oversampling).
-          Nella pratica il sovracampionamento deve essere effettuato molto spesso, poichè
+          Nella pratica il sovracampionamento deve essere effettuato molto spesso, poiché
           un fattore correttivo deve essere introdotto per compensare il fatto che il
           campionamento e l’interpolazione non possono coincidere con i corrispondenti valori
           teorici; questo è il caso del cosiddetto \textit{round-off error} o \textit{errore di
@@ -171,13 +171,13 @@ rispondere alle due seguenti domande:
 
 \subsection{Svantaggi}
 
-Benchè il teorema del campionamento venga laramente impiegato in ambito applicativo
+Benché il teorema del campionamento venga largamente impiegato in ambito applicativo
 esso presenta svantaggi o limiti da questo punto di vista.
 
 \begin{itemize}
     \item Le ipotesi fatte sul segnare da ricostruire $f$, ovvero che sia ad energia finita
           e a banda limitata, implicano che ci riduciamo a considerare una famiglia di segnali
-          estremamente regolari e ci consente di ricostruire solo sengali appartenenti alla classe
+          estremamente regolari e ci consente di ricostruire solo segnali appartenenti alla classe
           $C^{\infty}(\mathbb{R})$. Nelle applicazioni reali, i segnali difficilmente sono così
           regolari. Per esempio, nelle immagini, forti salti di livello nella scala di grigi
           (vedi bordi degli oggetti), matematicamente possono essere visti come delle
@@ -193,7 +193,7 @@ esso presenta svantaggi o limiti da questo punto di vista.
           valori campione di $f$ sono noti, in generale, solo negli istanti di tempo $k/W$
           precedenti a $t$. I valori di $f(k/W)$ nel “futuro”, ovvero quando $k/W > t$,
           non sono in generale disponibili.
-    \item Per il principio di Hisemberg i segnali non possono essere contemporanemanete
+    \item Per il principio di Hisemberg i segnali non possono essere contemporaneamente
           a durata e banda limitata, quindi i segnali nel mondo reale, in generale, non soddisfano
           le ipotesi del teorema del campionamento.
 \end{itemize}
@@ -244,7 +244,7 @@ $$
 
 $\forall t \in \mathbb{R}$.\\
 
-Poichè $f$ è limitata e il momento $m_0(\varphi) \leq +\infty$ risulta che
+Poiché $f$ è limitata e il momento $m_0(\varphi) \leq +\infty$ risulta che
 l'operatore di sampling generalizzato risulta ben definito in $C(\mathbb{R})$.
 Vale quindi il seguente risultato di approssimazione.
 
@@ -321,8 +321,8 @@ un punto che sul punto stesso, questo porta ad avere migliori risultati, primo d
 quali è quello della riduzione dell'errore di \textit{time-jitter}.\\
 
 Questi operatori si possono usare anche per effettuare zoom o per la ricostruzione
-di immagini. Nell'ultimo caso, si utilizza l'algoritmo Sampling Kantorovitch con
+di immagini. Nell'ultimo caso, si utilizza l'algoritmo Sampling Kantorovich con
 un nucleo di Jackson $J_3^2$ e si ottiene così un contenuto informativo più
 elevato. Questo algoritmo risulta essere migliore degli altri algoritmi di
-ricostruzione perchè ha una minor perdita di informazione ed ha un indice
+ricostruzione perché ha una minor perdita di informazione ed ha un indice
 PSNR migliore.
