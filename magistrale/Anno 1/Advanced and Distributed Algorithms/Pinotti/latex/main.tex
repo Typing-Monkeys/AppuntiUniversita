@@ -1,0 +1,34 @@
+\input{macros}
+
+\documentclass[answers, 14 pt]{report}
+
+\input{settings/prelude}
+
+\begin{document}
+
+    \input{settings/frontmatter}
+    \newpage
+  
+	\tableofcontents
+	\newpage
+    \newgeometry{top=2cm, bottom=2cm, left=2.5cm, right=2.5cm}
+    %\input{content}
+    \include{Programmazione_dinamica/introduzione}
+    \include{Programmazione_dinamica/weighted_interval_scheduling}
+    \include{Programmazione_dinamica/segmented_least_squares_problem}
+    \include{Programmazione_dinamica/knapsack_problem}
+    \include{Programmazione_dinamica/rna_secondary_structure}
+    \include{Programmazione_dinamica/pole_cutting}
+    \include{Programmazione_dinamica/matrix_chain_parenthesization}
+    \include{Programmazione_dinamica/opt_binary_search_tree}
+    \include{Programmazione_dinamica/sequence_alignment}
+
+
+    \include{Network_flow/ford_fulkerson}
+    \include{Network_flow/ff_patological}
+    \include{Network_flow/fat_flow}
+    \include{Network_flow/delta_scaling}
+    \include{Network_flow/preflow}
+    \include{Network_flow/matching_grafi_bipartiti}
+
+\end{document}
