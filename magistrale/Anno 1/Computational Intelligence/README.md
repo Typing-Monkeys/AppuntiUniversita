@@ -2652,7 +2652,7 @@ Si ha una funzione obiettivo che è definita per variabili reali. Queste variabi
 $x_a' = x_a + C * (x_b - x_a)$ con c < 1 (numero reale)<br>
 a' è ottenuto spostando A verso B
 
-Questa tecnica è ad esempio utilizzata nei videogiochi. Si pensi alla situazione in cui un elemento nel videogioco deve inseguire un altro elemento nel videogioco che si sta muovendo. Per dire al primo elemento di inseguire il primo, non lo si può far muovere direttamente nella posizione dell'altro, ma si deve utilizzare questa tecnica.
+Questa tecnica è ad esempio utilizzata nei videogiochi. Si pensi alla situazione in cui un elemento nel videogioco deve inseguire un altro elemento nel videogioco che si sta muovendo. Per dire al primo elemento di inseguire il secondo, non lo si può far muovere direttamente nella posizione dell'altro, ma si deve utilizzare questa tecnica.
 
 Si ha una popolazione di **N** individui, in cui ciascun individuo ha le seguenti caratteristiche:
 - **posizione corrente** $p^{(i)}$ (i sta per i-esimo individuo)
