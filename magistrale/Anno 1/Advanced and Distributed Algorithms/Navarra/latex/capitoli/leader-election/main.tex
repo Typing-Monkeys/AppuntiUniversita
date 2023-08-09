@@ -929,19 +929,19 @@ WARNING successivo generato dall'elaborazione dei messaggi di cattura accodati.
 Dopo questa modifica, è garantito che il territorio di due candidati nello
 stesso stage non abbia nodi in comune.\\
 
-\colorbox{yellow}{\textbf{Quanti candidati possono essere presenti allo stage
-        $i$?}}\\
+\textbf{Quanti candidati possono essere presenti allo stage
+    $i$?}\\
 Ogni candidato ha un territorio di grandezza $i$ e questi territori sono
 disgiunti, quindi non possono esserci più di $$n_i \leq \frac{n}{i}$$ candidati
 (Le entità vengono conquistate una alla volta, il protocollo è sequenziale). \\
 
-\colorbox{yellow}{\textbf{Quanti messaggi inviano $n_i$ candidati allo
-        $stage(i)$?}}\\
+\textbf{Quanti messaggi inviano $n_i$ candidati allo
+    $stage(i)$?}\\
 Ognuno darà origine ad un attacco che costerà al massimo 4 messaggi; quindi,
 nello stage $i$, ci saranno al più $$\frac{4n}{i}$$ messaggi.\\
 
-\colorbox{yellow}{\textbf{Determiniamo ora il numero di Stage necessari per la
-        terminazione del protocollo.}} \\
+\textbf{Determiniamo ora il numero di Stage necessari per la
+    terminazione del protocollo.} \\
 Consideriamo il seguente fatto: Se un Candidato ha conquistato un territorio di
 grandezza $$\frac{n}{2} +1,$$ nessun altro candidato può diventare Leader.
 Quindi, un candidato può diventare leader appena raggiunge quello stage

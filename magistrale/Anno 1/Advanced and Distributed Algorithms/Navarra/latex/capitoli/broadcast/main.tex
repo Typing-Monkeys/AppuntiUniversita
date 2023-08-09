@@ -29,10 +29,10 @@ un'informazione non conosciuta dalla altre e vuole informarle tutte.
 Sia $\xi$ l'insieme delle entità e $G$ la topologia di comunicazione.\\
 L'insieme delle restrizioni $R$ è così composto:
 \begin{itemize}
-    \item \colorbox{yellow}{Link bidirezionali:} grafo non orientato;
-    \item \colorbox{yellow}{Affidabilità totale:} non ammettiamo l'esistenza di
+    \item Link bidirezionali: grafo non orientato;
+    \item Affidabilità totale: non ammettiamo l'esistenza di
           guasti di link e/o nodi;
-    \item \colorbox{yellow}{Connettività:} grafo connesso, e quindi tutti possono
+    \item Connettività: grafo connesso, e quindi tutti possono
           raggiungere tutti;
 \end{itemize}
 
@@ -40,8 +40,8 @@ Inoltre si ha la situazione dell'\textbf{Iniziatore Unico}: una sola entità
 inizialmente è attiva.
 
 \section{Protocollo Broadcast (senza terminazione)}
-L'idea è quella che \colorbox{yellow}{se un'entità ha l'informazione $I$, allora
-    la trasmette a tutti i suoi vicini.} \\ Dobbiamo specificare il
+L'idea è quella che se un'entità ha l'informazione $I$, allora
+la trasmette a tutti i suoi vicini. \\ Dobbiamo specificare il
 \textbf{behavior} tramite la funzione:
 \begin{eqnarray}
     S \times E \rightarrow A
@@ -94,9 +94,9 @@ Nuove regole:
 
 (dove \verb|became()| indica il cambiamento di stato)\\
 
-\colorbox{yellow}{L'idea è quella di inviare ai vicini l'informazione una sola
-    volta}, quando questo accade, tutti quelli raggiunti da questa informazione
-cambiano stato in \colorbox{yellow}{"\texttt{done}"}. Così facendo la comunicazione
+L'idea è quella di inviare ai vicini l'informazione una sola
+volta, quando questo accade, tutti quelli raggiunti da questa informazione
+cambiano stato in "\texttt{done}". Così facendo la comunicazione
 termina in tempo finito, ovvero quando tutte le entità diventano \texttt{done}.
 
 \section{Complessità}
