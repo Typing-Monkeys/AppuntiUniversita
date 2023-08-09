@@ -1062,7 +1062,7 @@ Il mating pool M è un insieme di N/2 coppie di individui presi dalla popolazion
         - Posso accontentarmi anche di un singolo individuo con un alto valore di fitness F
 
 **Caratteristiche:**
-- Se il problema è di ottimizzazione è un problema di **massimizzazione**:
+- Se il problema di ottimizzazione è un problema di **massimizzazione**:
     - F può coincidere con la funzione obiettivo f.
     - Oppure **F è una trasformazione crescente di f**.
         - Es. F(x) = $f(x)^2$ <br>
