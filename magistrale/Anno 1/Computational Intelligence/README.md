@@ -3010,7 +3010,7 @@ lass ACO_for_TSP:
 <hr>
 
 ### **Altre informazioni sullo Swarm Intelligence**
-Lo Swarm Intelligence è una tecnica ispirata al comportamente di gruppi di animali. Precedentemete abbiamo visto le seguenti tipologie (sono i più famosi):
+Lo Swarm Intelligence è una tecnica ispirata al comportamento di gruppi di animali. Precedentemete abbiamo visto le seguenti tipologie (sono i più famosi):
 - **Particle Swarm Optimization** -> pensato principalmente per problemi continui (non deve essere utilizzato necessariamente per problemi continui, può essere utilizzato anche per problemi discreti adattandolo)
 - **Ant Colony Optimization** -> pensato principalmente per problemi discreti (allo stesso modo del PSO può comunque essere utilizzato per problemi continui ma è meno performante)
 
