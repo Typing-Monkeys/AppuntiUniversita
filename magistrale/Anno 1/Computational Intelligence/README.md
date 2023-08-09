@@ -2615,7 +2615,7 @@ Per evitare il fenomeno di **Bloat**:
 1. Si **limita la crescita**, ad esempio penalizzando oggetti troppo grandi. <br>
     Funzione obiettivo di un oggetto e: <br>
     ***f_obj(e) = Loss(e) + k * Size(e)*** --> questo favorisce oggetti piccoli.
-2. Utilizzare degli **operatori che riducono gli oggetti** (**operatori sheink**). Questi operatori prendono un oggetto e lo riducono. <br>
+2. Utilizzare degli **operatori che riducono gli oggetti** (**operatori shrink**). Questi operatori prendono un oggetto e lo riducono. <br>
 3. **Semplificare gli oggetti**. La semplificazione potrebbe essere computazionalmente pesante. <br>
 <img src="./imgs/pg17.png" width="40%" />
 
