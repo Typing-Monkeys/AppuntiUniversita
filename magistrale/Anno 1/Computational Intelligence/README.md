@@ -2521,7 +2521,7 @@ Per sceglierlo ci sono vari criteri (casualmente o dando più probabilità ai no
 ### Alcune considerazioni
 I figli prodotti in questo modo sono espressioni sintatticamente corrette. Non importa come vengono selezionati i punti di scambio. Questo perchè io mi porto dietro l'intero sottoalbero (che produrrà un numero o un altro elemento, ma è comunque sintatticamente corretto). <br>
 Quello che cambia è che i figli possono avere un'altezza diversa rispetto ai genitori. <br>
-In generale, gli alberi possono avere altezze diversi (in un algoritmo genetico standard invece tendo ad avere elementi della stessa dimensione -> altrimenti non riuscirei a fare il crossover). <br>
+In generale, gli alberi possono avere altezze diverse (in un algoritmo genetico standard invece tendo ad avere elementi della stessa dimensione -> altrimenti non riuscirei a fare il crossover). <br>
 Durante l'evoluzione si tende a generare alberi sempre più alti perchè l'evoluzione tende a privilegiare individui sempre più alti. Questo fenomeno si chiama **ploting** e va combattuto perchè aumenta la complessità computazionale e temporale richiesta per valutare alberi troppo alti. <br>
 Bisogna quindi stare attenti ad alberi troppo alti:
 - Si incorre in tempi computazionali maggiori per la **valutazione** e per le altre operazioni
