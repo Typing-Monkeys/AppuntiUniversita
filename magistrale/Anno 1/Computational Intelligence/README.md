@@ -2602,7 +2602,7 @@ Un altro svantaggio della gp lineare è che potrebbe produrre dei risultati che 
 
 Il vantaggio di questo approccio è che non è necessaria la ricorsione nè per generare nè per creare elementi. È possibile utilizzare solo cicli for per generare e valutare gli individui della popolazione. Inoltre anche la decodifica è totalmente numerica, per ogni individuo devo quindi conservare solo gli indici e l'operazione da fare, è quindi molto veloce rispetto alla classica gp basata sugli alberi.
 
-Alcune forme di programmazione genetica (o altri algoritmi evolutivi) potrebbe essere utilizzate per migliorare (o correggere) dei programmi già esistenti (invece di crearli da zero). Questa forma si chiama **genetic (o software) improvement**.
+Alcune forme di programmazione genetica (o altri algoritmi evolutivi) potrebbero essere utilizzate per migliorare (o correggere) dei programmi già esistenti (invece di crearli da zero). Questa forma si chiama **genetic (o software) improvement**.
 
 ### **Bloat**
 La programmazione genetica tende a creare elementi con **molte componenti**:
