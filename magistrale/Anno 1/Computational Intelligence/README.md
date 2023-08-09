@@ -3091,7 +3091,7 @@ I problemi multi-obiettivo richiedono di trovare un insieme di **buone** soluzio
 
 <img src="./imgs/swarm25.png" width="40%"/>
 
-Dall'insieme di soluzioni, posso poi scegliere in maniere autonoma la soluzione che preferisco secondo criteri personali.
+Dall'insieme di soluzioni, posso poi scegliere in maniera autonoma la soluzione che preferisco secondo criteri personali.
 
 **Un insieme di soluzioni non comparabili è chiamato Pareto Front**.
 
