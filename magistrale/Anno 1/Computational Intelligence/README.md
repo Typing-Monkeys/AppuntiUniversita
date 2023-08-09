@@ -3022,7 +3022,7 @@ Ci sono altri algoritmi degni di essere citati. Qui di seguito verranno trattati
     - **Worker** -> cercano in uno spazio minore <br>
     <img src="./imgs/swarm22.png" width="45%"/><br>
 - ### **Cuckoo Search**
-    È ispirato al comportamento di un particolare tipo di uccelli. La metafora a cui si ispira è di un particolare tipo di uccelli che fa covare le sue uova in nidi di altri uccelli. Quello che succede è che i pulcini di questo uccelli prendono il sopravvento sull'altro nido.
+    È ispirato al comportamento di un particolare tipo di uccelli. La metafora a cui si ispira è di un particolare tipo di uccelli che fa covare le sue uova in nidi di altri uccelli. Quello che succede è che i pulcini di questo uccello prendono il sopravvento sull'altro nido.
 - ### **Firefly Optimization**
     Ispirato al comportamento delle lucciole. 
 
