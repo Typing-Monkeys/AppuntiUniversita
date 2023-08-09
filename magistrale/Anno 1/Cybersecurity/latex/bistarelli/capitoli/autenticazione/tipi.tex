@@ -30,7 +30,7 @@ Esistono vari tipi di autenticazione:
             da quella dove è avvenuto il
             collegamento; sul server digitando le proprie credenziali
             (per aprire file, fare login..);
-      \item \textbf{Indiretta}: l'autenticazione non sulla macchina ma su un server
+      \item \textbf{Indiretta}: l'autenticazione non avviene sulla macchina ma su un server
             di logging remoto (Windows
             domain, radius, kerberos, nis). Un esempio è l'autenticazione che
             facciamo in laboratorio. L'utente richiede al server l'accesso ad una
@@ -45,24 +45,24 @@ Esistono vari tipi di autenticazione:
 
 \subsection{Autenticazione utente-computer}
 
-L’autenticazione tra un computer ed un utente solitamente avviene tramite
-l’utilizzo di \textbf{certificati} (come nel caso bancario); quella tra l’utente
-ed un computer avviene sulla base di qualcosa che l’utente:
+L'autenticazione tra un computer ed un utente solitamente avviene tramite
+l'utilizzo di \textbf{certificati} (come nel caso bancario); quella tra l'utente
+ed un computer avviene sulla base di qualcosa che l'utente:
 
 \begin{itemize}
       \item \textit{Conosce}: informazioni quali password, PIN, ecc.
-      \item \textit{Possiede}: cose fisiche o elettroniche che solo l’utente ha,
+      \item \textit{Possiede}: cose fisiche o elettroniche che solo l'utente ha,
             come chiavi convenzionali, carte magnetiche o smart, ecc.
       \item \textit{È}: caratteristiche biometriche quali
-            impronte digitali, l’iride, tono di voce, ecc
+            impronte digitali, l'iride, tono di voce, ecc
 \end{itemize}
 
 \subsection{Autenticazione su conoscenza}
 
 Questo metodo si basa sulla conoscenza di una coppia di elementi, \textbf{userID}
-e \textbf{password}, che forniscono una prova dell’identità.
+e \textbf{password}, che forniscono una prova dell'identità.
 Esiste un database locale dove si ricerca la coppia di informazioni:
-se viene trovata una corrispondenza, l’utente viene riconosciuto.
+se viene trovata una corrispondenza, l'utente viene riconosciuto.
 Questo metodo è \textit{antico} ma \textit{estremamente diffuso} per via della sua
 economicità e \textit{semplicità} di gestione ed implementazione.
 Risulta però essere debole e poco resistente una volta scoperta una password,
@@ -70,8 +70,8 @@ in quanto la vulnerabilità agli attacchi sarà molto alta.
 
 \subsection{Gestione delle password}
 
-L’utente fornisce userID e password; questi vengono ricercati nel database e se
-sono presenti è consentito l’accesso.
+L'utente fornisce userID e password; questi vengono ricercati nel database e se
+sono presenti è consentito l'accesso.
 Questo sistema però presenta alcune debolezze. In primo luogo, nel database
 userID e password sono in chiaro: poteva capitare che queste informazioni
 venissero utilizzate per entrare illecitamente. Poteva anche presentarsi il
@@ -90,17 +90,17 @@ Il vantaggio stava nel fatto che le informazioni nel database non fossero più i
 chiaro e non vi era più la necessità di utilizzare il file memorizzato in RAM.
 Allo stesso tempo però il file degli hash poteva essere aperto in lettura da
 chiunque e per due password uguali si aveva il medesimo hash.
-Il problema delle password uguali viene risolto con l’aggiunta del \textit{sale}
+Il problema delle password uguali viene risolto con l'aggiunta del \textit{sale}
 (\textbf{salt}), ossia una sequenza di bit generata dal sistema. La password,
 quindi, risulta diversa dalla sua omonima grazie a questa informazione casuale
 in più.
 Nel file viene memorizzato non solo la password, ma anche il sale corrispondente.
 Questo viene posizionato in una directory nascosta (\textbf{shadow}), in nessun
 modo accessibile da alcun utente ad eccezione di root.
-Per quanto riguarda l’autenticazione, l’utente inserisce la password che conosce:
-dal file delle password viene preso il sale dalla riga che corrisponde all’userID
+Per quanto riguarda l'autenticazione, l'utente inserisce la password che conosce:
+dal file delle password viene preso il sale dalla riga che corrisponde all'userID
 e si codificano le due informazioni, \(salt + password\). Se il risultato è
-uguale alla riga memorizzata nel database, allora l’utente può entrare.
+uguale alla riga memorizzata nel database, allora l'utente può entrare.
 Anche questo file viene aperto in lettura da tutti.
 Tale problema verrà risolto solo nel 1987.
 
@@ -118,7 +118,7 @@ password:
       \item \textbf{Spoofing}\footnote{Ricordarsi che il termine corretto è
                   \textit{Spoofing} e non \textit{Spooping}, qui lo SCAT non è bene
                   accetto \emoji{poop}}: acquisite da terze parti che impersonano
-            l’interfaccia di login (Trojan login);
+            l'interfaccia di login (Trojan login);
 
 \end{itemize}
 
@@ -152,11 +152,11 @@ il riconoscimento.
 Chi possiede un oggetto come una carta magnetica, una smart card o smart token,
 è autorizzato a compiere determinate azioni. Tale tipo di autenticazione
 solitamente non è nominale, ma può essere accompagnata dal riconoscimento
-dell’user. Rubando il token, infatti, non si fa altro che impersonare l’utente.
+dell'user. Rubando il token, infatti, non si fa altro che impersonare l'utente.
 Ogni token memorizza una chiave che deve essere inserita per sbloccarlo.
 Nel caso del bancomat, per esempio, viene richiesto un PIN per utilizzare la carta.
 Il vantaggio di questo strumento è che è molto complesso estrarre
-un’informazione dal token.
+un'informazione dal token.
 
 \paragraph{Tipi di Token: }
 
@@ -193,7 +193,7 @@ un’informazione dal token.
 
 \section{Autenticazione su caratteristiche}
 
-Il possesso da parte dell’utente di alcune caratteristiche univoche fornisce
+Il possesso da parte dell'utente di alcune caratteristiche univoche fornisce
 prova della sua identità.
 Le caratteristiche possono essere:
 
@@ -206,23 +206,25 @@ Le caratteristiche possono essere:
             velocità nella scrittura, ecc.
 \end{itemize}
 
-Lo schema di funzionamento di tale tecnica, prevede una fase iniziale di
+Lo schema di funzionamento di tale tecnica prevede una fase iniziale di
 \textbf{campionamento} in cui vengono eseguite più misurazioni sulla
-caratteristica d’interesse, in modo da stabilire un margine d’errore e viene
+caratteristica d'interesse, in modo da stabilire un margine d'errore e viene
 definito un modello (\textbf{template}).
 Durante la fase di \textbf{autenticazione}, viene confrontata la caratteristica
-appena misurata rispetto al template: c’è successo se i due valori corrispondono
+appena misurata rispetto al template: c'è successo se i due valori corrispondono
 a meno di una \textit{tolleranza}, che va definita attentamente.
 Se è troppo alta consento l'accesso ad altri utenti, se è troppo bassa potrei
 non consentire l'accesso neanche all'utente a cui magari appartiene la
-caratteristica misurata.
-Ottenere una perfetta uguaglianza è tecnicamente un’operazione impossibile.
-Il problema fondamentale di questa tecnica sta nell’identificare il giusto
-template da associare all’individuo in analisi.
-Va fatto notare che l’autenticazione biometrica è sempre probabilistica,
+caratteristica misurata. 
+La tolleranza va decisa in base al livello di sicurezza che vogliamo adottare e quindi dall'ambiente di utilizzo. Ad 
+esempio se utilizzo l'impronta digitale per accedere al conto bancario allora il margine di errore dovrà essere minimo, con il rischio di creare dei falsi negativi. Se invece uso l'impronta digitale per fare accedere degli utenti in piscina allora posso permettermi di impostare un margine elevato ed avere a volte dei falsi positivi, così che i clienti non si lamentino. 
+Ottenere una perfetta uguaglianza è tecnicamente un'operazione impossibile.
+Il problema fondamentale di questa tecnica sta nell'identificare il giusto
+template da associare all'individuo in analisi.
+Va fatto notare che l'autenticazione biometrica è sempre probabilistica,
 ovvero dipende da come è settato il parametro soglia: se la soglia
-è \textbf{molto bassa} risulterà difficile che l’intruso si autentichi al posto
-dell’utente,
+è \textbf{molto bassa} risulterà difficile che l'intruso si autentichi al posto
+dell'utente,
 ma il numero di falsi negativi sarà alto; se invece la soglia
 è \textbf{molto alta}, non avrò mai falsi negativi in quanto l'utente reale
 verrà sempre autenticato ma potrebbero esserci falsi positivi da parte di un
@@ -233,7 +235,7 @@ attaccante.
 biometrica adatta alla circostanza. Occorre che il sistema non sia troppo
 invasivo, poiché ciò potrebbe non essere accettato dall'utente.
 Inoltre, non possono essere utilizzate informazioni che metterebbero a
-repentaglio la sua privacy. Per esempio, l’autenticazione tramite retina non
+repentaglio la sua privacy. Per esempio, l'autenticazione tramite retina non
 viene quasi mai impiegata in quanto da essa si potrebbe rinvenire alla presenza
 di alcune malattie. L'impronta digitale rimane il meccanismo più usato,
 anche se è il meno pratico ed efficace.

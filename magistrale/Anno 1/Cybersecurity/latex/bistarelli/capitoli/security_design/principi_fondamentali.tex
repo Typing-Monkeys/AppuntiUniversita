@@ -1,6 +1,6 @@
 \section{Principi Fondamentali}
 
-I primi 8 sono stati definiti da un docente di nome
+I principi fondamentali di progettazione della sicurezza sono una serie di linee guida che consentono agli sviluppatori di creare sistemi protetti. In totale sono 13 di cui i primi 8 sono stati definiti da un docente di nome
 Saelzer in un articolo del 1975. Gli altri sono stati
 aggiunti dai ricercatori nel tempo. Nello specifico:
 
@@ -10,7 +10,7 @@ nell'hardware che nel software dovrebbe essere la più semplice e piccola possib
 Tenere il sistema più semplice possibile nel progetto, nell'implementazione,
 per quanto riguarda il
 numero di operazioni, le interazioni con altre componenti e addirittura nella
-specifica. “Semplice”
+specifica. ``Semplice''
 significa che ci sono meno cose da controllare e quindi in caso di errori è più
 facile identificarli e
 correggerli.
@@ -23,8 +23,8 @@ Include altri principi come:
 
 \begin{itemize}
     \item \textbf{KISS} è un acronimo usato in progettazione, che sta per
-          “\textit{Keep It Simple, Stupid}”, ossia
-          "\textit{rimani sul semplice, stupido}".
+          ``\textit{Keep It Simple, Stupid}'', ossia
+          ''\textit{rimani sul semplice, stupido}''.
           In riferimento al codice sorgente di un programma significa
           non occuparsi delle ottimizzazioni fin dall'inizio, ma cercare invece
           di mantenere uno stile di
@@ -37,8 +37,8 @@ Include altri principi come:
           possono potenzialmente
           confondere l'utente;
     \item \textbf{Worse is better}: la qualità non è necessariamente funzionale;
-    \item \textbf{YAGNI}: l'espressione “\textit{you aren't gonna need it}”,
-          dall'inglese "\textit{non ne avrai bisogno}",
+    \item \textbf{YAGNI}: l'espressione ``\textit{you aren't gonna need it}'',
+          dall'inglese ``\textit{non ne avrai bisogno}'',
           in ingegneria del software si riferisce a un principio secondo cui un
           programmatore non dovrebbe sviluppare software che implementi funzionalità non
           esplicitamente richieste.\footnote{Un esempio è la vulnerabilità
@@ -65,8 +65,7 @@ o solo in minima parte.
 Mentre i prodotti fail-safe sono sbloccati quando viene tolta la corrente
 (cioè viene applicata la corrente per bloccare la porta), i prodotti
 fail-secure sono bloccati quando viene tolta la corrente
-(cioè viene applicata la corrente per sbloccare la porta)
-In sintesi i sistemi:
+(cioè viene applicata la corrente per sbloccare la porta). In sintesi, i sistemi:
 
 \begin{itemize}
     \item \textbf{Fail-secure}: vige la default-deny nei firewall.
@@ -106,12 +105,12 @@ Anche il design può dipendere dai diversi privilegi: non sempre l'accesso al
 file viene considerato
 un privilegio, come lo stesso accesso alla rete.
 Vanno inoltre distinti lettura e scrittura.
-Vige anche il principio
+Vige anche il principio:
 
 \begin{itemize}
-    \item della “separazione funzionale”: persone diverse, pur avendo diversi
+    \item della ``separazione funzionale'': persone diverse, pur avendo diversi
           compiti, devono cooperare;
-    \item del “controllo duale”.
+    \item del ``controllo duale''.
 \end{itemize}
 
 \paragraph{Least privilege}
@@ -166,11 +165,10 @@ riguardano le persone, la
 tecnologia e gli aspetti operativi dei sistemi informativi.
 
 \paragraph{Least astonishment}
-Un programma o un'interfaccia utente dovrebbe sempre rispondere nel modo meno
-probabile per stupire l'utente.
+Un programma o un'interfaccia utente dovrebbe sempre comportarsi nel modo in cui la maggior parte degli utenti si aspetta che si comporti, senza quindi stupire o sorprendere gli utenti.
 
-\paragraph{Defense in Depth}
-La “\textit{difesa in profondità}” o \textit{Defense in Depth} è
+\paragraph{Defence in Depth}
+La ``\textit{difesa in profondità}'' o \textit{Defense in Depth} è
 l'approccio alla sicurezza delle informazioni che
 prevede il raggiungimento di una corretta postura di sicurezza attraverso
 l'utilizzo coordinato e combinato di molteplici contromisure di sicurezza.
@@ -178,9 +176,9 @@ Questa complessa strategia difensiva si fonda sull'integrazione di tre different
 categorie di elementi: le \textit{persone}, la \textit{tecnologia} e le
 \textit{modalità operative}. La ridondanza e la distribuzione delle
 contromisure possono essere sintetizzate in due
-frasi: \textit{“difesa in differenti posizioni}” e
-“\textit{difesa a differenti livelli}”
-(“Defense in Multiple places”, “Layered Defenses”).
+frasi: \textit{``difesa in differenti posizioni}'' e
+``\textit{difesa a differenti livelli}''
+(``Defense in Multiple places'', ``Layered Defenses'').
 Nel caso che un attacco abbia successo, che tradotto in termini di difesa
 consiste nel fallimento di un meccanismo di sicurezza, altri meccanismi di
 sicurezza possono intervenire per consentire un'adeguata protezione dell'intero
@@ -188,17 +186,17 @@ sistema.
 
 \paragraph{Confinement problem}
 Uno dei principali problemi che si può presentare in un sistema in ci sono più
-utenti ed un server che elabora le richieste, è il \textit{“confinement problem}”:
+utenti ed un server che elabora le richieste, è il \textit{``confinement problem}'':
 evitare che il server lasci trapelare informazioni che l'utente ritiene
 confidenziali.
-Una possibile soluzione è rappresentata dall’\textit{isolamento totale},
+Una possibile soluzione è rappresentata dall'\textit{isolamento totale},
 in cui i processi non possono comunicare tra loro, né osservare gli altri.
 Ciò evita la fuoriuscita di informazioni dal sistema, ma è
 irrealizzabile se i processi usano delle risorse osservabili. In tal caso,
 si potrebbe aggirare il
 problema utilizzando i \textbf{covert channel}, i quali sfruttano dei percorsi
-nati per compiere altre operazioni diverse dalla comunicare, per fare invece
-delle comunicazioni in realtà proibite. Un’altra
-soluzione, potrebbe essere quella che prevede l’utilizzo di \textbf{sandbox},
+nati per compiere altre operazioni diverse dalla comunicazione, per fare invece
+delle comunicazioni in realtà proibite. Un'altra
+soluzione, potrebbe essere quella che prevede l'utilizzo di \textbf{sandbox},
 ossia scatole dove viene confinata l'esecuzione di processi e su cui sono
 vigenti delle policy di sicurezza restrittive a piacere.

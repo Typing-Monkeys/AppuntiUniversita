@@ -12,15 +12,15 @@ Servono per garantire l'autenticità dell'utente.
 In crittografia il termine nonce indica un numero, generalmente casuale
 o pseudo-casuale,
 che ha un utilizzo unico. Nonce deriva infatti dall'espressione inglese
-“for the nonce”, che significa
-appunto "per l'occasione". Un nonce viene utilizzato spesso nei protocolli
+``for the nonce'', che significa
+appunto ``per l'occasione''. Un nonce viene utilizzato spesso nei protocolli
 di autenticazione per
 assicurare che i dati scambiati nelle vecchie comunicazioni non possano
 essere utilizzati in
 attacchi di tipo replay attack.\\
 
-In ogni protocollo viene utilizzata una \textbf{spia DY}, la quale possiede una serie di capacità che le
-permettono di individuare l'intruder:
+\paragraph{La spia DY:}
+In tutti i protocolli di autenticazione che analizzeremo di seguito, viene identificata la possibilità che vi sia una ``spia'' (intruder) all'interno del sistema che può effettuare una serie di operazioni, quali:
 \begin{itemize}
     \item Intercettare messaggi e prevenirne il recapito;
     \item Far rimbalzare a piacere i messaggi intercettati;
@@ -53,7 +53,7 @@ Utilizzeremo dei messaggi fatti così:
     \item Nonce: \(N_a\), \(N_b\), \(\ldots \)
     \item Timestamp: \(T_a\), \(T_b\), \(\ldots \)
     \item Digest
-    \item Label: “trasferisci denaro”, “collegati alla porta xy”, \(\ldots \)
+    \item Label: ``trasferisci denaro'', ``collegati alla porta xy'', \(\ldots \)
 \end{itemize}
 
 I messaggi base possono essere a loro volta composti:
@@ -67,25 +67,17 @@ con crittografia perfetta.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, keepaspectratio]{capitoli/crittografia/imgs/alieno.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/crittografia/imgs/alieno.png}
 \end{figure}
 
 Alice vuole identificarsi con Bob, quindi Bob alla fine dell'applicazione del protocollo dovrà essere
 sicuro di aver comunicato con Alice.
 \begin{enumerate}
-    \item Alice invia un messaggio criptato con la
-          chiave pubblica di Bob, che quindi solo lui potrà
-          aprire. Il nonce \(N_a\) permette di capire se il
-          messaggio che è stato inviato è nuovo. Si
-          analizzano tutte i nonce già utilizzate per
-          verificare che essa sia appunto un valore mai
-          visto;
+    \item Alice invia un messaggio a Bob, criptato con la
+          chiave pubblica di quest'ultimo e che quindi solo lui potrà aprire, in cui inserisce chi lo sta contattando ed un nonce. Il nonce \(N_a\) permette di capire se il messaggio che è stato inviato è nuovo. Si analizzano tutti i nonce già utilizzati per verificare che esso sia appunto un valore mai visto;
     \item Bob riceve il messaggio e lo apre. Una volta
           letto, risponde ad Alice: invia indietro il nonce
-          \(N_a\) ricevuta più uno nuovo, \(N_b\), questa volta
-          per fare in modo che sia lui ad autenticarsi con
-          Alice. Il messaggio è codificato con la
-          chiave pubblica \(K\) di Alice;
+          \(N_a\) ricevuto, più ne aggiunge uno nuovo,  \(N_b\), questa volta per fare in modo che sia lui ad autenticarsi con Alice. Il messaggio è codificato con la chiave pubblica di Alice, \(K_{alice}\);
     \item Alice riceve la risposta e invia a sua volta
           \(N_b\) a Bob. A questo punto Bob è sicuro di poter
           parlare con Alice.
@@ -136,7 +128,7 @@ verrebbe riavviata da zero.
         elemento \(N_a\) (il nonce di Alice), e come secondo elemento \(N_b\)
         (il nonce di Bob) che Alice crede sia stato
         generato da Ive;
-    \item[3.] Alice inoltra \(N_b\) ad Ive criptando con la \(K\) di Ive;
+    \item[3.] Alice inoltra \(N_b\) ad Ive criptando con la chiave di Ive, \(K_{ive}\);
     \item[3'.] Ive apre il messaggio e lo invia a Bob, criptato con \(K_{bob}\)
 \end{enumerate}
 
@@ -156,10 +148,10 @@ di denaro dal conto di Alice al proprio.
 Lo stesso tipo di attacco può essere studiato nella tassonomia BUG. Tale
 soluzione è deprecata
 ma continua ad essere utilizzata.
-Sappiamo che Alice ha condiviso con Ive il nonce \(N_a\) da lei generata, ma
-questa in realtà è stata
-inoltrata anche a Bob. Bob, nel caso in cui avesse delle intenzioni
-malevole, potrebbe utilizzare \(Na\)
+Sappiamo che Alice ha condiviso con Ive il nonce \(N_a\) da lei generato, ma
+questo in realtà è stato
+inoltrato anche a Bob. Bob, nel caso in cui avesse delle intenzioni
+malevole, potrebbe utilizzare \(N_a\)
 ai danni di Alice: se Alice vedesse arrivare un messaggio contenente \(N_a\)
 e \(N_b\), infatti, penserebbe
 che questo sia stato inviato da Ive. Bob però, conoscendo l'importanza di
@@ -179,21 +171,21 @@ Usa la crittografia simmetrica e usa un TTP (Trusted Third Party), che
 possiede un database di
 tutte le chiavi. Un TTP è un'entità che facilita le interazioni tra due
 parti che si fidano entrambe
-della “terza parte”.
+della ``terza parte''.
 L'obiettivo del protocollo è che Alice (\(A\)) riesca ad autenticarsi
 con Bob (\(B\)).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=8cm, keepaspectratio]{capitoli/crittografia/imgs/Mulan.png}
+    \includegraphics[width=7cm, keepaspectratio]{capitoli/crittografia/imgs/Mulan.png}
 \end{figure}
 
 \begin{enumerate}
     \item A invia un messaggio pubblico a B;
-    \item B invia ad A una nonce \(N_b\) per verificare che stia
+    \item B invia ad A un nonce \(N_b\) per verificare che stia
           effettivamente comunicando con lei. Anche questo messaggio è
           pubblico;
-    \item A riceve \(N_b\) e la inoltra di risposta a Bob, ma criptata con
+    \item A riceve \(N_b\) e lo inoltra di risposta a Bob, ma criptata con
           \(K_a\). \(K_a\) è una chiave simmetrica che ha in condivisione con il
           TTP e che B non può aprire. Bob deve verificare che \(K_a\)
           appartenga davvero ad A;
@@ -202,50 +194,45 @@ con Bob (\(B\)).
           può aprire solo il TTP poiché condivide le chiavi simmetriche con B;
     \item Il TTP, una volta decifrato il messaggio e ottenuto \(N_b\), lo
           inoltra a B. B apre il messaggio finale perché possiede \(K_b\) e
-          verifica che \(N_b\) sia la nonce che ha inviato ad A. Se è così,
+          verifica che \(N_b\) sia il nonce che ha inviato ad A. Se è così,
           significa che B ha effettivamente comunicato con A. La decodifica di
           \(\{N_b\}_{K_a}\) funziona solo se \(K_a\) appartiene ad A.
 \end{enumerate}
 
 \subsection{Attacco su Woo-Lam}
 
-Anche detto “interlacciamento di sessioni”.
+Anche detto ``interlacciamento di sessioni''.
 \begin{figure}[H]
     \centering
     \includegraphics[width=8cm, keepaspectratio]{capitoli/crittografia/imgs/mulan2.png}
 \end{figure}
 \begin{enumerate}
-    \item[1.] C è l'attaccante che si vuole spacciare per A con
+    \item[1.] C'è l'attaccante C che si vuole spacciare per A con
         B e invia un messaggio a B confermando ciò;
     \item[1'.] C invia anche un altro messaggio a B dove
         afferma invece di essere C; Alla ricezione dei due
         messaggi, B segue il protocollo e genera due nonce;
     \item[2.] In risposta ad A genera \(N_b\);
     \item[2'.] In risposta a C genera \(N_b'\);
-        C intercetta i messaggi e quindi anche le due nonce.
-    \item[3/3'.] C invia \(N_b\) criptata con \(K_c\) a B due volte;
+        C intercetta i messaggi e quindi anche i due nonce.
+    \item[3/3'.] C invia \(N_b\) criptato con \(K_c\) a B due volte;
         B quindi riceve lo stesso messaggio due volte.
     \item[4.] Supponendo che un messaggio sia stato inviato
-        da A, B invia al TTP la nonce \(N_b\) che ha ricevuto. Il
+        da A, B invia al TTP il nonce \(N_b\) che ha ricevuto. Il
         messaggio è poi criptato con \(K_b\);
     \item[4'.] B invia un altro messaggio al TTP ma questa
         volta con C all'interno.
-    \item[5.] TTP invia a B la nonce \(N_b''\) ottenuta a partire dalla
+    \item[5.] TTP invia a B il nonce \(N_b''\) ottenuto a partire dalla
         decifratura del messaggio 4 (nonce completamente
-        sbagliata);
-    \item[5'.] TTP invia a B la nonce \(N_b'\) ottenuta a partire dalla
-        decifratura del messaggio 4
+        sbagliato);
+    \item[5'.] TTP invia a B il nonce \(N_b\) ottenuto a partire dalla
+        decifratura del messaggio 4'
 \end{enumerate}
 
-B si renderà conto del fatto che \(N_b'\) è stata inviata da A. Quindi B ha
-autenticato C al posto di A,
-Infatti, il messaggio di autenticazione che avrebbe dovuto prendere in
-considerazione era il 4 con
-nonce \(N_b''\).
-Se B attiva due comunicazioni contemporaneamente, non può sapere in che
-ordine arriveranno i
-messaggi.
-Il protocollo sembrerebbe funzionare ma in realtà non è così.
+B aveva associato ad A il nonce \(N_b\) quindi quando gli verrà ritornato penserà che è stato inviato da A. B andrà allora ad autenticare C al posto di A. Inoltre, se B attiva due comunicazioni contemporaneamente non può sapere in che ordine arriveranno i messaggi a causa del funzionamento di HTTP, quindi si potrebbe vedere ricevere prima il nonce ``corretto'' (quello inviato da TTP per C nel messaggio 4') invece che quello ``corrotto'' (inviato da TTP per A nel messaggio 4).\\
+
+Il protocollo Woo-Lam è quindi vulnerabile. Per risolvere teoricamente basta che il TTP inserisca nel messaggio di ritorno quello che è l'utente per il quale ha decifrato il nonce.\\
+
 Si porta all'attenzione dell'egregio lettore che esiste anche la versione
 simmetrica di Needham-Schröder (questa è un informazione dalla
 dubbia utilità).

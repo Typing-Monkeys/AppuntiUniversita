@@ -3,65 +3,35 @@
 Abbiamo tre classi di intruders (intrusi):
 
 \begin{itemize}
-      \item \textbf{Masquerader}: Un individuo che non è autorizzato a utilizzare il
-            computer e che penetra nei
-            controlli di accesso di un sistema per sfruttare l'account di un utente
-            legittimo;
-      \item \textbf{Misfeasor}\footnote{Ricordarsi che non è
-                  il nome di un pokemon !}: Un utente legittimo che accede a dati,
-            programmi o
-            risorse per i
-            quali tale
-            accesso non è autorizzato o che è autorizzato a tale accesso ma
-            abusa dei suoi
-            privilegi;
-      \item \textbf{Clandestine User}: Una persona che prende il controllo di supervisione
-            per eludere l'auditing
-            e i controlli di accesso o sopprimere la raccolta di audit;
+      \item \textbf{Masquerader}: Individuo che finge di essere qualcun altro per ottenere un accesso non autorizzato a informazioni o servizi.
+      \item \textbf{Misfeasor}\footnote{Ricordarsi che non è il nome di un pokemon !}: Un utente legittimo che accede a dati, programmi o risorse per i quali tale accesso non è autorizzato o che è autorizzato a tale accesso ma abusa dei suoi privilegi per eseguire azioni non autorizzate. Un esempio può essere il dipendente con accesso a dati aziendali sensibili che utilizza i propri privilegi per rubare o divulgare i dati;
+      \item \textbf{Clandestine User}: Una persona che prende il controllo di supervisione per eludere l'auditing e i controlli di accesso o sopprimere la raccolta di audit;
 \end{itemize}
 
 \paragraph{Intrusion Detection System: }
-L'Intrusion Detection System o \textbf{IDS} è un dispositivo software o hardware
-utilizzato per
-identificare accessi non autorizzati ai computer o alle reti locali.
-Le intrusioni rilevate possono
-essere quelle prodotte da cracker esperti, da tool automatici o da utenti
-inesperti che utilizzano
-programmi semiautomatici.
+L'Intrusion Detection System o \textbf{IDS} è un dispositivo software o hardware utilizzato per identificare accessi non autorizzati ai computer o alle reti locali. Lo scopo generale di un IDS è informare gli amministratori di sistema che potrebbe esserci un'intrusione nel sistema. Lo fa andando a lanciare degli allarmi che poi gli amministratori di sistema dovranno andare a controllare manualmente. Gli avvisi includono generalmente informazioni sull'indirizzo di origine dell'intrusione, l'indirizzo di
+destinazione/vittima e il tipo di attacco ``sospetto''.
 
-Lo scopo generale di un IDS è informare che potrebbe esserci un'intrusione nella rete.
-Gli avvisi
-includono generalmente informazioni sull'indirizzo di origine dell'intrusione,
-l'indirizzo di
-destinazione/vittima e il tipo di attacco "sospetto”.
-Due sono le categorie base: sistemi basati sulle firme (signature) e sistemi
-basati sulle anomalie (anomaly).
-La tecnica basata sulle firme è in qualche modo analoga a quella per
-il rilevamento dei
-virus (adopera il machine learning), essa permette di bloccare file infetti e
-si tratta di una tra le tecniche più utilizzate. I sistemi basati sul rilevamento delle anomalie utilizzano un
-insieme di regole che
-permettono di distinguere ciò che è "normale" da ciò che è "anormale".
-È importante sapere che un IDS non può bloccare o filtrare i pacchetti in ingresso
-ed in uscita, né
-tanto meno può modificarli. Un IDS può essere paragonato ad un antifurto mentre
-il firewall alla
-porta blindata. L'IDS non cerca di bloccare le eventuali intrusioni, cosa che
-spetta al firewall, ma
-cerca di rilevarle laddove si verifichino.
-Per ogni rete è necessario un IDS che agisce solo sulla stessa. Se si volesse
-però avere
-un'architettura più complessa, si potrebbe includere un gestore centrale:
-gli IDS fanno da sensore,
-inviano tutto c'è che rilevano nella rete di pertinenza al gestore,
-il quale accumula ed analizza tutti i
-log ricevuti per capire se gli eventi hanno una qualche correlazione.
+Un IDS può avere un'installazione o di tipo \textbf{HOST based} o di tipo \textbf{NETWORK based}. Nella \emph{Host based} l'IDS è installato nelle singole macchine utente ed ha quindi una vista ristretta alla singola macchina e non all'intero sistema. In questo caso lavora più a \emph{livello applicazione} per rilevare le intrusioni. Nel \emph{Network based} invece l'IDS è installato a livello di rete e quindi ha una visione più ampia e generale del sistema. In questo caso lavora appunto a livello di rete e quindi riesce a rilevare se un nuovo dispositivo si collega alla rete o se un dispositivo invia strane richieste.
+
+Un IDS può individuare una intrusione tramite 3 tipologie di rilevamento differenti:
+\begin{itemize}
+	\item \textbf{Threshold based detection}: si conta il numero di occorrenze di un determinato evento e se tale numero supera una determinata soglia allora viene considerato come ``attacco in corso''. E' una tecnica di rilevamento basata su anomalie (\emph{anomaly detection}).
+	\item \textbf{Profile based detection}: si traccia ciò che un account fa abitualmente e si guarda se in una giornata sta assumendo il solito comportamento o se si discosta molto dalle abitudini. Se si discosta troppo allora si considera come ``attacco in corso''.  E' una tecnica di rilevamento basata su anomalie (\emph{anomaly detection}).
+	\item \textbf{Signature based detection}: si usano modelli di attacchi già noti e si mette a confronto il comportamento rilevato con i modelli conosciuti per vedere se corrispondono a una minaccia nota.
+\end{itemize}
+
+È importante sapere che un IDS non può bloccare o filtrare i pacchetti in ingresso ed in uscita, né tanto meno può modificarli. Un IDS può essere paragonato ad un antifurto mentre il firewall alla porta blindata. L'IDS non cerca di bloccare le eventuali intrusioni, cosa che spetta al firewall, ma cerca di rilevarle laddove si verifichino.
+Per ogni rete è necessario un IDS che agisce solo sulla stessa. 
+
+\paragraph{Intrusion Prevenction System}: L'Intrusion Prevenction System o \textbf{IPS} è un dispositivo software o hardware che ha le stesse funzionalità di un IDS ma in più può fermare un attacco in \textbf{real time} andando a compiere alcune azioni quali comunicare con un firewall e aggiungere delle regole per bloccare determinate connessioni malevole o mandare down l'intero network (solo nei casi peggiori) così da evitare ulteriori danni al sistema.
+
 
 \paragraph{Honeypot {\normalfont \emoji{honey-pot}}:}
 Un honeypot rappresenta una strategica misura di sicurezza con la quale gli
 amministratori
 di un server ingannano gli hacker e gli impediscono di colpire.
-Un “barattolo di miele” simula i
+Un ``barattolo di miele'' simula i
 servizi di rete o programmi per attirare i malintenzionati e proteggere il
 sistema da eventuali
 attacchi. In pratica gli utenti configurano gli honeypot, utilizzando delle
