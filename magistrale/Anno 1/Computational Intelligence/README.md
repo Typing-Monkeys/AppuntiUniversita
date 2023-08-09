@@ -1105,7 +1105,7 @@ In questo modo genero ogni numero x[i] con una **probabilità proporzionale** a 
 ### **Selezione basata su tornei**
 - **scelgo k individui a caso e scelgo il migliore tra di loro** (a mo' di sfida)
 - **è più veloce rispetto a fare la roulette wheel**
-    - il costo di selezionare N/2 coppio è **O(kN)**, invece di **$O(N^2)$** per la roulette wheel
+    - il costo di selezionare N/2 coppie è **O(kN)**, invece di **$O(N^2)$** per la roulette wheel
 
 In questo modo il peggior individuo non verrà mai selezionato (non ha chance di essere selezionato perchè prendendo anche solo due individui. Il peggiore non sarà mai scelto a meno che tra le selezioni degli individui io posso pescare più volte lo stesso individuo. In questo modo potrei prendere due peggiori e quindi viene selezionato). <br>
 Questi metodi di selezione possono produrre un mating pool con individui identici
