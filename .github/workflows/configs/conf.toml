@@ -41,7 +41,7 @@ split_commits = false
 # regex for parsing and grouping commits
 
 commit_preprocessors = [
-    {pattern = ".*", replace_command="echo -n \"$(head -1 $@) @$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/ncvescera/provaactions/commits/$COMMIT_SHA | jq -r .author.login)\""}
+    {pattern = ".*", replace_command="echo -n \"$(head -1 $@) @$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/Typing-Monkeys/AppuntiUniversita/commits/$COMMIT_SHA | jq -r .author.login)\""}
 ]
 
 commit_parsers = [
