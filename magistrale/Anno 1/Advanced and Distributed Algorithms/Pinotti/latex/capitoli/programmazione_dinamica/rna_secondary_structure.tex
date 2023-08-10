@@ -13,9 +13,9 @@ e l'RNA è una sequenza di simboli presi da questo alfabeto.\\
 Il processo di accoppiamento delle basi è dettato dalla regola di
 \emph{Watson-Crick} e segue il seguente schema:
 
-\[
-  A - U \ \ \ \text{ e } \ \ \ C - G \ \ \ \text{ (l'ordine non conta)}
-\]
+\begin{center}
+  $A-U$ \ \ \ e \ \ \ $C-G$ \ \ \ (l'ordine non conta)
+\end{center}
 
 
 \begin{figure}[H]
@@ -41,10 +41,10 @@ seguenti condizioni:
 
 \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \item
+  \item \label{ss:1}
         \textbf{No sharp turns}: la fine di ogni coppia è separata da almeno 4
         basi, quindi se $(i,j) \in S$ allora $i < j - 4$
-  \item
+  \item \label{ss:2}
         Gli elementi di una qualsiasi coppia $S$ consistono di $\{A, U\}$
         o $\{C, G\}$ (in qualsiasi ordine).
   \item
@@ -57,7 +57,7 @@ seguenti condizioni:
 \end{enumerate}
 
 \begin{figure}[H]
-  \includegraphics[width=15cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/rna2.png}
+  \includegraphics[width=\textwidth, keepaspectratio]{capitoli/programmazione_dinamica/imgs/rna2.png}
   \centering
   \caption{La figura $(a)$ rappresenta un esempio di Sharp Turn, mentre la
     figura $(b)$ mostra una Crossing Condition dove il filo blu non dovrebbe
@@ -91,29 +91,25 @@ parzialmente farlo sfruttando le seguenti scelte:
   \item $j$ non appartiene ad una coppia
   \item $j$ si accoppia con $t$ per qualche $t \leq j - 4$
 \end{enumerate}
+
+Per il primo caso basta cercare la soluzione per $OPT(j - 1)$.\\
+Nel secondo caso, se teniamo conto della \textbf{Non Crossing
+  Condition}, possiamo isolare due nuovi sotto-problemi: uno sulle basi
+$b_1 b_2 \ldots b_{t-1}$ e l'altro sulle basi
+$b_{t+1} \ldots b_{j-1}$.
+
 \begin{itemize}
   \item
-        Per il primo caso basta cercare la soluzione per $OPT(j - 1)$
+        Il primo si risolve con $OPT(t-1)$
   \item
-        Nel secondo caso, se teniamo conto della \textbf{Non Crossing
-          Condition}, possiamo isolare due nuovi sotto-problemi: uno sulle basi
-        $b_1 b_2 \ldots b_{t-1}$ e l'altro sulle basi
-        $b_{t+1} \ldots b_{j-1}$.
-
-        \begin{itemize}
-          \item
-                Il primo si risolve con $OPT(t-1)$
-          \item
-                Il secondo, dato che non inizia con indice $1$, non è nella lista
-                dei nostri sotto-problemi. A causa di ciò risulta necessario
-                aggiungere una variabile.
-        \end{itemize}
+        Il secondo, dato che non inizia con indice $1$, non è nella lista
+        dei nostri sotto-problemi. A causa di ciò risulta necessario
+        aggiungere una variabile.
 \end{itemize}
-
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=15cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/rna3.png}
+  \includegraphics[width=\textwidth, keepaspectratio]{capitoli/programmazione_dinamica/imgs/rna3.png}
   \centering
 \end{figure}
 
@@ -121,7 +117,7 @@ parzialmente farlo sfruttando le seguenti scelte:
 Basandoci sui ragionamenti precedenti, possiamo scrivere
 una ricorsione di successo, ovvero:\\
 
-sia $OPT(i,j)$ = massimo numero di coppie nella
+sia $OPT(i,j)$ il massimo numero di coppie nella
 struttura secondaria $b_i b_{i+1} \ldots b_j$, grazie alla \textbf{non
   Sharp turn Condition} possiamo inizializzare gli elementi con
 $i \geq j -4$ a $0$. Ora avremmo sempre le stesse condizioni
@@ -139,11 +135,11 @@ $OPT(t+1, j-1)$ affinché venga rispettata la \textbf{non crossing
 
 Riassumendo, distinguiamo 3 diversi casi:
 \begin{enumerate}
-  \item if $i \ge j -4$:\\
+  \item se $i \ge j -4$:\\
         $OPT(i,j) = 0$ dalla \textbf{no-Sharp Turns condition}
   \item $b_j$ non viene accoppiata:\\ $OPT(i,j) = OPT(i,j-1)$
   \item $b_j$ si accoppia con $b_t$ per una qualche $i \le t < j -4$:\\
-        $OPT(i,j) = 1 + max_t{OPT(i, t-1) + OPT(t+1, j-1)}$
+        $OPT(i,j) = 1 + \max_t(OPT(i, t-1) + OPT(t+1, j-1))$
 \end{enumerate}
 
 
@@ -152,8 +148,8 @@ Possiamo esprimere formalmente la ricorsione come segue:
 \begin{myblockquote}
   $OPT(i, j) = \max(OPT(i, j-1), \max_t(1+OPT(i, t-1)+OPT(t+1, j-1)))$,\\
   dove il massimo è calcolato su $t$ tale che $b_t$ e
-  $b_j$ siano una coppia di basi consentita (sotto le condizioni (1) e
-  (2) dalla definizione di struttura secondaria).
+  $b_j$ siano una coppia di basi consentita (sotto le condizioni (\ref{ss:1}) e
+  (\ref{ss:2}) dalla definizione di struttura secondaria).
 \end{myblockquote}
 
 
@@ -181,10 +177,13 @@ Possiamo infine formalizzare il tutto con il seguente pseudo-codice:
 \subsection{Costo}
 
 Ci sono $O(n^2)$ sotto-problemi da risolvere e ognuno richiede tempo
-$O(n)$, quindi il running time complessivo è di $O(n^3)$.
-\\
-\\
-Costo computazionale: $O(n^3)$ time e $O(n^2)$ space
+$O(n)$, quindi il running time complessivo è di $O(n^3)$.\\
+
+Costo computazionale:
+\begin{itemize}
+  \item \textbf{Tempo:} $O(n^3)$
+  \item \textbf{Spazio:} $O(n^2)$
+\end{itemize}
 
 \section{Riepilogo}
 
@@ -192,7 +191,7 @@ Costo computazionale: $O(n^3)$ time e $O(n^2)$ space
   \item
         Trovare il modo di accoppiare le basi di RNA con delle regole
   \item
-        $OPT[i,j] = max\{ max_{i \le t \le j-5} \{ 1 + OPT[i, t-1] + OPT[t+1, j-1] \}, OPT[i, j-1] \}$
+        $OPT[i,j] = \max(\max_{i \le t \le j-5}(1 + OPT[i, t-1] + OPT[t+1, j-1]), OPT[i, j-1])$
   \item
         Spazio = matrice riempita per diagonali $\rightarrow$ \textbf{SPAZIO
           =} $O(n^2)$
