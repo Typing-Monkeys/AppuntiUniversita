@@ -10,11 +10,14 @@ standard per moltiplicare una coppia di matrici, dopo che abbiamo posto
 le opportune parentesi per eliminare qualsiasi ambiguità sul modo in cui
 devono essere moltiplicate le matrici.\\ La moltiplicazione delle matrici
 è associativa, quindi \textbf{tutte le parentesizzazioni forniscono lo
-  stesso prodotto}.\\
+  stesso prodotto}.
 
-\textbf{DEF}: \emph{Un prodotto di matrici è \textbf{completamente
+\begin{definition}
+  Un prodotto di matrici è \textbf{completamente
     parentesizzato} se è una singola matrice oppure è il prodotto, racchiuso
-  tra parentesi, di due prodotti di matrici completamente parentesizzati}.
+  tra parentesi, di due prodotti di matrici completamente parentesizzati.
+\end{definition}
+
 Per esempio, se la sequenza delle matrici è $A_1, A_2, A_3, A_4$, il
 prodotto $A_1 A_2 A_3 A_4$ può essere parentesizzato in cinque modi
 distinti:
@@ -30,20 +33,22 @@ Il modo in cui parentesizziamo una sequenza di matrici può avere un
 impatto notevole sul costo per calcolare il prodotto.\\
 
 L'algoritmo standard di moltiplicazioni tra matrici è dato dal seguente
-pseudocodice:\\
-\texttt{Algorithm\ Matrix-Multiply(A, B)}
+pseudocodice:
+
 \begin{lstlisting}[language=Python, mathescape=true]
+function Matrix-Multiply(A, B) {
  Require: Matrices A, B with A.columns = B.rows
 
  Let C be a new A.rows $\times$ B.columns matrix
- 
+
  for i $\leftarrow$ 1 $\ldots$ A.rows do
    for j $\leftarrow$ 1 $\ldots$ B.columns do
      Cij $\leftarrow$ 0
      for k $\leftarrow$ 1 $\ldots$ A.columns do
        Cij $\leftarrow$ Cij + Aik $\cdot$ Bkj
- 
+
  return C
+}
 \end{lstlisting}
 
 \subsection{Costo}
@@ -51,21 +56,21 @@ pseudocodice:\\
 \begin{itemize}
   \item Tre cicli nidificati: $O(A.righe \cdot B.colonne \cdot A.colonne)$
   \item Numero di moltiplicazioni: \emph{A.righe $\cdot$ B.colonne $\cdot$ A.colonne}
-  \item Moltiplicazione di due matrici $n$ x $n$: runtime $O(n^3)$
+  \item Moltiplicazione di due matrici $n \times n$: runtime $O(n^3)$
 \end{itemize}
 
-\textbf{N.B.}:
+%% TODO: ricontrollare riga 8 dell'algoritmo
+\paragraph*{Nota:}
 \begin{itemize}
   \item Possiamo moltiplicare due matrici soltanto se sono
         \textbf{compatibili}: il numero di colonne di $A$ deve essere uguale
         al numero di righe di $B$.
-  \item Se $A$ è una matrice $p$ x $q$ e
-        $B$ è una matrice $q$ x $r$, la matrice risultante $C$ è una
-        matrice $p$ x $r$.
+  \item Se $A$ è una matrice $p \times q$ e
+        $B$ è una matrice $q \times r$, la matrice risultante $C$ è una
+        matrice $p \times r$.
+  \item Il tempo per calcolare $C$ è dato dal numero di prodotti scalari, che
+        è $p \cdot q \cdot r$ (riga 8 dell'algoritmo).
 \end{itemize}
-
-Il tempo per calcolare $C$ è dato dal numero di prodotti scalari, che
-è $p \cdot q \cdot r$ (riga 8 dell'algoritmo).\\
 
 Per mostrare come il costo per moltiplicare le matrici dipenda dallo
 schema di parentesizzazione, consideriamo il problema di moltiplicare
@@ -91,7 +96,7 @@ descritto in questo modo:
 \begin{myblockquote}
   Data una sequenza di $n$
   matrici $A_1, A_2, \ldots, A_n$, dove la matrice $A_i$ ha dimensioni
-  $p_{i-1}$ x $p_i$ per $i = 1,2, \ldots,n$, determinare lo schema di
+  $p_{i-1} \times p_i$ per $i = 1,2, \ldots,n$, determinare lo schema di
   parentesizzazione completa del prodotto $A_1A_2 \ldots A_n$ che minimizza
   il numero di prodotti scalari.
 \end{myblockquote}
@@ -119,12 +124,13 @@ parentesizzazioni alternative di una sequenza di $n$ matrici.
   \item Quando $n \ge 2$, un prodotto di matrici
         completamente parentesizzato è il prodotto di due sottoprodotti di
         matrici completamente parentesizzati e la suddivisione fra i due
-        sottoprodotti può avvenire fra la k-esima e la (k+1)-esima matrice per
-        qualsiasi k=1,2,\ldots,n-1.
+        sottoprodotti può avvenire fra la $k$-esima e la $(k+1)$-esima matrice per
+        qualsiasi $k=1,2,\ldots,n-1$.
 \end{itemize}
 
-Quindi otteniamo la seguente ricorrenza
+Quindi otteniamo la seguente ricorrenza:
 
+%% TODO: riscrivere in LaTex
 \begin{figure}[H]
   \centering
   \includegraphics[width=10cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/matrix1.png}
@@ -132,14 +138,9 @@ Quindi otteniamo la seguente ricorrenza
     $\ldots$}
 \end{figure}
 
-\begin{itemize}
-  \item
-        Si può dimostrare che ci sono $\Omega(2^n)$ combinazioni
-  \item
-        Un algoritmo efficiente quindi non può provare tutte le possibili
-        combinazioni
-\end{itemize}
-
+Si può dimostrare che ci sono $\Omega(2^n)$ combinazioni.
+Un algoritmo efficiente quindi non può provare tutte le possibili
+combinazioni.
 
 \section{Applicare la programmazione dinamica}
 
@@ -211,7 +212,7 @@ Possiamo definire \texttt{m[i,j]} ricorsivamente in questo modo:
         Quindi \texttt{m[i,j]} è uguale al costo minimo per calcolare i
         sottoprodotti $A_{i..k}$ e $A_{k+1..j}$, più il costo per
         moltiplicare queste due matrici. Ricordando che ogni matrice $A_i$ è
-        $p_{i-1}$ x $p_i$, il calcolo del prodotto delle matrici
+        $p_{i-1} \times p_i$, il calcolo del prodotto delle matrici
         $A_{i..k} A_{k+1..j}$ richiede $p_{i-1} p_k p_j$ prodotti scalari.
         Quindi otteniamo: $m[i,j] = m[i,k] + m[k+1,j] + p_{i-1} p_k p_j$
 \end{itemize}
@@ -222,8 +223,9 @@ valori possibili per $k$, ovvero $k=i, i+1, \ldots, j-1$. Poichè la
 parentesizzazione ottima deve utilizzare uno di questi valori di $k$,
 dobbiamo semplicemente controllarli tutti per trovare il migliore.
 Quindi, la nostra definizione ricorsiva per il costo minimo di una
-parentesizzazione del prodotto $A_i A_{i+1} \ldots A_j$ diventa
+parentesizzazione del prodotto $A_i A_{i+1} \ldots A_j$ diventa:
 
+%% TODO: riscrivere in LaTex
 \begin{figure}[H]
   \centering
   \includegraphics[width=15cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/matrix2.png}
@@ -252,7 +254,7 @@ Anzichè calcolare la soluzione della ricorrenza ricorsivamente,
 calcoliamo il costo ottimale applicando un metodo tabulare Bottom-Up.\\
 Implementiamo quest'ultimo con la procedura \texttt{Matrix-Chain-Order}
 riportata qui di seguito. Questa procedura assume che la matrice $A_i$
-abbia dimensione $p_{i-1}$ x $p_i$ per $i=1,2,\ldots,n$. L'input è una
+abbia dimensione $p_{i-1} \times p_i$ per $i=1,2,\ldots,n$. L'input è una
 sequenza $p = p_0, p_1, \ldots, p_n$, dove \texttt{p.length} $= n+1$.\\
 La procedura usa una tabella ausiliaria \texttt{m[1..n,\ 1..n]} per
 memorizzare i costi \texttt{m[i,j]} e una tabella ausiliaria
@@ -278,26 +280,27 @@ del problema la lunghezza $j-i+1$ della sequenza.
 
 \section{Bottom-Up Approach}
 
-\texttt{Matrix-Chain-Order(p)}
 \begin{lstlisting}[language=Python, mathescape=true]
-matrix Ai has dimensions p(i-1) $\times$ p(i)
-n = p.length - 1
+function Matrix-Chain-Order(p) {
+  matrix Ai has dimensions p(i-1) $\times$ p(i)
+  n = p.length - 1
 
-Let m[1$\ldots$n,1$\ldots$n] and s[1$\ldots$n,1$\ldots$n] be new arrays
+  Let m[1$\ldots$n,1$\ldots$n] and s[1$\ldots$n,1$\ldots$n] be new arrays
 
-for i $\leftarrow$ 1 $\ldots$ n do
-	m[i,i] $\leftarrow$ 0
-for l $\leftarrow$ 2$\ldots$n do                  # l = chain length
-	for i $\leftarrow$ 1 $\ldots$ n - l + 1 do    # left position 
-		j $\leftarrow$ i + l - 1                  # right position
-		m[i,j] $\leftarrow$ $\infty$
-		for k $\leftarrow$ i $\ldots$ j - 1 do
-          q  = m[i,k] + m[k +1,j] + pi-1 pk pj
-          if q $<$ m[i,j]
-            m[i,j] = q
-            s[i,j] = k
+  for i $\leftarrow$ 1 $\ldots$ n do
+	  m[i,i] $\leftarrow$ 0
+  for l $\leftarrow$ 2$\ldots$n do                # l = chain length
+	  for i $\leftarrow$ 1 $\ldots$ n - l + 1 do    # left position 
+		  j $\leftarrow$ i + l - 1              # right position
+		  m[i,j] $\leftarrow$ $\infty$
+		  for k $\leftarrow$ i $\ldots$ j - 1 do
+            q  = m[i,k] + m[k +1,j] + pi-1 pk pj
+            if q $<$ m[i,j]
+              m[i,j] = q
+              s[i,j] = k
 
-return m and s
+  return m and s
+}
 \end{lstlisting}
 
 L'algoritmo prima calcola \texttt{m[i,i]} $= 0$ per
@@ -314,17 +317,13 @@ dipende soltanto dagli elementi della tabella \texttt{m{[}i,k{]}} e
 
 \subsection{Costo}
 
-\begin{itemize}
-  \item
-        Da un semplice esame dalla struttura annidata dei cicli della
-        procedura \texttt{Matrix-Chain-Order} si deduce che il \textbf{tempo
-          di esecuzione dell'algoritmo è pari a} $O(n^3)$. I cicli hanno tre
-        livelli di annidamento e ogni indice di ciclo $(l,i \text{ e } k)$
-        assume al massimo $n-1$ valori.
-  \item
-        L'algoritmo richiede \textbf{in spazio} $O(n^2)$ per memorizzare le
-        tabelle \texttt{m} e \texttt{s}.
-\end{itemize}
+Da un semplice esame dalla struttura annidata dei cicli della
+procedura \texttt{Matrix-Chain-Order} si deduce che il \textbf{tempo
+  di esecuzione dell'algoritmo è pari a} $O(n^3)$. I cicli hanno tre
+livelli di annidamento e ogni indice di ciclo ($l,i \text{ e } k$)
+assume al massimo $n-1$ valori.\\
+L'algoritmo richiede \textbf{in spazio} $O(n^2)$ per memorizzare le
+tabelle \texttt{m} e \texttt{s}.\\
 
 Quindi, la procedura \texttt{Matrix-Chain-Order} \textbf{è molto più
   efficiente del metodo con tempo esponenziale che elenca tutte le
@@ -352,27 +351,28 @@ gli indici $i$ e $j$ e la tabella \texttt{s} (calcolata da
 \texttt{Print-Optimal-Parens(s,\ 1,\ n)} produce una parentesizzazione
 ottima di ($A_1$, $A_2$,\ldots,$A_n$).\\
 
-
-\texttt{Print-Optimal-Parens(s, 1, n)}
 \begin{lstlisting}[language=Python, mathescape=true]
-Require: Array s, positions i, j
+function Print-Optimal-Parens(s, 1, n) {
+  Require: Array s, positions i, j
 
-if i = j then
-  print "Ai "
-else
-  print "("
-  Print-Optimal-Parens(s, i, s[i, j])
-  Print-Optimal-Parens(s, s[i, j] + 1, j)
-  print ")"
+  if i = j then
+    print "Ai "
+
+  else
+    print "("
+    Print-Optimal-Parens(s, i, s[i, j])
+    Print-Optimal-Parens(s, s[i, j] + 1, j)
+    print ")"
+}
 \end{lstlisting}
-
+\newpage
 \section{Riepilogo}
 
 \begin{itemize}
   \item
         L'obiettivo è minimizzare i prodotti scalari con parentesizzazione
   \item
-        $m[i,j] = min_{i \leq k < j} \{ m[i,k] + m[k+1, j] + p_{i-1} p_k p_j\}$
+        $m[i,j] = \min_{i \leq k < j} (m[i,k] + m[k+1, j] + p_{i-1} p_k p_j)$
   \item
         spazio necessario: ho bisogno di una matrice (triangolare superiore)
         per ricordarmi i valori calcolati precedentemente, riempita per
@@ -380,7 +380,7 @@ else
   \item
         spazio matrice $n \times n$ : \textbf{SPAZIO =} $O(n^2)$
   \item
-        per ogni cella pago n: \textbf{TEMPO =} $O(n^3)$
+        per ogni cella pago $n$: \textbf{TEMPO =} $O(n^3)$
   \item
         per ricorstruire la soluzione: \textbf{SPAZIO} = $O(n^2)$ uso una
         matrice dove segno quale $k$ per ogni $(i,j)$ ha dato il risultato
