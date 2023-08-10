@@ -31,14 +31,9 @@ dinamica si presta molto bene a risolvere anche questo tipo di problemi.
 
 \subsection{Goal}
 
-\begin{itemize}
-  \item
-        Il goal dell'algoritmo è quello di \textbf{\emph{cercare la linea con
-            errore minimo}}, che può essere facilmente trovata utilizzando
-        l'analisi matematica.
-\end{itemize}
-
-
+Il goal dell'algoritmo è quello di \textbf{\emph{cercare la linea con
+    errore minimo}}, che può essere facilmente trovata utilizzando
+l'analisi matematica.\\
 
 La linea di errore minimo è $y = ax + b$ dove:
 
@@ -65,24 +60,20 @@ linea. Questo però implica dover riformulare il goal che altrimenti
 risulterebbe banale (si fanno $n$ linee che passano per ogni punto).
 
 \subsection{Goal}
-
-\begin{itemize}
-  \item
-        Formalmente, il problema è espresso come segue:
-        \begin{myblockquote}
-          Come prima abbiamo un set di punti
-          $P = \{(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\}$ strettamente
-          crescenti. Denoteremo l'insieme dei punti
-          $(x_i, y_i)$ con $p_i$.\\
-          Vogliamo partizionare $P$ in un qualche numero di segmenti, ogni numero di segmenti è un
-          sottoinsieme di $P$ che rappresenta un \emph{set} contiguo delle
-          coordinate $x$ con la forma
-          $\{p_i, p_{i+1}, \ldots, p_{j-1}, p_j\}$ per degli indici
-          $i \leq j$.\\
-          Dopodiché, per ogni segmento $S$ calcoliamo la linea che minimizza l'errore rispetto ai punti in $S$
-          secondo quanto espresso dalle formule enunciate prima.
-        \end{myblockquote}
-\end{itemize}
+Formalmente, il problema è espresso come segue:
+\begin{myblockquote}
+  Come prima abbiamo un set di punti
+  $P = \{(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\}$ strettamente
+  crescenti. Denoteremo l'insieme dei punti
+  $(x_i, y_i)$ con $p_i$.\\
+  Vogliamo partizionare $P$ in un qualche numero di segmenti, ogni numero di segmenti è un
+  sottoinsieme di $P$ che rappresenta un \emph{set} contiguo delle
+  coordinate $x$ con la forma
+  $\{p_i, p_{i+1}, \ldots, p_{j-1}, p_j\}$ per degli indici
+  $i \leq j$.\\
+  Dopodiché, per ogni segmento $S$ calcoliamo la linea che minimizza l'errore rispetto ai punti in $S$
+  secondo quanto espresso dalle formule enunciate prima.
+\end{myblockquote}
 
 Definiamo infine una \textbf{penalità} per una data partizione come la
 somma dei seguenti termini:
@@ -94,7 +85,9 @@ somma dei seguenti termini:
         ottima attraverso quel segmento.
 \end{itemize}
 
-$f(x) = E + C L$\\
+$$
+  f(x) = E + C L
+$$
 
 Il goal del Segmented Least Square Problem è quindi quello di
 \textbf{trovare la partizione di penalità minima}.
@@ -120,38 +113,40 @@ avremo che la soluzione ottima al problema dato l'ultimo segmento che va
 da $p_i$ a $p_n$, sarà dalla seguente formula:
 
 $$
-  OPT(n) = e_{i,n} + C + OPT(i - 1)
+  OPT(n) = e(i,n) + C + OPT(i - 1)
 $$
 
-Questa formula è data dalla soluzione ottima dell'ultima partizione (
-$e_{i,n} + C$ ) a cui viene aggiunta la soluzione ottima di tutte le
-partizioni precedenti ( $OPT(i -1)$ ).\\
+Questa formula è data dalla soluzione ottima dell'ultima partizione ($e(i,n) +
+  C$) a cui viene aggiunta la soluzione ottima di tutte le partizioni precedenti
+($OPT(i -1)$).\\
 
 Per i sotto-problemi possiamo scrivere la soluzione al problema in forma
 ricorsiva utilizzando la formula appena espressa che prenderà la forma:
 
 $$
-  OPT(j) = \min_{1 \leq i \leq j}(e_{i,j} + C + OPT(i - 1))
+  OPT(j) = \min_{1 \leq i \leq j}(e(i,j) + C + OPT(i - 1))
 $$
 
-\textbf{\emph{N.B.}} : $OPT(j) = 0$ if $j=0$\\
+con $e(i,j)$ che rappresenta la somma degli errori quadrati per i punti $p_i,
+  p_{i+1},..., p_j$.
 
-$e(i,j)$ = somma degli errori quadrati per i punti $p_i, p_{i+1},..., p_j$
+\paragraph*{Nota:} $OPT(j) = 0$ se $j=0$\\
+
 \begin{lstlisting}[language=Python, mathescape=true]
 function Segmented-Least-Squares(n) {
-    M[0 ... n]
+    M[0 $\ldots$ n]
     M[0] = 0
     
     // compute the errors
-    for (j in 1 ... n) {
-        for (i in 1 ... j) {
-            compute eij for the segment pi, ..., pj
+    for (j in 1 $\ldots$ n) {
+        for (i in 1 $\ldots$ j) {
+            compute $e$(i,j) for the segment $p_i, \ldots, p_j$
         }
     }
 
     // find optimal value
-    for (j in 1 ... n) {
-        M[j] = min_i(eij + C + M[i $-$ 1]) // OPT(J)
+    for (j in 1 $\ldots$ n) {
+        M[j] = $\min_{i}$($e$(i,j) + C + M[i-1]) // OPT(J)
     }
 
     return M[n]
@@ -166,8 +161,10 @@ function Find-Segments(j) {
     if (j == 0) 
         print('')
     else {
-        Find an i that minimizes ei,j + C + M[i - 1]
-        Output the segment {pi,$\ldots$, pj} and the result of Find-Segments(i - 1)
+        Find an i that minimizes $e$(i,j) + C + M[i - 1]
+
+        Output the segment {$p_i,\ldots, p_j$} and the result of
+        Find-Segments(i-1)
     }
 }
 \end{lstlisting}
@@ -194,25 +191,18 @@ Quindi:
 \section{Riepilogo}
 
 \begin{itemize}
-  \item
-        Trovare il numero di segmenti su un piano cartesiamo per minimizzare i
+  \item Trovare il numero di segmenti su un piano cartesiamo per minimizzare i
         quadrati degli errori
-  \item
-        $OPT[j] = min_{1 \le i \le j } \{ OPT[i-1] + e(i,j) + C \}$
+  \item $OPT[j] = \min_{1 \le i \le j} \{ OPT[i-1] + e(i,j) + C \}$
 
         \begin{itemize}
-          \item
-                $C$: il costo da pagare per ogni segmento
-          \item
-                $e$: il costo degli errori
+          \item $C$: il costo da pagare per ogni segmento
+          \item $e$: il costo degli errori
         \end{itemize}
-  \item
-        Risolvo n problemi: \textbf{SPAZIO =} $O(n)$
-  \item
-        Per ogni problema ho n scelte ( $O(n^2)$ ) ma per computare
-        $e(i,j)$ : \textbf{TEMPO =} $O(n^3)$
-  \item
-        Per ricostruire la soluzione salvo un vettore dove $S[j] = min_i$ :
+  \item Risolvo $n$ problemi: \textbf{SPAZIO =} $O(n)$
+  \item Per ogni problema ho $n$ scelte ($O(n^2)$) ma per computare
+        $e(i,j)$: \textbf{TEMPO =} $O(n^3)$
+  \item Per ricostruire la soluzione salvo un vettore dove $S[j] = \min_i$:
         \textbf{SPAZIO} = $O(n)$
 \end{itemize}
 
