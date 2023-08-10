@@ -6,9 +6,8 @@ ottimale per l'Interval Scheduling Problem, in cui l'obiettivo è
 accettare un insieme di intervalli non sovrapposti il più ampio
 possibile. \textbf{Il Weighted Interval Scheduling Problem} è una
 versione più \textbf{generale}, in cui ogni intervallo ha un certo
-valore (o peso), e vogliamo accettare un insieme di valore massimo.
-\\
-\\
+valore (o peso), e vogliamo accettare un insieme di valore massimo.\\
+
 Questo problema ha l'obiettivo di ottenere un insieme (il più grande
 possibile) di intervalli non sovrapposti (overlapping). Per la versione
 non pesata (Interval Scheduling Problem in cui weight=1) esiste uno
@@ -16,17 +15,12 @@ specifico algoritmo \textbf{Greedy} che è in grado di trovare la
 soluzione ottima, tuttavia nella versione più generale, ovvero la
 versione pesata (\textbf{il Weighted Interval Scheduling Problem},
 weight $\neq$ 1), è necessario utilizzare la programmazione dinamica.
-\\
-\\
-
 
 \begin{figure}[H]
       \includegraphics[width=\textwidth]{capitoli/programmazione_dinamica/imgs/weigted_interval_scheduling.png}
       \centering
       \caption{Un esempio di weighted interval scheduling}
-      %\label{fig:wis}
 \end{figure}
-
 
 \section{Descrizione del problema}
 
@@ -46,8 +40,7 @@ weight $\neq$ 1), è necessario utilizzare la programmazione dinamica.
             intervallo compatibile con l'intervallo $j$, considerando il fatto
             che gli intervalli sono ordinati in ordine non decrescente in base a
             $f_i$
-      \item
-            $\mathcal{O}_j$: rappresenta la soluzione ottima al problema
+      \item $\mathcal{O}_j$: rappresenta la soluzione ottima al problema
             calcolato sull'insieme $\{1, \ldots, j\}$
       \item
             $OPT(j)$: rappresenta il valore della soluzione ottima
@@ -56,19 +49,16 @@ weight $\neq$ 1), è necessario utilizzare la programmazione dinamica.
 
 \begin{figure}[H]
       \centering
-      \includegraphics[width=15cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/wis_instance.png}
+      \includegraphics[width=14cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/wis_instance.png}
       \caption{Si può vedere come funziona effettivamente la funzione $p(i)$}
 \end{figure}
 
-\subsection{Goal:}
+\subsection{Goal}
 
-\begin{itemize}
-      \item L'obiettivo del problema attuale è quello di trovare un sottoinsieme
-            $S \subseteq \{1, \ldots, n\}$ di intervalli mutualmente compatibili
-            che vanno a massimizzare la somma dei pesi degli intervalli
-            selezionati $\sum_{i \in S} v_i$.
-\end{itemize}
-
+L'obiettivo del problema attuale è quello di trovare un sottoinsieme
+$S \subseteq \{1, \ldots, n\}$ di intervalli mutualmente compatibili
+che vanno a massimizzare la somma dei pesi degli intervalli
+selezionati $\sum_{i \in S} v_i$.
 
 \section{Greedy Version; Earliest Finish Time First}
 
@@ -240,23 +230,18 @@ resto del capitolo, svilupperemo algoritmi di programmazione dinamica
 usando il secondo tipo di approccio (costruzione iterativa di
 sottoproblemi) perché gli algoritmi sono spesso più semplici da
 esprimere in questo modo.
+\newpage
 
 \section{Riepilogo}
 
 \begin{itemize}
-      \item
-            $OPT[j] = \max_{v_j}+OPT[p_j],OPT[j-1]$
-      \item
-            Per ogni $j$ scelgo se prenderlo o meno
-      \item
-            Alcuni sottoproblemi vengono scartati (quelli che si sovrappongono al
+      \item $OPT[j] = \max(v_j+OPT[p_j],OPT[j-1])$
+      \item Per ogni $j$ scelgo se prenderlo o meno
+      \item Alcuni sottoproblemi vengono scartati (quelli che si sovrappongono al
             $j$ scelto)
-      \item
-            Per ogni scelta ho due possibilità: \textbf{TEMPO =} $O(n \log n)$
-      \item
-            Lo spazio è un vettore di $OPT[j]$: \textbf{SPAZIO =} $O(n)$
-      \item
-            Per ricostruire la soluzione uso un vettore dove per ogni $j$ ho un
+      \item Per ogni scelta ho due possibilità: \textbf{TEMPO =} $O(n \log n)$
+      \item Lo spazio è un vettore di $OPT[j]$: \textbf{SPAZIO =} $O(n)$
+      \item Per ricostruire la soluzione uso un vettore dove per ogni $j$ ho un
             valore booleano che indica se il job fa parte della soluzione:
             \textbf{SPAZIO\_S =} $O(n)$
 \end{itemize}
