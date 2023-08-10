@@ -21,49 +21,49 @@ weight $\neq$ 1), è necessario utilizzare la programmazione dinamica.
 
 
 \begin{figure}[H]
-  \includegraphics[width=\textwidth]{Programmazione_dinamica/imgs/weigted_interval_scheduling.png}
-  \centering
-  \caption{Un esempio di weighted interval scheduling}
-  \label{fig:wis}
+      \includegraphics[width=\textwidth]{capitoli/programmazione_dinamica/imgs/weigted_interval_scheduling.png}
+      \centering
+      \caption{Un esempio di weighted interval scheduling}
+      %\label{fig:wis}
 \end{figure}
 
 
 \section{Descrizione del problema}
 
 \begin{itemize}
-  \item
-        $n$: un intero che rappresenta l'indice dell'intervallo (job)
-  \item
-        $s_i$: tempo di inizio dell'intervallo $i$
-  \item
-        $f_i$: tempo di fine dell'intervallo $i$
-  \item
-        $v_i$: peso dell'intervallo $i$
-  \item
-        Due job sono \textbf{compatibili} se non si sovrappongono.
-  \item
-        $p(j)$: ritorna l'indice più grande $i$, con $i < j$, del primo
-        intervallo compatibile con l'intervallo $j$, considerando il fatto
-        che gli intervalli sono ordinati in ordine non decrescente in base a
-        $f_i$
-  \item
-        $\mathcal{O}_j$: rappresenta la soluzione ottima al problema
-        calcolato sull'insieme $\{1, \ldots, j\}$
-  \item
-        $OPT(j)$: rappresenta il valore della soluzione ottima
-        $\mathcal{O}_j$
+      \item
+            $n$: un intero che rappresenta l'indice dell'intervallo (job)
+      \item
+            $s_i$: tempo di inizio dell'intervallo $i$
+      \item
+            $f_i$: tempo di fine dell'intervallo $i$
+      \item
+            $v_i$: peso dell'intervallo $i$
+      \item
+            Due job sono \textbf{compatibili} se non si sovrappongono.
+      \item
+            $p(j)$: ritorna l'indice più grande $i$, con $i < j$, del primo
+            intervallo compatibile con l'intervallo $j$, considerando il fatto
+            che gli intervalli sono ordinati in ordine non decrescente in base a
+            $f_i$
+      \item
+            $\mathcal{O}_j$: rappresenta la soluzione ottima al problema
+            calcolato sull'insieme $\{1, \ldots, j\}$
+      \item
+            $OPT(j)$: rappresenta il valore della soluzione ottima
+            $\mathcal{O}_j$
 \end{itemize}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=15cm, keepaspectratio]{Programmazione_dinamica/imgs/wis_instance.png}
-    \caption{Si può vedere come funziona effettivamente la funzione $p(i)$}
+      \centering
+      \includegraphics[width=15cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/wis_instance.png}
+      \caption{Si può vedere come funziona effettivamente la funzione $p(i)$}
 \end{figure}
 
 \subsection{Goal:}
 
 \begin{itemize}
-    \item L'obiettivo del problema attuale è quello di trovare un sottoinsieme
+      \item L'obiettivo del problema attuale è quello di trovare un sottoinsieme
             $S \subseteq \{1, \ldots, n\}$ di intervalli mutualmente compatibili
             che vanno a massimizzare la somma dei pesi degli intervalli
             selezionati $\sum_{i \in S} v_i$.
@@ -87,13 +87,13 @@ formula (si considerano sempre i job in ordine non decrescente rispetto
 a $f_i$):
 
 $$
-  OPT(j) = max(v_j + OPT(p(j)), \ \ OPT(j-1))
+      OPT(j) = max(v_j + OPT(p(j)), \ \ OPT(j-1))
 $$
 
 Questo può essere anche visto come una \textbf{disequazione}:
 
 $$
-  v_j + OPT(p(j)) \geq OPT(j-1)
+      v_j + OPT(p(j)) \geq OPT(j-1)
 $$
 
 che \textbf{se vera}, includerà $j$ nella soluzione ottimale.
@@ -123,9 +123,9 @@ i quali si espandono come un albero binario. Il numero di chiamate
 ricorsive cresce come la \textbf{sequenza di fibonacci}.
 
 \begin{figure}[H]
-\centering
-  \includegraphics[width=10cm]{Programmazione_dinamica/imgs/wis_subproblem_tree.png}
-  \caption{L'albero dei sottoproblemi chiamati da \texttt{Compute-Opt}}
+      \centering
+      \includegraphics[width=10cm]{capitoli/programmazione_dinamica/imgs/wis_subproblem_tree.png}
+      \caption{L'albero dei sottoproblemi chiamati da \texttt{Compute-Opt}}
 \end{figure}
 
 Una soluzione è quella di utilizzare la tecnica della
@@ -159,13 +159,13 @@ presente nel suddetto array.\\
 \textbf{Costo computazionale} = $O(n\log{n})$:
 
 \begin{itemize}
-  \item
-        Sort: $O(n\log{n})$
-  \item
-        Computazione di $p[i]$: $O(n\log{n})$
-  \item
-        \texttt{M-Compute-Opt(i)}: $O(1)$ ogni iterazione, al massimo $2n$
-        ricorsioni = $O(n)$
+      \item
+            Sort: $O(n\log{n})$
+      \item
+            Computazione di $p[i]$: $O(n\log{n})$
+      \item
+            \texttt{M-Compute-Opt(i)}: $O(1)$ ogni iterazione, al massimo $2n$
+            ricorsioni = $O(n)$
 \end{itemize}
 
 Se i job sono già \textbf{ordinati} = $O(n)$
@@ -203,24 +203,24 @@ sviluppato nella sezione precedente per riassumere i principi di base
 della programmazione dinamica, e anche per offrire una prospettiva
 diversa che sarà fondamentale per il resto delle spiegazioni:
 \textbf{\emph{iterare su sottoproblemi, piuttosto che calcolare
-    soluzioni in modo ricorsivo}}.
+            soluzioni in modo ricorsivo}}.
 
 \begin{figure}[H]
-  \includegraphics[width = \textwidth]{Programmazione_dinamica/imgs/iter_comp_opt.png}
-  \caption{Figura che mostra le iterazioni per recuperare i valori di OPT}
+      \includegraphics[width = \textwidth]{capitoli/programmazione_dinamica/imgs/iter_comp_opt.png}
+      \caption{Figura che mostra le iterazioni per recuperare i valori di OPT}
 \end{figure}
 
 
 Nella sezione precedente, abbiamo sviluppato una soluzione in tempo
 polinomiale al problema, progettando: prima un \textbf{algoritmo
-  ricorsivo in tempo esponenziale} e poi \textbf{convertendolo (tramite
-  memoization) in un algoritmo ricorsivo efficiente} che consultava un
+      ricorsivo in tempo esponenziale} e poi \textbf{convertendolo (tramite
+      memoization) in un algoritmo ricorsivo efficiente} che consultava un
 array globale M di soluzioni ottimali per sottoproblemi. Per capire
 davvero i concetti della programmazione dinamica, è utile formulare una
 versione essenzialmente equivalente dell'algoritmo. \textbf{È questa
-  nuova formulazione che cattura in modo più esplicito l'essenza della
-  tecnica di programmazione dinamica e servirà come modello generale per
-  gli algoritmi che svilupperemo nelle sezioni successive}.
+      nuova formulazione che cattura in modo più esplicito l'essenza della
+      tecnica di programmazione dinamica e servirà come modello generale per
+      gli algoritmi che svilupperemo nelle sezioni successive}.
 
 \begin{lstlisting}[language=Python, mathescape=true]
 Sort jobs by finish time so that f1 $\le$ f2 $\le$ ... $\le$ fn. 
@@ -244,19 +244,19 @@ esprimere in questo modo.
 \section{Riepilogo}
 
 \begin{itemize}
-  \item
-        $OPT[j] = \max_{v_j}+OPT[p_j],OPT[j-1]$
-  \item
-        Per ogni $j$ scelgo se prenderlo o meno
-  \item
-        Alcuni sottoproblemi vengono scartati (quelli che si sovrappongono al
-        $j$ scelto)
-  \item
-        Per ogni scelta ho due possibilità: \textbf{TEMPO =} $O(n \log n)$
-  \item
-        Lo spazio è un vettore di $OPT[j]$: \textbf{SPAZIO =} $O(n)$
-  \item
-        Per ricostruire la soluzione uso un vettore dove per ogni $j$ ho un
-        valore booleano che indica se il job fa parte della soluzione:
-        \textbf{SPAZIO\_S =} $O(n)$
+      \item
+            $OPT[j] = \max_{v_j}+OPT[p_j],OPT[j-1]$
+      \item
+            Per ogni $j$ scelgo se prenderlo o meno
+      \item
+            Alcuni sottoproblemi vengono scartati (quelli che si sovrappongono al
+            $j$ scelto)
+      \item
+            Per ogni scelta ho due possibilità: \textbf{TEMPO =} $O(n \log n)$
+      \item
+            Lo spazio è un vettore di $OPT[j]$: \textbf{SPAZIO =} $O(n)$
+      \item
+            Per ricostruire la soluzione uso un vettore dove per ogni $j$ ho un
+            valore booleano che indica se il job fa parte della soluzione:
+            \textbf{SPAZIO\_S =} $O(n)$
 \end{itemize}

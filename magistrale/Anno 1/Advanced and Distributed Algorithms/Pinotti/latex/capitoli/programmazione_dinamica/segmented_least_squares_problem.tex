@@ -10,21 +10,23 @@ dinamica si presta molto bene a risolvere anche questo tipo di problemi.
 \section{Descrizione del Problema}
 
 \begin{myblockquote}
-  Dato un insieme $P$ composto di $n$ punti sul piano denotati con
+  Dato un insieme $P$ composto di $n$ punti sul piano denotati con \linebreak
   $(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)$ e supponiamo che
   $x_1 < x_2 < \ldots < x_n$ (sono strettamente crescenti). Data una
   linea $L$ definita dall'equazione $y = ax + b$, definiamo
   l'\emph{errore} di $L$ in funzione di $P$ come la somma delle
   distanze al quadrato della linea rispetto ai punti in $P$.\\
-  
-  Formalmente:\\
-  $Error(L, P) = \sum_{i=1}^{n} (y_i - ax_i - b)^2$
+
+  Formalmente:
+  \begin{equation*}
+    Error(L, P) = \sum_{i=1}^{n} (y_i - ax_i - b)^2
+  \end{equation*}
 \end{myblockquote}
 
 \begin{figure}[H]
-\centering
-\includegraphics[width = 10cm, keepaspectratio]{Programmazione_dinamica/imgs/best_fit.png}
-\caption{Esempio di linea con errore minimo}
+  \centering
+  \includegraphics[width = 10cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/best_fit.png}
+  \caption{Esempio di linea con errore minimo}
 \end{figure}
 
 \subsection{Goal}
@@ -51,8 +53,8 @@ hanno un andamento che è abbastanza lineare ma falliscono in altre
 circostanze.
 
 \begin{figure}[H]
-\centering
-  \includegraphics[width = 10cm, keepaspectratio]{Programmazione_dinamica/imgs/seg_llsqr.png}
+  \centering
+  \includegraphics[width = 10cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/seg_llsqr.png}
   \caption{Esempio di insieme di punti non approssimabile con una sola retta}
 \end{figure}
 
@@ -106,8 +108,8 @@ partizione ottima che parte da un valore $p_i$ fino a $p_n$ e che
 possiamo togliere questi punti dal totale per ottenete un sotto-problema
 più piccolo.
 \begin{figure}[H]
-\centering
-  \includegraphics[width = 10cm, keepaspectratio]{Programmazione_dinamica/imgs/llsqr_funzionamento.png}
+  \centering
+  \includegraphics[width = 10cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/llsqr_funzionamento.png}
   \centering
   \caption{Una soluzione possibile per il fit digli ultimi punti da $p_i$ a $p_n$,
     e poi la soluzione $OPT(i-1)$ trovata nei punti rimanenti $p_1, \ldotp, p_{i-1}$}

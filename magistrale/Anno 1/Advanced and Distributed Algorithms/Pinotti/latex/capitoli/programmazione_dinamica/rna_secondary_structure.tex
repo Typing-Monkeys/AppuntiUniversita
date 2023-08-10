@@ -1,4 +1,5 @@
 \chapter{RNA Secondary Stucture Problem}
+\label{chap:rna}
 
 La ricerca della struttura secondaria dell'RNA è un problema a 2
 variabili risolvibile tramite il paradigma della programmazione
@@ -19,7 +20,7 @@ Il processo di accoppiamento delle basi è dettato dalla regola di
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=10cm, keepaspectratio]{Programmazione_dinamica/imgs/rna1.png}
+  \includegraphics[width=10cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/rna1.png}
   \caption{Un possibile ripiegamento dell' \textbf{RNA}}
 \end{figure}
 
@@ -56,7 +57,7 @@ seguenti condizioni:
 \end{enumerate}
 
 \begin{figure}[H]
-  \includegraphics[width=15cm, keepaspectratio]{Programmazione_dinamica/imgs/rna2.png}
+  \includegraphics[width=15cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/rna2.png}
   \centering
   \caption{La figura $(a)$ rappresenta un esempio di Sharp Turn, mentre la
     figura $(b)$ mostra una Crossing Condition dove il filo blu non dovrebbe
@@ -73,22 +74,22 @@ il numero di coppie.
 Per mappare il problema sul paradigma della programmazione dinamica,
 come prima idea, potremmo basarci sul seguente sotto-problema:
 \begin{myblockquote}
-    \begin{itemize}
-      \item Affermiamo che $OPT(j)$ è il massimo numero di coppie
-            di basi sulla struttura secondaria $b_1 b_2 \ldots b_j$
-      \item per la Non Sharp Turn Condition sappiamo che
-            $OPT(j) = 0$ per $j \leq 5$
-      \item e sappiamo anche che
-            $OPT(n)$ è la soluzione che vogliamo trovare.
-    \end{itemize}
+  \begin{itemize}
+    \item Affermiamo che $OPT(j)$ è il massimo numero di coppie
+          di basi sulla struttura secondaria $b_1 b_2 \ldots b_j$
+    \item per la Non Sharp Turn Condition sappiamo che
+          $OPT(j) = 0$ per $j \leq 5$
+    \item e sappiamo anche che
+          $OPT(n)$ è la soluzione che vogliamo trovare.
+  \end{itemize}
 \end{myblockquote}
 
 
 Il problema sta nell'esprimere $OPT(j)$ ricorsivamente. Possiamo
 parzialmente farlo sfruttando le seguenti scelte:
 \begin{enumerate}
-    \item $j$ non appartiene ad una coppia
-    \item $j$ si accoppia con $t$ per qualche $t \leq j - 4$
+  \item $j$ non appartiene ad una coppia
+  \item $j$ si accoppia con $t$ per qualche $t \leq j - 4$
 \end{enumerate}
 \begin{itemize}
   \item
@@ -111,8 +112,8 @@ parzialmente farlo sfruttando le seguenti scelte:
 
 
 \begin{figure}[H]
-\centering
-  \includegraphics[width=15cm, keepaspectratio]{Programmazione_dinamica/imgs/rna3.png}
+  \centering
+  \includegraphics[width=15cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/rna3.png}
   \centering
 \end{figure}
 
@@ -149,8 +150,8 @@ Riassumendo, distinguiamo 3 diversi casi:
 Possiamo esprimere formalmente la ricorsione come segue:
 \\
 \begin{myblockquote}
-    $OPT(i, j) = \max(OPT(i, j-1), \max_t(1+OPT(i, t-1)+OPT(t+1, j-1)))$,\\
-dove il massimo è calcolato su $t$ tale che $b_t$ e
+  $OPT(i, j) = \max(OPT(i, j-1), \max_t(1+OPT(i, t-1)+OPT(t+1, j-1)))$,\\
+  dove il massimo è calcolato su $t$ tale che $b_t$ e
   $b_j$ siano una coppia di basi consentita (sotto le condizioni (1) e
   (2) dalla definizione di struttura secondaria).
 \end{myblockquote}
@@ -158,7 +159,7 @@ dove il massimo è calcolato su $t$ tale che $b_t$ e
 
 
 \begin{figure}[H]
-  \includegraphics[width=12cm, keepaspectratio]{Programmazione_dinamica/imgs/rna4.png}
+  \includegraphics[width=12cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/rna4.png}
   \centering
   \caption{Iterazioni dell'algoritmo su un campione del problema in
     questione $(ACCGGUAGU)$}

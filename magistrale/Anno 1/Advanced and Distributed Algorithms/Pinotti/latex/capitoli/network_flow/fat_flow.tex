@@ -14,12 +14,15 @@ Il cammino corretto può essere trovato in tempo $O(E)$ eseguendo una \texttt{BF
 Ora andremo a dimostrare la terminazione polinomiale dell'algoritmo con le seguenti 2 osservazioni, ma prima ci definiamo $\delta_f(u,v)$ come la distanza del cammino minimo da $u$ a $v$ nel grafo residuale $G_f$, considerando che ogni arco ha distanza unitaria.
 
 \begin{myblockquote}
-    Se l'agloritmo di Edmonds-Karp viene eseguito su una rete di flusso $G = (V, E)$ con sorgente $s$ e pozzo $t$, allora per ogni vertice $v \in V - \{s,t\}$, la distanza de cammino minimo $\delta_f(s,v)$ nella rete residua $G_f$ aumenta monotonicamente per ogni aumento di flusso.
+    Se l'agloritmo di Edmonds-Karp viene eseguito su una rete di flusso $G = (V,
+        E)$ con sorgente $s$ e pozzo $t$, allora per ogni vertice $v \in V -
+        \{s,t\}$, la distanza de cammino minimo $\delta_f(s,v)$ nella rete residua
+    $G_f$ aumenta \linebreak monotonicamente per ogni aumento di flusso.
 \end{myblockquote}
 
 \textbf{Dimostrazione.} Supponiamo per assurdo che per qualche vertice $v \in V - \{s, t\}$ ci sia un aumento di flusso che provoca una diminuzione della distanza del cammino minimo da $s$ a $v$. Sia $f$ il flusso appena prima del primo aumento che riduce una distanza del cammino minimo;
 sia $f^{'}$ il flusso subito dopo. Se $v$ è il vertice con il minimo $\delta_{f^{'}}(s,v)$ la cui distanza è stata ridotta dall'aumento, allora $\delta_{f^{'}}(s,v) < \delta_{f}(s,v)$.
-Se $p = s \rightsquigarrow u \rightarrow v$ è un cammino minimo da $s$ a $v$ in $G_{f{'}}$, allora 
+Se $p = s \rightsquigarrow u \rightarrow v$ è un cammino minimo da $s$ a $v$ in $G_{f{'}}$, allora
 $(u,v) \in E_{f^{'}}$ e:
 
 $$
@@ -28,7 +31,7 @@ $$
 
 Per il modo in cui abbiamo scelto $v$, sappiamo che la distanza del vertice $u$ dalla sorgente $s$ non è \textbf{aumentata(?)}, ovvero:
 $$
-    \delta_{f^{'}}(s,u) \ge \delta_{f}(s,u) 
+    \delta_{f^{'}}(s,u) \ge \delta_{f}(s,u)
 $$
 Noi asseriamo che $(u,v) \notin E_f$. \textbf{Perchè?}
 
@@ -39,9 +42,9 @@ $$
     \le \delta_{f^{'}}(s,u) -1 \\
     = \delta_{f^{'}}(s,v) -2
 $$
- Questo contraddice l'ipotesi che $\delta_{f^{'}}(s,v) < \delta_{f}(s,v)$.
+Questo contraddice l'ipotesi che $\delta_{f^{'}}(s,v) < \delta_{f}(s,v)$.
 
- Come è possibile avere $(u,v) \notin E_f$ e $(u,v) \in E_f^{'}$?
+Come è possibile avere $(u,v) \notin E_f$ e $(u,v) \in E_f^{'}$?
 L'augment deve avere incrementato il flusso da $v$ a $u$. L'algoritmo di Edmondo-Karp aumenta sempre il flusso lungo tutto i cammini minimi, e quindi il cammino minimo da $s$ a $u$ in $G_f$ ha $(v,u)$ come suo ultimo arco, per tanto si ha:
 
 $$
@@ -51,11 +54,14 @@ $$
 $$
 
 Questo contraddice l'ipotesi che $\delta_f^{'}(s,v) < \delta_f(s,v)$, quindi l'ipotesi dell'esistenza di un tale vertice $v$ non è corretta.\\
-\\
+
+\newpage
 \textbf{Il prossimo teorema limita il numero di iterazioni dell'algoritmo}
 
 \begin{myblockquote}
-    Se l'algoritmo viene eseguito su una rete di flusso $G = (V, E)$ con sorgente $s$ e pozzo $t$, allora il numero totale di aumenti di glusso effettuati dall'algoritmo è $O(VE)$
+    Se l'algoritmo viene eseguito su una rete di flusso $G = (V, E)$ con
+    sorgente $s$ e pozzo $t$, allora il numero totale di aumenti di flusso
+    effettuati dall'algoritmo è $O(VE)$.
 \end{myblockquote}
 
 \textbf{Dimostrazione.} Diciamo che un arco $(u,v)$ di una rete residua $G_f$ è \textbf{critico} in un cammino aumentante $p$ se la capacità residua di $p$ è la capacità residua di $(u,v)$.
@@ -69,7 +75,7 @@ $$
 $$
 Una volta che il flusso viene aumentato l'arco $(u,v)$ scompare dalla rete residua e non potrà riapparire successivamente in un altro cammino aumentante fino a che il flusso da $u$ a $v$ non diminuirà, e questo accade solo se $(u,v)$ apppare in un cammino aumentante.
 
-Se consideriamo che $f^{'}$ è il flusso quando si verifica questo evento, allora si ha 
+Se consideriamo che $f^{'}$ è il flusso quando si verifica questo evento, allora si ha
 
 $$
     \delta_{f^{'}}(s,u) = \delta_{f^{'}}(s,v) +1
@@ -107,7 +113,7 @@ Sia $e$ l'arco del bottleneck nel prossimo augmenting path. Sia $S$ il set di no
 
 La dimostrazione precedente implica che aumentando $f$ attraverso il path con il maggior bottleneck in $G_f$ moltiplica il valore del flusso massimo in $G_f$ di un fattore di al massimo $1 - 1/E$. In altre parole il flusso residuale \textit{decade esponenzialmente} all'aumentare delle iterazioni. Dopo $E \cdot \ln{|f^{*}|}$ iterazioni il valore del flusso massimo in $G_f$ sarà al amssimo:
 $$
-|f^{*}|\cdot(1-1/E)^{E\cdot \ln{|f^{*}|}} < |f^{*}|e^{-\ln{|f^{*}|}} = 1
+    |f^{*}|\cdot(1-1/E)^{E\cdot \ln{|f^{*}|}} < |f^{*}|e^{-\ln{|f^{*}|}} = 1
 $$
 (La $e$ in questione è la costante di Eulero, non l'arco) In particolare, \textit{se tutte le capacità sono interi}, allora dopo $E\cdot \ln{|f^{*}|}$ iterazioni la capacità massima del grafo residuale sarà \textit{zero} e $f$ sarà il flusso massimo.\\
 

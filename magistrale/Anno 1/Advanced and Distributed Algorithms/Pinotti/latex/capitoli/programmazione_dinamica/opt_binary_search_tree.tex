@@ -41,8 +41,8 @@ $$
 
 
 \begin{itemize}
-    \item dove $\text{profondità}_T$ indica la \textbf{profondità} di un nodo
-    nell'albero $T$.
+  \item dove $\text{profondità}_T$ indica la \textbf{profondità} di un nodo
+        nell'albero $T$.
 \end{itemize}
 
 
@@ -73,11 +73,11 @@ $k_i, ..., k_j$ deve anche avere come foglie le chiavi fittizie
 $d_{i-1}, ..., d_j$. Adesso possiamo definire la
 \textbf{sottostruttura ottima}:
 \begin{myblockquote}
-    se un albero
-    binario di ricerca ottimo $T$ ha un sottoalbero $T'$ che contiene le
-    chiavi $k_i, ..., k_j$, allora questo sottoalberto $T'$ deve essere
-    ottimo anche per il sottoproblema con chiavi $k_i, ..., k_j$ e chiavi
-    fittizie $d_{i-1}, ..., d_j$.
+  se un albero
+  binario di ricerca ottimo $T$ ha un sottoalbero $T'$ che contiene le
+  chiavi $k_i, ..., k_j$, allora questo sottoalberto $T'$ deve essere
+  ottimo anche per il sottoproblema con chiavi $k_i, ..., k_j$ e chiavi
+  fittizie $d_{i-1}, ..., d_j$.
 \end{myblockquote}
 Date le chiavi $k_i, ..., k_j$, una di queste chiavi, per esempio
 $k_r$ ($i \le r \le j$), sarà la radice di un sottoalbero ottimo che
@@ -146,13 +146,15 @@ $$
   e[i,j] = e[i, r-1] + e[r+1, j] + w(i,j)
 $$
 Otteniamo quindi la seguente formula ricorsiva finale:
-$$
+
+\begin{equation*}
   e[i,j] =
   \begin{cases}
     q_{i-1},                                                & j = i-1 \\
     \min_{i \le r \le j} \{e[i, r-1] + e[r+1, j] + w(i,j)\} & i \le j
   \end{cases}
-$$
+\end{equation*}
+
 I valori $e[i,j]$ rappresentano i costi attesi di ricerca negli alberi
 binari di ricerca ottimi. Per tenere traccia della struttura degli
 alberi binari di ricerca ottimi, definiamo $root[i,j]$, per

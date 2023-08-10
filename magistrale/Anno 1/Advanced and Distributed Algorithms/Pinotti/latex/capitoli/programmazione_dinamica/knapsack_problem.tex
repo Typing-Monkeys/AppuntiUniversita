@@ -52,9 +52,9 @@ incluso nell'insieme o meno). Facendo tutti i calcoli di dovere,
 otteniamo la seguente ricorsione:
 \begin{myblockquote}
   \begin{itemize}
-    \item se: $W < w_i$ allora: 
+    \item se: $W < w_i$ allora:
           $OPT(i, W) = OPT(i-1,W)$
-    \item altrimenti: 
+    \item altrimenti:
           $OPT(i, W) = \max(OPT(i-1, W), w_i + OPT(i-1, W-w_i))$
   \end{itemize}
 \end{myblockquote}
@@ -90,7 +90,7 @@ return M[n,W]
 \end{lstlisting}
 \begin{figure}[H]
   \centering
-  \includegraphics[width = 15cm, keepaspectratio]{Programmazione_dinamica/imgs/knapsack_opt.png}
+  \includegraphics[width = 15cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/knapsack_opt.png}
   \caption{La tabella bidimensionale dei valori di $OPT$.
     La colonna più a sinistra e l'ultima riga sono sempre 0. L'entry
     per $OPT(i, w)$ si calcola come indicato dalle frecce.}
@@ -134,9 +134,9 @@ riassunto nel seguente pseudocodice.
     \hline
     \textbf{Funzione} & \textbf{Costo in tempo} & \textbf{Costo in spazio} \\
     \hline
-    Subset-Sum        & $\Theta(nW)$            & $\Theta(nW)$              \\
+    Subset-Sum        & $\Theta(nW)$            & $\Theta(nW)$             \\
     \hline
-    Find-Solution     & $O(n)$                  &                            \\
+    Find-Solution     & $O(n)$                  &                          \\
     \hline
   \end{tabular}
 \end{center}
@@ -162,7 +162,7 @@ riassunto nel seguente pseudocodice.
         pseudopolinomiale, perchè dipende da due variabili).
 
         \begin{figure}[H]
-          \includegraphics[width = 15cm]{Programmazione_dinamica/imgs/zaino1.png}
+          \includegraphics[width = 15cm]{capitoli/programmazione_dinamica/imgs/zaino1.png}
           \centering
           \caption{In questa immagine si può vedere come è possibile ricostruire la soluzione
             salvata nell'array bidimensionale di memoization}
@@ -184,7 +184,7 @@ riassunto nel seguente pseudocodice.
         \begin{myblockquote}
           \begin{itemize}
             \item se $W < w_i$ allora $OPT(i, W) = OPT(i-1,W)$
-            \item altrimenti $OPT(i, W) = max(OPT(i-1, W), v_i + OPT(i-1, W-w_i))$
+            \item altrimenti \linebreak $OPT(i, W) = max(OPT(i-1, W), v_i + OPT(i-1, W-w_i))$
           \end{itemize}
         \end{myblockquote}
 
