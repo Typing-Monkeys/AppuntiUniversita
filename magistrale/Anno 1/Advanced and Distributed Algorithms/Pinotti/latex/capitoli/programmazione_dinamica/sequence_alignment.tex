@@ -16,9 +16,12 @@ definizione di \textbf{similarità}.
 \section{Descrizione del Problema}
 
 Come prima definizione di \textbf{\emph{similarità}} possiamo dire che:
+
 \begin{myblockquote}
-	\textbf{minore è il numero di caratteri che non
-		corrispondono, maggiore è la similarità tra le parole}.
+	\begin{definition}[\textbf{Similarità}]
+		Minore è il numero di caratteri che non
+		corrispondono, maggiore è la similarità tra le parole.
+	\end{definition}
 \end{myblockquote}
 
 Questa problematica è anche un tema centrale della biologia molecolare,
@@ -27,24 +30,28 @@ soddisfacente di similarità.\\
 
 Prima di dare una definizione similarità dobbiamo però darne una di
 \textbf{allineamento}:
+\newpage
+
 \begin{myblockquote}
-	Supponiamo di avere due stringhe
-	$X$ e $Y$, che consistono rispettivamente della sequenza di simboli
-	$x_1 x_2 \ldots x_m$ e $y_1 y_2 \ldots y_n$.
-	Consideriamo gli insiemi $\{1,2,\ldots ,m\}$ e $\{1,2,\ldots ,n\}$
-	che rappresentano le varie posizioni nelle stringhe $X$ e $Y$, e
-	consideriamo un \textbf{Matching} di questi due insiemi (un matching è
-	stato definito nel \autoref{chap:rna}
-	$\rightarrow$ si tratta di un insieme di coppie ordinate con la
-	proprietà che ogni oggetto si trova al più in una sola coppia).
-	Diciamo ora che \textbf{un matching $M$ di questi due
-		insiemi è un \emph{allineamento} se gli elementi di varie coppie non si
-		incrociano}:
-	\begin{itemize}
-		\item se $(i,j),(i^{\prime},j^{\prime}) \in M$
-		\item e $i < i^{\prime}$,
-		\item allora $j < j^{\prime}$.
-	\end{itemize}
+	\begin{definition}[\textbf{Alignment}]
+		Supponiamo di avere due stringhe
+		$X$ e $Y$, che consistono rispettivamente della sequenza di simboli
+		$x_1 x_2 \ldots x_m$ e $y_1 y_2 \ldots y_n$.
+		Consideriamo gli insiemi $\{1,2,\ldots ,m\}$ e $\{1,2,\ldots ,n\}$
+		che rappresentano le varie posizioni nelle stringhe $X$ e $Y$, e
+		consideriamo un \textbf{Matching} di questi due insiemi (un matching è
+		stato definito nel \autoref{chap:rna}
+		$\rightarrow$ si tratta di un insieme di coppie ordinate con la
+		proprietà che ogni oggetto si trova al più in una sola coppia).
+		Diciamo ora che \textbf{un matching $M$ di questi due
+			insiemi è un \emph{allineamento} se gli elementi di varie coppie non si
+			incrociano}:
+		\begin{itemize}
+			\item se $(i,j),(i^{\prime},j^{\prime}) \in M$
+			\item e $i < i^{\prime}$,
+			\item allora $j < j^{\prime}$.
+		\end{itemize}
+	\end{definition}
 \end{myblockquote}
 
 Intuitivamente, un \textbf{\emph{alignment}} fornisce un modo per
@@ -71,42 +78,36 @@ Supponiamo che $M$ sia un dato allineamento tra $X$ e $Y$.
 	      ``\textbf{\emph{gap}}'' viene posto con il simbolo `\texttt{-}',
 	      necessario al fine di allineare le due stringhe (avere uguale
 	      \emph{lunghezza}).
-\end{itemize}
-
-\begin{verbatim}
-o-currance
-occurrance
-\end{verbatim}
-
-\begin{itemize}
+	      \begin{center}
+		      \texttt{o-currance}\\
+		      \texttt{occurrance}
+	      \end{center}
 	\item
 	      Per ogni coppia di lettere $p,q$ del nostro alfabeto, se c'è un
 	      accoppiamento errato si paga il corrispondente \textbf{mismatch cost}
 	      $a_{(p,q)}$.
+	      \begin{center}
+		      \texttt{occurrAnce}\\
+		      \texttt{occurrEnce}
+	      \end{center}
 \end{itemize}
 
-\begin{verbatim}
-occurrAnce
-occurrEnce
-\end{verbatim}
 
-\begin{itemize}
-	\item
-	      Il costo di $M$ è la somma del suo gap e mismatch cost, e
-	      l'\textbf{obiettivo sarà quello di minimizzarlo}.
-\end{itemize}
+Il costo di $M$ è la somma del suo gap e mismatch cost, e
+l'\textbf{obiettivo sarà quello di minimizzarlo}.
 
-\textbf{N.B.} Le quantità $\delta$ e $a_{(p,q)}$ sono parametri
+\paragraph*{Nota:} Le quantità $\delta$ e $a_{(p,q)}$ sono parametri
 esterni che devono essere inseriti nel software per l'allineamento della
 sequenza; infatti, molto lavoro va nella scelta delle impostazioni per
 questi parametri. Dal nostro punto di vista, nel progettare un algoritmo
 per il sequence alignment, li prenderemo come input.
 
 \subsection{Goal}
+\begin{myblockquote}
+	\textbf{Date due stringhe, trovare l'allineamento di costo minimo.}
+\end{myblockquote}
 
-\textbf{Date due stringhe, trovare l'allineamento di costo minimo.}\\
-
-\textbf{Esempio}: data le parole \texttt{ocurrance} e
+\paragraph*{Esempio:} data le parole \texttt{ocurrance} e
 \texttt{occurrence} possiamo individuare vari alignment:
 
 \begin{verbatim}
@@ -124,7 +125,6 @@ occurre-nce
 Possiamo notare che nel primo abbiamo \textbf{1 gap} e \textbf{1
 	mismatch} mentre nel secondo abbiamo \textbf{3 gap} ma \textbf{nessun
 	mismatch}.\\
-
 Vogliamo quindi determinare quale dei due sia il migliore.
 
 \section{Implementazione dell'algoritmo}
@@ -154,8 +154,8 @@ Dire questo, equivale a riscrivere le due condizioni sopra come tre,
 dunque \textbf{in un allineamento ottimo $M$ almeno una deve essere
 	vera}:
 \begin{enumerate}
-	\item $(m,n) \in M$
-	\item l' $m-esima$ posizione di $X$ non è nel matching; o
+	\item $(m,n) \in M$;
+	\item l' $m-esima$ posizione di $X$ non è nel matching;
 	\item l' $n-esima$ posizione di $Y$ non è nel matching
 \end{enumerate}
 
@@ -186,27 +186,30 @@ definizione generale di $OPT(i,j)$:
 \begin{myblockquote}
 	L'allineamento di costo minimo soddisfa la seguente ricorsione per
 	$i \geq 1$ e $j \geq 1$:\\
-	$OPT(i,j) = min[a_{(x_i y_j)} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)]$
+	$OPT(i,j) = \min(a_{(x_i y_j)} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1))$
 \end{myblockquote}
 
 Dunque così abbiamo ottenuto la nostra funzione di ricorsione e possiamo
 procedere alla scrittura dello pseudo codice sfruttando la
 programmazione dinamica.
 
-\subsection{Bottom-Up}
+\subsection{Approccio Bottom-Up}
 
-\texttt{alignment(X,Y)}
 \begin{lstlisting}[language=Python, mathescape=true]
-for i = 0 to m
-	M[i, 0] $\leftarrow$ i $\delta$
-for j = 0 to n
-	M[0, j] $\leftarrow$ j $\delta$
-	
-for i = 1 to m
-	for j = 1 to n
-		M[i, j] $\leftarrow$ min { $\alpha$(xi yj) + M[i - 1, j - 1], $\delta$ + M [i - 1, j], $\delta$ + M [i, j - 1] }
- 		
-return M[m, n]
+function alignment(X,Y) {
+	for i = 0 to m
+		M[i, 0] $\leftarrow$ i $\delta$
+	for j = 0 to n
+		M[0, j] $\leftarrow$ j $\delta$
+	for i = 1 to m
+		for j = 1 to n
+			M[i, j] $\leftarrow$ min (
+				$\alpha$(xi yj) + M[i - 1, j - 1],
+				$\delta$ + M [i - 1, j],
+				$\delta$ + M [i, j - 1])
+
+	return M[m, n]
+}
 \end{lstlisting}
 
 \subsection{Costo}
@@ -221,7 +224,7 @@ return M[m, n]
 
 C'è un modo pittorico accattivante in cui le persone pensano a questo
 algoritmo di sequence alignment. Supponiamo di costruire un grafo a
-griglia $m$ × $n$ bidimensionale $G_{XY}$ , con le righe
+griglia $m$ \times $n$ bidimensionale $G_{XY}$ , con le righe
 etichettate da simboli nella stringa $X$, le colonne etichettate da
 simboli in $Y$ e gli archi orientati come nella \emph{Figura} di
 seguito.
@@ -235,20 +238,20 @@ seguito.
 		\end{subfigure}%
 		\begin{subfigure}{.5\textwidth}
 			\centering
-			\includegraphics[width=\linewidth, keepaspectratio]{capitoli/programmazione_dinamica/imgs/seqalignmatrix.png}
+			\includegraphics[width=.8\linewidth, keepaspectratio]{capitoli/programmazione_dinamica/imgs/seqalignmatrix.png}
 		\end{subfigure}%
 	\end{subfigure}
+	\caption{Esempio di matching tra le parole \texttt{name} e \texttt{mean}.
+		(Le due immagini si riferiscono ad esempi diversi.)}
 \end{figure}
 
-\emph{Nell'esempio il matching tra \texttt{name} e \texttt{mean}, con i
-	parametri scelti per questo esempio sarà:}
+Nell'esempio precedente, il matching tra \texttt{name} e \texttt{mean}, con i
+parametri scelti per questo esempio sarà:
 
 \begin{verbatim}
 mean-
 n-ame
 \end{verbatim}
-
-\emph{\textbf{NB:} le due immagini fanno riferimento ad esempi diversi}
 
 Numeriamo le righe da 0 a $m$ e le colonne da 0 a $n$; indichiamo il
 nodo nell'$i$-esima riga e nella $j$-esima colonna con l'etichetta
@@ -283,7 +286,7 @@ per varianti più complesse sul sequence alignment.
 	\item
 	      Trovare il numero di operazioni da fare per allineare due sequenze
 	\item
-	      $OPT[i,j] = min\{ \alpha_{ij} + OPT[i-1,j-1], \delta + OPT[i, j-1], \delta + OPT[i-1, j] \}$
+	      $OPT[i,j] = \min (\alpha_{ij} + OPT[i-1,j-1], \delta + OPT[i, j-1], \delta + OPT[i-1, j])$
 	\item
 	      Ho bisogno di una matrice $i \times j$ \textbf{TEMPO =} $O(nm)$
 	      (nella versione base dell'algoritmo)
@@ -336,7 +339,7 @@ Come prima cosa definiamo un algoritmo
 soluzione ottima utilizzando il minor spazio possibile.\\ Per farlo,
 notiamo che la funzione $OPT$ dipende solamente da una colonna
 precedente di quella che si sta analizzando, dunque basterà caricarsi in
-memoria una matrice $m$ x $2$, riducendo così il costo spaziale ad
+memoria una matrice $m \times 2$, riducendo così il costo spaziale ad
 $m$. Tuttavia utilizzando questo metodo \textbf{non è possibile
 	ricavare l'alignment effettivo} perché \textbf{non si hanno informazioni
 	sufficienti}.\\
@@ -347,29 +350,31 @@ Lo pseudo-codice dell'algoritmo appena definito è il seguente:
 function Space-Efficient-Alignment(X,Y) {
     var B = Matrix(m, 2)
     Initialize B[i, 0]= $i\delta$ for each i // (just as in column 0 of M)
-    
+
     for (j in 1...n) {
         B[0, 1]= $j\delta$ (since this corresponds to entry M[0, j])
-        
+
         for (i in 1...m) {
-            B[i, 1]= min[$\alpha$xiyj + B[i - 1, 0],$\delta$ + B[i - 1, 1], $\delta$ + B[i, 0]]
+            B[i, 1]= min($\alpha$xiyj + B[i - 1, 0],$\delta$ + B[i - 1, 1], $\delta$ + B[i, 0])
 
         }
-        
+
         Move column 1 of B to column 0 to make room for next iteration:
         Update B[i, 0]= B[i, 1] for each i
     }
 }
 \end{lstlisting}
 
-Esiste, tuttavia, una soluzione a questo problema - saremo in grado di
+Esiste, tuttavia, una soluzione a questo problema e saremo in grado di
 recuperare l'allineamento stesso utilizzando lo spazio $O(m + n)$ ma,
 richiede un'idea nuova. L'intuizione si basa sull'utilizzo della tecnica
 \emph{divide et impera} che abbiamo visto in precedenza. Iniziamo con un
 semplice modo alternativo per implementare la soluzione di
-programmazione dinamica di base.\\
+programmazione dinamica di base.
 
-\textbf{A Backward Formulation of the Dynamic Program}:\\ Ricordiamo che
+\paragraph{A Backward Formulation of the Dynamic Program:}\
+
+Ricordiamo che
 usiamo $f(i, j)$ per denotare la lunghezza del cammino minimo da
 \texttt{(0,\ 0)} a \texttt{(i,\ j)} nel grafo $G_{XY}$. (Come abbiamo
 mostrato nell'algoritmo di allineamento della sequenza iniziale,
@@ -377,12 +382,14 @@ $f(i, j)$ ha lo stesso valore di $OPT(i, j)$).\\ Ora definiamo
 $g(i, j)$ come la lunghezza del cammino minimo da \texttt{(i\ ,\ j)} a
 \texttt{(m,\ n)} in $G_{XY}$.\\ La funzione $g$ fornisce un approccio
 di programmazione dinamica altrettanto naturale al problema del sequence
-alignment, tranne per il fatto che \textbf{lo costruiamo al contrario}:\\
+alignment, tranne per il fatto che \textbf{lo costruiamo al contrario}:
 iniziamo con $g(m, n) = 0$ e la risposta che vogliamo è $g(0, 0)$.
 Per stretta analogia con la ricorrenza precedente, abbiamo la seguente
 ricorrenza per $g$:
-\begin{myblockquote} Per $i < m$ e $j < n$ abbiamo\\
-	$g(i, j) = min[a_{x_{i+1} y_{i+1}} + g(i + 1, j + 1), \delta + g(i, j + 1), \delta + g (i + 1, j)]$.
+\begin{myblockquote} Per $i < m$ e $j < n$ abbiamo:
+	\begin{center}
+		$g(i, j) = \min(a_{x_{i+1} y_{i+1}} + g(i + 1, j + 1), \delta + g(i, j + 1), \delta + g (i + 1, j))$
+	\end{center}
 \end{myblockquote}
 
 Questa è solo la ricorrenza che si ottiene prendendo il grafo $G_{XY}$
@@ -394,10 +401,11 @@ partendo da \texttt{(m,\ n)}. Allo stesso modo, esiste una versione
 efficiente in termini di spazio di questo algoritmo di programmazione
 dinamica all'indietro, analogo a \texttt{Space-Efficient-Alignment}, che
 calcola il valore dell'allineamento ottimale utilizzando solo lo spazio
-\texttt{O(m\ +\ n)}. Faremo riferimento a questa versione all'indietro
+$O(m+n)$. Faremo riferimento a questa versione all'indietro
 come \texttt{Backward-Space-Efficient-Alignment}.\\
 
-\textbf{Combinazione delle formulazioni Forward e Backward}:\\ Quindi ora
+\paragraph*{Combinazione delle formulazioni Forward e Backward:}\
+Quindi ora
 abbiamo algoritmi simmetrici che costruiscono i valori delle funzioni
 $f$ e $g$. L'idea sarà quella di utilizzare questi due algoritmi
 insieme per trovare l'allineamento ottimale. Innanzitutto, ecco due
@@ -420,44 +428,42 @@ un approccio \emph{\textbf{divide et impera}} e \textbf{un array di
 	supporto $P$ per riuscire a calcolare il Sequence Alignment in spazio
 	lineare}, aumentando solo di una costatane la complessità temporale.
 
-\subsection{Lemma e Dimostrazione}
+\begin{lemma}
+	$f(i,j) =$ shortest path from $(0,0)$ to
+	$(i,j) = OPT(i,j)$
+\end{lemma}
+\begin{proof}
+	Dimostriamo il lemma per induzione:
 
-\textbf{Lemma:} $f(i,j) =$ shortest path from $(0,0)$ to
-$(i,j) = OPT(i,j)$\\
-\textbf{Dimostrazione} per induzione
-\begin{itemize}
-	\item caso base:
-	      $f(0,0) = OPT(0,0) = 0$
-	\item ipotesi induttiva: assum vero per ogni
-	      $(i', j')$ con $i'+j' < i+j$
-	\item l'ultimo arco nello shortest path
-	      verso $(i,j)$ è $(i-1, j-1)$, $(i, j-1)$ o $(i-1, j)$
-	\item quindi
-	      $f(i,j) = min\{ \alpha_{x_i y_j} + f(i-1, j-1), \delta + f(i-1, j), \delta +f(i, j-1)\} =$
-	      $= min\{ \alpha_{x_i y_j} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)\} =$
-	      $= OPT(i,j)$
-\end{itemize}
+	\begin{itemize}
+		\item caso base:
+		      $f(0,0) = OPT(0,0) = 0$
+		\item ipotesi induttiva: assum vero per ogni
+		      $(i', j')$ con $i'+j' < i+j$
+		\item l'ultimo arco nello shortest path
+		      verso $(i,j)$ è $(i-1, j-1)$, $(i, j-1)$ o $(i-1, j)$
+		\item quindi
+		      $f(i,j) = min\{ \alpha_{x_i y_j} + f(i-1, j-1), \delta + f(i-1, j), \delta +f(i, j-1)\} =$
+		      $= min\{ \alpha_{x_i y_j} + OPT(i-1, j-1), \delta + OPT(i-1, j), \delta + OPT(i, j-1)\} =$
+		      $= OPT(i,j)$
+	\end{itemize}
+\end{proof}
 
 Per calcolare lo shortest path da un $(i,j)$ a $(m,n)$ posso
 cambiare la direzione degli archi e calcolare lo shortest path da
 $(m,n)$ a tutti i vertici $(i,j)$.\\
-
 Il costo per andare da $(0,0)$ a $(m,n)$ posso scomporlo da
 $(0,0)$ a $(i,j)$ e da $(m,n)$ a $(i,j)$.\\
-
 Nel cammino incontrerò per forza la colonna $n/2$ ma non so per quale
-vertice (riga $q$):
-\begin{itemize}
-	\item voglio trovare $q$.\\
-	      Divido quindi il problema in 2:\\
-	      $f((0,0)(q,n/2)) + f((q,n/2)(m,n))$
-	      \begin{itemize}
-		      \item e posso quindi renderlo ricorsivo,
-		            \begin{itemize}
-			            \item in ogni ricorsione mi ricordo solo $q$.
-		            \end{itemize}
-	      \end{itemize}
-\end{itemize}
+vertice (riga $q$), voglio quindi trovarlo.
+Divido quindi il problema in 2:
+
+$$
+	f((0,0)(q,n/2)) + f((q,n/2)(m,n))
+$$
+
+Così facendo posso quindi renderlo ricorsivo e durante
+ogni ricorsione mi ricordo solo $q$.
 
 \subsection{Funzionamento Algoritmo}
 
@@ -488,7 +494,7 @@ presupposto rende il discorso molto più pulito, anche se può essere
 facilmente evitato.\\
 
 Per prima cosa calcolo shortest path su tutta la matrice (Dijkstra in
-$O(nm)$ ). Cerco poi $q$ sulla colonna $n/2$ e lo salvo
+$O(nm)$). Cerco poi $q$ sulla colonna $n/2$ e lo salvo
 ricorsivamente $n$ volte.\\ Chiamo poi ricorsivamente $f$ per trovare
 le soluzioni da sinistra a $n/2$ e da destra a $n/2$.\\
 
@@ -535,7 +541,6 @@ $(q, n/2) + (m-q, n/2)$
 Quindi, il tempo di esecuzione dell'aligment \emph{divide et impera} su
 stringhe di lunghezza $m$ ed $n$ è $O(mn)$.
 
-
 \section{Longest Common Subsequence}
 
 È un caso particolare del problema del Sequence Alignment.
@@ -545,15 +550,19 @@ stringhe di lunghezza $m$ ed $n$ è $O(mn)$.
 Per prima cosa è necessario dare la definizione di
 \textbf{sottosequenza}. Una sottosequenza di una data sequenza è la
 sequenza stessa alla quale sono stati tolti zero o più elementi.
-Formalmente:
-\begin{myblockquote}
-	Data una sequenza $X$ =
-	$x_1, x_2, ..., x_m$, un'altra sequenza $Z$ = $z_1, z_2, ..., z_k$
-	è una \textbf{sottosequenza} di $X$ se esiste una sequenza
-	strettamente crescente $i_2, i_2, ..., i_k$ di indici di $X$ tale
-	che per ogni $j = 1, 2, ..., k$, si ha $x_{i_j} = z_j$.
-\end{myblockquote}
+Formalmente:\\
 
+%% TODO: minipage forza il contenuto a stare nella stessa pagina.
+%%		controllare se è il casi di lasciarlo o sostituirlo con \newpage
+\begin{minipage}{\textwidth}
+	\begin{myblockquote}
+		Data una sequenza $X$ =
+		$x_1, x_2, ..., x_m$, un'altra sequenza $Z$ = $z_1, z_2, ..., z_k$
+		è una \textbf{sottosequenza} di $X$ se esiste una sequenza
+		strettamente crescente $i_2, i_2, ..., i_k$ di indici di $X$ tale
+		che per ogni $j = 1, 2, ..., k$, si ha $x_{i_j} = z_j$.
+	\end{myblockquote}
+\end{minipage}
 
 Per esempio, $Z = <B, C, D, B>$ è una sottosequenza di
 $X = < A, B, C, B, D, A, B>$ con la corrispondente sequenza di indici
@@ -563,18 +572,17 @@ Date due sequenze $X$ e $Y$, diciamo che una sequenza $Z$ è una
 \textbf{sottosequenza comune} di $X$ e $Y$ se $Z$ è una
 sottosequenza di entrambe le sequenze $X$ e $Y$. Per esempio, se
 $X = <A,B,C,B,D,A,B>$ e $Y = <B,D,C,A,B,A>$, la sequenza $B,C,A$ è
-una sottosequenza comune di $X$ e $Y$.\\
+una sottosequenza comune di $X$ e $Y$.
 
-\textbf{N.B.} Notare che comunque il nostro obiettivo non è trovare una
-sottosequenza comune, ma di trovare la sottosequenza comune di lunghezza
+\paragraph*{Nota:} Il nostro obiettivo non è trovare una
+sottosequenza comune, ma trovare la sottosequenza comune di lunghezza
 massima.
 
-\paragraph{Goal}
-
-Nel \textbf{problema della più lunga sottosequenza comune} sono date due
-sequenze $X = <x_1, x_2, ..., x_m>$ e $Y = <y_1, y_2, ..., y_n>$ e
-si vuole trovare una sottosequenza di lunghezza massima che è comune a
-$X$ e $Y$.
+\subsection{Goal}
+\begin{myblockquote}
+	Date due sequenze $X = <x_1, x_2, ..., x_m>$ e $Y = <y_1, y_2, ..., y_n>$
+	trovare una sottosequenza di lunghezza massima che è comune a $X$ e $Y$.
+\end{myblockquote}
 
 \subsection{Caratterizzare la più lunga sottosequenza comune}
 
@@ -590,23 +598,22 @@ migliore, procediamo nel seguente modo: data una sequenza
 $X = <x_1, x_2, ..., x_m>$, definiamo $X_i = <x_1, x_2, ..., x_i>$
 l'$i$-esimo \textbf{prefisso} di $X$, per $i=0,1,...,m$. Per
 esempio, se $X = <A,B,C,B,D,A,B>$, allora $X_4 = <A,B,C,B>$ e
-$X_0$ è la sequenza vuota.\\
+$X_0$ è la sequenza vuota.
 
-\textbf{Teorema: Sottostruttura ottima di una LCS}\\
+\begin{theorem}[\textbf{Sottostruttura ottima}]
+	Siano $X = <x_1, x_2, ..., x_m>$ e $Y = <y_1, y_2, ..., y_n>$ le
+	sequenze, sia $Z = z_1, z_2, ..., z_k$ una qualsiasi LCS di $X$ e
+	$Y$.
 
-Siano $X = <x_1, x_2, ..., x_m>$ e $Y = <y_1, y_2, ..., y_n>$ le
-sequenze, sia $Z = z_1, z_2, ..., z_k$ una qualsiasi LCS di $X$ e
-$Y$.
-
-\begin{enumerate}
-	\item Se $x_m = y_n$, allora $z_k = x_m = y_n$ e $Z_{k-1}$ è
-	      una LCS di $X_{m-1}$ e $Y_{n-1}$
-	\item Se $x_m \ne y_n$, allora
-	      $z_k \ne x_m$ implica che $Z$ è una LCS di $X_{m-1}$ e $Y$.
-	\item Se $x_m \ne y_n$, allora $z_k \ne y_n$ implica che $Z$ è una LCS
-	      di $X$ e $Y_{n-1}$.
-\end{enumerate}
-
+	\begin{enumerate}
+		\item Se $x_m = y_n$, allora $z_k = x_m = y_n$ e $Z_{k-1}$ è
+		      una LCS di $X_{m-1}$ e $Y_{n-1}$
+		\item Se $x_m \ne y_n$, allora
+		      $z_k \ne x_m$ implica che $Z$ è una LCS di $X_{m-1}$ e $Y$.
+		\item Se $x_m \ne y_n$, allora $z_k \ne y_n$ implica che $Z$ è una LCS
+		      di $X$ e $Y_{n-1}$.
+	\end{enumerate}
+\end{theorem}
 
 Quindi, il problema della più lunga sottosequenza comune gode della
 proprietà della sottostruttura ottima. Una soluzione ricorsiva gode
@@ -635,9 +642,9 @@ ottima del problema della LCS consente di scrivere la formula ricorsiva\\
 
 $$
 	c[i,j]= \begin{cases}
-		0,                         & i = 0 \vee j = 0            \\
-		c[i-1, j-1] + 1,           & i, j > 0 \wedge x_i = y_i   \\
-		max(c[i, j-1], c[i-1, j]), & i,j > 0 \wedge x_i \neq y_j
+		0,                          & i = 0 \vee j = 0            \\
+		c[i-1, j-1] + 1,            & i, j > 0 \wedge x_i = y_i   \\
+		\max(c[i, j-1], c[i-1, j]), & i,j > 0 \wedge x_i \neq y_j
 	\end{cases}
 $$
 
@@ -660,11 +667,10 @@ semplificare la costruzione di una soluzione ottima. Intuitvamente,
 $b[i, j]$ punta alla posizione della tabella che corrisponde alla
 soluzione ottima del sottoproblema che è stata scelta per calcolare
 $c[i,j]$. La procedura restituisce le tabelle $b$ e $c$; la
-posizione $c[m,n]$ contiene la lunghezza di una LCS di $X$ e $Y$.
-
-\texttt{LCS-Lenght(X, Y)}
+posizione $c[m,n]$ contiene la lunghezza di una LCS di $X$ e $Y$.\\
 
 \begin{lstlisting}[language=Python, mathescape=true]
+function LCS-Lenght(X, Y) {
   m = X.length
   n = Y.length
 
@@ -689,9 +695,10 @@ posizione $c[m,n]$ contiene la lunghezza di una LCS di $X$ e $Y$.
         b[i,j] = $\leftarrow$
 
   return c e b
+}
 \end{lstlisting}
 
-\paragraph{Costo}
+\subsection{Costo}
 
 Il tempo di esecuzione è $O(mn)$, perchè il calcolo di ogni posizione
 della tabella richiede un tempo $O(1)$
@@ -707,14 +714,14 @@ un elemento della LCS trovata da \texttt{LCS-Length}. In questo modo gli
 elementi della LCS si incontrano in ordine inverso. La seguente
 procedura ricorsiva stampa una LCS di $X$ e $Y$ nell'ordine
 corretto. La chiamata iniziale è
-\texttt{Print-LCS(b,\ X,\ X.length,\ Y.length)}
+\texttt{Print-LCS(b,\ X,\ X.length,\ Y.length)}.\\
 
-\texttt{Print-LCS(b, X, i, j)}
-\begin{lstlisting}[language=Python, mathescape=true]
-  function Print-LCS(b, X, i, j) {
+\begin{minipage}{\textwidth}
+	\begin{lstlisting}[language=Python, mathescape=true]
+function Print-LCS(b, X, i, j) {
     if i == 0 or j == 0
       return
-  
+
     if b[i,j] == $\nwarrow $
       Print-LCS(b, X, i-1, j-1)
       print xi
@@ -724,6 +731,7 @@ corretto. La chiamata iniziale è
       Print-LCS(b, X, i, j$-$1)
   }
 \end{lstlisting}
+\end{minipage}
 
 La procedura impiega un tempo $O(m + n)$, perchè a ogni chiamata
 ricorsiva essa decrementa almeno uno dei due valori $i$ e $j$.
