@@ -39,20 +39,17 @@ $$
   avgCost(T) = 1 + \sum_{i=1}^{n} \text{profondità}_T (k_i) \cdot p_i + \sum_{i = 0}^{n} \text{profondità}_T (d_i) \cdot q_i
 $$
 
-
-\begin{itemize}
-  \item dove $\text{profondità}_T$ indica la \textbf{profondità} di un nodo
-        nell'albero $T$.
-\end{itemize}
+dove $\text{profondità}_T$ indica la \textbf{profondità} di un nodo
+nell'albero $T$.
 
 
 
 \subsection{Goal}
 
 Per un dato insieme di probabilità, il nostro obiettivo è costruire un
-albero binario di ricerca il cui costo atteso di ricerca è minimo.\\
+albero binario di ricerca il cui costo atteso di ricerca è minimo.
 
-\textbf{N.B.} Un albero binario di ricerca ottimo non è necessariamente
+\paragraph*{Nota:} Un albero binario di ricerca ottimo non è necessariamente
 un albero la cui altezza è minima, nè possiamo necessariamente costruire
 un albero binario di ricerca ottimo ponendo sempre nella radice la
 chiave con probabilità massima.\\
@@ -150,8 +147,8 @@ Otteniamo quindi la seguente formula ricorsiva finale:
 \begin{equation*}
   e[i,j] =
   \begin{cases}
-    q_{i-1},                                                & j = i-1 \\
-    \min_{i \le r \le j} \{e[i, r-1] + e[r+1, j] + w(i,j)\} & i \le j
+    q_{i-1},                                              & j = i-1 \\
+    \min_{i \le r \le j} (e[i, r-1] + e[r+1, j] + w(i,j)) & i \le j
   \end{cases}
 \end{equation*}
 
@@ -197,28 +194,27 @@ Il seguente pseudocodice riceve come input le probabilità
 $p_1, ..., p_n$ e $q_0, ..., q_n$ e la dimensione $n$ e
 restituisce le tabelle $e$ e $root$.
 
-
-\texttt{Optimal-BST(p,q,n)}
-
 \begin{lstlisting}[language=Python, mathescape=true]
+function Optimal-BST(p,q,n) {
   Let e[1..n+1,0..n], w[1..n+1,0..n] and root[1..n,1..n] be three new table
 
-for i = 1 to n + 1
-  e[i,i - 1] = qi-1
-  w[i,i - 1] = qi-1
+  for i = 1 to n + 1
+    e[i,i - 1] = qi-1
+    w[i,i - 1] = qi-1
 
-for l = 1 to n
-  for i = 1 to n - l + 1
-    j = i + l - 1
-    e[i,j] = $\infty$
-    w[i,j] = w[i,j - 1] + pj + qj
-    for r = i to j
-      t = e[i, r - 1] + e[r + 1, j] + w[i,j]
-      if t < e[i,j]
-        e[i,j] = t
-        root[i,j] = r
+  for l = 1 to n
+    for i = 1 to n - l + 1
+      j = i + l - 1
+      e[i,j] = $\infty$
+      w[i,j] = w[i,j - 1] + pj + qj
+      for r = i to j
+        t = e[i, r - 1] + e[r + 1, j] + w[i,j]
+        if t < e[i,j]
+          e[i,j] = t
+          root[i,j] = r
 
-return e[] and root[]
+  return e[] and root[]
+}
 \end{lstlisting}
 
 
@@ -236,7 +232,7 @@ return e[] and root[]
         Quando $l = 2$, il ciclo calcola $e[i,i+1]$ e $w[i,i+1]$ per
         $i = 1, 2, ..., n$ per $i = 1, 2, ..., n-1$, e così via.
   \item
-        Il ciclo for più interno prova ciascun indice $r$ candidato per
+        Il ciclo \texttt{for} più interno prova ciascun indice $r$ candidato per
         determinare (e salvare i $root[i,j]$) quale chiave $k_r$
         utilizzare come radice di un albero binario di ricerca ottimo che
         contiene le chiavi $k_i, ..., k_j$.
@@ -247,10 +243,10 @@ return e[] and root[]
 
 \begin{itemize}
   \item
-        Per ogni operazione pago n \textbf{TEMPO =} $O(n^3)$, esattamente
+        Per ogni operazione pago $n$: \textbf{TEMPO =} $O(n^3)$, esattamente
         come \texttt{Matrix-Chain-Order}
   \item
-        Spazio = matrice \texttt{n\ x\ n} \textbf{SPAZIO =} $O(n^2)$
+        Spazio = matrice $n \times n$: \textbf{SPAZIO =} $O(n^2)$
 \end{itemize}
 
 \section{Riepilogo}
@@ -260,10 +256,10 @@ return e[] and root[]
         L'obiettivo è costruire un albero di ricerca massimizzando la velocità
         di ricerca in base alla probabilità
   \item
-        $OPT[i,j] = min_{i \le r \le j} \{ OPT[i, r-1] + OPT[r+1, j] + w[i,j] \}$
+        $OPT[i,j] = \min_{i \le r \le j} (OPT[i, r-1] + OPT[r+1, j] + w[i,j])$
   \item
         $r$ è la radice dei sottoalberi creati ricorsivamente
   \item
         Per ricostruire la soluzione uso un'altra matrice dove
-        $S[i,j] = min_r$ $\rightarrow$ \textbf{SPAZIO =} $O(n^2)$
+        $S[i,j] = \min_r$ $\rightarrow$ \textbf{SPAZIO =} $O(n^2)$
 \end{itemize}
