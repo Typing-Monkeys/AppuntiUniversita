@@ -1821,7 +1821,7 @@ In generale una soluzione per un problema vincolato **è ammissibile se rispetta
 Negli algoritmi genetici si hanno due possibilità per quanto riguarda le soluzioni da considerare nella popolazione:
 - **Non ammettere soluzioni non ammissibili nella popolazione**.
     1. Serve un meccanismo che quando inizializza la popolazione, crea solo soluzioni ammissibili
-    2. Il crossover e la Mutazione devono generare solo funzioni ammissibili
+    2. Il crossover e la Mutazione devono generare solo soluzioni ammissibili
     
     Ci sono problemi di ottimizzazione in cui è difficile perfino creare soluzini ammissibili ed **è ancora più difficile garantire che crossover e mutazione producano soluzioni ammissibili**.
 
