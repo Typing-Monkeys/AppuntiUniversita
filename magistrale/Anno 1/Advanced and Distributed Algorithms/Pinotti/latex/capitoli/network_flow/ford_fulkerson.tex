@@ -243,7 +243,7 @@ spinto 20 unità di flusso lungo il percorso $s, u, v, t$.)
 \end{myblockquote}
 
 Si noti che ogni arco $e$ in $G$ può dare origine a uno o due archi
-in $G_f$ : Se $0 < f (e) < c_e$ risulta che sia un arco in avanti
+in $G_f$: Se $0 < f (e) < c_e$ risulta che sia un arco in avanti
 che uno all'indietro siano inclusi in $G_f$ . Quindi $G_f$ ha al
 massimo il doppio degli archi rispetto a $G$. A volte ci riferiremo
 alla capacità di un arco nel grafo residuo come \textbf{residual
@@ -254,36 +254,35 @@ corrispondente nella rete di flusso originale $G$.
 \subsection{Augmenting Paths in a Residual Graph}
 
 Ora vogliamo rendere preciso il modo in cui viene spinto il flusso da
-$s$ a $t$ in $G_f$ . Sia $P$ un cammino $s-t$ in $G_f$ (un
+$s$ a $t$ in $G_f$. Sia $P$ un cammino $s-t$ in $G_f$ (un
 path nel grafo residuale viene chiamato \textbf{augmenting path}), cioè
 $P$ non visita nessun nodo più di una volta. Definiamo
 \texttt{bottleneck(P,\ f)} come la \textbf{minima capacità residua tra
 	tutti gli archi di $P$}, rispetto al flusso $f$. Definiamo ora la
 seguente operazione \texttt{augment(f\ ,\ P)}, che produce un nuovo
-flusso $f'$ in $G$.\\
-
-\texttt{augment(f, P)}
+flusso $f'$ in $G$.
 
 \begin{lstlisting}[language=Python, mathescape=true]
+function augment(f, P) {
  Let b = bottleneck(P, f)
 
-For each edge (u, v) $\in$ P
-  If e = (u, v) is a forward edge then
-    increase f (e) in G by b
-  Else ((u, v) is a backward edge, and let e = (v, u))
-    decrease f (e) in G by b
-  Endif
-Endfor
+ For each edge (u, v) $\in$ P
+    If e = (u, v) is a forward edge then
+    	increase f (e) in G by b
+  	Else ((u, v) is a backward edge, and let e = (v, u))
+    	decrease f (e) in G by b
+  	Endif
+  Endfor
 
-Return(f)
-
+  Return(f)
+}
 \end{lstlisting}
 
 Proprio per poter eseguire questa operazione abbiamo deﬁnito il grafo
 residuale; per riflettere l'importanza dell'\textbf{augment} (aumento),
 ci si riferisce a qualsiasi cammino $s-t$ nel grafo residuale come
 \textbf{\emph{augmenting path}}. Il risultato di
-\texttt{augment(f\ ,\ P)} è un nuovo flusso $f'$ in $G$, ottenuto
+\texttt{augment(f,\ P)} è un nuovo flusso $f'$ in $G$, ottenuto
 aumentando e diminuendo i valori di flusso sugli archi di $P$.\\
 
 Questa operazione di \textbf{augmentation} cattura il tipo di spinta
@@ -294,16 +293,17 @@ flusso $s-t$ in $G$.\\
 \texttt{Max-Flow(G)}
 
 \begin{lstlisting}[language=Python, mathescape=true]
-Start with f (e) = 0 for each edge e \in E.
-  
-While there is an s-t path in the residual graph G_f
-  Find an s \rightsquigarrow t path P in the residual network G_f
-  f' = augment(f , P)
-  Update the residual graph Gf using f'
-Endwhile
+function Max-Flow(G) {
+	Start with f(e) = 0 for each edge e $\in$ E.
 
-Return f
+	While there is an s-t path in the residual graph $G_f$
+  	  Find an s $\rightsquigarrow$ t path P in the residual network $G_f$
+  	  $f'$ = augment(f , P)
+  	  Update the residual graph $G_f$ using $f'$
+	Endwhile
 
+	Return f
+}
 \end{lstlisting}
 
 Lo chiameremo Algoritmo di \textbf{Ford-Fulkerson}, dal nome dei due
@@ -328,7 +328,7 @@ sottili.
 \subsection{Analyzing the Algorithm: Termination and Running Time}
 
 Per prima cosa consideriamo alcune proprietà che l'algoritmo mantiene
-per induzione sul numero di iterazioni del ciclo \texttt{While},
+per induzione sul numero di iterazioni del ciclo \texttt{while},
 basandoci sulla nostra ipotesi che tutte le \emph{capacità} siano numeri
 interi.
 
@@ -339,14 +339,17 @@ interi.
 
 Possiamo usare questa proprietà per dimostrare che l'algoritmo di
 Ford-Fulkerson termina. Per prima cosa mostriamo che il valore del
-flusso aumenta strettamente quando applichiamo \emph{augmentation}
+flusso aumenta strettamente quando applichiamo \emph{augmentation}.\\
 
-\paragraph{DEF 7.3}
-\begin{myblockquote}
-	Sia $f$ un flusso in $G$, e sia $P$ un semplice cammino $s-t$ in
-	$G_f$ . Allora $v(f') = v(f)$ + \texttt{bottleneck(P,\ f)}; e poiché
-	\texttt{bottleneck(P,\ f)} \textgreater{} 0, abbiamo $v(f') > v(f)$.
-\end{myblockquote}
+\begin{minipage}{\textwidth}
+	\begin{myblockquote}
+		\begin{definition}\label{def:7.3}
+			Sia $f$ un flusso in $G$, e sia $P$ un semplice cammino $s-t$ in
+			$G_f$ . Allora $v(f') = v(f)$ + \texttt{bottleneck(P,\ f)}; e poiché
+			\texttt{bottleneck(P,\ f)} \textgreater{} 0, abbiamo $v(f') > v(f)$.
+		\end{definition}
+	\end{myblockquote}
+\end{minipage}
 
 Abbiamo bisogno di un'altra osservazione per dimostrare la terminazione.
 Dobbiamo essere in grado di limitare il massimo valore di flusso
@@ -360,19 +363,16 @@ possibile. Ecco un \textbf{upper bound}:
 	$s-t$
 \end{myblockquote}
 
-\textbf{N.B.}
+\paragraph*{Nota:} $C$ può essere un'enorme sovrastima del valore massimo
+di un flusso in $G$, ma è utile per noi come limite finito.\\
 
-$C$ può essere un'enorme sovrastima del valore massimo
-di un flusso in $G$, ma è utile per noi come limite finito.
-\\
-\\
-Usando l'affermazione (7.3), ora possiamo dimostrare la terminazione:
+Usando l'affermazione \ref{def:7.3}, ora possiamo dimostrare la terminazione:
 
 \begin{myblockquote}
 	Supponiamo, come sopra, che tutte le capacità nella rete
 	di flusso $G$ siano numeri interi. Quindi l'algoritmo di
 	Ford-Fulkerson termina al massimo in $C$ iterazioni del ciclo
-	\texttt{While}.
+	\texttt{while}.
 \end{myblockquote}
 
 
@@ -439,13 +439,15 @@ più generale per porre upper bound al valore del flusso massimo.
 
 Lo precisiamo attraverso una sequenza di teoremi e/o definizioni.
 
-\paragraph{DEF(7.6)}
-
 \begin{myblockquote}
-	Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$, allora:
-	$
-		v(f) = f^{\text{out}}(A) - f^{\text{in}}(A)
-	$
+	\begin{minipage}{\textwidth}
+		\begin{definition}\label{def:7.6}
+			Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$, allora:
+			$
+				v(f) = f^{\text{out}}(A) - f^{\text{in}}(A)
+			$
+		\end{definition}
+	\end{minipage}
 \end{myblockquote}
 
 Questa affermazione è in realtà molto più forte di un semplice upper
@@ -462,19 +464,21 @@ un taglio, allora gli archi entranti in $B$ sono esattamente gli archi
 che escono da $A$. Allo stesso modo, gli archi che escono da $B$
 sono esattamente gli archi che entrano in $A$. Quindi abbiamo
 $f^{out}(A) = f^{in}(B)$, semplicemente confrontando le definizioni di
-queste due espressioni. Quindi possiamo riformulare la (7.6) nel modo
+queste due espressioni. Quindi possiamo riformulare la \ref{def:7.6} nel modo
 seguente.
 
-\paragraph{DEF(7.7)}
-
 \begin{myblockquote}
-	Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$, allora
-	$
-		v(f) = f^{\text{in}}(B) - f^{\text{out}}(B)
-	$
+	\begin{minipage}{\textwidth}
+		\begin{definition}\label{def:7.7}
+			Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$, allora
+			$
+				v(f) = f^{\text{in}}(B) - f^{\text{out}}(B)
+			$
+		\end{definition}
+	\end{minipage}
 \end{myblockquote}
 
-Se poniamo $A = V - {t}$ e $B = {t}$ nella (7.7), abbiamo
+Se poniamo $A = V - {t}$ e $B = {t}$ nella \ref{def:7.7}, abbiamo
 $v(f) = f^{in}(B) - f^{out}(B) = f^{in}(t) - f^{out}(t)$. In base alla
 nostra assunzione il \textbf{sink} $t$ non ha archi uscenti, quindi
 abbiamo $f^{out}(t) = 0$. Questo dice che avremmo potuto definire
@@ -482,29 +486,30 @@ originariamente il \emph{valore} di un flusso altrettanto bene in
 termini del sink $t$: è $f^{in}(t)$, la quantità di flusso che
 arriva al \textbf{sink}.\\
 
-Una conseguenza molto utile della (7.6) è il seguente upper bound.
-
-
-\paragraph{DEF(7.8)}
+Una conseguenza molto utile della \ref{def:7.6} è il seguente upper bound.
 
 \begin{myblockquote}
-	Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$, allora
-	$
-		v(f) \le c(A, B)
-	$
+	\begin{minipage}{\textwidth}
+		\begin{definition}\label{def:7.8}
+			Sia $f$ un flusso $s-t$ qualsiasi, e $(A, B)$ un taglio $s-t$, allora
+			$
+				v(f) \le c(A, B)
+			$
+		\end{definition}
+	\end{minipage}
 \end{myblockquote}
 
-In un certo senso, la (7.8) sembra più debole della (7.6), poiché è solo
-una disuguaglianza piuttosto che un'uguaglianza. Tuttavia, ci sarà
-estremamente utile, poiché il suo lato destro è indipendente da un
-flusso particolare $f$. Quello che dice la (7.8) è che \textbf{il
-	valore di ogni flusso è limitato superiormente dalla capacità di ogni
-	taglio}. In altre parole, se eseguiamo un qualsiasi taglio $s-t$ in
-$G$ di un certo valore $c^{*}$, sappiamo immediatamente dalla (7.8)
-che non può esserci un flusso $s-t$ in $G$ di valore maggiore di
-$c^{*}$. Al contrario, se valutiamo un qualsiasi flusso $s-t$ in $G$
-di un certo valore $v^{*}$, sappiamo immediatamente dalla (7.8) che non
-può esserci un taglio $s-t$ in $G$ di valore minore di $v^{*}$.
+In un certo senso, la \ref{def:7.8} sembra più debole della \ref{def:7.6},
+poiché è solo una disuguaglianza piuttosto che un'uguaglianza. Tuttavia, ci sarà
+estremamente utile, poiché il suo lato destro è indipendente da un flusso
+particolare $f$. Quello che dice la \ref{def:7.8} è che \textbf{il valore di
+	ogni flusso è limitato superiormente dalla capacità di ogni taglio}. In altre
+parole, se eseguiamo un qualsiasi taglio $s-t$ in $G$ di un certo valore
+$c^{*}$, sappiamo immediatamente dalla \ref{def:7.8} che non può esserci un
+flusso $s-t$ in $G$ di valore maggiore di $c^{*}$. Al contrario, se valutiamo un
+qualsiasi flusso $s-t$ in $G$ di un certo valore $v^{*}$, sappiamo
+immediatamente dalla \ref{def:7.8} che non può esserci un taglio $s-t$ in $G$ di valore
+minore di $v^{*}$.
 
 \section{Analyzing the Algorithm: Max-Flow Equals Min-Cut}
 
@@ -519,98 +524,105 @@ qualsiasi taglio $s-t$.\\
 
 L'algoritmo di Ford-Fulkerson \textbf{termina quando il flusso $f$ non
 	ha un cammino $s-t$ nel grafo residuale $G_f$}. Questa risulta
-essere l'unica proprietà necessaria per dimostrare la sua massimalità.\\
-
-\paragraph{DEF(7.9)}
+essere l'unica proprietà necessaria per dimostrare la sua massimalità.
 
 \begin{myblockquote}
-	Se $f$ è un flusso $s-t$ tale che non esiste un cammino $s-t$ nel
-	grafo residuale $G_f$ , allora esiste un taglio $s-t$
-	$(A^{*} , B^{*})$ in $G$ per cui $v(f) = c(A^{*} , B^{*})$. Di
-	conseguenza, $f$ ha il valore massimo di qualsiasi flusso in $G$, e
-	$(A^{*} , B^{*})$ ha la capacità minima di qualsiasi taglio $s-t$ in
-	$G$.
+	\begin{minipage}{\textwidth}
+		\begin{definition}\label{def:7.9}
+			Se $f$ è un flusso $s-t$ tale che non esiste un cammino $s-t$ nel
+			grafo residuale $G_f$ , allora esiste un taglio $s-t$
+			$(A^{*} , B^{*})$ in $G$ per cui $v(f) = c(A^{*} , B^{*})$. Di
+			conseguenza, $f$ ha il valore massimo di qualsiasi flusso in $G$, e
+			$(A^{*} , B^{*})$ ha la capacità minima di qualsiasi taglio $s-t$ in
+			$G$.
+		\end{definition}
+	\end{minipage}
 \end{myblockquote}
 
 
-\paragraph{Dimostrazione}
+\begin{proof}
+	Dobbiamo identificare un taglio che dimostri la precedente proprietà. A
+	tal fine, indichiamo con $A^{*}$ l'insieme di tutti i nodi $v$ in
+	$G$ per i quali esiste un cammino $s-v$ in $G_f$. Sia $B^{*}$
+	l'insieme di tutti gli altri nodi: $B^{*} = V - A^{*}$.\\
 
-Dobbiamo identificare un taglio che dimostri la precedente proprietà. A
-tal fine, indichiamo con $A^{*}$ l'insieme di tutti i nodi $v$ in
-$G$ per i quali esiste un cammino $s-v$ in $G_f$ . Sia $B^{*}$
-l'insieme di tutti gli altri nodi: $B^{*} = V - A^{*}$.\\
+	Per prima cosa stabiliamo che $(A^{*} , B^{*})$ è effettivamente un taglio
+	$s-t$. È chiaramente una partizione di $V$. La sorgente $s$
+	appartiene ad $A^{*}$ poiché c'è sempre un cammino da $s$ a $s$.
+	Inoltre, $t \notin A^{*}$ assumendo che non ci sia un cammino $s-t$
+	nel grafo residuale; quindi $t \in B^*$ come desiderato.\\
 
-Per prima cosa stabiliamo che $(A^{*} , B^{*})$ è effettivamente un taglio
-$s-t$. È chiaramente una partizione di $V$. La sorgente $s$
-appartiene ad $A^{*}$ poiché c'è sempre un cammino da $s$ a $s$.
-Inoltre, $t \notin A^{*}$ assumendo che non ci sia un cammino $s-t$
-nel grafo residuale; quindi $t \in B^*$ come desiderato.\\
+	Supponiamo ora che $e = (u, v)$ sia un arco in $G$ per il quale
+	$u \in A^{*}$ e $v \in B^{*}$, come mostrato nella Figura seguente.
+	Affermiamo che $f(e) = c_e$. Infatti, in caso contrario, $e$
+	sarebbe un arco \emph{forward} nel grafo residuale $G_f$, e poiché
+	$u \in A^{*}$ esiste un cammino $s-u$ in $G_f$; aggiungendo $e$ a
+	questo cammino, otterremmo un cammino $s-v$ in $G_f$,
+	contraddicendo la nostra ipotesi che $v \in B^{*}$.\\
 
-Supponiamo ora che $e = (u, v)$ sia un arco in $G$ per il quale
-$u \in A^{*}$ e $v \in B^{*}$, come mostrato nella Figura seguente.
-Affermiamo che $f(e) = c_e$ . Infatti, in caso contrario, $e$
-sarebbe un arco \emph{forward} nel grafo residuale $G_f$ , e poiché
-$u \in A^{*}$ esiste un cammino $s-u$ in $G_f$ ; aggiungendo $e$ a
-questo cammino, otterremmo un cammino $s-v$ in $G_f$ ,
-contraddicendo la nostra ipotesi che $v \in B^{*}$.\\
+	Supponiamo ora che $e' = (u' , v')$ sia un arco in $G$ per cui
+	$u' \in B^{*}$ e $v' \in A^{*}$. Affermiamo che $f(e') = 0$. In caso
+	contrario, $e'$ darebbe luogo a un arco \emph{backward}
+	$e'' = (v' , u')$ nel grafo residuale $G_f$, e poiché
+	$v' \in A^{*}$, allora è un cammino $s-v'$ in $G_f$; aggiungendo
+	$e''$ a questo cammino, otterremmo un cammino $s-u'$ in $G_f$,
+	contraddicendo la nostra ipotesi che $u' \in B^{*}$.\\
 
-Supponiamo ora che $e' = (u' , v')$ sia un arco in $G$ per cui
-$u' \in B^{*}$ e $v' \in A^{*}$. Affermiamo che $f(e') = 0$. In caso
-contrario, $e'$ darebbe luogo a un arco \emph{backward}
-$e'' = (v' , u')$ nel grafo residuale $G_f$ , e poiché
-$v' \in A^{*}$, allora è un cammino $s-v'$ in $G_f$ ; aggiungendo
-$e''$ a questo cammino, otterremmo un cammino $s-u'$ in $G_f$ ,
-contraddicendo la nostra ipotesi che $u' \in B^{*}$.\\
-
-Quindi tutti gli archi uscenti da $A^{*}$ sono completamente saturati di
-flusso, mentre tutti gli archi entranti in $A^{*}$ sono completamente
-inutilizzati. Possiamo ora usare la (7.6) per raggiungere la conclusione
-desiderata:
-$$
-	v(f) = f^{out}(A^{*}) - f^{in}(A^{*}) = \sum_{e \text{ out of }A^{*}} f(e) - \sum_{e \text{ into }A^{*}}f(e) = \sum_{e \text{ out of }A^{*}} c_e - 0 = c(A^{*}, B^{*})
-$$
+	Quindi tutti gli archi uscenti da $A^{*}$ sono completamente saturati di
+	flusso, mentre tutti gli archi entranti in $A^{*}$ sono completamente
+	inutilizzati. Possiamo ora usare la \ref{def:7.6} per raggiungere la conclusione
+	desiderata:
+	$$
+		v(f) = f^{out}(A^{*}) - f^{in}(A^{*}) = \sum_{e \text{ out of }A^{*}} f(e) - \sum_{e \text{ into }A^{*}}f(e) = \sum_{e \text{ out of }A^{*}} c_e - 0 = c(A^{*}, B^{*})
+	$$
+\end{proof}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = 10 cm]{capitoli/network_flow/imgs/flow4.png}
-	\caption{La dimostrazione della 7.9}
+	\caption{La dimostrazione della \ref{def:7.9}}
 \end{figure}
 
-\paragraph{DEF(7.10)}
-
 \begin{myblockquote}
-	Il flusso $\bar{f}$ restituito dall'algoritmo di Ford-Fulkerson è un
-	flusso massimo.
+	\begin{minipage}{\textwidth}
+		\begin{definition}\label{def:7.10}
+			Il flusso $\bar{f}$ restituito dall'algoritmo di Ford-Fulkerson è un
+			flusso massimo.
+		\end{definition}
+	\end{minipage}
+\end{myblockquote}
+\begin{myblockquote}
+	\begin{minipage}{\textwidth}
+		\begin{definition}\label{def:7.11}
+			Dato un flusso f di valore massimo, possiamo calcolare un taglio $s-t$
+			di capacità minima in tempo $O(m)$.
+		\end{definition}
+	\end{minipage}
+\end{myblockquote}
+\begin{myblockquote}
+	\begin{minipage}{\textwidth}
+		\begin{definition}\label{def:7.12}
+			In ogni rete di flussi esiste un flusso $f$ e un taglio $(A, B)$
+			tale che $v(f) = c(A, B)$.
+		\end{definition}
+	\end{minipage}
 \end{myblockquote}
 
-\paragraph{DEF(7.11)}
-
-\begin{myblockquote}
-	Dato un flusso f di valore massimo, possiamo calcolare un taglio $s-t$
-	di capacità minima in tempo $O(m)$.
-\end{myblockquote}
-
-
-\paragraph{DEF(7.12)}
-
-\begin{myblockquote}
-	In ogni rete di flussi esiste un flusso $f$ e un taglio $(A, B)$
-	tale che $v(f) = c(A, B)$.
-\end{myblockquote}
-
-Il punto è che $f$ nella (7.12) deve essere un flusso massimo $s-t$;
+Il punto è che $f$ nella \ref{def:7.12} deve essere un flusso massimo $s-t$;
 poiché se ci fosse un flusso $f'$ di valore maggiore, il valore di
 $f$ supererebbe la capacità di $(A, B)$, e ciò contraddirebbe la
-(7.8). Allo stesso modo segue che $(A, B)$ nella (7.12) è un taglio
+\ref{def:7.8}. Allo stesso modo segue che $(A, B)$ nella \ref{def:7.12} è un taglio
 minimo (nessun altro taglio può avere capacità minore) perché se ci
 fosse un taglio $(A , B)$ di capacità minore, sarebbe minore del
-valore di $f$ , e anche questo contraddirebbe la (7.8). A causa di
-queste implicazioni, la (7.12) è spesso chiamata \textbf{teorema del
+valore di $f$ , e anche questo contraddirebbe la \ref{def:7.8}. A causa di
+queste implicazioni, la \ref{def:7.12} è spesso chiamata \textbf{teorema del
 	taglio minimo del flusso massimo} ed è formulata come segue.
 
-\paragraph{Teorema del Taglio Minimo del Flusso Massimo}
-
 \begin{myblockquote}
-	\textbf{In ogni rete di flussi, il valore massimo di un flusso $s-t$ è
-		uguale alla capacità minima possibile per un taglio $s-t$.}
+	\begin{minipage}{\textwidth}
+		\begin{theorem}[\textbf{Taglio Minimo e Flusso Massimo}]
+			In ogni rete di flussi, il valore massimo di un flusso $s-t$ è
+			uguale alla capacità minima possibile per un taglio $s-t$.
+		\end{theorem}
+	\end{minipage}
 \end{myblockquote}
