@@ -24,7 +24,7 @@ $$
 Augmenting path 1: $s \to v \to w \to t$. Bottleneck capacity = 1
 (v,w).\\
 
-Continuo ad aumentare path che passano per (v,w) e per (w,v) alternati,
+Continuo ad aumentare path che passano per $(v,w)$ e per $(w,v)$ alternati,
 quindi aggiungo e tolgo la bottleneck ogni volta. La bottleneck
 diminuisce sempre ma va da r a $r^2$ a $r^3$ e cosí via, cosí
 l'algoritmo non termina mai:
@@ -81,19 +81,24 @@ l'algoritmo non termina mai:
 	\end{subfigure}
 \end{figure}
 
-\textbf{Teorema:}
 \begin{myblockquote}
-	L'algoritmo di Ford-Fulkerson
-	può non terminare e può convergere ad un valore che non è il flusso
-	massimo.
+	\begin{minipage}{\textwidth}
+		\begin{theorem}
+			L'algoritmo di Ford-Fulkerson
+			può non terminare e può convergere ad un valore che non è il flusso
+			massimo.
+		\end{theorem}
+	\end{minipage}
 \end{myblockquote}
 
-\textbf{Dimostrazione:} Utilizzando la data sequenza di augmenting
-paths, dopo $(1+4k)^{th}$ di questi path, il valore del flusso è
-uguale a
+\begin{proof}
+	Utilizzando la data sequenza di augmenting
+	paths, dopo $(1+4k)^{th}$ di questi path, il valore del flusso è
+	uguale a
 
-$$
-	1 + 2 \sum^{2k}_{i=1}r^i \le 1 + 2 \sum^{\infty}_{i=1}r^i = 3 + 2r < 5
-$$
+	$$
+		1 + 2 \sum^{2k}_{i=1}r^i \le 1 + 2 \sum^{\infty}_{i=1}r^i = 3 + 2r < 5
+	$$
 
-($r = \frac{\sqrt{5}-1}{2}$) Valore del flusso massimo = 200 + 1
+	($r = \frac{\sqrt{5}-1}{2}$) Valore del flusso massimo = 200 + 1.
+\end{proof}
