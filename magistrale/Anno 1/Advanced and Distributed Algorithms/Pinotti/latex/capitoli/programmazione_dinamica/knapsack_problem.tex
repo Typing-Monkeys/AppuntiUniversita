@@ -99,7 +99,7 @@ return M[n,W]
 \subsection{Find Solution}
 
 Dopo aver computato il valore ottimo, per trovare la soluzione completa
-prendo come soluzione l'oggetto di inidce $i$ in $OPT(i, w)$ se e solo se
+prendo come soluzione l'oggetto di indice $i$ in $OPT(i, w)$ se e solo se
 $M[i, w] > M[i-1, w]$,
 poi se ho incluso $i$ nella soluzione mi sposto sotto di 1 ($j-1$) e a
 sinistra di tante celle quanto è il peso dell'oggetto inserito, sennò non
@@ -108,7 +108,7 @@ procedura fin quando non arrivo alla riga di indice 0. Tutto questo è
 riassunto nel seguente pseudocodice.
 \newpage
 \begin{lstlisting}[language=Python, mathescape=true]
-  // come invochi la funzione per far paretire la ricorsione
+  // come invochi la funzione per far partire la ricorsione
   // Find-Solution(n, W)
   function Find-Solution(j, w) {
     if (j == 0) {
@@ -155,7 +155,7 @@ riassunto nel seguente pseudocodice.
         ottima. Questo fatto si riflette in come viene popolato l'array di
         memoization dei valori di $OPT$ che verranno salvati in un array
         bidimensionale (dimensione dell'input non polinomiale,
-        pseudopolinomiale, perchè dipende da due variabili).
+        pseudopolinomiale, perché dipende da due variabili).
 
         \begin{figure}[H]
           \includegraphics[width=13cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/zaino1.png}
@@ -193,15 +193,15 @@ riassunto nel seguente pseudocodice.
   \item $OPT[i,w] = \max(v_i + OPT[i-1, w-w_i], OPT[i-1,w])$
   \item \textbf{Scelgo se prendere o meno l'oggetto} $i$
   \item Ho bisogno di una matrice $n \times W$ ($W$ è la capacità dello
-        zaino). problema pseudopolinomiale perchè varia in base a $W$
+        zaino). problema pseudopolinomiale perché varia in base a $W$
         $\rightarrow$ \textbf{SPAZIO =} $O(nW)$
   \item Per riempire una cella devo solo controllare due valori
         $\rightarrow$ \textbf{TEMPO =} $O(nW)$
   \item In questo problema la matrice può essere costruita per righe o per
         colonne
-  \item Per trovare $(i,w)$ leggo solo da una riga, per costrure la riga
+  \item Per trovare $(i,w)$ leggo solo da una riga, per costruire la riga
         $i$ ho solo bisogno della riga $i-1$, la soluzione è in
         $S[n,W]$. Posso quindi trovare una soluzione utilizzando una matrice
-        con sole due righe \textbf{SPAZIO =} $O(W)$ ma cosí non posso
+        con sole due righe \textbf{SPAZIO =} $O(W)$ ma così non posso
         ricostruire la soluzione.
 \end{itemize}

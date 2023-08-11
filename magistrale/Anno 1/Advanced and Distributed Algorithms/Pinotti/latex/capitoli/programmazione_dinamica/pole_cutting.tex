@@ -29,7 +29,7 @@ definito nel modo seguente:
 \end{figure}
 
 
-È importante notare che un'asta di lunghezza $n$ può essre tagliata in
+È importante notare che un'asta di lunghezza $n$ può essere tagliata in
 $2^{n-1}$ modi differenti, in quanto \textbf{si ha un'opzione
   indipendente di tagliare o non tagliare}, alla distanza di $i$ pollici
 dall'estremità sinistra, per $i = 1, 2, \ldots, n-1$.\\
@@ -102,9 +102,9 @@ $$
 $$
 
 Secondo questa formulazione, \textbf{una soluzione ottima incorpora la
-  soluzione di un solo sottoproblema} (il pezzo restante) anzichè due.
+  soluzione di un solo sottoproblema} (il pezzo restante) anziché due.
 
-\section{Algorimto ricorsivo TOP-down}
+\section{Algoritmo ricorsivo TOP-down}
 
 \begin{lstlisting}[language=Python, mathescape=true]
 function Cut-Pole(p, n) {
@@ -123,14 +123,14 @@ function Cut-Pole(p, n) {
 
 \subsection{Costo}
 
-Perchè questo algoritmo è così \textbf{inefficiente}? Il problema è che
+Perché questo algoritmo è così \textbf{inefficiente}? Il problema è che
 la procedura \texttt{Cut-Pole} chiama più e più volte sè stessa in modo
-ricorsivo con gli stessi valori dei parametri, ovverro \textbf{risolve
+ricorsivo con gli stessi valori dei parametri, ovvero \textbf{risolve
   ripetutamente gli stessi sottoproblemi}.
 \begin{figure}[H]
   \centering
   \includegraphics[width=9cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/pole4.png}
-  \caption{Albero delle soluzioni ottenuto da una solizione trovata con 5 tagli}
+  \caption{Albero delle soluzioni ottenuto da una soluzione trovata con 5 tagli}
 \end{figure}
 
 %% TODO: ricontrollare se possibile scrivere tutto su una riga (Tn= sum = 2^n)
@@ -226,7 +226,7 @@ $$
 
 Anche il tempo di esecuzione della sua \textbf{controparte Top-Down} è
 $O(n^2)$, sebbene questo tempo di esecuzione sia un pò più difficile
-da spiegare. Poichè \textbf{una chiamata ricorsiva per risolvere un
+da spiegare. Poiché \textbf{una chiamata ricorsiva per risolvere un
   sottoproblema precedentemente risolto termina immediatamente}.
 
 \section{Riepilogo}

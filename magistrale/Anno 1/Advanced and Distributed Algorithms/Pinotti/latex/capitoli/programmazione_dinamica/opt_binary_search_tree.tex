@@ -28,7 +28,7 @@ $$
   \sum_{i=1}^{n} p_i +  \sum_{i=0}^{n} q_i = 1
 $$
 
-\textbf{Poichè conosciamo le probabilità delle ricerche per ogni chiave
+\textbf{Poiché conosciamo le probabilità delle ricerche per ogni chiave
   e per ogni chiave fittizia, possiamo determinare il costo atteso di una
   ricerca in un determinato albero binario di ricerca $T$.} Supponiamo
 che il costo effettivo di una ricerca sia il numero di nodi esaminati,
@@ -72,13 +72,13 @@ $d_{i-1}, ..., d_j$. Adesso possiamo definire la
 \begin{myblockquote}
   se un albero
   binario di ricerca ottimo $T$ ha un sottoalbero $T'$ che contiene le
-  chiavi $k_i, ..., k_j$, allora questo sottoalberto $T'$ deve essere
+  chiavi $k_i, ..., k_j$, allora questo sottoalbero $T'$ deve essere
   ottimo anche per il sottoproblema con chiavi $k_i, ..., k_j$ e chiavi
   fittizie $d_{i-1}, ..., d_j$.
 \end{myblockquote}
 Date le chiavi $k_i, ..., k_j$, una di queste chiavi, per esempio
 $k_r$ ($i \le r \le j$), sarà la radice di un sottoalbero ottimo che
-contine queste chiavi. Il sottoalbero sinistro della radice $k_r$
+contiene queste chiavi. Il sottoalbero sinistro della radice $k_r$
 conterrà le chiavi $k_i, ..., k_{r-1}$ (e le chiavi fittizie
 $d_{i-1}, ..., d_{r-1}$) e il sottoalbero destro conterrà le chiavi
 $k_{r+1}, ..., k_j$ (e le chiavi fittizie $d_{r}, ..., d_{j}$).\\
@@ -170,18 +170,18 @@ precedentemente potrebbe risultare inefficiente come l'algoritmo
 ricorsivo diretto della moltiplicazione di una sequenza di matrici.\\
 Memorizziamo quindi i valori $e[i,j]$ in una tabella
 $e[1..n +1, 0..n]$. Il primo indice deve arrivare fino a $n+1$
-(anzichè $n$) perchè, per ottenere un sottoalbero che contiene
+(anziché $n$) perché, per ottenere un sottoalbero che contiene
 soltanto la chiave fittizia $d_n$, dobbiamo calcolare e memorizzare
-$e[n+1,n]$. Il secondo indice deve iniziare da 0 perchè, per ottenere
+$e[n+1,n]$. Il secondo indice deve iniziare da 0 perché, per ottenere
 un sottoalbero che contiene soltanto la chiave fittizia $d_0$,
 dobbiamo calcolare e memorizzare $e[1,0]$. Utilizzeremo soltanto le
 posizioni $e[i,j]$ per le quali $j \ge i-1$. Utilizzeremo anche una
-tabella $root[i,j]$ per memoriazzare la radice del sottoalbero che
+tabella $root[i,j]$ per memorizzare la radice del sottoalbero che
 contiene le chiavi $k_i, ..., k_j$ (questa tabella usa soltanto le
 posizioni per le quali $1 \le i \le j \le n$).\\
 
 Ovviamente, per migliorare l'efficienza, utilizzeremo un'altra tabella.
-Anzichè ricominciare da zero il calcolo di $w(i,j)$ ogni volta che
+Anziché ricominciare da zero il calcolo di $w(i,j)$ ogni volta che
 calcoliamo $e[i,j]$ (il che richiederebbe $O(j-1)$ addizioni)
 memorizziamo questi valori in una tabella $w[1..n+1,0..n]$.\\
 Per il caso base, calcoliamo $w[i, i-1] = q_{i-1}$ per $1 \le i \le n+1$.
