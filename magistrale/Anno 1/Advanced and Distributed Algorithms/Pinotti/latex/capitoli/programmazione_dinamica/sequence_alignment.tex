@@ -18,10 +18,12 @@ definizione di \textbf{similarità}.
 Come prima definizione di \textbf{\emph{similarità}} possiamo dire che:
 
 \begin{myblockquote}
-  \begin{definition}[\textbf{Similarità}]
-    Minore è il numero di caratteri che non
-    corrispondono, maggiore è la similarità tra le parole.
-  \end{definition}
+  \begin{minipage}{\textwidth}
+    \begin{definition}[\textbf{Similarità}]
+      Minore è il numero di caratteri che non
+      corrispondono, maggiore è la similarità tra le parole.
+    \end{definition}
+  \end{minipage}
 \end{myblockquote}
 
 Questa problematica è anche un tema centrale della biologia molecolare,
@@ -33,25 +35,27 @@ Prima di dare una definizione similarità dobbiamo però darne una di
 \newpage
 
 \begin{myblockquote}
-  \begin{definition}[\textbf{Alignment}]
-    Supponiamo di avere due stringhe
-    $X$ e $Y$, che consistono rispettivamente della sequenza di simboli
-    $x_1 x_2 \ldots x_m$ e $y_1 y_2 \ldots y_n$.
-    Consideriamo gli insiemi $\{1,2,\ldots ,m\}$ e $\{1,2,\ldots ,n\}$
-    che rappresentano le varie posizioni nelle stringhe $X$ e $Y$, e
-    consideriamo un \textbf{Matching} di questi due insiemi (un matching è
-    stato definito nel \autoref{chap:rna}
-    $\rightarrow$ si tratta di un insieme di coppie ordinate con la
-    proprietà che ogni oggetto si trova al più in una sola coppia).
-    Diciamo ora che \textbf{un matching $M$ di questi due
-      insiemi è un \emph{allineamento} se gli elementi di varie coppie non si
-      incrociano}:
-    \begin{itemize}
-      \item se $(i,j),(i^{\prime},j^{\prime}) \in M$
-      \item e $i < i^{\prime}$,
-      \item allora $j < j^{\prime}$.
-    \end{itemize}
-  \end{definition}
+  \begin{minipage}{\textwidth}
+    \begin{definition}[\textbf{Alignment}]
+      Supponiamo di avere due stringhe
+      $X$ e $Y$, che consistono rispettivamente della sequenza di simboli
+      $x_1 x_2 \ldots x_m$ e $y_1 y_2 \ldots y_n$.
+      Consideriamo gli insiemi $\{1,2,\ldots ,m\}$ e $\{1,2,\ldots ,n\}$
+      che rappresentano le varie posizioni nelle stringhe $X$ e $Y$, e
+      consideriamo un \textbf{Matching} di questi due insiemi (un matching è
+      stato definito nel \autoref{chap:rna}
+      $\rightarrow$ si tratta di un insieme di coppie ordinate con la
+      proprietà che ogni oggetto si trova al più in una sola coppia).
+      Diciamo ora che \textbf{un matching $M$ di questi due
+        insiemi è un \emph{allineamento} se gli elementi di varie coppie non si
+        incrociano}:
+      \begin{itemize}
+        \item se $(i,j),(i^{\prime},j^{\prime}) \in M$
+        \item e $i < i^{\prime}$,
+        \item allora $j < j^{\prime}$.
+      \end{itemize}
+    \end{definition}
+  \end{minipage}
 \end{myblockquote}
 
 Intuitivamente, un \textbf{\emph{alignment}} fornisce un modo per
@@ -195,7 +199,8 @@ programmazione dinamica.
 
 \subsection{Approccio Bottom-Up}
 
-\begin{lstlisting}[language=Python, mathescape=true]
+\begin{minipage}{\textwidth}
+  \begin{lstlisting}[language=Python, mathescape=true]
 function alignment(X,Y) {
 	for i = 0 to m
 		M[i, 0] $\leftarrow$ i $\delta$
@@ -211,6 +216,7 @@ function alignment(X,Y) {
 	return M[m, n]
 }
 \end{lstlisting}
+\end{minipage}
 
 \subsection{Costo}
 
