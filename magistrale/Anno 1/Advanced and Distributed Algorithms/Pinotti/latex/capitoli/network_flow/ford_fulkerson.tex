@@ -288,9 +288,7 @@ aumentando e diminuendo i valori di flusso sugli archi di $P$.\\
 Questa operazione di \textbf{augmentation} cattura il tipo di spinta
 avanti e indietro (forward and backward) del flusso che abbiamo discusso
 in precedenza. Consideriamo ora il seguente algoritmo per calcolare un
-flusso $s-t$ in $G$.\\
-
-\texttt{Max-Flow(G)}
+flusso $s-t$ in $G$.
 
 \begin{lstlisting}[language=Python, mathescape=true]
 function Max-Flow(G) {
@@ -349,7 +347,7 @@ flusso aumenta strettamente quando applichiamo \emph{augmentation}.\\
       \texttt{bottleneck(P,\ f)} \textgreater{} 0, abbiamo $v(f') > v(f)$.
     \end{definition}
   \end{myblockquote}
-\end{minipage}
+\end{minipage}\\
 
 Abbiamo bisogno di un'altra osservazione per dimostrare la terminazione.
 Dobbiamo essere in grado di limitare il massimo valore di flusso
