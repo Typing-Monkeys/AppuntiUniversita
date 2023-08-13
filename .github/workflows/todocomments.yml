@@ -1,0 +1,19 @@
+name: Todo Comments 🔫
+on: [pull_request]
+
+jobs:
+  todo-comments:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Create Todo Comments ✅
+        uses: gkampitakis/github-action-todo-commenter@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ignore-pattern: '.yml'
+          review-message: "monello 👹, hai aggiunto dei TODO che vanno sistemati !"
+          # optional, default is "TODO:,FIXME:,BUG:"
+          tags: "TODO:,FIXME:,BUG:"
