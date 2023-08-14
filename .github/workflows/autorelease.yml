@@ -32,17 +32,23 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Generate changelog
-        uses: orhun/git-cliff-action@v2
-        id: git-cliff
-        with:
-          config: .github/workflows/configs/conf.toml
-          args: -vv --latest --unreleased --strip header --tag v${{needs.tag.outputs.newtag}}
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Install git-cliff 🏔
+        run: |
+          export version=1.2.0
+          wget "https://github.com/orhun/git-cliff/releases/download/v${version}/git-cliff-${version}-x86_64-unknown-linux-gnu.tar.gz"
+          tar -xvzf git-cliff-*.tar.gz
+          cp "git-cliff-${version}/git-cliff" /usr/local/bin/
+
+      - name: Generate a changelog
+        run: git-cliff -vv --latest --unreleased --strip header --config .github/workflows/conf.toml --tag v${{needs.tag.outputs.newtag}} -o log.md
         env:
-          OUTPUT: CHANGES.md
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cat Changelog
-        run: cat ${{ steps.git-cliff.outputs.changelog }}
+        run: cat log.md
 
       - name: Create Release
         uses: actions/create-release@v1
@@ -51,5 +57,5 @@ jobs:
         with:
           tag_name: "v${{needs.tag.outputs.newtag}}"
           release_name: "v${{needs.tag.outputs.newtag}}"
-          body: ${{ steps.git-cliff.outputs.content }}
+          body_path: log.md
  

@@ -13,7 +13,7 @@ body = """
 {% for group, commits in commits | group_by(attribute="group") %}
     ### {{ group | upper_first }}
     {% for commit in commits %}
-        - {{ commit.message | upper_first }} ([{{ commit.id | truncate(length=7, end="") }}]({{ github_repo_link }}/commit/{{ commit.id }})) by {{ commit.author.name }}\
+        - {{ commit.message | upper_first }} ([{{ commit.id | truncate(length=7, end="") }}]({{ github_repo_link }}/commit/{{ commit.id }})) \
     {% endfor %}
 {% endfor %}\n
 
@@ -40,9 +40,10 @@ filter_unconventional = false
 split_commits = false
 # regex for parsing and grouping commits
 
-# commit_preprocessors = [
-#     {pattern = "username", replace_command="gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/ncvescera/provaactions/commits/$COMMIT_SHA | jq -r .author.login"},
-# ]
+commit_preprocessors = [
+    {pattern = ".*", replace_command="echo -n \"$(head -1 $@) @$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/Typing-Monkeys/AppuntiUniversita/commits/$COMMIT_SHA | jq -r .author.login)\""}
+]
+
 commit_parsers = [
     { message = "^feat", group = "Features 🚀"},
     { message = "^fix", group = "Fixes 🔨"},
