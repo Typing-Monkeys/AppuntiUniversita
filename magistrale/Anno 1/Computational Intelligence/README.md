@@ -185,7 +185,7 @@ Esistono 2 livelli nelle Intelligenze Artificiali (e da questo anche 2 modi per 
 
 # **Problemi di ottimizzazione**
 Molti problemi di ottimizzazione sono computazionalmente difficili (Es: np-hard o peggio).<br>
-*Breve cenno sul significato di **NP***: La classe di problemi ***NP*** comprende tutti quei problemi decisionali che, per trovare una soluzione su una macchina di Turing non deterministica, impiegano un tempo polinomiale. La classe NP prende il suo nome dall'abbreviazione di *Nondeterministic Polynomial Time*.
+*Breve cenno sul significato di **NP***: La classe di problemi ***NP*** comprende tutti quei problemi decisionali che, per trovare una soluzione su una macchina di Turing non deterministica, impiegano un tempo polinomiale cioè trovare una soluzione è molto difficile (tempo NON Polinomiale), ma verificare che una soluzione sia corretta è semplice (tempo Polinomiale). La classe NP prende il suo nome dall'abbreviazione di *Nondeterministic Polynomial Time*.
 
 ### **Problema del commesso viaggiatore *TSP***
 - *n* città <br>
