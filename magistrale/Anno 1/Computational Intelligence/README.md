@@ -2159,7 +2159,7 @@ Altre differenze:
     In questo caso succede l'esatto contrario <br>
     <img src="./imgs/de6.png" width="35%" /> <br>
     Quindi $y_i$ è vicino a qualche vettore della popolazione. <br> <br>
-    La DE crea un vettore mutante che dipende da quanto i vettori della popolazione sono differenti tra di loro. Se sono molto differenti, il vettore mutante sarà un vettore a caso e molto diverso dagli elementi della popolazione. Se sono poco differenti, il vettore mutante sarà simile a v[1], e quindi simile ad un elemento della popolazione. <br>
+    La DE crea un vettore mutante che dipende da quanto i vettori della popolazione sono differenti tra di loro. Se sono molto differenti, il vettore mutante sarà un vettore a caso e molto diverso dagli elementi della popolazione. Se sono poco differenti, il vettore mutante sarà simile a v[i], e quindi simile ad un elemento della popolazione. <br>
     In pratica il **DE si autoregola**, perchè all'inizio è più probabile che ci si trovi nel primo scenario (quindi la mutazione fa dei salti importanti (**exploration**) -> prendo degli individui e li muto molto. <br>
     Se l'algoritmo invece sta convergendo (gli individui diventano sempre più simili) ci troviamo nel secondo scenario e la mutazione fa piccoli salti (piccole variazioni) (**exploitation**). <br>
     Il DE usa una forma di **auto-adattamento** nella forza della **Mutazione**. <br>
