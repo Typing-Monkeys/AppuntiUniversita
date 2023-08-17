@@ -133,13 +133,8 @@ ricorsivo con gli stessi valori dei parametri, ovvero \textbf{risolve
   \caption{Albero delle soluzioni ottenuto da una soluzione trovata con 5 tagli}
 \end{figure}
 
-%% TODO: ricontrollare se possibile scrivere tutto su una riga (Tn= sum = 2^n)
 $$
-  T(n) = 1 + \sum^{n-1}_{j=0}T(j)
-$$
-
-$$
-  T(n) = 2^n
+  T(n) = 1 + \sum^{n-1}_{j=0}T(j) = 2^n
 $$
 
 \paragraph*{Nota:} \texttt{Cut-Pole} è esponenziale in $n$.\\
