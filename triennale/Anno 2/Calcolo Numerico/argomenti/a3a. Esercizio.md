@@ -1,16 +1,16 @@
-Descrivere una variante strutturata dell'algoritmo di Gauss che richieda non più di 10n operazioni per la soluzione del sistema lineare $Ax=b$ con A matrice tridiagonale.
+Descrivere una variante strutturata dell'algoritmo di Gauss che richieda non più di $10n$ operazioni per la soluzione del sistema lineare $Ax=b$ con $A$ matrice tridiagonale.
 
 $$[A|b]\to ... \to [U|\tilde{b}]$$
 
 $$Ux=\tilde{b}$$
 
-$\frac 23n^3$ operazioni algoritmo di Gauss applicato ad A
+$\frac 23n^3$ operazioni algoritmo di Gauss applicato ad $A$
 
-$n^2$ operazioni per aggiornare b
+$n^2$ operazioni per aggiornare $b$
 
 $n^3$ operazioni per risolvere $Ux=\tilde b$
 
-A è tridiagonale se $a_{ij} = 0, |i-j|>1$
+$A$ è tridiagonale se $a_{ij} = 0, |i-j|>1$
 
 Al primo passo del metodo di Gauss è necessario eliminare gli elementi
 
@@ -28,7 +28,7 @@ $$r_3^T \gets r_3^T - l_{32} r_2^T$$
 
 che richiede 3 operazioni.
 
-L'algoritmo richiede 3(n-1) passi in totale
+L'algoritmo richiede $3(n-1)$ passi in totale
 
 Implementazione:
 
@@ -48,9 +48,9 @@ Algoritmo modificato
 		a(h+1,h=0)=0
 		b(h+1) = b(h+1) - l(h+1, h)*b(h)
 
-Per calcolare U sono sufficienti 3(n-1) operazioni, per calcolare $\tilde b$ sono sufficienti 2(n-1) operazioni
+Per calcolare $U$ sono sufficienti $3(n-1)$ operazioni, per calcolare $\tilde b$ sono sufficienti $2(n-1)$ operazioni
 
-Risolvere $Ux = \tilde b$ sono sufficienti 3(n-1) + 1 operazioni
+Per risolvere $Ux = \tilde b$ sono sufficienti $3(n-1) + 1$ operazioni
 
 $8n
 
@@ -68,7 +68,7 @@ x_1\\x_2\\\vdots\\x_n
 \tilde{b_1}\\\tilde{b_2}\\\vdots\\\tilde{b_n}\\
 \end{bmatrix}$$
 
-Si può risolvere con O(n) operazioni?
+Si può risolvere con $O(n)$ operazioni?
 
 Modo 1
 
@@ -84,6 +84,6 @@ U_{nn}x_n=\tilde{b_n}\\
 	for i=n-1:-1:1
 		x(i) = (bt(i)- u(i,i+1) *x(i+1)) / u(i,i)
 
-3(n-1) + 1 operazioni $\sim$ 3n operazioni
+$3(n-1) + 1$ operazioni $\sim$ $3n$ operazioni
 
 [[a3. Fattorizzazione LU]]
