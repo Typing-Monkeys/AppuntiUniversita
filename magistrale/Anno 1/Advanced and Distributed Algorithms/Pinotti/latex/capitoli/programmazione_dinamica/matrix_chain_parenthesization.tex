@@ -130,10 +130,14 @@ parentesizzazioni alternative di una sequenza di $n$ matrici.
 
 Quindi otteniamo la seguente ricorrenza:
 
-%% TODO: riscrivere in LaTex
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=10cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/matrix1.png}
+  \begin{equation*}
+    P(n) = \begin{cases}
+      1                           & \text{se } n = 1,    \\
+      \sum_{k=1}^{n-1} P(k)P(n-k) & \text{se } n \geq 2.
+    \end{cases}
+  \end{equation*}
+
   \caption{Sequenza: 1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012, 742900,
     $\ldots$}
 \end{figure}
