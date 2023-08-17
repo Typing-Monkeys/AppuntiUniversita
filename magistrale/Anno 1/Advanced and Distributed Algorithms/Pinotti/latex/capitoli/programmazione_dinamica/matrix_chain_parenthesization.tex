@@ -180,14 +180,16 @@ $A_{k+1..j}$, più il costo per per moltiplicare queste due matrici.
 
 \subsubsection{Defininizione della sottostruttura}
 
-\begin{myblockquote}
-  Supponiamo che una parentesizzazione ottima $A_i A_{i+1} \ldots A_j$
-  suddivida \linebreak il prodotto fra $A_k$ e $A_{k+1}$. Allora la
-  parentesizzazione della prima sottosequenza $A_i A_{i+1} \ldots A_k$
-  all'interno di questa parentesizzazione ottima di
-  $A_i A_{i+1} \ldots A_j$, deve essere una parentesizzazione ottima di
-  $A_i A_{i+1} \ldots A_k$.
-\end{myblockquote}
+\begin{minipage}{\textwidth}
+  \begin{myblockquote}
+    Supponiamo che una parentesizzazione ottima $A_i A_{i+1} \ldots A_j$
+    suddivida \linebreak il prodotto fra $A_k$ e $A_{k+1}$. Allora la
+    parentesizzazione della prima sottosequenza $A_i A_{i+1} \ldots A_k$
+    all'interno di questa parentesizzazione ottima di
+    $A_i A_{i+1} \ldots A_j$, deve essere una parentesizzazione ottima di
+    $A_i A_{i+1} \ldots A_k$.
+  \end{myblockquote}
+\end{minipage}\\
 
 \textbf{Possiamo quindi costruire una soluzione ottima di un'istanza del
   problema della moltiplicazione di una sequenza di matrici suddividendo
@@ -229,11 +231,12 @@ dobbiamo semplicemente controllarli tutti per trovare il migliore.
 Quindi, la nostra definizione ricorsiva per il costo minimo di una
 parentesizzazione del prodotto $A_i A_{i+1} \ldots A_j$ diventa:
 
-%% TODO: riscrivere in LaTex
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=15cm, keepaspectratio]{capitoli/programmazione_dinamica/imgs/matrix2.png}
-\end{figure}
+\begin{equation*}
+  m[i,j] = \begin{cases}
+    0                                                          & \text{se } i = j, \\
+    \min_{i \leq k < j}(m[i, k] + m[k+1, j] + p_{i-1} p_k p_j) & \text{se } i < j.
+  \end{cases}
+\end{equation*}
 
 I valori \texttt{m[i,\ j]} sono i costi delle soluzioni ottime dei
 sottoproblemi, ma essi non ci forniscono tutte le informazioni
@@ -283,8 +286,8 @@ del problema la lunghezza $j-i+1$ della sequenza.
 
 
 \section{Bottom-Up Approach}
-
-\begin{lstlisting}[language=Python, mathescape=true]
+\begin{minipage}{\textwidth}
+  \begin{lstlisting}[language=Python, mathescape=true]
 function Matrix-Chain-Order(p) {
   matrix Ai has dimensions p(i-1) $\times$ p(i)
   n = p.length - 1
@@ -306,6 +309,7 @@ function Matrix-Chain-Order(p) {
   return m and s
 }
 \end{lstlisting}
+\end{minipage}
 
 L'algoritmo prima calcola \texttt{m[i,i]} $= 0$ per
 $i=1, 2,\ldots,n$ (i costi minimi per sequenze di lunghezza $l=1$). Poi
@@ -369,24 +373,25 @@ function Print-Optimal-Parens(s, 1, n) {
     print ")"
 }
 \end{lstlisting}
-\newpage
-\section{Riepilogo}
 
-\begin{itemize}
-  \item
-        L'obiettivo è minimizzare i prodotti scalari con parentesizzazione
-  \item
-        $m[i,j] = \min_{i \leq k < j} (m[i,k] + m[k+1, j] + p_{i-1} p_k p_j)$
-  \item
-        spazio necessario: ho bisogno di una matrice (triangolare superiore)
-        per ricordarmi i valori calcolati precedentemente, riempita per
-        diagonali.
-  \item
-        spazio matrice $n \times n$ : \textbf{SPAZIO =} $O(n^2)$
-  \item
-        per ogni cella pago $n$: \textbf{TEMPO =} $O(n^3)$
-  \item
-        per ricostruire la soluzione: \textbf{SPAZIO} = $O(n^2)$ uso una
-        matrice dove segno quale $k$ per ogni $(i,j)$ ha dato il risultato
-        migliore
-\end{itemize}
+\section{Riepilogo}
+\begin{minipage}{\textwidth}
+  \begin{itemize}
+    \item
+          L'obiettivo è minimizzare i prodotti scalari con parentesizzazione
+    \item
+          $m[i,j] = \min_{i \leq k < j} (m[i,k] + m[k+1, j] + p_{i-1} p_k p_j)$
+    \item
+          spazio necessario: ho bisogno di una matrice (triangolare superiore)
+          per ricordarmi i valori calcolati precedentemente, riempita per
+          diagonali.
+    \item
+          spazio matrice $n \times n$ : \textbf{SPAZIO =} $O(n^2)$
+    \item
+          per ogni cella pago $n$: \textbf{TEMPO =} $O(n^3)$
+    \item
+          per ricostruire la soluzione: \textbf{SPAZIO} = $O(n^2)$ uso una
+          matrice dove segno quale $k$ per ogni $(i,j)$ ha dato il risultato
+          migliore
+  \end{itemize}
+\end{minipage}
