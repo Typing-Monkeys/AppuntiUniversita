@@ -95,7 +95,7 @@ delle risorse.
 \chapter{Linguaggio C}
 
 Il linguaggio di programmazione C è conosciuto per essere un linguaggio leggero con
-un numero di "tracce" ridotto.
+un numero di ``tracce'' ridotto.
 Alcuni programmatori abituati ad usare altri linguaggi come Java, Pascal o Ada
 credono che il linguaggio li protegga di più rispetto a quello che effettivamente fa.
 Queste false ipotesi hanno portato i programmatori a fallire nel prevenire la
@@ -193,7 +193,7 @@ Cosa succede se \verb|len| ha dimensione 1? \verb|size| diventa il massimo
 numero rappresentabile (perché \verb|1 - 2| dà questo risultato ed è unsigned.
 Sarebbe \(2^{64} - 1\)). A quel punto la \verb|malloc(size + 1)| diventerà uguale a
 0. Avere \verb|malloc = 0| porta ad un \textbf{comportamento indefinito}. Le
-conseguenze di questo vento dipendono dal compilatore.\\
+conseguenze di questo flusso dipendono dal compilatore.\\
 
 \textbf{\textit{Esempio}}
 
@@ -255,8 +255,8 @@ Ci sono vari modi per prevenire tali errori:
     \item \textbf{Integer Type Selection}:
           consiste nel selezionare il tipo più
           appropriato per il codice che si ha sotto mano.
-          Un esempio è l'uso del tipo \verb|size_t| quando si vuole salvare la
-          dimensione di un oggetto dato che ideato per questo scopo
+          Un esempio è l'uso del tipo \verb|size_t| che è stato appositamente ideato per salvarci la
+          dimensione di un oggetto
           ("INT01-C. Use \verb|size_t| for all integer values representing the size of
           an object.").
           Si può anche utilizzare \verb|short|.\\
@@ -264,7 +264,7 @@ Ci sono vari modi per prevenire tali errori:
           Un altro esempio:
           \begin{figure}[H]
               \centering
-              \includegraphics[width=12cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/esempio_sizet.png}
+              \includegraphics[width=12cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/esempio_sizet_mod.png}
           \end{figure}
 
     \item \textbf{Type Range Checking}:
@@ -344,6 +344,8 @@ di specificare un limite sul numero dei caratteri da leggere.
 Quest'ultima risulta deprecata e eliminata, il CERT consiglia di non utilizzare
 funzioni deprecate o obsolete.
 
+\newpage
+
 \paragraph{Lettura da \textit{stdin()}.}
 La lettura dei dati da una una fonte illimitata come \textbf{stdin()} crea dei
 problemi per il programmatore poiché non è possibile conoscere in anticipo quanti
@@ -373,12 +375,12 @@ una stringa con più di 128 bytes.
 \paragraph{Null terminating string.}
 In Figura \ref{fig:null_string} possiamo vedere che il risultato di \verb|strcpy()|
 su c porta l'utente a poter scrivere oltre i limiti dell'array poiché la stringa
-salvata in \verb|a[]| non terminata correttamente (null-terminating).
+salvata in \verb|a[]| non è terminata correttamente (null-terminating).
 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/null_string.png}
+    \includegraphics[width=10cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/null_string_new.png}
     \caption{Esempio null terminating string .}\label{fig:null_string}
 \end{figure}
 
@@ -386,19 +388,20 @@ salvata in \verb|a[]| non terminata correttamente (null-terminating).
     required.”}
 
 \paragraph{Funzionamento esempio \ref{fig:null_string}}
-Abbiamo 3 array lunghi 16 caratteri, copiamo la stringa "0123456789abcdef"
-in \textbf{a} e in \textbf{b}, come si può notare questa stringa ha una lunghezza di
-16 caratteri. Successivamente si copia la stringa contenuta in \textbf{a}
-nell'array \textbf{c} e questo porta ad avere dei problemi ovvero:
+Abbiamo 3 array lunghi 16 caratteri. Copia\-mo la stringa ``ciaociaociaociao'' in \textbf{a} e ``0123456789abcdef'' in \textbf{b}. Come si può notare, entrambe le stringhe sono lunghe 16 caratteri. Successivamente si copia la stringa contenuta in \textbf{b} nell'array \textbf{c} e questo porta ad avere dei problemi ovvero:
 
 \begin{itemize}
-    \item non viene salvato sia in \textbf{a} che in \textbf{b} il carattere di fine
-          stringa "\verb|\0|" allora essendo che la stringa non termina
-          e che 'array \textbf{b} è memorizzato subito dopo \textbf{a} si ha di conseguenza che
-          \[a = [0123456789abcde0123456789abcde\backslash 0]\]
-    \item quindi quando si va a copiare \textbf{a} dentro \textbf{c} si copiano 32
-          caratteri più "\verb|\0|" e non 16 sforando così la memoria allocata inizialmente.
+    \item non viene salvato, sia in \textbf{a} che in \textbf{b}, il carattere di fine stringa ``\verb|\0|''. Allora, essendo che la stringa non termina correttamente e che l'array \textbf{b} è memorizzato nello stack subito dopo \textbf{a} (quindi sopra ad \textbf{a}) si ha di conseguenza che 
+          \[b = [0123456789abcdefciaociaociaociao\backslash 0]\]
+    \item quindi quando si va a copiare \textbf{b} dentro \textbf{c} si copiano 32
+          caratteri più ``\verb|\0|'' e non 16, sforando così la memoria allocata inizialmente.
 \end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/null_string_example.png}
+	\caption{Esempio pratico null terminating string .}\label{fig:null_string_example}
+\end{figure}
 
 \section{Vulnerabilità delle stringhe ed exploit}
 
@@ -491,7 +494,7 @@ come funziona e come vengono salvate le variabili, se si alloca dello spazio si 
 un numero più alto a uno più basso e viceversa (come una fisarmonica). La memoria è
 struttura in questo modo così la parte dinamica (heap) non si incontra con la parte
 statica (stack) a meno che non viene riempita completamente.\\
-La memoria UNIX è molto simili alla memoria generale, l'unica differenza sta nel
+La memoria UNIX è molto simile alla memoria generale, l'unica differenza sta nel
 fatto che la parte \textbf{Data} nella memoria generale viene suddivisa in due in
 quella UNIX:
 
@@ -507,11 +510,11 @@ includono le istruzioni e i dati read-only.
 
 \paragraph{Esecuzione di un programma.}
 Vediamo un primo esempio di esecuzione di un programma.
-In questo caso possiamo vedere due funzioni \verb|main()| e \verb|fun(...)|, si parte
+In questo caso possiamo vedere due funzioni: \verb|main()| e \verb|fun(...)|; si parte
 salvando in memoria le variabili locali presenti nella funzione \verb|main()| la
 quale richiama l'altra. In Figura \ref{fig:es_esec_processo} possiamo vedere che le
 variabili vengono salvate in sequenza dal basso verso l'alto in base a come sono state
-inizializzate, successivamente con la chiamata di \verb|fun()| si salvano i parametri
+inizializzate. Successivamente con la chiamata di \verb|fun()| si salvano i parametri
 che essa prende in input, l'indirizzo di
 ritorno (\textbf{return address}\footnote{indica l'indirizzo di ritorno dopo che è
     stata eseguita la funzione in questione, in questo caso indica l'indirizzo del main.})
@@ -526,7 +529,7 @@ vincoli di memoria.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=13cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/es_esecuzione_processo.png}
+    \includegraphics[width=11cm, keepaspectratio]{capitoli/secure_coding/img/cap_2/es_esecuzione_processo.png}
     \caption{Esempio esecuzione processo.}\label{fig:es_esec_processo}
 \end{figure}
 
@@ -566,13 +569,13 @@ In questo secondo esempio possiamo vedere che ci sono 3 funzioni
 (\verb|main|, \verb|f1| e \verb|f2|) che si chiamano a vicenda.
 Quando viene eseguito il programma viene inserito nello stack il frame del \verb|main|,
 supponiamo che esso inizi dall'indirizzo 1000, il quale viene salvato all'interno
-del ebp e del registro della CPU. Successivamente quando viene chiamata la
+del ebp e del registro della CPU. Successivamente, quando viene chiamata la
 funzione \verb|f1| l'ebp all'interno del registro della CPU cambia con quello
 dell'inizio del frame di \verb|f1|, ovvero 1008.
-All'interno del frame di \verb|f1| vengono salvati oltre alle variabili locali
+All'interno del frame di \verb|f1| vengono salvati, oltre alle variabili locali,
 anche il valore del ebp corrente(1008) e il valore di ritorno, il quale è uguale
-all'epb del \verb|main| poiché appena terminata \verb|f1| la CPU deve tornare a
-eseguire le istruzioni successive alla chiamata di funzione nel frame \verb|main|.
+al valore che aveva l'eip prima di effettuare la call alla funzione \verb|f1| poiché appena terminata \verb|f1| la CPU deve tornare a
+eseguire le istruzioni successive alla chiamata di funzione nel frame \verb|main|. Inoltre, terminata la funzione \verb|f1|, verrà ripristinato il valore del ebp al suo valore precedente ovvero all' ebp del \verb|main|.
 
 \begin{figure}[H]
     \centering
@@ -592,7 +595,7 @@ ovvero MyInt come parametro viene allocato per primo nello stack secondo il prof
 mentre nel commento a riga 4 viene allocato come secondo rispetto a MyStrPtr poiché gli
 argomenti delle funzioni vengono allocati da destra verso sinistra, per comodità seguiamo
 la spiegazione delle slides.
-A livello assembly quando viene chiamata la funzione vengono effettuate le seguente operazioni,:
+A livello assembly, quando viene chiamata la funzione, vengono effettuate le seguente operazioni:
 
 \begin{enumerate}
     \item  \verb|mov eax, [ebp- 4]|: si sposta quello che si trova in ebp-4 (MyStrPtr)
@@ -689,6 +692,8 @@ funzione chiamante sa dove si trovano i valori di ritorno e li può usare.
     \caption{Valori di ritorno.}\label{fig:ret_values}
 \end{figure}
 
+\newpage
+
 \section{Stack smashing}
 
 Stack smashing è quando un attaccante intenzionalmente fa overflow di un buffer nello
@@ -705,7 +710,7 @@ stack.
 
 Nell'esempio in Figura \ref{fig:password} il programma è vulnerabile a stack smashing.
 Questo difetto può essere facilmente dimostrato inserendo una password di 20 caratteri
-“1234567890123456 W$\triangleright$*!” che porta a far saltare il programma in modo
+``1234567890123456 W$\triangleright$*!'' che porta a far saltare il programma in modo
 imprevisto.
 
 \begin{figure}[H]
@@ -723,7 +728,7 @@ imprevisto.
 In memoria l'ultima sequenza di quattro caratteri W$\triangleright$*! corrisponde a
 un indirizzo di 4 byte che sovrascrive l'indirizzo di ritorno nello stack, quindi
 invece di tornare all'istruzione subito dopo la chiamata in main() ritorna al ramo
-“Access granted” bypassando così il controllo della password e autorizzando ad avere
+``Access granted'' bypassando così il controllo della password e autorizzando ad avere
 accesso al sistema.
 Un metodo per capire dove è salvato il return address di una funzione nello stack è
 l'utilizzo del comando
@@ -734,7 +739,7 @@ chiama \textbf{Arc Injection}.
 
 
 La tecnica di \textbf{Arc Injection} (a volte chiamata \textbf{return into-libc}) prevede
-il trasferimento del controllo al codice esiste già nella memoria di processo.
+il trasferimento del flusso di controllo ad una parte di codice già esistente nello spazio di memoria del programma.
 Questi exploit sono chiamati così perché inseriscono un nuovo arco
 (trasferimento del flusso di controllo) nel flusso di controllo del programma invece
 di iniettare nuovo codice. Questa tecnica è preferita rispetto al code injection
@@ -754,7 +759,7 @@ Quando l'indirizzo di ritorno viene sovrascritto a causa di un difetto nel softw
 raramente indica istruzioni valide. Per un attaccante è possibile creare delle
 stringhe speciali che contengono \textbf{un puntatore a qualche codice malevolo},
 sempre creato dall'attaccante. Questo implica che quando il return address sovrascritto
-viene invocato il controllo è trasferito al codice iniettato, il quale viene
+viene invocato, il controllo è trasferito al codice iniettato e che quindi viene
 eseguito con i permessi del programma. Per questo i programmi che vengono eseguiti
 con permessi di \textbf{root} o dei \textbf{privilegi elevati} sono il target di
 certi attacchi, infatti frequentemente il codice malevolo apre una shell remota
@@ -782,10 +787,10 @@ il codice di exploit in modo da eseguirlo. Prima di eseguire quest'ultimo salvia
 parametri che passeremo successivamente alle funzioni del exploit:
 
 \begin{itemize}
-    \item \textbf{"/usr/bin/cal"}: il primo esadecimale si traduce con il
+    \item \textbf{``/usr/bin/cal''}: il primo esadecimale si traduce con il
           comando \verb|/usr/bin/cal|.
-    \item \textbf{"null pointer"}: il secondo è un puntatore a null.
-    \item \textbf{"NULL"}: caratteri nulli.
+    \item \textbf{``null pointer''}: il secondo è un puntatore a null.
+    \item \textbf{``NULL''}: caratteri nulli.
 \end{itemize}
 
 \textbf{Spiegazione exploit code.} Vediamo nel dettaglio cosa fanno i comandi scritti
@@ -800,7 +805,7 @@ in esadecimale del nostro exploit code.
         char *const argv[], 
         char *const envp[]
     );\end{lstlisting}
-    \item \verb|lea (%esp), %ebx|: "load effective address", calcola l'indirizzo
+    \item \verb|lea (%esp), %ebx|: ``load effective address'', calcola l'indirizzo
           effettivo del secondo operando (operando sorgente) e lo salva nel primo (operando destinatario).
           L'operando sorgente è un indirizzo di memoria (parte offset) specificato con una delle
           modalità di indirizzamento del processore mentre l'operando di destinazione è un

@@ -1,4 +1,5 @@
 \documentclass[a4paper,12 pt]{report}
+\usepackage[italian]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
@@ -92,7 +93,7 @@
 % Resetta la numerazione dei chapter quando
 % una nuova part viene creata
 \makeatletter
-\@addtoreset{chapter}{part}
+\@addtoreset{chapter}{part} 
 \makeatother
 
 % Rimuove l'indentazione quando si crea un nuovo paragrafo
@@ -123,4 +124,5 @@
 \include{capitoli/ethereum/main.tex}
 \include{capitoli/id_managing/main.tex}
 \include{capitoli/os_security/main.tex}
+\include{capitoli/web_security/main.tex}
 \end{document}

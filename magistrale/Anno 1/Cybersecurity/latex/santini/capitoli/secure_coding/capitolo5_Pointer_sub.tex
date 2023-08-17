@@ -55,7 +55,7 @@ una \textbf{scrittura di memoria arbitraria}.
 
 \paragraph{Ultimo esempio}
 Questo ultimo esempio differenzia da quelli precedenti per il modo in cui vengono
-chiamate le funzioni, esse possono essere chiamate in modo diretto o indiretto.
+chiamate le funzioni. Esse possono essere chiamate in modo diretto o indiretto.
 
 \begin{figure}[H]
 	\centering
@@ -63,14 +63,14 @@ chiamate le funzioni, esse possono essere chiamate in modo diretto o indiretto.
 	\caption{Esempio pointer subterfuge.}\label{fig:ult_es_poin}
 \end{figure}
 
-A riga 9 in Figura \ref{fig:ult_es_poin}possiamo vedere un esempio di chiamate diretta,
-mentre a riga 8 abbiamo una indiretta poiché \verb|good_function| è chiamata tramite
+A riga 9 di Figura \ref{fig:ult_es_poin} possiamo vedere un esempio di chiamate diretta,
+mentre a riga 8 ne abbiamo una indiretta poiché \verb|good_function| è chiamata tramite
 il puntatore a quest'ultima. In Figura \ref{fig:dissas_ult_es_poin} vediamo a livello
-assembly la differenza fra le due chiamate, la chiamate diretta è più semplice perché
+assembly la differenza fra le due chiamate. La chiamata diretta è più semplice perché
 viene effettuata, oltre la push per inserire nello stack la stringa da passare alla
 funzione, direttamente una call a \textbf{good\_function}. Al contrario la chiamata
 indiretta è un pò più complessa visto che non si fa una call
-diretta a \textbf{good\_function} ma si chiama il puntatore a esse \verb|funcPtr|
+diretta a \textbf{good\_function} ma si chiama il puntatore a essa, \verb|funcPtr|,
 che contiene l'indirizzo dove è salvata la funzione chiamata. L'istruzione di chiamata,
 ad esempio, salva l'informazione di ritorno sullo stack e trasferisce il controllo
 alla chiamata di funzione specificata dall'operando di destinazione (target). Il target

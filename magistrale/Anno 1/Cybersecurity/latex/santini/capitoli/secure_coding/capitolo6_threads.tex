@@ -2,7 +2,7 @@
 
 \section{Introduzione}
 
-Una “concorrenza incontrollata” può portare a un comportamento non deterministico
+Una ``concorrenza incontrollata'' può portare a un comportamento non deterministico
 (cioè un programma può mostrare un comportamento diverso per lo stesso insieme
 di input).
 Una \textit{race condition} si verifica in qualsiasi scenario in cui due (o più)
@@ -29,6 +29,8 @@ Tre proprietà sono necessarie perché una race conditions esista:
           controllo deve modificare lo stato dell'oggetto in condivisione.
 \end{enumerate}
 
+\newpage
+
 \section{Race Window}
 
 Le Race Condition sono un difetto del software e sono una frequente fonte di
@@ -51,24 +53,30 @@ La loro eliminazione inizia con l'identificazione delle \textit{Race Window}.
 Una race window è un
 segmento di codice che accede all'oggetto condiviso in modo da aprire una
 finestra di opportunità
-durante la quale altri flussi concorrenti potrebbero "correre dentro" (race in)
+durante la quale altri flussi concorrenti potrebbero ``correre dentro'' (race in)
 e alterare
 l'oggetto. Fondamentalmente è una zona di codice sottoposta a più flussi di
 controllo.
 Una race window non è protetta da un lock o da qualsiasi altro meccanismo.
 Se viene
-protetta da una lock o simili viene detta “\textit{sezione critica}”.
+protetta da una lock o simili viene detta ``\textit{sezione critica}''.
 
-\paragraph{Esempio.}\ \\
+\vspace{-0.5em}
 
-Gli esempi più subdoli possono dipendere anche da come è fatto il processore !
+\paragraph{Esempio.}\
+
+Gli esempi più subdoli possono dipendere anche da come è fatto il processore!
 Prendiamo in considerazione il seguente codice:
+
+\vspace{-0.5em}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm, keepaspectratio]{capitoli/secure_coding/img/cap_6/esempio1.png}
     \caption{Codice di due thread.}
 \end{figure}
+
+\vspace{-1em}
 
 Come possiamo notare, i due thread assegnano un valore diverso alla stessa variabile
 condivisa. Queste istruzioni
@@ -81,18 +89,18 @@ possono essere eseguite in modo diverso a livello architetturale.
 \end{figure}
 
 La race windows in questo caso, sono gli assegnamenti da entrambe le parti.
-I registri possono essere
-trattati come due metà differenti, indipendentemente dalla dimensione.
-Come il compilatore
-compila e come il processore si organizza è trasparente al programmatore.
+I registri possono essere trattati come due metà differenti, indipendentemente dalla dimensione.
+Come il compilatore compila e come il processore si organizza è trasparente al programmatore.
 Supponiamo che l'assegnamento venga effettuato in due parti da 8 bit.
-Il thread 2 scrive 300, cioè $255+45$. Prima setta la parte bassa,
-cioè la parte meno
-significativa, a $45$; quella più significativa ad $255$.
+Il thread 2 scrive 300, cioè $256+44$. Prima setta la parte bassa, cioè la parte meno significativa, a $44$; poi quella più significativa a $256$.
 $300$ infatti non ci sta in 8 bit.
-Nel mentre però arriva il thread 1 che setta solo la parte bassa, quella meno \
-significativa a $100$.
-Alla fine la variabile \verb|x| conterrà il valore $100+255=355$.
+Nel mentre però arriva il thread 1 che setta solo la parte bassa, quella meno significativa, a $100$.
+Alla fine la variabile \verb|x| conterrà il valore $100+256=356$. \\
+In big endian, con short int, si ha:\\
+
+\verb|300=44+256= 00101100| || \verb|100=100+0= 01100100| || \verb|Dopo        01100100 = 356|\\
+\verb|            00000001| || \verb|           00000000| || \verb|esecuzione  00000001 = 100+256|
+
 
 \section{Race Condition su File}
 
@@ -129,9 +137,9 @@ pericoloso se il programma viene eseguito con permessi di root.
 
 \section{TOCTOU}
 
-Race Condition possono verificarsi durante I/O dei file.
+Le Race Condition possono verificarsi durante I/O dei file.
 La finestra avviene tra il tempo in cui controllo qualcosa
-(\textit{checking} di una risorsa, per esempio) e il tempo in cui la uso (\textit{using}).
+(\textit{checking} di una risorsa, per e\-sempio) e il tempo in cui la uso (\textit{using}).
 Se questo intervallo è particolarmente grande, è probabile che si verifichi una race in nel flusso di controllo.
 
 \paragraph{Esempio.}\ \\
@@ -146,7 +154,7 @@ Controllo se il file è aperto in scrittura (se ho i diritti per scriverci).
 Alla linea 7 avviene il check mentre alla 9 il time-to-use.
 Tra questi due momenti c'è una race condition.
 Supponiamo che il processo stia girando con i \textbf{diritti di root}.
-Ricordiamo che una delle operazioni più importanti da compiere quando si configura
+Ricordiamo che una delle ope\-razioni più importanti da compiere quando si configura
 un sistema Unix è quello di disabilitare l'utente root.
 Immaginiamo però di aver dimenticato questa parte. Andremo a vedere come sfruttare
 questa vulnerabilità.
@@ -266,7 +274,7 @@ Di seguito andremo ad elencare i principali problemi che possono verificarsi qua
 in un ambiente con più thread che concorrono tra di loro.
 
 \begin{itemize}
-    \item Dimenticarsi di utilizzare il il lock quando si accede ai dati condivisi
+    \item Dimenticarsi di utilizzare il lock quando si accede ai dati condivisi
           (non bloccare la risorsa quando vi si accede);
     \item Rilasciare prematuramente un lock. Non si è chiusa la race window, quindi
           possono ancora accadere race conditions;
@@ -285,7 +293,7 @@ in un ambiente con più thread che concorrono tra di loro.
 
 \subsection{Memory Fencing}
 
-“Fencing” vuol dire \textbf{barriera}, cancello.
+``Fencing'' vuol dire \textbf{barriera}, cancello.
 In questo esempio la scrittura e la lettura vengono riorganizzate dal compilatore.
 È possibile che sia \verb|r1| che \verb|r2| siano settati a 0.
 Infatti, nel thread 2 (se nel primo \verb|x| non è ancora stata scritta) \verb|r2|
@@ -305,35 +313,28 @@ Una possibile soluzione è rappresentata dal \textit{memory fencing}:
     \caption{Possibile soluzione con memory fencing.}
 \end{figure}
 
-Esiste una speciale funzione \verb|atomic_thread_fence| (alla linea 5) che
-forza ad apportare le modifiche in memoria.
+Esiste una speciale funzione \verb|atomic_thread_fence| (alla linea 5) che forza ad apportare le modifiche in memoria.
 Per cui saremo certi del fatto che i cambiamenti verranno apportati.
-A questo punto solo uno tra \verb|r1| e \verb|r2| sarà uguale a 0,
-dipende chi viene eseguito per primo.
+A questo punto solo uno tra \verb|r1| e \verb|r2| sarà uguale a 0, dipende chi viene eseguito per primo.
 
 
 \subsection{File Locks}
 
 È possibile utilizzare la creazione di un file come lock.
 Tutti i processi controllano se il file è già stato creato.
-Se così è, vanno in “sleep”. I vari controlli avvengono chiaramente in mutua esclusione.
-Alla fine, il primo processo che termina cancella il file;
-il primo che invece si sveglia e si rende conto del fatto che non c'è più, lo ricrea.
+Se così è, vanno in ``sleep''. I vari controlli avvengono chiaramente in mutua esclusione.
+Alla fine, il primo processo che termina cancella il file; il primo che invece si sveglia e si rende conto del fatto che non c'è più, lo ricrea.
 In realtà questa soluzione non è consigliata: è meglio usare strutture apposite, tipo mutex e simili.
 
 \subsection{Tools}
 
 Esistono dei tools per controllare se vi sono race condition.
-Uno strumento di \textbf{analisi statica} analizza il software per ritrovarle,
-senza eseguirlo effettivamente.
-In generale la condition detection è un problema è NP completo (esponenziale).
+Uno strumento di \textbf{analisi statica} analizza il software per ritrovarle, senza eseguirlo effettivamente.
+In generale la condition detection è un problema NP completo (esponenziale).
 Diventa sempre più complesso con l'aumentare dei flussi di controllo.
-Per questo motivo gli strumenti di rilevamento statico delle race condition forniscono
-un'identificazione approssimativa.
-Di conseguenza, tutti gli algoritmi di analisi statica sono soggetti ad alcuni falsi
-negativi e falsi positivi.
-Esiste il \textit{Clang thread Safety Analysis} (Google) che esegue un controllo
-per capire se sono presenti race conditions:
+Per questo motivo gli strumenti di rilevamento statico delle race condition forniscono un'identificazione approssimativa.
+Di conseguenza, tutti gli algoritmi di analisi statica sono soggetti ad alcuni falsi negativi e falsi positivi.
+Esiste il \textit{Clang thread Safety Analysis} (Google) che esegue un controllo per capire se sono presenti race conditions:
 
 \begin{lstlisting}
     clang -c -Wthread-safety example.cpp
@@ -348,5 +349,4 @@ Ci sono meno falsi positivi. Tuttavia, gli svantaggi del rilevamento dinamico so
     \item spesso c'è un overhead di tempo di esecuzione.
 \end{itemize}
 
-Possibili tools sono: Intel Inspector (a pagamento) e Helgrind
-(parte di Valgrind, cioè una suite di 6 tools differenti).
+Possibili tools sono: Intel Inspector (a pagamento) e Helgrind (parte di Valgrind, cioè una suite di 6 tools differenti).

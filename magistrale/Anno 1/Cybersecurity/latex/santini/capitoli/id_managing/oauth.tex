@@ -4,7 +4,7 @@
 
 Nelle applicazioni odierne si utilizzano spesso le \textit{API} \emoji{bee}, che permettono
 all'applicazione di ottenere accesso a dati e servizi di valore. Per questo motivo
-è necessario restringere l'accessi delle \api{} a gruppi autorizzati. Serviranno dunque
+è necessario restringere l'accesso delle \api{} a gruppi autorizzati. Serviranno dunque
 delle autorizzazioni per chiamare le \api{}. Nel passato un utente spesso doveva condividere
 le proprie credenziali con l'applicazione per assicurarsi che tale chiamata \api{}
 funzionasse correttamente. Questo forniva alle applicazioni una quantità di dati
@@ -104,10 +104,10 @@ In OAuth 2.0 ci sono 3 tipi di profili in base alla tipologia di applicazione:
 
 \subsection{Token e Codici di Autorizzazione}
 
-In OAuth 2.0 ci sono 2 token di sicurezza e un token di autorizzazione intermedio:
+In OAuth 2.0 ci sono 2 token di sicurezza e un codice di autorizzazione intermedio:
 
 \begin{itemize}
-      \item \textbf{Authorization Token}: un codice opaco intermediario ritornato
+      \item \textbf{Authorization Code}: un codice opaco intermediario ritornato
             da un'applicazione ed utilizzato per ottenere un token di accesso e
             opzionalmente un token di refresh. Ogni authorization code è utilizzato
             una volta.
@@ -144,7 +144,7 @@ dell'utente.
 Questo reindirizzamento consente all'authorization server di interagire con l'utente
 per farlo autenticare. Dopo aver ottenuto il consenso, l'utente viene reindirizzato
 all'applicazione
-con l'authorization conde. L'applicazione utilizzerà questo codice per mandare una
+con l'authorization code. L'applicazione utilizzerà questo codice per mandare una
 backchannel request all'authorization server per ottenere l'access token.
 L'authorization server risponderà con un access token che verrà utilizzato per
 chiamare le \api{}
@@ -177,7 +177,7 @@ client pubblici.
 Il meccanismo \textit{Proof of Key for Code Exchange} (PKCE) permette di assicurarsi
 che l'applicazione che ha richiesto il codice di autorizzazione è la stessa che lo
 utilizza per ottenere l'access token. Questo vuol dire che PKCE serve per proteggersi
-da potenziali intercettazioni delle richiesti di autorizzazione.
+da potenziali intercettazioni delle richieste di autorizzazione.
 Per poter utilizzare PKCE l'applicazione crea una stringa crittografata in maniera
 aleatoria chiamata \textbf{code verifier}. L'applicazione poi calcola un valore derivato
 chiamato \textbf{code challenge} dal code verifier. Quando l'applicazione manda un
@@ -273,7 +273,7 @@ ottenere risorse che sono possedute dall'applicazione.
 \section{Chiamare le API}
 
 Una volta ottenuto il token l'applicazione può effettuare le chiamate \api{} e tipicamente
-è fatto utilizzando la richiesta HTTP "Authorization" e specificando l'access token
+è fatto utilizzando la richiesta HTTP ``Authorization'' e specificando l'access token
 nel campo \verb|Authorization| dell'header.
 
 \begin{lstlisting}
