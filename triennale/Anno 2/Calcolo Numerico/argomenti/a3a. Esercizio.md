@@ -52,8 +52,6 @@ Per calcolare $U$ sono sufficienti $3(n-1)$ operazioni, per calcolare $\tilde b$
 
 Per risolvere $Ux = \tilde b$ sono sufficienti $3(n-1) + 1$ operazioni
 
-$8n
-
 $$\begin{bmatrix}
 a_{11}&a_{12}&0&...&...&0\\
 &a_{22}&a_{23}&0&...&0\\
