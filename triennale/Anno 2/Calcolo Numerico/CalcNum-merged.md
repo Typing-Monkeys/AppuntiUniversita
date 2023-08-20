@@ -49,7 +49,7 @@ Non esiste una formula per le equazioni di 5° grado
 
 La materia si occupa di dare strumenti teorici (teorie matematiche) per il calcolo numerico di quantità continue.
 
-Si cerca di trovare una soluzione ai problemi continui che sia utilizzabile. Non basta una formula, ma serve un algoritmo ce fornisca una soluzione in un tempo ragionevole tenendo conto che il calcolatore lavora in quantità finite. Vogliamo quindi trattare __quantità infinite__ con __strumenti finiti__.
+Si cerca di trovare una soluzione ai problemi continui che sia utilizzabile. Non basta una formula, ma serve un algoritmo che fornisca una soluzione in un tempo ragionevole tenendo conto che il calcolatore lavora in quantità finite. Vogliamo quindi trattare __quantità infinite__ con __strumenti finiti__.
 
 # Quantità Continue
 
@@ -168,9 +168,10 @@ Il numero $\sum_{i=1}^\infty {\beta^{-i}d_i}$ si dice __mantissa__
 
 ## Floating Point
 
-Data una base di numerazione $\beta \geq 2$, il numero $t>0$ di cifre della mantissa, $m,M$ numeri positivi, definiamo un insieme di __floating point numbers__
+Data una base di numerazione $\beta \geq 2$, il numero $t>0$ di cifre della mantissa $m$, $M$ numeri positivi, definiamo un insieme di __floating point numbers__
 
-$$F(\beta, t, m, M) = \{0\} \cup \{\pm \beta^p\sum_{i=1}^t {\beta^{-i}d_i}, \; -m \leq p \leq M, \; 0 \leq d_i < \beta \text{ intero per } i=1,...,t, \; d_1 \neq 0\}$$
+$$F(\beta, t, m, M) = \{0\} \cup \{\pm \beta^p\sum_{i=1}^t {\beta^{-i}d_i}, \; -m \leq p \leq M\}$$
+$$\text {con} \; 0 \leq d_i < \beta \text{ intero per } i=1,...,t, \; d_1 \neq 0$$
 
 ```ad-example
 title: Esempio
@@ -251,20 +252,21 @@ Non seguono infatti:
 
 [[3. Errore Per Le Funzioni Razionali]]
 
+
 # 3. Errore Per Le Funzioni Razionali
 
 
 
 
-Data una funzione razionale $f: R^2 \to R$ che sia $f = \frac pq$ con p e q polinomi.
+Data una funzione razionale $f: R^2 \to R$ che sia $f = \frac pq$ con $p$ e $q$ polinomi.
 
-Dall'analisi matematica sappiamo che $f$ è definita e differenziabile per $q \neq 0$ (assumendo che p e q siano primi).
+Dall'analisi matematica sappiamo che $f$ è definita e differenziabile per $q \neq 0$ (assumendo che $p$ e $q$ siano primi).
 
-Ci sono due tipi di errori nella valutazione di f con i valori in virgola mobile
+Ci sono due tipi di errori nella valutazione di $f$ con i valori in virgola mobile
 
 ## Errore Inerente
 
-Non valutiamo f(x) ma valutiamo $f(\tilde x)$ dove $\tilde x = fl(x)$ [[2. Error Analysis#^59010a|funzione approssimata]]
+Non valutiamo $f(x)$ ma valutiamo $f(\tilde x)$ dove $\tilde x = fl(x)$ [[2. Error Analysis#^59010a|funzione approssimata]]
 
 $$\varepsilon_{IN} = \frac{f(\tilde x) -f(x)}{f(x)}, \quad f(x) \neq 0$$
 
@@ -287,7 +289,7 @@ L'errore algoritmico può essere definito anche per le funzioni elementari che v
 $$\varepsilon_{TOT} = \frac {\tilde f(\tilde x ) - f(x)}{f(x)}, \quad f(x) \neq 0$$
 Dà una misura genuina dell'errore nella valutazione.
 
-La situazione ideale è $|\varepsilon_{tot}| < u$, ma in pratica è sufficiente $|\varepsilon_{tot}| < Mu$ con M costante.
+La situazione ideale è $|\varepsilon_{tot}| < u$, ma in pratica è sufficiente $|\varepsilon_{tot}| < Mu$ con $M$ costante.
 
 ```ad-important
 title: Teorema
@@ -322,7 +324,7 @@ __Esiste un'altra formula__ per calcolare l'errore inerente:
 
 $$\varepsilon_{IN} = \frac x{f(x)}f'(\xi)\varepsilon_x$$
 
-Dove $\varepsilon_x = \varepsilon_1$ è la rappresentazione dell'errore in x se $f \in C^2(conv(x, \tilde x))$ allora:
+Dove $\varepsilon_x = \varepsilon_1$ è la rappresentazione dell'errore in $x$ se $f \in C^2(conv(x, \tilde x))$ allora:
 $$\varepsilon_{IN} = \frac x{f(x)} f'(x)\varepsilon_x + o(u) = \frac {x \cdot 2x}{x^2}\varepsilon_x = 2\varepsilon_x$$
 
 ```ad-done
@@ -360,7 +362,7 @@ Un problema è composto di tre parti:
 
 Sistemi lineari
 
-Data una matrice A (coefficienti) e un vettore b (lato destro), trovare tutti i vettori x (incognite) tali che $Ax = b$
+Data una matrice $A$ (coefficienti) e un vettore $b$ (lato destro), trovare tutti i vettori $x$ (incognite) tali che $Ax = b$
 
 ```
 
@@ -439,8 +441,8 @@ $$|\varepsilon_{IN}| = |\frac{x\varepsilon_x + y\varepsilon_y}{x + y}| \leq \fra
 Dati $p$ e $x$, calcolare $p(x)$
 
 - $R^n(K^n)$ vettori con $n$ componenti in $R(K)$
-- $R_n(x)(K_n(x))$ polinomi di grado al più n con coefficienti reali
-- $R^{nxm}(K^{nxm})$ matrici n x m con elementi in R
+- $R_n(x)(K_n(x))$ polinomi di grado al più $n$ con coefficienti reali
+- $R^{nxm}(K^{nxm})$ matrici $n \times m$ con elementi in $R$
 - $R^{n_1 x n_2 x ... x n_l}$ tensore di $l$ dimensioni
 - $p(x) = a_0 + a_1 x + ... + a_n x^n$
 
@@ -538,7 +540,7 @@ Ci sono anche altre interpretazioni, come quello impiegato nel deep learning
 
 # Prodotto Tra Matrici Di Strassen
 
-Algoritmo per semplificare il prodotto tra due matrici 2x2.
+Algoritmo per semplificare il prodotto tra due matrici $2 \times 2$.
 
 La moltiplicazione riga per colonna impiega 8 moltiplicazioni e 4 addizioni.
 
@@ -546,7 +548,7 @@ L'algoritmo di Strassen impiega 7 moltiplicazioni e 18 addizioni.
 
 Può sembrare che impieghi un tempo peggiore rispetto alla riga per colonna, ma la moltiplicazione tra due vettori impiega molto di più che l'addizione, rendendo quindi l'algoritmo più veloce.
 
-L'algoritmo viene poi trasformato in moltiplicazioni in blocchi. Rendendo qualsiasi moltiplicazione tra matrici $2^nx2^n$  come 7 moltiplicazioni e alcune addizioni tra 4 matrici $2^{(n-1)}x2^{(n-1)}$ ricorsivamente.
+L'algoritmo viene poi trasformato in moltiplicazioni in blocchi. Rendendo qualsiasi moltiplicazione tra matrici $2^n \times 2^n$  come 7 moltiplicazioni e alcune addizioni tra 4 matrici $2^{(n-1)} \times 2^{(n-1)}$ ricorsivamente.
 
 Questo ha fatto scaturire una corsa all'algoritmo più veloce per risoluzione di prodotti tra matrici.
 
@@ -580,7 +582,7 @@ $$A \in K^{nxn}$$
 
 $$numZeri(A) << n^2$$
 
-si riesce a implementare il [[7. Vettori#Prodotto Matrice per Vettore|prodotto matrice-vettore]] con $2l$ operazione anziché con $2n^2$
+si riesce a implementare il [[7. Vettori#Prodotto Matrice per Vettore|prodotto matrice-vettore]] con $2l$ operazioni anziché con $2n^2$
 
 
 
@@ -610,7 +612,7 @@ $$\lim\limits_{n \to \infty}{\frac {numZeri(A)}{n^2}} = 0$$
 
 ```ad-check
 
-Sono strutture sparse, sono sufficienti $2p
+Sono strutture sparse, sono sufficienti $2p$.
 
 ```
 ``````
@@ -643,12 +645,12 @@ title: è una sottoalgebra di $K^{nxn}$?
 
 Un'algebra è un sottospazio vettoriale in cui è definito un prodotto compatibile con le operazioni dello spazio vettoriale.
 
-V è un gruppo se dati $A,B,C \in V$ e $\alpha \in K$:
+$V$ è un gruppo se dati $A,B,C \in V$ e $\alpha \in K$:
 - $A(B + C) = AB + AC$
 - $(A + B)C = AC + BC$
 - $\alpha(AB) = (\alpha A)B = A(\alpha B)$
 
-Le matrici nxn sono un'algebra con il prodotto riga per colonna
+Le matrici $n \times n$ sono un'algebra con il prodotto riga per colonna
 
 ```ad-check
 title: Sottoalgebra
@@ -710,13 +712,13 @@ $$\begin{cases}a_{1,1}x_1 +. .. a_{1,n}x_n=b_1 \\ a_{2,1}x_1 +. .. a_{2,n}x_n=b_
 
 # Teorema Di Rouché-Capelli
 
-Il sistema lineare Ax = b ammette soluzione se e solo se rango(A) = rango(A|b).
+Il sistema lineare $Ax = b$ ammette soluzione se e solo se rango(A) = rango(A|b).
 
 Se esiste almeno una soluzione allora l'insieme delle soluzioni è un sottospazio affine di dimensione n-rango(A).
 
 $K^n$ spazio vettoriale
 
-v sottospazio vettoriale di dimensione l $o \leq l \leq n$
+$v$ sottospazio vettoriale di dimensione $l$ con $0 \leq l \leq n$
 
 $v_0 \in K^n$ la traslazione di $v_0, t_0$ è l'applicazione
 
@@ -724,17 +726,17 @@ $$t_{v_0}:K^n \to K^n$$
 
 $$v \to v+v_0$$
 
-L'insieme $W=\{v+v_0, v \in V, v_0 \in K^n\}$ è un sottospazio affine di $K^n$ di dimensione dim(V).
+L'insieme $W=\{v+v_0, v \in V, v_0 \in K^n\}$ è un sottospazio affine di $K^n$ di dimensione $dim(V)$.
 
 ```ad-info
 
 - I sottospazi affini di dimensione 1 sono detti rette
 - I sottospazi affini di dimensione 2 sono detti piani
-- I sottospazi affini di dimensione n-1 sono detti iperpiani
+- I sottospazi affini di dimensione $n-1$ sono detti iperpiani
 - I sottospazi affini di dimensione 0 sono detti punti (non sono sottospazi)
 ```
 
-$Ax=b \iff c_1x_1+c_2x_2+...+c_nx_n=b \iff$ b è combinazione lineare delle colonne di A $\iff$ rango(A)=rango(A|b)
+$Ax=b \iff c_1x_1+c_2x_2+...+c_nx_n=b \iff$ $b$ è combinazione lineare delle colonne di $A$ $\iff$ rango(A)=rango(A|b)
 
 $$|c_1|...|c_n|=\begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}$$
 
@@ -743,22 +745,22 @@ $$|c_1|...|c_n|=\begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}$$
 - una soluzione esiste
 - la soluzione è unica
 - la soluzione dipende in modo continuo dai dati
-la soluzione è unica $\iff rk(A)=rk(A|b)=n \iff n-rk(A)=0$
+la soluzione è unica $\iff rango(A)=rango(A|b)=n \iff n-rango(A)=0$
 ```ad-important
 title: Teorema
 
-Il sistema lineare Ax=b è ben posto se e solo se A è quadrata e invertibile
+Il sistema lineare $Ax=b$ è ben posto se e solo se $A$ è quadrata e invertibile
 ```
 
 ## Caso 1
 
-$m<n \quad rk(A)\leq m < n \implies$ la soluzione non può essere unica $\implies$ non è ben posto
+$m<n \quad rango(A)\leq m < n \implies$ la soluzione non può essere unica $\implies$ non è ben posto
 
 ## Caso 2
 
-$m>n \quad rk(A)=rk(A|b)=n \iff$ la soluzione non è unica, anche se il sistema ammette una soluzione unica per un dato b, esiste $c: \forall \varepsilon >0$ il sistema $Ax=c+\varepsilon c$ non ammette soluzioni $\implies$ la soluzione non può dipendere in modo continuo dai dati
+$m>n \quad rango(A)=rango(A|b)=n \iff$ la soluzione non è unica, anche se il sistema ammette una soluzione unica per un dato $b$, esiste $c: \forall \varepsilon >0$ il sistema $Ax=c+\varepsilon c$ non ammette soluzioni $\implies$ la soluzione non può dipendere in modo continuo dai dati
 $$Im(A) =\{v \in K^n, v=Ax, x\in R^n\} \subseteq K^n$$
-$$dim(Im(A))=rk(A)\leq n<m$$
+$$dim(Im(A))=rango(A)\leq n<m$$
 esiste $c \in K / Im(A)$ ma $x: Ax=b, x\in Im(A)$
 $$Ay=b+c\varepsilon, \varepsilon>0$$
 per ogni $\varepsilon >0$ questo sistema non ha soluzione se esiste $y: Ay=b+c\varepsilon$
@@ -771,7 +773,7 @@ $m=n\quad det(A)=0 \implies$ la soluzione non esiste o non è unica $\implies$ n
 
 ## Caso 4
 
-A quadrata, $m=n\quad det(A) \neq 0 \implies$ la soluzione è unica.
+$A$ quadrata, $m=n\quad det(A) \neq 0 \implies$ la soluzione è unica.
 Dipende in modo continuo dai dati?
 $$x=A^{-1}b\quad (A^{-1})_{ij}=\frac{det(\bar{A}^{ij})}{det(A)}(-1)^{i+j}$$
 $$x_i=\sum_{l=1}^n{(A^{-1})_{il}b_l}=\sum_{l=1}^n{\frac{det(\bar{A}^{il})}{det(A)}(-1)^{i+l}b_l},\quad i=1,..,n$$
@@ -783,9 +785,9 @@ $$x_i=\sum_{l=1}^n{(A^{-1})_{il}b_l}=\sum_{l=1}^n{\frac{det(\bar{A}^{il})}{det(A
 
 $$T_n=\{A\in K^{nxn}, a_{ij}=0, i>j\}$$
 $$\begin{bmatrix}a_{1,1}&...&a_{1,n}\\\vdots &\ddots &\vdots\\ 0 &...& a_{n,n} \end{bmatrix}$$
-Sistema lineare Tx=b dove T è triangolare superiore
+Sistema lineare $Tx=b$ dove $T$ è triangolare superiore
 $$\begin{cases}t_{1,1}x_1 + t_{1,2}x_2 + t_{1,3}x_3=b1 \\ \quad\quad\quad\quad t_{2,2}x_2+t_{2,3}x_3=b_2 \\ \quad\quad\quad\quad\quad\quad\quad\quad t_{3,3}x_3=b_3 \end{cases}$$
-Calcolo il termine i-esimo
+Calcolo il termine $i$-esimo
 $$t_{i,i}x_i+t_{i,i+1}x_{i+1}+...+t_{i,n}x_n=b_i$$
 $$x_i=\frac{b_i-t_{i,i+1}x_{i+1}-...-t_{i,n}x_n}{t_{i,i}}=\frac{b_i - \sum_{j=i+1}^n{t_{i,j}x_j}}{t_{i,j}}$$
 $$Tx=b \implies t_{i,1}x_1+t_{i,2}x_2+...+t_{i,i}x_{i}+...=b_i$$
@@ -799,7 +801,7 @@ $$\sum_{j=i}^n{t_{i,j}x_j}=b_i$$
 			s = s - t(i,j) * x(j)
 		x(i) = s / t(i,i)
 
-costo di un passo del ciclo esterno: 2(n-i)+1 ops
+costo di un passo del ciclo esterno: $2(n-i)+1$ ops
 $$\sum_{i=1}^n{2(n-i)+1} = 2\sum_{i=1}^n{2n-2i+1}=2\sum_{i=1}^n{n}-2\sum_{i=1}^n{i}+\sum_{i=1}^n{1}=2n^2-n(n+1)+n=n^2 ops$$
 
 ```ad-note
@@ -833,12 +835,12 @@ $$\begin{bmatrix}
 			s  = s - t(i,j) * x(j)
 		x(i) = s / t(i,i)
 
+
 # a1. Algoritmo di Gauss
 
 
-22-11-2022
 
-Ax=b, A quadrata e invertibile
+$Ax=b$, con $A$ quadrata e invertibile
 
 	for h=1:n-1:
 		for i = h+1:n:
@@ -861,7 +863,7 @@ a_{21},&a_{22},&a_{23},&\dots \\
 Il primo passo l'algoritmo ha come pivot $a_{11}$
 Non ce se la fa a staglie dietro mannaggia
 
-Dato $A\in K^{nxn}$ il minore principale di testa di ordine $j \leq h \leq n$ di A è la matrice $M_h \in K^{nxn}: (M_n)_{ij} = a_{ij}$
+Dato $A\in K^{nxn}$ il minore principale di testa di ordine $j \leq h \leq n$ di $A$ è la matrice $M_h \in K^{nxn}: (M_n)_{ij} = a_{ij}$
 
 ```ad-important
 title: Teorema
@@ -879,7 +881,7 @@ a_{11} & * & \\
 && a_{33} &\\
 & 0 && a_{44}
 \end{bmatrix}$$
-Sia $N_h$ il minore principale di testa di U di ordine h, esso è una matrice triangolare e il suo determinante è dato dagli elementi sulla sua diagonale, quindi $det(N_h) = u_{11} u_{22} ... u_{hh}$
+Sia $N_h$ il minore principale di testa di $U$ di ordine $h$, esso è una matrice triangolare e il suo determinante è dato dagli elementi sulla sua diagonale, quindi $det(N_h) = u_{11} u_{22} ... u_{hh}$
 
 Siccome il metodo è applicabile allora $$a_{ii} \neq 0, i=1,...,n-1 \implies a_{11} ... a_{hh} \neq 0\implies det(N_h) \neq 0, h=1,...,n-1$$
 
@@ -889,31 +891,31 @@ Si ha che $det(N_h) = det(M_h) \implies det(M_h) \neq 0, h=1,...,n-1$ poiché le
 ```
 ```ad-failure
 
-Se il metodo di Gauss fallisce al passo h allora $a_{hh}=0 \quad(a_{jj} \neq 0, j=1,..,h-1)$  e si può costruire la matrice
+Se il metodo di Gauss fallisce al passo $h$ allora $a_{hh}=0 \quad(a_{jj} \neq 0, j=1,..,h-1)$  e si può costruire la matrice
 $$A_h = \begin{bmatrix}
 a_{11} & & & &\\
 & \ddots & & & \\
 & & a_{hh}=0 & \\
 & & & & &
 \end{bmatrix}$$
-Sia $N_h$ il minore principale di testa di ordine h di $A_h$, $det(N_h)=0$ 
+Sia $N_h$ il minore principale di testa di ordine $h$ di $A_h$, $det(N_h)=0$ 
 
 Ma $det(M_h)=det(N_h)$ per quanto detto prima, quindi il metodo non è applicabile
 ```
 ``````
 
-Se A è una matrice definita positiva allora la condizione del teorema è verificata
+Se $A$ è una matrice definita positiva allora la condizione del teorema è verificata
 
 $A \in R^{nxn}$ è definita positiva se:
 - $A^T=A$ (simmetrica)
 - $v^T Av > 0$ se $v \in R^n \setminus \{0\}$
 
-Se A è a dominanza diagonale allora la condizione del teorema è verificata
+Se $A$ è a dominanza diagonale allora la condizione del teorema è verificata
 
-A è a dominanza diagonale (stretta) se
+$A$ è a dominanza diagonale (stretta) se
 - $|a_{ii}| > \sum_{j=1, j\neq i}^n{|a_{ij}|}$
 
-A è a dominanza diagonale se:
+$A$ è a dominanza diagonale se:
 - $|a_{ii}| \geq \sum_{j=1, j\neq i}^n{|a_{ij}|}$
 - vale il maggiore stretto per almeno un indice
 
@@ -932,7 +934,7 @@ $$[A|b] = [A_1|b_1] \to [A_2|b_2]$$
 
 Si può interpretare il metodo di Gauss come operazioni sulle equazioni
 $$Ax=b \iff A_1x=b_1 \iff ... \iff A_nx=b_n \iff Ux=\tilde{b}$$
-Applicando il metodo di Gauss si parte da Ax=b e si ottiene un sistema triangolare equivalente $Ux=\tilde{b}$ che si può risolvere con il metodo di [[a0. Sistemi lineari#Algoritmo Di Sostituzione All'indietro|sostituzione all'indietro]]
+Applicando il metodo di Gauss si parte da $Ax=b$ e si ottiene un sistema triangolare equivalente $Ux=\tilde{b}$ che si può risolvere con il metodo di [[a0. Sistemi lineari#Algoritmo Di Sostituzione All'indietro|sostituzione all'indietro]]
 
 Qual è il costo computazionale?
 $\frac 23 n^3$ per l'eliminazione
@@ -941,7 +943,7 @@ $\sum_{h=1}^n{2(n-h) \sim n^2}$ per il calcolo di $\tilde{b}$
 
 ```ad-note
 $det(A_1) = det(A_2) = ... = det(U)$ perché le operazioni che eseguiamo non modificano il determinante.
-è sufficiente quindi applicare il metodo di Gauss con $\frac 23 n^3$ operazioni (e n-1 moltiplicazioni che si possono trascurare)
+è sufficiente quindi applicare il metodo di Gauss con $\frac 23 n^3$ operazioni (e $n-1$ moltiplicazioni che si possono trascurare)
 
 ```
 
@@ -950,7 +952,7 @@ $det(A_1) = det(A_2) = ... = det(U)$ perché le operazioni che eseguiamo non mod
 $$Ax=b_1, Ax=b_2,...,Ax=b_l$$
 risolvendo indipendentemente i sistemi lineari sono richieste $\frac 23 n^3 l$ operazioni.
 
-Applico il metodo di Gauss ad A modificando consistentemente anche le colonne relative ai termini noti
+Applico il metodo di Gauss ad $A$ modificando consistentemente anche le colonne relative ai termini noti
 $$[A|b_1b_2...b_l]=[A_1|b_1^{(1)}b_2^{(1)},...b_l^{(1)}] \to [A_2|b_1^{(2)}b_2^{(2)}...b_l^{(2)}] \to ... \to[A_n|b_1^{(n)}b_2^{(n)}...b_l^{(n)}]=[U|\tilde{b_1} \tilde{b_2}...\tilde{b_3}]$$
 $$Ux=\tilde{b_1},Ux=\tilde{b_2},...,Ux=\tilde{b_l}$$
 Risolvendo in "parallelo" $\frac 23 n^3l$ operazioni.
@@ -960,14 +962,14 @@ al secondo passo? $2l( n-2)$
 al passo i? $2l(n-i)$
 in totale saranno $\sum_{i=1}^{n-1}{2l(n-i)}$
 $$\sum_{i=1}^{n-1}{2l(n-i)} = 2l \sum_{i=1}^{n-1}{(n-i)}\sim\frac {2ln^2}2 = ln^2$$
-$\frac 23 n^3 + ln^2$ operazioni anziché $\frac 23 n^3 l$ per trovare i sistemi $Ux=\tilde{b_1},...,Ux=\tilde{b_l}$ per risolverli sono necessarie l sostituzioni all'indietro e quindi altre $ln^2$ operazioni.
+$\frac 23 n^3 + ln^2$ operazioni anziché $\frac 23 n^3 l$ per trovare i sistemi $Ux=\tilde{b_1},...,Ux=\tilde{b_l}$ per risolverli sono necessarie $l$ sostituzioni all'indietro e quindi altre $ln^2$ operazioni.
 
 In totale sono $\frac 23 n^3 + 2n^2 l$ operazioni per risolvere l sistemi lineari con sistemi coefficienti
 
 
 ## Calcolare l'inversa di una matrice
-X è l'inversa di A (nxn)
-se AX=I
+$X$ è l'inversa di $A$ ($n \times n$)
+se $AX=I$
 $$A[X_1|X_2|...|X_n] = [F_1|F_2|...|F_n]$$
 $$[AX_1|AX_2|...|AX_n] = [F_1|F_2|...|F_n]$$
 $$AX_1=F_1,AX_2=F_2,...,AX_n=F_n$$
@@ -1011,25 +1013,12 @@ $$
 0&1&1
 
 \end{bmatrix}
-\begin{bmatrix}
 
-1&1&0\\
-
-1&1&1\\
-
-0&1&1
-
-\end{bmatrix}
 = \begin{bmatrix}
-2&2&1\\
-2&3&2\\
-1&2&2
+
 \end{bmatrix}
 
 $$
-
-Come si vede dall'esempio, il prodotto tra due matrici tridiagonali non ha come risultato una matrice tridiagonale, quindi non è una sottoalgebra
-
 ```
 
 ```ad-question
@@ -1039,7 +1028,7 @@ title: Qual è la dimensione vettoriale?
 $$3n-2$$
 ```
 
-Trovare un algoritmo che calcola il prodotto di una matrice diagonale $A \in T_n$ per un vettore $b \in K^n$ e che non richieda più di 6n operazioni e darne un'implementazione in pseudocodice (non usare il prodotto matrice sparsa-vettore)
+Trovare un algoritmo che calcola il prodotto di una matrice diagonale $A \in T_n$ per un vettore $b \in K^n$ e che non richieda più di $6n$ operazioni e darne un'implementazione in pseudocodice (non usare il prodotto matrice sparsa-vettore)
 
 Primo approccio: scrivo la matrice e il vettore e vedo cosa succede 
 
@@ -1066,7 +1055,7 @@ $$A_1\to A_2 \to ...\to U=A_n = \begin{bmatrix}
 0&0&*&*\\
 0&0&0&*
 \end{bmatrix}$$
-costruiamo una matrice L triangolare inferiore con 1 sulle diagonali tale che $L_{ij}$ è definito dal metodo di Gauss $i>j$
+costruiamo una matrice $L$ triangolare inferiore con 1 sulle diagonali tale che $L_{ij}$ è definito dal metodo di Gauss $i>j$
 $$L=\begin{bmatrix}
 1&0&0\\
 l_{ij}&1&0\\
@@ -1112,12 +1101,12 @@ Al passo 1, se voglio eliminare l'elemento nella riga 2 ($a_{21}$) devo eseguire
 
 Bisogna ripetere questi passaggi per ogni colonna usando come pivot la diagonale della matrice
 
-Il rapporto è poi utilizzato per formare la matrice L, infatti ogni elemento di L:
+Il rapporto è poi utilizzato per formare la matrice $L$, infatti ogni elemento di $L$:
 $$l_{ij} = \frac{a_{ij}}{a_{jj}}$$
 
 Il risultato saranno poi due matrici triangolari:
-- U triangolare superiore
-- L triangolare inferiore
+- $U$ triangolare superiore
+- $L$ triangolare inferiore
 
 
 
@@ -1130,7 +1119,7 @@ $$Ax=b \iff LUx=b \iff L(Ux) = b\implies \begin{cases}
 Ly=b\\
 Ux=y
 \end{cases}$$
-Risolviamo il primo sistema $Ly=b$ con l'[[a0. Sistemi lineari#Algoritmo Di Sostituzione in Avanti|algoritmo di sostituzione in avanti]] e poi $Ux=y$ con l'[[a0. Sistemi lineari#Algoritmo Di Sostituzione All'indietro|algoritmo di sostituzione all'indietro]] ottenendo x.
+Risolviamo il primo sistema $Ly=b$ con l'[[a0. Sistemi lineari#Algoritmo Di Sostituzione in Avanti|algoritmo di sostituzione in avanti]] e poi $Ux=y$ con l'[[a0. Sistemi lineari#Algoritmo Di Sostituzione All'indietro|algoritmo di sostituzione all'indietro]] ottenendo $x$.
 
 ## Quante Operazioni Richiede?
 Il costo totale delle operazioni sulla matrice $A$ è di$$\sum_{k=1}^{n-1}{[2(n-k)^2+(n-k)]}$$
@@ -1156,19 +1145,19 @@ il pivot per $\varepsilon >0$ non è nullo e la soluzione è unica $x=\begin{bma
 # a3a. Esercizio
 
 
-Descrivere una variante strutturata dell'algoritmo di Gauss che richieda non più di 10n operazioni per la soluzione del sistema lineare $Ax=b$ con A matrice tridiagonale.
+Descrivere una variante strutturata dell'algoritmo di Gauss che richieda non più di $10n$ operazioni per la soluzione del sistema lineare $Ax=b$ con $A$ matrice tridiagonale.
 
 $$[A|b]\to ... \to [U|\tilde{b}]$$
 
 $$Ux=\tilde{b}$$
 
-$\frac 23n^3$ operazioni algoritmo di Gauss applicato ad A
+$\frac 23n^3$ operazioni algoritmo di Gauss applicato ad $A$
 
-$n^2$ operazioni per aggiornare b
+$n^2$ operazioni per aggiornare $b$
 
 $n^3$ operazioni per risolvere $Ux=\tilde b$
 
-A è tridiagonale se $a_{ij} = 0, |i-j|>1$
+$A$ è tridiagonale se $a_{ij} = 0, |i-j|>1$
 
 Al primo passo del metodo di Gauss è necessario eliminare gli elementi
 
@@ -1186,7 +1175,7 @@ $$r_3^T \gets r_3^T - l_{32} r_2^T$$
 
 che richiede 3 operazioni.
 
-L'algoritmo richiede 3(n-1) passi in totale
+L'algoritmo richiede $3(n-1)$ passi in totale
 
 Implementazione:
 
@@ -1206,11 +1195,9 @@ Algoritmo modificato
 		a(h+1,h=0)=0
 		b(h+1) = b(h+1) - l(h+1, h)*b(h)
 
-Per calcolare U sono sufficienti 3(n-1) operazioni, per calcolare $\tilde b$ sono sufficienti 2(n-1) operazioni
+Per calcolare $U$ sono sufficienti $3(n-1)$ operazioni, per calcolare $\tilde b$ sono sufficienti $2(n-1)$ operazioni
 
-Risolvere $Ux = \tilde b$ sono sufficienti 3(n-1) + 1 operazioni
-
-$8n
+Per risolvere $Ux = \tilde b$ sono sufficienti $3(n-1) + 1$ operazioni
 
 $$\begin{bmatrix}
 a_{11}&a_{12}&0&...&...&0\\
@@ -1226,7 +1213,7 @@ x_1\\x_2\\\vdots\\x_n
 \tilde{b_1}\\\tilde{b_2}\\\vdots\\\tilde{b_n}\\
 \end{bmatrix}$$
 
-Si può risolvere con O(n) operazioni?
+Si può risolvere con $O(n)$ operazioni?
 
 Modo 1
 
@@ -1242,9 +1229,10 @@ U_{nn}x_n=\tilde{b_n}\\
 	for i=n-1:-1:1
 		x(i) = (bt(i)- u(i,i+1) *x(i+1)) / u(i,i)
 
-3(n-1) + 1 operazioni $\sim$ 3n operazioni
+$3(n-1) + 1$ operazioni $\sim$ $3n$ operazioni
 
 [[a3. Fattorizzazione LU]]
+
 
 # a4. Variante del Massimo Pivot Parziale (GEPP)
 
@@ -1280,7 +1268,7 @@ a_{22} &...\\
 a_{33} &...\\
 \vdots & \vdots\\
 a_{nn} &...\\
-\end{bmatrix} \to |a_{p1}| = max\{|a_{11}|,...,|a_{nn}|\}\to B_1= \begin{bmatrix}
+\end{bmatrix} \to |a_{p1}| = \max\{|a_{11}|,...,|a_{nn}|\}\to B_1= \begin{bmatrix}
 a_{p1} &...\\
 a_{22} &...\\
 a_{33} &...\\
@@ -1323,7 +1311,7 @@ $argmax\{|a_{11}|,...,|a_{nn}|\}$ è l'insieme degli indici in cui il massimo vi
 
 # Costo Computazionale
 
-I confronti al primo h sono
+I confronti al primo $h$ sono
 $$n-(h+1) + 1 = n-h$$
 E i valori assoluti da calcolare
 $$n-h+1$$
@@ -1341,21 +1329,21 @@ $$\begin{bmatrix}
 \vdots & \vdots\\
 0 & \dots
 \end{bmatrix}$$
-Al primo passo il metodo si arresta se la prima colonna è nulla $\implies$ A non è invertibile $\iff$ det(A)=0
+Al primo passo il metodo si arresta se la prima colonna è nulla $\implies$ $A$ non è invertibile $\iff$ $det(A)=0$
 
 
 ```ad-important
 title: Teorema
 
-Sia $A \in K^{nxn}$ invertibile (condizione sufficiente). Il metodo di Gauss con la variante del massimo pivot parziale è applicabile ad A.
+Sia $A \in K^{nxn}$ invertibile (condizione sufficiente). Il metodo di Gauss con la variante del massimo pivot parziale è applicabile ad $A$.
 
 ```
 ```ad-fail
 title: Dimostrazione
 
-Se il metodo fallisce al passo $\ell$ allora A non è invertibile perché si avrà che $a_{ll}=0$, di conseguenza se l'elemento con il pivot massimo è 0, tutti gli altri elementi al disotto sono 0 (il GEPP funziona con i valori  assoluti).
+Se il metodo fallisce al passo $\ell$ allora $A$ non è invertibile perché si avrà che $a_{ll}=0$, di conseguenza se l'elemento con il pivot massimo è 0, tutti gli altri elementi al disotto sono 0 (il GEPP funziona con i valori  assoluti).
 
-Calcoliamo il det(A) sviluppandolo rispetto alla prima colonna, procedendo in questo modo anche per la colonna 2 e così via.
+Calcoliamo il $det(A)$ sviluppandolo rispetto alla prima colonna, procedendo in questo modo anche per la colonna 2 e così via.
 
 Si arriva ad $A_l$ tramite operazioni che non modificano il determinante (combinazioni di righe) e scambi che non modificano il segno
 $$|det(A)| = |det(A_l)| = 0 \implies det(A)=0$$
@@ -1429,7 +1417,7 @@ Quindi, con la variante del massimo pivot parziale, si hanno molti scambi di rig
 Si può scrivere quindi $det(A)=(-1)^sdet(U)$, con $s$ il numero di scambi di righe.
 
 Ottenendo la triangolare superiore $U$, il determinante si trova solo sulla diagonale, e quindi $$det(U) = (-1)^s \prod_{i=1}^n{u_{ii}}$$
-Il costo del  prodotto è di $n-1$ operazioni, quindi è trascurabile rispetto al metodo di gauss.
+Il costo del  prodotto è di $n-1$ operazioni, quindi è trascurabile rispetto al metodo di Gauss.
 
 
 # a5. Curva di Bezier
@@ -1442,27 +1430,25 @@ $$B(t)=\sum_{i=0}^n{(\substack{n\\i})t^i(1-t)^{n-i}P_i}$$
 è detta curva di Bezier
 
 ```ad-example
-title: Esempi
+title: Esempio
 
-## 1
+N=1
 
-N=1 $$B_{0,1}(t)=\substack{\sum_i^1{(\substack{1\\i}) t^i( 1-t)^{1-i}P_i} =\\
-(\substack{1\\0}) t^0( 1-t)^{1} P_0 + (\substack{1\\1}) t^1( 1-t)^{0}P_1 = \\
-1 \cdot 1 (1-t)^1P_0 + 1t(1-t)^0P_1}=
-(1-t)P_0 + tP_1$$
+$$B_{0,1}(t) = \sum_{i = 0}^1 {(\substack{1 \\ i}) t^i (1-t)^{1-i} P_i } = $$
+$$ = (\substack{1\\0}) t^0( 1-t)^{1} P_0 + (\substack{1\\1}) t^1( 1-t)^{0}P_1 =$$
 
-
+$$= 1 \cdot 1 (1-t)^1P_0 + 1t(1-t)^0P_1 = (1-t)P_0 + tP_1$$
 
 ```
 
 
 # Inviluppo convesso di n+1 punti
 
-L'inviluppo convesso in n+1 punti in $R^n$ è il più piccolo insieme convesso che li contiene
+L'inviluppo convesso in $n+1$ punti in $R^n$ è il più piccolo insieme convesso che li contiene
 
 # Proprietà delle curve di bezier
 
-Il vettore tangente (derivata) su B in 0 è $n(v_1 - v_0)$ e ci permette di determinare la retta tangente di $\gamma$ in $\gamma (t_n)$ è $\gamma(t_0) + \gamma' (t_0) t$
+Il vettore tangente (derivata) su $B$ in 0 è $n(v_1 - v_0)$ e ci permette di determinare la retta tangente di $\gamma$ in $\gamma (t_n)$ è $\gamma(t_0) + \gamma' (t_0) t$
 
 
 
@@ -1474,7 +1460,7 @@ Il vettore tangente (derivata) su B in 0 è $n(v_1 - v_0)$ e ci permette di dete
 2. Trovare una funzione che ne deriva la forma.
 3. Trovare il valore di questa funzione in alcuni punti.
 
-n masse uguali e equidistanti collegate tra loro da molle.
+$n$ masse uguali e equidistanti collegate tra loro da molle.
 
 4. Scriviamo l'equazione dell'equilibrio per singola massa
 	- Ogni massa si può muovere solo in verticale
@@ -1506,7 +1492,7 @@ $$\begin{cases}
 2y_n - y_{n-1} = - \frac{mg}k
 \end{cases}$$
 
-Il sistema ha n equazioni e n incognite, è un sistema lineare del tipo $Ax=b$, con A tridiagonale
+Il sistema ha $n$ equazioni e $n$ incognite, è un sistema lineare del tipo $Ax=b$, con $A$ tridiagonale
 
 # a7. Interpolazione
 
@@ -1514,7 +1500,7 @@ Il sistema ha n equazioni e n incognite, è un sistema lineare del tipo $Ax=b$, 
 ```ad-hint
 title: Problema dell'interpolazione polinomiale
 
-Dati $x_0,..,x_n \in [a,b]$ e dati $y_0,...,y_n \in R$ trovare un polinomio p(x) di grado al più n tale che:
+Dati $x_0,..,x_n \in [a,b]$ e dati $y_0,...,y_n \in R$ trovare un polinomio $p(x)$ di grado al più $n$ tale che:
 $$p(x_0) = y_0,\quad p(x_1) = y_1,\quad p(x_n) = y_n$$
 
 ```
@@ -1534,7 +1520,7 @@ $$V=
 $$
 ```ad-note
 
-Il problema è ben posto se e solo se V è invertibile::
+Il problema è ben posto se e solo se $V$ è invertibile:
 $$det(V) = \prod_{\substack{i>j\\i,j=0}}^2{(x_i - x_j)} = (x_1 - x_0)(x_2 - x_1) (x_2 - x_0)$$
 
 ```
@@ -1548,9 +1534,9 @@ Il problema dell'interpolazione polinomiale è ben posto se e solo se i nodi son
 title: Dimostrazione
 
 Siccome è un sistema lineare, deve essere $det(V) \neq 0$ ma:
-$$det(v) \neq 0 \substack{\iff & x_i-x_j \neq 0 & i > j \\
-\iff& x_i \neq x_j & i \neq j\\
-\iff &\text{i nodi sono distinti}}$$
+$$det(v) \neq 0 \iff  x_i-x_j \neq 0 
+\iff x_i \neq x_j
+\iff \text{i nodi sono distinti}$$
 
 ```
 
@@ -1594,7 +1580,7 @@ $$
 
 L'utilizzo principale del polinomio di interpolazione
 
-# Polinomi Di LAGRANGE Associati a $x_0,...,x_n$ Distinti
+# Polinomi di Lagrange Associati a $x_0,...,x_n$ Distinti
 
 - $L_0(x)= \frac{(x-x_1)(x-x_2)...(x-x_n)}{(x_0 - x_1) (x_0 - x_2) ... (x_0 - x_n)}$
 - ...
@@ -1615,7 +1601,7 @@ $$L_0(x)=\frac{x - 3}{-1 -3} = \frac {x - 3}{-4} \quad\quad L_1(x) = \frac{x - (
 ``````ad-tip
 title: Teorema
 
-Siano $x_0,..,x_n \in [a,b]$ distinti e siano $L_0(x),...,L_n(x)$ i polinomi di LAGRANGE allora
+Siano $x_0,..,x_n \in [a,b]$ distinti e siano $L_0(x),...,L_n(x)$ i polinomi di Lagrange allora
 
 1. $L_i(x_i) = \delta_{ij} : \begin{cases} 1 & i=j \\ 0 & i \neq j \end{cases}$
 2. 2 polinomi di Lagrange sono una base di $R_n[x]$
@@ -1625,18 +1611,18 @@ $$p(x) = \sum_{i=1}^n {y_iL_i(x)}$$
 
 ```ad-done
 title: Dimostrazione
-
+collapse: true
 
 1. $L_i(x_j) = \frac{(x_j-x_0) ... (x_j-x_j)...(x_j - x_{i+1})}{...} = 0, \quad i \neq j$
 
 $L_i(x_i) = \frac{(x_i - x_0)...(x_i - x_{i-1})(x_i - x_{i+1})}{(x_i - x_0)...(x_i - x_{i-1})(x_i - x_{i+1})} = 1, \quad i = j$
 
-2. Siccome $R_n[x]$ ha dimensione n+1 è sufficiente dimostrare che sono linearmente indipendenti
+2. Siccome $R_n[x]$ ha dimensione $n+1$ è sufficiente dimostrare che sono linearmente indipendenti
 $$\sum {\alpha_i L_i(x)} = 0 \implies \alpha_i = 0\quad i=0,...,n$$
 valutiamo la combinazione lineare in $x_j \quad j = 0,..,n$
 $$0=\sum_{i=0}^n {\alpha_iL_i(x_j)} = \alpha_jL_j(x_j) = \alpha_j$$
 
-3.  $p(x) = \sum_{i=0}^n{y_iL_i(x)}$ dobbiamo dimostrare che $p(x_j) = y_j$ poiché p ha grado al più n e i nodi sono distinti
+3.  $p(x) = \sum_{i=0}^n{y_iL_i(x)}$ dobbiamo dimostrare che $p(x_j) = y_j$ poiché $p$ ha grado al più $n$ e i nodi sono distinti
 $$ p(x_j) = \sum_{i=0}^n {y_i L_i(x_j)} = y_jL_j(x_j) = y_j$$
 ```
 
