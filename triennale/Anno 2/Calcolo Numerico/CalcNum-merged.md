@@ -712,9 +712,9 @@ $$\begin{cases}a_{1,1}x_1 +. .. a_{1,n}x_n=b_1 \\ a_{2,1}x_1 +. .. a_{2,n}x_n=b_
 
 # Teorema Di Rouché-Capelli
 
-Il sistema lineare $Ax = b$ ammette soluzione se e solo se rango(A) = rango(A|b).
+Il sistema lineare $Ax = b$ ammette soluzione se e solo se $rango(A) = rango(A|b)$.
 
-Se esiste almeno una soluzione allora l'insieme delle soluzioni è un sottospazio affine di dimensione n-rango(A).
+Se esiste almeno una soluzione allora l'insieme delle soluzioni è un sottospazio affine di dimensione $n-rango(A)$.
 
 $K^n$ spazio vettoriale
 
@@ -736,7 +736,7 @@ L'insieme $W=\{v+v_0, v \in V, v_0 \in K^n\}$ è un sottospazio affine di $K^n$ 
 - I sottospazi affini di dimensione 0 sono detti punti (non sono sottospazi)
 ```
 
-$Ax=b \iff c_1x_1+c_2x_2+...+c_nx_n=b \iff$ $b$ è combinazione lineare delle colonne di $A$ $\iff$ rango(A)=rango(A|b)
+$Ax=b \iff c_1x_1+c_2x_2+...+c_nx_n=b \iff$ $b$ è combinazione lineare delle colonne di $A$ $\iff rango(A)=rango(A|b)$
 
 $$|c_1|...|c_n|=\begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}$$
 
