@@ -1,0 +1,115 @@
+
+\chapter{Programmazione Dinamica}
+
+\section{Introduzione}
+
+Dopo aver visto tecniche di design per vari tipi algoritmi (ad esempio
+Ricerca, Ordinamento ecc\ldots) quali:
+\begin{itemize}
+  \item \textbf{Greedy} in cui si
+        costruisce una soluzione in modo incrementale, ottimizzando ciecamente
+        alcuni criteri locali.
+  \item \textbf{Divide et Impera} nella quale si
+        suddivide un problema in sottoproblemi indipendenti, si risolve ogni
+        sottoproblema e ne si combina la soluzione con gli altri sottoproblemi
+        per formare la soluzione al problema originale.
+\end{itemize}
+
+Per far ciò è possibile introdurre una tecnica più potente ma anche più complessa da
+applicare: la \textbf{Programmazione Dinamica} (Dynamic Programming).
+L'idea su cui si fonda è simile alla tecnica \textbf{Divide et Impera}
+ed è essenzialmente l'opposto di una strategia \textbf{Greedy}. In
+sostanza si esplora implicitamente tutto lo spazio delle soluzioni e lo
+si decompone in una serie di \textbf{sotto-problemi}, grazie ai quali si
+costruiscono le soluzioni per \textbf{sotto-problemi sempre più grandi}
+finché non si raggiunge il \textbf{problema di partenza}.\\
+
+Una tecnica di programmazione dinamica è quella della
+\texttt{Memoization}, che è utile per risolvere una moltitudine di
+problemi. In sostanza, nella programmazione dinamica si verifica spesso
+la situazione in cui lo stesso sotto-problema deve essere risolto più
+volte, per questo motivo i risultati intermedi (le soluzioni a questi
+sotto-problemi) vengono salvati in una struttura dati (utilizzata come
+cache) e riutilizzati ogni qualvolta si presenta un sottoproblema già
+risolto. In questo modo, lo stesso sotto-problema non viene
+risolto/computato più volte ma soltanto una, diminuendo di molto il
+costo computazionale (in tempo) dell'algoritmo al prezzo di un costo in
+spazio (per salvare le soluzioni ai sotto-problemi risolti).\\
+
+Per applicare la programmazione dinamica è necessario creare un
+\emph{sotto-set} di problemi che soddisfano le seguenti proprietà:
+\begin{enumerate}
+  \item Esiste solo un \textbf{numero polinomiale di sotto-problemi}
+  \item La soluzione al problema originale può essere calcolata \textbf{facilmente dalla soluzione dei sotto-problemi}
+  \item C'è un \textbf{ordinamento naturale dei sotto-problemi} dal più piccolo al più grande, insieme a una ricorsione facilmente calcolabile
+\end{enumerate}
+
+\section{Applicare la Programmazione Dinamica}
+
+L'idea è quella di applicare i concetti fondamentali della
+programmazione dinamica:\\
+
+\emph{Se avremo bisogno di nuovo della
+  soluzione di questo sottoproblema, potremo riaverla immediatamente
+  \textbf{senza bisogno di ricalcolarla}}. \\
+  
+Come sappiamo per i problemi risolti precedentemente: \\
+
+La programmazione dinamica richiede una memoria
+extra per ridurre il tempo di esecuzione (\textbf{compromesso
+  tempo-memoria}).\\
+
+Il risparmio di tempo ottenibile può essere notevole: \textbf{una
+  soluzione con tempo esponenziale può essere trasformata in una soluzione
+  con tempo polinomiale}:
+\begin{itemize}
+  \item Un metodo di programmazione dinamica viene
+        eseguito in \textbf{tempo polinomiale} quando il numero di sottoproblemi
+        distinti richiesti è \textbf{polinomiale nella dimensione dell'input} e
+        ciascun sottoproblema può essere risolto in un tempo polinomiale.
+\end{itemize}
+
+Come già visto per la risoluzione degli altri problemi, ci sono due 
+modi equivalenti:
+\begin{itemize}
+  \item \textbf{Metodo Top-Down con Memoization}: In questo
+        approccio si scrive la procedura ricorsiva in modo naturale,
+        modificandola per salvare il risultato di ciascun sottoproblema. La
+        procedura prima verifica se ha risolto precedentemente questo problema.
+        In caso affermativo, restituisce il valore salvato, risparmiando gli
+        ulteriori calcoli a quel livello; altrimenti la procedura calcola il
+        valore nel modo usuale.
+  \item \textbf{Metodo Bottom-Up}: Ordiniamo i
+        sottoproblemi per dimensione e poi li risolviamo ordinatamente a partire
+        dal più piccolo. Quando risolviamo un particolare sottoproblema, abbiamo
+        già risolto tutti i sottoproblemi più piccoli da cui dipende la sua
+        soluzione.
+\end{itemize}
+
+Questi due approcci generano \textbf{\emph{algoritmo con lo stesso tempo
+    di esecuzione asintotico}}. L'approccio \textbf{Bottom-Up} spesso ha
+fattori costanti molto migliori, in quanto ha \textbf{meno costi per le
+  chiamate di procedura}.\\
+Qui di seguito verranno descritti i principali
+problemi e algoritmi di risoluzione nell'ambito della programmazione
+dinamica.\\
+
+\subsection{Riepilogo}
+
+\begin{itemize}
+  \item
+        Programmazione Dinamica
+
+        \begin{itemize}
+          \item
+                Risolve un problema combinando sottoproblemi
+          \item
+                I sottoproblemi vengono risolti al massimo una volta, memorizza le
+                soluzioni nella tabella
+          \item
+                Se un problema presenta una sottostruttura ottimale, la
+                programmazione dinamica è spesso la scelta giusta
+          \item
+                Gli approcci Top-Down e Bottom-Up hanno lo stesso runtime
+        \end{itemize}
+\end{itemize}

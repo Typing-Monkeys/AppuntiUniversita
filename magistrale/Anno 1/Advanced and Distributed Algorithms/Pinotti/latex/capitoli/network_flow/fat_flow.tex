@@ -1,0 +1,188 @@
+%\chapter{Algoritmo di Edmonds-Karp o Dinits(?)}
+\chapter{Algoritmo di Edmonds-Karp}
+\section{Introduzione}
+L'algoritmo di Ford-Fulkerson più che un algoritmo è un procedimento
+concettuale, dato che molte caratteristiche non sono specificate.\\
+
+Altri hanno studiato delle implementazioni di Ford-Fulkerson specificando
+l'ordine di scelta dei nodi su cui effettuare l'augment, due di queste sono lo
+\textbf{shortest path max flow} e il \textbf{fat flow}.
+
+
+\section{Shortest Path Max Flow}
+Migliora la complessità di Ford-Fulkerson scegliendo il cammino aumentante in
+base al risultato di una ricerca in ampiezza, preferendo quindi il cammino più
+corto tra il nodo e il sink.\\
+
+Il cammino corretto può essere trovato in tempo $O(E)$ eseguendo una
+\texttt{BFS} nel grafo residuale, e ci garantisce di terminare in tempo
+polinomiale, tagliando quindi la dipendenza dell'algoritmo di Ford-Fulkerson
+dalle capacità degli archi.
+
+\subsection{Analisi dell'algoritmo}
+Ora andremo a dimostrare la terminazione polinomiale dell'algoritmo con le
+seguenti 2 osservazioni, ma prima ci definiamo $\delta_f(u,v)$ come la distanza
+del cammino minimo da $u$ a $v$ nel grafo residuale $G_f$, considerando che ogni
+arco ha distanza unitaria.
+
+\begin{myblockquote}
+  \begin{minipage}{\textwidth}
+    \begin{theorem}
+      Se l'algoritmo di Edmonds-Karp viene eseguito su una rete di flusso
+      $G = (V, E)$ con sorgente $s$ e pozzo $t$, allora per ogni
+      vertice $v \in V - \{s,t\}$, la distanza de cammino minimo
+      $\delta_f(s,v)$ nella rete residua $G_f$ aumenta \linebreak
+      monotonamente per ogni aumento di flusso.
+    \end{theorem}
+  \end{minipage}
+\end{myblockquote}
+
+\begin{proof}
+  Supponiamo per assurdo che per qualche vertice $v \in V
+    - \{s, t\}$ ci sia un aumento di flusso che provoca una diminuzione della
+  distanza del cammino minimo da $s$ a $v$. Sia $f$ il flusso appena prima del
+  primo aumento che riduce una distanza del cammino minimo; sia $f^{'}$ il flusso
+  subito dopo. Se $v$ è il vertice con il minimo $\delta_{f^{'}}(s,v)$ la cui
+  distanza è stata ridotta dall'aumento, allora $\delta_{f^{'}}(s,v) <
+    \delta_{f}(s,v)$. Se $p = s \rightsquigarrow u \rightarrow v$ è un cammino
+  minimo da $s$ a $v$ in $G_{f{'}}$, allora $(u,v) \in E_{f^{'}}$ e:
+
+  $$
+    \delta_{f^{'}}(s,u) = \delta_{f^{'}}(s,v) -1
+  $$
+
+  Per il modo in cui abbiamo scelto $v$, sappiamo che la distanza del vertice
+  $u$ dalla sorgente $s$ non è \textbf{aumentata(?)}, ovvero:
+  $$
+    \delta_{f^{'}}(s,u) \ge \delta_{f}(s,u)
+  $$
+  Noi asseriamo che $(u,v) \notin E_f$. \textbf{Perché?}
+
+  Se avessimo $(u,v) \in E_f$ allora dovremmo avere anche:
+
+  $$
+    \delta_{f}(s,v) \le \delta_{f}(s,u) +1 \\
+    \le \delta_{f^{'}}(s,u) -1 \\
+    = \delta_{f^{'}}(s,v) -2
+  $$
+  Questo contraddice l'ipotesi che $\delta_{f^{'}}(s,v) < \delta_{f}(s,v)$.
+
+  Come è possibile avere $(u,v) \notin E_f$ e $(u,v) \in E_f^{'}$? L'augment
+  deve avere incrementato il flusso da $v$ a $u$. L'algoritmo di Edmondo-Karp
+  aumenta sempre il flusso lungo tutto i cammini minimi, e quindi il cammino
+  minimo da $s$ a $u$ in $G_f$ ha $(v,u)$ come suo ultimo arco, per tanto si
+  ha:
+
+  $$
+    \delta_{f}(s,v) = \delta_{f}(s,u) -1 \\
+    \le \delta_{f^{'}}(s,u) -1 \\
+    = \delta_{f^{'}}(s,v) -2
+  $$
+
+  Questo contraddice l'ipotesi che $\delta_f^{'}(s,v) < \delta_f(s,v)$, quindi
+  l'ipotesi dell'esistenza di un tale vertice $v$ non è corretta.\\
+\end{proof}
+
+%\newpage
+\textbf{Il prossimo teorema limita il numero di iterazioni dell'algoritmo}\\
+
+\begin{minipage}{\textwidth}
+  \begin{myblockquote}
+    \begin{theorem}
+      Se l'algoritmo viene eseguito su una rete di flusso $G = (V, E)$ con
+      sorgente $s$ e pozzo $t$, allora il numero totale di aumenti di flusso
+      effettuati dall'algoritmo è $O(VE)$.
+    \end{theorem}
+  \end{myblockquote}
+\end{minipage}
+
+\begin{proof}
+  Diciamo che un arco $(u,v)$ di una rete residua $G_f$ è \textbf{critico} in un
+  cammino aumentante $p$ se la capacità residua di $p$ è la capacità residua di
+  $(u,v)$. Dopo aver aumentato il flusso lungo un cammino aumentante ogni arco
+  critico scompare dalla rete residua. Inoltre in ogni cammino aumentante ci deve
+  essere almeno un arco critico.
+
+  Dimostreremo che ogni arco può diventare critico al più $\frac{|V|}{2}$ volte.\\
+
+  Siano $u$ e $v$ due vertici collegati da un arco, poiché i cammini aumentanti
+  sono i cammini minimi, quando $(u,v)$ diventa \textbf{critico} si ha:
+  $$
+    \delta_f(s,v) = \delta_{f^{'}}(s,u) +1
+  $$
+  Una volta che il flusso viene aumentato l'arco $(u,v)$ scompare dalla rete
+  residua e non potrà riapparire successivamente in un altro cammino aumentante
+  fino a che il flusso da $u$ a $v$ non diminuirà, e questo accade solo se $(u,v)$
+  appare in un cammino aumentante.
+
+  Se consideriamo che $f^{'}$ è il flusso quando si verifica questo evento, allora
+  si ha
+
+  $$
+    \delta_{f^{'}}(s,u) = \delta_{f^{'}}(s,v) +1
+  $$
+  Poiché $\delta_f(s,v) \le \delta_{f^{'}}(s,v)$ per la dimostrazione precedente,
+  si ha:
+
+  $$
+    \delta_{f^{'}}(s,u) =  \delta_{f^{'}}(s,v) + 1 \\
+    \ge \delta_f(s,v) + 1
+    = \delta_f(s,v) +2
+  $$
+
+
+  Di conseguenza, dall'istante in cui $(u,v)$ diventa critico, all'istante in cui
+  diventa di nuovo critico, la distanza di $u$ dalla sorgente aumenta almeno di 2
+  unità.
+
+  La distanza di $u$ dalla sorgente inizialmente è almeno pari a 0.
+
+  I vertici intermedi in un cammino minimo da $s$ a $u$ non possono contenere $s,
+    u$ o $t$. Pertanto, fino al momento in cui u diventa irraggiungibile dalla
+  sorgente, se mai si verifica la cosa, la sua distanza sarà al massimo $|V| -2$.
+  Quindi dopo la prima volta che diventa critico esso può ridiventarlo al massimo
+  altre $\frac{|V|}{2}$ volte.
+
+  Poiché ci sono $O(E)$ coppie di vertici che possono essere connessi da un arco
+  in un grafo residuale, il numero di archi critici durante l'intera esecuzione
+  dell'algoritmo è  $O(VE)$.
+\end{proof}
+
+\section{Fat Flow}
+Migliora la complessità di Ford-Fulkerson scegliendo il cammino aumentante con
+il più grande bottleneck disponibile.\\
+
+È relativamente facile far vedere come il cammino con il massimo bottleneck da
+$s$ a $t$ in un grafo direzionato può essere calcolato in tempo di $O(E\log{V})$
+usando una variante dell'algoritmo di Dijkstra. Semplicemente si crea uno
+spanning tree direzionato $T$, con radice in $s$. Ripetutamente trovando l'arco
+con capacità maggiore uscente da $T$ e lo si aggiunge a $T$ stesso finché $T$
+non conterrà un cammino da $s$ a $t$.
+
+\subsection{Analisi dell'algoritmo}
+
+Possiamo ora analizzare l'algoritmo in termini di maximum flow $f^{*}$. Sia $f$
+un qualsiasi flow in $G$, e $f'$ il maximum flow nel grafo residuale corrente
+$G_f$. (All'inizio dell'algoritmo $G_f = G$ e $f' = f^{*}$.) Sia $e$ l'arco del
+bottleneck nel prossimo augmenting path. Sia $S$ il set di nodi raggiungibili da
+$s$ attraverso archi in $G$ con capacità maggiore di $c(e)$ e sia $T = V$
+\textbackslash $S$. Per costruzione, $T$ non è vuoto, e ogni arco da $S$ a $T$
+ha capacità al massimo $c(e)$. Perciò la capacità del taglio $(S,T)$ è al
+massimo $c(e) \cdot E$. D'altro canto, il teorema del Maxflow-Mincut implica che
+$||S,T|| \geq |f|$. Da ciò si evince che $c(e) \geq |f|/E$.\\
+
+La dimostrazione precedente implica che aumentando $f$ attraverso il path con il
+maggior bottleneck in $G_f$ moltiplica il valore del flusso massimo in $G_f$ di
+un fattore di al massimo $1 - 1/E$. In altre parole il flusso residuale
+\textit{decade esponenzialmente} all'aumentare delle iterazioni. Dopo $E \cdot
+  \ln{|f^{*}|}$ iterazioni il valore del flusso massimo in $G_f$ sarà al massimo:
+$$
+  |f^{*}|\cdot(1-1/E)^{E\cdot \ln{|f^{*}|}} < |f^{*}|e^{-\ln{|f^{*}|}} = 1
+$$
+(La $e$ in questione è la costante di Eulero, non l'arco) In particolare,
+\textit{se tutte le capacità sono interi}, allora dopo $E\cdot \ln{|f^{*}|}$
+iterazioni la capacità massima del grafo residuale sarà \textit{zero} e $f$ sarà
+il flusso massimo.\\
+
+Concludiamo che per grafi con capacità intere l'algoritmo \textbf{Fat Flow}
+richiede $O(E^2\log{E}\log{|f^{*}|})$.

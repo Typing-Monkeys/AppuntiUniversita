@@ -1,0 +1,265 @@
+\chapter{Optimal Binary Search Tree}
+
+Come possiamo organizzare un albero binario di ricerca per minimizzare
+il numero di nodi visitati in tutte le ricerche, conoscendo le frequenze
+con cui vengono cercati i nodi? Ciò che fa al caso nostro è un
+\textbf{albero binario di ricerca ottimo}.
+
+\section{Descrizione del problema}
+
+\begin{myblockquote}
+  Formalmente, data una sequenza $K = k_1, k_2, ..., k_n$ di $n$
+  chiavi distinte e ordinate (con $k_1 < k_2 < ... < k_n$),
+  \textbf{vogliamo costruire un albero binario di ricerca} con queste
+  chiavi. Per ogni chiave $k_i$, abbiamo una probabilità $p_i$ che una
+  ricerca riguarderà $k_i$. Alcune ricerche potrebbero riguardare valori
+  che non si trovano in $K$, quindi abbiamo anche $n+1$ chiavi
+  fittizie (o \textbf{dummy}) $d_0, d_1, ..., d_n$ che rappresentano
+  valori che non appartengono a $K$.
+\end{myblockquote}
+
+$d_0$ rappresenta tutti i valori minori di $k_1$, $d_n$
+rappresenta tutti i valori maggiori di $k_n$ e, per
+$i = 1, 2, ..., n-1$, la chiave fittizia $d_i$ rappresenta tutti i
+valori fra $k_i$ e $k_{i+1}$. Per ogni chiave fittizia $d_i$,
+abbiamo una probabilità $q_i$ che una ricerca corrisponderà a $d_i$.
+
+$$
+  \sum_{i=1}^{n} p_i +  \sum_{i=0}^{n} q_i = 1
+$$
+
+\textbf{Poiché conosciamo le probabilità delle ricerche per ogni chiave
+  e per ogni chiave fittizia, possiamo determinare il costo atteso di una
+  ricerca in un determinato albero binario di ricerca $T$.} Supponiamo
+che il costo effettivo di una ricerca sia il numero di nodi esaminati,
+ovvero la profondità del nodo trovato dalla ricerca in $T$, più 1.
+Allora il costo atteso di una ricerca in $T$ è:
+
+$$
+  avgCost(T) = 1 + \sum_{i=1}^{n} \text{profondità}_T (k_i) \cdot p_i + \sum_{i = 0}^{n} \text{profondità}_T (d_i) \cdot q_i
+$$
+
+dove $\text{profondità}_T$ indica la \textbf{profondità} di un nodo
+nell'albero $T$.
+
+
+
+\subsection{Goal}
+
+Per un dato insieme di probabilità, il nostro obiettivo è costruire un
+albero binario di ricerca il cui costo atteso di ricerca è minimo.
+
+\paragraph*{Nota:} Un albero binario di ricerca ottimo non è necessariamente
+un albero la cui altezza è minima, nè possiamo necessariamente costruire
+un albero binario di ricerca ottimo ponendo sempre nella radice la
+chiave con probabilità massima.\\
+
+Come nella moltiplicazione di una sequenza di matrici, il controllo
+esaustivo di tutte le possibilità non riesce a produrre un algoritmo
+efficiente. In una ricerca esaustiva, dovremmo esaminare un numero
+esponenziale di alberi binari di ricerca.
+
+
+\section{La struttura di un albero binario di ricerca ottimo}
+
+Iniziamo con una osservazione sui sottoalberi. Consideriamo un
+sottoalbero qualsiasi di un albero binario di ricerca; le sue chiavi
+devono essere in un intervallo contiguo $k_i, ..., k_j$, per qualche
+$1 \le i \le j \le n$. Inoltre, un sottoalbero che contiene le chiavi
+$k_i, ..., k_j$ deve anche avere come foglie le chiavi fittizie
+$d_{i-1}, ..., d_j$. Adesso possiamo definire la
+\textbf{sottostruttura ottima}:
+\begin{myblockquote}
+  se un albero
+  binario di ricerca ottimo $T$ ha un sottoalbero $T'$ che contiene le
+  chiavi $k_i, ..., k_j$, allora questo sottoalbero $T'$ deve essere
+  ottimo anche per il sottoproblema con chiavi $k_i, ..., k_j$ e chiavi
+  fittizie $d_{i-1}, ..., d_j$.
+\end{myblockquote}
+Date le chiavi $k_i, ..., k_j$, una di queste chiavi, per esempio
+$k_r$ ($i \le r \le j$), sarà la radice di un sottoalbero ottimo che
+contiene queste chiavi. Il sottoalbero sinistro della radice $k_r$
+conterrà le chiavi $k_i, ..., k_{r-1}$ (e le chiavi fittizie
+$d_{i-1}, ..., d_{r-1}$) e il sottoalbero destro conterrà le chiavi
+$k_{r+1}, ..., k_j$ (e le chiavi fittizie $d_{r}, ..., d_{j}$).\\
+
+Se esaminiamo tutte le radici candidate $k_r$ con $i \le r \le j$, e
+determiniamo tutti gli alberi binari di ricerca ottimi che contengono
+$k_i, ..., k_{r-1}$ e quelli che contengono $k_{r+1}, ..., k_{j}$,
+avremo la garanzia di trovare un albero binario di ricerca ottimo.
+\\ \\
+\textbf{Note sui sottoalberi vuoti}: supponiamo di scegliere $k_i$
+come radice di un sottoalbero con chiavi $k_i, ..., k_j$. Il
+sottoalbero sinistro di $k_i$, contiene le chiavi
+$k_i, ..., k_{i-1}$. È naturale dedurre che questa sequenza non
+contiene chiavi ma, notiamo che i sottoalberi contengono anche le chiavi
+fittizie. Adottiamo la convenzione che un sottoalbero che contiene le
+chiavi $k_i, ..., k_{i-1}$ non ha chiavi reali, ma contiene l'unica
+chiave fittizia $d_{i-1}$. In modo simmetrico, il sottoalbero destro
+di $k_j$, contiene le chiavi $k_{j+1}, ..., k_j$; questo sottoalbero
+destro non contiene chiavi reali, ma contiene la chiave fittizia
+$d_j$.
+
+
+\section{Una soluzione ricorsiva}
+
+Il nostro dominio dei sottoproblemi è trovare un albero binario di
+ricerca ottimo che contiene le chiavi $k_i, ..., k_j$, dove
+$i \ge 1$, $j \le n$ e $j \ge i-1$ (quando $j = i-1$, non ci
+sono chiavi reali e c'è l'unica chiave fittizia $d_{i-1}$). Definiamo
+\texttt{e{[}i,j{]}} come il costo di ricerca atteso in un albero binario
+di ricerca ottimo che contiene le chiavi $k_i, ..., k_j$. In ultima
+analisi, vogliamo calcolare \texttt{e{[}1,n{]}}.\\
+
+Il caso semplice si verifica quando $j = i-1$; c'è una sola chiave
+fittizia: $d_{i-1}$.\\
+
+Il costo atteso di ricerca è \texttt{e{[}i,\ i-1{]}} = $q_{i-1}$.\\
+
+Quando $j \ge i$, bisogna scegliere una radice $k_r$ fra
+$k_i, ..., k_j$ e poi creare, come suo sottoalbero sinistro, un albero
+binario di ricerca ottimo con le chiavi $k_i, ..., k_{r-1}$ e, come
+suo sottoalbero destro, un albero binario di ricerca ottimo con le
+chiavi $k_{r+1}, ..., k_j$. La profondità di ogni nodo nel sottoalbero
+aumenta di 1 quando questo sottoalbero diventa sottoalbero di un nodo e,
+il costo atteso di ricerca di questo sottoalbero aumenta della somma di
+tutte le probabilità nel sottoalbero.\\
+
+Per un sottoalbero con chiavi $k_i, ..., k_j$
+$$
+  w(i , j) = \sum_{l = i}^{j} p_l + \sum_{l = i - 1}^{j} q_l
+$$
+Quindi se $k_r$ è la radice di un sottoalbero ottimo che contiene le
+chiavi $k_i, ..., k_j$ abbiamo
+$$
+  e[i,j] = p_r + (e[i, r-1] + w(i, r-1)) + (e[r+1, j] + w(r+1, j))
+$$
+Osservando che
+$$
+  w(i,j) = w(i, r-1) + p_r + w(r+1, j)
+$$
+possiamo riscrivere $e[i,j]$ in questo modo
+$$
+  e[i,j] = e[i, r-1] + e[r+1, j] + w(i,j)
+$$
+Otteniamo quindi la seguente formula ricorsiva finale:
+
+\begin{equation*}
+  e[i,j] =
+  \begin{cases}
+    q_{i-1},                                              & j = i-1 \\
+    \min_{i \le r \le j} (e[i, r-1] + e[r+1, j] + w(i,j)) & i \le j
+  \end{cases}
+\end{equation*}
+
+I valori $e[i,j]$ rappresentano i costi attesi di ricerca negli alberi
+binari di ricerca ottimi. Per tenere traccia della struttura degli
+alberi binari di ricerca ottimi, definiamo $root[i,j]$, per
+$1 \le i \le j \le n$, come l'indice $r$ per il quale $k_r$ è la
+radice di un albero binario di ricerca ottimo che contiene le chiavi
+$k_i , ..., k_j$.
+
+\section{Calcolare il costo di ricerca atteso in un albero binario di ricerca ottimo}
+
+Si possono vedere diverse analogie fra la caratterizzazione degli alberi
+binari di ricerca ottimi e la caratterizzazione della moltiplicazione di
+una sequenza di matrici. Per entrambi i domini dei problemi, i
+sottoproblemi sono formati da sottointervalli di indici e contigui. Una
+implementazione ricorsiva diretta dell'equazione definita
+precedentemente potrebbe risultare inefficiente come l'algoritmo
+ricorsivo diretto della moltiplicazione di una sequenza di matrici.\\
+Memorizziamo quindi i valori $e[i,j]$ in una tabella
+$e[1..n +1, 0..n]$. Il primo indice deve arrivare fino a $n+1$
+(anziché $n$) perché, per ottenere un sottoalbero che contiene
+soltanto la chiave fittizia $d_n$, dobbiamo calcolare e memorizzare
+$e[n+1,n]$. Il secondo indice deve iniziare da 0 perché, per ottenere
+un sottoalbero che contiene soltanto la chiave fittizia $d_0$,
+dobbiamo calcolare e memorizzare $e[1,0]$. Utilizzeremo soltanto le
+posizioni $e[i,j]$ per le quali $j \ge i-1$. Utilizzeremo anche una
+tabella $root[i,j]$ per memorizzare la radice del sottoalbero che
+contiene le chiavi $k_i, ..., k_j$ (questa tabella usa soltanto le
+posizioni per le quali $1 \le i \le j \le n$).\\
+
+Ovviamente, per migliorare l'efficienza, utilizzeremo un'altra tabella.
+Anziché ricominciare da zero il calcolo di $w(i,j)$ ogni volta che
+calcoliamo $e[i,j]$ (il che richiederebbe $O(j-1)$ addizioni)
+memorizziamo questi valori in una tabella $w[1..n+1,0..n]$.\\
+Per il caso base, calcoliamo $w[i, i-1] = q_{i-1}$ per $1 \le i \le n+1$.
+Per $j \ge i$, calcoliamo $w[i,j] = w[i, j-1] + p_j + q_j$.\\
+
+Quindi possiamo calcolare ciascuno dei $O(n^2)$ valori di $w[i,j]$
+nel tempo $O(1)$.\\
+
+Il seguente pseudocodice riceve come input le probabilità
+$p_1, ..., p_n$ e $q_0, ..., q_n$ e la dimensione $n$ e
+restituisce le tabelle $e$ e $root$.
+
+\begin{lstlisting}[language=Python, mathescape=true]
+function Optimal-BST(p,q,n) {
+  Let e[1..n+1,0..n], w[1..n+1,0..n] and root[1..n,1..n] be three new table
+
+  for i = 1 to n + 1
+    e[i,i - 1] = qi-1
+    w[i,i - 1] = qi-1
+
+  for l = 1 to n
+    for i = 1 to n - l + 1
+      j = i + l - 1
+      e[i,j] = $\infty$
+      w[i,j] = w[i,j - 1] + pj + qj
+      for r = i to j
+        t = e[i, r - 1] + e[r + 1, j] + w[i,j]
+        if t < e[i,j]
+          e[i,j] = t
+          root[i,j] = r
+
+  return e[] and root[]
+}
+\end{lstlisting}
+
+
+\begin{itemize}
+  \item
+        Il primo ciclo \texttt{for} inizializza i valori di $e[i,i - 1]$ e
+        $w[i,i - 1]$.
+  \item
+        Il ciclo \texttt{for} principale usa le ricorrenze per calcolare
+        $e[i,j]$ e $w[i,j]$ per ogni $1 \le i \le j \le n$.
+  \item
+        Quando $l = 1$, il ciclo calcola $e[i,i]$ e $w[i,i]$ per
+        $i = 1, 2, ..., n$
+  \item
+        Quando $l = 2$, il ciclo calcola $e[i,i+1]$ e $w[i,i+1]$ per
+        $i = 1, 2, ..., n$ per $i = 1, 2, ..., n-1$, e così via.
+  \item
+        Il ciclo \texttt{for} più interno prova ciascun indice $r$ candidato per
+        determinare (e salvare i $root[i,j]$) quale chiave $k_r$
+        utilizzare come radice di un albero binario di ricerca ottimo che
+        contiene le chiavi $k_i, ..., k_j$.
+\end{itemize}
+
+
+\subsection{Costo}
+
+\begin{itemize}
+  \item
+        Per ogni operazione pago $n$: \textbf{TEMPO =} $O(n^3)$, esattamente
+        come \texttt{Matrix-Chain-Order}
+  \item
+        Spazio = matrice $n \times n$: \textbf{SPAZIO =} $O(n^2)$
+\end{itemize}
+
+\section{Riepilogo}
+
+\begin{itemize}
+  \item
+        L'obiettivo è costruire un albero di ricerca massimizzando la velocità
+        di ricerca in base alla probabilità
+  \item
+        $OPT[i,j] = \min_{i \le r \le j} (OPT[i, r-1] + OPT[r+1, j] + w[i,j])$
+  \item
+        $r$ è la radice dei sottoalberi creati ricorsivamente
+  \item
+        Per ricostruire la soluzione uso un'altra matrice dove
+        $S[i,j] = \min_r$ $\rightarrow$ \textbf{SPAZIO =} $O(n^2)$
+\end{itemize}
