@@ -704,14 +704,14 @@ Un tipo è un insieme di valori e descrive le varie operazioni che possono esser
 Si possono effettuare conversioni di tipi con le seguenti funzioni:
 
 ```
-- int_of_float    (* Traforma float in int *)
-- float_of_int    (* Traforma int in float *)
-- string_of_int   (* Traforma int in string *)
-- string_of_float (* Traforma float in string *)
-- int_of_string   (* Traforma string in int *)
-- float_of_string (* Traforma string in float *)
-- int_of_char     (* Traforma char in int *)
-- char_of_int     (* Traforma int in char *)
+- int_of_float    (* Trasforma float in int *)
+- float_of_int    (* Trasforma int in float *)
+- string_of_int   (* Trasforma int in string *)
+- string_of_float (* Trasforma float in string *)
+- int_of_string   (* Trasforma string in int *)
+- float_of_string (* Trasforma string in float *)
+- int_of_char     (* Trasforma char in int *)
+- char_of_int     (* Trasforma int in char *)
 ```
 
 ### Uguaglianza e Disuguaglianza
@@ -1738,7 +1738,7 @@ Random.self_init<SEME>;;
 C'è il classico approccio a forza bruta: generare ad una ad una tutte le possibili sequenze e controllare se soddisfino le condizioni (cercare di beccare a caso la soluzione). Oppure utilizzare l'approccio con Backtracking: costruire la soluzione aggiungendo un elemento alla volta ed utilizzare un criterio per capire se la sequenza parziale (la strada che sto percorrendo) ha possibilità di successo.
 
 Soluzione: `(x1, ..., xn)`
-Ad ogni stadio `i` controllo se `(x1, ..., xi)` ha possibilità di successo. Se ha possibilità, si sceglie un nuovo `xi+1` tra le possibili alternative. Se con tale scelta si arriva alla soluzione allora quella è la soluzione (ma va ?!). Altrimenti scelgo un diverso `xi+1`. Se dopo aver provato tutte le varie possibilità non si arriva ad una soluzione ritorno un fallimento. Se si verifica che `(x1, ..., xi)` non ha possibilità di successo non adrò a generare le sequenze che "passano" per lui `(x1, ..., xi, ...)`.
+Ad ogni stadio `i` controllo se `(x1, ..., xi)` ha possibilità di successo. Se ha possibilità, si sceglie un nuovo `xi+1` tra le possibili alternative. Se con tale scelta si arriva alla soluzione allora quella è la soluzione (ma va ?!). Altrimenti scelgo un diverso `xi+1`. Se dopo aver provato tutte le varie possibilità non si arriva ad una soluzione ritorno un fallimento. Se si verifica che `(x1, ..., xi)` non ha possibilità di successo non andrò a generare le sequenze che "passano" per lui `(x1, ..., xi, ...)`.
 
 Così facendo riesco a diminuire lo spazio di ricerca applicando un criterio di eliminazione.
 
@@ -2293,9 +2293,9 @@ A livello di codice invece la differenza tra i due è letteralmente solo il come
   - Best First: `List.sort confronta (rest @ (estendi cammino))` 
   - Hill Climbing: `(List.sort confronta (estendi cammino)) @ rest`
 
-Notiamo le parentesi come sono messe... in Best First si fa il sort per confronto tra tutti gli elementi; quindi sono riordinate tutte 
-le soluzioni sia quelle precedenti che le nuove. In Hill Climbing invece si fa il sort per confronto solo tra le nuove soluzioni e si mettono
-poi prima delle precedenti.
+Notiamo le parentesi come sono messe:
+  - in Best First si fa il sort per confronto tra tutti gli elementi; quindi sono riordinate tutte le soluzioni sia quelle precedenti che le nuove.
+  - in Hill Climbing invece si fa il sort per confronto solo tra le nuove soluzioni e si mettono poi prima delle precedenti.
 
 ##### Branch and Bound
 In questa ricerca si trova la soluzione di **costo minimo** ma deve essere definita una funzione costo per le soluzioni parziali. Poi un algoritmo simile al Best-First consente di calcolare la soluzione di costo minimo. Ad ogni passo l'insieme delle soluzioni parziali viene ordinato rispetto al costo totale. È in pratica una **Best First Search** in cui si usa una nuova euristica data dal costo dell'attuale path trovato (sempre calcolato in termini di sommatoria di distanza tra i vari nodi del path). È quindi come fare una ricerca in ampiezza in cui però sfrutto la funzione euristica per espandere il **PATH più promettente** ovvero quello che **ATTUALMENTE** ha distanza **MINIMA**. 
