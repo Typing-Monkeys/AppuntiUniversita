@@ -125,7 +125,7 @@ Selezionare un numero finito di valori che possano rappresentare i numeri reali.
 ## Distribuzione uniforme
 
 Scegliere $\varepsilon > 0$, N pari:
-$$\varepsilon = \{\varepsilon k: - \frac N2 < k \leq \frac N2, k \in Z\}$$
+$$\varepsilon = \{\varepsilon k: - \frac N2 < k \leq \frac N2, k \in \mathbb{Z}\}$$
 
 Possiamo rappresentare i numeri reali con l'insieme:
 $$ S = \{-\varepsilon\frac N2<x \leq \varepsilon\frac N2\} \subset N
@@ -601,7 +601,7 @@ $$\begin{bmatrix}
 0 & 0 & 1
 \end{bmatrix}$$
 
-$$D_n = \{A \in K^{nxn},, a_{ij} = 0, i \neq j\}$$
+$$D_n = \{A \in K^{nxn}, a_{ij} = 0, i \neq j\}$$
 
 ``````ad-question
 title: Le matrici diagonali sono sparse?
