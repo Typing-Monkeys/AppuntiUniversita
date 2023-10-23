@@ -151,12 +151,12 @@ Limiti di sequenze di numeri razionali che possono essere approssimate.
 
 Data una base di numerazione $\beta \geq 2$ posso prendere un numero reale tra 0 e 1 e le sequenze di cifre
 
-$$R \iff \{d_i\}_{i=1,2,3....}, \quad d_i \in \{0,...,\beta -1\}$$
+$$\mathbb{R} \iff \{d_i\}_{i=1,2,3....}, \quad d_i \in \{0,...,\beta -1\}$$
 
 ```ad-important
 title: Teorema Della Rappresentazione In Basi
 
-Dato $x \in R \backslash \{0\}$ e data una base di numerazione $\beta \geq 2$ esiste un unico $p \in Z$ e una sequenza $\{d_i\}_{i=1,2,3,...}$ tali che:
+Dato $x \in\mathbb{R}\backslash \{0\}$ e data una base di numerazione $\beta \geq 2$ esiste un unico $p \in Z$ e una sequenza $\{d_i\}_{i=1,2,3,...}$ tali che:
 
 1. $d_i \in \{0,1,...,\beta - 1\}$
 2. $d_1 \neq 0$
@@ -199,8 +199,8 @@ Questi numeri __non sono uniformi__. Tra $\frac 12$ e $\frac 14$ e tra $\frac 12
 
 ![[Pasted image 20230125111411.png]]
 
-Data $S = \{x \in R : \omega \leq x \leq \Omega\}$ costruiamo una __funzione di rappresentazione__ 
-$$fl : R \to F \cup\{\pm \infty\}$$
+Data $S = \{x \in\mathbb{R}: \omega \leq x \leq \Omega\}$ costruiamo una __funzione di rappresentazione__ 
+$$fl :\mathbb{R}\to F \cup\{\pm \infty\}$$
 
 Con una delle due regole, dato $x=\beta^p \sum_{i=1}^\infty {\beta^{-i}d_i} \in S$:
 
@@ -258,7 +258,7 @@ Non seguono infatti:
 
 
 
-Data una funzione razionale $f: R^2 \to R$ che sia $f = \frac pq$ con $p$ e $q$ polinomi.
+Data una funzione razionale $f: \mathbb{R}^2 \to \mathbb{R}$ che sia $f = \frac pq$ con $p$ e $q$ polinomi.
 
 Dall'analisi matematica sappiamo che $f$ è definita e differenziabile per $q \neq 0$ (assumendo che $p$ e $q$ siano primi).
 
@@ -294,7 +294,7 @@ La situazione ideale è $|\varepsilon_{tot}| < u$, ma in pratica è sufficiente 
 ```ad-important
 title: Teorema
 
-Dato $x \in R^n \backslash \{0\}$ e $f : R^n \to R$ razionale con $f(x) \neq 0$, dove $\tilde x = fl(x)$, allora
+Dato $x \in \mathbb{R}^n \backslash \{0\}$ e $f : \mathbb{R}^n \to \mathbb{R}$ razionale con $f(x) \neq 0$, dove $\tilde x = fl(x)$, allora
 
 $$\varepsilon_{TOT} = \varepsilon_{IN} + \varepsilon_{ALG} + \varepsilon_{IN}\varepsilon_{ALG}$$
 
@@ -392,8 +392,8 @@ La dipendenza continua dai dati è meno ovviamente importante:
 
 # Derivata Di Fréchet
 
-$$f:R^n \to R$$
-$$Df(x_0) : R^2 \to R$$
+$$f:\mathbb{R}^n \to \mathbb{R}$$
+$$Df(x_0) : \mathbb{R}^2 \to \mathbb{R}$$
 Se $x = (x_1,...,x_n), \quad x_i \neq 0, \quad f(x) \neq 0$ l'[[3. Errore Per Le Funzioni Razionali#Errore Inerente|errore inerente]] è:
 $$\varepsilon_{IN} \doteq c_1\varepsilon_1 + ... + c_n\varepsilon_n, \quad c_i = \frac {x_i}{f(x)}\frac {\partial f}
 {\partial x_i}(x), \quad \varepsilon_i = \frac {\tilde x_i - x_i}{x_i}$$
@@ -440,10 +440,10 @@ $$|\varepsilon_{IN}| = |\frac{x\varepsilon_x + y\varepsilon_y}{x + y}| \leq \fra
 
 Dati $p$ e $x$, calcolare $p(x)$
 
-- $R^n(K^n)$ vettori con $n$ componenti in $R(K)$
-- $R_n(x)(K_n(x))$ polinomi di grado al più $n$ con coefficienti reali
-- $R^{nxm}(K^{nxm})$ matrici $n \times m$ con elementi in $R$
-- $R^{n_1 x n_2 x ... x n_l}$ tensore di $l$ dimensioni
+- $\mathbb{R}^n(K^n)$ vettori con $n$ componenti in $\mathbb{R}(K)$
+- $\mathbb{R}_n(x)(K_n(x))$ polinomi di grado al più $n$ con coefficienti reali
+- $\mathbb{R}^{nxm}(K^{nxm})$ matrici $n \times m$ con elementi in $\mathbb{R}$
+- $\mathbb{R}^{n_1 x n_2 x ... x n_l}$ tensore di $l$ dimensioni
 - $p(x) = a_0 + a_1 x + ... + a_n x^n$
 
 In computer grafica quasi tutto dipende da delle curve, le superfici possono essere curve, ecc...
@@ -712,9 +712,9 @@ $$\begin{cases}a_{1,1}x_1 +. .. a_{1,n}x_n=b_1 \\ a_{2,1}x_1 +. .. a_{2,n}x_n=b_
 
 # Teorema Di Rouché-Capelli
 
-Il sistema lineare $Ax = b$ ammette soluzione se e solo se $rango(A) = rango(A|b)$.
+Il sistema lineare $Ax = b$ ammette soluzione se e solo se rango$rango(A) = rango(A|b)$.
 
-Se esiste almeno una soluzione allora l'insieme delle soluzioni è un sottospazio affine di dimensione $n-rango(A)$.
+Se esiste almeno una soluzione allora l'insieme delle soluzioni è un sottospazio affine di dimensione n-rango(A).
 
 $K^n$ spazio vettoriale
 
@@ -759,7 +759,7 @@ $m<n \quad rango(A)\leq m < n \implies$ la soluzione non può essere unica $\imp
 ## Caso 2
 
 $m>n \quad rango(A)=rango(A|b)=n \iff$ la soluzione non è unica, anche se il sistema ammette una soluzione unica per un dato $b$, esiste $c: \forall \varepsilon >0$ il sistema $Ax=c+\varepsilon c$ non ammette soluzioni $\implies$ la soluzione non può dipendere in modo continuo dai dati
-$$Im(A) =\{v \in K^n, v=Ax, x\in R^n\} \subseteq K^n$$
+$$Im(A) =\{v \in K^n, v=Ax, x\in \mathbb{R}^n\} \subseteq K^n$$
 $$dim(Im(A))=rango(A)\leq n<m$$
 esiste $c \in K / Im(A)$ ma $x: Ax=b, x\in Im(A)$
 $$Ay=b+c\varepsilon, \varepsilon>0$$
@@ -906,9 +906,9 @@ Ma $det(M_h)=det(N_h)$ per quanto detto prima, quindi il metodo non è applicabi
 
 Se $A$ è una matrice definita positiva allora la condizione del teorema è verificata
 
-$A \in R^{nxn}$ è definita positiva se:
+$A \in \mathbb{R}^{nxn}$ è definita positiva se:
 - $A^T=A$ (simmetrica)
-- $v^T Av > 0$ se $v \in R^n \setminus \{0\}$
+- $v^T Av > 0$ se $v \in \mathbb{R}^n \setminus \{0\}$
 
 Se $A$ è a dominanza diagonale allora la condizione del teorema è verificata
 
@@ -1014,11 +1014,25 @@ $$
 
 \end{bmatrix}
 
-= \begin{bmatrix}
+\begin{bmatrix}
+
+1&1&0\\
+
+1&1&1\\
+
+0&1&1
 
 \end{bmatrix}
 
+= \begin{bmatrix}
+2 & 2 & 1\\
+2 & 3 & 2\\
+1 & 2 & 2
+\end{bmatrix}
+
 $$
+
+Il risultato non è una matrice tridiagonale, quindi non è una sottoalgebra
 ```
 
 ```ad-question
@@ -1611,6 +1625,7 @@ $$p(x) = \sum_{i=1}^n {y_iL_i(x)}$$
 
 ```ad-done
 title: Dimostrazione
+
 
 1. $L_i(x_j) = \frac{(x_j-x_0) ... (x_j-x_j)...(x_j - x_{i+1})}{...} = 0, \quad i \neq j$
 
