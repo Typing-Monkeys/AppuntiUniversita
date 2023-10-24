@@ -151,7 +151,7 @@ Limiti di sequenze di numeri razionali che possono essere approssimate.
 
 Data una base di numerazione $\beta \geq 2$ posso prendere un numero reale tra 0 e 1 e le sequenze di cifre
 
-$$\mathbb{R} \iff \{d_i\}_{i=1,2,3....}, \quad d_i \in \{0,...,\beta -1\}$$
+$$\mathbb{R}32 \iff \{d_i\}_{i=1,2,3....}, \quad d_i \in \{0,...,\beta -1\}$$
 
 ```ad-important
 title: Teorema Della Rappresentazione In Basi
@@ -712,9 +712,9 @@ $$\begin{cases}a_{1,1}x_1 +. .. a_{1,n}x_n=b_1 \\ a_{2,1}x_1 +. .. a_{2,n}x_n=b_
 
 # Teorema Di Rouché-Capelli
 
-Il sistema lineare $Ax = b$ ammette soluzione se e solo se rango$rango(A) = rango(A|b)$.
+Il sistema lineare $Ax = b$ ammette soluzione se e solo se $rango(A) = rango(A|b)$.
 
-Se esiste almeno una soluzione allora l'insieme delle soluzioni è un sottospazio affine di dimensione n-rango(A).
+Se esiste almeno una soluzione allora l'insieme delle soluzioni è un sottospazio affine di dimensione $n-rango(A)$.
 
 $K^n$ spazio vettoriale
 
