@@ -151,7 +151,7 @@ Limiti di sequenze di numeri razionali che possono essere approssimate.
 
 Data una base di numerazione $\beta \geq 2$ posso prendere un numero reale tra 0 e 1 e le sequenze di cifre
 
-$$\mathbb{R}32 \iff \{d_i\}_{i=1,2,3....}, \quad d_i \in \{0,...,\beta -1\}$$
+$$\mathbb{R} \iff \{d_i\}_{i=1,2,3....}, \quad d_i \in \{0,...,\beta -1\}$$
 
 ```ad-important
 title: Teorema Della Rappresentazione In Basi
