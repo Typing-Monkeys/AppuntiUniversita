@@ -1,0 +1,22 @@
+01	Kidman	Nicole
+02	Bettany	Paul
+03	Watson	Emily
+04	Skarsgard	Stellan
+05	Travolta	John
+06	L. Jackson	Samuel
+07	Willis	Bruce
+08	Irons	Jeremy
+09	Spader	James
+10	Hunter	Holly
+11	Arquette	Rosanna
+12	Wayne	John
+13	von Trier	Lars
+14	Tarantino	Quentin
+15	Cronenberg	David
+16	Mazursky	Paul
+17	Jones	Grace
+18	Glen	John
+19	Eastwood	Clint
+20	Spacey	Kevin
+21	Mendes	Sam
+22	Jolie	Angelina

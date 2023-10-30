@@ -1,0 +1,16 @@
+01	05	Grace
+02	05	Tom Edison
+03	04	Bess
+04	04	Jan
+05	03	Vincent Vega
+06	03	Jules Winnfield
+07	03	Butch Coolidge
+08	02	Beverly & Elliot Mantle
+09	01	James Ballard
+10	01	Helen Remington
+11	01	Gabrielle
+04	05	Chuck
+16	07	May Day
+19	08	John Wilson
+20	09	Jim Williams
+20	10	Lester Burnham

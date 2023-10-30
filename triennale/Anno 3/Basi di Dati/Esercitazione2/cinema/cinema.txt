@@ -1,0 +1,4 @@
+02	S. Angelo	Via Lucida 6 Perugia
+01	Zenith	Via Bonfigli 8 Perugia
+03	Multisala Clarici	Corso Cavour 84 Foligno
+04	Multiplx Giometti	Strava Centova Perugia
