@@ -1,0 +1,130 @@
+\section{La Tesi di Church-Turing}
+
+Come già accennato nel Capitolo 1, la macchina di Turing non è l'unico modello
+astratto di computabilità finora comparso. Anzi, durante gli anni '30 e all'inizio
+degli anni '40, molte importanti caratterizzazioni della calcolabilità hanno visto la
+luce: oltre a quella di Turing, anche quella di Kleene, basata sulle equazioni
+funzionali, quella di Church, fondata sul $\lambda$-calcolo, ed altre ancora. In ogni caso,
+gli autori hanno elaborato modelli elementari di computazione e hanno formulato
+l'ipotesi che la loro nozione di calcolabilità fosse la più generale possibile e che
+non potessero esistere procedimenti algoritmici di calcolo non esprimibili nel loro
+formalismo. Alcuni esempi di questi modelli alternativi saranno presentati nei
+capitoli successivi. D'altra parte, tutti i tentativi fatti nell'ambito della logica
+matematica e dell'informatica teorica di definire modelli e paradigmi alternativi
+alle MdT hanno condotto a caratterizzazioni di insiemi decidibili, semidecidibili e
+di funzioni calcolabili equivalenti a quelle di Turing (esempi di queste equivalenze
+verranno dimostrati nei prossimi capitoli). Questa circostanza ha condotto alla
+formulazione di quella che oggi è nota come \textit{Tesi di Church-Turing} e viene ancora
+ritenuta universalmente valida. Questa tesi afferma che ogni procedimento
+algoritmico, espresso in un qualunque modello di calcolo, è realizzabile mediante una
+macchina di Turing. In realtà il contributo di Alonzo Church alla formulazione di
+questa affermazione può sembrare misterioso, e si potrebbe ritenere più consono
+chiamarla semplicemente \textit{Tesi di Turing}. Spiegheremo nel Capitolo 4 il ruolo di
+Church. In conclusione si ha:
+
+\paragraph{Tesi di Church-Turing.} \textit{Una funzione è calcolabile se e solo se
+    esiste una macchina di Turing che la calcola (e cioè se e solo se la funzione è
+    calcolabile secondo Turing).}\\
+
+Che ogni funzione calcolata da una MdT sia effettivamente calcolabile è banale. Ciò
+che è invece rilevante e problematico è l'implicazione inversa, per la quale ogni
+procedimento algoritmico è riconducibile a una MdT. "Algoritmo" e "funzione
+calcolabile" sono concetti intuitivi, non specificati in modo formale, per cui non è
+possibile una dimostrazione rigorosa di equivalenza con il concetto di macchina di
+Turing. La Tesi di Church-Turing non è dunque una congettura che, in linea di
+principio, potrebbe un giorno diventare un teorema. Tuttavia, la nozione intuitiva di
+funzione calcolabile è contraddistinta da un insieme di caratteristiche (quali
+determinismo, finitezza di calcolo, etc.), che possono essere considerate in larga
+misura "\textit{oggettive}". Questo fa sì che sia praticamente sempre possibile una
+valutazione concorde nel decidere se un dato procedimento di calcolo possa essere
+considerato algoritmico o meno. Quindi, almeno in linea di principio, è ammissibile
+che venga "scoperto" un controesempio alla Tesi di Church-Turing: che si individui
+cioè una funzione che sia effettivamente calcolabile secondo questi parametri
+informali, ma che non sia computata da nessuna MdT. Almeno finora, però, nessun
+controesempio alla tesi di Church-Turing è stato trovato nonostante gli ovvi
+progressi teorici e pratici che l'Informatica ha avuto dagli anni '30. In effetti,
+gli argomenti a favore della Tesi di Church-Turing possono essere raccolti in tre
+gruppi.
+
+\begin{enumerate}
+    \item \textit{Evidenza euristica.}
+          \begin{itemize}
+              \item Per ogni singola funzione calcolabile che sia stata esaminata, è
+                    sempre stato possibile trovare una MdT in grado di computarla. Lo
+                    stesso si può dire dei procedimenti che producono effettivamente
+                    nuove funzioni a partire da altre. Eppure questa indagine è stata
+                    condotta per un gran numero di funzioni, di classi di funzioni e
+                    di procedure, con l'intento di renderla la più esaustiva
+                    possibile.
+              \item I metodi per dimostrare che le funzioni computabili sono
+                    calcolabili secondo Turing sono stati sviluppati con un grado di
+                    generalità tale da far ritenere improbabile che possa essere
+                    scoperta una funzione calcolabile cui l'approccio di Turing non
+                    possa essere applicato.
+              \item I vari metodi tentati per costruire funzioni effettivamente
+                    calcolabili, ma non computabili da MdT, hanno condotto tutti al
+                    fallimento, nel senso che le funzioni ottenute si dimostrano a
+                    loro volta calcolabili secondo Turing, oppure in realtà non
+                    calcolabili.
+          \end{itemize}
+    \item \textit{Equivalenza delle diverse formulazioni proposte.} Tutti i tentativi
+          che sono stati elaborati per caratterizzare in modo rigoroso la classe di
+          tutte le funzioni effettivamente calcolabili si sono rivelati tra loro
+          equivalenti. Ciò che è particolarmente rilevante è la diversità degli
+          strumenti e dei concetti impiegati nelle diverse formulazioni; in molti
+          casi esse traggono la loro origine da concetti matematici preesistenti. Che
+          punti di vista talmente diversi e vasti convergano concentricamente alla
+          stessa conclusione (e siano comunque equivalenti al modello di Turing) può
+          essere inteso come forte argomento a sostegno di ognuno di loro e in
+          particolare della tesi di Church-Turing.
+    \item \textit{L'impiegato diligente.} In realtà, i precedenti ragionamenti si
+          applicano indifferentemente a tutti i vari approcci equivalenti alla
+          calcolabilità. Ma c'è un'ulteriore riflessione che serve in particolare a
+          sostenere l'approccio di 'Turing. In effetti, le caratteristiche che lo
+          distinguono dagli altri sono la sua naturalezza, la sua minore astrazione,
+          e anzi il suo dichiarato proposito di simulare meccanicamente il
+          comportamento di un essere umano che esegue un calcolo (l'impiegato
+          diligente). In questo senso il modello di Turing si lascia preferire. Del
+          resto, avremo modo nei prossimi capitoli di presentare altri approcci alla
+          calcolabilità e di constatare direttamente le loro maggiori complicazioni
+          teoriche. Anzi, ci furono matematici illustri, come Kurt Gòdel, che, pur
+          perplessi di fronte all'astrazione di questi metodi alternativi, si
+          dichiararono tuttavia pienamente convinti e conquistati dalla naturalezza
+          del modello di Turing.
+\end{enumerate}
+
+Queste argomentazioni hanno indotto la teoria della computabilità a sviluppare la
+tendenza di considerare la Tesi di Church-Turing come una sorta di "legge empirica",
+piuttosto che come un enunciato a carattere "\textit{logico-formale}". In altre
+parole, si è autorizzati a procedere come segue. Se un certo linguaggio ammette un
+qualche algoritmo (di qualunque natura) che lo decide o accetta, oppure se una certa
+funzione ha un algoritmo che la calcola, allora, sulla base della tesi di
+Church-Turing, possiamo assumere che ci sia una macchina di Turing che decide o
+accetta quel linguaggio, o calcola quella funzione: non c'è bisogno di descrivere in
+dettaglio la MdT, possiamo affidarci all'autorevolezza della tesi e non attardarci in
+ulteriori verifiche.\\
+La tesi di Church-Turing permette allora, per
+ogni algoritmo che sia intuitivamente tale (anche se espresso in maniera informale),
+di dedurre l'esistenza di una MdT che lavora in modo equivalente. L'uso della tesi di
+Church-Turing consente di esprimere rapidamente risultati che un approccio più
+formale costringerebbe a raggiungere più faticosamente. Per esempio, lavoriamo con
+numeri naturali $x, y, z$ e con un alfabeto che li rappresenta, e consideriamo la
+funzione così definita:
+
+\[
+    f(x, y, z) =  \begin{cases}
+        1 & \textrm{se l'}x\textrm{-esima macchina } M_x \textrm{ converge in } z \textrm{ passi sull'input } y, \\
+        0 & \textrm{altrimenti;}                                                                                 \\
+    \end{cases}
+\]
+
+sulla base della tesi di Church-Turing, possiamo dire che essa è calcolabile senza
+fornire necessariamente una MdT che la computa. È infatti sufficiente fornire un
+algoritmo che la calcoli anche ricorrendo a procedure di più alto livello. Per
+esempio: si manda in esecuzione $M_x$ sull'input $y$ per $z$ passi di computazione;
+a ogni passo si incrementa di 1 un contatore $C$ (che inizialmente viene posto a
+0) e si controlla se la macchina di Turing ha terminato la sua esecuzione (cioè
+ha raggiunto una configurazione terminale). Se $M_x$ si arresta quando il contatore
+non ha ancora raggiunto $z$ allora l'algoritmo dà in output il valore 1. Se invece
+il contatore supera $z$ senza che $M_x$ si sia fermata, l'algoritmo termina e
+restituisce in output 0.

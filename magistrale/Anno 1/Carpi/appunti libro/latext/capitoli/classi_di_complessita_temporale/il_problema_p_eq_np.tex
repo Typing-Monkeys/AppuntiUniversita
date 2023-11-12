@@ -1,0 +1,56 @@
+\section{Il problema \texorpdfstring{$\mathrm{P}=\mathrm{NP}$}{P = NP}}
+
+Possiamo domandarci se vale addirittura
+$$
+    P=N P
+$$
+(dunque se $N P \subseteq P$ ). Commenti.
+\begin{enumerate}
+    \item $P$ è, come spesso ricordato, la classe dei problemi che ammettono
+          algoritmo rapido di decisione (dove "rapido" è da intendersi come "al più
+          polinomiale", ai sensi della tesi di Edmonds-Cook-Karp). Se ci rifacciamo
+          poi alla definizione originaria di $N P$, quest'ultima può interpretarsi
+          sinteticamente come la classe dei problemi $S$ che hanno algoritmo rapido di
+          verifica della decisione: dato un input $w$, il testimone $y$ può garantire
+          infatti in modo deterministico e rapido che $w \in S$ perché $(w, y) \in
+              S^{\prime}$.
+          La conclusione che $P \subseteq N P$ deriva allora dal fatto che tempi
+          rapidi di decisione implicano tempi (anche più) rapidi di verifica.\\
+          Affermare $P=N P$ significa in questa prospettiva che, per ogni
+          problema $S$, se c'è una procedura rapida di verifica per $S$, ce n'è
+          una (magari più lenta eppur ancora) rapida (perché al più polinomiale
+          nella lunghezza dell'input) di decisione per $S$.
+    \item Riferiamoci adesso alla caratterizzazione di $N P$ fornita nell'ultimo
+          paragrafo. $S \in N P$ se e solo se c'è una MdT non deterministica $M$ su
+          $A$ tale che, per ogni $w \in A^{\star}$,
+          \begin{itemize}
+              \item se $w \in S, M_S$ converge su $w$ almeno una volta con un
+                    numero di passi limitato in funzione di $l(w)$ da un polinomio a
+                    coefficienti interi $q_S$ che dipende solo da $S$ e non da $w$;
+              \item se $w \notin S, M_S$ diverge su $w$ in ogni caso.
+          \end{itemize}
+
+          Notiamo che, se consideriamo MdT deterministiche (capaci dunque di
+          un'unica computazione su ogni input $w$ ), la stessa caratterizzazione
+          definisce i problemi $S \in P$. La domanda $P=N P$ può dunque così
+          riformularsi. Supponiamo che $S$ ammetta una MdT non deterministica
+          $M_S$ come sopra. È possibile costruire una MdT deterministica che
+          accetta $S$ in tempo al più polinomiale, limitato da un opportuno
+          polinomio $q^{\prime}_S$, magari di grado maggiore di quello di $q_S$
+          ? Tra l'altro, sappiamo che la MdT non deterministica $M_S$ può essere
+          simulata nelle sue computazioni da una MdT deterministica $M^{\prime}_S$ (con
+          tempi di lavoro più lunghi). Ci domandiamo se $M_S^{\prime}$ può essere
+          scelta in modo da avere ancora complessità al più polinomiale.
+\end{enumerate}
+
+Ora, è evidente che, se si trova un problema che sta in $N P$, ma non può
+appartenere a $P$ (per esempio, se uno dei numcrosi esempi proposti in $N P$ nei
+precedenti paragrafi manifesta questa proprietà), allora $P \neq N P$.\\
+Mostrare, invece, l'uguaglianza $P=N P$ sembra richiedere, almeno a priori,
+argomenti tcorici generali che mostrino che ogni problema in $N P$ ha algoritmo
+rapido di decisione che lo colloca in $P$.\\
+Riferirsi ad un particolare esempio $S$ in $N P$ e pretendere che, se $S \in P$,
+allora $P$ e $N P$ coincidono sembra grossolano errore di logica elementare.
+Tuttavia esistono alcuni problemi $S$ in $N P$ che hanno questa capacità di
+rappresentare tutti gli altri, nel senso appena descritto: si chiamano problemi
+$N P$-completi, e si introducono nel modo che segue.

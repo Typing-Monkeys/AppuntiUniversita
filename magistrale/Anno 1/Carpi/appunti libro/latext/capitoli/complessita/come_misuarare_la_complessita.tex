@@ -1,0 +1,210 @@
+\section{Come misurare la complessità}
+
+Cominciamo col valutare la efficienza di un algoritmo (dunque di una macchina di Turing),
+intendendo misurare poi la complessità di un problema in riferimento ai
+migliori algoritmi che lo affrontano. La nostra trattazione sarà ancora
+vagamente informale, non specificando in dettaglio né il criterio di misura
+dell'efficienza, né la natura delle procedure seguite. Sono dati l'alfabeto $A$
+e, per un problema di decisione, un linguaggio $S \subseteq A^{\star}$.
+Consideriamo un algoritmo per $S$. Per valutare adeguatamente la sua efficienza,
+
+\begin{itemize}
+    \item non basta riferirsi ad un \textbf{singolo particolare} input $w \in A^{\star}$ e al
+          costo da lui richiesto all'algoritmo;
+    \item ci serve invece un quadro complessivo
+          della situazione, che misuri quanto soddisfacente (o insoddisfacente) sia la
+          computazione \textbf{al variare} di $w$, in ragione della complicazione dell'input $w$.
+\end{itemize}
+
+
+La misura della complessità di $w$ può essere ben rappresentata dalla sua
+lunghezza $l(w)$, cioè dal numero di simboli successivi di $w$, inteso come
+parola su $A$. Possiamo allora considerare una funzione $f$ da $\mathbb{N}$ in
+$\mathbb{N}$ (eventualmente parziale) che, per ogni naturale $n$, considera
+tutti gli input di lunghezza $\leq n$ (che sono comunque un numero finito, visto
+che l'alfabeto $A$ è finito), segue le corrispondenti computazioni del
+programma, almeno quelle che hanno buon esito, e va a determinare il loro
+massimo costo. Questo è $f(n)$. Notiamo che niente esclude di riferirsi ad altre
+misure di efficienza, per esempio al costo medio (anziché massimo) delle
+computazioni su input di lunghezza $\leq n$. Manteniamo però qui la scelta di
+riferirci al costo massimo.\\
+Ci interessano dunque funzioni $f$ di $\mathbb{N}$
+in $\mathbb{N}$, eventualmente parziali (cioè non sempre definite), tali
+comunque da soddisfare le proprietà che andiamo ad introdurre.
+
+\begin{enumerate}[label=(\roman*)]
+    \item È ragionevole
+          anzitutto attendersi che l'algoritmo da valutare abbia buon esito almeno una
+          volta: se $w$ è il corrispondente input e $N$ la sua lunghezza, $f$ è definita
+          per ogni $n \geq N$, infatti $w$ concorre a stabilire il massimo costo su input
+          di qualsiasi lunghezza $n \geq N$. Dunque
+
+          \begin{center}
+              $f$ è definita per ogni $n \geq N$ per un opportuno $N$.
+          \end{center}
+
+    \item Ovviamente, più grande è $n$, più numerosi sono gli input
+          da confrontare per calcolare $f(n)$, e dunque più grande è $f(n)$. In termini
+          rigorosi,
+
+          \begin{center}
+              $f$ è crescente: per $n \leq n^{\prime}$ nel dominio di $f, f(n) \leq
+                  f\left(n^{\prime}\right)$.
+          \end{center}
+
+    \item Specifichiamo meglio quanto detto in (i). In
+          realtà è ragionevole attendersi che l'algoritmo abbia buon esito su input sempre
+          più lunghi, e che il costo massimo cresca effettivamente senza limitazioni
+          all'aumentare della lunghezza $n$. In termini rigorosi
+          $$
+              f \text { non è limitata, } \lim _{n \rightarrow+\infty} f(n)=+\infty \text {. }
+          $$
+\end{enumerate}
+
+Dunque consideriamo funzioni da $\mathbb{N}$ a $\mathbb{N}$ che soddisfano le
+condizioni (i), (ii), (iii). Ci sono esempi familiari al riguardo.
+
+\paragraph{Esempi}
+
+\begin{enumerate}
+    \item 1. Sia $f: \mathbb{N} \rightarrow \mathbb{N}$, $f(n)=n$, o $n^2$, o $n^3$, o
+          $n^k$ per qualche intero positivo $k$ e per ogni naturale $n$. Chiaramente
+          valgono (i), (ii), (iii).
+    \item Possiamo allargare il discorso a funzioni
+          polinomiali, come per esempio
+          $$
+              f(n)=n^2-3 n-4 .
+          $$
+          Più in generale,
+          $$
+              f(n)=a_k n^k+a_{k-1} n^{k-1}+\cdots+a_1 n+a_0
+          $$
+          con $k, a_k$ interi positivi e $a_{k-1}, \ldots, a_0$ interi. Ammettiamo dunque
+          coefficienti $a_{k-1}, \ldots, a_0$ anche negativi, purché $a_k$ sia positivo
+          (come nel caso di $n^2-3 n-$ 4). È un facile esercizio di analisi verificare
+          (i), (ii), (iii). Per $a_{k-1}, \ldots, a_0$ negativi, la risultante funzione
+          $f$ può essere solo parziale cioè non definita per qualche $n$ (quelli per cui
+          il valore del polinomio $a_k n^k+\cdots+a_1 n+a_0$ è negativo) oppure non essere
+          crescente; ma quando $n$ è abbastanza grande, $f$ assume valore non negativo, e
+          dunque ammette $n$ nel suo dominio di funzione da $\mathbb{N}$ in $\mathbb{N}$ e
+          inoltre $f(n)<f(n+1)$. Per esempio
+          $$
+              f(n)=n^2-3 n-4
+          $$
+          assume valori naturali solo per $n \geq 4$, infatti
+          $$
+              f(0)=-4 \text{, } f(1)=-6 \text{, } f(2)=-6 \text{, } f(3)=-4 \text{, } f(4)=0,
+          $$
+          e $f(n)>0$ per $n>4$. Inoltre $f$ è crescente per $n \geq 4$.
+    \item Anche la
+          funzione $f(n)=2^n$, per ogni $n \in \mathbb{N}$, soddisfa (i), (ii), (iii).
+    \item Lo stesso vale per
+          $$
+              f(n)=2^{2^n} \text{, } f(n)=2^{2^{2^n}} \text{, } f(n)=2^{2^{\iddots^{2^n}}},
+          $$
+          o
+          $$
+              f(n)=2^{2 n}, f(n)=2^{n^2},(n \in \mathbb{N})
+          $$
+          e così via. Tutte queste funzioni sono ovunque definite, crescenti e illimitate.
+    \item La funzione $n \mapsto \log _2 n$ è definita per $n>0$, assume valori reali
+          $\geq 0$ per $n \geq 1$, è poi crescente e non limitata. I suoi valori non
+          corrispondono però in genere a numeri naturali, tranne il caso in cui $n$ sia
+          una potenza di 2 , cioè $n=2^t$ con $t$ (allora $\log _2 n=t$ ). Tuttavia, se
+          sostituiamo, per ogni $n$, $\log _2 n$ con la parte intera $\left\lfloor\log _2
+              n\right\rfloor$ di $\log _2 n$, cioè con il massimo naturale $\leq \log _2 n$,
+          otteniamo una funzione $L$ ancora definita per $n \geq 1$, crescente e
+          illimitata, tale dunque da soddisfare le condizioni (i), (ii), (iii), e in più a
+          valori naturali. Si ha infatti
+          $$
+              L(1)=\log _2 1=0, L(2)=L(3)=1, L(4)=\cdots=L(7)=2 \text { e così via }
+          $$
+\end{enumerate}
+
+Naturalmente ci possiamo attendere esempi più "irregolari" di quelli sin qui
+proposti, come la funzione
+$$
+    \begin{gathered}
+        f(0)=f(1)=f(2)=\cdots=f(29)=1 \\
+        f(n)=2^n \text { per } n \geq 30,
+    \end{gathered}
+$$
+(che coincide con l'esponenziale da 30 in poi, ha comportamento autonomo prima),
+o casi ancora peggiori. Anche $f$ soddisfa (i), (ii), (iii). Del resto $f$
+coincide asintoticamente con l'esponenziale $n \mapsto 2^n$.\\
+Le funzioni che ci
+interessano sono dunque quelle che obbediscono a (i), (ii), (iii). Infatti,
+quando esse corrispondono ad un particolare algoritmo nel modo sopra descritto,
+possono ben costituire un indice della sua efficienza. Ma in relazione a quanto
+già detto all'inizio del paragrafo, non ha gran senso lasciarsi condizionare da
+un singolo valore di $f$, come $f(10)$ (che si limita comunque ad un campione
+parzialissimo di input, quelli di lunghezza $\leq 10$ ), ci interessa piuttosto
+uno studio generale del grafico di $f$, in particolare il suo comportamento
+asintotico, quando $n$ tende a farsi grande (e si avvicina a $+\infty$
+). In altre parole, date $f, g$ che soddisfano (i), (ii), (iii), per dichiarare
+$f$ "migliore" di $g$ (e dunque la procedura di $f$ più efficiente di quella di
+$g$ ) non basta notare
+$$
+    f(10) \leq g(10)
+$$
+ma occorre qualcosa di più significativo. Si dà a questo proposito la seguente
+definizione. Assumiamo di trattare funzioni $f, g, \ldots$ per cui valgano (i),
+(ii), (iii).
+
+\paragraph{Definizione} Si pone $f=O(g)$ se e solo se esistono un naturale
+$N_0$ e un reale positivo $c$ tale che
+$$
+    f(n) \leq c \cdot g(n) \text {, per ogni } n \geq N_0 .
+$$
+La relazione ora introdotta tra le nostre funzioni stabilisce dunque un
+confronto asintotico tra $f$ e $g ; f=O(g)$ vale, parlando alla buona, se da un
+certo $N_0$ in poi, $g(n)$ domina $f(n)$ a meno della costante $c$. Tale
+relazione è chiaramente riflessiva e transitiva (cioè si ha $f=O(f)$ per ogni
+$f$, e se $f=O(g)$ e $g=O(h)$, allora $f=O(h)$ per ogni scelta di $f, g, h$,
+come è facile verificare). Non è tuttavia antisimmetrica, non costituisce cioè
+una relazione di ordine parziale. Per esempio. per $f(n)=n$ e $g(n)=2 n$ per
+ogni $n \in \mathbb{N}, f \neq g$ ma $f=O(g)$ (perché $f(n) \leq g(n)$ per ogni
+$n \in \mathbb{N}$ ), $g=O(f)$ (perché $g(n) \leq 2 f(n)$ per ogni $n \in
+    \mathbb{N}$, dunque per $c=2$ ). Si ha comunque il seguente
+
+\paragraph{Teorema 7.2.1} \textit{Siano $f, g$ tali da soddisfare (i), (ii), (iii).}
+\begin{enumerate}
+    \item Se $\lim _{n \rightarrow+\infty}
+              \frac{f(n)}{g(n)}=l \neq 0$, allora $f=O(g)$ e $g=O(f)$.
+    \item Se $\lim _{n
+                  \rightarrow+\infty} \frac{f(n)}{g(n)}=0$, ovvero $\lim _{n \rightarrow+\infty}
+              \frac{g(n)}{f(n)}=+\infty$, allora $f=O(g)$ ma $g \neq O(f)$
+\end{enumerate}
+
+\begin{proof}
+    Notiamo che (iii) assicura che $g(n) \neq 0$ e dunque che il
+    rapporto $\frac{f(n)}{g(n)}$ ha senso per ogni $n$ abbastanza grande. Ciò
+    premesso, 1) e 2) sono facili conseguenze della definizione di limite. Vediamo i
+    dettagli.
+    \begin{enumerate}
+
+        \item Anzitutto $l>0$ perché $f, g$ hanno valori naturali. Per ogni reale
+              $\varepsilon>0$ (senza perdita di generalità, $\varepsilon<l$ ), esiste
+              $N_{\varepsilon}>0$ naturale tale che, per ogni $n \geq N_{\varepsilon}$,
+              $$
+                  l-\varepsilon<\frac{f(n)}{g(n)}<l+\varepsilon .
+              $$
+              Moltiplichiamo la seconda disuguaglianza per $g(n)$ (che è positivo) e deduciamo
+              $$
+                  f(n)<(l+\varepsilon) \cdot g(n) \text { per ogni } n \geq N_{\varepsilon}
+              $$
+              cioè $f=O(g)$ per $c=l+\varepsilon$. Moltiplichiamo poi la prima disuguaglianza
+              per $g(n)$ e dividiamola per $l-\varepsilon>0$; otteniamo
+              $$
+                  g(n)<\frac{1}{l-\varepsilon} \cdot f(n), \text { per ogni } n \geq N_{\varepsilon}
+              $$
+              che ancora basta a dedurre $g=O(f)$ per $c=\frac{1}{l-\varepsilon}$.
+        \item Per ogni
+              $\varepsilon>0$, esiste $N_{\varepsilon}$ tale che, per ogni $n \geq
+                  N_{\varepsilon}, \frac{f(n)}{g(n)}<\varepsilon$, cioè $f(n)<$ $\varepsilon \cdot
+                  g(n)$. Allora $c=\varepsilon$ garantisce $f=O(g)$. Invece $g=O(f)$ impone $g(n)
+                  \leq$ $c \cdot f(n)$ per $c>0$ opportuno e per ogni $n$ sufficientemente grande.
+              Ne segue $\frac{f(n)}{g(n)} \geq \frac{1}{c}>0$ per ogni $n$ grande, e questo
+              esclude $\lim _{n \rightarrow+\infty} \frac{f(n)}{g(n)}=0$.
+    \end{enumerate}
+\end{proof}

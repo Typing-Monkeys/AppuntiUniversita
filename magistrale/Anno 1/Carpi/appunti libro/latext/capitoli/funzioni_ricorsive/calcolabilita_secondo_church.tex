@@ -1,0 +1,95 @@
+\section{Calcolabilità secondo Church}
+
+II nostro proposito in questo capitolo è quello di presentare un approccio alla
+computabilità
+
+\begin{itemize}
+    \item contemporaneo a quello di Turing,
+    \item formalmente diverso da
+          quello di Turing, anzi più astratto e matematico,
+    \item tuttavia completamente equivalente a quello di Turing.
+\end{itemize}
+
+
+Si basa sulla nozione di \textit{funzione ricorsiva}. Ma
+prima di introdurre questo nuovo concetto, inquadriamo nuovamente e brevemente
+il nostro obiettivo generale: per un fissato alfabeto finito $A$ ed in
+riferimento all' insieme $A^{\star}$ di tutte le stringhe di simboli
+$\operatorname{di} A$, intendiamo
+
+\begin{enumerate}
+    \item riconoscere quei linguaggi su $A$ che
+          ammettono un algoritmo di decisione,
+    \item riconoscere quelle funzioni da
+          $A^{\star}$ (o da sottoinsiemi delle sue potenze cartesiane) ad $A^{\star}$ che
+          ammettono un algoritmo di calcolo.
+\end{enumerate}
+
+
+L'analisi di Turing, sviluppata negli scorsi capitoli, ci ha allora
+rispettivamente condotto alle corrispondenti nozioni di:
+
+\begin{enumerate}
+    \item linguaggio \textit{decidibile},
+    \item funzione \textit{calcolabile}.
+\end{enumerate}
+
+
+Come detto, vogliamo adesso esplorare un
+approccio alternativo. Ricordiamo che non è restrittivo per i nostri propositi
+supporre di lavorare con numeri naturali, dunque riferirci ad un qualche
+alfabeto per i numeri naturali (ad esempio $A=$ $\{0,1,2, \ldots, 9\}$, ma anche
+$A=\{0,1\}$ se preferiamo la rappresentazione dei naturali in base 2) ed
+assumere conseguentemente, senza perdita di generalità, che $A^{\star}$ coincida
+con l'insieme $\mathbb{N}$ stesso. Opportune codifiche permettono di ridurre
+qualunque $A$ a questa situazione. Consideriamo allora
+
+\begin{enumerate}
+    \item insiemi $L$ di naturali, o di $k$-uple di naturali,
+    \item funzioni (eventualmente parziali) da $\mathbb{N}^k$ a $\mathbb{N}$
+\end{enumerate}
+
+per qualche intero positivo $k$ (ricordiamo che una funzione parziale ha dominio
+contenuto in $\mathbb{N}^k$ ma non necessariamente coincidente con tutto
+$\mathbb{N}^*$; in quest'ultimo caso la funzione si dice \textit{totale}; ricordiamo
+anche che una funzione -parziale o totale- da $\mathbb{N}^k$ a $\mathbb{N}$ si
+dice $k$-aria). In questo ambito vogliamo esaminare nuove possibili strategie
+per definire la decidibilità degli insiemi e la calcolabilità delle funzioni.
+D'altra parte possiamo ricordare che, per $L \subseteq \mathbb{N}^k$, resta
+definita la \textit{funzione caratteristica} $f_L$ di $L$, quella funzione (totale) da
+$\mathbb{N}^k$ a $\mathbb{N}$ che ad ogni $x \in \mathbb{N}^k$ associa
+
+\begin{itemize}
+    \item 1 se $x \in L$,
+    \item 0 altrimenti.
+\end{itemize}
+
+Possiamo evidentemente affermare che
+
+\begin{center}
+    \textit{esiste un algoritmo
+        per decidere, per ogni $x \in \mathbb{N}^k$, se $x \in L$ o no}
+\end{center}
+
+se e solo se
+
+\begin{center}
+    \textit{esiste un algoritmo per calcolare $f_L(x)$ per ogni $x \in \mathbb{N}^k$.}
+\end{center}
+
+Basterà allora per i nostri propositi definire con precisione per quali insiemi
+$L \subseteq$ $\mathbb{N}^k$
+
+\begin{center}
+    \textit{esiste un algoritmo per calcolare $f_L(x)$ per ogni
+        $x \in \mathbb{N}^k$.}
+\end{center}
+
+In altre parole, possiamo concentrare il nostro lavoro a
+definire in modo appropriato la calcolabilità delle funzioni (anche parziali):
+infatti tramite $f_L$ possiamo coinvolgere in questo ambito anche il problema di
+decidere $L$. Il nostro obiettivo è dunque quello di precisare per quali
+funzioni parziali $k$-arie $f$ esiste un algoritmo per calcolare $f(x)$ per ogni
+$x$ nel dominio di $f$. Turing ci ha suggerito una possibile strategia, tramite
+le macchine di Turing. Come detto, iniziamo qui a considerarne una alternativa.
+

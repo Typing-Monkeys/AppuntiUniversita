@@ -1,0 +1,200 @@
+\section{Le funzioni parziali ricorsive}
+Consideriamo anzitutto le seguenti funzioni
+parziali:
+
+\begin{itemize}
+    \item la funzione successore $s$ da $\mathbb{N}$ a $\mathbb{N}$, quella
+          che ad ogni naturale $x$ associa $x+1$;
+    \item la funzione costante zero $Z$ da
+          $\mathbb{N}$ a $\mathbb{N}$, quella che ad ogni naturale $x$ associa 0 ;
+    \item finalmente, per ogni intero positivo $k$ e per ogni $i=1, \ldots, k$, la
+          funzione \textit{proiezione} $P_i^k$ da $\mathbb{N}^k$ a $\mathbb{N}$, quella che ad ogni
+          $k$-upla $\vec{x}=\left(x_1, \ldots, x_k\right)$ di naturali associa la sua
+          componente $i$-ma $x_i$.
+\end{itemize}
+
+Si noti che il terzo gruppo di funzioni include anche l'identità di $\mathbb{N}$
+come $P_1^1$. Possiamo senz'altro convenire che tutte queste funzioni
+ammettono un algoritmo di calcolo: dunque, quale che sia la definizione di
+calcolabilità che ci proponiamo di concordare, essa non potrà escluderle.
+Chiamiamo per semplicità \textit{"iniziali"} le funzioni sin qui considerate, e cioè
+successore, zero e proiezioni.\\
+
+Adesso osserviamo che la funzione costante che ad ogni naturale associa 1
+ammette ovviamente un algoritmo di calcolo e, del resto, si ottiene come
+\textit{composizione} delle funzioni zero e successore. Le stesse considerazioni si
+possono fare a proposito della funzione $s^2$ (quella che ad ogni naturale $x$
+associa $x+2$, e che è la composizione di $s$ per se stessa), o anche di $s^3$,
+e così via. In generale, possiamo ragionevolmente convenire che la composizione
+di funzioni che hanno un algoritmo di calcolo ammetta a sua volta un algoritmo
+di calcolo. Dunque la nozione rigorosa di calcolabilità che cerchiamo di
+ottenere, quale che essa sia, dovrà preservare la composizione di funzioni. Per
+fissare opportunamente il contesto ed adattarlo anche al caso di funzioni
+parziali e di $k$-uple di naturali, poniamo la seguente:
+
+\paragraph{Definizione.} Per $k$ e $n$ interi positivi, siano $h$ una funzione parziale
+$n$-aria e $g$, $\ldots, g_n$ $n$ funzioni parziali $k$-arie. Una funzione
+parziale $k$-aria $f$ si dice definita per \textit{composizione} da $h$ e $g_1, \ldots,
+    g_n$ se e solo se, per ogni $\vec{x} \in \mathbb{N}^k$,
+
+\begin{itemize}
+    \item $\vec{x}$ è nel
+          dominio di $f$ se e solo se $\vec{x}$ è nel dominio di $g_i$ per ogni $i=1,
+              \ldots, n$ e la $n$-upla $\left(g_1(\vec{x}), \ldots, g_n(\vec{x})\right)$ è nel
+          dominio di $h$;
+    \item in tal caso, $f(\vec{x})=h\left(g_1(\vec{x}), \ldots,
+              g_n(\vec{x})\right)$.
+\end{itemize}
+
+Come già osservato, è facilmente accettabile che, se $h$,
+$g_1, \ldots, g_n$ hanno i loro algoritmi di calcolo, anche $f$ lo ottiene: dato
+$\vec{x} \in \mathbb{N}^k$, si computano, se possibile, $g_1(\vec{x}), \ldots,
+    g_n(\vec{x})$ con i relativi algoritmi, poi la loro immagine in $h$ (cioè
+$f(\vec{x})$) mediante l'algoritmo di $h$. Notiamo poi che, se $h, g_1, \ldots,
+    g_n$ sono funzioni totali (ovvero sempre definite), anche $f$ lo è.\\
+
+Un altro metodo familiare per definire una funzione $f$ da $\mathbb{N}$ a
+$\mathbb{N}$ è quello di ricorrere al \textit{Principio di Induzione}, ovvero a quella
+fondamentale proposizione sui naturali che ci dice che, se una proprietà è
+soddisfatta da 0 e si preserva da $y$ a $y+1$ per ogni naturale $y$, allora
+quella proprietà vale per tutto $\mathbb{N}$. Applicandola a $f$, possiamo
+dedurre che, una volta specificati
+$$
+    f(0)=g_0 \in \mathbb{N}
+$$
+e poi, per ogni naturale $y$,
+$$
+    f(y+1)=h(y, f(y))
+$$
+per qualche $h$ 2-aria indipendente da $y$ -dunque $f(y+1)$ come funzione di $y$
+e $f(y)$ tramite $h$-, allora $f$ risulta definita su tutto $\mathbb{N}$.
+Possiamo ragionevolmente convenire che, se $g_0$ è dato esplicitamente e $h$
+ammette un suo algoritmo di calcolo, allora anche $f$ ottiene un procedimento
+effettivo che la computa per ogni naturale $y$: basta considerare anzitutto
+$f(0)=g_0$, poi calcolare $f(1)=h(0, f(0))$ da $f(0)$ tramite l'algoritmo di
+$h$, e così via finchè non si arriva a $f(y)$. Comunque, per fissare
+opportunamente il discorso nell'ambito più generale (per funzioni parziali e
+$k$-uple di elementi), conviene nuovamente che poniamo una
+
+\paragraph{Definizione.} Per $k$ intero non negativo, siano $g$ una funzione parziale
+$k$-aria e $h$ una funzione parziale $(k+2)$-arie. Una funzione parziale
+$(k+1)$-aria $f$ si dice definita per \textit{recursione} da $g$ e $h$ se e solo se, per
+ogni $\vec{x} \in \mathbb{N}^k$,
+
+\begin{itemize}
+    \item $(\vec{x}, 0)$ è nel dominio di $f$ se e solo se $\vec{x}$ è nel
+          dominio di $g$ e, in tal caso, $f(\vec{x}, 0)=g(\vec{x})$,
+    \item per ogni naturale $y,(\vec{x}, y+1)$ è nel dominio di $f$ se e solo se
+          $(\vec{x}, y)$ è nel dominio di $f$ e $(\vec{x}, y, f(\vec{x}, y))$ è nel
+          dominio di $h$ e, in tal caso, $f(\vec{x}, y+1)=$ $h(\vec{x}, y, f(\vec{x},
+              y))$.
+
+\end{itemize}
+
+Con un minimo di pazienza, si potrà riconoscere in questo ambito generale anche
+la situazione particolare prima descritta, quella relativa a una funzione $f$
+1-aria: infatti, per $k=0$, anzitutto la sequenza $\vec{x}$ è vuota, possiamo
+poi intendere che $g$ si riduca ad una costante $g_0$, che $h$ sia 2-aria e che
+la funzione $f$ che $g$ e $h$ determinano per recursione sia 1-aria:
+$$
+    f(0)=g_0, \  f(y+1)=h(y, f(y)) \ \forall y \in \mathbb{N},
+$$
+appunto. Possiamo poi convenire senza problemi che, anche nel caso della
+definizione generale, se $g$ e $h$ ammettono un qualche algoritmo di calcolo,
+anche $f$ lo ottiene (arrangiando opportunamente quelli di $g$ e $h$ ). Notiamo
+finalmente che, se $g$ e $h$ sono totali (cioè definite ovunque), anche $f$ lo
+è.\\
+
+Un'altra proprietà che contraddistingue i naturali e si presta per definirne le
+funzioni è il \textit{Principio del Minimo}, secondo cui ogni insieme non vuoto di
+naturali ammette un minimo elemento. Corrispondentemente consideriamo la
+seguente definizione.
+
+\paragraph{Definizione.} Per $k$ intero positivo, sia $g$ una funzione \textbf{totale} $(k+1)$-aria.
+Una funzione parziale $k$-aria $f$ si dice definita per \textit{minimalizzazione} da $g$
+se e solo se, per ogni $\vec{x} \in \mathbb{N}^k$,
+
+\begin{itemize}
+    \item $\vec{x}$ è nel dominio di
+          $f$ se e solo se c'è qualche naturale $y$ per cui $g(\vec{x}, y)=0$,
+    \item in tal
+          caso, $f(\vec{x})$ è il minimo naturale con questa proprietà, cioè
+\end{itemize}
+\[
+    f(\vec{x})=\min \{y \in \mathbb{N}: g(\vec{x}, y)=0\}
+\]
+
+\begin{center}
+    (che taluni preferiscono indicare anche con la notazione $\mu y(g(\vec{x},
+        y)=0)$).
+\end{center}
+
+Osserviamo che, se $g$ ha un suo algoritmo di calcolo, anche $f$ lo
+ottiene, ad esempio nel modo seguente. Sia dato $\vec{x} \in \mathbb{N}^k$;
+
+\begin{itemize}
+    \item si
+          calcola $g(\vec{x}, 0)$ tramite l'algoritmo di $g$; siccome $g$ è totale (cioè
+          sempre definita), la computazione ha termine e ci è consentito controllare se
+          $g(\vec{x}, 0)=$ 0 o no; se sì, si pone $f(\vec{x})=0$;
+    \item altrimenti si passa a
+          calcolare $g(\vec{x}, 1)$ sempre con l'algoritmo di $g$ (e grazie alla totalità
+          di $g)$, si controlla poi se $g(\vec{x}, 1)=0$ o no; se sì, si pone
+          $f(\vec{x})=1$;
+    \item se no, si prosegue, considerando $g(\vec{x}, 2)$, e così via.
+\end{itemize}
+
+Può ovviamente capitare che $g(\vec{x}, y)$ non si annulli per nessun $y$; ma
+questo significa semplicemente che $\vec{x}$ non appartiene al dominio della
+$f$.\\
+
+Le precedenti considerazioni ci mostrano l'importanza di assumere che $g$ sia
+totale, ma evidenziano anche che la funzione $f$ può benissimo non essere
+altrettanto totale. Ad esempio, se $g(\vec{x}, y)=1$ per ogni $y$, si ha che
+$\vec{x}$ non è nel dominio di $f$. In conclusione, possiamo convenire che la
+nostra nozione di computabilità, quale che essa sia, dovrà preservarsi, oltre
+che per composizione e per recursione, anche per minimalizzazione. Dunque la
+classe di funzioni "\textit{calcolabili}" che vogliamo formare dovrà includere le
+funzioni iniziali e restare chiusa per composizione, recursione e
+minimalizzazione. Poniamo a questo punto la seguente:
+
+\paragraph{Definizione.} Una funzione parziale $f$ si dice \textit{parziale ricorsiva} se e solo se
+esiste una sequenza ordinata finita $f_0, \ldots, f_n$ di funzioni parziali
+delle quali $f=f_n$ è l'ultima e tali che, per ogni $i \leq n, f_i$ è iniziale
+oppure si ottiene da funzioni precedenti per composizione, o per recursione, o
+per minimalizzazione. Definiamo poi \textit{ricorsiva} una funzione parziale ricorsiva
+che sia anche totale. Diciamo, finalmente, \textit{ricorsivo} un insieme $S \subseteq
+    \mathbb{N}^k$ la cui funzione caratteristica $f_S$ (totale!) sia ricorsiva.\\
+
+Una proposta che possiamo riferire ad Alonzo Church e al 1936 (lo stesso anno di
+Turing) e chiamare almeno provvisoriamente \textit{Tesi di Church} afferma (a livello di
+slogan)
+$$
+    \text { calcolabile }=\text { ricorsivo } .
+$$
+Per la precisione afferma:
+
+\paragraph{Tesi di Church (1936).} Una funzione parziale $f$ da
+$\mathbb{N}^{k}$ a $\mathbb{N}$ ammette un algoritmo di calcolo se e solo se
+$f$ è parziale ricorsiva. In particolare, per $f$ totale, $f$ ammette un
+algoritmo di calcolo se e solo se $f$ è ricorsiva. Finalmente, un sottoinsieme
+$L$ di $\mathbb{N}^k$ ammette un algoritmo di decisione se e solo se $L$ è
+ricorsivo.\\
+
+Come già la Tesi a proposito delle macchine di Turing, anche questa Tesi di
+Church non si propone come un teorema da dimostrare, ma piuttosto come la
+affermazione (che si può condividere o rifiutare) che le nozioni di funzione e
+insieme ricorsivi costituiscono il modo rigoroso e preciso di introdurre il
+concetto intuitivo di algoritmo. Naturalmente, c'è da chiedersi quanto credito
+possiamo dare a questa ipotesi. Non ci sono dubbi ad accettare che tutto quanto
+è ricorsivo ammette un algoritmo di calcolo o di decisione: la definizione
+stessa di ricorsività si preoccupa di garantire questa situazione. Semmai c'è da
+chiedersi se è vero anche il contrario, se cioè tutte le funzioni che hanno un
+algoritmo di calcolo e tutti gli insiemi che hanno un algoritmo di decisione
+corrispondono alla condizione di ricorsività. Il prossimo paragrafo è dedicato a
+fornire qualche semplice esempio al riguardo.\\
+Per completare questo paragrafo,
+osserviamo nuovamente come l'approccio alla calcolabilità tramite la
+ricorsività, anche se definito nel caso specifico dei numeri naturali, si
+estende facilmente a funzioni e linguaggi su ogni alfabeto finito, grazie alle
+usuali procedure di codifica.

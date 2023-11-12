@@ -1,0 +1,314 @@
+\section{La classe NP}
+
+Ritorniamo all'esempio 2 del precedente paragrafo, quello relativo a $2 S A T$.
+Accettiamo adesso come input insiemi finiti di clausole di lunghezza superiore a
+2, come
+$$
+    \left\{p_0 P_1 p_2 P_3 P_4, \ P_0 p_1 P_2 p_3 P_4, \ P_2 p_4 P_5 p_6\right\},
+$$
+per valutarne la soddisfacibilità. Il relativo problema si indica con la sigla
+$S A T$, (dall'inglese \textit{satisfiable}, soddisfacibile) e generalizza $2 S A T$. Ma
+l'algoritmo per $2 S A T$ e il relativo effetto domino adesso non valgono più
+perché sono ovviamente legati alla lunghezza 2 delle parole coinvolte; anzi,
+riesce difficile elaborare procedure alternative di soddisfacente velocità.\\
+In effetti, quel che cerchiamo è una valutazione $v$ di tutte le lettere coinvolte
+nelle parole in input, che assegna il valore 1 ad una lettera (maiuscola o
+minuscola) in ogni clausola (equivalentemente una parola che intersechi ogni
+clausola in almeno una lettera). Ora, se $n$ sono le lettere coinvolte nelle
+nostre clausole,
+
+\begin{itemize}
+    \item $p_0, p_1, \ldots, p_{n-1}$ le relative versioni minuscole,
+    \item $P_0, P_1, \ldots, P_{n-1}$ le corrispondenti maiuscole,
+\end{itemize}
+
+le valutazioni $v$ da
+indagare sono $2^n$ : ogni $v$ può infatti assegnare, per ogni $i<n$, a $p_i$
+valore 0 oppure 1 , e conseguentemente 1 o 0 ad $P_i$. Notiamo che l'indice $n$
+è parametro significativo della lunghezza dell'insieme finito di clausole che fa
+da input. Così una indagine su tutte le possibili $v$ è da ritenersi almeno
+esponenziale nella lunghezza dell'input, e quindi è chiamata ad esaminare
+"troppi" casi. Ammettiamo però di conoscere una valutazione $v$ giusta (seppur
+esiste). Controllare che $v$ funziona, rilevare cioè che ogni clausola
+dell'input ha una lettera cui $v$ associa 1 , non è significativamente più lungo
+che leggere l'input stesso. Così la relativa verifica, conoscendo $v$, è rapida
+rispetto alla lunghezza dell'input. Ricordiamo poi che le informazioni
+essenziali su $v$, cioè i suoi valori su $p_0, p_1, \ldots, p_{n-1}$, possono
+sintetizzarsi in un'unica parola di lunghezza $\leq n$, come abbiamo visto nel
+precedente paragrafo. Per esempio $p_0 p_1 P_2$ può rappresentare la valutazione
+$v$ per cui $v\left(p_0\right)=v\left(p_1\right)=1, v\left(p_2\right)=0$. Si
+noti che $p_0 p_1 P_2$ interseca le tre clausole dell'insieme proposto poche
+righe fa, $p_0 P_1 p_2 P_3 P_4$ in $p_0, P_0 p_1 P_2 p_3 P_4$ in $p_1$ in $P_2
+    p_4 P_5 p_6$ in $P_2$.\\
+La classe $N P$ è quella che include i problemi che hanno
+questa stessa caratteristica di $S A T$, nel senso della seguente definizione
+$(l(w)$ denota qui e in seguito la lunghezza di un input $w$ ).
+
+\paragraph{Definizione.} $N P$ è la classe dei problemi di decisione $S$ su
+alfabeti finiti $A$ per i quali esistono
+
+\begin{itemize}
+    \item $S^{\prime} \subseteq A^{\star}, S^{\prime} \in P$
+    \item un polinomio $p_S$ a coefficienti interi (e a valori positivi)
+\end{itemize}
+
+tali che, per ogni $w \in A^{\star}, w \in S$ se e solo se esiste $y \in
+    A^{\star}$ per cui $(w, y) \in S^{\prime}$ e $l(y) \leq p_S(l(w))$.
+
+\paragraph{Esempi.}
+\begin{enumerate}
+    \item Come già detto, $S A T$, o anche $n S A T$ (la sua variante ristretta
+          ad input costituiti da insiemi finiti di clausole di $n$ lettere) per $n
+              \geq 3$, sono in $N P$. Altri esempi li accompagnano.
+
+    \item Consideriamo infatti $3 \mathrm{COL}$ (il problema della
+          3-colorabilità di grafi finiti). Formalmente, $3 C O L$ può intendersi
+          come l'insieme dei grafi finiti $(V, E)$ per cui esiste una
+          3-colorazione $c: V \rightarrow\{1,2,3\}$ tale che, per $v, w \in V$ e
+          $(v, w) \in E, c(v) \neq c(w)$. Così $3 C O L$ è la variante del
+          problema $2 C O L$ (già considerato e collocato in $P$ ) quando i
+          colori ammessi sono 3.\\
+          Non è evidente che $3 C O L$ stia ancora in
+          $P$, l'algoritmo polinomiale di $2 C O L$ è troppo legato all'ipotesi
+          dei 2 colori. Del resto le possibili colorazioni $c$ sono, per $|V|=n,
+              3^n$, tante quante le funzioni dagli $n$ vertici di $V$ ai 3 colori
+          $\{1,2,3\}$; esplorarle una ad una è procedura esponenziale in $n$. Si
+          può obiettare che, se una colorazione $c$ funziona, tutte le
+          colorazioni $c$ che si ottengono da $c$ componendola con una
+          permutazione dei colori 1,2,3, funzionano ancora. In altre parole, per
+          concludere che $(V, E) \in 3 C O L$, non è tanto importante come si
+          colora un dato vertice, se di 1 , o di 2 , o di 3 , ma che i vertici
+          adiacenti in $E$ abbiano colori diversi. Così se $c$ soddisfa
+          \begin{center}
+              $c(v)
+                  \neq c\left(v^{\prime}\right)$ per ogni scelta di $v, v^{\prime} \in
+                  V$ con $\left(v, v^{\prime}\right) \in E$,
+          \end{center}
+          e $\sigma$ permuta $1,2,3$,
+          allora anche $\sigma c$ mantiene la proprietà
+          \begin{center}
+              $\sigma c(v) \neq \sigma
+                  c\left(v^{\prime}\right)$ per ogni scelta di $v, v^{\prime}$ come
+              sopra.
+          \end{center}
+          Quindi potremmo limitare la nostra analisi trascurando le
+          possibili $\sigma c$ al variare di $\sigma$, quando $c$ è già stata
+          controllata. Purtroppo le permutazioni su 3 oggetti sono $3 !=6$, e
+          dunque l'osservazione riduce il numero dei casi da esplorare da $3^n$
+          a $\frac{3^n}{6}$, mantenendolo comunque al livello esponenziale.
+          D'altra parte, una singola colorazione $c$ è individuata dai colori
+          associati agli $n$ vertici di $V$ e cioè da una $n$-upla ordinata in
+          $\{1,2,3\}$ (e dunque ha lunghezza direttamente collegata ad $n$ ). Se
+          poi $c$ funziona, verificarlo, cioè controllare che vertici distinti
+          assumono colori distinti in $c$, è impegno che si limita ad una
+          "lettura" (ad una osservazione complessiva) del grafo $(V, E)$, e
+          quindi non ne eccede in modo significativo la lunghezza.\\
+          Ne deriva che
+          $3 C O L \in N P$. Lo stesso vale per $m C O L$ (grafi colorabili a
+          $m$ colori) per ogni $m \geq 3$ come il lettore può formalizzare in
+          dettaglio, se vuole.
+
+    \item Consideriamo ora equazioni in 2 incognite a coefficienti interi, come
+          nell'esempio 3 del precedente paragrafo. Ammettiamo tuttavia grado 2 ,
+          e comunque esaminiamo
+          \begin{itemize}
+              \item INPUT: un'equazione $a x^2+b y=c$ con $a, b, c$ interi, $a
+                        \neq 0$, e nuovamente cerchiamo
+              \item OUTPUT: Sì/NO secondo che l'equazione abbia o no soluzioni
+                    intere.
+
+          \end{itemize}
+          Così $x^2=3$ (cioè $a=1, b=0, c=3$ ) ha risposta negativa perché 3 non
+          è quadrato di nessun intero; $x^2+4 y=4$ (cioè $a=1, b=4, c=4$ ) ha
+          risposta positiva (perché risolta da $(\pm 2,0)$, o da $(0,1)$, e così
+          via).\\
+          Il procedimento usato per le equazioni lineari (cioè sostanzialmente,
+          l'algoritmo euclideo delle divisioni successive) è intrinsecamente
+          legato al grado 1, e non può estendersi alla nuova situazione:
+          varrebbe infatti a determinare l'esistenza di possibili soluzioni
+          intere $X^{\prime}, Y^{\prime}$ per l'equazione lineare
+          $$
+              a X^{\prime}+b Y^{\prime}=c,
+          $$
+          ma non a garantire che $X^{\prime}=x^2$ si esprima come quadrato di un
+          intero. Semmai possiamo ricordare quanto osservato nell'esempio 3 del
+          paragrafo $8.1$ e cioè che la lunghezza delle possibili soluzioni
+          $X^{\prime}, Y^{\prime}$ è polinomialmente limitata rispetto a quella
+          dei parametri $a, b, c$; tramite $X^{\prime}$, quindi, risulta
+          polinomialmente limitata anche la lunghezza di un eventuale intero $x$
+          per cui $X^{\prime}=x^2$.\\
+          Ritorniamo allora alla nostra equazione di
+          secondo grado $a x^2+b y=c$. Dalle precedenti considerazioni deduciamo
+          che le soluzioni intere, se esistono, hanno lunghezza limitata da
+          quella dei coefficienti. Allora calcoliamo quanti sono gli interi $X$
+          o $Y$ di una data lunghezza $l>1$ in base 2. Il loro numero è
+          $2^{l-1}$ perché essi si compongono di $l$ cifre, ciascuna delle quali
+          può assumere i valori 0,1, salvo la prima che è ovviamente 1. Per
+          esempio, i numeri di 4 cifre in base 2
+          $$
+              1000,1001, \ldots, 1111
+          $$
+          sono $2^3=8$.\\
+          Possiamo cercare le possibili soluzioni intere della
+          nostra equazione prima fissandone la lunghezza (limitata!) e poi
+          procedendo per tentativi, coinvolgendo cioè ogni possibile coppia $(X,
+              Y)$ di lunghezza lecita $l$; ma si tratta di un meccanismo
+          esponenzialmente lungo essendo $2^{l-1}$ i casi da esaminare
+          per $X$ o per $Y$, fissata $l$. Pur tuttavia, se la soluzione $(X, Y)$
+          è nota, verificarla, controllare cioè $a X^2+b Y=c$, è compito che si
+          può svolgere con rapidità.\\
+          In conclusione, $a x^2+b y=c$ ha radici
+          intere se e solo se esistono $X, Y$ di lunghezza polinomialmente
+          limitata da quella di $a, b, c$ per cui $a X^2+b Y=c$. Il problema è
+          quindi in $N P$.
+
+    \item Consideriamo adesso grafi finiti $G = (V, E)$. Introduciamo le
+          seguenti definizioni: un sottoinsieme $V_0$ di $V$ si dice
+          \begin{itemize}
+              \item \textit{indipendente} se, per ogni scelta di $v, v^{\prime}
+                        \in V_0,\left(v, v^{\prime}\right) \notin E$;
+              \item un \textit{ricoprimento} di vertici se, per ogni scelta di
+                    $v, v^{\prime} \in V$ con $\left(v, v^{\prime}\right)
+                        \in$ $E, v \in V_0$ o $v^{\prime} \in V_0$
+              \item una \textit{cricca} (in inglese, clique) se, per ogni scelta
+                    di $v, v^{\prime} \in V_0 \operatorname{con} v \neq
+                        v^{\prime}$, $\left(v, v^{\prime}\right) \in E$.
+          \end{itemize}
+          Ricordiamo che la nostra definizione di grafo esclude $(v, v) \in E$
+          per $v \in V$. $\mathrm{Ci}$ interessano i seguenti tre problemi.
+          \begin{enumerate}
+              \item $I S=$ problema dell'insieme indipendente.
+                    \begin{itemize}
+                        \item INPUT: $(V, E)$ grafo finito, $k$ intero positivo
+                              minore o uguale della cardinalità $|V|$ di $V$.
+                        \item OUTPUT: Sì/NO secondo che $(V, E)$ abbia un
+                              sottoinsieme indipendente $V_0$ di $k$ vertici.
+                    \end{itemize}
+              \item $V C=$ problema del ricoprimento dei vertici.
+                    \begin{itemize}
+                        \item INPUT: $(V, E), k$ come sopra.
+                        \item OUTPUT: Si/NO secondo che $(V, E)$ abbia un
+                              ricoprimento di $k$ vertici.
+                    \end{itemize}
+              \item CLIQUE = problema della cricca.
+                    \begin{itemize}
+                        \item INPUT: $(V, E), k$ come sopra.
+                        \item OUTPUT: Sİ/NO secondo che $(V, E)$ contenga una
+                              cricca di $k$ vertici.
+                    \end{itemize}
+
+          \end{enumerate}
+
+          I tre problemi sono, in realtà, lo stesso, nel senso che segue.
+          Notiamo anzitutto che in un grafo $(V, E)$ un sottoinsieme $V_0$ è
+          indipendente se e solo se $V-V_0$ è un ricoprimento (il lettore può
+          verificare il motivo con un facile esercizio). Inoltre $V_0$ è
+          indipendente in $(V, E)$ se e solo se $V_0$ è una cricca nel grafo che
+          si ottiene da $(V, E)$ mantenendone i vertici, ma collegandone due
+          (distinti) tra loro se e solo se non sono uniti da lati in $E$. Per
+          esempio $v_0, v_2$ formano un insieme indipendente nel seguente grafo
+          $(V, E)$
+          \begin{center}
+              \begin{tikzpicture}
+                  \node (V0) at (2.5, 3) {$V_0$}; \node (V1) at (1, 1) {$V_1$};
+                  \node (V2) at (4, 1) {$V_2$};
+
+                  \draw[-] (V1) -- (V0);
+              \end{tikzpicture}
+          \end{center}
+
+          e una cricca nel grafo che se ne ottiene nel modo sopra descritto.
+          \begin{center}
+              \begin{tikzpicture}
+                  \node (V0) at (2.5, 3) {$V_0$}; \node (V1) at (1, 1) {$V_1$};
+                  \node (V2) at (4, 1) {$V_2$};
+
+                  \draw[-] (V0) -- (V2); \draw[-] (V2) -- (V1);
+              \end{tikzpicture}
+          \end{center}
+          Dunque procedimenti per riconoscere un insieme indipendente si
+          adattano a controllare anche i ricoprimenti dei vertici, o le cricche.
+          Anzi la traduzione di un'istanza di $I S$ a una di $V C$, o di $C L I
+              Q U E$, o viceversa, avviene in modo polinomialmente limitato dalle
+          dimensioni dei grafi coinvolti. Non è tuttavia chiaro se IS (o $V C$ o
+          CLIQUE) siano in $P$. In effetti, i sottoinsiemi con $k$ elementi di
+          un insieme $V$ con $n$ elementi sono
+          $$
+              \left(\begin{array}{l}
+                      n \\
+                      k
+                  \end{array}\right)=\frac{n !}{k !(n-k) !}
+          $$
+          (talora "troppi" rispetto a $n$ e $k$; infatti, quando $k$ si accosta
+          a $\frac{n}{2},\left(\begin{array}{l}n \\ k\end{array}\right)$
+          approssi$\left.\operatorname{ma} 2^k\right)$ Tuttavia, ciascuno di
+          essi ha, appunto, $k \leq n$ elementi e il controllo di un eventuale
+          $V_0$, cioè la verifica che i suoi vertici lo rendono indipendente
+          perché sono comunque scollegati (oppure un ricoprimento perché capaci
+          di coinvolgere ogni lato in $E$, oppure ancora una cricca perché, se
+          distinti, congiunti da un opportuno lato), si può svolgere
+          semplicemente osservando il grafo $(V, E)$, e più direttamente
+          $V_0$.\\
+          Così $I S, V C, C L I Q U E$ sono in $N P$.
+    \item KNAPSACK\\
+          Il Problema dello Zaino, o KNAPSACK secondo la terminologia ufficiale
+          e la lingua inglese, è la questione che in genere affligge la notte
+          prima della partenza per le vacanze: abbiamo uno zaino di volume $V$
+          da riempire e vogliamo infilarci $n$ oggetti ognuno con un determinato
+          volume: ciascuno di essi ci pare, infatti, indispensabile per il buon
+          esito delle nostre ferie. $\mathrm{Ci}$ chiediamo se possiamo
+          sceglierne alcuni in modo da colmare esattamente lo zaino. Assumiamo
+          poi che lo zaino non sia rigido e si presti ad essere deformato in
+          ogni modo possibile, così che la soluzione dipenda solo dal volume
+          degli oggetti coinvolti, e non dalla loro figura. Formalmente abbiamo
+          \begin{itemize}
+              \item INPUT: uno zaino di volume $V$ e $n$ oggetti $0,1, \ldots,
+                        n-1$, rispettivamente di volume $v(0), \ldots, v(n-1)$; assumiamo
+                    $n, V, v(0), \ldots, v(n-1)$ interi positivi;
+              \item OUTPUT: SÍ/NO secondo che esista un sottoinsieme $I$ di
+                    $\{0, \ldots, n-1\}$ tale che
+          \end{itemize}
+          $$
+              V=\sum_{i \in I} v(i) .
+          $$
+          L'esperienza comune ci insegna che la questione è tutto meno che
+          semplice: in genere, la sera prima delle ferie, i tentativi si
+          sprecano e le ore volano prima che gli oggetti siano finalmente
+          sistemati, se mai lo possono essere in modo soddisfacente. Del resto,
+          la difficoltà ha un suo logico fondamento e non è evidente se $K N A P
+              S A C K$ sia in $P$, visto che le possibili combinazioni di oggetti da
+          infilare nello zaino sono tante quanti i sottoinsiemi di $\{0,1,
+              \ldots, n-$ $1\}$, e cioè $2^n$. Non v'è dubbio però che il problema
+          stia in $N P$ : se conosciamo l'opportuno insieme $I$, verificare che,
+          appunto, $V=\sum_{i \in I} v(i)$ (in relazione agli input $n, V, v(0),
+              \ldots, v(n-1))$ è controllo rapido e di poca fatica.
+\end{enumerate}
+
+Dopo tanti esempi, ecco una semplice osservazione che collega la classe $P$
+considerata nel precedente paragrafo e la nuova classe $N P$. Ricordiamo che $P$
+include tutti e soli i problemi che hanno algoritmo "rapido" di decisione;
+invece, in base alle osservazioni e agli esempi di questo paragrafo, $N P$ può
+essere considerata come la classe dei problemi che hanno algoritmo "rapido" di
+verifica della soluzione. È naturale ammettere che trovare una soluzione sia più
+difficile che verificarla. In altre parole, si ha:
+
+\paragraph{Teorema 8.2.1} $P \subseteq N P$.
+
+\begin{proof}
+    Sia $S \in P$. Guardiamo alla definizione di $N P$ e poniamo
+    $$
+        S^{\prime}=S, p_S=1(\text { anzi } y=\emptyset \text { per ogni } w \text { ). }
+    $$
+    $S^{\prime}, p_S$ testimoniano $S \in P$.
+\end{proof}
+
+
+Come nel caso di $P$ e coP, possiamo ora introdurre:
+
+\paragraph{Definizione.} $coNP$ è la classe dei problemi $S$ su
+alfabeti finiti $A$ tali che il complementare $S^c=A^{\star}-S$ di $S$ è in $N
+    P$.\\
+
+Stavolta, però, non è affatto chiaro che $\operatorname{coN} N=N P$. Il lettore
+può cercare di intuire le difficoltà che emergono a questo proposito, oppure
+attendere il paragrafo $8.9$ dove le descriveremo in maggior dettaglio.

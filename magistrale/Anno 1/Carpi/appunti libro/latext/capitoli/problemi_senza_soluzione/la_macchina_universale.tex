@@ -1,0 +1,54 @@
+\section{La Macchina Universale}
+
+I moderni calcolatori, così come li intendiamo comunemente, sono "macchine" capaci di
+eseguire svariati programmi. Una macchina di Turing invece, al di là del nome e della
+sua descrizione esteriore, è determinata dalla funzione $\delta$ che ne stabilisce le
+istruzioni ed è quindi un programma di computazione, delegato a calcolare sempre la
+stessa funzione. $\mathrm{C}$ 'è tuttavia modo di costruire una MdT $\mathcal{U}$ che
+riesce a simulare il lavoro di ogni altra MdT $M$, nel senso che, per ogni $M$, e per
+ogni input naturale $y$, $\mathcal{U}$ accoglie $(M, y)$ come input e riproduce la
+computazione di $M$ su $y$. Per questo $\mathcal{U}$ è chiamata
+"\textit{universale}". Vediamo come è possibile definirla. C'è una ovvia perplessità
+relativa a questa ipotetica $\mathcal{U}$, e cioè: come si fa a fornire a $\mathcal{U}$
+come input un'altra MdT $M$ ? Infatti l'alfabeto di $\mathcal{U}$ tratta numeri e non
+macchine. D'altra parte, abbiamo visto nel Capitolo 2 come ogni MdT riceva un suo
+numero di etichetta, secondo una biiezione effettiva tra numeri e macchine. In altre
+parole $M=M_x$ per un unico naturale $x$ che può essere esplicitamente calcolato da
+$M$. Quindi possiamo proporre a $\mathcal{U}$ come input
+
+\begin{itemize}
+    \item il numero $x$ come codice di $M$,
+    \item il numero $y$ come input di $M$.
+\end{itemize}
+
+Ci aspettiamo che $\mathcal{U}$ ci fornisca come
+output della coppia $(x, y)$ quello di $M_x=$ $M$ su $y$, e cioè $\phi_x(y)$.
+Dimostriamo allora l'esistenza di $\mathcal{U}$.
+
+\paragraph{Teorema 3.3.1} \textit{Esiste una MdT universale $\mathcal{U}$. In altre parole, la funzione $g$ :
+    $\mathbb{N}^2 \rightarrow \mathbb{N}$ definita ponendo, per ogni $x, y \in
+        \mathbb{N}$,
+    $$
+        g(x, y)=\phi_x(y)
+    $$
+    è calcolabile secondo Turing. }\\
+
+\textit{Dimostrazione}. Informaimente, ci basta, per ogni scelta
+di $x, y \in \mathbb{N}$, prima decodificare $x$ per ottenere la MdT $x$-esima $M_x$,
+poi far lavorare $M_x$ su $y$. Entrambi i passaggi sono possibili, in quando la
+decodifica è algoritmica e le regole di funzionamento di una macchina di Turing sono
+anch'esse algoritmiche. Comunque, per non far sembrare questa soluzione un gioco di
+prestigio, diamo una descrizione più dettagliata della costruzione di $\mathcal{U}$.
+$\mathcal{U}$ può essere pensata come una macchina con due nastri ausiliari (sappiamo
+infatti che questo modello è equivalente a quello di una MdT con un solo nastro).
+Dapprima $\mathcal{U}$ controlla che il suo input sia una coppia $(M, y)$. per
+qualche macchina di Turing $M=M_x$ e qualche input $y$ per $M$. Poi $\mathcal{U}$ passa
+a simulare $M$ sull'input $y$. In particolare, $\mathcal{U}$ adopera il primo nastro
+ausiliario per mantenere traccia degli stati e della posizione della testina di $M$ e
+il secondo nastro per memorizzare le istruzioni di $M$. Cosi $\mathcal{U}$ copia, di volta in
+volta, una configurazione $(\xi, q, a, \eta)$ di $M$ dal nastro di input/output sul
+primo nastro ausiliario; poi per determinare la regola di transizione $\left(q, a, q^{\prime},
+    a^{\prime}, x\right)$ di $M$ da usare, $\mathcal{U}$ estrae $q$ e $a$, quindi determina
+$\left(q, a^{\prime}, x\right)$ cercando nel secondo nastro l'istruzione per
+$(q, a)$. A quel punto si comporta come dettato dalla terna $\left(q^{\prime},
+    a^{\prime}, x\right)$ per sviluppare sul nastro di input/output la sua computazione.

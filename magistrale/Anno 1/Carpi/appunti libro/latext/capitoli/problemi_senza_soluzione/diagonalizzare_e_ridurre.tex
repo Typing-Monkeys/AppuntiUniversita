@@ -1,0 +1,72 @@
+\section{Diagonalizzare e ridurre}
+
+Nel capitolo precedente abbiamo introdotto il modello di calcolo della macchina
+di Turing e abbiamo conseguentemente definito la computabilità secondo Turing
+(per linguaggi o per funzioni). Nel presente capitolo approfondiamo questa teoria.
+Uno dei suoi aspetti più rilevanti è l'esistenza di problemi non computabili: per la
+precisione, emergono dal modello di Turing
+
+\begin{itemize}
+    \item funzioni che non si possono calcolare,
+    \item linguaggi che non si possono accettare, o che si accettano ma non si
+          decidono.
+\end{itemize}
+
+Esperimenteremo d'altra parte la possibilità di costruire per ogni alfabeto $A$ una $MdT$
+"\textit{universale}", capace di svolgere ogni computazione proponibile su $A$.
+In realtà, limiteremo per semplicità la nostra analisi ai numeri naturali, visti come parole su
+qualche opportuno alfabeto $\{O, 1, . , 9\}$ o $\{O, 1\}$, o $\{1\}$:
+questa assunzione è
+implicita in tutto il capitolo, salvo avviso contrario. Del resto, le strategie di
+codifica apprese nel Capitolo 2 ci mostrano come ogni alfabeto $A$ si riduca
+effettivamente al contesto dei naturali. Ricordiamo poi che le $MdT$ sull'alfabeto
+fissato si enumerano (in più possibili modi)
+
+$$
+    M_0, M_1, M_2, \ldots, M_n, \ldots \ \ (n \in \mathbb{N}),
+$$
+
+così come le funzioni da esse calcolate
+
+$$
+    \phi_0, \phi_1, \phi_2, \ldots, \phi_n, \ldots \ \ (n \in \mathbb{N});
+$$
+
+($\phi_n$ è in particolare la funzione calcolata da $M_n$). Nel nostro caso, quando
+lavoriamo su $\mathbb{N}$, possiamo assumere che ciascuna $\phi_n$ si una funzione,
+eventualmente parziale, da $\mathbb{N}$ a $\mathbb{N}$. Tanto l'enumerazione delle
+$MdT$ quanto quella conseguente delle funzioni calcolabili sono da ritenersi fissate
+per tutto il capitolo. I risultati che otterremo non dipendono comunque dalla loro
+scelta. Ricordiamo anche la seguente notazione: per $f$ funzione parziale da
+$\mathbb{N}$ a $\mathbb{N}$ e $n$ naturale, $f(n) \downarrow$, significa che $n$ è
+nel dominio di $f$, cioè $f(n)$ è definita, $f(n) \uparrow$ il contrario. Il
+riferimento ai naturali permette alcune utili semplificazioni del contesto. Per
+esempio, per $L \subseteq \mathbb{N}$, e quindi $L$ linguaggio sull'alfabeto fissato, è definita la
+\textit{funzione caratteristica} di $L$, cioè la funzione totale $f_L$ da $\mathbb{N}$
+a $\mathbb{N}$ tale che, per ogni $x \in \mathbb{N}$,
+
+$$
+    f_L(x)= \begin{cases}1 & \text { se } x \in \mathbb{N}, \\ 0 & \text { altrimenti. }\end{cases}
+$$
+
+Si ha allora:
+
+\paragraph{Lemma 3.1.1} \textit{Per $L \subseteq \mathbb{N}, L$ è decidibile se e solo se
+    $f_L$ è calcolabile.}\\
+
+II risultato si estende facilmente al
+caso in cui $L$ è sottoinsieme di $\mathbb{N}^2, \mathbb{N}^3$ e così via, tramite le
+biiezioni effettive tra questi insiemi e $\mathbb{N}$.\\
+Quanto ai risultati negativi
+di incomputabilità sopra menzionati, incontreremo due tecniche particolari che
+permettono di provarli:
+
+\begin{enumerate}
+    \item La prima si chiama \textit{diagonalizzazione} e riesce a produrre,
+          ad esempio, funzioni non calcolabili manipolando opportunamente la lista di tutte le
+          funzioni calcolabili;
+    \item la seconda prende il nome di \textit{riduzione}: essenzialmente
+          deduce l'incapacità di calcolare una funzione $f$ o di decidere un linguaggio $L$
+          riferendoli a situazioni negative già note e provando che queste ultime avrebbero
+          soluzione positiva se altrettanto valesse per $f$ e $L$.
+\end{enumerate}
