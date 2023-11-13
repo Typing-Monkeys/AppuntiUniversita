@@ -81,17 +81,48 @@
 
 ## Introduzione
 
-Supporta diversi paradigmi di programmazione:
+OCaml è un linguaggio della famiglia Meta Language (ML), sviluppato e distribuito dall’INRIA
+(Francia) dal 1984. Supporta diversi stili di programmazione: 
 
 - **Funzionale**
 - **Imperativo**
 - Ad **Oggetti**
 
-### Imperativo
+### Paradigmi di programmazione
 
-Il modello di calcolo è basato sull'hardware (architettura di Von Neumann) e ha 2 elementi di base: Variabili e Assegnazione. Programmare vuol dire pianificare il flusso di informazioni. E.g. in C descrivo tutto il flusso (azione dopo azione) da fare per risolvere un problema. Questa programmazione è basata su *comandi* che operano sulla *memoria* (stato del programma).
+Esistono diverse tipologie di linguaggi di programmazione. Sotto ogni linguaggio c’è un modello di calcolo, che determina:
+- le operazioni eseguibili
+- una classe di linguaggi
+- uno stile di programmazione (“paradigma” di programmazione)
 
-Un programma è **corretto** se per risolvere il problema `P` produce, per ogni input `X` un output `Y`, tale che tra `X` e `Y` vale sempre la relazione specificata da `P`.
+Un **Paradigmi di programmazione** è uno stile fondamentale di programmazione, ovvero insieme di strumenti concettuali forniti da un linguaggio di programmazione per la stesura del codice sorgente del programma. Definisce il modo in cui il programmatore concepisce e percepisce il programma stesso. Diversi paradigmi si differenziano per i concetti e le astrazioni usate per rappresentare gli elementi di un programma:
+
+- Funzione
+- Oggetti
+- Variabili
+- Vincoli
+
+E per i procedimenti usati per l’esecuzione delle procedure di elaborazione dei dati:
+
+- Assegnazione
+- Calcolo
+- Iterazione
+- Data flow
+
+#### Linguaggi Imperativi
+
+Il modello di calcolo è basato sull'hardware (architettura di Von Neumann) e ha 2 elementi di base: Variabili e Assegnazione. 
+
+**INPUT -> MEMORIA -> OUTPUT**
+
+Programmare vuol dire pianificare il flusso di informazioni.
+**Esempio**: in C descrivo tutto il flusso (azione dopo azione) da fare per risolvere un problema. Questa programmazione è basata su **comandi** che operano sulla **memoria** (stato del programma).
+
+Il modello di calcolo determina uno stile di programmazione.
+Per capire il programma (e provarne la correttezza) occorre tenere traccia delle
+modifiche dello stato.
+
+**Correttezza di un programma**: Un programma è **corretto** se per risolvere il problema `P` produce, per ogni input `X` un output `Y`, tale che tra `X` e `Y` vale sempre la relazione specificata da `P`.
 
 ```c
 # calcolo del massimo comun divisore
@@ -103,11 +134,22 @@ int gcd (int m, int m) {
 }
 ```
 
-### Funzionale
+#### Linguaggi Dichiarativi
 
-Un programma di questo tipo è la descrizione di cosa si deve calcolare piuttosto che il come calcolarlo.
+Un programma è più vicino alla descrizione di che cosa si deve calcolare, piuttosto che a come
+calcolare.
 
-Un programma è una funzione !
+- Linguaggi di programmazione logica
+- Linguaggi di programmazione funzionale (si basa principalmente sulla ricorsione.
+Scomposizione in struttura più piccola, dalla soluzione più piccola deduco la soluzione
+globale)
+
+
+#### Programmazione Funzionale
+
+Un programma è un’operazione che associa un input con un output: **un programma è una funzione**.
+Possiamo anche dire che è la descrizione di cosa si deve calcolare piuttosto che il come calcolarlo.
+
 
 Strutture di controllo:
 
@@ -120,11 +162,14 @@ I costrutti di base sono *espressioni* e non comandi. Le espressioni sono costru
 (6 + 3) x (8 - 2) <- 9 x (8 - 2) <- 9 x 6 <- 54
 ```
 
-La valutazione delle espressioni avviene nel seguente modo:
+La **valutazione** delle espressioni avviene nel seguente modo:
 
 - Ogni espressione ha un valore
-- Non ci sono effetti collaterali
-- `(6 + 3) x (8 - 2)`viene valutato, ma il valore non viene 'salvato' da nessuna parte
+- Non ci sono effetti collaterali (Ricordiamo che _effetto collaterale_ = scrittura di un valore in una certa
+locazione di memoria)
+- `(6 + 3) x (8 - 2)` viene valutato, ma il valore non viene 'salvato' da nessuna parte
+
+*Idealmente in un linguaggio funzionale puro non ci si appoggia su variabili.*
 
 **La ricorsione è il costrutto di controllo fondamentale !**
 
@@ -154,13 +199,14 @@ Nei linguaggi funzionali "puri" non esistono strutture di controllo come `for`, 
 
 Alcune caratteristiche di ML:
 
-- un linguaggio interattivo
+- è un linguaggio interattivo
 - a 'scopo statico': determina a tempo di compilazione il valore delle variabili in una dichiarazione
 - fortemente tipizzato: ogni espressione ha un tipo (determinato a tempo di compilazione)
 - ha inferenza di tipo che gli consente di dedurre quale tipo è un'espressione senza doverlo scrivere esplicitamente
-- sistema polimorfo di tipi
+- ha un sistema di tipi polimorfo: una funzione può accettare argomenti di vari tipi.
 - ha un meccanismo per la gestione di errori
 - ha un potente sistema di moduli
+- c’è la possibilità di costruire dati polimorfi (dati generici), di volta in volta istanziati con tipo diverso
 - è efficiente
 - il codice è più corto, più veloce da scrivere e mantenere
 
@@ -168,8 +214,9 @@ Alcune caratteristiche di ML:
 
 ![funzione](imgs/funzioni.png)
 
-`F` associa ogni elemento del *dominio* uno ed un solo elemento del *codominio*. Il tipo di `F` è: `DOMINIO -> CODOMINIO`. 
-Un tipo descrive un insieme di valori e le operazioni che si possono fare su di essi.
+Una funzione è una regola `F` che associa ogni elemento del *dominio* uno ed un solo elemento del *codominio*. Il tipo di `F` è: `DOMINIO -> CODOMINIO`. 
+
+***Cos'è un tipo?*** Un tipo descrive un insieme di valori e le operazioni che si possono fare su di essi.
 Se $A$ è un tipo e $x \in A`$ diciamo che $x$ è di tipo $A$. In breve si scrive: `x: A`.
 
 Alcuni esempi: 
@@ -207,16 +254,16 @@ let square n = n*n;;
 
 #### Prodotto Cartesiano
 
-Dati `A = {0, 1, 2}` e `B = {rosso, verde}`, allora `A x B = {(0, rosso), (0, verde), (1, rosso), (1, verde), (2, rosso), (2, verde)}`
+**Definizione Prodotto Cartesiano:** Dati `A = {0, 1, 2}` e `B = {rosso, verde}`, allora `A x B = {(0, rosso), (0, verde), (1, rosso), (1, verde), (2, rosso), (2, verde)}`
 
 Questa è la definizione di prodotto cartesiano.
 
-Le funzioni sono quindi un sottoinsieme del prodotto cartesiano di `DOMINIO x CODOMINIO` che forma un insieme di coppie (estensione di F) `{(x1, y1), (x2, y2), ...}` tali che:
+**Definizione ESTENSIONALE della funzione**: Una funzione `F` è una relazione particolare, è un sottoinsieme del prodotto cartesiano di `DOMINIO x CODOMINIO` che forma un insieme di coppie (detto l'estensione di `F`) `{(x1, y1), (x2, y2), ...}` tali che:
 
 - ogni $x_i$ appartiene al dominio
 - ogni $y_i$ appartiene al codominio
 - per ogni `x` del dominio, se `(x, y)` e `(x, y')` allora `y = y'`. `x` può essere in coppia con un solo elemento del codominio !
-- `F(x) = y` allora la coppia `(x, y)` appartiene all'estensione di `F`
+- `F(x) = y` se e solo se la coppia `(x, y)` appartiene all'estensione di `F`
 
 Un esempio di estensione è quella della funzione `square`: `{(0, 0), (1, 1), (3, 9), (-1, 1), ...}`.
 
