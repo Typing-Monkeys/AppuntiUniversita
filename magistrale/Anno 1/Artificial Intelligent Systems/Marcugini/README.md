@@ -269,23 +269,24 @@ Un esempio di estensione è quella della funzione `square`: `{(0, 0), (1, 1), (3
 
 
 
-### Funzioni a più argomenti
+#### Funzioni a più argomenti
 
-La funzione `times` è definita come segue: 
+Sia `times`` la funzione che associa: $(n, m)$ a $n \times m$ per ogni $n, m \in IN$. E definita come segue: 
 
 ```ocaml
 times = function (n, m) -> n*m;;
 ```
 
+Qual è il tipo della funzione `times`?
 Il suo codominio è `IZ`. Il suo dominio è l'insieme $\{(n, m) | n, m \in IN\}$. Quindi:
 
 ```
 times: IZ x IZ -> IZ
 ```
 
-Quando si applica `times` a `(n, m)` diciamo che `n` è il primo argomento e `m` il secondo, ma in realtà in Ocaml `times` ha un solo argomento: un coppia di numeri.
+Quando si applica `times` a $(n, m)$ diciamo che `n` è il primo argomento e `m` il secondo, ma in realtà in Ocaml `times` ha un solo argomento: un coppia di numeri. È anche possibile che le funzioni ritornino tuple come risultato e non un singolo valore.
 
-Se una funzione si applica a `n` argomenti, appartenenti a `A1, A2, ... An` e ritorna un valore dell'insieme `B`, il suo tipo è: 
+Se una funzione si applica a `n` argomenti, appartenenti a $A_1, A_2, \ldots, A_n$ e ritorna un valore dell'insieme `B`, il suo tipo è: 
 
 ```
 A1 x A2 x ... x An -> B
@@ -294,7 +295,11 @@ A1 x A2 x ... x An -> B
 Il suo dominio è un insieme di tuple di `n` elementi: `{..., (a1, a2, ..., an), ...}`.
 La sua estensione è un insieme di tuple con `n + 1` elementi: `{..., (a1, a2, ..., an, b), ...}`.
 
-### Funzioni che ritornano coppie di valori
+**FUNZIONI TOTALI:** sono definite per ogni elemento del dominio. <br>
+**FUNZIONI PARZIALI:** Una funzione parziale è ovviamente totale se si restringe opportunamente il suo dominio. <br>
+**FUNZIONI POLIMORFE**: il tipo può essere polimorfo(generico). In OCaml i tipi generici sono indicati con ‘lettera (apostrofo lettera). Se c’è anche un underscore `_` significa che al primo istanziamento la funzione opera con quel tipo di dato sempre.
+
+#### Funzioni che ritornano coppie di valori
 
 Sia `quorem` la funzione che si applica a due numeri naturali `n` e `m` e che ritorna il quoziente intero e il resto della divisione tra `n` e `m`.
 
@@ -310,7 +315,7 @@ quorem(7, 2) = (3, 2)  quorem(15, 6) = (2, 3)
 L'estensione di quorem è: `{..., (3, 2, (1, 1)), ..., (3, 3, (1, 0)), ...}`.
 C'e da notare che quorem non è definito per gli argomenti `(n, 0)` (non si può dividere per 0).
 
-### Funzioni Totali vs Parziali
+#### Funzioni Totali vs Parziali
 
 Le funzioni **Totali** sono definite per ogni elemento del dominio. Per ogni `x` nel dominio, esiste una ed una sola coppia `(x, y)` nell'estensione di `F`.
 
@@ -367,7 +372,9 @@ F: A -> B
 
 ### Calcolo come riduzione
 
-Calcolare significa ridurre un'espressione ad un Valore. In pratica si va a sostituire il parametro della funzione con il valore a cui si applica:
+Calcolare significa ridurre un'espressione ad un Valore. Un valore è un’espressione non
+ulteriormente riducibile. I parametri alle funzioni vengono passati per valore.
+In pratica si va a sostituire il parametro della funzione con il valore a cui si applica:
 
 ```
 square(5) ->
@@ -453,6 +460,29 @@ let add3 = add 3;;      (* val add3 : int -> int = <fun> *)
 
 (* Sfrutto add3 per usare la funzione add con un parametro fisso di 3 e un'altro da dovergli passare, per add, con cui fare la somma *)
 add3 2;;                (* - : int = 5 *)    
+```
+
+E' quindi una funzione che, applicata a `n`, ritorna una funzione che, applicata a `m`, riporta il valore `n + m`.
+
+```ocaml
+let sum (n, m) = n + m 
+let plus n m = n + m
+```
+
+plus è la forma currificata di sum.
+```ocaml
+Let somma1 x y = x+y
+Let somma2 n = function m -> n+m
+```
+Due modi per dire la stessa cosa: funzione che restituisce una funzione che applicata a m riporta
+m+m.
+
+Ogni funzione su tuple si può riscrivere in forma currificata:
+```ocaml
+let mult(n,m) = n*m;;                      
+-val mult : int * int -> int = fun 
+let times n m = n*m;;
+-val mult : int -> int -> int = fun
 ```
 
 ## OCaml
