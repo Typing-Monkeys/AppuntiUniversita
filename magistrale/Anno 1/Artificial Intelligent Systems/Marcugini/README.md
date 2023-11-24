@@ -503,6 +503,12 @@ Per esempio:
 -: int = 24
 ```
 
+- **Lettura**: viene letta un’espressione (3*8), terminata da ;; e dalla pressione del tasto di
+ritorno carrello (ENTER)
+- **Valutazione**: viene calcolato il valore dell’espressione
+- **Stampa**: viene stampato il valore dell’espressione, specificando di che tipo è (`int`) ed il valore (`24`).
+Il calcolo poi procede valutando le successive espressioni.
+
 È possibile caricare in memoria un file già scritto con il comando `use`:
 
 ```ocaml
@@ -514,6 +520,77 @@ Per uscire dall'interprete si usa il comando `exit`:
 ```ocaml
 # exit 0;;
 ```
+
+Essendo un linguaggio con tipizzazione forte: **OGNI ESPRESSIONE DEL LINGUAGGIO HA UN VALORE E UN
+TIPO**, determinabile a tempo di compilazione.
+
+Quando si immette un’espressione al prompt di OCaml (seguita da ;; e `ENTER`), OCaml ne calcola e stampa
+il valore e il tipo.
+```ocaml
+(5/2, 5 mod 2);;
+- int * int = (2, 1)
+
+if not(3>0) then "pippo" else "pluto";;
+- string = "pluto"
+```
+- `/`, `mod` e `not` sono FUNZIONI PRIMITIVE del linguaggio
+- `int * int` è il tipo delle coppie di interi
+- `if...then...else...` è un'espressione condizionale;
+- `if`, `then`, `else` sono PAROLE CHIAVE
+- `"pippo"`, `"pluto"` sono stringhe
+
+La valutazione di un’espressione avviene in un **AMBIENTE** che contiene il “significato” (**VALORE**) di un identificatore (**VARIABILI**). Quando si avvia l’interprete OCaml, le espressioni vengono valutate nell’ambiente predefinito, che contiene il “significato” delle operazioni primitive del linguaggio.
+
+```ocaml
+succ;;
+-: int -> int = <fun>
+
+succ 4;;
+-: int = 5
+
+abs;;
+-: int -> int = <fun>
+
+abs (-3);;
+-: int = 3
+
+fst;; 
+-: ’a * ’b -> ’a = <fun>
+
+fst (3,"pippo");;
+-: int = 3
+```
+Un programma è una collezione di dichiarazioni (di variabili, funzioni, tipi, ...) e chiamate di funzione.
+Quando l’interprete parte carica una libreria con alcune funzioni di base.
+L’ambiente può essere esteso mediante **DICHIARAZIONI**
+
+```ocaml
+let three = 3;;
+- val three : int = 3
+
+three * 8;;
+-: int = 24
+```
+- Una dichiarazione dà un nome a un valore
+- I nomi dei valori si chiamano VARIABILI
+
+```ocaml
+let <VARIABILE> = <ESPRESSIONE>;;
+```
+
+Esempi:
+
+```ocaml
+let base = 3;;                #pattern matching
+val base : int = 3
+
+let altezza = 4;;
+val altezza : int = 4
+
+let area = base * altezza;;
+val area : int = 12
+```
+
 
 ### Compilazione
 
@@ -609,8 +686,8 @@ Un esempio di dichiarazione di una funzione:
 val area_quadrato : int -> int = <fun>
 ```
 
-`area_quadrato` è una funzione da interi a interi ed applicata ad un intero `n` (che rappresenta il lato di un quadrato) riporta l'area del quadrato.
-Il valore di una funzione NON è stampabile. Ocaml riporta solo il fatto che si tratta di una funzione `<fun>`.
+`area_quadrato` è una funzione da interi a interi ed applicata ad un intero `n` (che rappresenta il lato di un quadrato) ritorna l'area del quadrato.
+Il valore di una funzione NON è stampabile. Le funzioni non sono neanche confrontabili anche se sono dello stesso tipo. Ocaml riporta solo il fatto che si tratta di una funzione: `<fun>`.
 
 Dato che ML ha un meccanismo di inferenza di tipo riesce a capire che tipo è una data espressione. Per l'esempio di prima capisce che si tratta di una funzione `int -> int` per via dell'operatore `*`. `*` è un operatore tra INTERI e quindi il dominio e il codominio della nostra funzione non possono che essere interi!
 
@@ -639,6 +716,7 @@ Ml ha dedotto il tipo della funzione perché se `x` viene moltiplicato per 2 (tr
 ### Applicazione di Funzioni
 
 Dopo aver dichiarato una funzione questa va applicata ad un argomento.
+Questo rappresenta la principale modalità di calcolo in OCaml e viene chiamata _Applicazione di Funzioni_.
 
 ```ocaml
 # area_quadrato 5;;
@@ -1021,7 +1099,8 @@ quorem : int * int -> int * int
 
 ### Polimorfismo
 
-Le funzioni che accettano ogni tipo di dato sono chiamate polimorfe (lo abbiamo visto prima). Un esempio:
+Una funzione può accettare argomenti che appartengono a tipi diversi. Queste vengono chiamate _Funzioni Polimorfe_. Questo è possibile se le operazioni eseguite non comportano vincoli su determinati tipi di dato. Ad esempio, la funzione `first`, necessita solo che il parametro sia una coppia, non è necessario che sia un tipo specifico, possono anche essere di due tipi diversi (può essere applicata a coppie di
+tipi generici).
 
 ```ocaml
 # let first (x,y) = x;;
@@ -1054,7 +1133,7 @@ Qui capisce che `n` è un intero perché viene confrontato con `5` (che è un in
 let x = E in F;;
 ```
 
-dove `E` e `F` sono espressioni. Il tipo di questa espressione è il tipo di `F`, il valore è quello che ha `F` quando `x` è sostituto da `E`.
+dove `E` e `F` sono espressioni. Il tipo di questa espressione è il tipo di `F`, il valore è quello che ha `F` quando `x` è sostituto da `E`. Queste sono dichiarazioni che hanno una durata temporanea (corrisponde al tempo di valutazione di una espressione) e possono comparire sia all’esterno che all’esterno di dichiarazioni di funzioni.
 
 Per esempio, prendiamo il seguente problema: 
 
@@ -1141,6 +1220,12 @@ let fraction (n,d) =
 # fraction(32,28);;
 -: int * int = (8, 7) 
 ```
+
+Le dichiarazioni locali sono spesso utilizzate quando funzioni ausiliarie non hanno significato al di fuori del programma
+principale, in generale:
+
+- La funzione definita localmente non ha significato autonomo
+- La dichiarazione locale permette di “risparmiare parametri”
 
 <!-- dopo sta roba, Marcugini mette alcuni esempi di mini problemi da risolvere, la cosa divertente è che il procedimento per risolverli lo scrive in maniera sequenziale ... Sarà mica un indizio di quanto fa schifo sto paradigma ??? -->
 
@@ -1525,6 +1610,7 @@ Exception: Match_failure ("", 15, 43).
 ### Funzioni di ordine superiore
 
 In Ocaml le funzioni sono oggetti che possono essere passati ad altre funzioni, far parte di strutture dati o essere il valore di ritorno di funzioni. Si chiamano oggetti di prima classe.
+I linguaggi funzionali consentono l’uso di funzioni di _ordine superiore_, cioè funzioni che prendono funzioni come argomento o riportano funzioni come valore, in modo assolutamente generale.
 
 ```ocaml
 (*funzioni che fanno parte di strutture dati*)
@@ -1559,8 +1645,6 @@ val k : 'a -> 'b -> 'a = <fun>
 # let f = k true in f "pippo";;
 -: bool = true 
 ```
-
-Le funzioni che accettano come parametro altre funzioni si chiamano Funzioni di ordine superiore
 
 ### Funzioni di forma currificata
 
