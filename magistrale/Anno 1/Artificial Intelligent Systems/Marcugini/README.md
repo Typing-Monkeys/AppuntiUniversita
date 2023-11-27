@@ -1233,6 +1233,50 @@ principale, in generale:
 
 Nei linguaggi funzionali puri non esistono costrutti per effettuare cicli come `while` o `for`. Si utilizza quindi la ricorsione. 
 <!-- se non ci hanno manco messo i cicli for e si fa tutto con la ricorsione è un ottimo motivo per non usarle questo paradigma ! Un pò come i carciofi, se è così noioso pulirli e lavarli perché mangiarli ?? -->
+La ricorsione è una tecnica per risolvere problemi complessi riducendoli a problemi più semplici dello stesso tipo.
+Per risolvere un problema ricorsivamente occorre individuare una dimensione del problema tale che: 
+1. per il valore più basso della dimensione la soluzione può essere espressa direttamente (cioè senza ricorrere alla ricorsione);
+2. è possibile risolvere il problema per la dimensione generica supponendo di saper risolvere il problema per dimensioni inferiori. La soluzione del problema per le dimensioni inferiori viene ottenuta attraverso le chiamate ricorsive, cioè richiamando la stessa funzione che si sta definendo;
+4. la funzione che andiamo a definire dovrà contenere un parametro che individua la
+dimensione del problema che la funzione sta affrontando in quel momento.
+
+*Esempi di dimensioni*: 
+- per un problema sugli interi il valore n dell’intero; 
+- per un problema sulle liste la lunghezza della lista; 
+- per un problema sui grafi il numero dei nodi del grafo
+
+#### **Esempio: fattoriale n!=1 × 2 × ... × (n − 1) × n**
+Ricordiamo che per convenzione: $0! = 1$. 
+Andiamo ora ad analizzare e scrivere la funzione ricorsiva `fact(n)` per calcolare $n!$.
+
+Dimensione del problema: $n$
+1. Caso base: `fact(0) = 1`
+2. Vogliamo calcolare `fact(n)`, per $n> 0$, supponendo di saper calcolare `fact(n − 1)`
+3. Per ottenere `fact(n)`, moltiplicare `fact(n − 1)` per `n`
+
+Il precedente ragionamento può essere riassunto dal seguente pseudocodice:
+
+```
+function fact(n) {
+  if n = 0 {
+    return 1
+  }
+
+  return n * fact(n-1)
+}
+```
+
+Il fattoriale è “definito in termini di se stesso”, ma per un caso “più facile”. <br>
+Si utilizza la parola chiave **rec** per definire una funzione ricorsiva. Ovviamente è necessario scomporre il problema fino al caso base per far terminare la ricorsione e far risalire il processo. La parte principale è quindi quello di individuare il caso base e la scomposizione del problema in sotto-chiamate.
+
+```ocaml
+let rec fact n = if n = 0 then 1 else n * fact (n-1);;
+- val fact : int -> int = <fun>
+```
+
+#### **Definizioni ricorsive di funzioni**
+Per calcolare `F (n)`: se `n` è un caso base, riporta la soluzione per il caso `n` altrimenti: risolvi i problemi più semplici. <br>
+F (n1),F (n2), ....F (nk) (*chiamate ricorsive*) combina le soluzioni ottenute e riporta combina (F (n1),F (n2), ....F (nk)). Un processo ricorsivo termina se le chiamate ricorsive si avvicinano ai casi di base: dopo un numero finito di chiamate ricorsive si arriva a casi base.
 
 Quando si dichiara una funzione ricorsiva è necessario specificarlo tramite la parola chiave `rec`.
 
@@ -1254,7 +1298,75 @@ Unbound value fac
 val fact: int -> int = <fun>
 ```
 
-È anche possibile implementare questo algoritmo in modo "iterativo", che è un po una cazzata perché non è proprio iterativo ma in verità è sempre una merda ricorsiva solo che sfrutta una funzione ausiliaria e si chiama "ricorsione in coda". È utile perchè se si deve usare la ricorsione c'è il rischio di creare "Stack overflow" a causa del numero di chiamate che rimangono attive in contemporanea. Con la ricorsione di coda invece si evita totalmente queso problema. Una barca di stronzate :robot:. 
+#### **Ricorsione ed iterazione**
+Algoritmo per calcolare il fattoriale di n:
+```pseudocode
+fact(n) = f <- 1;
+    while (n > 0) do
+    f <- f*n;
+    n <- n-1
+    done;
+return f
+```
+Il ciclo può essere implementato mediante un costrutto ricorsivo:
+- utilizziamo una funzione ausiliaria che ha un parametro in più (“accumulatore”)
+- l’operazione principale richiama quella ausiliaria “inizializzando” l’accumulatore
+
+
+Parametri della funzione ausiliaria: le variabili di ciclo <br>
+**Corpo della funzione ausiliaria**: 
+
+```if <condizione di uscita dal ciclo> then <valore da riportare in uscita dal ciclo> else <chiamata ricorsiva della funzione ausiliaria con argomenti modificati come nel ciclo stesso>```
+
+La funzione ausiliaria viene richiamata da quella principale con argomenti uguali ai valori con cui sono inizializzate le variabili di ciclo.
+
+```ocaml
+(* aux : int * int -> int *)
+let rec aux (n,f) =
+    if n=0 then f
+    else aux(n-1,f*n)
+
+(* fact : int -> int *)
+return f let fact n = aux(n,1)
+```
+
+**Algoritmo iterativo (cioè ricorsione in coda)**
+
+```ocaml
+let rec aux (n,f) = if n=0 then f else aux(n-1,f*n)
+
+(* fact : int -> int *)
+let fact n = aux(n,1)
+
+- fact 3 = aux (3,1)
+    = aux (2,3)
+    = aux (1,6)
+    = aux (0,6)
+    =6
+```
+**Processo lineare**: dopo aver raccolto il risultato della chiamata ricorsiva, non si deve fare nulla.
+
+**Processi ricorsivi e iterativi**
+**Il processo ricorsivo:**
+1. Esegue calcoli al ritorno dalla ricorsione
+2. Usa spazio proporzionale alla lunghezza della lista
+
+**In un processo iterativo:**
+1. Il risultato parziale viene conservato in un accumulatore
+2. Il processo è lineare
+3. Dopo aver raccolto il risultato della chiamata ricorsiva non si deve fare nulla
+4. L’ultima chiamata può riportare il suo risultato direttamente alla prima
+
+Quando un problema P1 viene convertito in un altro P2, in modo che la soluzione di P2 è identica alla soluzione di P1 (non servono altri calcoli), allora P1 è stato ridotto a P2
+
+P2 è una riduzione di P1
+
+Quando una funzione ricorsiva è definita in modo tale che tutte le chiamate ricorsive sono riduzioni, allora la funzione è **RICORSIVA DI CODA (TAIL RECURSIVE)** <br>
+Molti compilatori riconoscono la ricorsione di coda. Ricorsione di coda perché è l’ultima cosa.
+
+<hr>
+
+<!--È anche possibile implementare questo algoritmo in modo "iterativo", che è un po una cazzata perché non è proprio iterativo ma in verità è sempre una merda ricorsiva solo che sfrutta una funzione ausiliaria e si chiama "ricorsione in coda". È utile perchè se si deve usare la ricorsione c'è il rischio di creare "Stack overflow" a causa del numero di chiamate che rimangono attive in contemporanea. Con la ricorsione di coda invece si evita totalmente queso problema. Una barca di stronzate :robot:. 
 
 ```ocaml
 let rec aux (n,f) =
@@ -1277,7 +1389,7 @@ let fact n =
 Quando un problema P1 viene convertito in un altro P2 in modo che la soluzione di P2 sia identica alla soluzione di P1, allora si dice che P1 è stato ridotto a P2 (P2 è una riduzione di P1).
 
 Quando una funzione ricorsiva è definita in modo tale che tutte le chiamate ricorsive sono riduzioni, allora la funzione viene detta Ricorsiva Di Cosa (Tail Recursive).
-
+-->
 ### Input da Tastiera
 
 Per leggere caratteri da tastiera si utilizzano le seguenti funzioni:
