@@ -1,0 +1,133 @@
+
+%------------------------- INTESTAZIONE COMPITO -----------------------------------
+\begin{center}
+	\fbox{\fbox{\parbox{7in}{\centering
+				Prova scritta Programmazione Procedurale con Lab. - Cerami Cristian}}}
+\end{center}
+
+\vspace{5mm}
+
+\noindent\makebox[\textwidth]{Nome e Cognome: \rule{8cm}{.1pt} \hspace{1cm} Matricola:  \rule{5cm}{.1pt}}
+
+\begin{questions}
+
+%------------------------- ESERCIZIO 1 --------------------------------------------
+
+\question[5]
+Cosa stampa il seguente frammento di codice?
+
+\begin{minipage}[t]{0.4\linewidth}
+	\begin{lstlisting}[language=C]
+	int a = 0123 ^ 0x056;
+	double b = 2.59;
+
+	printf ("%d\n", a);
+	
+	while ((++a || a++) ? a-=1 : 0) {
+		if (!(a-- && --a ))
+			break;
+		else {
+			printf("%d\n", a); 
+		}
+	}
+	
+	a<=a, a+=b, a++;
+	printf("a: %d\n", a); 
+	\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{0.6\linewidth}
+	\makeemptybox{120pt}
+\end{minipage}
+
+%------------------------- FINE ESERCIZIO 1 ---------------------------------------
+
+%------------------------- ESERCIZIO 2 --------------------------------------------
+
+\question[6]
+Elencare le conversioni di tipo \underline{implicite} (\emph{... da ... a}). Scrivere cosa viene stampato a schermo sapendo che: \emph{UCHAR\_MAX = 255} , \emph{'a' = 97} .
+
+\begin{minipage}[t]{0.4\linewidth}
+	\begin{lstlisting}[language=C]
+	double fun (float a) {
+		char b = ('x' * 3) - 'g';
+		return (a / b);
+	}
+	
+	int main (void) {
+		unsigned int a = 'g' - 3UL;
+		float b = fun(a);
+		unsigned char c = -(int) (b+53);
+		printf("c: %c, %d\n", c, c);
+		return 0;
+	}
+	\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{0.6\linewidth}
+	\makeemptybox{200pt}
+\end{minipage}
+
+%------------------------- FINE ESERCIZIO 2 ---------------------------------------
+
+%------------------------- ESERCIZIO 3 --------------------------------------------
+
+\question[6]
+Data la seguente \emph{struct}, scrivere la definizione di una funzione di nome \emph{ritorna\_dispari} che prende come parametro una lista (\emph{lista\_input}) e ritorna un'altra lista (\emph{lista\_output}, creata nella funzione) che contiene, nello stesso ordine della lista passata, solamente gli elementi in posizione \emph{dispari} (se presenti). Se la lista originale è \textbf{5-2-9}, la lista ritornata sarà \textbf{5-9}.
+
+\begin{minipage}[t]{0.5\linewidth}
+	\begin{lstlisting}[language=C]
+	typedef struct node Node;
+
+	struct node {
+		int info;
+		struct node* pNext;
+	};
+	\end{lstlisting}
+\end{minipage}
+
+%------------------------- FINE ESERCIZIO 3 ---------------------------------------
+
+\newpage
+
+%------------------------- INTESTAZIONE COMPITO -----------------------------------
+\begin{center}
+	\fbox{\fbox{\parbox{7in}{\centering
+				Prova scritta Programmazione Procedurale con Lab. - Cerami Cristian}}}
+\end{center}
+
+\vspace{5mm}
+
+\noindent\makebox[\textwidth]{Nome e Cognome: \rule{8cm}{.1pt} \hspace{1cm} Matricola:  \rule{5cm}{.1pt}}
+
+
+%------------------------- ESERCIZIO 4 --------------------------------------------
+
+\question[7]
+Dire quali compilazioni provocano errore a causa del linker (e perchè):\\
+1) gcc -o write write.c\\
+2) gcc -c main.c\\
+3) gcc -o main main.c\\
+4) gcc -o execute main.c write.c\\
+In caso il punto 4) ritorni un errore, descrivere come può essere corretto. Infine, \textbf{dopo la correzione} eventualmente applicata, elencare tutte le definizioni, dichiarazioni e tipologie di linkage, presenti in ogni file, per \emph{count}, \emph{i}, \emph{a}, e \emph{mywrite}. Cosa stampa il programma?
+
+\begin{minipage}[h]{0.5\linewidth}
+	\includegraphics[width=9cm, keepaspectratio]{immagini/es_linkage_uniti}
+\end{minipage}
+\begin{minipage}[h]{0.5\linewidth}
+	\makeemptybox{300pt}
+\end{minipage}
+
+
+%------------------------- FINE ESERCIZIO 4 ---------------------------------------
+
+\vspace{3em}
+
+%------------------------- ESERCIZIO 5 --------------------------------------------
+
+\question[6]
+Cerchiare le affermazioni vere dato:\\ 
+\underline{\emph{int a[7]= \{21,-21,[3]=INT\_MAX, 65537, [6]=511\}; short *ptr = (short*) a; char *n = (char*) a;}} ~~sapendo che i tre tipi usati occupano 4, 2 e 1 byte e 65536 = $2^{16}$ (valori rappresentati in complemento a due e \emph{little endian}). Rappresentare la zona di memoria in cui è memorizzato l'array.\\~
+
+\textbf{A.} n+5 >= \&ptr[3]; \textbf{B.} *(n+5) > *(n+4); \textbf{C.} \&ptr[8] == ptr+9; \textbf{D.} ((int)(ptr+8)-(int)(\&a[2]) < 8);\\ \textbf{E.} *(ptr+1) == *(a+2)
+
+
+\end{questions}

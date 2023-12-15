@@ -1,0 +1,88 @@
+%------------------------- SOLUZIONE ESERCIZIO 3 --------------------------------------------
+
+\begin{minipage}[h]{\linewidth}
+	SOLUZIONE ESERCIZIO 3
+    \begin{lstlisting}[language=C]
+Node* ritorna_dispari(Node* lista_input) {
+	
+	if (lista_input == NULL) {
+		return NULL;
+	} else {
+		int counter = 0;
+		Node* pScan = lista_input;
+		
+		Node* lista_output = NULL;
+		Node* lista_output_pLast = NULL;
+		
+		while (pScan != NULL) {
+			if (counter % 2 == 0) {
+				Node* pNew = (Node*) malloc(sizeof(Node));
+				pNew -> info = pScan -> info;
+				pNew -> pNext = NULL;
+				
+				if (lista_output == NULL) {
+					lista_output = pNew;
+					lista_output_pLast = pNew;
+				} else {
+					lista_output_pLast -> pNext = pNew;
+					lista_output_pLast = pNew;
+				}	    		
+			}
+			
+			pScan = pScan -> pNext;
+			counter++;
+		}
+		
+		return lista_output;
+	}
+}
+	\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}[h]{\linewidth}
+SOLUZIONE ESERCIZIO 5\\
+
+
+10101000\hspace{2em}    a[0]\\
+00000000\\    
+00000000\hspace{2em}    *(ptr+1)\\
+00000000\\
+\\
+11010111\hspace{2em}    *(n+4)\\
+11111111\hspace{2em}    *(n+5)\\
+11111111\hspace{2em}    \&ptr[3]\\
+11111111\\
+\\
+00000000\hspace{2em}    *(a+2) e a[2]\\
+00000000\\
+00000000\\
+00000000\\
+\\
+11111111\\
+11111111\\
+11111111\\
+11111110\\
+\\
+10000000\hspace{2em}    \&ptr[8] o ptr+8\\
+00000000\\
+10000000\hspace{2em}    ptr+9\\
+00000000\\
+\\
+00000000\\
+00000000\\
+00000000\\
+00000000\\
+\\
+11111111\\
+10000000\\
+00000000\\
+00000000\\
+\\
+
+A = FALSO, (n+5) sta in una cella di memoria inferiore a (\&ptr[3])\\
+B = VERO, ∗(n+5) == -1, ∗(n+4) == -21 quindi -1 > -21\\
+C = FALSO, ricordati che si sta guardando l'indirizzo di memoria e non il loro contenuto\\
+D = FALSO, la differenza in byte tra i due puntatori è 8\\
+E = VERO, *(ptr+1) == 0, *(a+2) == 0 quindi *(ptr+1) == *(a+2)\\
+
+\end{minipage}
