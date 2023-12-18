@@ -97,7 +97,7 @@ delete FROM persona WHERE id_persona=5;  --> Si vuole eliminare l'attore John Tr
 
 
 <details>
-  	<summary><b>Clicca per vedere la soluzione sottoforma di SCRIPT!</b></summary>
+  	<summary><b>Clicca per vedere la soluzione sotto forma di SCRIPT!</b></summary>
 
 ```sql
 DROP SCHEMA IF EXISTS cinema CASCADE;
@@ -253,7 +253,7 @@ SELECT nome, cognome, count (distinct id_film) as numero_film FROM persona join 
 
 
 /* Modificare la query precedente in modo da aggiungere al risultato due colonne per precisare:
-	- l'anno di produzione del primo film interpretato da ogni attore elencaro nel risultato della query
+	- l'anno di produzione del primo film interpretato da ogni attore elencato nel risultato della query
 	- l'anno di produzione dell'ultimo film interpretato da ogni attore elencato nel risultato della query
 */
 SELECT nome, cognome, count (distinct id_film) as numero_film, min(anno) as primo_film, max(anno) as ultimo_film FROM persona join partecipazione on id_persona=id_attore natural join film group by nome, cognome order by cognome, nome;
@@ -339,7 +339,7 @@ SELECT titolo FROM libro JOIN generi ON (genere = nome) WHERE sala = 'A';
 -- Ottenere i titoli dei libri e la sala in cui sono collocati
 SELECT titolo, sala FROM libro JOIN generi ON (genere = nome);
 
--- Ottenere i titoli dei libri e la sala in cui sono collocati, includendo le opere di cui non e' possibile repereire la collocazione
+-- Ottenere i titoli dei libri e la sala in cui sono collocati, includendo le opere di cui non e' possibile reperire la collocazione
 SELECT titolo, sala FROM libro LEFT JOIN generi ON (genere = nome);
 
 -- Identificare i soci della biblioteca che hanno letto almeno un libro nella sala A

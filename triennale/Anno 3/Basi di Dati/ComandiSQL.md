@@ -248,7 +248,7 @@ CREATE SCHEMA Ditta;
 			FOREIGN KEY
 		</td>
 		<td>
-			Serve per la definizione di chaivi esterne su più attributi
+			Serve per la definizione di chiavi esterne su più attributi
 		</td> 	
 	</tr>
 	<tr>
@@ -319,7 +319,7 @@ CREATE TABLE Ditta.Impiegato(<nome_colonna> varchar(40) NOT NULL PRIMARY KEY, st
 			FOREIGN KEY
 		</td>
 		<td>
-			Serve per la definizione di chaivi esterne su più attributi
+			Serve per la definizione di chiavi esterne su più attributi
 		</td> 	
 	</tr>
 	<tr>
@@ -852,7 +852,7 @@ set search_path to <nome_schema>;
 Esegue interrogazioni (query) sul DB.
 
 ```sql
--- AS serve a dare uno psudonimo alla tabella in uso
+-- AS serve a dare uno pseudonimo alla tabella in uso
 SELECT [ALL|DISTINCT] {∗| <espressione> [AS <nome>] }[,...] /* Distinct serve a eliminare i duplicati nelle colonne in OUT */
 	FROM <nome tab> [ [ AS ]<alias> ]
 	[ WHERE <predicato> ] /* rappresenta le condizioni di selezione */
@@ -945,7 +945,7 @@ Guarda pdf lezione4 e [questo sito](https://www.andreaminini.com/database/algebr
 ```
 
 #### NATURAL JOIN
-Date due tabelle che hanno almeno una colonna in comune (cioè con lo stesso nome), si avrà in output una tabella che contiene tutte le tuple in cui si hanno dei valori in cumune nella colonna in comune fra le due tabelle. L'attributo in comune delle due relazioni è presente una sola volta nella tabella join in uscita.
+Date due tabelle che hanno almeno una colonna in comune (cioè con lo stesso nome), si avrà in output una tabella che contiene tutte le tuple in cui si hanno dei valori in comune nella colonna in comune fra le due tabelle. L'attributo in comune delle due relazioni è presente una sola volta nella tabella join in uscita.
 
 Può avere più sintassi equivalenti:
 ```sql
