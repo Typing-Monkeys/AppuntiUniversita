@@ -1,0 +1,56 @@
+\documentclass[addpoints,11pt]{exam}
+\usepackage[top=0.5in, bottom=0.5in, left=0.5in, right=0.5in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color,graphicx}
+\usepackage{multicol}
+\usepackage{MnSymbol}
+
+%Impostazioni box punti - package exam
+\boxedpoints
+\pointname{~punti}
+
+%Impostazioni box soluzioni - package exam
+\newcommand{\makenonemptybox}[2]{%
+	\par\nobreak\vspace{\ht\strutbox}\noindent
+	\fbox{%
+		\parbox[c][\dimexpr#1-2\fboxsep][t]{\dimexpr\linewidth-2\fboxsep}{
+			\hrule width \hsize height 0pt
+			#2
+		}%
+	}%
+	\par\vspace{\ht\strutbox}
+}
+
+
+%Impostazioni grafiche per visione codice sorgente - linguaggio C
+\definecolor{codegray}{rgb}{0,0,0}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	keywordstyle=\color{black},
+	numberstyle=\tiny\color{codegray},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\pagestyle{empty}
+
+
+%Creazione documento
+\begin{document}
+    \include{esercizi}
+    \include{soluzioni_esercizi}
+\end{document}
