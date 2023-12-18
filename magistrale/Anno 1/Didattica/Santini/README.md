@@ -9,7 +9,7 @@ L'esame può essere svolto secondo due modalità differenti:
 * Creazione di una prova d'esame in linguaggio C che rispetti le seguenti caratteristiche:
 	* Composto da 5 esercizi (versione corta) che coprono più argomenti possibili del corso.
 	* Ispirato agli esami degli anni passati (a.a. 2021 in poi) visibili sulla [pagina del corso](https://francescosantini.sites.dmi.unipg.it/progI23.html) di Programmazione procedurale con Laboratorio. 
-	* Sritto in Latex sfruttando il package [exam](https://ctan.org/pkg/exam?lang=en). 
+	* Scritto in Latex sfruttando il package [exam](https://ctan.org/pkg/exam?lang=en). 
 	* Contiene le soluzioni e i codici sorgente di tutti gli esercizi proposti.
 
 	Un esempio di questa modalità d'esame può essere vista alla [seguente pagina](FaxSimileEsame).

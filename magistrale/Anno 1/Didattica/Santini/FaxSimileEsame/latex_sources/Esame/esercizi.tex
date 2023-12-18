@@ -26,9 +26,8 @@ Cosa stampa il seguente frammento di codice?
 	while ((++a || a++) ? a-=1 : 0) {
 		if (!(a-- && --a ))
 			break;
-		else {
-			printf("%d\n", a); 
-		}
+		else
+			printf("%d\n", a);
 	}
 	
 	a<=a, a+=b, a++;

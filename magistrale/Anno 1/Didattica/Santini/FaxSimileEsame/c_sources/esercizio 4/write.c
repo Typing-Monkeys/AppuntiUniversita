@@ -9,22 +9,22 @@ void mywrite(int *a) {
 }
 
 
-/**
+/*
 1) gcc -o write write.c
-   Manca definizione main ed i
+	Manca definizione main ed i
 
 	Se proviamo a eseguire il comando ci viene restituito il seguente errore:
-   write.c: In function ‘mywrite’:
+	write.c: In function ‘mywrite’:
 	write.c:9:40: error: ‘i’ undeclared (first use in this function)
 
 2) gcc -c main.c
-   Ok
+	Ok
 
 3) gcc -o main main.c
-   Manca definizione mywrite e count
+	Manca definizione mywrite e count
 
 	Se proviamo a eseguire il comando ci viene restituito il seguente errore:
-   /usr/bin/ld: /tmp/ccxHbPc1.o: warning: relocation against `count' in read-only section `.text'
+	/usr/bin/ld: /tmp/ccxHbPc1.o: warning: relocation against `count' in read-only section `.text'
 	/usr/bin/ld: /tmp/ccxHbPc1.o: in function `main':
 	main.c:(.text+0x7): undefined reference to `count'
 	/usr/bin/ld: main.c:(.text+0xf): undefined reference to `mywrite'
@@ -33,12 +33,12 @@ void mywrite(int *a) {
 	collect2: error: ld returned 1 exit status
 
 4) gcc -o execute main.c write.c
-   Manca definizione count in main.c perchè count ha linkage interno in write.c quindi non è visibile.
+	Manca definizione count in main.c perchè count ha linkage interno in write.c quindi non è visibile.
 	Manca poi la dichiarazione con linkage esterno di i in write.c
 
 	Se proviamo a eseguire il comando ci viene restituito il seguente errore:
-   write.c: In function ‘mywrite’:
-   write.c:9:40: error: ‘i’ undeclared (first use in this function)
+	write.c: In function ‘mywrite’:
+	write.c:9:40: error: ‘i’ undeclared (first use in this function)
 
 
 In caso il punto 4) ritorni un errore, descrivere come può essere corretto. 
@@ -57,14 +57,14 @@ presenti in ogni file, per count, i, a, e mywrite.
 		- i a riga 4 è ora definita e ha linkage esterno
 	
 	- in write.c:
-		- PRIMA DELLA CORREZZIONE: count a riga 3 è definita e ha linkage interno
-		- DOPO LA CORREZZIONE: count a riga 3 è definita e ha linkage esterno
+		- PRIMA DELLA CORREZIONE: count a riga 3 è definita e ha linkage interno
+		- DOPO LA CORREZIONE: count a riga 3 è definita e ha linkage esterno
 		- i è dichiarata ed ha linkage esterno
 		- mywrite è definita e ha linkage esterno
 		- a locale in mywrite è definita e ha no linkage
 		- count locale in mywrite è definita e ha no linkage
 
-Cosa stampa il programma output? 
+Cosa stampa il programma? 
 3
 4
 5

@@ -1,4 +1,4 @@
-/**
+/*
     Cerchiare le affermazioni vere dato: 
     int a[7]= {21,-21,[3]=INT_MAX, 65537, [6]=511}; 
     short *ptr = (short*) a; 
@@ -13,7 +13,7 @@
     C. &ptr[8] == ptr+9; 
     D. ((int)(ptr+8)-(int)(&a[2]) < 8); 
     E. *(ptr+1) == *(a+2)
-**/
+*/
 
 #include <stdio.h>
 #include <limits.h>
@@ -35,7 +35,7 @@ int main() {
 }
 
 
-/**
+/*
 
 10101000    a[0]
 00000000    
@@ -79,4 +79,4 @@ C = FALSO, ricordati che si sta guardando l'indirizzo di memoria e non il loro c
 D = FALSO, la differenza in byte tra i due puntatori è 8
 E = VERO, *(ptr+1) == 0, *(a+2) == 0 quindi *(ptr+1) == *(a+2)
 
-**/
+*/
