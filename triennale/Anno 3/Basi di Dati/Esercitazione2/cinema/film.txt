@@ -1,0 +1,11 @@
+01	15	Crash	Drammatico	1996
+02	15	False Sembianze	Commedia	1988
+03	14	Pulp Fiction	Poliziesco	1994
+04	13	Breaking the waves	Drammatico	1996
+05	13	Dogville	Drammatico	2002
+06	12	Alamo	Western	1960
+07	18	Pericolosamente in tre	Spionaggio	1985
+08	19	Cavallo bianco, cuore nero	Drammatico	1989
+09	19	Nel giardino del bene e del male	Poliziesco	\N
+10	21	American Beauty	Drammatico	1999
+11	\N	Lo scambio	\N	2008
