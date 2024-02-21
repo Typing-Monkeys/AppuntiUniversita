@@ -1,0 +1,68 @@
+% A (minimal) template for problem sets and solutions using the exam document class
+
+\documentclass[answers, 12 pt]{exam}
+
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{setspace}
+\usepackage{amssymb}
+
+% Pacchetti matematica
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+
+% Commenti multiriga
+\usepackage{comment}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\renewcommand{\solutiontitle}
+{\noindent\textbf{\large Soluzione}\enspace} 
+
+% Sezioni in soluzione es
+\newcommand{\mysection}[1]% #1 = title
+{\stepcounter{section}%
+\setcounter{question}{0}%
+\fullwidth{\smallskip\textbf{\normalsize #1}}}
+
+% Mappe di karnaugh
+\usepackage{karnaugh-map}
+
+% Disegno del circuito - Usato sito draw.io
+% \usepackage{circuitikz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Segnalazione manuale di possibili errori
+\newcommand\myworries[1]{\textcolor{red}{#1}}
+
+%% \union - Example: \union{j \in J}{A_j}
+\newcommand{\union}[2]{\underset{#1}\bigcup #2}
+
+%% \inter - like \union, but with \bigcap
+\newcommand{\inter}[2]{\underset{#1}\bigcap #2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\title{Esercitazione Didattica degli Elaboratori}
+
+\begin{document}
+
+\input{frontmatter}
+\newpage
+
+\input{prerequisiti}
+\newpage
+
+\section{Esercizio}
+\input{example}
+
+\end{document}
