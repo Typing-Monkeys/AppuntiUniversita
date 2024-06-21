@@ -1,0 +1,125 @@
+\section{Un'altra caratterizzazione di NP: le macchine di Turing non deterministiche}
+
+Conosciamo già le macchine di Turing $M$ su un alfabeto $A$. Ricordiamone ancora
+la definizione. Una MdT $M$ su $A$ nell'insieme degli stati $Q$ può essere
+intesa come una sequenza di istruzioni (dettate dalla funzione di transizione
+$\delta$ di $M$ ) che riguardano possibili coppie $(q, a)$ con $q \in Q$ e con
+$a$ elemento di $A$, oppure simbolo muto $\star$, e associa a ciascuna di esse
+una terna univocamente determinata
+$$
+    \left(q^{\prime}, a^{\prime}, \pm 1\right)
+$$
+dove $q^{\prime} \in Q, a^{\prime} \in A \cup\{\star\},-1$ (spostarsi a
+sinistra), $+1$ (spostarsi a destra) sono comandi di spostamento.\\ Quel che
+conviene nuovamente ribadire è che, ad ogni data coppia $(a, q)$, o non è
+associata alcuna terna di istruzioni o, se una terna è associata, essa è unica.
+Ammettiamo adesso di far cadere quest'ultima condizione. Otteniamo allora il
+concetto di \textit{macchina di Turing non deterministica} $M$ su $A$ nell'insieme degli
+stati $Q$, da intendersi come insieme di 5 -uple
+$$
+    \left(q, a, q^{\prime}, a^{\prime}, \pm 1\right)
+$$
+$\operatorname{con} q, q^{\prime} \in Q, a, a^{\prime} A \cup\{\star\}, \pm 1$
+come sopra. Ne abbiamo già parlato nella prima parte. Sottolineiamo ancora che
+la novità è che ad una data coppia $(q, a)$ possono corrispondere più possibili
+istruzioni tra le quali scegliere quella da eseguire. In effetti una MdT non
+deterministica $M$ su $A$ può talora svolgere sullo stesso input più
+computazioni, anche di esito opposto.\\ Ovviamente non è vietato, ed è anzi
+ammesso, che la MdT $M$ abbia al più una istruzione su ogni coppia. Così le
+"vecchie" macchine di Turing, corrispondenti a questo comportamento, rientrano
+tra quelle non deterministiche ora introdotte. Per distinguere il loro preciso
+rigore, le chiameremo \textit{macchine di Turing deterministiche}. Occorre però
+accogliere con molta attenzione questa terminologia. Le MdT deterministiche non
+sono quelle che non sono non deterministiche, formano anzi una sottoclasse della
+classe di tutte le macchine di Turing non deterministiche, caratterizzata,
+appunto, dalla condizione che ogni possibile coppia $(q, a)$ ammette al più una
+terna di istruzioni che la riguardano.\\
+È anche da dire che, come già mostrato nella prima parte del libro, ogni MdT non
+deterministica $M$ su $A$ si può accompagnare con una MdT $M^{\prime}$
+deterministica su $A$ (eventualmente in un maggior numero di stati) con la
+seguente proprietà: per ogni $w \in A^{\star}$,
+
+$$
+    M^{\prime} \text { converge su } w
+$$
+
+se e solo se
+
+\begin{center}
+    esiste una computazione convergente di $M$ su $w$.
+\end{center}
+
+Sostanzialmente, $M^{\prime}$ segue in parallelo tutte le possibili computazioni
+di $M$ su $w$, accompagnandole passo per passo, e si arresta non appena una di
+esse si arresta. Scrivere le istruzioni dettagliate di $M^{\prime}$ è esercizio
+pesante, ma possibile. Ovviamente i tempi di lavoro di $M^{\prime}$ sono
+destinati ad essere più lunghi di quelli di $M$.\\
+Possiamo ora dare una nuova caratterizzazione di $N P$, riferita proprio alle
+MdT non deterministiche. In questo contesto, la caratterizzazione richiama il
+modo in cui $P$ è definito (tramite le MdT deterministiche).
+
+\paragraph{Teorema 8.3.1} \textit{Sia $S$ un insieme di parole su un alfabeto finito A.
+    Allora $S \in$ $N P$ se e solo se ci sono una $M d T$ non deterministica $M$ su
+    $A$ e un polinomio a coefficienti interi (e valori positivi) $q_S$, tali che, per
+    ogni $w \in A^{\star}$,}
+\begin{itemize}
+    \item \textit{quando $w \in S$, c'è almeno una computazione di $M$ su w che converge
+              impiegando al più $q_S(l(w))$ passi;}
+    \item \textit{quando $w \notin S$, nessuna computazione di $M$ su w converge.}
+\end{itemize}
+\begin{proof}
+    Sia dapprima $S \in N P$. Allora esistono, in base alla definizione che
+    conosciamo, una MdT deterministica $M_S$ su $A$ e due polinomi $p_S, t_S$
+    tali che, per ogni $w \in A^{\star}$,
+    \begin{itemize}
+        \item $w \in S$ se e solo se esiste $y \in A^*$ per cui $l(y) \leq
+                  p_S(l(w))$ e $M_S$ converge su $(w, y)$;
+        \item su ogni possibile input, $M_S$ diverge oppure converge in tempo al
+              più polinomiale limitato da $t_S$ rispetto alla lunghezza dell'input
+              stesso.
+    \end{itemize}
+
+    Costruiamo allora una MdT non deterministica $M$ su $A$ come segue: per ogni
+    $w \in A^*$,
+    \begin{itemize}
+        \item $M$ scrive prima tutte le possibili stringhe $y \operatorname{con}
+                  l(y) \leq p_S(l(w))$,
+        \item per ogni $y$ $M$ simula poi $M_S$ su $(w, y)$.
+    \end{itemize}
+
+    Il non determinismo deriva dal fatto che $M$ svolge più possibili
+    computazioni, una per ogni testimone $y$. Comunque è chiaro che un elemento
+    $w \in A^{\star}$ sta in $S$
+    se e solo se, per un $y$ opportuno, c'è una computazione di $M$ su $w$ che
+    converge, impiegando al più $t_S\left(l(w)+p_S(l(w))\right.$ passi.\\
+    Viceversa, ammettiamo che esistano $M, q_S$ come enunciato. Per $w \in
+        A^{\star}, M$ opera su $w$ come segue: se $w \in S$, c'è almeno una
+    computazione di $M$ su $w$ che converge in al più $q_S(l(w))$ passi;
+    altrimenti, per $w \notin S$, ogni computazione di $M$ diverge. Ricordiamo
+    poi, dalla prima parte del libro, che ogni computazione di una MdT su un
+    assegnato input può essere opportunamente codificata da un intero positivo,
+    o anche da una parola $y$ su $A$. Questo si applica alle computazioni di $M$
+    su una certa $w$, anche a quelle di lunghezza $\leq q_S(l(w))$. La lunghezza
+    $l(y)$ di $y$ può essere poi opportunamente limitata da quella di $w$ e dal
+    numero di passi $q_S(l(w))$ della computazione corrispondente. Possiamo
+    allora usare le codifiche $y$ delle computazioni di $M$ di lunghezza $\leq
+        q_S(l(w))$ su una generica $w$ per organizzare il seguente algoritmo
+    deterministico $M_S$. Data $w \in A^{\star}$, consideriamo le coppie $(w,
+        y)$ in $A^{\star}$ con $y$ come sopra e le proponiamo come input. La MdT
+    $M_S$ si comporta come segue:
+    \begin{itemize}
+        \item se $M$ converge almeno una volta su $w$ in al più $q_S(l(w))$
+              passi, e $y$ è la codifica di una tale computazione, $M_S$ converge su
+              $(w, y)$;
+        \item altrimenti, $M_S$ diverge su $(w, y)$.
+    \end{itemize}
+    È esercizio di pazienza scrivere in dettaglio la definizione di $M_S$.
+    Risulta comunque chiaro che $w \in S$ se e solo se c'è $y \in A^{\star}$
+    tale che $M_S$ converge su $(w, y)$. Inoltre la lunghezza dei testimoni $y$
+    dipende polinomialmente, tramite $M$ e $q_S$, da quella di $w$. Infine il
+    tempo di lavoro di $M_S$ si può anch'esso limitare polinomialmente rispetto
+    a $l(w)$.
+\end{proof}
+
+Siccome le MdT deterministiche sono particolari MdT deterministiche, si ha dal
+precedente teorema una nuova conferma che $P \subseteq N P$.

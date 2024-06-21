@@ -1,0 +1,309 @@
+\section{La Macchina di Turing}
+
+La Macchina di Turing, qui abbreviata MdT, prende il nome dal matematico
+inglese Alan Turing, che la introdusse nel 1936 precedendo di almeno un decennio
+l'era del computer.
+È il primo dei modelli di calcolo che vogliamo trattare.
+L'idea di Turing è infatti
+quella di immaginare un semplice meccanismo astratto che riassuma e
+simuli tutte le potenzialità computazionali dell'uomo comune.
+Così Turing prende a esplicito
+modello l'"\textit{impiegato diligente}", che svolge con ordine e cura gli
+incarichi assegnatigli, ma non fa niente di più:
+all'ora stabilita timbra il cartellino e torna a casa.
+Vediamo come la MdT traduce questo comportamento.
+Da un punto di vista fisico la MdT può essere pensata come composta da una unità
+di controllo a stati finiti, un nastro di lunghezza infinita e una testina di
+lettura e scrittura, che permette la comunicazione tra controllo e nastro.
+Il nastro è infinito e suddiviso in celle (anche chiamate quadri).
+Ogni cella è in
+grado di memorizzare un simbolo di un certo alfabeto $A = \{a_0, a_1, ..., a_n,\}$,
+oppure un simbolo "bianco" $*$ che denota l'assenza di scrittura in una cella.
+Il nastro contiene solo un numero finito di simboli di $A$;
+tutte le altre celle contengono comunque il simbolo bianco $*$.
+La testina di lettura e scrittura permette all'unità di
+controllo di leggere e scrivere un simbolo per volta dal nastro,
+quindi a ogni istante la testina può indicare una sola cella del nastro
+(e leggere o scrivere il simbolo che la riguarda).
+L'unità di controllo, oltre ad avere gli organi meccanici per lo
+spostamento del nastro e della testina, contiene il programma secondo cui verrà
+eseguito il calcolo e mantiene lo stato della macchina.
+L'insieme di possibili stati della macchina è un insieme finito
+$Q = \{q_0, q_1, ..., q_m\}$.
+Se vogliamo riprendere il paragone con l'impiegato diligente, $A$
+rappresenta l'insieme di lettere con cui egli legge la domanda di partenza e
+svolge i suoi calcoli successivi;
+gli stati di $Q$ corrispondono invece alle possibilità che l'impiegato ha
+di scrivere la stessa lettera in più modi distinti, sottolineandola, o
+evidenziandola, o colorandola per darle maggiore risalto.
+La computazione della MdT avviene per passi discreti. Si concorda che, all'avvio
+di ogni sua computazione, la macchina si trovi in uno stato iniziale prefissato
+$q_0$.
+Ad ogni passo l'unità di controllo prende atto dello stato in cui si trova e dal
+simbolo contenuto nella cella che la testina indica, e di conseguenza esegue le
+operazioni sotto elencate:
+
+\begin{itemize}
+    \item rivede il suo stato;
+    \item scrive un simbolo nella cella indicata dalla testina, sostituendo il
+          simbolo esistente (ricordiamo che tra i simboli ammessi c'è anche $*$);
+    \item sposta la testina di una posizione a sinistra o a destra.
+\end{itemize}
+
+Il nuovo stato assunto dall'unità di controllo, il simbolo da scrivere sulla cella
+indicata dalla testina e lo spostamento della testina a sinistra o a destra sono
+determinati dal programma della MdT, che stabilisce il comportamento della macchina
+stessa. Il programma di una MdT può quindi essere pensato come un insieme
+di quintuple della forma $(q, a, q', a', x)$, dove $q$ indica lo stato dell'unità
+di controllo, $a$ il simbolo nella cella indicata dalla testina mentre $q', a' , x$
+specificano l'azione che la MdT deve intraprendere:
+in dettaglio $q'$ rappresenta il nuovo stato
+dell'unità di controllo, $a'$ il simbolo da scrivere nella cella esaminata
+dalla testina e $x = \pm 1$ lo spostamento della testina: una posizione a sinistra
+se $x = -1$, a destra se $x = +1$. $+1$ sarà talora denotato semplicemente con $1$
+nel seguito.
+Ovviamente ogni singola MdT si riconosce, non tanto dal suo aspetto esteriore di
+nastri, celle e testine, quanto proprio da queste quintuple, e cioè dal programma
+che le si richiede di svolgere e dalle istruzioni che esso prevede,
+tutte ridotte a
+semplici ordini di cambiamento di stato, di scrittura e di spostamento: così Turing
+schematizzava il comportamento della mente dell'impiegato diligente,
+sintetizzandone le capacità operative minime, e secondo questo modello si
+prevede di
+riconoscere linguaggi o computare funzioni.
+Notiamo poi che un impiegato diligente esegue ordinatamente le sue istruzioni
+finché ne ha e purché non ne abbia troppe tra loro in concorrenza. Nel primo caso,
+quando gli ordini mancano, l'impiegato si ferma e ritiene concluso il suo lavoro;
+nel secondo, invece, resta nell'imbarazzo della scelta: responsabilità che non si
+può scaricare sulle sue spalle.
+È dunque importante che le istruzioni relative ad una coppia $(q, a)$,
+quando esistono, siano univoche. Si può ammettere che manchino, non che si
+moltiplichino. Il
+passaggio da $(q, a)$ alla corrispondente terna $(q', a', x)$ deve essere
+assolutamente deterministico e lontano da ogni ambiguità.
+Il programma di una MdT può essere descritto mediante una tabella a righe e
+colonne, la cosiddetta matrice funzionale; le righe corrispondono ai possibili
+stati $q$ della macchina mentre le colonne corrispondono ai possibili simboli $a$
+dell'alfabeto (incluso $*$). All'incrocio di ciascuna coppia $q$ e $a$ si pone
+l'istruzione che
+deve essere eseguita dalla macchina quando l'unità di controllo si trova nello
+stato $q$ e la testina legge il simbolo $a$: la terna che descrive in che stato
+entrare, che
+cosa scrivere, dove spostarsi. È ammesso che una casella della matrice funzionale
+sia bianca. In tal caso, si conviene che la macchina non ha azioni da compiere e
+quindi termina il calcolo.
+La matrice funzionale della macchina rappresenta una specie di tabella in cui
+sono concentrate tutte le istruzioni: l'impiegato diligente esegue il suo lavoro
+applicandola pedissequamente.
+Ma è tempo di dare una definizione formalmente rigorosa delle MdT, che ne
+riassuma i caratteri essenziali, l'alfabeto, gli stati, le istruzioni.
+Possiamo allora dire:
+
+\paragraph{Definizione.}
+Una Macchina di Turing $M$ è una quadrupla $(Q, A, \delta, q_0)$, dove:
+
+\begin{itemize}
+    \item $Q$ è un insieme finito di stati;
+    \item $A$ è un alfabeto, cui si aggiunge il simbolo bianco $*$;
+    \item $\delta$ è una funzione da $Q \times (A \cup \{*\})$ a
+          $Q \times (A \cup \{*\}) \times \{ -1, +1\}$: $\delta$ è chiamata
+          \textit{funzione di transizione}, e gli elementi $(q, a, q', a', x)$
+          di $\delta$ sono chiamati \textit{regole
+              di transizione} o \textit{istruzioni} di $M$;
+    \item $q_0 \in Q$ è lo stato iniziale.
+\end{itemize}
+
+Come già sottolineato, l'informazione cruciale su una MdT è quella fornita dalla
+funzione di transizione $\delta$, quella che descrive il programma delle istruzioni.
+È $\delta$ che regola il comportamento di $M$.
+Così, se $M$ si trova nello stato $q \in Q$, la
+testina legge il simbolo $a \in A \cup \{*\}$ e $\delta(q, a) = (q', a', x)$,
+allora $M$ si sposta
+nello stato $q'$, il simbolo $a'$ sostituisce $a$ nella cella in esame e la
+testina si sposta
+di una posizione a sinistra se $x = -1$, o a destra se $x = +1$. Se invece $M$ si
+trova nello stato $q \in Q$, la testina legge il simbolo $a \in A \cup \{*\}$ ma
+$\delta(q, a)$ non
+è definito, allora $M$ si arresta. In questo senso, la matrice sopra descritta
+altro
+non è che il grafico di $\delta$. Spesso, quando chiaro dal contesto,
+identificheremo una
+macchina di Turing $M$ con la sua funzione di transizione $\delta$.
+L'istruzione di $\delta$ che
+genera la terna $(q', a', x)$ da $(q, a)$ si scriverà talora
+
+\[
+    (q, a) \xrightarrow{ \ \delta \ }  (q', a', x)
+\]
+
+invece che $\delta (q, a) = (q', a' x)$ o $(q, a, q', a', x) \in \delta$;
+qualche volta, quando non ci
+sono rischi di ambiguità, ometteremo $\delta$ e scriveremo semplicemente
+
+\[
+    (q, a) \rightarrow (q', a', x).
+\]
+
+Una MdT, così come l'abbiamo appena definita, viene anche detta \textit{deterministica},
+a sottolineare che ogni tripla $(q', a', x)$, se esiste, è unica e univocamente
+determinata dalla coppia $(q, a)$.
+Tra qualche paragrafo incontreremo anche MdT non
+deterministiche e ne spiegheremo le differenze rispetto a quanto appena descritto.
+Torniamo adesso ad una descrizione informale del modo in cui una MdT esegue le
+sue computazioni a partire da un dato input e restituisce il relativo output.
+Ci è utile introdurre anche il concetto di configurazione istantanea di una MdT:
+una sorta
+di "fotografia" che ritrae la macchina ad un dato istante di lavoro,
+illustrandone lo
+stato, il contenuto del nastro e la posizione della testina.
+Poichè il nastro di una MdT è sempre vuoto, salvo che per un numero finito di celle,
+è possibile riassumerne il contenuto con una stringa finita di simboli e fornire
+la descrizione istantanea di una MdT con una quadrupla del tipo $(\xi, q, a, \eta)$,
+dove $q$ rappresenta lo stato della macchina all'istante in considerazione,
+$a$ è il simbolo in lettura, $\xi \in (A \cup \{*\})^*$ è la stringa di simboli a
+sinistra del simbolo in lettura ed
+$\eta \in (A \cup \{*\})^*$ è la stringa di simboli a destra del simbolo in lettura
+prima che il nastro diventi definitivamente bianco. Per esempio,
+per $A = \{1\}$, $(11, q_0 , 1, \lambda)$ ci
+dice che la macchina esamina una cella con $1$ nello stato $q_0$, che il nastro è
+bianco
+a destra della cella considerata, contiene $11$ e poi diventa bianco a sinistra.
+Poniamo adesso:
+
+\paragraph{Definizione.}
+Una configurazione istantanea di una Macchina di Turing
+$M =(Q, A, \delta, q_0)$ è un elemento dell'insieme:
+$(A \in \{*\})^* \times Q \times (A \cup \{*\}) \times (A \cup \{*\})^*$.\\
+
+Riepiloghiamo allora come avviene una computazione di una macchina $M$ su una
+stringa di input $w \in A^*$.
+
+\begin{itemize}
+    \item Al passo iniziale $0$, $M$ esamina una sequenza $w$ scritta da sinistra
+          verso destra sul nastro di input: la testina indica il primo carattere
+          $a_0$ di $w$ e lo stato interno della macchina è quello iniziale $q_0$.
+          Questa configurazione è detta
+          \textit{configurazione iniziale} su $w$.
+          Se $w = a_0w'$ , la 4-upla che la rappresenta è
+          $(\lambda, q_0, a_0, w')$.
+    \item Ammettiamo che al passo $i$ della computazione la macchina si trovi
+          nella
+          configurazione $C_i = (\xi, q, a, \eta)$.
+          In base alla funzione $\delta$, se esiste una regola di transizione
+          $(q, a) \xrightarrow{ \ \delta \ }  (q', a', x)$,
+          allora la macchina passa nella nuova configurazione $C_{i+1}$ derivata
+          da $C_i$ secondo questa istruzione. Se invece $\delta(q, a)$
+          non è definita $M$ si arresta.
+          Per esempio, se $C_i$ è come sopra
+          $(11, q_0, 1, \lambda)$ e
+          $(q_0, 1) \xrightarrow{ \ \delta \ }  (q_1, 1, 1)$, si ha
+          $C_{i+1} = (111, q_1, *, \lambda)$; se invece
+          $(q_0, 1) \xrightarrow{ \ \delta \ }  (q_1, 1, -1)$,
+          allora $C{i+1}= (1, q_1, 1, 1)$.
+    \item Se $M$ si ferma dopo un numero $n$ finito di passi,
+          allora si dice che $M$ \textit{converge}
+          sull'input $w$ (in notazione, $M \downarrow w$);
+          $C_n$ si chiama \textit{configurazione finale}, la
+          sequenza di configurazioni $C_0, C_1, ..., C_n$ è una computazione
+          completa (finita)
+          di $M$ sull'input $w$ e la stringa contenuta sul nastro di input è l'
+          output di tale computazione.
+          Per esempio, se $C_n = (\xi, q, a, \eta)$, allora $\xi a \eta$ è l'output.
+    \item Se $M$ non si arresta mai, allora si dice che $M$ \textit{diverge}
+          sull'input $w$ e si scrive
+          $M \uparrow w$.
+\end{itemize}
+
+Per formalizzare rigorosamente questo comportamento computazionale possiamo
+introdurre una relazione binaria $\vdash_M$ tra le configurazioni di $M$.
+Sostanzialmente $\vdash_M$ associa ad ogni configurazione di $M$ quella che la
+segue dopo l'esecuzione dell'istruzione di $M$ corrispondente.
+Per esempio, se $C$ è, come sopra, $(11, q_0, 1, \lambda)$, $C'$ è
+$(111, q_1, *, \lambda)$ e in $M$ si ha l'istruzione
+$(q_0, 1) \xrightarrow{ \ \delta \ } (q_1, 1 , 1)$, si
+pone $C \vdash_M C'$.
+Il lettore potrà scrivere per esercizio, se ha voglia e pazienza,
+tutti i dettagli della definizione di $\vdash_M$.
+Se poi per una data $C$ non esiste alcuna configurazione $C$ tale che
+$C \vdash_M C'$,
+allora scriveremo $C \nvdash_M$.\\
+
+Sia \(\vdash^*_M\) la chiusura riflessiva e transitiva di \(\vdash_M\); vale dire,
+per \(C, C'\) configurazioni, \(C \vdash^*_M C'\) significa che esistono un
+naturale $n$ e configurazioni $C_0, C_1, \ldots$ $C_n$, tali che
+$C = C_0 \vdash_M C_1 \vdash_M \ldots \vdash_M C_n = C^{\prime}$.
+Chiamiamo poi \textit{computazione} di una MdT $M$ su un input $w$ una sequenza
+(eventualmente infinita) di configurazioni
+
+\[
+    C_0 \vdash_M C_1 \vdash_M \ldots \vdash_M C_i \vdash_M \ldots
+\]
+
+tale che $C_0$ è una configurazione iniziale su $w$. Chiaramente
+$M \downarrow w$ se questa computazione è finita
+
+\[
+    C_0 \vdash_M C_1 \vdash_M \ldots \vdash_M C_n
+\]
+
+e inoltre $C_n \nvdash_M$; $C_n$ è la configurazione finale di $M$ su $w$.
+Altrimenti, se $M \uparrow w$, la computazione non ha mai fine.
+
+\paragraph{Esempio.}
+Si consideri l'alfabeto $A = \{\star, 1\}$ composto dal solo 1 e dal simbolo
+bianco $\star$. Definiamo una MdT $M$ che, presa come input una successione di
+1 consecutivi, restituisce come output tale successione aumentata di un elemento.
+In dettaglio $M$ dispone di due stati interni, lo stato iniziale $q_0$ e uno stato
+di "arresto" $q_1$, e la funzione di transizione $\delta$ è composta dalle
+istruzioni
+
+\[
+    \left(q_0, 1\right) \rightarrow\left(q_0, 1,+1\right), \quad\left(q_0, \star\right) \rightarrow\left(q_1, 1,+1\right) .
+\]
+
+Secondo le convenzioni stabilite, alla partenza $M$ ha lo stato $q_0$ e la testina
+indica il primo simbolo a sinistra dell'input.
+Fintanto che la testina trova celle segnate con 1, allora, in virtù della prima
+regola di transizione, $M$ scrive 1 sulla cella osservata
+(cioè il simbolo letto viene lasciato inalterato) e la testina si sposta a
+destra di una cella, mantenendo lo stato $q_0$.
+Quando la testina arriva ad una cella vuota, $M$ passa alla seconda regola di
+transizione, in virtù della quale la macchina segna con 1 la cella osservata,
+sposta la testina a destra (la scelta della direzione di spostamento è in questo
+caso ininfluente) e assume lo stato $q_1$, per il quale non è definita nessuna
+regola di transizione e, quindi, la macchina si arresta.
+
+\paragraph{Esempio.}
+Consideriamo adesso una MdT che ha lo stesso alfabeto $A = {1, \star}$
+dell'esempio precedente, ancora due stati $q_0, q_1$, ma una sola istruzione
+$(q_0, \star) \rightarrow (q_0, \star, +1)$. Ammettiamo che la macchina abbia
+come input il nastro bianco, e dunque si trovi a leggere $\star$ nello
+stato $q_0$ al momento in cui la computazione si avvia. È facile verificare che
+la macchina scivola verso destra continuando a ristampare $\star$ su ogni nuova
+cella considerata e a rimanere nello stato $q_0$. Quindi la computazione diverge.\\
+
+In conclusione, la macchina di Turing costituisce un soddisfacente modello di
+calcolo, e comunque corrisponde al decalogo fissato nel Capitolo 1. Infatti si ha
+quanto segue.
+
+\begin{itemize}
+    \item La funzione di transizione di una MdT costituisce un insieme finito di
+          istruzioni.
+    \item La MdT così descritta è anche l'agente di calcolo che esegue le istruzioni
+          di cui al punto 1).
+    \item La MdT può utilizzare il nastro per memorizzare i risultati intermedi.
+    \item La MdT opera in modo discreto.
+    \item La MdT opera in modo deterministico, con istruzioni univocamente
+          specificate.
+    \item Non esiste nessuna limitazione sulla lunghezza delle stringhe di ingresso,
+          in quanto si assume che il nastro è illimitato.
+    \item Il nastro della MdT costituisce, appunto, una memoria di capacità non
+          limitata.
+    \item Le operazioni che la MdT può eseguire sono molto semplici, quindi di
+          complessità finita.
+    \item Non esiste nessun limite al numero delle istruzioni eseguite durante una
+          computazione: infatti, le istruzioni sono di numero finito, ma è ammessa la
+          possibilità di usare più volte la stessa istruzione.
+    \item Esiste la possibilità di computazioni infinite, come l'esempio precedente
+          ci mostra.
+\end{itemize}

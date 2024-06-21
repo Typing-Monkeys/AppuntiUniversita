@@ -1,0 +1,270 @@
+\section{Introduzione}
+
+Nella prima parte degli appunti abbiamo proposto ed approfondito la definizione
+astratta del concetto di computabilità fornita da Church, Turing e altri. Sulla
+sua base si possono finalmente distinguere i problemi $S$ che sono computabili
+da quelli che non lo sono. Ma, anche quando $S$ corrisponde al primo caso, può
+capitare che i migliori algoritmi che lo risolvono richiedano costi
+irraggiungibili nella pratica: impiegano tempi proibitivi, o necessitano di
+risorse di memoria ed energia che nessun calcolatore può assicurare. Questi
+problemi $S$, pur computabili in teoria, non lo sono in realtà. Ma allora la
+nozione di computabilità affermata dalla tesi di Church-Turing va forse
+rimeditata e riveduta in riferimento ai costi effettivi che le computazioni
+richiedono. Concentriamo dunque, in questa seconda parte degli appunti, la nostra
+attenzione su quei problemi che possono comunque risolversi con opportuni
+programmi, e vogliamo misurare quali sono le risorse minime richieste da questa
+soluzione; valutare dunque l'efficienza dei relativi algoritmi e il costo delle
+loro computazioni. L'attenzione a questo argomento si è risvegliata in modo
+naturale con l'avvento e lo sviluppo dei calcolatori. Infatti gli strumenti
+moderni e la loro potenza computazionale permettono di gestire situazioni sempre
+più difficili e affrontare input sempre più complicati. Nasce allora l'esigenza
+di trovare programmi rapidi e poco costosi per trattare queste situazioni. Del
+resto è facile osservare, come l'uso di tecniche appropriate possa produrre
+significativi miglioramenti a questo proposito. Citiamo alcuni esempi abbastanza
+intuitivi, attinti dalla Matematica elementare.
+
+\paragraph{Esempi}
+
+\begin{enumerate}
+    \item Ammettiamo di dover
+          calcolare il valore di un dato polinomio
+          $$
+              x^7+5 x^6+2 x^4+12 x^3+5 x^2+2 x+21
+          $$
+          per certi input $x$. Un semplice controllo mostra come la computazione
+          richiede, se il polinomio è proposto nella forma appena descritta,
+          \begin{itemize}
+              \item 6 moltiplicazioni (per ottenere $x^7$),
+              \item 6 moltiplicazioni $\left(\operatorname{per} 5 x^6\right)$,
+              \item 4 moltiplicazioni (per $\left.2 x^4\right)$,
+              \item 3 moltiplicazioni (per $\left.12 x^3\right)$,
+              \item 2 moltiplicazioni (per $5 x^2$ ),
+              \item 1 moltiplicazioni (per $2 x$ ),
+          \end{itemize}
+
+          (dunque complessivamente 22 moltiplicazioni) e 6 addizioni. Se però
+          riscriviamo il polinomio come
+          $$
+              \left(\left(\left(\left((x+5) x^2+2\right) x+12\right) x+5\right) x+2\right) x+21
+          $$
+          ci vengono richieste ancora 6 addizioni, ma solamente 5
+          moltiplicazioni; il risparmio è ovvio.
+    \item Ammettiamo di dover
+          calcolare il massimo comun divisore $(a, b)$ di due interi positivi
+          $a, b$. Immaginiamo naturalmente che $a$ e $b$ siano molto grandi, e
+          si compongano di molte cifre rispetto alla tradizionale base 10 . Il
+          metodo più familiare, quello che si impara sin dalle scuole medie, è
+          \begin{itemize}
+
+              \item decomporre $a, b$ in fattori primi,
+              \item ottenere $(a, b)$ come prodotto
+
+          \end{itemize}
+          dei fattori primi occorrenti in entrambe le decomposizioni, presi con
+          il loro esponente minimo.
+
+          Il procedimento non è tuttavia facile da svolgere per $a, b$ grandi:
+          infatti, non sono attualmente conosciuti algoritmi soddisfacentemente
+          rapidi di decomposizione in fattori primi. Funziona invece molto
+          meglio l'algoritmo delle divisioni successive di Euclide, che
+          ricapitoliamo brevemente. Per $a \geq b$,
+
+          \begin{itemize}
+
+              \item dividiamo $a$ per $b$, con
+                    resto $r_0$ e quoziente $q_0, a=b q_0+r_0, r_0<b$,
+              \item poi $b$ per $r_0,
+                        b=r_0 q_1+r_1, r_1<r_0$,
+              \item ancora $r_0$ per $r_1, r_0=r_1 q_2+r_2,
+                        r_2<r_1, \ldots$
+          \end{itemize}
+
+          finché non si trova, dopo $s$ passi, un resto nullo
+          (come è lecito attendersi, visto che i naturali non possono ammettere
+          una successione decrescente infinita $b>$
+          $\left.r_0>r_1>r_2>\cdots\right)$
+          $$
+              r_{s-2}=r_{s-1} q_s, r_s=0 .
+          $$
+
+          Ovviamente l'ultimo resto non nullo $r_{s-1}$ è il massimo comun
+          divisore di $r_{s-2}$ e $r_{s-1}$ e non è difficile controllare, osservando
+          tutte le uguaglianze corrispondenti alle varie divisioni, che $r_{s-1}$ è anche
+          il massimo comun denominatore richiesto $(a, b)$. Il suo calcolo è costato un
+          numero di divisioni che è ovviamente molto minore di $b$ e si rivela comunque di
+          gran lunga preferibile all'approccio mediante decomposizione in fattori primi,
+          come vedremo in maggior dettaglio più tardi: lo si può svolgere in un numero di
+          passi approssimato in qualche senso dal quadrato del logaritmo in base 10 di
+          $a$.
+    \item In algebra lineare si imparano a risolvere sistemi di $m$ equazioni
+          lineari in $n$ incognite. Ammettiamo $m=n$ per semplicità. Per $n=2$,
+          consideriamo per esempio
+          $$
+              \left\{\begin{array}{l}
+                  2 x+3 y=5 \\
+                  x-y=0
+              \end{array}\right.
+          $$
+          Si fa allora riferimento alle due matrici associate al sistema, quella
+          incompleta e quella completa, rispettivamente
+          $$
+              A=\left(\begin{array}{cc}
+                      2 & 3  \\
+                      1 & -1
+                  \end{array}\right), \ A^{\prime}=\left(\begin{array}{ccc}
+                      2 & 3  & 5 \\
+                      1 & -1 & 0
+                  \end{array}\right)
+          $$
+          Possiamo risolvere il sistema calcolando il determinante di $A$
+          $$
+              \operatorname{det}\left(\begin{array}{cc}
+                      2 & 3  \\
+                      1 & -1
+                  \end{array}\right)=-2-3=-5
+          $$
+          Se questo è diverso da 0 (come nel nostro caso), il sistema ammette una e una
+          sola soluzione, che (per la regola di Cramer) è data da
+          $$
+              \begin{aligned}
+                   & x=\frac{1}{-5} \cdot \operatorname{det}\left(\begin{array}{cc}
+                                                                          5 & 3  \\
+                                                                          0 & -1
+                                                                      \end{array}\right)=\frac{-5}{-5}=1   \\
+                   & y=\frac{1}{-5} \cdot \operatorname{det}\left(\begin{array}{cc}
+                                                                          2 & 5 \\
+                                                                          1 & 0
+                                                                      \end{array}\right)=\frac{-5}{-5}=1 .
+              \end{aligned}
+          $$
+          È richiesto, dunque, il ripetuto calcolo di determinanti. Per $n=2$, è esercizio
+          semplice. Per $n$ molto grande, le cose si complicano. Infatti, sfogliando
+          $\mathrm{i}$ manuali di algebra lineare, si vede che il determinante di una
+          matrice $n \times n$ è la somma di $n$ ! addendi: per $n=2,2 !=2$ è valore
+          innocuo, ma per $n=10^2, 10^3, 10^{10}, \ldots$ sono da attendersi grosse
+          difficoltà. Ricordiamo infatti che, per $n \geq 4, n ! \geq 2^n$.
+          C'è comunque un altro metodo di risoluzione del sistema, che estende i
+          ben noti procedimenti di sostituzione, addizione e sottrazione e così
+          via, e fa riferimento al rango delle matrici $A, A^{\prime}$.
+          Riducendole in forma triangolare, si arriva alle matrici
+          $$
+              \left.\left(\begin{array}{ll}
+                      2 & 3 \\
+                      0 & 5
+                  \end{array}\right),\left(\begin{array}{ccc}
+                      2 & 3 & 5 \\
+                      0 & 5 & 5
+                  \end{array}\right) \text { (anzi }\left(\begin{array}{ccc}
+                      2 & 3 & 5 \\
+                      0 & 1 & 1
+                  \end{array}\right)\right)
+          $$
+          che hanno lo stesso rango 2. Si deduce che ci sono soluzioni, le quali
+          coincidono con quelle del sistema
+          $$
+              \left\{\begin{array}{cc}
+                  2 x+3 y & =5 \\
+                  y       & =1
+              \end{array}\right.
+          $$
+          Facilmente si ottiene di nuovo $x=y=1$. Il numero delle computazioni richieste
+          dal procedimento si valuta approssimativamente in $n^3$. Per $n=2,2^3=8$ può
+          sembrare livello peggiore del precedente 2!. Lo stesso vale per $n=3,4$. Ma già
+          per $n=5, n^3=125$ e $n !=120$. Per $n \geq 6, n^3$ diviene molto
+          minore di $2^n$ e perciò di $n !$.
+\end{enumerate}
+
+Dunque gli esempi proposti mostrano quanto la scelta di una tecnica invece di
+un'altra possa incidere significativamente nella soluzione del problema. Vale la
+pena di approfondire la questione. Un discorso rigoroso richiede comunque che
+precisiamo:
+
+\begin{enumerate}
+    \item con quale criterio intendiamo misurare il costo delle
+          computazioni, quindi l'efficienza degli algoritmi e in definitiva la complessità
+          di un problema;
+    \item a quale modello astratto di computazione (una macchina di
+          Turing o qualcosa di più aggiornato) vogliamo fare riferimento.
+\end{enumerate}
+
+Si tratta di questioni delicate (soprattutto la prima), meritevoli di
+approfondimenti futuri. Anticipiamo comunque qualche riflessione.
+
+\begin{enumerate}
+    \item Ci sono
+          vari possibili parametri atti a determinare il livello di risorse necessarie per
+          risolvere un problema: tempo, memoria, spazio, energia,... tra loro collegati,
+          ma non direttamente dipendenti.
+    \item Come sappiamo, il modello della macchina di
+          Turing (che anche in questa seconda parte del testo continueremo sovente ad
+          abbreviare con MdT) è ancor oggi perfettamente adeguato quando si parla di
+          computabilità. I problemi che hanno algoritmo di soluzione sono ancora da
+          identificarsi con quelli decisi da macchine di Turing. Quando però l'accento si
+          sposta sulla ricerca di procedure efficienti di computazione (quale che sia il
+          criterio scelto per giudicare questa efficienza) si può dubitare che la MdT sia
+          ancora un modello aggiornato e che miglioramenti e perfezionamenti non siano
+          possibili in ragione di progressi tecnici, o anche dei criteri stessi di
+          efficienza.
+\end{enumerate}
+
+Così faremo riferimento in partenza al modello di Turing, ma ci riprometteremo
+di esplorare nuove prospettive nel seguito.\\
+
+C'è anche da stabilire quali sono i "problemi" che vogliamo considerare.
+Lavoriamo, al solito, su un dato alfabeto $A$, meglio se finito. A meno di
+codifiche standard, $A=\{0,1\}$ può essere il nostro punto di riferimento. $A^*$
+denota al solito l'insieme delle parole su $A$. Pensiamo allora a
+
+\begin{center}
+    (1) problemi
+    di decisione volti a considerare linguaggi $S \subseteq A^{\star}$ e a decidere,
+    per ogni parola $w$ su $A$, se $w \in S$ oppure no; l'input è dunque $w \in
+        A^{\star}$, l'output un $S I$ o un $N O$ (semmai codificati in un modo
+    opportuno).
+\end{center}
+
+Formalmente il nostro problema si identifica con il linguaggio $S$ inteso come
+insieme degli input $w$ per cui si ha output $SI$. Anzi, spesso nel seguito
+useremo "problema" proprio come sinonimo di "linguaggio". Questo contesto non
+sarà comunque tale da esaurire ogni possibile interesse. Possiamo infatti
+pensare a
+
+\begin{center}
+    (2) problemi di computazione: per $f$ funzione da $A^{\star}$ a
+    $A^{\star}$, eventualmente parziale, cioè ristretta a $S \subseteq A^{\star}$,
+    calcoliamo i valori di $f$; l'input è, nuovamente, $w \in$ $A^{\star}$ (semmai
+    $w$ nel dominio di $f$ ), l'output richiesto è $f(w)$.
+\end{center}
+
+
+
+Il panorama non si restringe qui, possiamo pensare a problemi di ottimizzazione,
+ricerca, e così via. Del resto, le distinzioni tra questi vari obiettivi non
+sono nette e distinte, matematicamente separate in modo rigoroso. Per
+semplicità, comunque, ci limiteremo nelle pagine future principalmente ad (1) e
+talora anche a (2). Possiamo inoltre immaginare di decidere, o computare,
+coppie, o terne, o sequenze finite di input. Ma opportune funzioni di codifica
+possono ridurre questi ambiti generalizzati al caso di una sola parola $w$.\\
+C'è
+un altro punto che vogliamo sottolineare in questa introduzione. Ci stiamo
+muovendo per determinare le risorse minime necessarie per risolvere un problema
+(e dunque per limitare inferiormente la sua difficoltà). Ci attendiamo quindi
+ragionevolmente
+
+\begin{center}
+    risultati di carattere prevalentemente negativo
+\end{center}
+atti a
+certificare che un particolare problema non si risolve senza impegnare una certa
+quantità di risorse, oppure anche
+
+\begin{center}
+    risultati di confronto
+\end{center}
+
+atti a comparare
+problemi di varia natura $\mathrm{e}$ a dichiarare che l'uno è almeno tanto
+difficile o dichiaratamente più difficile dell'altro; oppure a collegare
+procedure tese a risolvere lo stesso problema e, nuovamente, a ordinarle in
+ragione della loro efficienza. La complessità computazionale è volta
+principalmente a questi obiettivi.

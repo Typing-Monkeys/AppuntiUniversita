@@ -1,0 +1,156 @@
+\section{Numeri e Macchine}
+
+Adesso mostriamo che, per ogni alfabeto $A$, anche le Macchine di Turing che
+corrispondono ad $A$ formano un insieme che è numerabile, e cioè è in corrispondenza
+biunivoca con $\mathbb{N}$. Anzi, è possibile dare un esempio esplicito di tale biiezione.
+Vediamo come. Precisiamo anzitutto il contesto. Se $A$ è fissato, una MdT $M$ su $A$
+è determinata da
+
+\begin{itemize}
+    \item l'insieme $Q$ dei suoi stati,
+    \item la funzione di transizione $\delta$, con le
+          sue istruzioni
+\end{itemize}
+
+Possiamo convenire per semplicità di disporre a priori di un serbatoio infinito
+(numerabile) di stati
+
+\[
+    q_0, q_1, \ldots, q_n, \ldots
+\]
+
+da cui ogni $M$ estrae quegli $n+1$
+
+\[
+    q_0, q_1, \ldots, q_n, \ldots
+\]
+
+che le sono necessari per formare $Q$. Notiamo che il numero degli stati di $M$ è
+sempre finito, ma può essere arbitrariamente grande; quindi non possiamo porre
+limiti al serbatoio cui $M$ attinge e dobbiamo ammetterlo infinito. $M$ risulta allora
+determinata da
+
+\begin{itemize}
+    \item il numero $n + 1$ dei suoi stati,
+    \item la sua funzione di transizione.
+\end{itemize}
+
+Possiamo ora provare:
+
+\paragraph{Teorema 2.8.1} \textit{C'è una corrispondenza biunivoca effettiva tra le MdT su un
+    alfabeto $A$ e i numeri naturali.}\\
+
+\textit{Dimostrazione}. Poniamo anzitutto $A=\left\{a_1, \ldots, a_N\right\}$ con
+$a_1 \neq \cdots \neq a_N$. Procediamo in cinque passi consecutivi, in modo per certi
+versi analogo a quelloseguito per numerare simboli, stringhe e sequenze di stringhe
+su un alfabeto. Per la precisione numeriamo successivamente
+
+\begin{enumerate}
+    \item i simboli che compaiono nelle istruzioni delle $\operatorname{MdT}$ su $A$,
+    \item le istruzioni stesse,
+    \item le funzioni di transizione,
+    \item le MdT su $A$ e. finalmente,
+    \item costruiamo la biiezione richiesta tra MdT e numeri.
+\end{enumerate}
+Ecco i dettagli dei vari passi.
+\begin{enumerate}
+    \item Ricordiamo che i simboli che compaiono nelle istruzioni di una MdT su $A$
+          sono
+          \begin{itemize}
+              \item gli elementi $a_1, \ldots, a_N$ di $A$ e il simbolo bianco $*$;
+              \item stati tra $q_0, q_1, \ldots q_n, \ldots$
+              \item indici di spostamento $\pm 1$.
+          \end{itemize}
+          Li numeriamo con
+          una funzione $\sharp_0$ che opera come segue:
+          $$
+              \begin{array}{cccccccccccc}-1 & +1         &
+             \star            & a_1        & a_2        & \cdots     & a_N        & q_0    & q_1    & \cdots & q_N       & \cdots \\
+             \downarrow       & \downarrow & \downarrow & \downarrow & \downarrow & \cdots &
+             \downarrow       & \downarrow & \downarrow & \cdots     & \downarrow & \cdots                                        \\ 3 & 5 & 7
+                              & 9          & 11         & \cdots     & 2 N+7      & 2 N+9  & 2 N+11 & \cdots & 2 N+2 n+2 &
+             \cdots\end{array}
+          $$
+          Così i valori di $\sharp_0$ sono tutti dispari $\ge 3$; $\sharp_0$ è
+          iniettiva ed effettiva.
+    \item  Passiamo adesso alle istruzioni. Ciascuna di esse è una 5-upla
+          $\Omega=(q, a, q', a', x)$ dove $q, q^{\prime}$
+          sono tra $q_0, q_1, \ldots q_n, \ldots$, $a, a^{\prime}$ appartengono ad
+          $A \cup\{\star\}$, $x=\pm 1$. Definiamo una funzione $\sharp_1$ che
+          associa ad ogni $\Omega$ il numero naturale $\sharp_1(\Omega)$ in cui i
+          codici dei
+          cinque simboli componenti di $\Omega$ compaiono in ordine come esponenti
+          dei primi $2,3,5,7,11$
+          $$
+              \sharp_1(\Omega)=2^{\sharp_0(q)} 3^{\sharp_0(a)} 5^{\sharp_0\left(q^{\prime}\right)} 7^{\sharp_0\left(a^{\prime}\right)} 11^{\sharp_0(x)} .
+          $$
+          Si noti che i codici assegnati da $\sharp_1$ sono numeri pari che hanno gli
+          esponenti dispati o nulli nella loro decomposizione in fattori primi:
+          dunque, non si confondono con quelli di $\sharp_0$, che sono dispari. Anche
+          $\sharp_1$ è una funzione iniettiva, come conseguenza del teorema
+          fondamentale dell'aritmetica e dell'iniettività di $\sharp_0$; $\sharp_1$ è anche
+          effettiva.
+    \item A questo punto siamo in grado di associare un numero naturale anche ad ogni
+          funzione di transizione $\delta$. Supponiamo che $\delta$ si componga delle
+          quintuple $\Omega_1, \Omega_2, \ldots, \Omega_k$. Ordiniamo le componenti
+          delle 5-uple convenendo, per esempio,
+          \begin{itemize}
+              \item $q_0<q_1<q_2<\cdots<q_n<\cdots$ tra gli stati,
+              \item $\star<a_1<\cdots<a_N$ per l'alfabeto,
+              \item $-1 < + 1$ tra gli spostamenti.
+          \end{itemize}
+          Deduciamo su $\delta$ l'ordine lessicografico: cosi, per esempio,
+          $(q_0, a_1, q_1, a_2, 1)$ precede $(q_1, a_2, q_0, a_1,-1)$ perché
+          $q_0 < q_1$; $\left(q_1, a_1, q_0, a_1,-1\right)$ precede
+          $(q_1, a_2, q_0,a_0, 1)$ perché $a_1 < a_2$. Supponiamo che si
+          abbia per tal via $\Omega_1<\Omega_2<\cdots<\Omega_k$. Allora poniamo
+          $$
+              \sharp_2(\delta)=\prod_{1 \leq i \leq k} p_i^{\sharp_1\left(\Omega_i\right)}
+          $$
+          dove $p_i$ è, al solito, l'$i$-esimo numero primo. Otteniamo una funzione
+          iniettiva ed effettiva $\sharp_2$ che non confonde i suoi valori con quelli
+          di $\sharp_0$ o di $\sharp_1$ (grazie alle consuete argomentazioni).
+          Per questo motivo $\sharp_2$
+          non è suriettiva.
+    \item A questo punto ogni MdT $M$ su $A$ risulta determinata
+          da:
+          \begin{itemize}
+              \item il numero $n+1$ dei suoi stati,
+              \item il codice $\sharp_2(\delta)$ della sua funzione di transizione,
+          \end{itemize}
+
+          dunque da una coppia ordinata di naturali; anzi, tramite la bilezione $r$
+          di $\mathbb{N}^2$ su $\mathrm{N}$, risulta definita una funzione iniettiva
+          $\sharp$ da MdT a naturali, quella che associa a ogni $M$ I'immagine in $r$
+          della coppia di numeri che determina $M$.
+    \item $\sharp$ è effettiva e
+          iniettiva, ma non suriettiva perché neppure $\sharp_2$ fo è. Comunque
+          possiamo ordinare gli elementi dell'immagine di $\sharp$
+          $$
+              r_0, r_1, r_2, \ldots, r_j, \ldots \ (j \in \mathbb{N}) ;
+          $$
+          ogni $r_j$ corrisponde in $\sharp$ a un'unica $MdT$ su $A$, che denotiamo
+          $M_j$. Quindi $\sharp\left(M_j\right)=r_j$ per ogni $j$. Cosi anche le MdT
+          su $A$ risultano enumerate come
+          $$
+              M_0, M_1, M_2, \ldots, M_j, \ldots ;
+          $$
+          la funzione $j \mapsto M_j$ (per $j \in \mathbb{N}$) è la biiezione richiesta.\\
+          L'enumerazione delle MdT appena ottenuta implica immediatamente una enumerazione
+          anche delle funzioni calcolabili da MdT su un alfabeto $A$
+          $$
+              \begin{array}{cccccccc}0
+                             & 1          & 2      & 3          & 4      & \cdots & i & \ldots \\ \downarrow & \downarrow & \downarrow &
+                  \downarrow & \downarrow & \cdots & \downarrow & \cdots                       \\ \phi_0 & \phi_1 & \phi_2 &
+                  \phi_3     & \phi_4     & \cdots & \phi_1     & \ldots\end{array}
+          $$
+          dove la funzione $\phi_i$ denota la funzione calcolata dalla i-esima MdT
+          $M_i$ su $A$. Stavolta però l'enumerazione delle funzioni calcolabili può
+          non essere una corrispondenza biunivoca poichè più MdT possono computare
+          la stessa funzione. Nel seguito, quindi, parleremo per ogni alfabeto $A$
+          della $i$-esima MdT $M_i$ su $A$ e della $i$-esima funzione calcolabile $\phi_i$
+          (per intendere la funzione calcolata da $M_i$ ). Quando una funzione
+          $\phi_i$ è definita su un dato input $w$ (cioè $M_i$, converge sull'input $w$)
+          allora scriveremo $\phi_i(w) \downarrow$, altrimenti scriveremo
+          $\phi_i(w) \uparrow$.
+\end{enumerate}

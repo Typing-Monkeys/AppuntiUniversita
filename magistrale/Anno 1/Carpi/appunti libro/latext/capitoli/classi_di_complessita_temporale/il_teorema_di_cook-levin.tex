@@ -1,0 +1,291 @@
+\section{II teorema di Cook-Levin}
+
+I concetti di riduzione $\leq_p$ e di $N P$-completezza furono introdotti nel
+1971 da Cook e in modo indipendente negli stessi anni da Levin. Cook e Levin
+proposero anche i primi esempi naturali di problemi $N P$-completi (in aggiunta
+al troppo artificiale $\mathcal{U}$ ). $S A T$ è il primissimo di questi esempi,
+capostipite di moltissimi altri. Il presente paragrafo è dedicato proprio alla
+dimostrazione del teorema di Cook e Levin che afferma la $N P$-completezza di $S
+    A T$.
+
+\paragraph{Teorema (Cook-Levin) 8.6.1} \textit{SAT è $NP$-completo.}
+
+\begin{proof}
+    Già sappiamo che $S A T \in N P$. Dobbiamo allora mostrare che $S A T$ è $N
+        P$-arduo, cioè che ogni problema $S^{\prime} \in N P$ si riduce in tempo
+    polinomiale a $S A T, S^{\prime} \leq_p S A T:$ esiste dunque una
+    funzione $f$ che traduce in tempo polinomiale parole $w$ sull'alfabeto
+    $A^{\prime}$ di $S^{\prime}$ in insiemi $f(w)$ di clausole dell'alfabeto
+    di $S A T$ in modo tale che, per ogni $w \in A^{\prime \star}$,
+
+    $$
+        w \in S^{\prime} \text{ se e solo se } f(w) \in S A T
+    $$
+
+    Consideriamo $S^{\prime} \in N P$; esistono una MdT non deterministica
+    $M^{\prime}$ su $A^{\prime}$ e un polinomio $p^{\prime}$ a coefficienti
+    interi tali che, per ogni $w \in A^{\prime *}$,
+    \begin{itemize}
+        \item se $w \in S^{\prime}$, allora c'è almeno una computazione di
+              $M^{\prime}$ su $w$ che converge e impiega al più
+              $p^{\prime}(l(w))$ passi;
+        \item se $w \notin S^{\prime}$, ogni computazione di $M^{\prime}$ su $w$
+              diverge.
+    \end{itemize}
+    La strategia che seguiremo sarà quella di scrivere, per ogni $w$, un insieme
+    di clausole $f(w)$ che cerca proprio di seguire il lavoro di $M^{\prime}$ su
+    $w$ e, in particolare, è soddisfatto da qualche valutazione $v$ se e solo se
+    $w \in S$, cioè se e solo se qualche computazione di $M^{\prime}$ su $w$ ha
+    buon esito. Per questo converrà prima fissare opportunamente il contesto e
+    la notazione.\\
+    Possiamo anzitutto convenire che $A^{\prime}$ si componga dei simboli $a_1,
+        \ldots, a_m$ e che $a_0$ rappresenti il simbolo $\star$. Possiamo poi
+    supporre che la MdT $M^{\prime}$ ammetta gli stati $q_0, \ldots, q_h$ e,
+    in particolare, si arresti se e solo se entra nello stato $q_h$.
+    Consideriamo adesso una parola $w$ su $A^{\prime}$. Sia $n=l(w)$.
+    Fissiamo poi una computazione di $M^{\prime}$ su $w$; per $w \in
+        S^{\prime}$, scegliamo in particolare una computazione che converge in
+    al più $p^{\prime}(n)$ passi. Notiamo che una computazione di
+    $p^{\prime}(n)$ passi riguarda al più $2 p^{\prime}(n)+1$ quadri del
+    nastro, $p^{\prime}(n)$ a sinistra e $p^{\prime}(n)$ a destra del quadro
+    di partenza. Infatti le istruzioni di $M^{\prime}$ possono chiedere di
+    spostarsi costantemente a sinistra, oppure costantemente a destra nei
+    $p^{\prime}(n)$ passi interessati, nei quali casi i quadri coinvolti
+    saranno i $p^{\prime}(n)$ a sinistra o i $p^{\prime}(n)$ a destra di
+    quello di partenza; altrimenti le istruzioni porteranno l'indice di $M$
+    talora a destra, talora a sinistra, e solo alcuni dei $2
+        p^{\prime}(n)+1$ quadri in questione resteranno toccati dalla
+    computazione, parte a destra e parte a sinistra. Numeriamo allora per
+    semplicità i $2 p^{\prime}(n)+1$ quadri coinvolti, da 0 fino a $2
+        p^{\prime}(n)$ procedendo da sinistra verso destra; così il quadro
+    centrale, quello di partenza, riceve il numero $p^{\prime}(n)$.\\
+    Per costruire $f(w)$ e le sue clausole, ci interessano alcune lettere
+    minuscole dell'alfabeto di $S A T$. Per convenienza le indichiamo
+    $$
+        c_{i, j, t}, \quad s_{r, t}, \quad d_{i, t}
+    $$
+    dove
+    \begin{itemize}
+        \item $i \leq 2 p^{\prime}(n)$ si riferisce ai quadri della
+              computazione,
+        \item $j \leq m$ ai simboli di $A^{\prime}$,
+        \item $r \leq h$ agli stati di $M^{\prime}$,
+        \item $t \leq p^{\prime}(n)$ ai passi della computazione.
+    \end{itemize}
+    Ovviamente ci possono servire anche le corrispondenti maiuscole
+    $$
+        C_{i, j, t}, \quad S_{r, t}, \quad D_{i, t}
+    $$
+    Tra le tante possibili valutazioni di queste lettere, ne segnaliamo una,
+    $V$, quella che meglio anticipa i nostri propositi e, in riferimento alla
+    computazione di $M$ su $w$ precedentemente scelta, assume\\
+    $V\left(c_{i, j, t}\right)=1$ se e solo se al passo $t$ sul quadro $i$ c'è
+    scritto $a_j$;\\
+    $V\left(s_{r, t}\right)=1$ se e solo se al passo $t$ $M^{\prime}$ è nello
+    stato $q_r$;\\
+    $V\left(d_{i, t}\right)=1$ se e solo se al passo $t$ $M^{\prime}$ esamina il
+    quadro $i$.\\
+
+    Chiameremo $V$ la \textit{valutazione standard}.\\
+
+    Notiamo che le lettere minuscole sin qui coinvolte sono
+    $O\left(p^{\prime2}\right)$, visto che $m$ e $h$ dipendono solo da
+    $A^{\prime}$ e da $M^{\prime}$ e dunque sono costanti rispetto a $w$ e a
+    $n$. Quindi, se $g$ indica il grado di $p^{\prime}$, le lettere
+    complessivamente necessarie per il nostro lavoro sono $O\left(n^{2
+            g}\right)$.\\
+    In riferimento alla loro rappresentazione con i simboli $p, \mid$ illustrata
+    all'inizio dell'esempio 2 nel paragrafo 1 , possiamo dire che la massima
+    lunghezza di una lettera, e quindi il tempo massimo necessario per
+    scriverla, è $O\left(n^{2 g}\right)$.\\
+    Ci serve introdurre un'ulteriore notazione. Per $p_0, p_1, \ldots, p_s$
+    lettere minuscole, $I_s\left(p_0, \ldots, p_s\right)$ rappresenta l'insieme
+    delle clausole
+    \begin{itemize}
+        \item $p_0 \cdots p_s$
+        \item $P_i P_j$ per $i<j \leq s$.
+    \end{itemize}
+    Ricordiamo che una valutazione $v$ soddisfa $I_s\left(p_0, \ldots,
+        p_s\right)$ se e solo se in ciascuna delle clausole elencate $v$ assegna
+    il valore 1 ad almeno una lettera; quindi
+    $$
+        v\left(p_0\right)=1 \text { o } v\left(p_1\right)=1 \circ \cdots \circ v\left(p_s\right)=1
+    $$
+    ma, per ogni scelta di $i<j \leq s, v\left(p_i\right)=0$ o
+    $v\left(p_j\right)=0$; in altre parole, $v$ soddisfa una e una sola delle
+    lettere $p_0, \ldots, p_s$.\\
+    Passiamo adesso a scrivere le clausole di $f(w)$. Le suddividiamo in 7
+    gruppi, per ciascuno dei quali indichiamo anche in quali casi la valutazione
+    standard $V$ soddisfa le clausole elencate, e quanti passi sono richiesti
+    per scrivere queste clausole. Come già sottolineato, $f(w)$ cerca di
+    accompagnare e descrivere la computazione di $M^{\prime}$ su $w$ scelta in
+    precedenza. Ricordiamo che $t \leq p^{\prime}(n)$.\\
+    I primi quattro gruppi di clausole descrivono (almeno in riferimento alla
+    valutazione standard $V$ ) il comportamento di una generica macchina di
+    Turing, e il suo modo di computare.
+    \begin{enumerate}
+        \item Per ogni $t \leq p^{\prime}(n)$, poniamo
+              $$
+                  A_t=I_{2 p^{\prime}(n)}\left(d_{0, t}, \ldots, d_{2 p^{\prime}(n), t}\right) \text {. }
+              $$
+              Così $V$ soddisfa $A_t$ se e solo se, al passo $t$ della
+              computazione di $M^{\prime}$ su $w$ precedentemente scelta,
+              $M^{\prime}$ esamina uno e uno solo dei quadri $0, \ldots, 2
+                  p^{\prime}(n)$. Siccome ciascuna lettera richiede $O\left(n^{2
+                      g}\right)$ passi per essere scritta, il tempo richiesto per
+              scrivere $A_t$ (e quindi tutte le coppie di lettere maiuscole per
+              $i<$ $\left.j \leq 2 p^{\prime}(n)\right)$ è $O\left(n^{4
+                      g}\right)$.
+        \item Per $t \leq p^{\prime}(n)$, sia $B_t$ l'unione per $i \leq 2
+                  p^{\prime}(n)$ degli insiemi $I_m\left(c_{i, 0, t}, \ldots,
+                  c_{i, m, t}\right)$. $V$ soddisfa $B_t$ se e solo se, al tempo
+              $t$ della computazione di $M^{\prime}$ su $w$, ogni quadro
+              contiene uno e un solo simbolo tra $a_0, \ldots, a_m$. Il
+              numero di passi richiesto per scrivere $B_t$ è $O\left(n^{3
+                      g}\right): O\left(n^{2 g}\right)$ è infatti il tempo
+              necessario per ogni singola lettera, dobbiamo però
+              successivamente considerare l'unione per $i \leq 2
+                  p^{\prime}(n)$. Invece $m$ non dipende da $n$, e dunque la
+              costruzione dei singoli $I_m\left(c_{i, 0, t}, \ldots, c_{i,
+                      m, t}\right)$ non determina ulteriori complicazioni.
+        \item Ancora per $t \leq p^{\prime}(n)$, consideriamo
+              $$
+                  C_t=I_h\left(s_{0, t}, \ldots, s_{h, t}\right)
+              $$
+              $V$ soddisfa $C_t$ se e solo se, al tempo $t$ della sua
+              computazione su $w, M^{\prime}$ si trova in uno e un solo stato
+              $q_0, \ldots, q_h$. Il numero di passi richiesto per scrivere
+              $C_t$ è $O\left(n^{2 g}\right)$.
+        \item Per $t<p^{\prime}(n), D_t$ si compone, per $i<2 p^{\prime}(n), j
+                  \leq m$, delle clausole
+              $$
+                  \begin{aligned}
+                       & c_{i, j, t} C_{i, j, t+1} d_{i, t},  \\
+                       & C_{i, j, t} c_{i, j, t+1} d_{i, t} .
+                  \end{aligned}
+              $$
+              Un attimo di riflessione mostra che $V$ soddisfa $D_t$ se e solo
+              se nella computazione di $M$ su $w$, dal passo $t$ al passo $t+1$,
+              solo il simbolo sul quadro che $M^{\prime}$ considera al passo $t$
+              può cambiare. Infatti, per $i$ fissato, $V$ soddisfa $c_{i, j, t}
+                  C_{i, j, t+1} d_{i, t}$ e $C_{i, j, t} c_{i, j, t+1} d_{i, t}$ al
+              variare di $j \leq m$ se e solo se, per ogni $j \leq m$
+              $$
+                  V\left(c_{i, j, t}\right)=V\left(c_{i, j, t+1}\right)=1
+              $$
+              o
+              $$
+                  V\left(c_{i, j, t}\right)=V\left(c_{i, j, t+1}\right)=0
+              $$
+              cioè il quadro $i$ non cambia simbolo da $t$ a $t+1$, oppure
+              $V\left(d_{i, t}\right)=1$, ovvero $i$ è il quadro in esame al
+              passo $t$. Procedendo come prima si vede che il numero di passi
+              richiesto per scrivere $D_t$ è $O\left(n^{3 g}\right)$.
+        \item Sia $t<p^{\prime}(n)$. Sia poi
+              $$
+                  U=\left(q_r, a_j ; q_{r^{\prime}}, a_j^{\prime}, \varepsilon\right)
+              $$
+              una quintupla in $M$; quindi $j, j^{\prime} \leq m, r, r^{\prime}
+                  \leq h, \varepsilon=\pm 1$. Per $t \leq p^{\prime}(n)$
+              consideriamo l'insieme $I(U, t)$ delle seguenti clausole
+              $$
+                  \begin{gathered}
+                      D_{i, t} C_{i, j, t} S_{r, t} d_{i+\varepsilon, t+1,} \\
+                      D_{i, t} C_{i, j, t} S_{r, t} c_{i, j^{\prime}, t+1}, \\
+                      D_{i, t} C_{i, j, t} S_{r, t} S_{r^{\prime}, t},
+                  \end{gathered}
+              $$
+              per $i \leq 2 p^{\prime}(n)$. Notiamo che la valutazione $V$
+              soddisfa $I(U, t)$ se e solo se, per ogni $i \leq 2 p^{\prime}(n),
+                  V\left(d_{i, t}\right)=0$ o $V\left(c_{i, j, t}\right)=0$ o
+              $V\left(s_{r, t}\right)=0$ o $V\left(d_{i+\varepsilon,
+                      t+1}\right)=$ $V\left(c_{i, j^{\prime},
+                      t+1}\right)=V\left(s_{\tau^{\prime}, t}\right)=1$,
+              equivalentemente se e solo se, da $V\left(d_{i, t}\right)=$
+              $V\left(c_{i, j, t}\right)=V\left(s_{r, t}\right)=1$, segue
+              $V\left(d_{i+\varepsilon, t+1}\right)=V\left(c_{i, j^{\prime},
+                      t+1}\right)=V\left(s_{r^{\prime}, t}\right)=1$; in altre parole
+              $V$ soddisfa $I(U, t)$ se e solo se, per $i \leq 2 p^{\prime}(n)$,
+              ammesso che $M^{\prime}$ al passo $t$ della computazione su $w$
+              esamini il quadro $i$, vi legga $a_j$ e sia nello stato $S$,
+              allora al passo $t+1$ $M^{\prime}$ passa al quadro
+              $i+\varepsilon$, scrive $a_{j^{\prime}}$ nel quadro $i$ e va nello
+              stato $q_{r^{\prime}}$, in conclusione esegue $U$.\\
+              Non è difficile a questo punto adoperare i vari $I(U, t)$ per
+              costruire, per $t<$ $p^{\prime}(n)$, un insieme $E_t$ di clausole
+              tali che $V$ soddisfa $E_t$ se e solo se il passo $t$ della
+              computazione su $w$ corrisponde, appunto, all'esecuzione delle
+              istruzioni di qualche 5-upla $U$ in $M^{\prime}$. Si verifica
+              facilmente che il costo di scrivere le clausole di un singolo
+              $I(U, t)$ è $O\left(n^{3 g}\right)$, e tale resta per $E_t$.\\
+
+              Adesso cerchiamo di esprimere il fatto che l'input della
+              computazione è $w$.
+        \item Sia $F$ l'insieme delle clausole
+              $$
+                  \begin{gathered}
+                      d_{p^{\prime}(n), 0}, \\
+                      s_{0,0}, \\
+                      C_{i, 0,0} \text { per } i<p^{\prime}(n) ; \\
+                      C_{i, j(i), 0} \text { per } p^{\prime}(n) \leq i \leq 2 p^{\prime}(n),
+                  \end{gathered}
+              $$
+              dove $j(i)$ è definito come segue:
+              \begin{itemize}
+                  \item $a_{j(i)}$ è lo $\left(i-p^{\prime}(n)\right)$-simbolo
+                        di $w$ se $i-p^{\prime}(n)<n$,
+                  \item $j(i)$ è 0 , cioè $a_{j(i)}=a_0=\star$, altrimenti.
+              \end{itemize}
+              $V$ soddisfa $F$ se e solo se, al tempo 0 della computazione,
+              $M^{\prime}$ guarda il quadro centrale (quello di partenza), è
+              nello stato $q_0$ e l'input sul nastro è $w$ (infatti la porzione
+              di nastro a sinistra del quadro centrale è vuota, mentre quella a
+              destra contiene, appunto, $w$ ).\\
+              Il numero di passi necessari per scrivere le clausole di $F$ è
+              $O\left(n^{3 g}\right)$.
+        \item Finalmente, sia $G$ l'insieme dell'unica clausola
+              $$
+                  s_{h, 0} s_{h, 1} \cdots s_{h, p^{\prime}(n)}
+              $$
+              $V$ lo soddisfa se e solo se c'è $t \leq p^{\prime}(n)$ tale che
+              $M^{\prime}$ entra nello stato $q_h$ al passo $t$ della
+              computazione, e dunque se e solo se $M^{\prime}$ si arresta entro
+              il passo $p^{\prime}(n)$. ll costo di scrivere $G$ è $O\left(n^{3
+                      g}\right)$.
+    \end{enumerate}
+
+    Come preannunciato, $f(w)$ è l'unione degli insiemi in
+    \begin{itemize}
+        \item $A_t, B_t, C_t$ per $t \leq p^{\prime}(n)$,
+        \item $D_t, E_t$ per $t<p^{\prime}(n)$,
+        \item $F, G$.
+    \end{itemize}
+    Scrivere $f(w)$ ha costo complessivo $O\left(n^{5 g}\right)$ ed è dunque
+    polinomiale in $n=l(w)$. Infatti il costo massimo di $A_t, B_t, C_t, D_t,
+        E_t, F, G$ è $O\left(n^{4 g}\right)$, ma la composizione di $w^{\prime}$
+    richiede l'unione di $A_t, B_t, C_t$ per $t \leq p^{\prime}(n)$ e quella di
+    $D_t, E_t$ per $t<p^{\prime}(n)$, il che porta la spesa complessiva a
+    $O\left(n^{5 g}\right)$.\\
+    Finalmente, $w \in S^{\prime}$ se e solo se $f(w) \in S A T$. Infatti, se $w
+        \in S^{\prime}$, allora $M^{\prime}$ converge su $w$ in al più
+    $p^{\prime}(n)$ passi e dunque $V$ soddisfa $f(w)$, e $f(w) \in S A T$.
+    Viceversa, sia $f(w) \in S A T$, allora c'è una valutazione $v$ che soddisfa
+    $f(w)$. Si possono usare i valori
+    $$
+        v\left(c_{i, j, t}\right), v\left(s_{r, t}\right), v\left(d_{i, t}\right)
+    $$
+    (per $i \leq 2 p^{\prime}(n), j \leq m, r \leq h$ e $t \leq p^{\prime}(n)$ )
+    per simulare una possibile computazione di una MdT nel modo già seguito per
+    la valutazione standard; per esempio, interpretiamo
+    $$
+        v\left(c_{i, j, t}\right)=1
+    $$
+    nel senso che il quadro $i$ contiene $a_j$ al tempo $t$ della computazione.
+    Il fatto che $v$ soddisfa $A_t, B_t, C_t, D_t$ al variare di $t$ ci dice
+    che, in questo modo, si definisce davvero una MdT, e dall'ulteriore
+    condizione che $v$ soddisfa $E_t$ per $t<$ $f(n)$ deduciamo che la MdT che
+    computa opera esattamente come $M^{\prime}$; l'input è proprio $w$, perché
+    $v$ soddisfa $F$; la computazione converge perché $v$ soddisfa $G$. In
+    definitiva, $w \in S^{\prime}$.\\
+    Questo chiude la dimostrazione del teorema di Cook e Levin.
+\end{proof}

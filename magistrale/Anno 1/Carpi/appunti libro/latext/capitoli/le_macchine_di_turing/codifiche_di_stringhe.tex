@@ -1,0 +1,192 @@
+\section{Codifiche di Stringhe}
+
+Abbiamo sin qui considerato stringhe su alfabeti $A$ arbitrari. In realtà è
+possibile ridurre il nostro ambito ai numeri naturali e a uno degli alfabeti che
+servono a rappresentarli, come $\{1\}$ o $\{0, 1\}$ o $\{0, 1, 2, \ldots\}$.
+L'idea che si può seguire è la stessa in base alla quale
+
+\begin{itemize}
+    \item in un teatro ogni poltrona ha un numero di riconoscimento,
+    \item o in una biblioteca ogni volume riceve un suo numero di etichetta.
+\end{itemize}
+
+I numeri non sono né poltrone né libri, ma servono a identificarli senza ambiguità.
+Procedimenti effettivi di codifica relativamente elementari svolgono la stessa
+funzione per le stringhe su un qualunque alfabeto $A$. Vediamone alcuni. Per $A$
+arbitrario, cerchiamo di definire in modo esplicito una funzione di numerazione $\sharp$
+da $A^*$ a $\mathbb{N}$.
+
+\begin{enumerate}
+    \item Una prima strategia può fare riferimento alla rappresentazione dei
+          naturali in base 10, o 2, o qualunque valore prefissato $>0$. Ammettiamo, ad
+          esempio, per semplicità, che l'alfabeto $A$ abbia nove elementi. È immediato
+          identificarli con le cifre $1,2, \ldots, 9$ e magari indicarli con
+          $a_1, a_2, \ldots, a_9$. Così
+
+          \[
+              j \mapsto a_j \text{ per ogni } j=1, \ldots, 9
+          \]
+
+          è una corrispondenza biunivoca tra $\{1,2, \ldots, 9\}$ e $A$. A questo
+          punto ad ogni parola non vuota $w=a_{j_1} \cdots a_{j_k}$ su $A$ possiamo
+          associare $j_1 \cdots j_k$ in base 10, cioè porre
+
+          $$
+              \sharp(w)=j_1 \cdot 10^{k-1}+j_2 \cdot 10^{k-2}+\cdots+j_{k-1} \cdot 10^1+j_k \cdot 10^0
+          $$
+
+          gli indici dei simboli di $w$ determinano i coefficienti di questa
+          rappresentazione, la lunghezza $k$ di $w$ ne regola il numero degli addendi
+          ($k$, appunto, da $10^0$ a $10^{k-1}$). Si noti che $\sharp(w) \neq 0$ perché
+          $j_1, \ldots, j_k>0$ e $k>0$. Alla parola vuota $\lambda$, che non ha
+          simboli e ha lunghezza 0 , associamo allora 0:
+
+          $$
+              \sharp(\lambda)=0 .
+          $$
+
+          Parole distinte ricevono così in modo effettivo numeri distinti.
+          Per esempio
+
+          $$
+              \sharp\left(a_1 a_2 a_3\right)=123, \ \ \sharp\left(a_2 a_4\right)=24,
+          $$
+
+          e via dicendo. Viceversa 2154 è il numero di $a_2 a_1 a_5 a_4$, mentre
+          1004 non corrisponde a nessuna parola perché contiene 0, ma non è 0.
+          Quindi $\sharp$ non è suriettiva. Tuttavia per ogni naturale $n$ è
+          possibile stabilire in modo effettivo se $n$ è o no nell'immagine
+          di $\sharp$, se sì, a quale parola corrisponde.\\
+          Il procedimento si estende facilmente al caso in cui l'alfabeto $A$ ha non
+          più nove, ma un numero arbitrario $N>0$ di simboli. Si scrivono gli
+          elementi di $A$ come $a_1, \ldots, a_N$ e poi si fa riferimento a $N+1>1$
+          e alla rappresentazione dei naturali in base $N+1$, al fatto cioè che ogni
+          $j$ si scrive in modo unico come
+
+          $$
+              j=j_1 \cdot(N+1)^{k-1}+j_2 \cdot(N+1)^{k-2}+\cdots+j_{k-1} \cdot(N+1)^1+j_k \cdot(N+1)^0
+          $$
+
+          per $k>0$, $j_1, \ldots, j_k$ naturali opportuni. Si pone allora, per
+          $w \in A^*$
+
+          \begin{itemize}
+              \item se $w=\lambda$ è vuota, $\sharp(w)=0$,
+              \item se $w=a_{j_1} \cdots a_{j_k}$ non è vuota,
+          \end{itemize}
+
+          $$
+              \sharp(w)=j_1 \cdot(N+1)^{k-1}+j_2 \cdot(N+1)^{k-2}+\cdots+j_{k-1} \cdot(N+1)^1+j_k \cdot(N+1)^0 .
+          $$
+
+          Le proprietà osservate per $N=9$ si preservano. In particolare ogni
+          parola su $A$ riceve il "suo" numero $\sharp(w)$ e, viceversa, da ogni
+          naturale si può recuperare in modo effettivo la parola corrispondente,
+          se esiste.
+          I pignoli potrebbero semmai obiettare che la numerazione data da
+          $\sharp$ ha il difetto di non saper distinguere simboli da parole.
+          Per spiegarci meglio, riferiamoci per un attimo alla lingua italiana, dove
+          $a$ ha ruolo sia di lettera (vocale) che di parola (preposizione: andare
+          "$a$" Roma). Questa duplice veste meriterebbe un duplice numero di codice,
+          uno come simbolo e uno come stringa. Ma $\sharp$ le assegna soltanto il valore 1,
+          come prima lettera dell'alfabeto.
+
+    \item Cerchiamo di ovviare all'ultima obiezione proponendo un'altra strategia
+          di numerazione che fa stavolta ricorso al teorema fondamentale
+          dell'Aritmetica, quello secondo cui ogni naturale $\geq 2$ si decompone
+          in modo unico nel prodotto di fattori primi: ad esempio
+          $12=2^2 \cdot 3$,$15=3 \cdot 5$, e cosi via. Cominciamo allora col
+          numerare i simboli dell'alfabeto $A$, cui assegniamo
+          valori \textit{dispari} (per motivi che saranno chiari più tardi).
+          Definiamo dunque una funzione $\sharp_0$ da $A$ a $\mathbb{N}$ ponendo,
+          per $A=\{a_1, \ldots, a_N\}$ e per $j=1, \ldots, N$,
+
+          $$
+              \sharp_0\left(a_j\right)=2 \cdot j+1
+          $$
+
+          cioè $\sharp_0(a_1)=3, \sharp_0(a_2)=5$ e via dicendo.\\
+          Passiamo poi a numerare le stringhe di $A^*$, introducendo la seguente
+          funzione $\sharp$ da $A^*$ a $\mathbb{N}$. Sia $w \in A^*$:
+
+          \begin{itemize}
+              \item se $w=\lambda$, conveniamo $\sharp(w)=1$,
+              \item altrimenti sia $w=a_{j_1} \cdots a_{j_k}$; in riferimento ai valori
+                    $2 \cdot j_j+1, \ldots .2 \cdot j_k+1$ già associati da $\sharp_0$
+                    a $j_1, \ldots, j_k$, poniamo
+
+                    $$
+                        \sharp_1(w)=2^{2 \cdot j_1+1} \cdot 3^{2 \cdot j_2+1} \cdots p_k^{2 \cdot j_k+1}
+                    $$
+
+                    dove $p_k$ denota il $k$-mo numero della sequenza dei primi.
+          \end{itemize}
+
+          Assegniamo quindi le codifiche (tramite $\sharp_0$) dei simboli di $w$
+          come esponenti a $\sharp_1(w)$ nella sua decomposizione in fattori primi.
+          Per esempio
+
+          $$
+              \sharp_1\left(a_1 a_4 a_2 a_1 a_1\right)=2^3 \cdot 3^9 \cdot 5^5 \cdot 7^3 \cdot 11^3 \text {. }
+          $$
+
+          In questo modo, stringhe distinte ricevono in modo effettivo valori
+          distinti. Viceversa, per ogni numero naturale $n$, è possibile stabilire
+          in modo effettivo se $n$ è o no immagine di $\sharp_1$, se sì, risalire
+          alla parola corrispondente: basta fare riferimento alla decomposizione di
+          $n$ in fattori primi, oppure constatare che $n=1$. Per esempio, il numero
+          dei fattori primi coinvolti rivela la lunghezza della eventuale stringa
+          corrispondente. Stavolta, poi, gli elementi $a_j$ di $A$ ricevono due
+          numeri distinti
+
+          \begin{itemize}
+              \item l'uno $2 \cdot j+1$ come simboli,
+              \item l'altro $2^{2 \cdot j+1}$ come parole.
+          \end{itemize}
+
+          Né c'è pericolo di confondere questi valori, perché i numeri dei simboli
+          sono dispari $\geq 3$, mentre quelli delle parole sono 1 oppure pari,
+          perché esplicitamente divisibili per 2.
+          Questo secondo procedimento di numerazione fu ideato da Kurt Gödel nella
+          sua dimostrazione dei Teoremi di Incompletezza cui si è accennato nel
+          primo capitolo.
+          Una volta trattati simboli e stringhe, esso permette anche di numerare
+          coppie, o terne, o $n$-uple ordinate di stringhe. A questo proposito,
+          abbiamo già visto una possibile strategia: tradurre queste sequenze in
+          stringhe in un alfabeto più lungo che utilizzi anche il simbolo bianco
+          $\star$. Così $\left(w_1, w_2\right)$ diviene
+          $w_1 \star w_2$, $\left(w_1, w_2, w_3\right)$ diviene
+          $w_1 \star w_2 \star w_3$ e via dicendo; in questo modo
+          $\left(w_1, w_2\right)$, $\left(w_1, w_2, w_3\right), \ldots$ vengono a
+          condividere il numero che $w_1 \star w_2, w_1 \star w_2 \star w_3, \ldots$
+          ricevono in $A \cup\{\star\}$.
+          Il procedimento di Gödel consente tuttavia di evitare il ricorso al simbolo
+          estraneo $\star$. Infatti, di fronte alla $n$-upla $(w_1, w_2, \ldots, w_n)$
+          di stringhe di $A$ (con $n \ge 2$), possiamo
+
+          \begin{itemize}
+              \item ricordare che $w_1, w_2, \ldots, w_n$ hanno già un loro numero
+                    di codice, $\sharp_1(w_1)$, $\sharp_1\left(w_2\right), \ldots, sharp_1\left(w_n\right)$
+                    rispettivamente,
+              \item ricorrere allora nuovamente al teorema fondamentale dell'Aritmetica,
+              \item associare a $\left(w_1, w_2, \ldots, w_n\right)$ il numero
+                    $$
+                        \sharp_2\left(w_1, w_2, \ldots, w_n\right)=2^{\sharp_1\left(w_1\right)} \cdot 3^{\sharp_1\left(w_2\right)} \cdots p_k^{\sharp_1\left(w_n\right)} .
+                    $$
+          \end{itemize}
+
+          Si ottiene così una funzione effettiva $\sharp_2$ dall'insieme delle
+          sequenze finite di stringhe su $A$ di ogni possibile lunghezza $n \geq 2$
+          a $\mathbb{N}$. Sequenze distinte ricevono da $\sharp_2$ numeri distinti,
+          per il teorema fondamentale dell'Aritmetica e l'unicità della
+          decomposizione in fattori primi. Viceversa, per ogni naturale $m$, è
+          possibile effettivamente riconoscere se $m$ è o no immagine di $\sharp_2$
+          di qualche sequenza di stringhe e, se sì, di quale: di nuovo basta
+          ricorrere alla decomposizione di $m$ in fattori primi, il numero dei
+          fattori primi distinti coinvolti rivela la lunghezza della sequenza, gli
+          esponenti di questi fattori dicono le stringhe della sequenza. Di più,
+          non c'è pericolo di confondere i valori assegnati alle sequenze di stringhe
+          e quelli associati in precedenza a simboli o stringhe, perché questi ultimi
+          sono dispari oppure pari con esponenti dispari $\geq 3$ nella loro
+          decomposizione in fattori primi, i nuovi sono pari e con esponenti pari.
+\end{enumerate}

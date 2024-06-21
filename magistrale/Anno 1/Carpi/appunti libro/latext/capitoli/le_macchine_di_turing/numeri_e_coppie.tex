@@ -1,0 +1,78 @@
+\section{Numeri e coppie}
+
+Visto che stiamo trattando coppie, o terne, o $n$-uple di elementi, varrà la pena
+di citare un'osservazione importante sulle coppie di numeri naturali, che ci sarà
+presto utile nel seguito. Si tratta di un risultato dimostrato dal matematico
+Georg Cantor nella seconda metà dell'Ottocento.
+
+\paragraph{Teorema 2.7.1}
+\textit{C'è una corrispondenza biunivoca $r$ tra ${\mathbb{N}}^2$ e $\mathbb{N}$:
+    specificamente, per ogni scelta di $n,m$ naturali,}
+
+\[
+    r(n,m) = \frac{(n+m)(n+m+1)}{2} + n.
+\]
+
+L'affermazione è per certi versi sorprendente: si può infatti osservare che ogni
+naturale $n$ compare infinite volte come ascissa di una coppia $(n, m) \in
+    \mathbb{N}^2$, al variare di $m$. Così $\mathbb{N}^2$ "sembra" infinitamente più grande
+di $\mathbb{N}$. Eppure è in corrispondenza biunivoca con $N$ tramite $r$ e quindi,
+in questo senso, ci sono tante coppie ordinate di naturali quanti naturali. Al di là
+della complessità della formula che definisce $r$, cerchiamo di capire l'idea che
+Cantor seguì per ottenerla. Supponiamo allora di disporre le coppie ordinate di
+numeri naturali in una tabella (infinita):
+
+$$
+    \begin{array}{cccccc}
+        (0,0)  & (0,1)  &
+        (0,2)  & \ldots & (0, n) & \ldots                   \\ (1,0) & (1,1) & (1,2) & \ldots & (1, n) & \ldots
+        \\ (2,0) & (2,1) & (2,2) & \ldots & (2, n) & \ldots \\ \vdots & \vdots & \vdots &
+        \vdots & \vdots & \vdots                            \\ (n, 0) & (n, 1) & (n, 2) & \ldots & (n, n) & \ldots \\
+        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots
+    \end{array}
+$$
+Le righe
+corrispondono alle ascisse, le colonne alle ordinate. Per enumerare le coppia di
+numeri naturali si percorra la tabella sulle diagonali come indicato nella figura che
+segue:
+
+$$
+    \begin{array}{cccccc}
+        \swarrow & \swarrow & \swarrow & \swarrow & \ldots & \ldots \\
+        \swarrow & \swarrow & \swarrow & \ldots   & \ldots & \ldots \\
+        \swarrow & \swarrow & \ldots   & \ldots   & \ldots & \ldots \\
+        \swarrow & \ldots   & \ldots   & \ldots   & \ldots & \ldots \\
+        \vdots   & \vdots   & \vdots   & \vdots   & \vdots & \vdots
+    \end{array}
+$$
+
+La prima diagonale contiene solo $(O, O)$, la seconda $(0, 1)$ e $(1, 0), ...$,
+la $k$-esima contiene $(0, k - 1), (1, k - 2), ..., (k - 2, 1)$ e $(k - 1, 0)$ e
+così via. La generica diagonale $k$ contiene $k$ coppie, precisamente quelle in
+cui la somma delle coordinate è $k - 1$. In questo modo, le coppie $(n, m)$ di
+$\mathbb{N}^2$ risultano enumerate come segue:
+
+$$
+    (0, 0), (O, 1), (1, 0), (0, 2), (1, 1), (2, O), (O, 3), (1, 2), (2, 1), (3, 0), \ldots
+$$
+
+e così via, dunque \textit{prima} secondo $m + n$ e poi secondo $n$.
+Non è difficile controllare che la funzione $r$ associa alle coppie sopra elencate
+nell'ordine
+
+$$
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, \ldots
+$$
+
+cioè proprio la sequenza dei naturali. In generale $r$ associa ad ogni coppia $(n, m)$
+il numero di passi necessari per raggiungerla meno 1. Dalla costruzione segue allora
+che la funzione $r$ è una biezione: ogni coppia $(n, m)$ compare una sola volta
+nella tabella e quindi è univocamente determinato il numero di passi necessario
+per raggiungerla lungo le varie diagonali. Inoltre $r$ è data effettivamente e
+ammette, come ogni biiezione, la sua funzione inversa: una corrispondenza biunivoca
+da $\mathbb{N}$ a $\mathbb{N}^2$, ancora effettiva. Sono quindi anche note le
+proiezioni di tale inversa su $\mathbb{N}$ cioè le due funzioni (sempre effettive)
+$\pi_1 : \mathbb{N} \rightarrow \mathbb{N}$ e $\pi_2 : \mathbb{N} \rightarrow \mathbb{N}$\
+tali che, per ogni $t$ naturale, $\pi_1(t)$, $\pi_2(t)$ sono rispettivamente quei
+naturali $n, m$ per cui $r(n, m) = t$. A proposito, un insieme che - come $\mathbb{N}^2$ -
+è in corrispondenza biunivoca con $\mathbb{N}$ si dice \textit{numerabile}.

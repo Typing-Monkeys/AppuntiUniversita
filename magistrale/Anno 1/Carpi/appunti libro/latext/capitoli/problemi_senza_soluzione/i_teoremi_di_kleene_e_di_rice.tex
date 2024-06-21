@@ -1,0 +1,188 @@
+\section{I teoremi di Kleene e di Rrice}
+
+In questa sezione presentiamo due risultati di notevole importanza sulle funzioni
+calcolabili e sui linguaggi decidibili. Il primo è dovuto a Kleene ed è anche noto
+come \textit{Teorema del punto fisso}, il secondo a Rice.\\
+Il \textit{Teorema di Kleene} contiene uno
+dei risultati più affascinanti della teoria della calcolabilità. Utilizza e
+sottolinea, infatti, una proprietà per certi versi paradossale che la codifica delle
+macchine di Turing conferisce alle MdT stesse, e cioè la capacità di riprodursi e
+determinare nuovi algoritmi. In effetti ogni funzione calcolabile totale $t$ da
+$\mathbb{N}$ a $\mathbb{N}$ permette, per ogni $x \in \mathbb{N}$, alla MdT $M_x$ e
+alla corrispondente funzione $\phi_x$ di "generare" rispettivamente la MdT $M_{t(x)}$
+e la funzione $\phi_{t(x)}$. Anzi, se prestiamo fede alla tesi di Church-Turing, ogni
+procedimento effettivo che a partire da vecchi algoritmi ne produce di nuovi
+corrisponde a una tale funzione $t$. Il contesto suggerisce in particolare la
+possibilità di definire una funzione calcolabile non solo esplicitamente, ma anche
+implicitamente, tramite condizioni quali
+
+\[
+    \phi_x=\phi_{x^2}
+\]
+
+o, più in generale,
+
+\[
+    \phi_x=\phi_{t(x)}
+\]
+
+per $t$ totale calcolabile, identificando quindi $\phi_x$ come
+una delle funzioni che operano allo stesso modo di quelle che esse determinano
+tramite $x \mapsto x^2$, o una generica trasformazione $t$.\\
+Il meccanismo di codifica
+conduce poi al notevole fenomeno dell' autoriferimento di un algoritmo: infatti ogni
+funzione $\phi_x$ può applicarsi a se stessa, più precisamente al proprio indice $x$,
+e usare $x$ al proprio interno. Possiamo allora immaginare di identificare le
+funzioni calcolabili $\phi_x$ tramite condizioni di autoriferimento, per esempio
+chiedendo
+
+\[
+    \phi_x(y)=x, \text { per ogni } y \in \mathbb{N}
+\]
+
+e cioè che la MdT $M_x$ produca come output di ogni input il proprio indice $x$. In
+realtà, a proposito di quest'ultimo esempio, l'intuizione provoca qualche fondato
+dubbio sulla sua attuabilità: infatti, una $\mathrm{MdT} M$ che include $x$ nelle sue
+istruzioni riceve una codifica maggiore di $x$. Ma possiamo comunque ammettere che
+una MdT $M$ possa calcolare un certo indice $x$ e poi coinvolgere $\phi_x$ nelle sue
+computazioni, come suo sottoprogramma. Del resto, la dimostrazione del teorema di
+Kleene si basa essenzialmente su questa idea.\\
+Il teorema di Kleene si riferisce ai
+meccanismi di produzione di programmi appena descritti e afferma che, per ogni
+procedura $t$ con cui ogni MdT $M_x$ genera una MdT $M_{t(x)}$, c'è sempre un
+programma che resta invariato, e cioè un $e \in \mathbb{N}$ tale che
+
+\[
+    \phi_e=\phi_{t(e)},
+\]
+
+dunque $M_e, M_{t(e)}$ calcolano la stessa funzione. Per questo motivo il risultato
+di Kleene è anche chiamato \textit{Teorema del punto fisso}: infatti $t$ lascia invariato, se
+non il numero $e$, almeno il programma $\phi_e$ che gli corrisponde.
+
+\paragraph{Teorema (Kleene) 3.8.1} \textit{Per ogni funzione calcolabile totale t da $\mathbb{N}$ in
+    $\mathbb{N}$ esiste $e \in \mathbb{N}$ tale che}
+
+\[
+    \phi_e=\phi_{t(c)} .
+\]
+
+\begin{proof}
+    Per ogni naturale $u$, si consideri la MdT $M(u)$ che, dato un input
+    $x$, calcola dapprima $\phi_u(u)$ e poi, se $\phi_u(u) \downarrow$, applica la
+    funzione $\phi_{\phi_u}(u)$ a $x$ con relativo output $\phi_{\phi_z(u)}(x)$; se
+    invece $\phi_u(u) \uparrow$, anche $M(u)$ diverge su $x$. Così $M(u)$ prima computa
+    l'indice $\phi_u(u)$ di un programma e poi applica questo programma. È facile
+    convincersi che per ogni $u$ una MdT $M(u)$ come descritta si può
+    effettivamente costruire. Anzi la funzione $g$ che associa ad ogni $u$ il codice di
+    $M(u)$, cioè $M(u)=M_{g(u)}$, è totale e calcolabile. Si noti che, per ogni $u$, la
+    funzione $\phi_{g(u)}$ è definita ponendo, per ogni $x \in \mathbb{N}$,
+
+    \[
+        \phi_{g(u)}(x)=\left\{\begin{array}{cl}
+            \phi_{\phi_{u}(u)}(x) & \text { se } \phi_u(u) \text { è definita, } \\
+            \uparrow              & \text { altrimenti }
+        \end{array}\right.
+    \]
+
+    (ovviamente $\phi_{g(u)}(x)$ può essere divergente anche ncl primo caso, se $x$ non
+    è nel dominio di $\left.\phi_{\phi_u(u)}\right)$. Sia ora $t$ una funzione
+    calcolabile totale. Allora anche la computazione $t \circ g$ è calcolabile totale, e
+    dunque $t \circ g=\phi_v$, per qualche naturale $v$. Inoltre, per ogni $x \in
+        \mathbb{N}$,
+
+    \[
+        \phi_{g(v)}(x)=\phi_{\phi_v(v)}(x)=\phi_{t(g(v))}(x) .
+    \]
+
+    Quindi $e=t(v)$ soddisfa la tesi del teorema.
+\end{proof}
+
+
+II teorema di Kleene permette di
+dimostrare uno dei più forti risultati negativi della teoria della computabilità e
+cioè il \textit{Teorema di Rice}; esso, infatti, asserisce che qualunque proprietà non banale
+delle funzioni calcolabili (e quindi degli algoritmi) è indecidibile.
+
+\paragraph{Teorema (Rice) 3.8.2} \textit{Sia $F$ una famiglia di funzioni calcolabili. L'insieme}
+$$
+    S=\left\{x \in \mathbb{N} \mid \phi_x \in F\right\}
+$$
+\textit{è decidibile se e solo se $F=\emptyset$ oppure $F$ coincide con l'intera classe delle
+    funzioni calcolabili.}
+
+\begin{proof}
+    Se $F=\emptyset, S=\emptyset$ è decidibile; se $F$ coincide con la
+    classe di tutte le funzioni calcolabili, $S=\mathbb{N}$ è ancora decidibile.
+    Supponiamo allora che $F$ non sia vuoto né contenga tutte le funzioni calcolabili, e
+    mostriamo che $S$ è indecidibile. Useremo per questo obiettivo un argomento di
+    diagonalizzazione. Ammettiamo per assurdo $S$ decidibile. Le ipotesi su $F$ ci
+    assicurano che ci sono funzioni calcolabili dentro e fuori di $F$: siano $i$ e $j$
+    rispettivamente il primo indice per cui $\phi_i \in F$, cloè $i \in S$, il primo
+    indice per cui $\phi_j \notin F$, cioè $j \notin S$. Siccome $S$ è decidibile,
+    possiamo calcolare esplicitamente $i$ e $j$, ricorrendo a una MdT $M$
+    che decide $S$. Basta che facciamo operare $M$ su $0$, poi su $1$, e così via
+    finché necessario. Se $M$ stabilisce che $0$ è in $S$, si pone $i=0$,
+    altrimenti si deduce $j=0$; dopo di che si passa a $1$. Se si è ottenuto
+    $i=0$, e $M$ dichiara che $1 \notin S$, si pone $j=1$; altrimenti per $i=0$
+    e $1 \in S$, si passa a 2, certi di incontrare prima o poi nella sequenza
+    dei naturali il nostro $j$. Analogamente si procede per $j=0$. Di
+    conseguenza la funzione $g$ tale che, per ogni $x \in \mathbb{N}$,
+
+    \[
+        g(x)= \begin{cases}i & \text { se } x \notin S \\ j & \text { se } x \in S\end{cases}
+    \]
+
+    risulta calcolabile, e anche ovviamente totale. Inoltre si ha, per ogni $x \in
+        \mathbb{N}$, che
+
+    \[
+        g(x) \in S \text { se e solo se } x \notin S,
+    \]
+
+    cioè
+
+    \[
+        \phi_{g(x)} \in F \text { se e solo se } \phi_x \notin F \text {. }
+    \]
+
+    Ma, siccome $g$ è totale calcolabile, il teorema di Kleene ci fornisce un
+    naturale $e$ tale che $\phi_{g(e)}=\phi_e$, e questo conduce alla contraddizione
+
+    \[
+        \phi_e \in F \text { se e solo se } \phi_e \notin F \text {. }
+    \]
+
+    Dunque $S$ non può essere decidibile.
+\end{proof}
+
+Il teorema di Rice conferma
+l'indecidibilità di certi linguaggi già incontrati in questo capitolo.
+
+\paragraph{Esempio.}
+L'insieme $T=\left\{x \in \mathbb{N}: \varphi_x\right.$ è totale $\}$
+corrisponde alla famiglia $F$ delle funzioni calcolabili totali, che non è vuota
+ma neppure esaurisce la classe delle funzioni calcolabili. Così il teorema di
+Rice si applica e garantisce che $T=\left\{x \in \mathbb{N}: \varphi_x \in
+    F\right\}$ non è decidibile.\\
+Lo stesso si può affermare di $E=\left\{x \in
+    \mathbb{N}: \varphi_x=i d\right\}$, per il quale $F$ si riduce alla sola
+funzione identità.\\
+
+Le conseguenze del Teorema di Rice in termini di teoria della programmazione
+sono particolarmente significative. Infatti, in tale contesto, si deve ammettere
+l'impossibilità di provare esplicitamente specifiche proprietà, come la
+costanza, la crescenza, la monotonia, e così via, delle funzioni calcolate da
+programmi. Infatti la classe delle funzioni che verificano una di queste
+proprietà corrisponde alle ipotesi del teorema di Rice.\\
+In particolare,
+un'interessante applicazione, già discussa precedentemente, riguarda
+l'impossibilità di decidere la correttezza di un programma. Infatti la questione
+si traduce nel considerare l'insieme:
+
+\[
+    S=\left\{x \in \mathbb{N}: \phi_x=f\right\}
+\]
+
+dove $f$ è la \textit{specifica} del programma e le varie $\phi_x$ rappresentano le
+implementazioni di $f$. Dal teorema di Rice segue che $S$ è indecidibile.
