@@ -10,7 +10,7 @@ on:
 
 jobs:
   changed-files:
-    runs-on: ubuntu-latest  # windows-latest || macos-latest
+    runs-on: ubuntu-latest # windows-latest || macos-latest
     name: Looking for changed files 👁
     outputs:
       all_changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
@@ -29,7 +29,7 @@ jobs:
 
   linter:
     needs: changed-files
-    runs-on: ubuntu-latest  # windows-latest || macos-latest
+    runs-on: ubuntu-latest # windows-latest || macos-latest
     name: Linter Checker 🖊
     if: needs.changed-files.outputs.any_changed == 'true'
     steps:
@@ -43,10 +43,10 @@ jobs:
       - name: Run Chktex
         id: chktex
         run: chktex ${{ needs.changed-files.outputs.all_changed_files }}
-  
+
   styler:
     needs: changed-files
-    runs-on: ubuntu-latest  # windows-latest || macos-latest
+    runs-on: ubuntu-latest # windows-latest || macos-latest
     name: Styler Checker ✨
     if: needs.changed-files.outputs.any_changed == 'true'
     steps:
@@ -57,34 +57,58 @@ jobs:
       - name: Setupu Java ☕️
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17'
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "17"
 
       - name: Install textidote
         run: wget https://github.com/sylvainhalle/textidote/releases/latest/download/textidote.jar
 
       - name: Run textidote
         run: java -jar textidote.jar ${{ needs.changed-files.outputs.all_changed_files }}
-  
+
+  stylerv2:
+    needs: changed-files
+    runs-on: ubuntu-latest # windows-latest || macos-latest
+    name: Styler Checker ✨
+    if: needs.changed-files.outputs.any_changed == 'true'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Setup Java ☕️
+        uses: actions/setup-java@v3
+        with:
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "17"
+
+      - name: Install textidote
+        run: wget https://github.com/sylvainhalle/textidote/releases/latest/download/textidote.jar
+
+      - name: Run textidote
+        run: |
+          for file in ${{ needs.changed-files.outputs.all_changed_files }}; do
+            java -jar textidote.jar "$file"
+          done
+
   typo:
     needs: changed-files
-    runs-on: ubuntu-latest  # windows-latest || macos-latest
+    runs-on: ubuntu-latest # windows-latest || macos-latest
     name: Typo Checker 🔍
     if: needs.changed-files.outputs.any_changed == 'true'
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
-        
+
       - name: Setup Java ☕️
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17'
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "17"
 
       - name: Install ltex-cli
         run: wget https://github.com/valentjn/ltex-ls/releases/latest/download/ltex-ls-16.0.0.tar.gz && tar xvf ltex-ls-16.0.0.tar.gz
 
       - name: Run ltex-cli
         run: ./ltex-ls-16.0.0/bin/ltex-cli --client-configuration=.github/workflows/configs/ltex.json ${{ needs.changed-files.outputs.all_changed_files }}
-
