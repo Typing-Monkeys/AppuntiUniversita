@@ -15,7 +15,6 @@ jobs:
     outputs:
       all_changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
       any_changed: ${{ steps.changed-files.outputs.any_changed }}
-      changed_files_array: ${{ steps.format-changed-files.outputs.array_changed }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -28,13 +27,6 @@ jobs:
           files: "**.tex"
           separator: ','
       - run: echo "${{ steps.changed-files.outputs.all_changed_files }}"
-
-      - name: Format changed files
-        id: format-changed-files
-        run: |
-          files="${{ steps.changed-files.outputs.all_changed_files }}"
-          IFS=',' read -r -a file_array <<< "$files"
-          echo "array_changed=$file_array" >> "$GITHUB_OUTPUT"
 
   linter:
     needs: changed-files
@@ -51,7 +43,13 @@ jobs:
 
       - name: Run Chktex
         id: chktex
-        run: chktex ${{ needs.changed-files.outputs.all_changed_files }}
+        run: |
+          changed_files="${{ needs.changed-files.outputs.all_changed_files }}"
+          IFS=',' read -r -a file_array <<< "$changed_files"
+        
+          for file in "${file_array[@]}"; do
+            chktex "$file"
+          done
 
   styler:
     needs: changed-files
@@ -74,7 +72,8 @@ jobs:
 
       - name: Run textidote
         run: |
-           file_array="${{ needs.changed-files.outputs.changed_files_array }}"
+           changed_files="${{ needs.changed-files.outputs.all_changed_files }}"
+           IFS=',' read -r -a file_array <<< "$changed_files"
         
            for file in "${file_array[@]}"; do
               java -jar textidote.jar "$file"
