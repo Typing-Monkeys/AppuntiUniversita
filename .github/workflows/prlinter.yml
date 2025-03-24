@@ -15,6 +15,7 @@ jobs:
     outputs:
       all_changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
       any_changed: ${{ steps.changed-files.outputs.any_changed }}
+      changed_files_array: ${{ steps.format-changed-files.outputs.array_changed }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -27,6 +28,13 @@ jobs:
           files: "**.tex"
           separator: ','
       - run: echo "${{ steps.changed-files.outputs.all_changed_files }}"
+
+      - name: Format changed files
+        id: format-changed-files
+        run: |
+          files="${{ steps.changed-files.outputs.all_changed_files }}"
+          IFS=',' read -r -a file_array <<< "$files"
+          echo "array_changed=$file_array" >> "$GITHUB_OUTPUT"
 
   linter:
     needs: changed-files
@@ -55,28 +63,6 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Setupu Java ☕️
-        uses: actions/setup-java@v3
-        with:
-          distribution: "zulu" # See 'Supported distributions' for available options
-          java-version: "17"
-
-      - name: Install textidote
-        run: wget https://github.com/sylvainhalle/textidote/releases/latest/download/textidote.jar
-
-      - name: Run textidote
-        run: java -jar textidote.jar ${{ needs.changed-files.outputs.all_changed_files }}
-
-  stylerv2:
-    needs: changed-files
-    runs-on: ubuntu-latest # windows-latest || macos-latest
-    name: Styler Checker v2
-    if: needs.changed-files.outputs.any_changed == 'true'
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-
       - name: Setup Java ☕️
         uses: actions/setup-java@v3
         with:
@@ -88,8 +74,7 @@ jobs:
 
       - name: Run textidote
         run: |
-           changed_files="${{ needs.changed-files.outputs.all_changed_files }}"
-           IFS=',' read -r -a file_array <<< "$changed_files"
+           file_array="${{ needs.changed-files.outputs.changed_files_array }}"
         
            for file in "${file_array[@]}"; do
               java -jar textidote.jar "$file"
