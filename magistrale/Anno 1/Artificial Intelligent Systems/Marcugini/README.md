@@ -49,9 +49,9 @@
     + [Funzioni di ordine superiore](#funzioni-di-ordine-superiore)
     + [Funzioni di forma currificata](#funzioni-di-forma-currificata)
     + [Liste](#liste)
+      - [Modulo List](#modulo-list)
       - [Dizionario](#dizionario)
       - [In Memoria](#in-memoria)
-      - [Modulo List](#modulo-list)
     + [Random](#random)
     + [Backtracking](#backtracking)
     + [Definizioni di nuovi tipi](#definizioni-di-nuovi-tipi)
@@ -63,6 +63,13 @@
       - [Record](#record)
       - [Riferimento](#riferimento)
     + [Grafi](#grafi)
+      + [Algoritmi di visita e ricerca](#algoritmi-di-visita-e-ricerca)
+        - [DFS](#dfs)
+        - [BFS](#bfs)
+        - [Best-First](#best-first)
+        - [Hill Climbing](#hill-climbing)
+        - [Branch and Bound](#branch-and-bound)
+        - [A*](#a-star)
     + [Cicli](#cicli)
       - [while](#while)
       - [for](#for)
@@ -74,17 +81,48 @@
 
 ## Introduzione
 
-Supporta diversi paradigmi di programmazione:
+OCaml è un linguaggio della famiglia Meta Language (ML), sviluppato e distribuito dall’INRIA
+(Francia) dal 1984. Supporta diversi stili di programmazione: 
 
 - **Funzionale**
 - **Imperativo**
 - Ad **Oggetti**
 
-### Imperativo
+### Paradigmi di programmazione
 
-Il modello di calcolo è basato sull'hardware (architettura di Von Neumann) e ha 2 elementi di base: Variabili e Assegnazione. Programmare vuol dire pianificare il flusso di informazioni. E.g. in C descrivo tutto il flusso (azione dopo azione) da fare per risolvere un problema. Questa programmazione è basata su *comandi* che operano sulla *memoria* (stato del programma).
+Esistono diverse tipologie di linguaggi di programmazione. Sotto ogni linguaggio c’è un modello di calcolo, che determina:
+- le operazioni eseguibili
+- una classe di linguaggi
+- uno stile di programmazione (“paradigma” di programmazione)
 
-Un programma è **corretto** se per risolvere il problema `P` produce, per ogni input `X` un output `Y`, tale che tra `X` e `Y` vale sempre la relazione specificata da `P`.
+Un **Paradigmi di programmazione** è uno stile fondamentale di programmazione, ovvero insieme di strumenti concettuali forniti da un linguaggio di programmazione per la stesura del codice sorgente del programma. Definisce il modo in cui il programmatore concepisce e percepisce il programma stesso. Diversi paradigmi si differenziano per i concetti e le astrazioni usate per rappresentare gli elementi di un programma:
+
+- Funzione
+- Oggetti
+- Variabili
+- Vincoli
+
+E per i procedimenti usati per l’esecuzione delle procedure di elaborazione dei dati:
+
+- Assegnazione
+- Calcolo
+- Iterazione
+- Data flow
+
+#### Linguaggi Imperativi
+
+Il modello di calcolo è basato sull'hardware (architettura di Von Neumann) e ha 2 elementi di base: Variabili e Assegnazione. 
+
+**INPUT -> MEMORIA -> OUTPUT**
+
+Programmare vuol dire pianificare il flusso di informazioni.
+**Esempio**: in C descrivo tutto il flusso (azione dopo azione) da fare per risolvere un problema. Questa programmazione è basata su **comandi** che operano sulla **memoria** (stato del programma).
+
+Il modello di calcolo determina uno stile di programmazione.
+Per capire il programma (e provarne la correttezza) occorre tenere traccia delle
+modifiche dello stato.
+
+**Correttezza di un programma**: Un programma è **corretto** se per risolvere il problema `P` produce, per ogni input `X` un output `Y`, tale che tra `X` e `Y` vale sempre la relazione specificata da `P`.
 
 ```c
 # calcolo del massimo comun divisore
@@ -96,11 +134,22 @@ int gcd (int m, int m) {
 }
 ```
 
-### Funzionale
+#### Linguaggi Dichiarativi
 
-Un programma di questo tipo è la descrizione di cosa si deve calcolare piuttosto che il come calcolarlo.
+Un programma è più vicino alla descrizione di che cosa si deve calcolare, piuttosto che a come
+calcolare.
 
-Un programma è una funzione !
+- Linguaggi di programmazione logica
+- Linguaggi di programmazione funzionale (si basa principalmente sulla ricorsione.
+Scomposizione in struttura più piccola, dalla soluzione più piccola deduco la soluzione
+globale)
+
+
+#### Programmazione Funzionale
+
+Un programma è un’operazione che associa un input con un output: **un programma è una funzione**.
+Possiamo anche dire che è la descrizione di cosa si deve calcolare piuttosto che il come calcolarlo.
+
 
 Strutture di controllo:
 
@@ -113,11 +162,14 @@ I costrutti di base sono *espressioni* e non comandi. Le espressioni sono costru
 (6 + 3) x (8 - 2) <- 9 x (8 - 2) <- 9 x 6 <- 54
 ```
 
-La valutazione delle espressioni avviene nel seguente modo:
+La **valutazione** delle espressioni avviene nel seguente modo:
 
 - Ogni espressione ha un valore
-- Non ci sono effetti collaterali
-- `(6 + 3) x (8 - 2)`viene valutato, ma il valore non viene 'salvato' da nessuna parte
+- Non ci sono effetti collaterali (Ricordiamo che _effetto collaterale_ = scrittura di un valore in una certa
+locazione di memoria)
+- `(6 + 3) x (8 - 2)` viene valutato, ma il valore non viene 'salvato' da nessuna parte
+
+*Idealmente in un linguaggio funzionale puro non ci si appoggia su variabili.*
 
 **La ricorsione è il costrutto di controllo fondamentale !**
 
@@ -147,13 +199,14 @@ Nei linguaggi funzionali "puri" non esistono strutture di controllo come `for`, 
 
 Alcune caratteristiche di ML:
 
-- un linguaggio interattivo
+- è un linguaggio interattivo
 - a 'scopo statico': determina a tempo di compilazione il valore delle variabili in una dichiarazione
 - fortemente tipizzato: ogni espressione ha un tipo (determinato a tempo di compilazione)
 - ha inferenza di tipo che gli consente di dedurre quale tipo è un'espressione senza doverlo scrivere esplicitamente
-- sistema polimorfo di tipi
+- ha un sistema di tipi polimorfo: una funzione può accettare argomenti di vari tipi.
 - ha un meccanismo per la gestione di errori
 - ha un potente sistema di moduli
+- c’è la possibilità di costruire dati polimorfi (dati generici), di volta in volta istanziati con tipo diverso
 - è efficiente
 - il codice è più corto, più veloce da scrivere e mantenere
 
@@ -161,8 +214,9 @@ Alcune caratteristiche di ML:
 
 ![funzione](imgs/funzioni.png)
 
-`F` associa ogni elemento del *dominio* uno ed un solo elemento del *codominio*. Il tipo di `F` è: `DOMINIO -> CODOMINIO`. 
-Un tipo descrive un insieme di valori e le operazioni che si possono fare su di essi.
+Una funzione è una regola `F` che associa ogni elemento del *dominio* uno ed un solo elemento del *codominio*. Il tipo di `F` è: `DOMINIO -> CODOMINIO`. 
+
+***Cos'è un tipo?*** Un tipo descrive un insieme di valori e le operazioni che si possono fare su di essi.
 Se $A$ è un tipo e $x \in A`$ diciamo che $x$ è di tipo $A$. In breve si scrive: `x: A`.
 
 Alcuni esempi: 
@@ -200,38 +254,39 @@ let square n = n*n;;
 
 #### Prodotto Cartesiano
 
-Dati `A = {0, 1, 2}` e `B = {rosso, verde}`, allora `A x B = {(0, rosso), (0, verde), (1, rosso), (1, verde), (2, rosso), (3, verde)}`
+**Definizione Prodotto Cartesiano:** Dati `A = {0, 1, 2}` e `B = {rosso, verde}`, allora `A x B = {(0, rosso), (0, verde), (1, rosso), (1, verde), (2, rosso), (2, verde)}`
 
 Questa è la definizione di prodotto cartesiano.
 
-Le funzioni sono quindi un sottoinsieme del prodotto cartesiano di `DOMINIO x CODOMINIO` che forma un insieme di coppie (estensione di F) `{(x1, y1), (x2, y2), ...}` tali che:
+**Definizione ESTENSIONALE della funzione**: Una funzione `F` è una relazione particolare, è un sottoinsieme del prodotto cartesiano di `DOMINIO x CODOMINIO` che forma un insieme di coppie (detto l'estensione di `F`) `{(x1, y1), (x2, y2), ...}` tali che:
 
 - ogni $x_i$ appartiene al dominio
 - ogni $y_i$ appartiene al codominio
-- per ogni `x` del dominio, se `(x, y)` e `(x, y')` allora `y = y'`. `x` puo' essere in coppia cono un solo elemento del codominio !
-- `F(x) = y` allora la coppia `(x, y)` appartiene all'estensione di `F`
+- per ogni `x` del dominio, se `(x, y)` e `(x, y')` allora `y = y'`. `x` può essere in coppia con un solo elemento del codominio !
+- `F(x) = y` se e solo se la coppia `(x, y)` appartiene all'estensione di `F`
 
 Un esempio di estensione è quella della funzione `square`: `{(0, 0), (1, 1), (3, 9), (-1, 1), ...}`.
 
 
 
-### Funzioni a più argomenti
+#### Funzioni a più argomenti
 
-La funzione `times` è definita come segue: 
+Sia `times`` la funzione che associa: $(n, m)$ a $n \times m$ per ogni $n, m \in IN$. E definita come segue: 
 
 ```ocaml
 times = function (n, m) -> n*m;;
 ```
 
+Qual è il tipo della funzione `times`?
 Il suo codominio è `IZ`. Il suo dominio è l'insieme $\{(n, m) | n, m \in IN\}$. Quindi:
 
 ```
 times: IZ x IZ -> IZ
 ```
 
-Quando si applica `times` a `(n, m)` diciamo che `n` è il primo argomento e `m` il secondo, ma in realtà in Ocaml `times` ha un solo argomento: un coppia di numeri.
+Quando si applica `times` a $(n, m)$ diciamo che `n` è il primo argomento e `m` il secondo, ma in realtà in Ocaml `times` ha un solo argomento: un coppia di numeri. È anche possibile che le funzioni ritornino tuple come risultato e non un singolo valore.
 
-Se una funzione si applica a `n` argomenti, appartenenti a `A1, A2, ... An` e ritorna un valore dell'insieme `B`, il suo tipo è: 
+Se una funzione si applica a `n` argomenti, appartenenti a $A_1, A_2, \ldots, A_n$ e ritorna un valore dell'insieme `B`, il suo tipo è: 
 
 ```
 A1 x A2 x ... x An -> B
@@ -240,7 +295,11 @@ A1 x A2 x ... x An -> B
 Il suo dominio è un insieme di tuple di `n` elementi: `{..., (a1, a2, ..., an), ...}`.
 La sua estensione è un insieme di tuple con `n + 1` elementi: `{..., (a1, a2, ..., an, b), ...}`.
 
-### Funzioni che ritornano coppie di valori
+**FUNZIONI TOTALI:** sono definite per ogni elemento del dominio. <br>
+**FUNZIONI PARZIALI:** Una funzione parziale è ovviamente totale se si restringe opportunamente il suo dominio. <br>
+**FUNZIONI POLIMORFE**: il tipo può essere polimorfo(generico). In OCaml i tipi generici sono indicati con ‘lettera (apostrofo lettera). Se c’è anche un underscore `_` significa che al primo istanziamento la funzione opera con quel tipo di dato sempre.
+
+#### Funzioni che ritornano coppie di valori
 
 Sia `quorem` la funzione che si applica a due numeri naturali `n` e `m` e che ritorna il quoziente intero e il resto della divisione tra `n` e `m`.
 
@@ -254,9 +313,9 @@ quorem(7, 2) = (3, 2)  quorem(15, 6) = (2, 3)
 ```
 
 L'estensione di quorem è: `{..., (3, 2, (1, 1)), ..., (3, 3, (1, 0)), ...}`.
-C'e da notare che quorem non è definito per gli argomenti `(n, 0)` (non si puo' dividere per 0).
+C'e da notare che quorem non è definito per gli argomenti `(n, 0)` (non si può dividere per 0).
 
-### Funzioni Totali vs Parziali
+#### Funzioni Totali vs Parziali
 
 Le funzioni **Totali** sono definite per ogni elemento del dominio. Per ogni `x` nel dominio, esiste una ed una sola coppia `(x, y)` nell'estensione di `F`.
 
@@ -313,7 +372,9 @@ F: A -> B
 
 ### Calcolo come riduzione
 
-Calcolare significa ridurre un'espressione ad un Valore. In pratica si va a sostituire il parametro della funzione con il valore a cui si applica:
+Calcolare significa ridurre un'espressione ad un Valore. Un valore è un’espressione non
+ulteriormente riducibile. I parametri alle funzioni vengono passati per valore.
+In pratica si va a sostituire il parametro della funzione con il valore a cui si applica:
 
 ```
 square(5) ->
@@ -390,7 +451,39 @@ k 10 -> 0
 
 ### Funzioni in forma Currificata
 
-Non ci ho capito nulla, forse lo scriverò in futuro :+1: :japanese_goblin:
+Data una funzione che ha un parametro composto da 2 valori, ne sfruttiamo uno per utilizzarlo tramite un'altra funzione.
+
+```ocaml
+let add a b = a+b;;     (* val add: int -> int -> int = <fun> *)
+
+let add3 = add 3;;      (* val add3 : int -> int = <fun> *)
+
+(* Sfrutto add3 per usare la funzione add con un parametro fisso di 3 e un'altro da dovergli passare, per add, con cui fare la somma *)
+add3 2;;                (* - : int = 5 *)    
+```
+
+E' quindi una funzione che, applicata a `n`, ritorna una funzione che, applicata a `m`, riporta il valore `n + m`.
+
+```ocaml
+let sum (n, m) = n + m 
+let plus n m = n + m
+```
+
+plus è la forma currificata di sum.
+```ocaml
+Let somma1 x y = x+y
+Let somma2 n = function m -> n+m
+```
+Due modi per dire la stessa cosa: funzione che restituisce una funzione che applicata a m riporta
+m+m.
+
+Ogni funzione su tuple si può riscrivere in forma currificata:
+```ocaml
+let mult(n,m) = n*m;;                      
+-val mult : int * int -> int = fun 
+let times n m = n*m;;
+-val mult : int -> int -> int = fun
+```
 
 ## OCaml
 
@@ -410,6 +503,12 @@ Per esempio:
 -: int = 24
 ```
 
+- **Lettura**: viene letta un’espressione (3*8), terminata da ;; e dalla pressione del tasto di
+ritorno carrello (ENTER)
+- **Valutazione**: viene calcolato il valore dell’espressione
+- **Stampa**: viene stampato il valore dell’espressione, specificando di che tipo è (`int`) ed il valore (`24`).
+Il calcolo poi procede valutando le successive espressioni.
+
 È possibile caricare in memoria un file già scritto con il comando `use`:
 
 ```ocaml
@@ -421,6 +520,77 @@ Per uscire dall'interprete si usa il comando `exit`:
 ```ocaml
 # exit 0;;
 ```
+
+Essendo un linguaggio con tipizzazione forte: **OGNI ESPRESSIONE DEL LINGUAGGIO HA UN VALORE E UN
+TIPO**, determinabile a tempo di compilazione.
+
+Quando si immette un’espressione al prompt di OCaml (seguita da ;; e `ENTER`), OCaml ne calcola e stampa
+il valore e il tipo.
+```ocaml
+(5/2, 5 mod 2);;
+- int * int = (2, 1)
+
+if not(3>0) then "pippo" else "pluto";;
+- string = "pluto"
+```
+- `/`, `mod` e `not` sono FUNZIONI PRIMITIVE del linguaggio
+- `int * int` è il tipo delle coppie di interi
+- `if...then...else...` è un'espressione condizionale;
+- `if`, `then`, `else` sono PAROLE CHIAVE
+- `"pippo"`, `"pluto"` sono stringhe
+
+La valutazione di un’espressione avviene in un **AMBIENTE** che contiene il “significato” (**VALORE**) di un identificatore (**VARIABILI**). Quando si avvia l’interprete OCaml, le espressioni vengono valutate nell’ambiente predefinito, che contiene il “significato” delle operazioni primitive del linguaggio.
+
+```ocaml
+succ;;
+-: int -> int = <fun>
+
+succ 4;;
+-: int = 5
+
+abs;;
+-: int -> int = <fun>
+
+abs (-3);;
+-: int = 3
+
+fst;; 
+-: ’a * ’b -> ’a = <fun>
+
+fst (3,"pippo");;
+-: int = 3
+```
+Un programma è una collezione di dichiarazioni (di variabili, funzioni, tipi, ...) e chiamate di funzione.
+Quando l’interprete parte carica una libreria con alcune funzioni di base.
+L’ambiente può essere esteso mediante **DICHIARAZIONI**
+
+```ocaml
+let three = 3;;
+- val three : int = 3
+
+three * 8;;
+-: int = 24
+```
+- Una dichiarazione dà un nome a un valore
+- I nomi dei valori si chiamano VARIABILI
+
+```ocaml
+let <VARIABILE> = <ESPRESSIONE>;;
+```
+
+Esempi:
+
+```ocaml
+let base = 3;;                #pattern matching
+val base : int = 3
+
+let altezza = 4;;
+val altezza : int = 4
+
+let area = base * altezza;;
+val area : int = 12
+```
+
 
 ### Compilazione
 
@@ -516,8 +686,8 @@ Un esempio di dichiarazione di una funzione:
 val area_quadrato : int -> int = <fun>
 ```
 
-`area_quadrato` è una funzione da interi a interi ed applicata ad un intero `n` (che rappresenta il lato di un quadrato) riporta l'area del quadrato.
-Il valore di una funzione NON è stampabile. Ocaml riporta solo il fatto che si tratta di una funzione `<fun>`.
+`area_quadrato` è una funzione da interi a interi ed applicata ad un intero `n` (che rappresenta il lato di un quadrato) ritorna l'area del quadrato.
+Il valore di una funzione NON è stampabile. Le funzioni non sono neanche confrontabili anche se sono dello stesso tipo. Ocaml riporta solo il fatto che si tratta di una funzione: `<fun>`.
 
 Dato che ML ha un meccanismo di inferenza di tipo riesce a capire che tipo è una data espressione. Per l'esempio di prima capisce che si tratta di una funzione `int -> int` per via dell'operatore `*`. `*` è un operatore tra INTERI e quindi il dominio e il codominio della nostra funzione non possono che essere interi!
 
@@ -546,6 +716,7 @@ Ml ha dedotto il tipo della funzione perché se `x` viene moltiplicato per 2 (tr
 ### Applicazione di Funzioni
 
 Dopo aver dichiarato una funzione questa va applicata ad un argomento.
+Questo rappresenta la principale modalità di calcolo in OCaml e viene chiamata _Applicazione di Funzioni_.
 
 ```ocaml
 # area_quadrato 5;;
@@ -651,11 +822,11 @@ Un tipo è un insieme di valori e descrive le varie operazioni che possono esser
 
   - Note: `# Char.code 'A';;` restituisce il valore intero della tabella ASCII `-: int = 65`. Si può fare anche il contrario: `# Char.chr 65;;`.
     ```ocaml
-    # Char.code ’A’;;
+    # Char.code 'A';;
     -: int = 65 
     
     # Char.chr 65;;
-    -: char = ’A’ 
+    -: char = 'A' 
     ```
 
 - **`string`**:
@@ -670,7 +841,7 @@ Un tipo è un insieme di valori e descrive le varie operazioni che possono esser
     -: string = "programmazione funzionale"
     
     # "ABCDEFG".[2];;
-    -: char = ’C’ 
+    -: char = 'C' 
     
     # string_of_int 45;;
     -: string = "45" 
@@ -688,9 +859,14 @@ Un tipo è un insieme di valori e descrive le varie operazioni che possono esser
 Si possono effettuare conversioni di tipi con le seguenti funzioni:
 
 ```
-float_of_int		int_of_float				string_of_float
-float_of_string 	int_of_string 				string_of_int
-			int_of_char 	    char_of_int
+- int_of_float    (* Trasforma float in int *)
+- float_of_int    (* Trasforma int in float *)
+- string_of_int   (* Trasforma int in string *)
+- string_of_float (* Trasforma float in string *)
+- int_of_string   (* Trasforma string in int *)
+- float_of_string (* Trasforma string in float *)
+- int_of_char     (* Trasforma char in int *)
+- char_of_int     (* Trasforma int in char *)
 ```
 
 ### Uguaglianza e Disuguaglianza
@@ -807,7 +983,7 @@ val sign : int -> int = <fun>
 
 # let sort (x,y) = if x < y then (x,y) 
 					else (y,x);;
-val sort : ’a * ’a -> ’a * ’a = <fun>
+val sort : 'a * 'a -> 'a * 'a = <fun>
 
 # sort (5,2);;
 -: int * int = (2,5) 
@@ -840,8 +1016,8 @@ Le tuple sono coppie con più di due elementi ed una tupla può essere un elemen
 # (true,5*4,"venti");;
 -: bool * int * string = (true, 20, "venti")
 
-# ((if 3<5 then "true" else "false"), 10.3, ’K’, int_of_string "50");;
--: string * float * char * int = ("true", 10.3, ’K’, 50)
+# ((if 3<5 then "true" else "false"), 10.3, 'K', int_of_string "50");;
+-: string * float * char * int = ("true", 10.3, 'K', 50)
 
 # (true, ("pippo",98), 4.0);;
 -: bool * (string * int) * float = (true, ("pippo", 98), 4) 
@@ -860,8 +1036,8 @@ Le funzioni possono essere un elemento di una tupla dato che sono oggetti di pri
 
 Ogni tipo di dato è caratterizzato da un insieme di:
 
-- **Costruttori**: costanti e operazioni che “costruiscono” valori di quel tipo
-- **Selettori**: operazioni che “selezionano” componenti da un valore del tipo
+- **Costruttori**: costanti e operazioni che "costruiscono" valori di quel tipo
+- **Selettori**: operazioni che "selezionano" componenti da un valore del tipo
 
 I costruttori per i tipi di dato semplice sono i valori: `6 - int`, `5.0 - float`, `"stringa" - string`, ecc.
 
@@ -890,10 +1066,10 @@ Queste due funzioni sono polimorfe:
 
 ```ocaml
 # fst;;
--: ’a * ’b -> ’a = <fun>
+-: 'a * 'b -> 'a = <fun>
 
 # snd;;
--: ’a * ’b -> ’b = <fun> 
+-: 'a * 'b -> 'b = <fun> 
 ```
 
 ### Funzioni a più argomenti
@@ -923,11 +1099,12 @@ quorem : int * int -> int * int
 
 ### Polimorfismo
 
-Le funzioni che accettano ogni tipo di dato sono chiamate polimorfe (lo abbiamo visto prima). Un esempio:
+Una funzione può accettare argomenti che appartengono a tipi diversi. Queste vengono chiamate _Funzioni Polimorfe_. Questo è possibile se le operazioni eseguite non comportano vincoli su determinati tipi di dato. Ad esempio, la funzione `first`, necessita solo che il parametro sia una coppia, non è necessario che sia un tipo specifico, possono anche essere di due tipi diversi (può essere applicata a coppie di
+tipi generici).
 
 ```ocaml
 # let first (x,y) = x;;
-val first : ’a * ’b -> ’a = <fun> 
+val first : 'a * 'b -> 'a = <fun> 
 ```
 
 A volte OCaml, per 'far quadrare i conti' unifica i tipi:
@@ -937,11 +1114,11 @@ A volte OCaml, per 'far quadrare i conti' unifica i tipi:
 val sort1 : 'a * 'a * int -> 'a * 'a = <fun>
 ```
 
-Qui capisce che `n` è un intero perché viene confrontato con `5` (che è un intero). `x` e `y` vengono unificato (tutti e due del tipo `'a`) per 'far tornare i conti' con l'espressione `if` (la parte then e else devono avere lo steso tipo). 
+Qui capisce che `n` è un intero perché viene confrontato con `5` (che è un intero). `x` e `y` vengono unificati (tutti e due del tipo `'a`) per "far tornare i conti" con l'espressione `if` (la parte then e else devono avere lo steso tipo). 
 
 ### Schemi di Tipo ed Istanze
 
-`’a * ’b -> ’a` è uno schema di tipo: indica un insieme infinito di tipi, tutti quelli della forma: `T1 * T2 -> T1`. Ogni tipo che si ottiene sostituendo `’a` con un tipo e `’b` con un tipo è un’istanza di `’a * ’b -> ’a`:
+`'a * 'b -> 'a` è uno schema di tipo: indica un insieme infinito di tipi, tutti quelli della forma: `T1 * T2 -> T1`. Ogni tipo che si ottiene sostituendo `'a` con un tipo e `'b` con un tipo è un'istanza di `'a * 'b -> 'a`:
 
 - `int * bool -> int`
 - `int * int -> int`
@@ -956,7 +1133,7 @@ Qui capisce che `n` è un intero perché viene confrontato con `5` (che è un in
 let x = E in F;;
 ```
 
-dove `E` e `F` sono espressioni. Il tipo di questa espressione è il tipo di `F`, il valore è quello che ha `F` quando `x` è sostituto da `E`.
+dove `E` e `F` sono espressioni. Il tipo di questa espressione è il tipo di `F`, il valore è quello che ha `F` quando `x` è sostituto da `E`. Queste sono dichiarazioni che hanno una durata temporanea (corrisponde al tempo di valutazione di una espressione) e possono comparire sia all’esterno che all’esterno di dichiarazioni di funzioni.
 
 Per esempio, prendiamo il seguente problema: 
 
@@ -986,7 +1163,7 @@ Questo problema può essere risolto in vari altri modi:
 
 ### Variabili locali
 
-Nell'espressione vista prima `let x = E in F`, `x` è una variabile locale:`x` ha un valore (quello di `E`) solo all'interno dell'espressione `F`, quanto questa viene valutata tutta ,`x` non ha più valore.
+Nell'espressione vista prima `let x = E in F`, `x` è una variabile locale:`x` ha un valore (quello di `E`) solo all'interno dell'espressione `F`; quando questa viene valutata tutta ,`x` non ha più valore.
 
 ```ocaml
 # let x = 1+2 in x*8;;
@@ -1044,12 +1221,62 @@ let fraction (n,d) =
 -: int * int = (8, 7) 
 ```
 
+Le dichiarazioni locali sono spesso utilizzate quando funzioni ausiliarie non hanno significato al di fuori del programma
+principale, in generale:
+
+- La funzione definita localmente non ha significato autonomo
+- La dichiarazione locale permette di “risparmiare parametri”
+
 <!-- dopo sta roba, Marcugini mette alcuni esempi di mini problemi da risolvere, la cosa divertente è che il procedimento per risolverli lo scrive in maniera sequenziale ... Sarà mica un indizio di quanto fa schifo sto paradigma ??? -->
 
 ### Ricorsione
 
 Nei linguaggi funzionali puri non esistono costrutti per effettuare cicli come `while` o `for`. Si utilizza quindi la ricorsione. 
-<!-- se non ci hanno manco messo i cicli for e si fa tutto con la ricorsione è un ottimo motivo per non usarle questo paradigma ! Un po' come i carciofi, se è così noioso pulirli e lavarli perché mangiarli ?? -->
+<!-- se non ci hanno manco messo i cicli for e si fa tutto con la ricorsione è un ottimo motivo per non usarle questo paradigma ! Un pò come i carciofi, se è così noioso pulirli e lavarli perché mangiarli ?? -->
+La ricorsione è una tecnica per risolvere problemi complessi riducendoli a problemi più semplici dello stesso tipo.
+Per risolvere un problema ricorsivamente occorre individuare una dimensione del problema tale che: 
+1. per il valore più basso della dimensione la soluzione può essere espressa direttamente (cioè senza ricorrere alla ricorsione);
+2. è possibile risolvere il problema per la dimensione generica supponendo di saper risolvere il problema per dimensioni inferiori. La soluzione del problema per le dimensioni inferiori viene ottenuta attraverso le chiamate ricorsive, cioè richiamando la stessa funzione che si sta definendo;
+4. la funzione che andiamo a definire dovrà contenere un parametro che individua la
+dimensione del problema che la funzione sta affrontando in quel momento.
+
+*Esempi di dimensioni*: 
+- per un problema sugli interi il valore n dell’intero; 
+- per un problema sulle liste la lunghezza della lista; 
+- per un problema sui grafi il numero dei nodi del grafo
+
+#### **Esempio: fattoriale n!=1 × 2 × ... × (n − 1) × n**
+Ricordiamo che per convenzione: $0! = 1$. 
+Andiamo ora ad analizzare e scrivere la funzione ricorsiva `fact(n)` per calcolare $n!$.
+
+Dimensione del problema: $n$
+1. Caso base: `fact(0) = 1`
+2. Vogliamo calcolare `fact(n)`, per $n> 0$, supponendo di saper calcolare `fact(n − 1)`
+3. Per ottenere `fact(n)`, moltiplicare `fact(n − 1)` per `n`
+
+Il precedente ragionamento può essere riassunto dal seguente pseudocodice:
+
+```
+function fact(n) {
+  if n = 0 {
+    return 1
+  }
+
+  return n * fact(n-1)
+}
+```
+
+Il fattoriale è “definito in termini di se stesso”, ma per un caso “più facile”. <br>
+Si utilizza la parola chiave **rec** per definire una funzione ricorsiva. Ovviamente è necessario scomporre il problema fino al caso base per far terminare la ricorsione e far risalire il processo. La parte principale è quindi quello di individuare il caso base e la scomposizione del problema in sotto-chiamate.
+
+```ocaml
+let rec fact n = if n = 0 then 1 else n * fact (n-1);;
+- val fact : int -> int = <fun>
+```
+
+#### **Definizioni ricorsive di funzioni**
+Per calcolare `F (n)`: se `n` è un caso base, riporta la soluzione per il caso `n` altrimenti: risolvi i problemi più semplici. <br>
+F (n1),F (n2), ....F (nk) (*chiamate ricorsive*) combina le soluzioni ottenute e riporta combina (F (n1),F (n2), ....F (nk)). Un processo ricorsivo termina se le chiamate ricorsive si avvicinano ai casi di base: dopo un numero finito di chiamate ricorsive si arriva a casi base.
 
 Quando si dichiara una funzione ricorsiva è necessario specificarlo tramite la parola chiave `rec`.
 
@@ -1071,7 +1298,75 @@ Unbound value fac
 val fact: int -> int = <fun>
 ```
 
-È anche possibile implementare questo algoritmo in modo "iterativo", che è un po una cazzata perché' non è proprio iterativo ma in verità è sempre una merda ricorsiva solo che sfrutta una funzione ausiliaria e si chiama "ricorsione in coda". Una barca di stronzate :robot:.
+#### **Ricorsione ed iterazione**
+Algoritmo per calcolare il fattoriale di n:
+```pseudocode
+fact(n) = f <- 1;
+    while (n > 0) do
+    f <- f*n;
+    n <- n-1
+    done;
+return f
+```
+Il ciclo può essere implementato mediante un costrutto ricorsivo:
+- utilizziamo una funzione ausiliaria che ha un parametro in più (“accumulatore”)
+- l’operazione principale richiama quella ausiliaria “inizializzando” l’accumulatore
+
+
+Parametri della funzione ausiliaria: le variabili di ciclo <br>
+**Corpo della funzione ausiliaria**: 
+
+```if <condizione di uscita dal ciclo> then <valore da riportare in uscita dal ciclo> else <chiamata ricorsiva della funzione ausiliaria con argomenti modificati come nel ciclo stesso>```
+
+La funzione ausiliaria viene richiamata da quella principale con argomenti uguali ai valori con cui sono inizializzate le variabili di ciclo.
+
+```ocaml
+(* aux : int * int -> int *)
+let rec aux (n,f) =
+    if n=0 then f
+    else aux(n-1,f*n)
+
+(* fact : int -> int *)
+return f let fact n = aux(n,1)
+```
+
+**Algoritmo iterativo (cioè ricorsione in coda)**
+
+```ocaml
+let rec aux (n,f) = if n=0 then f else aux(n-1,f*n)
+
+(* fact : int -> int *)
+let fact n = aux(n,1)
+
+- fact 3 = aux (3,1)
+    = aux (2,3)
+    = aux (1,6)
+    = aux (0,6)
+    =6
+```
+**Processo lineare**: dopo aver raccolto il risultato della chiamata ricorsiva, non si deve fare nulla.
+
+**Processi ricorsivi e iterativi**
+**Il processo ricorsivo:**
+1. Esegue calcoli al ritorno dalla ricorsione
+2. Usa spazio proporzionale alla lunghezza della lista
+
+**In un processo iterativo:**
+1. Il risultato parziale viene conservato in un accumulatore
+2. Il processo è lineare
+3. Dopo aver raccolto il risultato della chiamata ricorsiva non si deve fare nulla
+4. L’ultima chiamata può riportare il suo risultato direttamente alla prima
+
+Quando un problema P1 viene convertito in un altro P2, in modo che la soluzione di P2 è identica alla soluzione di P1 (non servono altri calcoli), allora P1 è stato ridotto a P2
+
+P2 è una riduzione di P1
+
+Quando una funzione ricorsiva è definita in modo tale che tutte le chiamate ricorsive sono riduzioni, allora la funzione è **RICORSIVA DI CODA (TAIL RECURSIVE)** <br>
+Molti compilatori riconoscono la ricorsione di coda. Ricorsione di coda perché è l’ultima cosa.
+
+<hr>
+
+<!--È anche possibile implementare questo algoritmo in modo "iterativo", che è un po una cazzata perché non è proprio iterativo ma in verità è sempre una merda ricorsiva solo che sfrutta una funzione ausiliaria e si chiama "ricorsione in coda". È utile perchè se si deve usare la ricorsione c'è il rischio di creare "Stack overflow" a causa del numero di chiamate che rimangono attive in contemporanea. Con la ricorsione di coda invece si evita totalmente queso problema. Una barca di stronzate :robot:. 
 
 ```ocaml
 let rec aux (n,f) =
@@ -1091,10 +1386,10 @@ let fact n =
 		in aux(n,1);;
 ```
 
-Quando un problema P1 viene convertito un un altro P2 in modo che la soluzione di P2 sia identica alla soluzione di P1, allora si dice che P1 è stato ridotto a P2 (P2 è una riduzione di P1).
+Quando un problema P1 viene convertito in un altro P2 in modo che la soluzione di P2 sia identica alla soluzione di P1, allora si dice che P1 è stato ridotto a P2 (P2 è una riduzione di P1).
 
 Quando una funzione ricorsiva è definita in modo tale che tutte le chiamate ricorsive sono riduzioni, allora la funzione viene detta Ricorsiva Di Cosa (Tail Recursive).
-
+-->
 ### Input da Tastiera
 
 Per leggere caratteri da tastiera si utilizzano le seguenti funzioni:
@@ -1138,17 +1433,17 @@ let max_n (n) =
 
 ### Eccezioni
 
-Ocaml mette a disposizione una gestione delle eccezioni per segnalare problemi, come per esempio la funzione fattoriale definita prima che, se viene chiamata con un numero negativo, va in stack overflow ! Modificare la funzione per far si che accetti anche i numeri negativi vorrebbe dire creare una nuova funzione che non è più il fattoriale classico (gli si va a cambiare il dominio). Quindi si possono usare le eccezioni.
+Ocaml mette a disposizione una gestione delle eccezioni per segnalare problemi, come per esempio la funzione fattoriale definita prima che, se viene chiamata con un numero negativo, va in stack overflow! Modificare la funzione per far si che accetti anche i numeri negativi vorrebbe dire creare una nuova funzione che non è più il fattoriale classico (gli si va a cambiare il dominio). Quindi si possono usare le eccezioni.
 
-Ne esistono di default come: `Match failure`, `Division by zero`, ecc., ma se ne possono dichiarare anche di nuove cone:
+Ne esistono di default come: `Match failure`, `Division by zero`, ecc., ma se ne possono dichiarare anche di nuove come:
 
 ```ocaml
 exception NegativeNumber;;
 ```
 
-Il nome delle eccezioni deve iniziare SEMPRE con una lettera maiuscola !
+Il nome delle eccezioni deve iniziare **SEMPRE** con una lettera maiuscola !
 
-Per lanciare un eccezione su usa la parola chiave `raise`:
+Per lanciare un eccezione si usa la parola chiave `raise`:
 
 ```ocaml
 exception NegativeNumber;;
@@ -1167,7 +1462,7 @@ Exception: NegativeNumber.
 
 Se durante il calcolo di un'espressione viene sollevata un'eccezione il calcolo termina immediatamente e il resto dell'espressione non viene valutata.
 
-Le eccezioni possono essere catturate con il costrutto `try with `:
+Le eccezioni possono essere catturate con il costrutto `try with`:
 
 ```ocaml
 # try 4 * fact(-4) with NegativeNumber -> 0;;
@@ -1187,7 +1482,7 @@ let positivo n =
 
 Un esempio di come utilizzare le eccezioni è dato dal seguente problema:
 
-_Leggere da tastiera una sequenza di numeri interi separati dal carattere ENTER, che termina con un qualsiasi carattere non  numerico e  calcolarne la somma_
+_Leggere da tastiera una sequenza di numeri interi separati dal carattere ENTER, che termina con un qualsiasi carattere non numerico e  calcolarne la somma_
 
 ```ocaml
 let rec aux tot =
@@ -1198,6 +1493,23 @@ let rec aux tot =
 
 let main () = aux 0;;
 ```
+
+Le eccezioni possono restituire del testo arbitrario quando sollevate, come mostrato nel seguente caso:
+
+```ocaml
+exception NegativeNumber of string;;
+
+let rec fact n = 
+  if n < 0 
+    then raise (NegativeNumber "Inserito numero negativo")
+    else if n = 0 
+      then 1 
+      else n * fact (n-1) ;;
+
+# 4 * fact(-1);;
+Exception: NegativeNumber "Inserito numero negativo".
+```
+
 
 ### Pattern
 
@@ -1346,14 +1658,14 @@ xor (false, true);;
 - Viene valutato il pattern matching tra `(true, q)` e `(false, true)`, che fallisce dato che `true != false`
 - Viene valutato il pattern matching tra `(_, q)` e `(false, true)`, che ha successo (pattern matching con `_` ha sempre successo) e viene creato il valore provvisorio `q - true`
 - Viene valutata l'espressione `q` con il nuovo legame
-- Viene ritornato il valore di `xor(false, ture)`
+- Viene ritornato il valore di `xor(false, true)`
 - Viene sciolto il legame provvisorio `q - true`
 
 ![pattern muti](imgs/pattern_muti.png)
 
 ### Pattern Matching esplicito
 
-Abbiamo un ulteriore forma di definire le funzioni con il patter matching:
+Abbiamo un ulteriore forma per definire le funzioni con il pattern matching:
 
 ```
 xor(p, q):
@@ -1410,6 +1722,7 @@ Exception: Match_failure ("", 15, 43).
 ### Funzioni di ordine superiore
 
 In Ocaml le funzioni sono oggetti che possono essere passati ad altre funzioni, far parte di strutture dati o essere il valore di ritorno di funzioni. Si chiamano oggetti di prima classe.
+I linguaggi funzionali consentono l’uso di funzioni di _ordine superiore_, cioè funzioni che prendono funzioni come argomento o riportano funzioni come valore, in modo assolutamente generale.
 
 ```ocaml
 (*funzioni che fanno parte di strutture dati*)
@@ -1424,7 +1737,7 @@ val coppia : (int -> int) * (int -> int) = <fun>, <fun>
 
 (*funzioni come parametri di altre funzioni*)
 # let apply (f,x) = f x;;
-val apply : (’a -> ’b) * ’a -> ’b = <fun>
+val apply : ('a -> 'b) * 'a -> 'b = <fun>
 
 # let y = (double,7);;
 val y : (int -> int) * int = <fun>, 7
@@ -1434,7 +1747,7 @@ val y : (int -> int) * int = <fun>, 7
 
 (*funzioni come valori di ritorno*)
 # let k a = function x -> a;;
-val k : ’a -> ’b -> ’a = <fun>
+val k : 'a -> 'b -> 'a = <fun>
 
 # (k 3) 0;;
 -: int = 3
@@ -1444,8 +1757,6 @@ val k : ’a -> ’b -> ’a = <fun>
 # let f = k true in f "pippo";;
 -: bool = true 
 ```
-
-Le funzioni che accettano come parametro altre funzioni si chiamano Funzioni di ordine superiore
 
 ### Funzioni di forma currificata
 
@@ -1483,7 +1794,7 @@ e per ogni `a1, ..., an`:
 f (a1, ..., an) = (((fc a1) a2) ... an)
 ```
 
-(le parentesi in `fc` possono essere omesse perché in ocaml si associa a destra !)
+(le parentesi in `fc` possono essere omesse perché in ocaml si associa a sinistra !)
 
 ### Liste
 
@@ -1497,10 +1808,21 @@ Le liste sono sequenze finite di elementi dello stesso tipo:
 La parola `list` è un costruttore di tipi: se `T` è un tipo, `T list` è il tipo delle liste di elementi di tipo `T`.
 
 La lista vuota è denotata da `[]` ed è un oggetto polimorfo di tipo `'a list`.
-L'operazione per aggiungere un elemento in testa alla lista è `::`:
+L'operazione per aggiungere un elemento in testa alla lista è `::` , infatti:
 
 ```ocam
-[1;2] = 1::[2] = 1::(2::[]) = 1::2::[]
+(* Le seguenti operazioni sono identiche... *)
+# ['a';'b';'c']
+# 'a'::['b';'c']
+# 'a'::'b'::['c']
+# 'a'::'b'::'c'::[]
+# 'a'::('b'::['c'])
+# 'a'::('b'::('c'::[]))
+
+(* ...ma queste qua non danno lo stesso risultato di quelle sopra, alcune danno errore: *)
+# 'a'::'b'::'c'
+# ['a';'b']::['c']
+# ['a';'b';'c']::[]   (* Ritorna: [['a'; 'b'; 'c']] *)
 ```
 
 Le operazioni di selezione sono:
@@ -1508,9 +1830,10 @@ Le operazioni di selezione sono:
 ```ocaml
 List.hd <LISTA>
 List.tl <LISTA>
+List.nth <LISTA> <index>
 ```
 
-Con la prima andiamo a selezionare il primo elementi della lista, con la seconda tutti gli elementi tranne il primo:
+Con la prima andiamo a selezionare il primo elemento della lista, con la seconda tutti gli elementi tranne il primo:
 
 ```ocaml
 # List.hd [1;2;3;4];;
@@ -1536,16 +1859,30 @@ let rec length = function
          | x::rest -> 1 + length rest;; 
 ```
 
-Dove `x::rest` indica una coda (tutto tranne il primo elemento) generica, `x` indica la testa e `rest` indica la coda.
+e ancora meglio, con pattern matching e funzione ricorsiva di coda:
+```ocaml
+let rec length_help lst len = match lst with
+  [] -> len
+  | x::rest -> length_help rest len+1;;
+
+let length lst =
+  length_help lst 0;; 
+```
+dove `x::rest` indica una lista composta da almeno un elemento, `x` indica la testa e `rest` indica la coda.
+
+Altrimenti, molto più semplicemente, si può ottenere tramite il relativo modulo:
+```ocaml
+List.length <LISTA>;;
+```
 
 Di seguito alcuni pattern per le liste:
 
 ```ocaml
-[]
-[x]
-[x;y]
-x::rest
-x::y::rest (*x e' il primo elemento, y il secondo e rest il resto della lista*)
+[]              (* lista vuota *)
+[x]             (* lista con un solo elemento, x *)
+[x;y]           (* lista con esattamente due elementi [x::y] [[1;2]] [[1]] [["ss", "tt", "pojpo"]] *)
+x::rest         (* lista con almeno un elemento *)
+x::(y::rest)    (* lista con almeno due elementi (x è il primo, y il secondo, rest è la coda della coda) *)
 ```
 
 ![lista p1](imgs/lista_p1.png)
@@ -1561,21 +1898,59 @@ let rec maxlist = function
         | x::rest -> max x (maxlist rest) 
 ```
 
-È possibile concatenare liste con il simbolo `@` ed è possibile concatenare solo liste dello stesso tipo:
+È possibile concatenare liste con il simbolo `@` ed è possibile concatenare SOLO liste dello stesso tipo:
 
 ```ocaml
 # [1;2] @ [3;4;5;6]
 -: int list = [1; 2; 3; 4; 5; 6] 
 ```
 
-Per l'inserimento in cosa si può utilizzare sempre l'operazione `@`:
+Per l'inserimento in coda si può utilizzare sempre l'operazione `@`:
 
 ```ocaml
-(*aggiungere in coda alla mia lista 3*)
+(*aggiunge 3 in coda alla mia lista*)
 mialista @ [3];;
 
 (*con una funzione*)
 let in_coda x lst = lst @ [x];;
+```
+
+#### Modulo List
+
+OCaml mette a disposizione vari moduli (librerie standard) tra cui uno per la gestione delle liste :scream:. Di seguito alcune funzioni utili:
+
+```ocaml
+List.length lista (* Ritorna la lunghezza di una lista *)
+List.hd lista (* Ritorna il primo elemento di una lista *)
+List.tl lista (* Ritorna tutti gli elementi di una lista tranne il primo *)
+List.nth lista index (* Ritorna l'elemento n-esimo nella lista *)
+List.assoc dizionario (* Ricerca "val" per "key" in un dizionario *)
+List.flatten lista_di_liste (* Unisce gli elementi di una lista di liste in una unica lista *)
+List.rev lista (* Inverte l'ordine degli elementi di una lista *)
+List.iter funzione lista (* Applica una funzione, CHE RITORNA UNIT(), ad ogni elemento di una lista *)
+List.map funzione lista (* Applica una funzione, CHE RITORNA QUALSIASI COSA, ad ogni elemento di una lista *)
+```
+
+Alcuni esempi:
+
+```ocaml
+# List.nth [3;4;5;6;7;8] 3;;
+-: int = 6
+
+# List.assoc 3 [(1,"pippo"); (2,"pluto"); (3,"paperino")];;
+-: string = "paperino" 
+
+# List.flatten [[1; 2; 3]; [3; 4; 5]];;
+- : int list = [1; 2; 3; 3; 4; 5]
+
+# List.rev [8;7;6;5;4;3;2;1];;
+- : int list = [1; 2; 3; 4; 5; 6; 7; 8]
+
+# List.iter print_int [8;7;6;5;4;3;2;1];;
+87654321- : unit = ()
+
+# let add3 e = e+3 in List.map add3 [3;4;5;6;7;8];;
+- : int list = [6; 7; 8; 9; 10; 11]
 ```
 
 #### Dizionario
@@ -1604,27 +1979,6 @@ Per esempio, quando si effettua la concatenazione di due liste succede questo:
 
 ![lista mem2](imgs/lista_mem2.png)
 
-#### Modulo List
-
-OCaml mette a disposizione vari moduli (librerie standard) tra cui uno per la gestione delle liste :scream:. Di seguito alcune funzioni utili:
-
-```ocaml
-List.length
-List.hd
-List.tl
-List.nth
-List.assoc
-```
-
-Alcuni esempi:
-
-```ocaml
-# List.nth [3;4;5;6;7;8] 3;;
--: int = 6
-
-# List.assoc 3 [(1,"pippo"); (2,"pluto"); (3,"paperino")];;
--: string = "paperino" 
-```
 
 ### Random
 
@@ -1657,13 +2011,13 @@ Random.self_init<SEME>;;
 C'è il classico approccio a forza bruta: generare ad una ad una tutte le possibili sequenze e controllare se soddisfino le condizioni (cercare di beccare a caso la soluzione). Oppure utilizzare l'approccio con Backtracking: costruire la soluzione aggiungendo un elemento alla volta ed utilizzare un criterio per capire se la sequenza parziale (la strada che sto percorrendo) ha possibilità di successo.
 
 Soluzione: `(x1, ..., xn)`
-Ad ogni stadio `i` controllo se `(x1, ..., xi)` ha possibilità di successo. Se ha possibilità, si sceglia un nuovo `xi+1` tra le possibili alternative. Se con tale scelta si arriva alla soluzione allora quella è la soluzione (ma va ?!). Altrimenti scelgo un diverso `xi+1`. Se dopo aver provato tutte le varie possibilità non si arriva ad una soluzione ritorno un fallimento. Se si verifica che `(x1, ..., xi)` non ha possibilità di successo non adro' a generare le sequenze che "passano" per lui `(x1, ..., xi, ...)`.
+Ad ogni stadio `i` controllo se `(x1, ..., xi)` ha possibilità di successo. Se ha possibilità, si sceglie un nuovo `xi+1` tra le possibili alternative. Se con tale scelta si arriva alla soluzione allora quella è la soluzione (ma va ?!). Altrimenti scelgo un diverso `xi+1`. Se dopo aver provato tutte le varie possibilità non si arriva ad una soluzione ritorno un fallimento. Se si verifica che `(x1, ..., xi)` non ha possibilità di successo non andrò a generare le sequenze che "passano" per lui `(x1, ..., xi, ...)`.
 
 Così facendo riesco a diminuire lo spazio di ricerca applicando un criterio di eliminazione.
 
 Prendiamo il seguente problema: 
 
-_Dato un insieme S di numeri positivo ed un numero intero N, determinare un sottoinsieme Y di S tale che la somma degli elementi di Y dia N_.
+_Dato un insieme S di numeri positivi ed un numero intero N, determinare un sottoinsieme Y di S tale che la somma degli elementi di Y dia N_.
 
 Esempio: `S = {1, 4, 5, 8}` e `N = 9`. Dobbiamo trovare un sottoinsieme di S dove sommando tutti gli elementi il risultato sia 9.
 Questo problema può essere rappresentato con un albero:
@@ -1675,7 +2029,7 @@ exception NotFound;;
 (* subset_search : int list -> int -> int list *)
 let rec stampalista = function
 			[] -> print_newline()
-			| x::rest -> print_int(x); print_string(“; “); stampalista rest;;
+			| x::rest -> print_int(x); print_string("; "); stampalista rest;;
 			
 let subset_search set n =
     (* aux : int list -> int -> int list -> int list *)
@@ -1707,13 +2061,13 @@ Si possono definire nuovi tipi di dato tramite la parola chiave `type` specifica
 
 #### Tipi enumerati
 
-Sono tipi costituiti da un insieme finito di valori, tipo `bool` che contiene solo `true, false`. I valori di questi tipo sono costanti.
+Sono tipi costituiti da un insieme finito di valori, tipo `bool` che contiene solo `true, false`. I valori di questo tipo sono costanti.
 
 ```ocaml
 type direzione = Su | Giu | Destra | Sinistra;;
 ```
 
-In questa dichiarazione di tipo `direzione` è il nome del nuovo tipo e `Su, Giu Destra, Sinistra` sono i valori del nuovo tipo. Questi devono essere sempre separati dal carattere `|` ed iniziare con la lettera maiuscola.
+In questa dichiarazione di tipo, `direzione` è il nome del nuovo tipo e `Su, Giu Destra, Sinistra` sono i valori del nuovo tipo. Questi devono essere sempre separati dal carattere `|` ed iniziare con la lettera maiuscola.
 
 Le nuove costanti sono quindi costruttori di tipo e possono anche comparire all'interno di un pattern e quindi valgono le operazioni di pattern matching:
 
@@ -1725,7 +2079,7 @@ let prova = function
 	| Sinistra -> 10;;
 ```
 
-<!-- c'e' altra roba ma non si capisce un cazzo -->
+<!-- c'è altra roba ma non si capisce un cazzo -->
 
 ### Alberi
 
@@ -1747,7 +2101,7 @@ Alcune definizioni utili:
 - **fratelli**: nodi che hanno lo stesso genitore
 - **sotto albero**: un insieme costituito da un nodo `n` e tutti i suoi discendenti
 - **foglia**: nodo senza figli
-- **nodo interno:** nodo con 1 o piU figli
+- **nodo interno:** nodo con 1 o più figli
 - **profondità del nodo:** lunghezza del cammino dalla radice al nodo stesso
 - **altezza del nodo**: lunghezza del cammino più lungo che va dal nodo ad una foglia
 - **altezza dell'albero**: altezza della sua radice ovvero la profondità massima di un nodo nell'albero
@@ -1757,15 +2111,15 @@ Esiste anche l'albero vuoto, in pratica è l'insieme vuoto. Questo semplifica al
 
 ![vuoto](imgs/albero_vuoto.png)
 
-La precedente è una rappresentazione di un albero binario con anche l'albero vuoto. In pratica le foglie hanno come figli alberi vuoti. Così facendo, ogni albero che non sia quello vuoto ha esattamente due sotto alberi, se è una foglia i sotto alberi sono vuoti, se è un nodo con un solo figlio uno dei due sotto alberi è vuoto.
+La precedente è una rappresentazione di un albero binario con anche l'albero vuoto. In pratica le foglie hanno come figli alberi vuoti. Così facendo, ogni albero che non sia quello vuoto ha esattamente due sotto alberi; se è una foglia i sotto alberi sono vuoti, se è un nodo con un solo figlio uno dei due sotto alberi è vuoto.
 
 Un albero binario è _completo_ se ogni nodo interno ha esattamente 2 figli.
 
 ![albero binario completo](imgs/albero_completo.png)
 
-Un albero di dice _bilanciato_ se per ogni nodo `n`, le altezze di sotto alberi destro e sinistro di `n` differiscono al massimo di 1.
+Un albero di dice _bilanciato_ se per ogni nodo `n`, le altezze dei sotto alberi destro e sinistro di `n` differiscono al massimo di 1.
 
-In Ocaml un albero può essere rappresentato con:
+In Ocaml un _albero binario_ può essere rappresentato con:
 
 ```ocaml
 type 'a tree = 
@@ -1787,6 +2141,39 @@ genera il seguente albero:
 
 ![albero cammello](imgs/albero_ocaml.png)
 
+Per rappresentare degli _alberi N-ari_ si usa invece:
+
+```ocaml
+type 'a ntree = Tr of 'a * 'a ntree list;;    
+```
+
+dove quindi si ha che:
+  - una foglia etichettata da `n` è rappresentata da `Tr(n,[])` (non ha sottoalberi)
+    ```ocaml
+    let leaf x = Tr(x,[]);;
+    ```
+  - l'albero con radice `n` e sottoalberi `t1, t2, ..., tn` è rappresentata da `Tr(n,[t1;...;tn])`
+
+Per esempio:
+
+```ocaml
+let t = Tr(1,[Tr(2,[Tr(3,[leaf 4;
+                          leaf 5]);
+                    Tr(6,[leaf 7]);
+                    leaf 8]);
+              leaf 9;
+              Tr(10,[Tr(11,[leaf 12;
+                            leaf 13;
+                            leaf 14]);
+                    leaf 15;
+                    Tr(16,[leaf 17;
+                          Tr(18,[leaf 19;
+                                leaf 20])])])]);;
+```
+
+![albero n-ario](imgs/albero_nario_ocaml.png)
+
+
 ### Sequenze di comandi
 
 In Ocaml non esistono comandi veri e propri, ma possiamo considerare tali le funzioni che ritornano `unit`, cioè quelle funzioni che sono importanti non per il loro valore di ritorno ma per i loro effetti collaterali (tipo la funzione di stampa).
@@ -1797,7 +2184,7 @@ In Ocaml non esistono comandi veri e propri, ma possiamo considerare tali le fun
 (E1;E2;E3;...;En);;
 ```
 
-Il tipo e il valore di questa espressione sono dati dal tipo e il valore di `En` (si, tutta sta roba ha il valore e il tipo dell'ultimo elemento :upside_down_face:). Le espressioni `Ei` vengono tutte valutate, da sinistra a destra, ma i valori sono ignorati, tranne quello dell'ultimo elemento.
+Il tipo e il valore di questa espressione sono dati dal tipo e il valore di `En` (si, tutta sta roba ha il valore e il tipo dell'ultimo elemento :upside_down_face:). Le espressioni `Ei` vengono tutte valutate (quindi i loro effetti collaterali, quali la stampa ad esempio, influenzano il programma), da sinistra a destra, ma i valori sono ignorati, tranne quello dell'ultimo elemento.
 
 ```ocaml
 # (print_int 3;print_string "*";print_int 8; print_string " = ";print_int(3*8); print_newline(); 3*8);;
@@ -1819,7 +2206,7 @@ ciao
 
 ### Dati Modificabili
 
-In OCaml solo alcuni tipi di dato sono modificabili (puo' essere effettivamente cambiato il suo valore senza fare cose strane), per esempio le variabili non sono modificabili, modificare una variabile vuol dire creare un nuovo binding nell'ambiente che va ad oscurare quello precedente. 
+In OCaml solo alcuni tipi di dato sono modificabili (può essere effettivamente cambiato il suo valore senza fare cose strane), per esempio le variabili non sono modificabili, modificare una variabile vuol dire creare un nuovo binding nell'ambiente che va ad oscurare quello precedente. 
 
 I tipi di dato modificabili sono:
 
@@ -1830,13 +2217,13 @@ I tipi di dato modificabili sono:
 
 #### Array
 
-In OCaml un array di `n` elementi si definisce come:
+In OCaml un array di `n` elementi si definisce come una lista ma con il simbolo `|` a racchiudere le espressioni:
 
 ```ocaml
 [|expr1; expr2; ...; exprn|];;
 ```
 
-Le posizioni vanno da `0` fino a `n-1` e l'ordine di valutazione delle espressioni non è specificato (???????).
+Le posizioni vanno da `0` fino a `n-1` e l'ordine di valutazione delle espressioni è sempre da sinistra a destra.
 
 Per accedere ad un elemento si usa:
 
@@ -1906,17 +2293,17 @@ type esame = {
  	lode:bool
  };;
  
-let e1 = {studente=”pippo”; voto=28; lode=false};;
+let e1 = {studente="pippo"; voto=28; lode=false};;
 ```
 
 I campi sono accessibili con l'operatore `.`: `e1.studente;;` e l'ordine con cui si specificano i campi non è importante:
 
 ```ocaml
-let e1 = {studente=”pippo”; voto=28; lode=false};;
-let e1 = {voto=28; studente=”pippo”; lode=false};;
+let e1 = {studente="pippo"; voto=28; lode=false};;
+let e1 = {voto=28; studente="pippo"; lode=false};;
 ```
 
-Se un campo di un record viene definito `mutable` allora questo puo' essere modificato tramite assegnazione:
+Se un campo di un record viene definito `mutable` allora questo può essere modificato tramite assegnazione:
 
 ```ocaml
 type mut_point = { 
@@ -1930,7 +2317,7 @@ punto.x <- 30.0;;
 
 #### Riferimento
 
-In OCaml c'è un sistema simile ai puntatori chiamato `ref`, che puo' essere visto come un record polimorfo con un unico componente mutabile.
+In OCaml c'è un sistema simile ai puntatori chiamato `ref`, che può essere visto come un record polimorfo con un unico componente mutabile.
 
 ```ocaml
 # let x = ref 3 ;;
@@ -1939,10 +2326,10 @@ val x : int ref = {contents=3}
 # x ;;
 - : int ref = {contents=3}
 
-# !x ;;
+# !x ;;  (* Leggiamo il valore della variabile *)
 - : int = 3
 
-# x := 4 ;;
+# x := 4 ;; (* Modifichiamo il valore della variabile *)
 - : unit = () 
 
 # !x ;;
@@ -1966,26 +2353,26 @@ La prima volta che viene creato `x` avrà il tipo `'_a list ref`, poi la prima v
 
 ### Grafi
 
-Un grafo orientato puo' essere rappresentato come una lista di archi:
+Un grafo orientato può essere rappresentato come una lista di archi:
 
 ```ocaml
-type ’a graph = Gr of (’a * ’a) list;;
+type 'a graph = Gr of ('a * 'a) list;;
 let grafo1 = Gr [(1,2);(1,3);(1,4);(2,6);(3,5);(4,6);(6,5);(6,7);(5,4)];;
 ```
 
 ![grafo cammello](imgs/grafo_ocaml.png)
 
-Lo stesso grafo orientato si puo' rappresentare con una lista di successori:
+Lo stesso grafo orientato si può rappresentare con una lista di successori:
 
 ```ocaml
-type ’a graph = Gr of (’a * ’a list) list ;;
+type 'a graph = Gr of ('a * 'a list) list ;;
 let grafo1 = Gr [(1,[2;3;4]); (2,[6]); (3,[5]); (4,[6]); (5,[4]); (6,[5;7])] ;;
 ```
 
-Un grafo puo' essere rappresentato anche come una funzione (utile in molti casi dove viene utilizzata solo la funzione `successori`):
+Un grafo può essere rappresentato anche come una funzione (utile in molti casi dove viene utilizzata solo la funzione `successori`):
 
 ```ocaml
-type ’a graph = Graph of (’a -> ’a list);; 
+type 'a graph = Graph of ('a -> 'a list);; 
 let f = function
     1 -> [2;3;4]
     | 2 -> [1;3;5]
@@ -2000,7 +2387,294 @@ val g : int graph = Graph <fun>
 
 ![grafo funzione](imgs/grafo_funzione.png)
 
-<!-- in queste slide c'e' tanta merda, pieno di funzioni e roba molto incomprensibile -->
+<!-- in queste slide c'è tanta merda, pieno di funzioni e roba molto incomprensibile -->
+
+#### Algoritmi di visita e ricerca
+Il prof ne riporta vari quindi guardateli meglio dalle sue slide. I principali sono:
+  - [DFS](#dfs)
+  - [BFS](#bfs)
+  - [Best-First](#best-first)
+  - [Hill Climbing](#hill-climbing)
+  - [Branch and Bound](#branch-and-bound)
+  - [A*](#a-star)
+
+Dove `DFS` e  `BFS` fanno parte degli algoritmi di _ricerca non informata_ mentre `Best-First, Hill Climbing, Branch and Bound, A*` fanno parte della _ricerca informata_ o _euristica_.
+
+Ricordiamo che la _ricerca informata_ è applicabile quando una funzione di valutazione consente di paragonare due soluzioni parziali allo scopo di selezionare quella che più facilmente potrebbe portare alla soluzione. In generale la funzione di valutazione non è perfetta; se lo fosse non sarebbe necessaria nessuna ricerca perché ad ogni passo si sceglierebbe l'alternativa giusta. La funzione di valutazione dà una indicazione di massima su quale è la soluzione più promettente. L'euristica prevede però di fare un compromesso tra:
+  - ottimalità: la soluzione trovata è la migliore
+  - completezza: l'algoritmo trova soluzione per ogni istanza del problema
+  - tempo: la soluzione viene trovata in un tempo ragionevole
+
+Negli algoritmi euristici solitamente si sacrificano il primo od il secondo aspetto, od entrambi. Quindi potremo avere algoritmi che risolvono il problema ma solo per una certa istanza e trovano una soluzione sub-ottima.
+
+##### DFS
+Per usare questo algoritmo, e anche la [BFS](#bfs), dobbiamo prima definire una serie di funzioni ausiliare e la modalità di rappresentazione del grafo usato:
+
+```ocaml
+type 'a graph = Gr of ('a * 'a list) list ;;
+let grafo1 = Gr [(1,[2;3;4]); (2,[6]); (3,[5]); (4,[6]); (5,[4]); (6,[5;7])] ;;
+
+(* succ : 'a graph -> 'a -> 'a list *)
+(* Ritorna la lista dei successori di un nodo *)
+let succ (Gr succlist) node =
+  try List.assoc node succlist with Not_found -> [];;
+```
+
+Ora possiamo definire l'algoritmo di visita in profondità (DFS, Depth First Search) vero e proprio per il quale se il nodo di partenza start non è stato già visitato si analizza start e, per ogni successore x di start, si visita, con lo stesso metodo, il grafo a partire da x, ricordando che start è già stato visitato. I nodi in attesa di essere visitati vengono gestiti come una _pila_.
+
+```ocaml
+let depth_first_collect graph start =
+  let rec search visited = function
+    [] -> visited (* List.rev visited *)
+    | n::rest -> if List.mem n visited
+      then search visited rest
+      (* i nuovi nodi sono inseriti in testa *)
+      else search (n::visited) ((succ graph n) @ rest)
+  in search [] [start];;
+
+
+# depth_first_collect grafo1 1;; (* Lista visualizzata in maniera inversa a causa di inserzioni in testa *)
+- : int list = [3; 7; 4; 5; 6; 2; 1]
+```
+
+##### BFS
+Anche per questo algoritmo dobbiamo usare le funzioni ausiliare già mostrate per la [DFS](#dfs) quindi riguardale.
+
+Ora possiamo definire l'algoritmo di visita in ampiezza (BFS, Breadth First Search) per il quale se il nodo di partenza start non è già stato visitato allora si analizza start, si visitano tutti i suoi successori (ricordando che start è già stato considerato), poi tutti i successori dei successori di start, e così via. I nodi in attesa di essere visitati vengono gestiti come una _coda_.
+
+```ocaml
+let breadth_first_collect graph start =
+  let rec search visited = function
+    [] -> visited
+    | n::rest -> if List.mem n visited
+      then search visited rest
+      (* i nuovi nodi sono inseriti in coda *)
+      else search (n::visited) (rest @ (succ graph n))
+  in search [] [start];;
+
+
+# breadth_first_collect grafo1 1;; (* Lista visualizzata in maniera inversa a causa di inserzioni in testa *)
+- : int list = [7; 5; 6; 4; 3; 2; 1]
+```
+
+##### Best-First
+In questa tipologia di ricerca ad ogni passo si prende in esame la soluzione più promettente. È come fare una **ricerca in ampiezza** in cui però sfrutto la funzione euristica per espandere il nodo più promettente. In pratica mi calcolo prima la funzione euristica per tutti i nodi e poi li riordino in base a quelli più promettenti. Espando quindi il nodo più promettente ed aggiungo i suoi successori alla lista. Ci calcolo l'euristica e riordino l'**INTERA** lista così poi da espandere il nodo migliore tra **TUTTA** la lista.
+
+Per usare questo algoritmo, e anche [Hill Climbing](#hill-climbing), [Branch and Bound](#branch-and-bound) e [A*](#a-star), dobbiamo prima definire una serie di funzioni ausiliare e la modalità di rappresentazione del grafo usato:
+
+```ocaml
+type 'a graph = Graph of ('a -> 'a list);;
+
+let f = function
+1 -> [2;5]
+| 2 -> [1;3;5]
+| 3 -> [2;4;6]
+| 4 -> [3]
+| 5 -> [1;2;6]
+| 6 -> [3;5;7]
+|7 -> [6]
+| _ -> [];;
+
+let g = Graph f;;
+
+(* Esempio dato un grafo di coordinate *)
+let coordinate = [ (1, (0,3)); (2, (4,6)); (3, (7,6)); (4, (11,6)); (5, (3,0)); (6, (6,0)); (7, (11,3))];;
+
+(* In questo caso la funzione di valutazione calcola quale soluzione parziale porta più vicino al nodo che costituisce la meta *)
+let distanza nodo1 nodo2 =
+  let x1 = float (fst(List.assoc nodo1 coordinate))
+  in let y1 = float (snd(List.assoc nodo1 coordinate))
+  in let x2 = float (fst(List.assoc nodo2 coordinate))
+  in let y2 = float (snd(List.assoc nodo2 coordinate))
+  in sqrt ( (x1 -. x2)**2. +. (y1 -. y2)**2.);;
+
+let piuvicino (cammino1, cammino2, meta) =
+  (distanza (List.hd cammino1) meta) < (distanza (List.hd cammino2) meta);;
+
+let confrontacammino cammino1 cammino2 meta =
+  if List.hd cammino1 = List.hd cammino2
+    then 0
+    else if piuvicino (cammino1, cammino2, meta)
+      then -1
+      else 1;;
+```
+
+Ora possiamo definire l'algoritmo di ricerca vero e proprio:
+
+```ocaml
+exception NotFound;;
+
+let rec stampalista = function [] -> print_newline()
+  | x::rest -> print_int(x); print_string("; "); stampalista rest;;
+
+let searchbf inizio fine (Graph succ) =
+  let estendi cammino = stampalista cammino;
+    List.map (function x -> x::cammino) (List.filter (function x -> not (List.mem x cammino)) (succ (List.hd cammino)))
+    in let confronta c1 c2 =
+      confrontacammino c1 c2 fine
+      in let rec search_aux fine = function
+        [] -> raise NotFound
+        | cammino::rest -> if fine = (List.hd cammino)
+          then List.rev cammino
+          else search_aux fine (List.sort confronta (rest @ (estendi cammino)))
+      in search_aux fine [[inizio]];;
+
+# searchbf 1 7 g;;
+1;
+2; 1;
+3; 2; 1;
+4; 3; 2; 1;
+6; 3; 2; 1;
+- : int list = [1; 2; 3; 6; 7]
+```
+
+##### Hill Climbing
+In questa tipologia di ricerca ad ogni passo viene scelta la soluzione parziale generata **dal passo precedente** più promettente. È come fare una **ricerca in profondità** in cui però sfrutto la funzione euristica per espandere il nodo più promettente tra i successori. In pratica mi calcolo prima la funzione euristica per tutti i nodi e poi li riordino in base a quelli più promettenti. Espando quindi il nodo più promettente e mi creo una lista con i **SOLI** suoi successori. Ci calcolo l'euristica e riordino **SOLO QUELLA LISTA** di successori così poi da espandere il relativo nodo migliore.
+
+Anche per questo algoritmo dobbiamo usare le funzioni ausiliare già mostrate per la [Best-First](#best-first) quindi riguardale.
+
+```ocaml
+exception NotFound;;
+
+let rec stampalista = function [] -> print_newline()
+  | x::rest -> print_int(x); print_string("; "); stampalista rest;;
+
+let searchhc inizio fine (Graph succ) =
+  let estendi cammino = stampalista cammino;
+    List.map (function x -> x::cammino) (List.filter (function x -> not (List.mem x cammino)) (succ (List.hd cammino)))
+    in let confronta c1 c2 =
+      confrontacammino c1 c2 fine
+      in let rec search_aux fine = function
+        [] -> raise NotFound
+        | cammino::rest -> if fine = (List.hd cammino)
+          then List.rev cammino
+          else search_aux fine ((List.sort confronta (estendi cammino)) @ rest)
+      in search_aux fine [[inizio]];;
+
+# searchhc 1 7 g;;
+1;
+2; 1;
+3; 2; 1;
+4; 3; 2; 1;
+6; 3; 2; 1;
+- : int list = [1; 2; 3; 6; 7]
+```
+
+Il vantaggio della ricerca **Hill Climbing** rispetto alla ricerca **Best First** è che ordinare solo l'estensione del cammino attuale è computazionalmente meno costoso che ordinare l'intera lista dei cammini. Lo svantaggio è il rischio di tendere verso un minimo locale della funzione di valutazione.
+
+A livello di codice invece la differenza tra i due è letteralmente solo il come sono ordinati gli elementi nella ricerca del nodo finale:
+  - Best First: `List.sort confronta (rest @ (estendi cammino))` 
+  - Hill Climbing: `(List.sort confronta (estendi cammino)) @ rest`
+
+Notiamo le parentesi come sono messe:
+  - in Best First si fa il sort per confronto tra tutti gli elementi; quindi sono riordinate tutte le soluzioni sia quelle precedenti che le nuove.
+  - in Hill Climbing invece si fa il sort per confronto solo tra le nuove soluzioni e si mettono poi prima delle precedenti.
+
+##### Branch and Bound
+In questa ricerca si trova la soluzione di **costo minimo** ma deve essere definita una funzione costo per le soluzioni parziali. Poi un algoritmo simile al Best-First consente di calcolare la soluzione di costo minimo. Ad ogni passo l'insieme delle soluzioni parziali viene ordinato rispetto al costo totale. È in pratica una **Best First Search** in cui si usa una nuova euristica data dal costo dell'attuale path trovato (sempre calcolato in termini di sommatoria di distanza tra i vari nodi del path). È quindi come fare una ricerca in ampiezza in cui però sfrutto la funzione euristica per espandere il **PATH più promettente** ovvero quello che **ATTUALMENTE** ha distanza **MINIMA**. 
+
+In pratica mi calcolo prima la funzione euristica per tutti i PATH e poi li riordino in base a quelli più promettenti. Espando quindi il PATH più promettente ed aggiungo i suoi successori alla lista. Ci calcolo l'euristica e riordino l'**INTERA lista di LISTE** così poi da espandere il PATH (lista) migliore **tra TUTTE le liste**.
+
+Anche per questo algoritmo dobbiamo usare le funzioni ausiliare già mostrate per la [Best-First](#best-first) quindi riguardale.
+
+```ocaml
+let rec costocammino lst = match lst with (* SI DIFFERENZIA DAGLI ALTRI METODI PERCHE USA QUESTA FUNZIONE E NON 'confrontacammino' *)
+    [] -> 0.
+  | [x] -> 0.;
+  | x::y::rest -> (distanza x y) +. (costocammino (y::rest));;
+
+
+exception NotFound;;
+
+let rec stampalista = function [] -> print_newline()
+  | x::rest -> print_int(x); print_string("; "); stampalista rest;;
+
+let searchbb inizio p (Graph succ)=
+  let estendi cammino = stampalista cammino;
+    List.map (function x -> x::cammino) (List.filter (function x -> not (List.mem x cammino)) (succ (List.hd cammino)))
+    in let confronta c1 c2 =
+      let costo1 = costocammino c1
+      in let costo2 = costocammino c2
+      in if costo1 = costo2 
+        then 0
+        else if costo1 < costo2 
+          then -1
+          else 1
+    in let rec search_aux = function
+      [] -> raise NotFound
+      | cammino::rest -> if p (List.hd cammino)
+        then List.rev cammino
+        else search_aux (List.sort confronta (rest @ (estendi cammino)))
+    in search_aux [[inizio]];;
+
+# searchbb 1 ((=) 7) g;;
+1;
+5; 1;
+2; 1;
+6; 5; 1;
+3; 2; 1;
+2; 5; 1;
+5; 2; 1;
+4; 3; 2; 1;
+- : int list = [1; 5; 6; 7]
+```
+
+##### A*
+In questa ricerca si sfrutta il costo del cammino più la previsione del costo verso la meta. Realizzato nel 1968 per il robot shakey, rappresenta una versione con euristica dell'algoritmo di Dijkstra per la ricerca dei cammini minimi. La sua funzione euristica è:
+`f(x) = g(x) + h(x)`   con:
+  - `f(x)` = costo totale stimado dal nodo inziale fino al goal
+  - `g(x)` = costo speso fino al passo x per allontanarsi dal nodo iniziale
+  - `h(x)` = costo stimato dal nodo x fino al goal; se l'euristica `h(x)` non è ottimistica, quindi non stima un costo INFERIORE a quello reale, l'algoritmo non funziona
+
+Anche per questo algoritmo dobbiamo usare le funzioni ausiliare già mostrate per la [Best-First](#best-first) e [Branch and Bound](#branch-and-bound) quindi riguardale. In particolare si avrà che:
+  - `h(x)` = funzione `distanza`
+  - `g(x)` = funzione `costocammino`
+  - `f(x)` = funzione `costototale` che definiamo di seguito
+
+```ocaml
+let rec costocammino = function
+  [] -> 0.
+  | [x] -> 0.;
+  | x::y::rest -> (distanza x y) +. (costocammino (y::rest));;
+
+exception NotFound;;
+
+let rec stampalista = function [] -> print_newline()
+  | x::rest -> print_int(x); print_string("; "); stampalista rest;;
+
+let costototale cammino meta = 
+  costocammino cammino+. distanza (List.hd cammino) meta;;
+
+let confrontacammino cammino1 cammino2 meta =
+  let c1 = costototale cammino1 meta in
+  let c2 = costototale cammino2 meta in
+    if c1 = c2 
+      then 0
+      else if c1 < c2 
+        then -1
+        else 1;;
+
+let searchAstar inizio fine (Graph succ) =
+  let estendi cammino = stampalista cammino;
+    List.map (function x -> x::cammino) (List.filter (function x -> not (List.mem x cammino)) (succ (List.hd cammino)))
+    in let confronta c1 c2 =
+      confrontacammino c1 c2 fine
+        in let rec search_aux = function
+          [] -> raise NotFound
+          | cammino::rest -> if fine = (List.hd cammino)
+            then List.rev cammino
+            else search_aux (List.sort confronta (rest @ (estendi cammino)))
+        in search_aux [[inizio]];;
+
+
+# searchAstar 1 7 g;;
+1;
+2; 1;
+5; 1;
+3; 2; 1;
+6; 5; 1;
+- : int list = [1; 5; 6; 7]
+```
 
 ### Cicli
 
@@ -2022,13 +2696,13 @@ for v=e1 to e2 do
 	e3
 done
 
-(*ciclo calante*)
+(*ciclo decrescente*)
 for v=e1 downto e2 do
 	e3
 done
 ```
 
-Le espressioni `e1` ed `e2` sono i limiti del ciclo e devono ritornare un valore intero e vengono incrementati/decrementati a seconda del tipo di ciclo
+Le espressioni `e1` ed `e2` sono i limiti del ciclo e devono ritornare un valore intero e vengono incrementati/decrementati a seconda del tipo di ciclo.
 
 ### Operazioni su file
 
@@ -2077,7 +2751,7 @@ let length l = length_aux 0 l
 
 ```ocaml
 (*file list.mli*)
-val length : ’a list -> int
+val length : 'a list -> int
 ```
 
 Se importo questo modulo in un altro file potrò utilizzare la funzione `length` ma non `length_aux` dato che non è definita nel file `.mli`:
