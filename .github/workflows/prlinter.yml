@@ -10,7 +10,7 @@ on:
 
 jobs:
   changed-files:
-    runs-on: ubuntu-latest  # windows-latest || macos-latest
+    runs-on: ubuntu-latest # windows-latest || macos-latest
     name: Looking for changed files 👁
     outputs:
       all_changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
@@ -22,14 +22,15 @@ jobs:
 
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v37
+        uses: tj-actions/changed-files@v46
         with:
           files: "**.tex"
+          separator: ','
       - run: echo "${{ steps.changed-files.outputs.all_changed_files }}"
 
   linter:
     needs: changed-files
-    runs-on: ubuntu-latest  # windows-latest || macos-latest
+    runs-on: ubuntu-latest # windows-latest || macos-latest
     name: Linter Checker 🖊
     if: needs.changed-files.outputs.any_changed == 'true'
     steps:
@@ -42,11 +43,17 @@ jobs:
 
       - name: Run Chktex
         id: chktex
-        run: chktex ${{ needs.changed-files.outputs.all_changed_files }}
-  
+        run: |
+          changed_files="${{ needs.changed-files.outputs.all_changed_files }}"
+          IFS=',' read -r -a file_array <<< "$changed_files"
+        
+          for file in "${file_array[@]}"; do
+            chktex "$file"
+          done
+
   styler:
     needs: changed-files
-    runs-on: ubuntu-latest  # windows-latest || macos-latest
+    runs-on: ubuntu-latest # windows-latest || macos-latest
     name: Styler Checker ✨
     if: needs.changed-files.outputs.any_changed == 'true'
     steps:
@@ -54,37 +61,62 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Setupu Java ☕️
+      - name: Setup Java ☕️
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17'
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "17"
 
       - name: Install textidote
         run: wget https://github.com/sylvainhalle/textidote/releases/latest/download/textidote.jar
 
       - name: Run textidote
-        run: java -jar textidote.jar ${{ needs.changed-files.outputs.all_changed_files }}
-  
+        run: |
+           changed_files="${{ needs.changed-files.outputs.all_changed_files }}"
+           IFS=',' read -r -a file_array <<< "$changed_files"
+        
+           for file in "${file_array[@]}"; do
+              java -jar textidote.jar "$file"
+            done
+
   typo:
     needs: changed-files
-    runs-on: ubuntu-latest  # windows-latest || macos-latest
+    runs-on: ubuntu-latest # windows-latest || macos-latest
     name: Typo Checker 🔍
     if: needs.changed-files.outputs.any_changed == 'true'
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
-        
+
       - name: Setup Java ☕️
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17'
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "17"
 
       - name: Install ltex-cli
         run: wget https://github.com/valentjn/ltex-ls/releases/latest/download/ltex-ls-16.0.0.tar.gz && tar xvf ltex-ls-16.0.0.tar.gz
 
       - name: Run ltex-cli
-        run: ./ltex-ls-16.0.0/bin/ltex-cli --client-configuration=.github/workflows/configs/ltex.json ${{ needs.changed-files.outputs.all_changed_files }}
+        run: |
+          changed_files="${{ needs.changed-files.outputs.all_changed_files }}"
+          IFS=',' read -r -a file_array <<< "$changed_files"
+     
+          errors_found=0
 
+          for file in "${file_array[@]}"; do
+            echo "Checking file: $file"
+            ./ltex-ls-16.0.0/bin/ltex-cli --client-configuration=.github/workflows/configs/ltex.json "$file"
+            exit_code=$?
+            
+            if [ $exit_code -ne 0 ]; then
+              echo "Error found in file: $file (exit code: $exit_code)"
+              errors_found=1
+            fi
+          done
+          
+          if [ $errors_found -eq 1 ]; then
+            echo "Errors were found in one or more files"
+            exit 1
+          fi
