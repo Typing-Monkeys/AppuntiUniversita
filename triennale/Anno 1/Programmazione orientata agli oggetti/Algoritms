@@ -1,0 +1,110 @@
+/*Ricerca Vettore non ordinato*/
+
+static public int ricerca(int vett[], int elem){
+    boolean nonTrov = true;
+    int i = 0;
+
+    while(nonTrov && i < vett.length){
+        if(elem == vett[i])
+            nonTrov = false;
+        else
+            i++;
+    }
+
+    if(nonTrov)
+        return -1;
+    else
+        return i;
+}
+
+/*Bubblesort*/
+
+static public void ordina(int v[]){
+
+    int temp;
+    for(int i = 0; i < v.length -1; i++){
+        for(int j = v.length -1; j > i; j--){
+            if(v[j] < v[j-1]){
+                temp = v[j];
+                v[j] = v[j-1];
+                v[j-1] = temp;
+            }
+        }
+    }
+}
+
+/*QuickSort*/
+
+public void quicks(){
+    quicks(v, 0, v.length-1);
+}
+
+private static void quicks(int v[], int inf, int sup){
+    if(inf < sup){
+        int mid = partition(v, inf, sup);
+        quicks(v, inf, mid-1);
+        quicks(v, mid +1, sup)
+    }
+
+}
+
+static int partition(int v[], int inizio, int fine){
+    int pivot = v[inizio];
+    do{
+        while(inizio < fine && v[fine] >= pivot)
+            fine--;
+
+        if(inizio < fine){
+            v[inizio] = v[fine];
+
+            while(inizio < fine && v[inizio] <= pivot)
+                inizio++;
+
+            if(inizio < fine)
+                v[fine] = v[inizio];
+        }
+    }while(inizio < fine)
+
+    v[inizio] = pivot;
+    return inizio;
+}
+
+/*Ricerca Binaria*/
+
+public int ricercaBinI(int dati[], int x){
+    int inizio = 0;
+    int fine = 0;
+
+    while(inizio <= fine){
+        int centro = (inizio + fine)/2
+
+        int c = dati[centro];
+
+        if(c == x)
+            return centro;
+        else
+            if(x < c)
+                fine = centro -1;
+            else
+                inizio = centro +1;
+    }
+    return -1
+}
+
+/*Hanoi*/
+private void hanoi(int N, String S, String I, String D){
+    if(N == 1)
+        trasferisci(1,S,D);
+    else{
+        hanoi(N-1,S,D,I);
+        trasferisci(N,S,D);hanoi(N-1,I,S,D);
+    }
+}
+
+private void trasferisci (int N, String S, String D) {
+    System.out.println("Sposta il disco "+N + " da "+S+" a "+D);
+}
+
+public void hanoi (int N) {
+hanoi (N, "sorgente", "intermedio", "destinazione");
+}
